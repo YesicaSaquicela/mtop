@@ -39,11 +39,13 @@ limitations under the License.
         <h:form id="form">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
             <div class="admin-actions">
-                <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
+                <!--boton crear-->
+                <p:commandLink  value="#{messages['common.add']}" rendered="#{true}" action="bussinesentitytype" styleClass="btn primary">
                     <f:param name="bussinesEntityTypeId"></f:param>
                     <f:param name="backView" value="list"></f:param>
-                </h:link>
+                </p:commandLink >
                 #{' '}
+                <!--boton editar-->
                 <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn"
                         disabled="#{bussinesEntityTypeListService.selectedBussinesEntityType == null}" >
                     <f:param name="bussinesEntityTypeId" value="#{bussinesEntityTypeListService.selectedBussinesEntityType.id}"></f:param>
@@ -63,7 +65,7 @@ limitations under the License.
                 <p:ajax event="rowSelect" listener="#{bussinesEntityTypeListService.onRowSelect}"   
                         update=":form:button-edit :form:messages"/>  
                 <p:ajax event="rowUnselect" listener="#{bussinesEntityTypeListService.onRowUnselect}" update=":form:button-edit :form:messages"/>
-
+                <!--tabla de entidades-->
                 <p:column headerText="#{messages['module.BussinesEntityType.name']}" sortBy="#{bussinesEntityType.name}">
                     <h:outputText value="#{bussinesEntityType.name}"></h:outputText>
                 </p:column>
@@ -79,6 +81,7 @@ limitations under the License.
                 <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
                     <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
                 </p:column> 
+                <!--fin tabla de entidades-->
 
                 <f:facet name="footer">
                       <!-- <p:commandButton id="multiViewButton" value="#{messages['common.view']}" icon="ui-icon-search"  

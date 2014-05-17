@@ -25,9 +25,9 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <h:link value="Crear" rendered="#{true}" outcome="crear" styleClass="btn btn-img" >
-                   
-                </h:link>
+                <p:commandLink value="Crear" action="crear" type="button" >
+                       
+                    </p:commandLink>
             </div>
             <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
                 <p:column headerText="Color">

@@ -37,28 +37,36 @@
                         <div class="col-md-6"> 
                             <p:panelGrid columns="2" >
                                 <h:outputText value="Numero de Registro"/>
-                                <h:inputText id="registro" value="#{controladorVehiculo.instance.numRegistro}" styleClass="form-control"/>
+                                <h:inputText id="registro" value="#{controladorVehiculo.instance.numRegistro}" rendered="true" styleClass="form-control">
+                                </h:inputText>
 
                                 <h:outputText value="Clase"/>
-                                <h:inputText id="clase" value="#{controladorVehiculo.instance.clase}" styleClass="form-control"/>
+                                <h:inputText id="clase" value="#{controladorVehiculo.instance.clase}" rendered="true"  styleClass="form-control">
+                                    </h:inputText>
 
                                 <h:outputText value="Tipo"/>
-                                <h:inputText id="tipo" value="#{controladorVehiculo.instance.tipo}" styleClass="form-control"/>
+                                <h:inputText id="tipo" value="#{controladorVehiculo.instance.tipo}" rendered="true" styleClass="form-control">
+                                    </h:inputText>
 
                                 <h:outputText value="Placa"/>
-                                <h:inputText id="name" value="#{controladorVehiculo.instance.placa}" styleClass="form-control"/>
+                                <h:inputText id="name" value="#{controladorVehiculo.instance.placa}" rendered="true" styleClass="form-control">
+                                    </h:inputText>
 
                                 <h:outputText value="Color"/>
-                                <h:inputText id="color" value="#{controladorVehiculo.instance.color}" styleClass="form-control"/> 
+                                <h:inputText id="color" value="#{controladorVehiculo.instance.color}" styleClass="form-control"> 
+                                    </h:inputText>
 
                                 <h:outputText value="Marca"/>
-                                <h:inputText id="marca" value="#{controladorVehiculo.instance.marca}" styleClass="form-control"/> 
+                                <h:inputText id="marca" value="#{controladorVehiculo.instance.marca}" styleClass="form-control">
+                                    </h:inputText>
 
                                 <h:outputText value="Numero de Pasajeros"/>
-                                <h:inputText id="numPasajeros" value="#{controladorVehiculo.instance.numPasajeros}" styleClass="form-control"/>
+                                <h:inputText id="numPasajeros" value="#{controladorVehiculo.instance.numPasajeros}" styleClass="form-control">
+                                    </h:inputText>
 
                                 <h:outputText value="Modelo"/>
-                                <h:inputText id="modelo" value="#{controladorVehiculo.instance.modelo}" styleClass="form-control"/> 
+                                <h:inputText id="modelo" value="#{controladorVehiculo.instance.modelo}" styleClass="form-control"> 
+                                    </h:inputText>
 
 
                             </p:panelGrid>

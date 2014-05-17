@@ -113,7 +113,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
 
     @TransactionAttribute
     public String guardar() {
+        System.out.println("instancia>>>"+getInstance().toString());
         Date now = Calendar.getInstance().getTime();
+        System.out.println("\n objeto vehiculo>>>>"+getInstance().getColor());
         getInstance().setLastUpdate(now);
         try {
             if (getInstance().isPersistent()) {
