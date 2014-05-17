@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.sgssalud</groupId>
-    <artifactId>sgssalud</artifactId>
+    <groupId>org.mtop</groupId>
+    <artifactId>mtop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Sgssalud software</name>
-    <description>Software clinico de gestion de servicios de salud</description>
+    <name>mtop</name>
+    <description>Mtop </description>
 
     <issueManagement>
         <system>JIRA</system>
@@ -242,6 +242,8 @@
         </dependency>  -->
         
         <!-- Depencencia para convertir mensajes sopa... y reconosta texto xml  -->  
+        
+        <!--     
         <dependency> 
             <groupId>jboss</groupId>
             <artifactId>jbossall-client</artifactId>
@@ -252,7 +254,7 @@
             <artifactId>jaxws-tools</artifactId>
             <version>2.2.5</version>
         </dependency>
-        <!--          
+             
         <dependency>
             <groupId>com.github.fge</groupId>
             <artifactId>json-schema-validator</artifactId>

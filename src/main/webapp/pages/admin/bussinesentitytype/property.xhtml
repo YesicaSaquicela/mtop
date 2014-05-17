@@ -8,7 +8,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:glue="http://eqaula.org/jsf/facelets"             
       xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon">
-    <ui:composition template="/WEB-INF/view/templates/glue.xhtml">
+    <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
         <f:metadata>                                 
             <f:viewParam name="propertyId" value="#{propertyHome.propertyId}" />
             <s:viewAction action="#{propertyHome.load}" if="#{conversation.transient}"/>

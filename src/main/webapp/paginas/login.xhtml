@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
+        <ui:param name="title" value="Sign up" />
+
+        <ui:define name="header">
+            <h3>Ingresar a MTOP</h3>
+        </ui:define>	
+
+        <ui:define name="content">
+
+            <div class="row">
+                <div class="span9 columns" style="margin-left: 220px;">
+                    <br/>
+
+                    <center><h3>Ingrese su usuario y contraseña para ingresar </h3></center>                    
+                    <br/>
+                    <h:form id="signin">
+
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#signin\\:username').attr("placeholder", "Who are you?").focus();
+                            });
+                        </script>
+
+                        <style type="text/css">
+                            #signup input[type=text], #signup input[type=password] {
+                                width: 240px;
+                            }
+                        </style>
+
+                        <div class="clearfix">
+                            <label for="name">Username</label>
+                            <div class="input">
+                                <h:inputText id="username" value="#{credentials.username}"
+                                             styleClass="span4 form-control" required="true"/>
+                                <br/><span class="help-inline"></span>
+                            </div>
+                        </div>
+
+                        <div class="clearfix">
+                            <label for="password">Password</label>
+                            <div class="input">
+                                <h:inputSecret id="password" value="#{credentials.password}"
+                                               styleClass="span4 form-control" style="text-transform: uppercase;"  required="true">
+                                </h:inputSecret>
+                                <br/><span class="help-inline"></span>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <h:commandButton action="#{authentication.login()}" value="Ingresar"
+                                             styleClass="btn btn-lg btn-primary" />
+                        </div>
+                        <!--<center><h:link outcome="/paginas/recover" value="I forgot my password, what now?" /></center>-->
+                    </h:form>
+                </div>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+</html>

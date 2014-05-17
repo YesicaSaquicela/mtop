@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+
+    <h:outputText value='&lt;!DOCTYPE html&gt;' escape="false" />
+
+    <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+        <h:head>
+            <title>#{'Mtop'}&#160;&#187;&#160;#{'Software'}</title>
+
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta http-equiv="Cache-Control" content="no-cache" />
+            <meta http-equiv="Cache-Control" content="must-revalidate" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
+
+            <!-- Bootstrap -->
+            <h:outputStylesheet name="bootstrap/bootstrap.css" />
+            <!--<h:outputScript name="jquery.js" />--> <!-- this loads the jquery bundled with richFaces -->
+            <h:outputScript name="jquery-tableSorter-min.js" />
+            <h:outputScript name="bootstrap/dropdown.js" />
+            <h:outputScript name="bootstrap/scrollspy.js" />
+            <h:outputScript name="bootstrap/tabs.js" />
+            <h:outputScript name="bootstrap/modal.js" />
+            <h:outputScript name="bootstrap/twipsy.js" />
+            <h:outputScript name="bootstrap/popover.js" />
+            <h:outputScript name="bootstrap/alerts.js" />
+
+            <!-- Our customizations -->
+            <h:outputStylesheet name="application.css" />
+            <h:outputScript name="application.js" />
+
+            <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.min.css"/>
+            <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.css"/>
+            <h:outputStylesheet name="bootstrap-3.1.1/css/jumbotron.css"/>
+            <h:outputStylesheet name="bootstrap-3.1.1/css/sticky-footer.css"/>
+
+            <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
+            <h:outputScript name="bootstrap-3.1.1/js/bootstrap.min.js"/> 
+            <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+            <ui:insert name="head"></ui:insert>
+        </h:head>
+
+        <h:body>
+            <!--Cabecera-->
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar">                               
+                            </span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" >
+                            <h:panelGroup rendered="#{identity.loggedIn}">
+                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true"/>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{!identity.loggedIn}">
+                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                            </h:panelGroup>
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <form class="navbar-form navbar-right" role="form">
+                            <div class="form-group">
+
+                                <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
+                                    <div class="form-group">
+                                        <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
+                                    </div>
+                                    <div class="form-group">                                    
+                                        <li><h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
+                                                <h:graphicImage value="/resources/refresh.png" width="30" height="25" style="margin: -4px 0 -9px 0;"/>
+                                            </h:outputLink>
+                                        </li> 
+                                    </div>
+                                </h:panelGroup>
+
+                            </div>
+                            <div class="form-group">
+
+                                <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
+                                    <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                                </h:panelGroup>
+                            </div>
+
+                        </form>
+                    </div><!--/.navbar-collapse -->
+                </div>
+            </div>
+            <!--Cuerpo-->
+            <div class="jumbotron">
+                <div class="container">
+                    <ui:insert name="header">
+
+                    </ui:insert>
+                </div>                
+            </div>
+            <!--Contenido-->
+            <div >
+                <div class="container-content" style="float: right;">
+                    <div class="container-content">
+                        <ocp:messages id="messages" globalOnly="true" />
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#messages\\:messages li').attr("data-alert", "alert");
+                                $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
+                                $('.alert-message').alert();
+                                $('.alert-message').click().alert('close');
+                            });
+                        </script>
+                    </div>
+
+                    <div class="content" >
+                        <ui:insert name="content" />
+                    </div>
+                </div>                
+
+            </div>
+            <!--PIE pagina-->
+            <!--<div id="footer" style="margin-bottom: -60px">
+                <div class="container">
+                    <p class="text-muted">&copy; Proyecto tesis</p>
+                </div>
+            </div>-->
+
+        </h:body>
+    </html>
+
+</f:view>

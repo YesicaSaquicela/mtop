@@ -5,12 +5,10 @@
         <param-name>primefaces.skin</param-name>
         <param-value>cupertino</param-value>
     </context-param>-->
-    
-    <context-param>  
-        <param-name>primefaces.THEME</param-name>  
-        <param-value>cupertino</param-value>  
-    </context-param> 
-    
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>cupertino</param-value>
+    </context-param>
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
@@ -35,11 +33,7 @@
         <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
         <param-value>/WEB-INF/eqaula.taglib.xml</param-value>
         <!--<param-value>/WEB-INF/sgssalud.taglib.xml</param-value>-->
-    </context-param>
-    <context-param>
-        <param-name>javax.faces.FACELETS_LIBRARIAS</param-name>        
-        <param-value>/WEB-INF/sgssalud.taglib.xml</param-value>
-    </context-param>
+    </context-param>    
     <!-- RichFaces context-params -->
     <context-param>
         <param-name>org.richfaces.enableControlSkinning</param-name>
@@ -48,12 +42,12 @@
     <!-- End Faces Standard Config Filter Config -->
     <filter>
         <filter-name>ResponseTimeLoggingFilter</filter-name>
-        <filter-class>edu.sgssalud.web.filter.ResponseTimeLoggingFilter</filter-class>
+        <filter-class>org.mtop.web.filter.ResponseTimeLoggingFilter</filter-class>
     </filter>
     <!-- Begin ResponseHeader Config -->
     <filter>
         <filter-name>ResponseHeaderFilter</filter-name>
-        <filter-class>edu.sgssalud.web.filter.ResponseHeaderFilter</filter-class>
+        <filter-class>org.mtop.web.filter.ResponseHeaderFilter</filter-class>
         <init-param>
             <param-name>Cache-Control</param-name>
             <param-value>max-age=3600</param-value>
@@ -125,6 +119,7 @@
         <extension>ico</extension>
         <mime-type>image/x-icon</mime-type>
     </mime-mapping>
+    <!--REST-->
     <servlet>
         <servlet-name>Resteasy</servlet-name>
         <servlet-class>
@@ -141,7 +136,7 @@
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
         <init-param>
             <param-name>thresholdSize</param-name>
-            <param-value>512000</param-value>                
+            <param-value>512000</param-value>
         </init-param>
         <!--<init-param>
             <param-name>uploadDirectory</param-name>
@@ -152,13 +147,11 @@
             <param-name>primefaces.UPLOADER</param-name>
             <param-value>auto</param-value>          
     </context-param>-->
-
     <filter-mapping>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
-    
     <persistence-context-ref>
         <description>Convertidor genérico que combierte cualquier objeto a string y viceversa
         </description>
