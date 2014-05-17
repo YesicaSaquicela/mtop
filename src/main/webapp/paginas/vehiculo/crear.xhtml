@@ -91,6 +91,7 @@
                             </p:panelGrid>
                         </div>
                     </div>
+                    <!--
                     <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
@@ -133,6 +134,7 @@
                             </c:choose>
                         </p:panel>
                     </c:forEach>
+                    -->
                 </div>
             </p:panel>
             <p:commandButton id="save" value="Guardar" action="#{controladorVehiculo.guardar()}" 
