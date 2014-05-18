@@ -44,20 +44,20 @@ limitations under the License.
         <div class="input">
             <c:choose>
                 <c:when test="#{type == 'java.lang.String' or type == 'text'}">
-                    <p:inputText value="#{value}" id="#{name}" styleClass="xLarge span4" required="#{required}" label="#{label}" disabled="#{disabled}">
+                    <p:inputText value="#{value}" id="#{name}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
                         <f:validator validatorId="#{validator}"/>
                         <f:validateLength minimum="#{minLength}" rendered="#{validateLength}"/>
                         <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
                     </p:inputText>
                 </c:when>
                 <c:when test="#{type == 'java.util.Date' or type == 'calendar'}">
-                    <p:calendar value="#{a.value}" id="#{name}" navigator="true" label="#{label}" disabled="#{disabled}">
+                    <p:calendar value="#{a.value}" id="#{name}" navigator="true" label="#{label}" disabled="#{disabled}" styleClass="form-control">
                         
                         <p:ajax event="dateSelect" listener="#{listener}" update="#{render}" />                        
                     </p:calendar>  
                 </c:when>
                 <c:when test="#{type == 'java.lang.Boolean' or type == 'checkbox'}">
-                    <p:selectBooleanCheckbox value="#{value}" id="#{name}" styleClass="xLarge" required="#{required}" label="#{label}" disabled="#{disabled}">
+                    <p:selectBooleanCheckbox value="#{value}" id="#{name}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
                         <f:ajax execute="#{execute}" render="#{render}"  />
                     </p:selectBooleanCheckbox>
                     <!--<span># {inlinehelp}</span>-->
@@ -68,13 +68,13 @@ limitations under the License.
                     </h:inputTextarea>
                 </c:when>
                 <c:when test="#{type == 'java.lang.String[]' or type == 'select'}">
-                    <p:selectOneMenu value="#{value}" effect="fade"  converter="#{converter}" required="#{required}" requiredMessage="#{requiredMessage}">  
+                    <p:selectOneMenu value="#{value}" effect="fade"  converter="#{converter}" required="#{required}" styleClass="form-control" requiredMessage="#{requiredMessage}">  
                         <f:selectItems value="#{values}" var="v" itemLabel="#{v}" itemValue="#{v}"/>  
                         <p:ajax event="change" listener="#{listener}" update="#{render}" partialSubmit="true"/>
                     </p:selectOneMenu>  
                 </c:when>
                 <c:when test="#{type == 'java.lang.Long' or type == 'java.lang.Double' or type == 'java.lang.Float' or type == 'decimal'}">
-                    <pe:inputNumber id="#{name}" value="#{value}" styleClass="xLarge span4" required="#{required}" label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}">  
+                    <pe:inputNumber id="#{name}" value="#{value}" styleClass="form-control" required="#{required}" label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}">  
                         <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
                     </pe:inputNumber>  
                     <br/>
