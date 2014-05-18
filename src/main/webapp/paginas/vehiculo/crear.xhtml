@@ -9,6 +9,7 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
+                xmlns:mtop="http://mtop.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
     <ui:param name="titulo" value="Lista de Vehiculos"/>
@@ -35,30 +36,37 @@
                     <!-- Example row of columns -->
                     <div class="row">
                         <div class="col-md-6"> 
-                            <p:panelGrid columns="2" >
-                                <h:outputText value="Numero de Registro"/>
-                                <h:inputText id="registro" value="#{controladorVehiculo.instance.numRegistro}" styleClass="form-control"/>
+
+                            <mtop:input id="registro" name="registro" type="text" label="Número de Registro" 
+                                        value="#{controladorVehiculo.instance.numRegistro}" required="true" 
+                                        inlinehelp="Ingrese un numero de registro del vehiculo" execute ="@this save" render="registro"/>
+                            <p:panelGrid columns="2" >                                
+
+                                <!--<h:outputText value="Numero de Registro"/>
+                                <p:inputText id="registro" value="# {controladorVehiculo.instance.numRegistro}" styleClass="form-control">
+                                    <p:ajax event="keyup" process="@this" update=":form:save"/>
+                                </p:inputText>-->
 
                                 <h:outputText value="Clase"/>
-                                <h:inputText id="clase" value="#{controladorVehiculo.instance.clase}" styleClass="form-control"/>
+                                <p:inputText id="clase" value="#{controladorVehiculo.instance.clase}" styleClass="form-control"/>
 
                                 <h:outputText value="Tipo"/>
-                                <h:inputText id="tipo" value="#{controladorVehiculo.instance.tipo}" styleClass="form-control"/>
+                                <p:inputText id="tipo" value="#{controladorVehiculo.instance.tipo}" styleClass="form-control"/>
 
                                 <h:outputText value="Placa"/>
-                                <h:inputText id="name" value="#{controladorVehiculo.instance.placa}" styleClass="form-control"/>
+                                <p:inputText id="name" value="#{controladorVehiculo.instance.placa}" styleClass="form-control"/>
 
                                 <h:outputText value="Color"/>
-                                <h:inputText id="color" value="#{controladorVehiculo.instance.color}" styleClass="form-control"/> 
+                                <p:inputText id="color" value="#{controladorVehiculo.instance.color}" styleClass="form-control"/> 
 
                                 <h:outputText value="Marca"/>
-                                <h:inputText id="marca" value="#{controladorVehiculo.instance.marca}" styleClass="form-control"/> 
+                                <p:inputText id="marca" value="#{controladorVehiculo.instance.marca}" styleClass="form-control"/> 
 
                                 <h:outputText value="Numero de Pasajeros"/>
-                                <h:inputText id="numPasajeros" value="#{controladorVehiculo.instance.numPasajeros}" styleClass="form-control"/>
+                                <p:inputText id="numPasajeros" value="#{controladorVehiculo.instance.numPasajeros}" styleClass="form-control"/>
 
                                 <h:outputText value="Modelo"/>
-                                <h:inputText id="modelo" value="#{controladorVehiculo.instance.modelo}" styleClass="form-control"/> 
+                                <p:inputText id="modelo" value="#{controladorVehiculo.instance.modelo}" styleClass="form-control"/> 
 
 
                             </p:panelGrid>
@@ -111,9 +119,9 @@
             <p:commandButton id="save" value="Guardar" action="#{controladorVehiculo.guardar()}" 
                              immediate="true"/>
 
-            <h:link value="Regresar" rendered="#{true}" outcome="/paginas/inicio" styleClass="btn success">
+            <p:commandLink value="Regresar" rendered="#{true}" action="/paginas/lista" styleClass="btn success">
 
-            </h:link>
+            </p:commandLink>
         </h:form>
 
     </ui:define>

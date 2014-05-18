@@ -25,9 +25,9 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <h:link value="Crear" rendered="#{true}" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
+                <h:button value="Crear" rendered="#{true}" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
                     <f:param name="pacienteId"></f:param>
-                </h:link>
+                </h:button>
             </div>
             <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
                 <p:column headerText="Color">
@@ -36,10 +36,13 @@
                 <p:column headerText="Marca">
                     <h:outputText value="#{v.marca}"></h:outputText>
                 </p:column>
+                 <p:column headerText="Nro Registro">
+                     <h:outputText value="#{v.numRegistro}"></h:outputText>
+                </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                    <p:commandLink value="Editar" action="crear" type="button" >
+                    <h:button value="Editar" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true">
                         <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                    </p:commandLink>
+                    </h:button>
                 </p:column>
             </p:dataTable>
         </h:form>
