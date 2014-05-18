@@ -25,8 +25,8 @@
             <supported-locale>en</supported-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>edu.sgssalud.messages</base-name>
-            <var>messages</var>
+            <base-name>org.mtop.mensajes</base-name>
+            <var>mensajes</var>
         </resource-bundle>
     </application>
     

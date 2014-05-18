@@ -33,7 +33,7 @@ import org.mtop.service.SettingService;
  */
 @Named 
 @ViewScoped
-public class Sgssalud implements Serializable {
+public class mtop implements Serializable {
     private static final long serialVersionUID = 7673935874688660972L;
     
     @Inject

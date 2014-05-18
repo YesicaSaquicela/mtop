@@ -25,9 +25,9 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <p:commandLink value="Crear" rendered="#{true}" action="crear" type="button" >
-                    <f:param name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"></f:param>
-                </p:commandLink>
+                <h:link value="Crear" rendered="#{true}" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
+                    <f:param name="pacienteId"></f:param>
+                </h:link>
             </div>
             <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
                 <p:column headerText="Color">

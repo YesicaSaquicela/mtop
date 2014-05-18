@@ -15,7 +15,6 @@
  */
 package org.mtop.controlador;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,14 +22,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
-import org.mtop.cdi.Current;
 import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
@@ -43,7 +40,7 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ConversationScoped
-public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements Serializable{
+public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
 
     @Inject
     @Web
@@ -52,7 +49,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private ServicioGenerico servgen;
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
 
-    //metodos para obtener el id de la clase
     public Long getVehiculoId() {
         return (Long) getId();
     }
@@ -60,15 +56,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setVehiculoId(Long vehiculoId) {
         setId(vehiculoId);
     }
-    @Produces
-    @Named("vehiculo")
-    @Current
+
     @TransactionAttribute   //
     public Vehiculo load() {
         if (isIdDefined()) {
             wire();
         }
-        
         //  log.info("sgssalud --> cargar instance " + getInstance());
         return getInstance();
     }
@@ -95,9 +88,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-        if(getVehiculoId()==null){
-            
-        }
     }
 
     @Override
@@ -123,9 +113,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String guardar() {
-        System.out.println("instancia>>>"+getInstance().toString());
         Date now = Calendar.getInstance().getTime();
-        System.out.println("\n objeto vehiculo>>>>"+getInstance().getColor());
         getInstance().setLastUpdate(now);
         try {
             if (getInstance().isPersistent()) {

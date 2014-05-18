@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+  <datasource jndi-name="java:/datasources/mtop-ds" enabled="true" use-java-context="true" 
+        pool-name="mtop-ds-pool">
+    <connection-url>jdbc:postgresql:mtop1</connection-url>
+    <driver>postgresql-driver</driver>
+    <security>
+      <user-name>mtop</user-name>
+      <password>mtopmtop</password>
+    </security>
+  </datasource>
+</datasources>
+ 

@@ -8,7 +8,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>mtop</name>
-    <description>Mtop </description>
+    <description>Mtop</description>
 
     <issueManagement>
         <system>JIRA</system>
