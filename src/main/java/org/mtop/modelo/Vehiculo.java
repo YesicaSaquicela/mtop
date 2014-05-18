@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.mtop.modelo;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,10 +26,11 @@ import org.mtop.model.BussinesEntity;
  * @author carlis
  */
 @Entity
-@Table (name = "Vehiculo")
+@Table(name = "Vehiculo")
 @DiscriminatorValue(value = "vk")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Vehiculo extends BussinesEntity implements Serializable {
+
     private Integer anioFabricacion;
     private String cabina;
     private String color;
@@ -42,8 +41,8 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String numRegistro;
     private Integer numPasajeros;
     private double peso;
-//    @OneToOne
-//    private Persona conductor;
+    @OneToOne
+    private Persona conductor;
     //registro hace referencia al codigo heredado
     private String tipo;
     private String cilindraje;
@@ -62,7 +61,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setNumRegistro(String numRegistro) {
         this.numRegistro = numRegistro;
     }
-    
+
     public String getCilindraje() {
         return cilindraje;
     }
@@ -78,6 +77,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setKilometraje(String kilometraje) {
         this.kilometraje = kilometraje;
     }
+
     public String getPlaca() {
         return placa;
     }
@@ -86,17 +86,17 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.placa = placa;
     }
 
-//    public Persona getConductor() {
-//        return conductor;
-//    }
-//
-//    public void setConductor(Persona conductor) {
-//        this.conductor = conductor;
-//    }
-//
-//   
-//    
-//    
+    public Persona getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(Persona conductor) {
+        this.conductor = conductor;
+    }
+
+   
+    
+    
 //    public List<EstadoVehiculo> getListaEstados() {
 //        return listaEstados;
 //    }
@@ -124,11 +124,10 @@ public class Vehiculo extends BussinesEntity implements Serializable {
 //        }
 //        this.listaPlanMantenimiento = listaPlanMantenimiento;
 //    }
-    
     public Integer getAnioFabricacion() {
         return anioFabricacion;
     }
-    
+
     public void setAnioFabricacion(Integer anioFabricacion) {
         this.anioFabricacion = anioFabricacion;
     }
@@ -204,13 +203,13 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setTipoCombustible(String tipoCombustible) {
         this.tipoCombustible = tipoCombustible;
     }
+
     @Override
-    public String toString(){
-           return "org.mtop.model.Vehiculo[ "
+    public String toString() {
+        return "org.mtop.model.Vehiculo[ "
                 + "id=" + getId() + ","
                 + "marca" + getMarca() + ","
                 + " ]";
     }
-    
-    
+
 }

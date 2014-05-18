@@ -22,6 +22,7 @@ limitations under the License.
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:s="http://jboss.org/seam/faces"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:mtop="http://mtop.org/jsf/facelets"
                 xmlns:glue="http://eqaula.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
@@ -66,25 +67,30 @@ limitations under the License.
                 <h:form id="form-dialog">                    
                     <h:panelGroup layout="block" class="clearfix" rendered="true">
                         <!--TODO: revisar <ui:include >-->
-                        <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
+                        
+                      <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
                         <div class="input">
-                            <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
+                            <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="form-control" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
+                                          rendered="true" >
+                                <p:ajax event="keyup" rendered="save" update="save" />  
+                            </p:inputText>
+                        </div>-
+                        <br/> 
+                       
+                       
+                       
+                        <div class="input">
+                            <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="form-control" required="true" label="#{messages['module.BussinesEntityType.label']}" 
                                           rendered="true" >
                                 <p:ajax event="keyup" rendered="save" update="save" />  
                             </p:inputText>
                         </div>
                         <br/> 
-                        <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
-                        <div class="input">
-                            <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
-                                          rendered="true" >
-                                <p:ajax event="keyup" rendered="save" update="save" />  
-                            </p:inputText>
-                        </div>
-                        <br/> 
+                        
+                        
                         <h:outputLabel value="#{messages['common.description']}" />
                         <div class="input">
-                            <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
+                            <p:inputTextarea  value="# {bussinesEntityTypeHome.instance.description}" styleClass="form-control" required="true" label=" # {messages['common.description']}" 
                                               rendered="true" >
                                 <p:ajax event="keyup" rendered="save" update="save" />  
                             </p:inputTextarea>
@@ -153,12 +159,12 @@ limitations under the License.
                     </f:facet>-->
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                     <div class="admin-actions">
-                        <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="property" styleClass="btn primary">
+                        <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/admin/bussinesentitytype/property.xhtml?faces-redirect=true" styleClass="btn primary">
                             <f:param name="propertyId"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>
                             <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="backView" value="bussinesentitytype"></f:param>
-                        </h:link>
+                        </h:button>
                         #{' '}
                         <h:link id="button-edit" value="#{messages['common.edit']}" rendered="true" outcome="property" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
                             <f:param name="propertyId" value="#{propertyHome.instance.id}"></f:param>
