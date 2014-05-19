@@ -15,6 +15,7 @@
  */
 package org.mtop.controlador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,6 +32,7 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
+import org.mtop.model.BussinesEntityAttribute;
 import org.mtop.model.BussinesEntityType;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
@@ -39,8 +42,8 @@ import org.mtop.servicios.ServicioGenerico;
  * @author jesica
  */
 @Named
-@ConversationScoped
-public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
+@ViewScoped
+public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements Serializable{
 
     @Inject
     @Web
@@ -55,6 +58,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
 
     public void setVehiculoId(Long vehiculoId) {
         setId(vehiculoId);
+//        if(vehiculoId!= null){
+//            this.setInstance(servgen.buscarPorId(Vehiculo.class, vehiculoId));
+//            System.out.println("Encontro vehiculo");
+//        }
     }
 
     @TransactionAttribute   //
@@ -113,11 +120,21 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
 
     @TransactionAttribute
     public String guardar() {
+        System.out.println("INGRESO A GUARDAR");
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("vehiculo "+getInstance().getId());
         try {
             if (getInstance().isPersistent()) {
-                save(getInstance());
+                List<BussinesEntityAttribute> listA = getInstance().getAttributes();
+                System.out.println("Attributos "+getInstance().getAttributes().size());
+                for (BussinesEntityAttribute a : listA) {
+                    System.out.println("ATRIB "+a.getName()+" valor "+a.getValue().toString() +" valor String "+a.getStringValue());
+                    //save(a);
+                    
+                }
+                //update();
+                save(getInstance());                
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
@@ -131,6 +148,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+        //return null;
     }
 
     @Transactional

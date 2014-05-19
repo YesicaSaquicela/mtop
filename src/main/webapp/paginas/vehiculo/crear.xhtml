@@ -17,9 +17,9 @@
         <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
     </f:metadata>
     <ui:define name="header">
-        
-                    <h2>#{titulo}</h2>    
-        
+
+        <h2>#{titulo}</h2>    
+
     </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
@@ -37,41 +37,18 @@
                     <div class="row">
                         <div class="col-md-6"> 
 
-                            <mtop:input id="registro" name="registro" type="text" label="Número de Registro" 
+                            <mtop:input id="registro" name="registro1" type="text" label="Número de Registro" 
                                         value="#{controladorVehiculo.instance.numRegistro}" required="true" 
                                         inlinehelp="Ingrese un numero de registro del vehiculo" execute ="@this save" render="registro"/>
-                            <p:panelGrid columns="2" >                                
 
-                                <!--<h:outputText value="Numero de Registro"/>
-                                <p:inputText id="registro" value="# {controladorVehiculo.instance.numRegistro}" styleClass="form-control">
-                                    <p:ajax event="keyup" process="@this" update=":form:save"/>
-                                </p:inputText>-->
+                            <mtop:input id="marca" name="marca" type="text" label="Marca" 
+                                        value="#{controladorVehiculo.instance.marca}" required="true" 
+                                        inlinehelp="Vehiculo" 
+                                        execute ="@this save" render="marca"/>
 
-                                <h:outputText value="Clase"/>
-                                <p:inputText id="clase" value="#{controladorVehiculo.instance.clase}" styleClass="form-control"/>
-
-                                <h:outputText value="Tipo"/>
-                                <p:inputText id="tipo" value="#{controladorVehiculo.instance.tipo}" styleClass="form-control"/>
-
-                                <h:outputText value="Placa"/>
-                                <p:inputText id="name" value="#{controladorVehiculo.instance.placa}" styleClass="form-control"/>
-
-                                <h:outputText value="Color"/>
-                                <p:inputText id="color" value="#{controladorVehiculo.instance.color}" styleClass="form-control"/> 
-
-                                <h:outputText value="Marca"/>
-                                <p:inputText id="marca" value="#{controladorVehiculo.instance.marca}" styleClass="form-control"/> 
-
-                                <h:outputText value="Numero de Pasajeros"/>
-                                <p:inputText id="numPasajeros" value="#{controladorVehiculo.instance.numPasajeros}" styleClass="form-control"/>
-
-                                <h:outputText value="Modelo"/>
-                                <p:inputText id="modelo" value="#{controladorVehiculo.instance.modelo}" styleClass="form-control"/> 
-
-
-                            </p:panelGrid>
                         </div>
                     </div>
+
                     <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
@@ -84,6 +61,7 @@
                                                     <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                                   rendered="#{a.property.type eq 'java.lang.String'}">
                                                         <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                        <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                     </p:inputText>
                                                     <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                 rendered="#{a.property.type eq 'java.util.Date'}">
@@ -114,14 +92,15 @@
                             </c:choose>
                         </p:panel>
                     </c:forEach>
+
                 </div>
             </p:panel>
-            <p:commandButton id="save" value="Guardar" action="#{controladorVehiculo.guardar()}" 
+            <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
                              immediate="true"/>
 
-            <p:commandLink value="Regresar" rendered="#{true}" action="/paginas/lista" styleClass="btn success">
+            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn">
 
-            </p:commandLink>
+            </h:button>
         </h:form>
 
     </ui:define>

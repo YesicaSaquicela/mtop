@@ -11,25 +11,27 @@
     <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
         <h:head>
-            <title>#{'Mtop'}&#160;&#187;&#160;#{'Software'}</title>
+            <title >#{'Mtop'}&#160;&#187;&#160;#{'Software'}</title>
 
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta http-equiv="Cache-Control" content="no-cache" />
             <meta http-equiv="Cache-Control" content="must-revalidate" />
             <meta http-equiv="Pragma" content="no-cache" />
             <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
+            <link href="/javax.faces.resource/primefaces.css.jsf?ln=primefaces" rel="stylesheet" type="text/css"/>
 
             <!-- Bootstrap -->
-            <h:outputStylesheet name="bootstrap/bootstrap.css" />
+
             <!--<h:outputScript name="jquery.js" />--> <!-- this loads the jquery bundled with richFaces -->
-            <h:outputScript name="jquery-tableSorter-min.js" />
+            <!--<h:outputScript name="jquery-tableSorter-min.js" />
+            <h:outputStylesheet name="bootstrap/bootstrap.css" />
             <h:outputScript name="bootstrap/dropdown.js" />
             <h:outputScript name="bootstrap/scrollspy.js" />
             <h:outputScript name="bootstrap/tabs.js" />
             <h:outputScript name="bootstrap/modal.js" />
             <h:outputScript name="bootstrap/twipsy.js" />
             <h:outputScript name="bootstrap/popover.js" />
-            <h:outputScript name="bootstrap/alerts.js" />
+            <h:outputScript name="bootstrap/alerts.js" />-->
 
             <!-- Our customizations -->
             <h:outputStylesheet name="application.css" />
@@ -61,7 +63,7 @@
                         </button>
                         <a class="navbar-brand" >
                             <h:panelGroup rendered="#{identity.loggedIn}">
-                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true"/>
+                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{!identity.loggedIn}">
                                 <h:link value="#{'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
@@ -98,39 +100,40 @@
             </div>
             <!--Cuerpo-->
             <div class="jumbotron">
-                <div class="container">
+                <div class="container" style="margin: -3% 0 -10% 10%; ">
                     <ui:insert name="header">
 
                     </ui:insert>
                 </div>                
-            </div>
-            <!--Contenido-->
-            <div >
-                <div class="container-content" style="float: right;">
-                    <div class="container-content">
-                        <ocp:messages id="messages" globalOnly="true" />
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#messages\\:messages li').attr("data-alert", "alert");
-                                $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
-                                $('.alert-message').alert();
-                                $('.alert-message').click().alert('close');
-                            });
-                        </script>
-                    </div>
 
-                    <div class="content" >
-                        <ui:insert name="content" />
-                    </div>
-                </div>                
-
+                <!--Contenido-->
             </div>
+            <div class="container-fluid" style="margin: 0 5% 0 5%">
+                <div class="container-content">
+                    <ocp:messages id="messages" globalOnly="true" />
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#messages\\:messages li').attr("data-alert", "alert");
+                            $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
+                            $('.alert-message').alert();
+                            $('.alert-message').click().alert('close');
+                        });
+                    </script>
+                </div>
+
+                <div class="content" style="margin-left: 10px; float: left; width: 100%; margin-right: 10px">
+                    <ui:insert name="content" />
+                </div>
+            </div>                
+              
+
+
             <!--PIE pagina-->
             <!--<div id="footer" style="margin-bottom: -60px">
                 <div class="container">
                     <p class="text-muted">&copy; Proyecto tesis</p>
-                </div>
-            </div>-->
+                </div>-->
+
 
         </h:body>
     </html>
