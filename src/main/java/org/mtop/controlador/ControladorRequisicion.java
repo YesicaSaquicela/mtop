@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 jesica.
+ * Copyright 2014 carlis.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.mtop.controlador;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
-import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -32,34 +32,34 @@ import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
-import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.Requisicion;
 import org.mtop.servicios.ServicioGenerico;
+
 
 /**
  *
- * @author jesica
+ * @author carlis
  */
 @Named
 @ViewScoped
-public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
-
+public class ControladorRequisicion extends BussinesEntityHome<Requisicion>{
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
+    List<Requisicion> listaRequisicion = new ArrayList<Requisicion>();
 
-    public Long getVehiculoId() {
+    public Long getRequisicionId() {
         return (Long) getId();
     }
 
-    public void setVehiculoId(Long vehiculoId) {
-        setId(vehiculoId);
+    public void getRequisicionId(Long requisicion) {
+        setId(requisicion);
     }
 
     @TransactionAttribute   //
-    public Vehiculo load() {
+    public Requisicion load() {
         if (isIdDefined()) {
             wire();
         }
@@ -72,13 +72,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
         getInstance();
     }
 
-    public List<Vehiculo> getListaVehiculos() {
-        return listaVehiculos;
+    public List<Requisicion> getListaRequisicion() {
+        return listaRequisicion;
     }
 
-    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
-        this.listaVehiculos = listaVehiculos;
+    public void setListaRequisicion(List<Requisicion> listaRequisicion) {
+        this.listaRequisicion = listaRequisicion;
     }
+
 
     @PostConstruct
     public void init() {
@@ -88,28 +89,28 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaVehiculos = servgen.buscarTodos(Vehiculo.class);
+        listaRequisicion = servgen.buscarTodos(Requisicion.class);
     }
 
     @Override
-    protected Vehiculo createInstance() {
+    protected Requisicion createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Vehiculo.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Requisicion.class.getName());
         Date now = Calendar.getInstance().getTime();
-        Vehiculo vehiculo = new Vehiculo();
-        vehiculo.setCreatedOn(now);
-        vehiculo.setLastUpdate(now);
-        vehiculo.setActivationTime(now);
+        Requisicion requisicion = new Requisicion();
+        requisicion.setCreatedOn(now);
+        requisicion.setLastUpdate(now);
+        requisicion.setActivationTime(now);
 
         //fichaMedic.setResponsable(null);    //cambiar atributo a 
-        vehiculo.setType(_type);
-        vehiculo.buildAttributes(bussinesEntityService);  //
-        return vehiculo;
+        requisicion.setType(_type);
+        requisicion.buildAttributes(bussinesEntityService);  //
+        return requisicion;
     }
 
     @Override
-    public Class<Vehiculo> getEntityClass() {
-        return Vehiculo.class;
+    public Class<Requisicion> getEntityClass() {
+        return Requisicion.class;
     }
 
     @TransactionAttribute
@@ -119,19 +120,19 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito"," ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -152,7 +153,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/pages/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
     }
-
+ 
 }
