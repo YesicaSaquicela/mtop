@@ -16,6 +16,7 @@
 
 package org.mtop.controlador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,7 +42,7 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanMantenimiento>{
+public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanMantenimiento> implements Serializable{
     @Inject
     @Web
     private EntityManager em;

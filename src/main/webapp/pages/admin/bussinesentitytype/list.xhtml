@@ -42,13 +42,14 @@ limitations under the License.
                 <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
                     <f:param name="bussinesEntityTypeId"></f:param>
                     <f:param name="backView" value="list"></f:param>
-                </h:button>>
+                </h:button>
                 #{' '}
-                <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn"
-                        disabled="#{bussinesEntityTypeListService.selectedBussinesEntityType == null}" >
+                <!--
+                <p:commandButton id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" actionListener="bussinesentitytype" styleClass="btn"
+                                 disabled="#{bussinesEntityTypeListService.selectedBussinesEntityType == null}" >
                     <f:param name="bussinesEntityTypeId" value="#{bussinesEntityTypeListService.selectedBussinesEntityType.id}"></f:param>
                     <f:param name="backView" value="list"></f:param>
-                </h:link>                
+                </p:commandButton>              -->
             </div>           
             <p:dataTable var="bussinesEntityType" value="#{bussinesEntityTypeListService}"
                          paginator="true" rows="15"                         
@@ -79,6 +80,12 @@ limitations under the License.
                 <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
                     <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
                 </p:column> 
+                <p:column headerText="Acciones">
+                    <h:link value="Editar" outcome="bussinesentitytype" type="button" rendered="true" >
+                        <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
+                        <f:param name="backView" value="list"></f:param>
+                    </h:link>
+                </p:column>
 
                 <f:facet name="footer">
                       <!-- <p:commandButton id="multiViewButton" value="#{messages['common.view']}" icon="ui-icon-search"  
