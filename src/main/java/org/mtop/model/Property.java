@@ -327,7 +327,7 @@ public class Property implements Comparable<Property>, Serializable {
 
     @Override
     public String toString() {
-        return "edu.sgssalud.model.Property[ "
+        return "org.mtop.model.Property[ "
                 + "id=" + id + ","
                 + "name=" + name + ","
                 + "type=" + type + ","

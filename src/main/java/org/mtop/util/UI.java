@@ -172,7 +172,7 @@ public class UI {
     public static String getMessages(String key) {
         FacesContext fc = FacesContext.getCurrentInstance();
         Locale myLocale = fc.getExternalContext().getRequestLocale();
-        ResourceBundle myResources = ResourceBundle.getBundle("edu.sgssalud.messages", myLocale);
+        ResourceBundle myResources = ResourceBundle.getBundle("org.mtop.messages", myLocale);
 
         return myResources.containsKey(key) ? myResources.getString(key) : key;
     }

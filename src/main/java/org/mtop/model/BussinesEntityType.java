@@ -129,7 +129,7 @@ public class BussinesEntityType implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.sgssalud.model.BussinesEntityType[ id=" + id + " ]";
+        return "org.mtop.model.BussinesEntityType[ id=" + id + " ]";
     }
 
     public void addStructure(Structure structure) {

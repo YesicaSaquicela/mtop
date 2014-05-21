@@ -185,14 +185,14 @@ public class InitializeDatabase {
         if (session.getPersistenceManager().findUser("admin") == null) {
             User u = session.getPersistenceManager().createUser("admin");
             session.getAttributesManager().updatePassword(u, "adminadmin");
-            session.getAttributesManager().addAttribute(u, "email", "sgssalud@unl.edu");
+            session.getAttributesManager().addAttribute(u, "email", "mtop@unl.edu");
             session.getAttributesManager().addAttribute(u, "estado", "ACTIVO");
             //members.add(u);
             //TODO revisar error al implementar la relacion entre un grupo y usuario.... 
             session.getRelationshipManager().associateUser(g, u);
 
             p = new Profile();
-            p.setEmail("sgssalud@unl.edu");
+            p.setEmail("mtop@unl.edu");
             p.setUsername("admin");
             p.setPassword("adminadmin");
             p.getIdentityKeys().add(u.getKey());
@@ -200,8 +200,8 @@ public class InitializeDatabase {
             p.setShowBootcamp(true);
 
             p.setName("Administrador");
-            p.setFirstname("SgsSalud");
-            p.setSurname("Software Clinico");
+            p.setFirstname("Mtop");
+            p.setSurname("Software de Vehiculos");
             p.setCreatedOn(now);
             p.setLastUpdate(now);
             p.setActivationTime(now);

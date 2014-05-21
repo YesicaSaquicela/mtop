@@ -95,6 +95,6 @@ public class Structure extends DeletableObject<Structure> implements Serializabl
 
     @Override
     public String toString() {
-        return "edu.sgssalud.model.Structure[ id=" + this.getId() + " ]";
+        return "org.mtop.model.Structure[ id=" + this.getId() + " ]";
     }
 }
