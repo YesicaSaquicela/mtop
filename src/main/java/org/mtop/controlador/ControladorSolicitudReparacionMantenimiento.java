@@ -74,13 +74,15 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance();
     }
 
-    public List<SolicitudReparacionMantenimiento> getListaVehiculos() {
+    public List<SolicitudReparacionMantenimiento> getListaSolicitud() {
         return listaSolicitud;
     }
 
-    public void setListaVehiculos(List<SolicitudReparacionMantenimiento> listaSolicitud) {
+    public void setListaSolicitud(List<SolicitudReparacionMantenimiento> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
     }
+
+
 
     @PostConstruct
     public void init() {
