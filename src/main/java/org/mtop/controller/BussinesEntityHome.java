@@ -45,7 +45,8 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
     private String backView;
     private String previous;
     private boolean editionEnabled = true;
-
+    
+    
     public Property getProperty() {
         return property;
     }
@@ -143,7 +144,15 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
         //return PersistenceProvider.instance().getName(getInstance(), getEntityManager());
         return "empty";
     }
-
+    
+    public void setCambiarNombre(String nombre) {
+        System.out.println("Entro nombre");
+        bussinesEntity.setName(nombre);
+    }
+    public String getCambiarNombre() {
+        System.out.println("Entro nombre");
+        return bussinesEntity.getName();
+    }
     public BussinesEntity getBussinesEntity() {
         return bussinesEntity;
     }

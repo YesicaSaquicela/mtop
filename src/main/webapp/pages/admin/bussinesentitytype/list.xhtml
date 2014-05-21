@@ -45,9 +45,9 @@ limitations under the License.
                 </h:button>
                 #{' '}
                 <!--
-                <p:commandButton id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" actionListener="bussinesentitytype" styleClass="btn"
-                                 disabled="#{bussinesEntityTypeListService.selectedBussinesEntityType == null}" >
-                    <f:param name="bussinesEntityTypeId" value="#{bussinesEntityTypeListService.selectedBussinesEntityType.id}"></f:param>
+                <p:commandButton id="button-edit" value="# {messages['common.edit']}" rendered="# {true}" actionListener="bussinesentitytype" styleClass="btn"
+                                 disabled="# {bussinesEntityTypeListService.selectedBussinesEntityType == null}" >
+                    <f:param name="bussinesEntityTypeId" value="# {bussinesEntityTypeListService.selectedBussinesEntityType.id}"></f:param>
                     <f:param name="backView" value="list"></f:param>
                 </p:commandButton>              -->
             </div>           
@@ -60,11 +60,11 @@ limitations under the License.
                          selection="#{bussinesEntityTypeListService.selectedBussinesEntityType}"
                          rendered="true"
                          selectionMode="single">
-
+<!--
                 <p:ajax event="rowSelect" listener="#{bussinesEntityTypeListService.onRowSelect}"   
                         update=":form:button-edit :form:messages"/>  
                 <p:ajax event="rowUnselect" listener="#{bussinesEntityTypeListService.onRowUnselect}" update=":form:button-edit :form:messages"/>
-
+-->
                 <p:column headerText="#{messages['module.BussinesEntityType.name']}" sortBy="#{bussinesEntityType.name}">
                     <h:outputText value="#{bussinesEntityType.name}"></h:outputText>
                 </p:column>
@@ -81,8 +81,9 @@ limitations under the License.
                     <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
                 </p:column> 
                 <p:column headerText="Acciones">
-                    <h:link value="Editar" outcome="bussinesentitytype" type="button" rendered="true" >
+                    <h:link value="Ver Propiedadades" outcome="bussinesentitytype" type="button" rendered="true" >
                         <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
+                        <f:param name="bussinesEntityTypeName" ></f:param>
                         <f:param name="backView" value="list"></f:param>
                     </h:link>
                 </p:column>

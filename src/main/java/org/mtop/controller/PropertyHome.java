@@ -274,8 +274,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public List<String> getTiposDatos() {
         List<String> tipos = new ArrayList<String>();
-        tipos.add("edu.sgssalud.model.Structure");
-        tipos.add("edu.sgssalud.model.Group");
+        tipos.add("org.mtop.model.Structure");
+        tipos.add("org.mtop.model.Group");
         tipos.add("java.util.Date");
         tipos.add("java.lang.String");
         tipos.add("java.lang.Double");
