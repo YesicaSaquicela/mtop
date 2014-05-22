@@ -27,8 +27,8 @@ limitations under the License.
                 template="/WEB-INF/templates/plantilla.xhtml"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:metadata>
-        <f:viewParam name="bussinesEntityTypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
-        <f:viewParam name="bussinesEntityTypeName" value="#{bussinesEntityTypeHome.instance.name}" />             
+        <f:viewParam name="bussinesentitytypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
+        <f:viewParam name="bussinesentitytypeName" value="#{bussinesEntityTypeHome.instance.name}" />             
 
         <s:viewAction action="#{bussinesEntityTypeHome.load}" if="#{conversation.transient}"/>                          
     </f:metadata>    
@@ -152,7 +152,7 @@ limitations under the License.
                                      action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
                                      styleClass="btn primary" icon="ui-icon-disk"/> 
                     #{' '}                                  
-                    <h:commandButton id="cancel" action="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+                    <h:commandButton id="cancel" action="/pages/admin/tipoEntidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
                                      value="#{messages['common.cancel']}" styleClass="btn" immediate="true" onclick="editDlg.hide();"
                                      rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
                 </div>
@@ -165,7 +165,7 @@ limitations under the License.
                     </f:facet>-->
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                     <div class="admin-actions">
-                        <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/admin/bussinesentitytype/property.xhtml?faces-redirect=true" styleClass="btn primary">
+                        <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/admin/bussinesentitytype/propiedad.xhtml?faces-redirect=true" styleClass="btn primary">
                             <f:param name="propertyId"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>
                             <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
@@ -174,13 +174,13 @@ limitations under the License.
                         #{' '}
                         <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="property" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
                             <f:param name="propertyId" value="#{propertyHome.instance.id}"></f:param>
-                            <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
+                            <f:param name="bussinesentitytypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>                             
                             <f:param name="backView" value="bussinesentitytype"></f:param>
                         </h:link>                        
 
                         #{' '}
-                        <h:link outcome="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+                        <h:link outcome="/pages/admin/tipoEntidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
                                 value="#{messages['common.cancel']}" styleClass="btn"/>                         
                     </div>                     
                     <p:dataTable var="property" value="#{e.properties}" 
@@ -215,8 +215,8 @@ limitations under the License.
                         </p:column>    
                         <p:column>
                             <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'}" outcome="bussinesentitytype" styleClass="btn primary">
-                                <f:param name="bussinesEntityTypeName" value="#{property.name}"></f:param>
-                                <f:param name="bussinesEntityTypeId" ></f:param>
+                                <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
+                                <f:param name="bussinesentitytypeId" ></f:param>
                                 <f:param name="backView" value="list"></f:param>
                             </h:button>
                         </p:column>

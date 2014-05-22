@@ -12,7 +12,7 @@
         <f:metadata>                                 
             <f:viewParam name="propertyId" value="#{propertyHome.propertyId}" />
             <s:viewAction action="#{propertyHome.load}" if="#{conversation.transient}"/>
-            <f:viewParam name="bussinesEntityTypeId" value="#{propertyHome.bussinesEntityTypeId}" />             
+            <f:viewParam name="bussinesentitytypeId" value="#{propertyHome.bussinesEntityTypeId}" />             
             <f:viewParam name="structureId" value="#{propertyHome.structureId}" />                    
         </f:metadata> 
         <ui:define name="header-replace">
@@ -107,8 +107,8 @@
                                      update=":cancel-dialog :alerts-dialog:" rendered="#{not empty propertyHome.instance.id}">                        
                     </p:commandButton>
                     #{' '}
-                    <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/pages/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn" >                        
-                        <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
+                    <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/pages/admin/bussinesentitytype/tipoEntidadGeneral.xhtml?faces-redirect=true" styleClass="btn" >                        
+                        <f:param name="bussinesentitytypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
                     </h:link>
                 </div>                
             </h:form>

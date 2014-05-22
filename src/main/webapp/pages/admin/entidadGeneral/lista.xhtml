@@ -39,9 +39,9 @@ limitations under the License.
         <h:form id="form">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
             <div class="admin-actions">
-                <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
-                    <f:param name="bussinesEntityTypeId"></f:param>
-                    <f:param name="backView" value="list"></f:param>
+                <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="tipoEntidadGeneral" styleClass="btn primary">
+                    <f:param name="bussinesentitytypelId"></f:param>
+                    <f:param name="backView" value="lista"></f:param>
                 </h:button>
                 #{' '}
                 <!--
@@ -81,9 +81,9 @@ limitations under the License.
                     <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
                 </p:column> 
                 <p:column headerText="Acciones">
-                    <h:link value="Ver Propiedadades" outcome="bussinesentitytype" type="button" rendered="true" >
-                        <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
-                        <f:param name="bussinesEntityTypeName" ></f:param>
+                    <h:link value="Ver Propiedadades" outcome="tipoEntidadGeneral" type="button" rendered="true" >
+                        <f:param name="bussinesentitytypeId" value="#{bussinesEntityType.id}"></f:param>
+                        <f:param name="bussinesentitytypeName" ></f:param>
                         <f:param name="backView" value="list"></f:param>
                     </h:link>
                 </p:column>

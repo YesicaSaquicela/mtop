@@ -376,6 +376,7 @@
         <dependency>
             <groupId>org.jboss.seam.transaction</groupId>
             <artifactId>seam-transaction</artifactId>
+
         </dependency>
             
         <dependency>

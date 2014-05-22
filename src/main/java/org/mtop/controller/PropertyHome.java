@@ -64,7 +64,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyStringValue;
 
     public PropertyHome() {
-        log.info("eqaula --> Inicializo Property Home");
+        log.info("mtop --> Inicializo Property Home");
     }
 
     public Long getPropertyId() {
@@ -101,15 +101,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                         String fecha = sdf.format(date);
                         setPropertyStringValue(fecha);
                     } else {
-                        log.info("eqaula --> Instance from Property Value not Date for " + propertyStringValue);
+                        log.info("mtop --> Instance from Property Value not Date for " + propertyStringValue);
                         setPropertyStringValue(getInstance().getValue().toString());
                     }
                 } else {
-                    log.info("eqaula --> Instance from Property Value not Date for " + propertyStringValue);
+                    log.info("mtop --> Instance from Property Value not Date for " + propertyStringValue);
                     this.propertyStringValue = "";
                 }
             } else {
-                log.info("eqaula --> Instance from Property for " + propertyStringValue);
+                log.info("mtop --> Instance from Property for " + propertyStringValue);
                 this.propertyStringValue = "";
             }
         }
@@ -128,11 +128,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @TransactionAttribute
     public void load() {
-        log.info("eqaula --> Loading instance from Property for " + getId());
+        log.info("mtop --> Loading instance from Property for " + getId());
         if (isIdDefined()) {
             wire();
         }
-        log.info("eqaula --> Loaded instance " + getInstance());
+        log.info("mtop --> Loaded instance " + getInstance());
     }
 
     @TransactionAttribute
@@ -175,7 +175,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
-        return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+        return "/pages/admin/entidadGeneral/tipoEntidadGeneral?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
     @Transactional
@@ -194,11 +194,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     save(s);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
-                    outcome = "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+                    outcome = "/pages/admin/bussinesentitytype/tipoEntidadGeneral?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, UI.getMessages("common.property.hasValues") + " " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
-                    outcome = "/pages/admin/bussinesentitytype/property?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId() + "&propertyId=" + getPropertyId();
+                    outcome = "/pages/admin/entidadGeneral/propiedad?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId() + "&propertyId=" + getPropertyId();
                 }
 
             } else {
