@@ -165,14 +165,14 @@ limitations under the License.
                     </f:facet>-->
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                     <div class="admin-actions">
-                        <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/admin/bussinesentitytype/propiedad.xhtml?faces-redirect=true" styleClass="btn primary">
+                        <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/admin/entidadGeneral/propiedad.xhtml?faces-redirect=true" styleClass="btn primary">
                             <f:param name="propertyId"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>
                             <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="backView" value="bussinesentitytype"></f:param>
                         </h:button>
                         #{' '}
-                        <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="property" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
+                        <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="propiedad" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
                             <f:param name="propertyId" value="#{propertyHome.instance.id}"></f:param>
                             <f:param name="bussinesentitytypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>                             
@@ -214,7 +214,7 @@ limitations under the License.
                             <h:outputText value="#{property.sequence}" />
                         </p:column>    
                         <p:column>
-                            <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'}" outcome="bussinesentitytype" styleClass="btn primary">
+                            <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'}" outcome="tipoEntidadGeneral" styleClass="btn primary">
                                 <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
                                 <f:param name="bussinesentitytypeId" ></f:param>
                                 <f:param name="backView" value="list"></f:param>
