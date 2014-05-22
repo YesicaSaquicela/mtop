@@ -152,7 +152,7 @@ limitations under the License.
                                      action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
                                      styleClass="btn primary" icon="ui-icon-disk"/> 
                     #{' '}                                  
-                    <h:commandButton id="cancel" action="/pages/admin/tipoEntidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
+                    <h:commandButton id="cancel" action="/pages/admin/entidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
                                      value="#{messages['common.cancel']}" styleClass="btn" immediate="true" onclick="editDlg.hide();"
                                      rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
                 </div>
@@ -180,7 +180,7 @@ limitations under the License.
                         </h:link>                        
 
                         #{' '}
-                        <h:link outcome="/pages/admin/tipoEntidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
+                        <h:link outcome="/pages/admin/entidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
                                 value="#{messages['common.cancel']}" styleClass="btn"/>                         
                     </div>                     
                     <p:dataTable var="property" value="#{e.properties}" 
