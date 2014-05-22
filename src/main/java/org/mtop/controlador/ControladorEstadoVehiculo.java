@@ -55,8 +55,8 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         return (Long) getId();
     }
 
-    public void getEstadoVehiculoId(Long estadoVehiculo) {
-        setId(estadoVehiculo);
+    public void setEstadoVehiculoId(Long estadoVehiculoId) {
+        setId(estadoVehiculoId);
     }
 
     @TransactionAttribute   //

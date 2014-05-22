@@ -54,8 +54,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         return (Long) getId();
     }
 
-    public void getPlanmantenimientoId(Long planMantenimiento) {
-        setId(planMantenimiento);
+    public void setPlanmantenimientoId(Long planMantenimientoId) {
+        setId(planMantenimientoId);
     }
 
     @TransactionAttribute   //

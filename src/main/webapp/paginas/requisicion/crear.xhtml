@@ -12,7 +12,7 @@
                 xmlns:mtop="http://mtop.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    <ui:param name="titulo" value="Lista de Requisiciones"/>
+    <ui:param name="titulo" value="Gestionar Requisiciones"/>
     <f:metadata>
         <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
     </f:metadata>
@@ -27,41 +27,90 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <h1>Gestionar Requisiciones</h1>
             <p:panel header="Datos Generales">
                 <div class="container-fluid">
                     <!-- Example row of columns -->
                     <div class="row">
                         <div class="col-md-6"> 
 
-                            <mtop:input id="numRequisicion" name="numRequisicion1" type="text" label="Número de Requisicion" 
-                                        value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}" required="true" 
+                            <mtop:input id="numRequisicion" name="numSolicitud1" type="text" label="Número de Requisicion" 
+                                        value="#{controladorRequisicion.instance.numRequisicion}" required="true" 
                                         inlinehelp="Ingrese un numero de requisicion" execute ="@this save" render="numRequisicion"/>
 
-                            <mtop:input id="fechaSolicitud" name="fechaSolicitud1" type="text" label="Fecha de Solicitud" 
-                                        value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}" required="true" 
-                                        inlinehelp="Ingrese la fecha de solicitud" 
-                                        execute ="@this save" render="fechaS"/>
+                            <mtop:input id="fechaRequisicion" name="fechaRequision1" type="calendar" label="Fecha de Requisicion" 
+                                        value="#{controladorRequisicion.instance.fechaRequisicion}" required="true" 
+                                        inlinehelp="Ingrese la fecha de requisicion" 
+                                        execute ="@this save" render="fechaRequisicion"/>
                             
-                                                  </div>
+                            <h:outputText value="Tipo de requisicion "/>
+                            <p:selectOneMenu id="tipoRequisicion" value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
+                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                <f:selectItem itemLabel="Requisicion de Reparación" itemValue="requisicionRep" />  
+                                <f:selectItem itemLabel="Requisicion de Bienes y Servicios" itemValue="requisicionByS" />  
+
+                             </p:selectOneMenu> <br></br><br></br>
+                             
+                            <h:outputText value="Tipo de adquisicion "/>
+                            <p:selectOneMenu id="adquisicion" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" >  
+                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
+                                <f:selectItem itemLabel="Compra" itemValue="compra" />  
+                                <f:selectItem itemLabel="Pago" itemValue="pago" /> 
+                                <f:selectItem itemLabel="Credito" itemValue="credito" />  
+                                
+                            </p:selectOneMenu> <br></br><br></br>
+                            <h:outputText value="Partida "/>
+                            <p:selectOneMenu id="partida"  value="#{controladorRequisicion.instance.partida}" effect="fade" >  
+                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                <f:selectItem itemLabel="1010100101" itemValue="1010100101" />  
+                                <f:selectItem itemLabel="2020200202" itemValue="2020200202" />  
+                                <f:selectItem itemLabel="3030300303" itemValue="3030300303" /> 
+                                <f:selectItem itemLabel="4040404004" itemValue="4040404004" />  
+                            </p:selectOneMenu> <br></br><br></br>
+
+                            <mtop:input id="observacion" name="observacion1" type="textarea" label="Observación" 
+                                        value="#{controladorRequisicion.instance.observaciones}" required="true" 
+                                        inlinehelp="Ingrese una observación" 
+                                        execute ="@this save" render="observacion"/>
+
+                        </div>
+
                     </div>
 
-                  </div>
+                </div>
+
+
             </p:panel>
+
             <p:panel header="Datos">
-                         
+                <div class="container-fluid">
+                    <!-- Example row of columns -->
+                    <div class="row">
+                        <div class="col-md-6"> 
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </p:panel>
-                
-            <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorRequisicion.guardar()}"
-                             immediate="true"/>
+            <p:panel >
+                <div class="admin-actions ">  
+                    <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorRequisicion.guardar()}"
+                                     immediate="true" icon="ui-icon-disk"/>
 
-            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/requisicion/lista" styleClass="btn">
+                    &nbsp;&nbsp;
 
-            </h:button>
+                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/requisicion/lista" styleClass="btn">
+
+                    </h:button>
+                </div>
+            </p:panel>
+
         </h:form>
 
     </ui:define>
 </ui:composition>
-
 
 

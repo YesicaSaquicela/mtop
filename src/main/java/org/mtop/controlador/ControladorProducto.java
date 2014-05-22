@@ -55,8 +55,8 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         return (Long) getId();
     }
 
-    public void getProductoId(Long producto) {
-        setId(producto);
+    public void setProductoId(Long productoId) {
+        setId(productoId);
     }
 
     @TransactionAttribute   //

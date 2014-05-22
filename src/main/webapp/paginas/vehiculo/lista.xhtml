@@ -26,7 +26,7 @@
             <!--Botones de admin-->
             <div class="admin-actions">
                 <h:button value="Crear" rendered="#{true}" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
-                    <f:param name="pacienteId"></f:param>
+                    <f:param name="vehiculoId"></f:param>
                 </h:button>
             </div>
             <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
@@ -45,6 +45,7 @@
                     </h:button>
                 </p:column>
             </p:dataTable>
+            
         </h:form>
     </ui:define>
 </ui:composition>

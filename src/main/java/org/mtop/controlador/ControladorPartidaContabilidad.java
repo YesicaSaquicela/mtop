@@ -55,8 +55,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         return (Long) getId();
     }
 
-    public void getPartidaContabilidadId(Long partidaContabilidad) {
-        setId(partidaContabilidad);
+    public void setPartidaContabilidadId(Long partidaContabilidadId) {
+        setId(partidaContabilidadId);
     }
 
     @TransactionAttribute   //

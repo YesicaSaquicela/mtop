@@ -56,7 +56,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return (Long) getId();
     }
 
-    public void getSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
+    public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         setId(solicitudReparacionMantenimientoId);
     }
 
@@ -65,7 +65,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
         return getInstance();
     }
 
@@ -156,7 +155,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/pages/solicitud/lista.xhtml?faces-redirect=true";
+        return "/paginas/solicitud/lista.xhtml?faces-redirect=true";
     }
 
 }

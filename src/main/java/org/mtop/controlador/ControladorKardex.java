@@ -55,8 +55,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         return (Long) getId();
     }
 
-    public void getKardexId(Long kardex) {
-        setId(kardex);
+    public void setKardexId(Long kardexId) {
+        setId(kardexId);
     }
 
     @TransactionAttribute   //

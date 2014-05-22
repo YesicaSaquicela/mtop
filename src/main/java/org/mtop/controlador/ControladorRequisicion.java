@@ -55,8 +55,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         return (Long) getId();
     }
 
-    public void getRequisicionId(Long requisicion) {
-        setId(requisicion);
+    public void setRequisicionId(Long requisicionId) {
+        setId(requisicionId);
     }
 
     @TransactionAttribute   //

@@ -26,7 +26,7 @@
             <!--Botones de admin-->
             <div class="admin-actions">
                 <h:button value="Crear" rendered="#{true}" outcome="/paginas/solicitud/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
-                    <f:param name="solicitudId"></f:param>
+                    <f:param name="solicitudId" ></f:param>
                 </h:button>
             </div>
             <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s">

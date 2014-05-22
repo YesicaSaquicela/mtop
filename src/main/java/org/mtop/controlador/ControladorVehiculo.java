@@ -58,10 +58,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public void setVehiculoId(Long vehiculoId) {
         setId(vehiculoId);
-//        if(vehiculoId!= null){
-//            this.setInstance(servgen.buscarPorId(Vehiculo.class, vehiculoId));
-//            System.out.println("Encontro vehiculo");
-//        }
+  
     }
 
     @TransactionAttribute   //
@@ -169,7 +166,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/pages/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
 }

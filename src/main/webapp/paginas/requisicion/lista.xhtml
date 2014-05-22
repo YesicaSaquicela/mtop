@@ -35,15 +35,12 @@
                 <p:column headerText="Fecha de requisicion">
                     <h:outputText value="#{r.fechaRequisicion}"></h:outputText>
                 </p:column>
-                 <p:column headerText="Recibidor">
-                     <h:outputText value="#{s.recibidor}"></h:outputText>
-                </p:column>
-                  <p:column headerText="Observación">
-                      <h:outputText value="#{s.observacion}"></h:outputText>
+                <p:column headerText="Observación">
+                    <h:outputText value="#{r.observaciones}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
                     <h:button value="Editar" outcome="/paginas/requisicion/crear.xhtml?faces-redirect=true">
-                        <f:param name="requisicionId" value="#{s.id}"></f:param>
+                        <f:param name="requisicionId" value="#{r.id}"></f:param>
                     </h:button>
                 </p:column>
             </p:dataTable>
