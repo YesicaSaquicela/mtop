@@ -102,11 +102,11 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     @TransactionAttribute
     public void load() {
-        log.info("eqaula --> Loading instance from BussinesEntityType for " + getId());
+        log.info("mtop --> Cargando instancia de EntidadGeneral para " + getId());
         if (isIdDefined()) {
             wire();
         }
-        log.info("eqaula --> Loaded instance" + getInstance());
+        log.info("mtop --> Cargando instancia" + getInstance());
     }
 
     @TransactionAttribute
@@ -136,13 +136,13 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     @TransactionAttribute
     public String saveBussinesEntityType() {
-        log.info("eqaula --> saving " + getInstance().getName());
+        log.info("mtop --> guardando " + getInstance().getName());
         if (getInstance().isPersistent()) {
             getInstance().getStructures().get(0).setName(getInstance().getName());
             save(getInstance());
         } else {
             try {
-                log.info("eqaula --> saving new" + getInstance().getName());
+                log.info("mtop --> guandando nuevo" + getInstance().getName());
                 create(getInstance());
                 setBussinesEntityTypeId(getInstance().getId());
                 wire();
@@ -150,10 +150,10 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                 save(getInstance());
 
             } catch (Exception ex) {
-                log.info("eqaula --> error saving new" + getInstance().getName());
+                log.info("mtop --> error al guardar nuevo" + getInstance().getName());
             }
         }
-        return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+        return "/pages/admin/entidadGeneral/tipoEntidadGeneral?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
     @Transactional
@@ -198,7 +198,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRORE", e.toString()));
         }
-        return "/pages/admin/bussinesentitytype/list";
+        return "/pages/admin/entidadGeneral/lista";
     }
 
     @TransactionAttribute
@@ -220,7 +220,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         boolean b = false;        
         List<BussinesEntity> bussinesEntityList = bussinesEntityService.findBussinesEntityForType(getInstance());
         b = (!bussinesEntityList.isEmpty() || isPropertyAssociatedBussinesEntityAttributes());
-        log.info("eqaula --> Ingreso a verificar bussinesEntity: " + b);  //true si esta asociado 
+        log.info("mtop --> Ingreso a verificar entidadGeneral: " + b);  //true si esta asociado 
         return b;
     }
     

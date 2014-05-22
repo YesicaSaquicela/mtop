@@ -10,7 +10,7 @@ public class ApplicationConfig
 {
    public static final String GUEST_ACCOUNT_NAME = "guest";
 
-   private String siteName = "SgsSalud";
+   private String siteName = "mtop";
    private String blogUrl = "http://www.unl.edu.ec";
    private boolean analyticsEnabled = false;
    private String analyticsId = "";
