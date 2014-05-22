@@ -61,7 +61,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     private String name;
 
     public BussinesEntityTypeHome() {
-        log.info("eqaula --> Inicializo BussinesEntityTypeHome");
+        log.info("mtop --> Inicializo BussinesEntityTypeHome");
     }
 
     public Long getBussinesEntityTypeId() {
@@ -82,7 +82,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     @Override
     protected BussinesEntityType createInstance() {
-        log.info("eqaula --> Creando instance ");
+        log.info("mtop--> Creando instance ");
         BussinesEntityType bussinesEntityType = new BussinesEntityType();
         Date now = Calendar.getInstance().getTime();
         Calendar ago = Calendar.getInstance();

@@ -159,7 +159,7 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
 
     public void setBussinesEntity(BussinesEntity bussinesEntity) {
         this.bussinesEntity = bussinesEntity;
-        log.info("eqaula --> BussinessEntity set to " + bussinesEntity);
+        log.info("mtop --> BussinessEntity set to " + bussinesEntity);
     }
 
     //protected abstract void buildAttributes(E entity);
@@ -185,11 +185,11 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
         for (String name : names) {
             if (attrs.containsKey(name)) {
                 _buffer.addAll(attrs.get(name));
-                log.info("eqaula --> attributes from cache map");
+                log.info("mtop  --> attributes from cache map");
             } else {
                 _buffer.addAll(((BussinesEntity) getInstance()).getBussinessEntityAttributes(name));
                 putAttributesIntoMap(name, _buffer);
-                log.info("eqaula --> add into chace " + name + ", " + _buffer);
+                log.info("mtop --> add into chace " + name + ", " + _buffer);
             }
         }
         return _buffer;
@@ -208,14 +208,14 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
      * lists
      */
     public List<BussinesEntityAttribute> findBussinesEntityAttribute(final String names) {
-        log.info("eqaula --> findBussinesEntityAttribute  " + names + " into " + getInstance());
+        log.info("mtop --> findBussinesEntityAttribute  " + names + " into " + getInstance());
         if (getInstance() == null) {
             return new ArrayList<BussinesEntityAttribute>();
         }
 
         List<BussinesEntityAttribute> temp = findAttributes(names.split(","));
 
-        log.info("eqaula --> attributes (" + temp.size() + ")");
+        log.info("mtop --> attributes (" + temp.size() + ")");
         return temp;
     }
     
