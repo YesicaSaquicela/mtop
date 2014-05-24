@@ -1,12 +1,60 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:param name="titulo" value="Lista de Partida de Contabilidad"/>
+
+    <ui:define name="header">
+
+        <h2>#{titulo}</h2>    
+
+    </ui:define>
+    <ui:define name="content">
+        <!--Metadato que se realiza antes de renderizarse la vista-->
+
+        <!--Formulario dentro de un contenedor-->
+        <h:form id="form">            
+            <!--Opción de mensaje, cuando se realiza una acción-->
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+
+            <!--Botones de admin-->
+            <div class="admin-actions">
+                <p:commandButton value="Crear" rendered="#{true}"  action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" icon="ui-icon-document">
+                    <f:param name="partidaId"></f:param>
+                </p:commandButton> <br></br><br></br>
+            </div>
+            <p:dataTable id="listap" value="#{controladorPartidaContabilidad.listaPartidaContabilidad}" var="pc">
+                <p:column headerText="Número de Provincia">
+                    <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
+                </p:column>
+                <p:column headerText="Número de Programa">
+                    <h:outputText value="#{pc.numeroPrograma}"></h:outputText>
+                </p:column>
+                <p:column headerText="Número de Proyecto">
+                    <h:outputText value="#{pc.numeroProyecto}"></h:outputText>
+                </p:column>
+                <p:column headerText="Número de Item">
+                    <h:outputText value="#{pc.numeroItem}"></h:outputText>
+                </p:column>
+                <p:column headerText="Número de fuente financiera">
+                    <h:outputText value="#{pc.numeroFuenteFinanciera}"></h:outputText>
+                </p:column>
+                <p:column headerText="Descripción">
+                    <h:outputText value="#{pc.descripcion}"></h:outputText>
+                </p:column>
+                <p:column headerText="Opciones" style="width: 5%"> 
+                    <p:commandButton value="Editar" action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true">
+                        <f:param name="partidaId" value="#{pc.id}"></f:param>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
 

@@ -25,9 +25,9 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <h:button value="Crear" rendered="#{true}" outcome="/paginas/solicitud/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
+                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/solicitud/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
                     <f:param name="solicitudId" ></f:param>
-                </h:button>
+                </p:commandButton>
             </div>
             <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s">
                 <p:column headerText="Numero de Solicitud">
@@ -43,9 +43,9 @@
                       <h:outputText value="#{s.observacion}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                    <h:button value="Editar" outcome="/paginas/solicitud/crear.xhtml?faces-redirect=true">
+                    <p:commandButton value="Editar" action="/paginas/solicitud/crear.xhtml?faces-redirect=true">
                         <f:param name="solicitudId" value="#{s.id}"></f:param>
-                    </h:button>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>

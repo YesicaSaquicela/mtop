@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.modelo;
 
 import java.io.Serializable;
@@ -35,6 +34,7 @@ import org.mtop.model.BussinesEntity;
 @DiscriminatorValue(value = "pck")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")
 public class PartidaContabilidad extends BussinesEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private long numeroProvincia;
@@ -42,7 +42,7 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     private long numeroProyecto;
     private long numeroItem;
     private long numeroFuenteFinanciera;
-    private long String;
+    private String descripcion;
 
     public long getNumeroProvincia() {
         return numeroProvincia;
@@ -84,18 +84,17 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
         this.numeroFuenteFinanciera = numeroFuenteFinanciera;
     }
 
-    public long getString() {
-        return String;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setString(long String) {
-        this.String = String;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-    
-    
+
     @Override
     public String toString() {
         return "org.mtop.modelo.PartidaContabilidad[ id=" + getId() + " ]";
     }
-    
+
 }

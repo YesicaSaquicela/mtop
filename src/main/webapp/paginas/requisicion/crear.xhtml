@@ -18,7 +18,8 @@
     </f:metadata>
     <ui:define name="header">
 
-        <h2>#{titulo}</h2>    
+        <h2>#{titulo}</h2>   
+        
 
     </ui:define>
     <ui:define name="content">
@@ -102,9 +103,9 @@
 
                     &nbsp;&nbsp;
 
-                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/requisicion/lista" styleClass="btn">
+                    <p:commandButton value="Regresar" rendered="#{true}" action="/paginas/requisicion/lista"  styleClass="btn  btn-success" />
 
-                    </h:button>
+               
                 </div>
             </p:panel>
 

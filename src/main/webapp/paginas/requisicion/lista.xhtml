@@ -24,9 +24,9 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <h:button value="Crear" rendered="#{true}" outcome="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
+                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" >
                     <f:param name="requisicionId"></f:param>
-                </h:button>
+                </p:commandButton>
             </div>
             <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
                 <p:column headerText="Numero de Requisicion">
@@ -39,9 +39,9 @@
                     <h:outputText value="#{r.observaciones}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                    <h:button value="Editar" outcome="/paginas/requisicion/crear.xhtml?faces-redirect=true">
+                    <p:commandButton value="Editar" action="/paginas/requisicion/crear.xhtml?faces-redirect=true">
                         <f:param name="requisicionId" value="#{r.id}"></f:param>
-                    </h:button>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>
