@@ -42,7 +42,7 @@
                                         inlinehelp="Ingrese la fecha de solicitud" 
                                         execute ="@this save" render="fechaSolicitud"/>
 
-                     
+
                             <mtop:input id="observacion" name="observacion1" type="textarea" label="Observación" 
                                         value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" required="true" 
                                         inlinehelp="Ingrese una observación" 
@@ -93,7 +93,8 @@
 
                     &nbsp;&nbsp;
 
-                    <p:commandButton value="Regresar" rendered="#{true}" action="/paginas/solicitud/lista" styleClass="btn  btn-success"/>
+                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/solicitud/lista" styleClass="btn  btn-success"/>
+
                 </div>
             </p:panel>
 

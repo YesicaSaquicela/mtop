@@ -27,12 +27,17 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+            <h1>Gestionar Vehiculos</h1>
             <p:panel header="Datos Generales">
+
+
+
                 <div class="container-fluid">
                     <!-- Example row of columns -->
                     <div class="row">
                         <div class="col-md-6"> 
 
+                       
                             <mtop:input id="registro" name="registro1" type="text" label="Número de Registro" 
                                         value="#{controladorVehiculo.instance.numRegistro}" required="true" 
                                         inlinehelp="Ingrese un numero de registro del vehiculo" execute ="@this save" render="registro"/>
@@ -98,6 +103,7 @@
                                         inlinehelp="Ingrese el tipo de combustible del vehiculo" 
                                         execute ="@this save" render="tipoCombustible"/>
 
+
                         </div>
                     </div>
 
@@ -150,11 +156,14 @@
             <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
                              immediate="true"/>
 
-            <p:commandButton value="Regresar" rendered="#{true}" action="/paginas/vehiculo/lista" styleClass="btn  btn-success"/>
+            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista"  styleClass="btn  btn-success">
+
+            </h:button>
         </h:form>
 
     </ui:define>
 </ui:composition>
+
 
 
 

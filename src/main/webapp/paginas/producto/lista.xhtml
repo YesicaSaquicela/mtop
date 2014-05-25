@@ -39,9 +39,9 @@
                     <h:outputText value="#{pd.descripcion}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                    <p:commandButton value="Editar" action="/paginas/producto/crear.xhtml?faces-redirect=true">
+                    <h:link value="Editar" outcome="crear" type="button" >
                         <f:param name="productoId" value="#{pd.id}"></f:param>
-                    </p:commandButton>
+                    </h:link>
                 </p:column>
             </p:dataTable>
         </h:form>
