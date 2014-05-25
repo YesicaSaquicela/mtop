@@ -175,6 +175,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
+        System.out.println("ID entidad>>>>>"+bussinesEntityTypeId);
         return "/pages/admin/entidadGeneral/tipoEntidadGeneral?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 

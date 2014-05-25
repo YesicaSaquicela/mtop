@@ -35,12 +35,13 @@ limitations under the License.
         <f:metadata>
             <f:viewParam name="result" value="#{bussinesEntityTypeListService.firstResult}" />
         </f:metadata>
-
+        <h2>Lista de Entidades</h2>  
         <h:form id="form">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
             <div class="admin-actions">
                 <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="tipoEntidadGeneral" styleClass="btn primary">
                     <f:param name="bussinesentitytypelId"></f:param>
+                    
                     <f:param name="backView" value="list"></f:param>
                 </h:button>
                 #{' '}
@@ -84,6 +85,7 @@ limitations under the License.
                     <h:link value="Ver Propiedadades" outcome="tipoEntidadGeneral" type="button" rendered="true" >
                         <f:param name="bussinesentitytypeId" value="#{bussinesEntityType.id}"></f:param>
                         <f:param name="bussinesentitytypeName" ></f:param>
+                        <f:param name="bussinesentitytypeLabel" ></f:param>
                         <f:param name="backView" value="list"></f:param>
                     </h:link>
                 </p:column>

@@ -29,7 +29,6 @@ limitations under the License.
     <f:metadata>
         <f:viewParam name="bussinesentitytypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
         <f:viewParam name="bussinesentitytypeName" value="#{bussinesEntityTypeHome.instance.name}" />             
-        <f:viewParam name="bussinesentitytypeLabel" value="#{bussinesEntityTypeHome.instance.label}" />             
 
         <s:viewAction action="#{bussinesEntityTypeHome.load}" if="#{conversation.transient}"/>                          
     </f:metadata>    
@@ -121,23 +120,20 @@ limitations under the License.
             <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
 
                 <!--TODO: revisar <ui:include >-->
-
                 <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
                 <div class="input">
                     <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
-                                  rendered="true" disabled="true">
+                                  rendered="true" >
                         <p:ajax event="keyup" rendered="savenew" update="savenew" />  
                     </p:inputText>
                 </div>
 
                 <br/> 
                 <br/> 
-
                 <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
                 <div class="input">
-                    <!--<p:inputText  value="# {bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="# {messages['module.BussinesEntityType.label']}" -->
                     <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
-                                  rendered="true" disabled="true">
+                                  rendered="true" >
                         <p:ajax event="keyup" rendered="savenew" update="savenew" />  
                     </p:inputText>
                 </div>
@@ -163,8 +159,7 @@ limitations under the License.
             </h:panelGroup>
             <c:forEach items="#{bussinesEntityTypeHome.instance.structures}" var="e" id="forEach">
                 <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
-                    <h2><h:outputLabel value="Lista de Propiedades para la Entidad"></h:outputLabel>
-                        <h:outputLabel value="#{bussinesEntityTypeHome.instance.name}"/> </h2>
+                    <h2><h:outputLabel value="#{bussinesEntityTypeHome.instance.name}"/> </h2>
                     <!--<f:facet name="header">
                         <strong>#{e.name}</strong>#{' '}                            
                     </f:facet>-->

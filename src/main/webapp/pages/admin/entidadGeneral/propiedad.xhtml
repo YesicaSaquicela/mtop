@@ -25,7 +25,10 @@
                 </div>
             </div>             
         </ui:define>
-        <ui:define name="content">             
+        <ui:define name="content">   
+            <h:outputLabel value="Propiedades para la entidad"/>
+            <h:outputLabel value="#{propertyHome.bussinesEntityTypeId}"/>
+            <h:outputLabel value=".."/>
             <h:form id="form" acceptcharset="UTF-8">
                 <p:panel header="#{messages['common.properties']} #{messages['panel.Basic']}">
                     <mtop:input id="groupn" name="groupName" type="text" label="#{messages['common.property.groupName']}" 
