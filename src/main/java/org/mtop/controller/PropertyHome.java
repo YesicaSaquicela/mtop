@@ -44,7 +44,7 @@ import org.primefaces.event.UnselectEvent;
 
 /**
  *
- * @author cesar
+ * @author 
  */
 @Named
 @ViewScoped
@@ -80,14 +80,17 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public void setStructureId(Long structureId) {
+        
         this.structureId = structureId;
     }
 
     public Long getBussinesEntityTypeId() {
+        
         return bussinesEntityTypeId;
     }
 
     public void setBussinesEntityTypeId(Long bussinesEntityTypeId) {
+        System.out.println("fijando id de entidad >>>>>>>>>>>>>>>>>>>>>>"+bussinesEntityTypeId);
         this.bussinesEntityTypeId = bussinesEntityTypeId;
     }
 
@@ -175,8 +178,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
-        System.out.println("ID entidad>>>>>"+bussinesEntityTypeId);
-        return "/pages/admin/entidadGeneral/tipoEntidadGeneral?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+        System.out.println("ID entidad>>>>>"+getBussinesEntityTypeId());
+        return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
     @Transactional
@@ -195,11 +198,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     save(s);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
-                    outcome = "/pages/admin/bussinesentitytype/tipoEntidadGeneral?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+                    outcome = "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, UI.getMessages("common.property.hasValues") + " " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
-                    outcome = "/pages/admin/entidadGeneral/propiedad?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId() + "&propertyId=" + getPropertyId();
+                    outcome = "/pages/admin/bussinesentitytype/property?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId() + "&propertyId=" + getPropertyId();
                 }
 
             } else {

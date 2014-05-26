@@ -8,7 +8,7 @@ You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
-Unless sequired by applicable law or agreed to in writing, software
+Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
@@ -22,25 +22,19 @@ limitations under the License.
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:s="http://jboss.org/seam/faces"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:mtop="http://mtop.org/jsf/facelets"
                 xmlns:glue="http://eqaula.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:metadata>
-        <f:viewParam name="bussinesentitytypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
-        <f:viewParam name="bussinesentitytypeName" value="#{bussinesEntityTypeHome.instance.name}" />             
-
+        <f:viewParam name="bussinesEntityTypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
         <s:viewAction action="#{bussinesEntityTypeHome.load}" if="#{conversation.transient}"/>                          
     </f:metadata>    
-    <ui:define name="header-replace">  
-
+    <ui:define name="header-replace">                    
         <div class="header-replace">
             <div class="container-header" >
                 <div class="row lf row-title" >
-
                     <div class="span9 columns">   
                         <div class="row fl row-title" >
-
                             <h2>#{bussinesEntityTypeHome.bussinesEntityTypeId != null? messages['common.edit'] : messages['common.add']} 
                                 #{bussinesEntityTypeHome.instance.label==null ? bussinesEntityTypeHome.instance.name : bussinesEntityTypeHome.instance.label}</h2>   
                             <p>#{bussinesEntityTypeHome.bussinesEntityTypeId != null ? bussinesEntityTypeHome.instance.description: ' '}</p>                                     
@@ -72,30 +66,25 @@ limitations under the License.
                 <h:form id="form-dialog">                    
                     <h:panelGroup layout="block" class="clearfix" rendered="true">
                         <!--TODO: revisar <ui:include >-->
-
                         <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
                         <div class="input">
-                            <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="form-control" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
-                                          rendered="true" >
-                                <p:ajax event="keyup" rendered="save" update="save" />  
-                            </p:inputText>
-                        </div>-
-                        <br/> 
-
-
-
-                        <div class="input">
-                            <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="form-control" required="true" label="#{messages['module.BussinesEntityType.label']}" 
+                            <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
                                           rendered="true" >
                                 <p:ajax event="keyup" rendered="save" update="save" />  
                             </p:inputText>
                         </div>
                         <br/> 
-
-
+                        <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
+                        <div class="input">
+                            <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
+                                          rendered="true" >
+                                <p:ajax event="keyup" rendered="save" update="save" />  
+                            </p:inputText>
+                        </div>
+                        <br/> 
                         <h:outputLabel value="#{messages['common.description']}" />
                         <div class="input">
-                            <p:inputTextarea  value="# {bussinesEntityTypeHome.instance.description}" styleClass="form-control" required="true" label=" # {messages['common.description']}" 
+                            <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
                                               rendered="true" >
                                 <p:ajax event="keyup" rendered="save" update="save" />  
                             </p:inputTextarea>
@@ -152,35 +141,34 @@ limitations under the License.
                                      action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
                                      styleClass="btn primary" icon="ui-icon-disk"/> 
                     #{' '}                                  
-                    <h:commandButton id="cancel" action="/pages/admin/entidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
+                    <h:commandButton id="cancel" action="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                      value="#{messages['common.cancel']}" styleClass="btn" immediate="true" onclick="editDlg.hide();"
                                      rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
                 </div>
             </h:panelGroup>
             <c:forEach items="#{bussinesEntityTypeHome.instance.structures}" var="e" id="forEach">
                 <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
-                    <h2><h:outputLabel value="#{bussinesEntityTypeHome.instance.name}"/> </h2>
                     <!--<f:facet name="header">
                         <strong>#{e.name}</strong>#{' '}                            
                     </f:facet>-->
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                     <div class="admin-actions">
-                        <h:button value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/admin/entidadGeneral/propiedad.xhtml?faces-redirect=true" styleClass="btn primary">
+                        <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="property" styleClass="btn primary">
                             <f:param name="propertyId"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>
                             <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="backView" value="bussinesentitytype"></f:param>
-                        </h:button>
+                        </h:link>
                         #{' '}
-                        <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="propiedad" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
+                        <h:link id="button-edit" value="#{messages['common.edit']}" rendered="true" outcome="property" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
                             <f:param name="propertyId" value="#{propertyHome.instance.id}"></f:param>
-                            <f:param name="bussinesentitytypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
+                            <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>                             
                             <f:param name="backView" value="bussinesentitytype"></f:param>
                         </h:link>                        
 
                         #{' '}
-                        <h:link outcome="/pages/admin/entidadGeneral/lista.xhtml?faces-redirect=true"                                                                                                                                                        
+                        <h:link outcome="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                 value="#{messages['common.cancel']}" styleClass="btn"/>                         
                     </div>                     
                     <p:dataTable var="property" value="#{e.properties}" 
@@ -212,9 +200,9 @@ limitations under the License.
                         </p:column>
                         <p:column headerText="Posición" sortBy="#{property.sequence}" style="width: 5%">
                             <h:outputText value="#{property.sequence}" />
-                        </p:column>    
+                        </p:column>  
                         <p:column>
-                            <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'}" outcome="tipoEntidadGeneral" styleClass="btn primary">
+                            <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'}" outcome="bussinesentitytype" styleClass="btn primary">
                                 <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
                                 <f:param name="bussinesentitytypeId" ></f:param>
                                 <f:param name="backView" value="list"></f:param>
