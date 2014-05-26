@@ -48,9 +48,11 @@
                     <h:outputText value="#{pc.descripcion}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                    <p:commandButton value="Editar" action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true">
-                        <f:param name="partidaId" value="#{pc.id}"></f:param>
-                    </p:commandButton>
+                    <h:link value="Editar" outcome="crear" type="button" >
+                        <f:param name="partidaId" value="#{pd.id}"></f:param>
+                    </h:link>
+                    
+                    
                 </p:column>
             </p:dataTable>
         </h:form>

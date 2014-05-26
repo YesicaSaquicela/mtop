@@ -36,16 +36,16 @@
                 <p:column headerText="Fecha de Solicitud">
                     <h:outputText value="#{s.fechaSolicitud}"></h:outputText>
                 </p:column>
-                 <p:column headerText="Recibidor">
-                     <h:outputText value="#{s.recibidor}"></h:outputText>
+                <p:column headerText="Recibidor">
+                    <h:outputText value="#{s.recibidor}"></h:outputText>
                 </p:column>
-                  <p:column headerText="Observación">
-                      <h:outputText value="#{s.observacion}"></h:outputText>
+                <p:column headerText="Observación">
+                    <h:outputText value="#{s.observacion}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                    <p:commandButton value="Editar" action="/paginas/solicitud/crear.xhtml?faces-redirect=true">
+                    <h:link value="Editar" outcome="crear" type="button" >
                         <f:param name="solicitudId" value="#{s.id}"></f:param>
-                    </p:commandButton>
+                    </h:link>
                 </p:column>
             </p:dataTable>
         </h:form>

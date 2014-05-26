@@ -177,7 +177,7 @@ public class InitializeDatabase {
         //List<User> members = new ArrayList<User>();
         org.picketlink.idm.api.Group g = session.getPersistenceManager().findGroup("ADMIN", "GROUP");
         //session.getAttributesManager().
-        if (g == null) {            
+        if (g == null) {
             g = session.getPersistenceManager().createGroup("ADMIN", "GROUP");
         }
 
@@ -217,10 +217,10 @@ public class InitializeDatabase {
     }
 
     private void validateStructure() {
-        validarEstructuraParaPerfilDeUsuario();        
-        validarEstructuraEducacionDelPerfilDeUsuarios();       
+        validarEstructuraParaPerfilDeUsuario();
+        //    validarEstructuraEducacionDelPerfilDeUsuarios();       
         validarEstructuraParaVehiculo();
-        validarEstructuraParaMotor();
+        validarEstructuraParaHistorialV();
         //validarEstructuraParaPerfilDeUsuario();
     }
 
@@ -264,8 +264,6 @@ public class InitializeDatabase {
         System.out.println("Structure for Profile [" + bussinesEntityType + "]");
     }
 
-    
-
     private void validarEstructuraEducacionDelPerfilDeUsuarios() {
         BussinesEntityType bussinesEntityType = null;
         String name = "Education";
@@ -306,7 +304,7 @@ public class InitializeDatabase {
             entityManager.persist(bussinesEntityType);
             entityManager.flush();
         }
-    }   
+    }
 
     private void validarEstructuraParaVehiculo() {
         BussinesEntityType bussinesEntityType = null;
@@ -331,19 +329,24 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
-            attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
-            
-            //Agregar atributos
+            attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("SistemaElectrico", "Sistema Electrico", "Información del SistemaElectrico", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Carroceria", "Carroceria", "Información de Carroceria", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Direccion", "Dirección", "Información de dirección", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 1L));
+//Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
             entityManager.persist(bussinesEntityType);
             entityManager.flush();
         }
-        System.out.println("Structure for Profile [" + bussinesEntityType + "]");
+
     }
-    private void validarEstructuraParaMotor() {
-         BussinesEntityType bussinesEntityType = null;
-        String name = "Motor";
+
+    private void validarEstructuraParaHistorialV() {
+        BussinesEntityType bussinesEntityType = null;
+        String name = "Historial";
         try {
             TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
                     BussinesEntityType.class);
@@ -363,17 +366,52 @@ public class InitializeDatabase {
             structure.setLastUpdate(now);
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
-//            attributes.add(buildProperty("Personal", "maritalstatus", "java.lang.String[]", "Casado*,Soltero,Divorciado,Unión libre", false, "Estado civil", "Indique su estado civil", false, 1L));
-//            attributes.add(buildProperty("Personal", "birthday", Date.class.getName(), ago.getTime(), false, "Fecha de nacimiento", "Nunca olvidaremos su cumpleaños", false, 2L));
-//            attributes.add(buildProperty("Personal", "gender", "java.lang.String[]", "Másculino,Femenino", false, "Género", "", false, 3L));
-//            attributes.add(buildProperty("Dirección permanente", "country", String.class.getName(), "Ecuador", false, "País", "País de residencia", false, 4L));
-            //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Dirección permanente", "city", String.class.getName(), "Loja", false, "Ciudad", "Ciudad de residencia", false, 5L));
-            attributes.add(buildProperty("Dirección permanente", "address", String.class.getName(), null, false, "Dirección", "Calles y número de casa", false, 6L));
-//            attributes.add(buildProperty("Dirección permanente", "phone", String.class.getName(), null, false, "Teléfono", "Telefóno de contacto", false, 7L));
-//            attributes.add(buildProperty("Contacto en emergencia", "emergencyContact", String.class.getName(), null, false, "Contacta en caso de emergencia", "Sí se presenta alguna emergencia, a quién debemos llamar?", false, 8L));
-            //attributes.add(buildProperty("Personal", "hobies", "java.lang.MultiLineString", null, false, "Hobies", "Las cosas que disfruta en su tiempo libre (separe con comas)", false, 12L));
-            //Agregar atributos
+           //Para inicializar estructuras llamar [buildProperty()]
+            attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), null, false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 5L));
+            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), null, false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 5L));
+            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), null, false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 6L));
+            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), null, false, "Fecha Baja de Vehiculo", "Fecha de baja del vehículo", false, 7L));
+            attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), null, false, "Año de servicio", "Año de servicio del vehículo", false, 8L));
+            attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "", false, 2L));
+            attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), null, false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 12L));
+            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), null, false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 12L));
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+    }
+
+    private void validarEstructuraParaLubricantesV() {
+        BussinesEntityType bussinesEntityType = null;
+        String name = "Lubricantes";
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", name);
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(name);
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(name);
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+           //Para inicializar estructuras llamar [buildProperty()]
+            attributes.add(buildProperty("Lubricantes", "motor", String.class.getName(), null, false, "Motor", "Ingrese el motor de lubricante para el vehículo", false, 5L));
+            attributes.add(buildProperty("Lubricantes", "caja", String.class.getName(), null, false, "Caja", "Ingrese la caja de lubricantes del vehículo", false, 8L));
+            attributes.add(buildProperty("Lubricantes", "hidraulico", String.class.getName(), null, false, "Hidraulico", "Ingrese el hidraulico de lubricantes del vehiculo", false, 5L));
+            attributes.add(buildProperty("Lubricantes", "corona", String.class.getName(), null, false, "Corona", "Ingrese la corona de hidraulico paa el vehículo", false, 6L));
+           
+//Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
             entityManager.persist(bussinesEntityType);
@@ -381,8 +419,45 @@ public class InitializeDatabase {
         }
     }
     
+    
+    private void validarEstructuraParaSistemaElectricoV() {
+        BussinesEntityType bussinesEntityType = null;
+        String name = "SistemaElectrico";
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", name);
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(name);
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(name);
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+           //Para inicializar estructuras llamar [buildProperty()]
+            attributes.add(buildProperty("SistemaElectrico", "voltaje", String.class.getName(), null, false, "Voltaje", "Ingrese el voltaje del vehículo", false, 5L));
+            attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese las luces del vehículo", false, 8L));
+            attributes.add(buildProperty("SistemaElectrico", "alterador", "java.lang.String[]", "Bueno,Malo*", false, "Alterador", "Ingrese el estado para alterador", false, 5L));
+            attributes.add(buildProperty("SistemaElectrico", "baterias", "java.lang.String[]", "Bueno,Malo*", false, "Baterias", "Ingrese el estado para bateria", false, 6L));
+            attributes.add(buildProperty("SistemaElectrico", "motorArranque", "java.lang.String[]", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));           
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+    }
+    
+    
     /*FIN Estructuras*/
-
     private Property buildGroupTypeProperty(String name, String label, boolean showDefaultBussinesEntityProperties, String generatorName, Long minimumMembers, Long maximumMembers, String helpinline, Long sequence) {
         Property property = new Property();
         property.setName(name);

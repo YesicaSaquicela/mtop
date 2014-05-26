@@ -19,7 +19,7 @@
     <ui:define name="header">
 
         <h2>#{titulo}</h2>   
-        
+
 
     </ui:define>
     <ui:define name="content">
@@ -42,15 +42,15 @@
                                         value="#{controladorRequisicion.instance.fechaRequisicion}" required="true" 
                                         inlinehelp="Ingrese la fecha de requisicion" 
                                         execute ="@this save" render="fechaRequisicion"/>
-                            
+
                             <h:outputText value="Tipo de requisicion "/>
                             <p:selectOneMenu id="tipoRequisicion" value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                 <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                 <f:selectItem itemLabel="Requisicion de Reparación" itemValue="requisicionRep" />  
                                 <f:selectItem itemLabel="Requisicion de Bienes y Servicios" itemValue="requisicionByS" />  
 
-                             </p:selectOneMenu> <br></br><br></br>
-                             
+                            </p:selectOneMenu> <br></br><br></br>
+
                             <h:outputText value="Tipo de adquisicion "/>
                             <p:selectOneMenu id="adquisicion" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" >  
                                 <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -58,7 +58,7 @@
                                 <f:selectItem itemLabel="Compra" itemValue="compra" />  
                                 <f:selectItem itemLabel="Pago" itemValue="pago" /> 
                                 <f:selectItem itemLabel="Credito" itemValue="credito" />  
-                                
+
                             </p:selectOneMenu> <br></br><br></br>
                             <h:outputText value="Partida "/>
                             <p:selectOneMenu id="partida"  value="#{controladorRequisicion.instance.partida}" effect="fade" >  
@@ -102,10 +102,10 @@
                                      immediate="true" icon="ui-icon-disk"/>
 
                     &nbsp;&nbsp;
+                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/requisicion/lista" styleClass="btn  btn-success"/>
 
-                    <p:commandButton value="Regresar" rendered="#{true}" action="/paginas/requisicion/lista"  styleClass="btn  btn-success" />
 
-               
+
                 </div>
             </p:panel>
 

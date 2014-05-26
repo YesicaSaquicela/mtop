@@ -53,12 +53,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
 
     public Long getVehiculoId() {
+ 
         return (Long) getId();
     }
 
     public void setVehiculoId(Long vehiculoId) {
+       
         setId(vehiculoId);
-  
+//        if(vehiculoId!= null){
+//            this.setInstance(servgen.buscarPorId(Vehiculo.class, vehiculoId));
+//            System.out.println("Encontro vehiculo");
+//        }
     }
 
     @TransactionAttribute   //
