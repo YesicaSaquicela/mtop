@@ -69,6 +69,25 @@ public class Property implements Comparable<Property>, Serializable {
     private String render;
     private String converter;
     private String validator;
+    private boolean habilitarEstado;
+    private String valorEstado;
+
+    public boolean isHabilitarEstado() {
+        return habilitarEstado;
+    }
+
+    public void setHabilitarEstado(boolean habilitarEstado) {
+        this.habilitarEstado = habilitarEstado;
+    }
+
+    public String getValorEstado() {
+        return valorEstado;
+    }
+
+    public void setValorEstado(String valorEstado) {
+        this.valorEstado = valorEstado;
+    }
+    
     /**
      * ***********************************************************
      * Attributes for property type org.eqaula.glue.model.Group

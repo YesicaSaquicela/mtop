@@ -66,6 +66,22 @@ public class BussinesEntityAttribute implements Serializable, Comparable<Bussine
     @JoinColumn(name = "property_id")
     private Property property;
     private String stringValue;
+    private String valorEstadoAtributo;
+
+    public String getValorEstadoAtributo() {
+        return valorEstadoAtributo;
+    }
+
+    public void setValorEstadoAtributo(String valorEstadoAtributo) {
+        this.valorEstadoAtributo = valorEstadoAtributo;
+    }
+    public Object getValue() {
+        return SerializationUtils.deserialize(getValueByteArray());
+    }
+
+    public void setValue(Object value) {
+        setValueByteArray(SerializationUtils.serialize((Serializable) value));
+    }
 
     public Long getId() {
         return id;
@@ -99,13 +115,7 @@ public class BussinesEntityAttribute implements Serializable, Comparable<Bussine
         this.valueByteArray = valueByteArray;
     }
 
-    public Object getValue() {
-        return SerializationUtils.deserialize(getValueByteArray());
-    }
-
-    public void setValue(Object value) {
-        setValueByteArray(SerializationUtils.serialize((Serializable) value));
-    }
+    
 
     public String getType() {
         return type;
