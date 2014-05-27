@@ -230,7 +230,13 @@ public class InitializeDatabase {
         validarEstructuraParaHistorialV();
         validarEstructuraParaLubricantesV();
         validarEstructuraParaSistemaElectricoV();
-        
+         validarEstructuraParaKardex();
+        validarEstructuraParaProducto();
+        validarEstructuraParaSolicitud();
+        validarEstructuraParaRequisicion();
+        validarEstructuraParaPartidaC();
+        validarEstructuraParaPlanMantenimiento();
+
                 
         //validarEstructuraParaPerfilDeUsuario();
     }
