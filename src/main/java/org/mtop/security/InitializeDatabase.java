@@ -230,7 +230,7 @@ public class InitializeDatabase {
         validarEstructuraParaHistorialV();
         validarEstructuraParaLubricantesV();
         validarEstructuraParaSistemaElectricoV();
-         validarEstructuraParaKardex();
+        validarEstructuraParaKardex();
         validarEstructuraParaProducto();
         validarEstructuraParaSolicitud();
         validarEstructuraParaRequisicion();
