@@ -68,6 +68,13 @@ import org.jboss.seam.transaction.TransactionPropagation;
 import org.jboss.seam.transaction.Transactional;
 import org.jboss.solder.servlet.WebApplication;
 import org.jboss.solder.servlet.event.Initialized;
+import org.mtop.modelo.EstadoVehiculo;
+import org.mtop.modelo.Kardex;
+import org.mtop.modelo.PartidaContabilidad;
+import org.mtop.modelo.PlanMantenimiento;
+import org.mtop.modelo.Producto;
+import org.mtop.modelo.Requisicion;
+import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.Vehiculo;
 import org.picketlink.idm.api.Attribute;
 import org.picketlink.idm.api.IdentitySession;
@@ -221,6 +228,13 @@ public class InitializeDatabase {
         //    validarEstructuraEducacionDelPerfilDeUsuarios();       
         validarEstructuraParaVehiculo();
         validarEstructuraParaHistorialV();
+        validarEstructuraParaKardex();
+        validarEstructuraParaProducto();
+        validarEstructuraParaSolicitud();
+        validarEstructuraParaRequisicion();
+        validarEstructuraParaPartidaC();
+        validarEstructuraParaPlanMantenimiento();
+
         //validarEstructuraParaPerfilDeUsuario();
     }
 
@@ -366,7 +380,7 @@ public class InitializeDatabase {
             structure.setLastUpdate(now);
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
-           //Para inicializar estructuras llamar [buildProperty()]
+            //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), null, false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 5L));
             attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), null, false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 5L));
             attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), null, false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 6L));
@@ -405,12 +419,12 @@ public class InitializeDatabase {
             structure.setLastUpdate(now);
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
-           //Para inicializar estructuras llamar [buildProperty()]
+            //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Lubricantes", "motor", String.class.getName(), null, false, "Motor", "Ingrese el motor de lubricante para el vehículo", false, 5L));
             attributes.add(buildProperty("Lubricantes", "caja", String.class.getName(), null, false, "Caja", "Ingrese la caja de lubricantes del vehículo", false, 8L));
             attributes.add(buildProperty("Lubricantes", "hidraulico", String.class.getName(), null, false, "Hidraulico", "Ingrese el hidraulico de lubricantes del vehiculo", false, 5L));
             attributes.add(buildProperty("Lubricantes", "corona", String.class.getName(), null, false, "Corona", "Ingrese la corona de hidraulico paa el vehículo", false, 6L));
-           
+
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -418,8 +432,7 @@ public class InitializeDatabase {
             entityManager.flush();
         }
     }
-    
-    
+
     private void validarEstructuraParaSistemaElectricoV() {
         BussinesEntityType bussinesEntityType = null;
         String name = "SistemaElectrico";
@@ -442,12 +455,12 @@ public class InitializeDatabase {
             structure.setLastUpdate(now);
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
-           //Para inicializar estructuras llamar [buildProperty()]
+            //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("SistemaElectrico", "voltaje", String.class.getName(), null, false, "Voltaje", "Ingrese el voltaje del vehículo", false, 5L));
             attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese las luces del vehículo", false, 8L));
             attributes.add(buildProperty("SistemaElectrico", "alterador", "java.lang.String[]", "Bueno,Malo*", false, "Alterador", "Ingrese el estado para alterador", false, 5L));
             attributes.add(buildProperty("SistemaElectrico", "baterias", "java.lang.String[]", "Bueno,Malo*", false, "Baterias", "Ingrese el estado para bateria", false, 6L));
-            attributes.add(buildProperty("SistemaElectrico", "motorArranque", "java.lang.String[]", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));           
+            attributes.add(buildProperty("SistemaElectrico", "motorArranque", "java.lang.String[]", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -455,8 +468,246 @@ public class InitializeDatabase {
             entityManager.flush();
         }
     }
-    
-    
+
+    private void validarEstructuraParaSolicitud() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", SolicitudReparacionMantenimiento.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(SolicitudReparacionMantenimiento.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(SolicitudReparacionMantenimiento.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+    private void validarEstructuraParaRequisicion() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", Requisicion.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(Requisicion.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(Requisicion.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+    private void validarEstructuraParaKardex() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", Kardex.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(Kardex.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(Kardex.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+    private void validarEstructuraParaProducto() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", Producto.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(Producto.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(Producto.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+    private void validarEstructuraParaPartidaC() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", PartidaContabilidad.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(PartidaContabilidad.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(PartidaContabilidad.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+    private void validarEstructuraParaPlanMantenimiento() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", PlanMantenimiento.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(PlanMantenimiento.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(PlanMantenimiento.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+    private void validarEstructuraParaEstadoVehiculo() {
+        BussinesEntityType bussinesEntityType = null;
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", EstadoVehiculo.class.getName());
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(EstadoVehiculo.class.getName());
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(EstadoVehiculo.class.getName());
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
+            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
+            // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+
+//Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+
+    }
+
+
     /*FIN Estructuras*/
     private Property buildGroupTypeProperty(String name, String label, boolean showDefaultBussinesEntityProperties, String generatorName, Long minimumMembers, Long maximumMembers, String helpinline, Long sequence) {
         Property property = new Property();
