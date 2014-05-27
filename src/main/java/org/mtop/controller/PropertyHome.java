@@ -280,6 +280,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         List<String> tipos = new ArrayList<String>();
         tipos.add("org.mtop.model.Structure");
         tipos.add("org.mtop.model.Group");
+        
+        tipos.add("org.mtop.model.EstadoParteMecanica");
+        
+        String nombreEntidad=getBussinesEntity().getName();
+        
         tipos.add("java.util.Date");
         tipos.add("java.lang.String");
         tipos.add("java.lang.Double");
