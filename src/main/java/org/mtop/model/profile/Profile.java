@@ -99,6 +99,15 @@ public class Profile extends BussinesEntity implements Serializable {
     private String screenName;
     @Column
     private String bio;
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public String getFirstname() {
         return firstname;

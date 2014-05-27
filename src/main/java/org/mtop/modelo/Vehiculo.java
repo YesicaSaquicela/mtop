@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import org.mtop.model.BussinesEntity;
+import org.mtop.model.profile.Profile;
 
 /**
  *
@@ -43,17 +44,28 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private double peso;
     @OneToOne
     private Persona conductor;
+    @OneToOne
+    private Profile persona;
     //registro hace referencia al codigo heredado
     private String tipo;
     private String cilindraje;
     private String kilometraje;
     private String tipoCombustible;
+
 //    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<PlanMantenimiento> listaPlanMantenimiento= new ArrayList<PlanMantenimiento>();
 //
 //    @OneToMany(mappedBy = "vehiculo" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<EstadoVehiculo> listaEstados= new ArrayList<EstadoVehiculo>();
+    public Profile getPersona() {
+        return persona;
+    }
 
+    public void setPersona(Profile persona) {
+        this.persona = persona;
+    }
+
+    
     public String getNumRegistro() {
         return numRegistro;
     }
