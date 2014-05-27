@@ -221,6 +221,10 @@ public class InitializeDatabase {
         //    validarEstructuraEducacionDelPerfilDeUsuarios();       
         validarEstructuraParaVehiculo();
         validarEstructuraParaHistorialV();
+        validarEstructuraParaLubricantesV();
+        validarEstructuraParaSistemaElectricoV();
+        
+                
         //validarEstructuraParaPerfilDeUsuario();
     }
 
