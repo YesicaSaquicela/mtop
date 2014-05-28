@@ -53,9 +53,9 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    @Inject
-    private ProfileService pservicio;
-    //List<Profile> listaPersona= new ArrayList<Profile>();
+    //@Inject
+    //private ProfileService pservicio;
+    List<Profile> listaPersona= new ArrayList<Profile>();
     
     public Long getPersonaId() {
  
@@ -77,6 +77,15 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         return getInstance();
     }
 
+    public List<Profile> getListaPersona() {
+        return listaPersona;
+    }
+
+    public void setListaPersona(List<Profile> listaPersona) {
+        this.listaPersona = listaPersona;
+    }
+    
+
     @TransactionAttribute
     public void wire() {
         getInstance();
@@ -91,10 +100,12 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
         bussinesEntityService.setEntityManager(em);
-        pservicio.setEntityManager(em);
-      
-     //   listaPersona = servgen.buscarTodos(Profile.class);
+       // pservicio.setEntityManager(em);
+      servgen.setEm(em);
+      listaPersona = servgen.buscarTodos(Profile.class);
     }
+    
+    
 
     @Override
     protected Profile createInstance() {
@@ -118,12 +129,34 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
 //tiene muchas variaciones
     @TransactionAttribute
     public String guardar() {
-       Date now = Calendar.getInstance().getTime();
+Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-     
-        save(getInstance());
+        
+        try {
+            if (getInstance().isPersistent()) {
+                List<BussinesEntityAttribute> listA = getInstance().getAttributes();
+                System.out.println("Attributos "+getInstance().getAttributes().size());
+                for (BussinesEntityAttribute a : listA) {
+                    System.out.println("ATRIB "+a.getName()+" valor "+a.getValue().toString() +" valor String "+a.getStringValue());
+                    //save(a);
+                    
+                }
+                //update();
+                save(getInstance());                
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Persona" + getInstance().getId() + " con éxito", " ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            } else {
+                create(getInstance());
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito"," ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            }
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        }
          return "/paginas/personal/lista.xhtml?faces-redirect=true";
-        //return null;
+
     }
 
     @Transactional
