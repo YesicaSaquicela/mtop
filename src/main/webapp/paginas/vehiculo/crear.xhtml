@@ -111,7 +111,7 @@
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
                                 <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
-                                    <h:panelGroup id="attributes" layout="block" class="clearfix">
+                                    <h:panelGroup  layout="block" class="clearfix">
                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                             <h:panelGroup layout="block" class="clearfix">
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
