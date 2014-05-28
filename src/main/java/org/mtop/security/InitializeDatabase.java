@@ -346,12 +346,13 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
-            attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("SistemaElectrico", "Sistema Electrico", "Información del SistemaElectrico", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Carroceria", "Carroceria", "Información de Carroceria", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Direccion", "Dirección", "Información de dirección", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 1L));
+            
+            attributes.add(buildStructureTypeProperty("Vehiculo","Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Vehiculo","SistemaElectrico", "Sistema Electrico", "Información del SistemaElectrico", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Vehiculo","Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Vehiculo","Carroceria", "Carroceria", "Información de Carroceria", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Vehiculo","Direccion", "Dirección", "Información de dirección", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("Vehiculo","Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 1L));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -384,14 +385,14 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), null, false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 5L));
-            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), null, false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 5L));
-            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), null, false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 6L));
-            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), null, false, "Fecha Baja de Vehiculo", "Fecha de baja del vehículo", false, 7L));
-            attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), null, false, "Año de servicio", "Año de servicio del vehículo", false, 8L));
+            attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 5L));
+            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 5L));
+            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 6L));
+            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehiculo", "Fecha de baja del vehículo", false, 7L));
+            attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 8L));
             attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "", false, 2L));
-            attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), null, false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 12L));
-            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), null, false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 12L));
+            attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 12L));
+            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 12L));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -734,6 +735,22 @@ public class InitializeDatabase {
         property.setType(Structure.class.getName());
         property.setValue(null);
         property.setRequired(true);
+        property.setLabel(label);
+        property.setHelpInline(helpinline);
+        property.setCustomForm(customForm);
+        property.setShowDefaultBussinesEntityProperties(false);
+        property.setGeneratorName(null);
+        property.setMaximumMembers(null);
+        property.setSequence(sequence);
+        return property;
+    }
+    private Property buildStructureTypeProperty(String groupName,String name, String label, String helpinline, String customForm, Long sequence) {
+        Property property = new Property();
+        property.setName(name);
+        property.setType(Structure.class.getName());
+        property.setValue(null);
+        property.setRequired(true);
+        property.setGroupName(groupName);
         property.setLabel(label);
         property.setHelpInline(helpinline);
         property.setCustomForm(customForm);

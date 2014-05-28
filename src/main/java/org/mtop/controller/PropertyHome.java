@@ -37,14 +37,16 @@ import org.mtop.service.BussinesEntityTypeService;
 import org.mtop.util.UI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.jboss.seam.transaction.Transactional;
+import org.mtop.model.profile.Profile;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
 /**
  *
- * @author 
+ * @author
  */
 @Named
 @ViewScoped
@@ -80,17 +82,17 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public void setStructureId(Long structureId) {
-        
+
         this.structureId = structureId;
     }
 
     public Long getBussinesEntityTypeId() {
-        
+
         return bussinesEntityTypeId;
     }
 
     public void setBussinesEntityTypeId(Long bussinesEntityTypeId) {
-        System.out.println("fijando id de entidad >>>>>>>>>>>>>>>>>>>>>>"+bussinesEntityTypeId);
+        System.out.println("fijando id de entidad >>>>>>>>>>>>>>>>>>>>>>" + bussinesEntityTypeId);
         this.bussinesEntityTypeId = bussinesEntityTypeId;
     }
 
@@ -178,7 +180,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
-        System.out.println("ID entidad>>>>>"+getBussinesEntityTypeId());
+        System.out.println("ID entidad>>>>>" + getBussinesEntityTypeId());
         return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
@@ -280,22 +282,40 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         List<String> tipos = new ArrayList<String>();
         tipos.add("org.mtop.model.Structure");
         tipos.add("org.mtop.model.Group");
-        
-        tipos.add("org.mtop.model.EstadoParteMecanica");
-        
-        String nombreEntidad=this.getPropertyStringValue();
-        System.out.println("nombre Entidad>>>>>>>>>>"+nombreEntidad);
-//        if (getBussinesEntity().containsBussinesEntityType("org.mtop.modelo.Vehiculo")){
-//            System.out.println("<<<<<<es vehiculo>>>>>>>>>>");
-//        }
+
+        List<Property> l = findAllPropiedades();
+        System.out.println("propiedades>>>>>>>>>>>>>>>");
+        Structure structura = bussinesEntityTypeService.getStructure(structureId);
+        System.out.println("propiedad actual " + structura.getName());
+        Property p = new Property();
+        for (int i = 1; i < l.size(); i++) {
+            System.out.println("propiedad " + l.get(i).getName());
+            if (structura.getName().equals(l.get(i).getName())) {
+                p = l.get(i);
+                System.out.println("propiedad encontrada");
+            }
+
+        }
+        if (p.getGroupName() != null) {
+            if (p.getGroupName().equals("Vehiculo")) {
+                System.out.println("Es propiedad de vehiculo");
+                tipos.add("org.mtop.model.EstadoParteMecanica");
+            }
+
+        }
+
         tipos.add("java.util.Date");
         tipos.add("java.lang.String");
         tipos.add("java.lang.Double");
         tipos.add("java.lang.Long");
         tipos.add("java.lang.Boolean");
-        tipos.add("java.lang.String[]");        
+        tipos.add("java.lang.String[]");
         tipos.add("java.lang.MultiLineString");
         tipos.add("java.lang.Object");
         return tipos;
+    }
+
+    public List<Property> findAllPropiedades() {
+        return findAll(Property.class);
     }
 }
