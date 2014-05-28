@@ -283,8 +283,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         
         tipos.add("org.mtop.model.EstadoParteMecanica");
         
-        String nombreEntidad=getBussinesEntity().getName();
-        
+        String nombreEntidad=this.getPropertyStringValue();
+        System.out.println("nombre Entidad>>>>>>>>>>"+nombreEntidad);
+//        if (getBussinesEntity().containsBussinesEntityType("org.mtop.modelo.Vehiculo")){
+//            System.out.println("<<<<<<es vehiculo>>>>>>>>>>");
+//        }
         tipos.add("java.util.Date");
         tipos.add("java.lang.String");
         tipos.add("java.lang.Double");

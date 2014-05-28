@@ -75,18 +75,7 @@
                     <mtop:input id="converter" name="converter" type="text" label="#{messages['common.property.converter']}" 
                                 value="#{propertyHome.instance.converter}" required="false" inlinehelp="#{messages['common.property.converter.help']}" execute="@this save" />
                     <p:outputLabel value="#{messages['common.property.habilitarEstado']}"/>
-                    <p:selectBooleanCheckbox id="habilitarEstado" label="#{messages['common.property.habilitarEstado']}" value="#{propertyHome.instance.habilitarEstado}" required="false" rendered="true">
-                        <p:ajax event="change" process="habilitarEstado" rendered="save fnp valor" update="@parent fnp valor" />  
-                    </p:selectBooleanCheckbox>
-                    <br></br>
-                    <p:outputLabel value="Valor del estado   " rendered="#{propertyHome.instance.habilitarEstado}"/>
-                    <br></br>
-
-                    <p:inputText  id="valor" value="#{propertyHome.instance.valorEstado}" styleClass="xLarge" required="#{propertyHome.instance.habilitarEstado}" label="valor" 
-                                 rendered="#{propertyHome.instance.habilitarEstado}" disabled="false" >
-                        <p:ajax event="keyup" rendered="fnp" update="@parent fnp" />  
-                    </p:inputText>
-                    
+                   
 
 
 
