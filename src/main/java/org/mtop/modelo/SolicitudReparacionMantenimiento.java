@@ -57,19 +57,19 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaSalidaTaller;
  //   @ManyToOne
-   // @JoinColumn(name = "personaId")
-   // private Persona psolicita;
+    // @JoinColumn(name = "personaId")
+    // private Persona psolicita;
     private String recibidor;
-  //  @ManyToOne
-   // @JoinColumn(name = "kardexId")
-   // private Kardex kardex;
-   // @ManyToOne
-   // @JoinColumn(name = "vehiculoId")
-   // private Vehiculo vehiculo;
-   // @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-   // private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
-    //@OneToOne(mappedBy = "solicitudReparacions")
-    //Requisicion requisicions;
+//    @ManyToOne
+//    @JoinColumn(name = "kardexId")
+//    private Kardex kardex;
+    @ManyToOne
+    @JoinColumn(name = "vehiculoId")
+    private Vehiculo vehiculo;
+//    @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
+//    @OneToOne(mappedBy = "solicitudReparacions")
+//    Requisicion requisicions;
 
 //    public Requisicion getRequisicions() {
 //        return requisicions;
@@ -78,7 +78,6 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 //    public void setRequisicions(Requisicion requisicions) {
 //        this.requisicions = requisicions;
 //    }
-
     public Date getFechaEntradaTaller() {
         return fechaEntradaTaller;
     }
@@ -94,7 +93,6 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     public void setFechaSalidaTaller(Date fechaSalidaTaller) {
         this.fechaSalidaTaller = fechaSalidaTaller;
     }
-
 
     public double getNumSolicitud() {
         return numSolicitud;
@@ -112,8 +110,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
         this.fechaSolicitud = fechaSolicitud;
     }
 
-
-   public String getObservacion() {
+    public String getObservacion() {
         return observacion;
     }
 
@@ -136,7 +133,6 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 //    public void setPsolicita(Persona psolicita) {
 //        this.psolicita = psolicita;
 //    }
-
     public String getRecibidor() {
         return recibidor;
     }
@@ -145,14 +141,14 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
         this.recibidor = recibidor;
     }
 
-//    public Vehiculo getVehiculo() {
-//        return vehiculo;
-//    }
-//
-//    public void setVehiculo(Vehiculo vehiculo) {
-//        this.vehiculo = vehiculo;
-//    }
-//
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
 //    public List<ItemSolicitudReparacion> getListaItemSR() {
 //        return listaItemSR;
 //    }
@@ -172,7 +168,6 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 //    public void setKardex(Kardex kardex) {
 //        this.kardex = kardex;
 //    }
-
     public datosEnumerador getListaEnum() {
         return listaEnum;
     }

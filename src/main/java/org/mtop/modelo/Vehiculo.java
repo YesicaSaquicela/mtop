@@ -42,8 +42,8 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String numRegistro;
     private Integer numPasajeros;
     private double peso;
-    @OneToOne
-    private Persona conductor;
+//    @OneToOne
+//    private Persona conductor;
     @OneToOne
     private Profile persona;
     //registro hace referencia al codigo heredado
@@ -51,12 +51,12 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String cilindraje;
     private String kilometraje;
     private String tipoCombustible;
-
+//
 //    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<PlanMantenimiento> listaPlanMantenimiento= new ArrayList<PlanMantenimiento>();
-//
 //    @OneToMany(mappedBy = "vehiculo" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<EstadoVehiculo> listaEstados= new ArrayList<EstadoVehiculo>();
+   
     public Profile getPersona() {
         return persona;
     }
@@ -98,13 +98,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.placa = placa;
     }
 
-    public Persona getConductor() {
-        return conductor;
-    }
-
-    public void setConductor(Persona conductor) {
-        this.conductor = conductor;
-    }
 
    
     

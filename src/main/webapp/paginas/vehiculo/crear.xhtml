@@ -24,7 +24,7 @@
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
-        <!--feajesiFormulario dentro de un contenedor-->
+        <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
             <h1>Gestionar Vehiculos</h1>
@@ -37,72 +37,14 @@
                     <div class="row">
                         <div class="col-md-6"> 
 
-                       
                             <mtop:input id="registro" name="registro1" type="text" label="Número de Registro" 
                                         value="#{controladorVehiculo.instance.numRegistro}" required="true" 
                                         inlinehelp="Ingrese un numero de registro del vehiculo" execute ="@this save" render="registro"/>
 
                             <mtop:input id="marca" name="marca" type="text" label="Marca" 
                                         value="#{controladorVehiculo.instance.marca}" required="true" 
-                                        inlinehelp="Ingrese la marca del vehiculo" 
+                                        inlinehelp="Vehiculo" 
                                         execute ="@this save" render="marca"/>
-
-                            <mtop:input id="color" name="color" type="text" label="Color" 
-                                        value="#{controladorVehiculo.instance.marca}" required="true" 
-                                        inlinehelp="Ingrese el color del vehiculo" 
-                                        execute ="@this save" render="marca"/>
-
-                            <mtop:input id="clase" name="clase" type="text" label="Clase" 
-                                        value="#{controladorVehiculo.instance.clase}" required="true" 
-                                        inlinehelp="Ingrese la clase del vehiculo" 
-                                        execute ="@this save" render="clase"/>
-
-                            <mtop:input id="modelo" name="modelo" type="text" label="Modelo" 
-                                        value="#{controladorVehiculo.instance.modelo}" required="true" 
-                                        inlinehelp="Ingrese el modelo del vehiculo" 
-                                        execute ="@this save" render="modelo"/>
-
-                            <mtop:input id="placa" name="placa" type="text" label="Placa" 
-                                        value="#{controladorVehiculo.instance.placa}" required="true" 
-                                        inlinehelp="Ingrese la placa del vehiculo" 
-                                        execute ="@this save" render="placa"/>
-
-                            <mtop:input id="numPasajeros" name="numPasajeros" type="text" label="Número de Pasajeros" 
-                                        value="#{controladorVehiculo.instance.numPasajeros}" required="true" 
-                                        inlinehelp="Ingrese el numero de pasajeros del vehiculo" 
-                                        execute ="@this save" render="numPasajeros"/>
-
-                            <mtop:input id="anioFabricacion" name="anioFabricacion" type="text" label="Año de Fabricacion" 
-                                        value="#{controladorVehiculo.instance.anioFabricacion}" required="true" 
-                                        inlinehelp="Ingrese el año de fabricación del vehiculo" 
-                                        execute ="@this save" render="anioFabricacion"/>
-
-                            <mtop:input id="peso" name="peso" type="text" label="Peso" 
-                                        value="#{controladorVehiculo.instance.peso}" required="true" 
-                                        inlinehelp="Ingrese el peso del vehiculo" 
-                                        execute ="@this save" render="peso"/>
-
-                            <mtop:input id="tipo" name="tipo" type="text" label="Tipo" 
-                                        value="#{controladorVehiculo.instance.tipo}" required="true" 
-                                        inlinehelp="Ingrese el tipo del vehiculo" 
-                                        execute ="@this save" render="tipo"/>
-
-                            <mtop:input id="cilindraje" name="cilindraje" type="text" label="Cilindraje" 
-                                        value="#{controladorVehiculo.instance.cilindraje}" required="true" 
-                                        inlinehelp="Ingrese el cilindraje del vehiculo" 
-                                        execute ="@this save" render="cilindraje"/>
-
-
-                            <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
-                                        value="#{controladorVehiculo.instance.kilometraje}" required="true" 
-                                        inlinehelp="Ingrese el kilometraje del vehiculo" 
-                                        execute ="@this save" render="kilometraje"/>
-
-                            <mtop:input id="tipoCombustible" name="tipoCombustible" type="text" label="Tipo de Combustible" 
-                                        value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
-                                        inlinehelp="Ingrese el tipo de combustible del vehiculo" 
-                                        execute ="@this save" render="tipoCombustible"/>
-
 
                         </div>
                     </div>
@@ -111,13 +53,13 @@
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
                                 <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
-                                    <h:panelGroup  layout="block" class="clearfix">
+                                    <h:panelGroup id="attributes" layout="block" class="clearfix">
                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                             <h:panelGroup layout="block" class="clearfix">
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                 <div class="input">
-                                                    <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                  rendered="#{a.property.type eq 'java.lang.String' } ">
+                                                    <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
                                                         <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                         <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                     </p:inputText>
@@ -156,14 +98,13 @@
             <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
                              immediate="true"/>
 
-            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista"  styleClass="btn  btn-success">
+            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn">
 
             </h:button>
         </h:form>
 
     </ui:define>
 </ui:composition>
-
 
 
 

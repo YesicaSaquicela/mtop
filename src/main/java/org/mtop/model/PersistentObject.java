@@ -75,6 +75,8 @@ public abstract class PersistentObject<E extends PersistentObject<E>> implements
     private Date expirationTime;
     @Column(nullable=true)
     private Integer priority;
+    @Column(nullable=true)
+    private boolean estado;
 
     @PrePersist
     void prePersist() {
@@ -183,4 +185,15 @@ public abstract class PersistentObject<E extends PersistentObject<E>> implements
     public void setCode(String code) {
         this.code = code;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+  
+    
 }

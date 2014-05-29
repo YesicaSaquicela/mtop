@@ -43,7 +43,7 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements Serializable{
+public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements Serializable {
 
     @Inject
     @Web
@@ -53,17 +53,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
 
     public Long getVehiculoId() {
- 
+
         return (Long) getId();
     }
 
     public void setVehiculoId(Long vehiculoId) {
-       
+
         setId(vehiculoId);
-//        if(vehiculoId!= null){
-//            this.setInstance(servgen.buscarPorId(Vehiculo.class, vehiculoId));
-//            System.out.println("Encontro vehiculo");
-//        }
+
     }
 
     @TransactionAttribute   //
@@ -71,7 +68,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
+
         return getInstance();
     }
 
@@ -91,7 +88,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
+        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (Vehiculo)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
         bussinesEntityService.setEntityManager(em);
@@ -108,8 +105,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         vehiculo.setCreatedOn(now);
         vehiculo.setLastUpdate(now);
         vehiculo.setActivationTime(now);
-
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         vehiculo.setType(_type);
         vehiculo.buildAttributes(bussinesEntityService);  //
         return vehiculo;
@@ -122,31 +117,39 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String guardar() {
-        System.out.println("INGRESO A GUARDAR");
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("vehiculo "+getInstance().getId());
+        //ojo esto permite que el estado este true para lo dle convertidor
+
+        System.out.println("PRESENTARANTES>>>>>>>>>>>>>>" + getInstance().getNumRegistro());
+
         try {
             if (getInstance().isPersistent()) {
                 List<BussinesEntityAttribute> listA = getInstance().getAttributes();
-                System.out.println("Attributos "+getInstance().getAttributes().size());
+                System.out.println("Attributos " + getInstance().getAttributes().size());
                 for (BussinesEntityAttribute a : listA) {
-                    System.out.println("ATRIB "+a.getName()+" valor "+a.getValue().toString() +" valor String "+a.getStringValue());
+                    System.out.println("ATRIB " + a.getName() + " valor " + a.getValue().toString() + " valor String " + a.getStringValue());
                     //save(a);
-                    
+
                 }
                 //update();
-                save(getInstance());                
+                System.out.println("PRESENTAR" + getInstance().getNumRegistro());
+                save(getInstance());
+
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+
+                //    getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito"," ");
+
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";

@@ -21,6 +21,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import org.mtop.model.BussinesEntity;
@@ -43,7 +44,17 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     private long numeroItem;
     private long numeroFuenteFinanciera;
     private String descripcion;
+//    @OneToOne(mappedBy = "partidaC")
+//    private PartidaContabilidad pContabilidad;
 
+//    public PartidaContabilidad getpContabilidad() {
+//        return pContabilidad;
+//    }
+//
+//    public void setpContabilidad(PartidaContabilidad pContabilidad) {
+//        this.pContabilidad = pContabilidad;
+//    }
+ 
     public long getNumeroProvincia() {
         return numeroProvincia;
     }

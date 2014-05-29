@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,7 +39,18 @@ public class ItemRequisicion extends BussinesEntity implements Serializable{
 //    @ManyToOne
 //    @JoinColumn(name = "requisicionId")
 //    public Requisicion requisicion;
-   
+//    @OneToOne(mappedBy = "producto")
+//    public Producto producto;
+//
+//    public Producto getProducto() {
+//        return producto;
+//    }
+//
+//    public void setProducto(Producto producto) {
+//        this.producto = producto;
+//    }
+//    
+//   
     public Integer getCantidad() {
         return cantidad;
     }

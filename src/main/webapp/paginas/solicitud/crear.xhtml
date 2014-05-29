@@ -37,12 +37,15 @@
                                         value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}" required="true" 
                                         inlinehelp="Ingrese un numero de solicitud" execute ="@this save" render="numSolicitud"/>
 
-                            <mtop:input id="fechaSolicitud" name="fechaSolicitud1" type="calendar" label="Fecha de Solicitud" 
-                                        value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}" required="true" 
-                                        inlinehelp="Ingrese la fecha de solicitud" 
-                                        execute ="@this save" render="fechaSolicitud"/>
-
-
+                            <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
+                            <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"
+                                         styleClass="xLarge" required="true" 
+                                          locale="es" pattern="dd-MMM-yyyy">   
+                                <p:ajax event="dateSelect" rendered="save" />  
+                            </p:calendar>  
+                            
+                         
+                            
                             <mtop:input id="observacion" name="observacion1" type="textarea" label="Observación" 
                                         value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" required="true" 
                                         inlinehelp="Ingrese una observación" 
@@ -66,6 +69,16 @@
                                         value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
                                         inlinehelp="Ingrese el nombre de la persona quien recibe la solicitud" 
                                         execute ="@this save" render="recibidor"/>
+
+
+                            <h:outputLabel value="Vehiculo " />  <br></br>             
+                            <p:selectOneMenu id="v" value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo}" effect="fade" styleClass="form-control" converter="vehiculoConverter">  
+                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                <f:selectItems id="mecanic" value="#{listaVehiculos.vehiculos}" var="vehiculo" itemLabel="#{vehiculo.placa}" itemValue="#{vehiculo}"/>  
+
+                            </p:selectOneMenu>
+
+
                         </div>
 
                     </div>
@@ -86,6 +99,51 @@
                 </div>
 
             </p:panel>
+            
+            
+                    <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.instance)}" var="p" >
+                        <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
+                            <c:choose>                        
+                                <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
+                                    <h:panelGroup id="attributes" layout="block" class="clearfix">
+                                        <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+                                            <h:panelGroup layout="block" class="clearfix">
+                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                <div class="input">
+                                                    <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
+                                                        <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                        <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                    </p:inputText>
+                                                    <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                rendered="#{a.property.type eq 'java.util.Date'}">
+                                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                    </p:calendar>  
+                                                    <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                                    rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Double' or type eq 'java.lang.Float'}">  
+                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                    </pe:inputNumber>  
+                                                    <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                     rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                        <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                                    </p:selectOneMenu> 
+                                                    <p:inputTextarea value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                    </p:inputTextarea>                                                
+                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                    styleClass="validation-status" />
+                                                    <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                                </div>
+                                            </h:panelGroup>  
+
+                                        </ui:repeat>
+                                    </h:panelGroup>
+                                </c:when>
+                            </c:choose>
+                        </p:panel>
+                    </c:forEach>
             <p:panel >
                 <div class="admin-actions ">  
                     <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorSolicitudReparacionMantenimiento.guardar()}"
@@ -97,6 +155,8 @@
 
                 </div>
             </p:panel>
+            
+            
 
         </h:form>
 

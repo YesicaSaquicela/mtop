@@ -52,6 +52,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private ServicioGenerico servgen;
     List<SolicitudReparacionMantenimiento> listaSolicitud = new ArrayList<SolicitudReparacionMantenimiento>();
 
+
     public Long getSolicitudReparacionMantenimientoId() {
         return (Long) getId();
     }
@@ -117,6 +118,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     @TransactionAttribute
     public String guardar() {
+        System.out.println("FECHA"+getInstance().getFechaSolicitud());
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         try {

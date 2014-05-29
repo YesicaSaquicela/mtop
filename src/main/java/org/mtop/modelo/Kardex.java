@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -40,74 +41,41 @@ public class Kardex extends BussinesEntity implements Serializable {
 //    @OneToMany(mappedBy = "kardex", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<SolicitudReparacionMantenimiento> listaSolicitudReparacion = new ArrayList<SolicitudReparacionMantenimiento>();
 //    @OneToMany(mappedBy = "kardex",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Requisicion> requisicion=new ArrayList<Requisicion>();
-//    private String numero;
-//    
-//    @ManyToOne
-//    @JoinColumn(name = "vehiculoId")
-//    private Vehiculo vehiculo;
+//    private List<Requisicion> listaRequisicion=new ArrayList<Requisicion>();
+    private String numero;
+    
+    @OneToOne
+    @JoinColumn(name = "vehiculoId")
+    private Vehiculo vehiculo;
 
-//    public List<Requisicion> getRequisicion() {
-//        return requisicion;
+//    public List<Requisicion> getListaRequisicion() {
+//        return listaRequisicion;
 //    }
 //
-//    public void setRequisicion(List<Requisicion> requisicion) {
-//        this.requisicion = requisicion;
+//    public void setListaRequisicion(List<Requisicion> listaRequisicion) {
+//         for (Requisicion requisicion : listaRequisicion) {
+//           requisicion.setKardex(this);
+//        }
+//        this.listaRequisicion = listaRequisicion;
 //    }
-//
-//     
-//    public Vehiculo getVehiculo() {
-//        return vehiculo;
-//    }
-//
-//    public void setVehiculo(Vehiculo vehiculo) {
-//        this.vehiculo = vehiculo;
-//    }
-//    
-//    
-//
-//    public Date getFechaEntradaR() {
-//        return fechaEntradaR;
-//    }
-//
-//    public void setFechaEntradaR(Date fechaEntradaR) {
-//        this.fechaEntradaR = fechaEntradaR;
-//    }
-//
-//    public Date getFechaSalidaR() {
-//        return fechaSalidaR;
-//    }
-//
-//    public void setFechaSalidaR(Date fechaSalidaR) {
-//        this.fechaSalidaR = fechaSalidaR;
-//    }
-//
-//    public String getNumero() {
-//        return numero;
-//    }
-//
-//    public void setNumero(String numero) {
-//        this.numero = numero;
-//    }
-//    
-//    
-//  
-//  
-//    public Date getFechaEntrada() {
-//        return fechaEntradaR;
-//    }
-//
-//    public void setFechaEntrada(Date fechaEntrada) {
-//        this.fechaEntradaR = fechaEntrada;
-//    }
-//
-//    public Date getFechaSalida() {
-//        return fechaSalidaR;
-//    }
-//
-//    public void setFechaSalida(Date fechaSalida) {
-//        this.fechaSalidaR = fechaSalida;
-//    }
+     
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+    
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
 
     public String getObservaciones() {
         return observaciones;
