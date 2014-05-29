@@ -34,7 +34,7 @@ public class EstadoVehiculo extends BussinesEntity implements Serializable {
 
     private String ubicacion;
     private String nombre;
-
+//
 //    @ManyToOne
 //    @JoinColumn(name = "vehiculoId")
 //    private Vehiculo vehiculo;

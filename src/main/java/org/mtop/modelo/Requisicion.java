@@ -47,25 +47,29 @@ public class Requisicion extends BussinesEntity implements Serializable {
     private String partida;
     private String observaciones;
     private String tipoRequisicion;
-    
-    //    @OneToOne
-//    private SolicitudReparacionMantenimiento solicitudReparacions;
 
+//    @OneToOne
+//    private SolicitudReparacionMantenimiento solicitudReparacions;
+//
 //    @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
-//    
-//    @OneToOne
-//    @JoinColumn(name = "vehiculoId")
-//    private Vehiculo vehiculo;
+////    
 //    @ManyToOne
-//    @JoinColumn(name = "personaId")
-//    private Persona psolicita;
+//    @JoinColumn(name = "vehiculoId1")
+//    private Vehiculo vehiculo;
+////    @ManyToOne
+////    @JoinColumn(name = "personaId")
+////    private Persona psolicita;
 //    @ManyToOne
 //    @JoinColumn(name = "kardexId")
 //    private Kardex kardex;
 
 //    public Kardex getKardex() {
 //        return kardex;
+//    }
+//
+//    public void setKardex(Kardex kardex) {
+//        this.kardex = kardex;
 //    }
 //
 //    public SolicitudReparacionMantenimiento getSolicitudReparacions() {
@@ -75,11 +79,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //    public void setSolicitudReparacions(SolicitudReparacionMantenimiento solicitudReparacions) {
 //        this.solicitudReparacions = solicitudReparacions;
 //    }
-//
-//    public void setKardex(Kardex kardex) {
-//        this.kardex = kardex;
-//    }
-//
 //    public Persona getPsolicita() {
 //        return psolicita;
 //    }
@@ -88,16 +87,15 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //        this.psolicita = psolicita;
 //    }
 
- 
-
 //    public Vehiculo getVehiculo() {
 //        return vehiculo;
 //    }
-//        public void setVehiculo(Vehiculo vehiculo) {
+//
+//    public void setVehiculo(Vehiculo vehiculo) {
 //        this.vehiculo = vehiculo;
 //    }
-
-    //    public List<ItemRequisicion> getListaItems() {
+//
+//    public List<ItemRequisicion> getListaItems() {
 //        return listaItems;
 //    }
 //
@@ -107,15 +105,15 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //        }
 //        this.listaItems = listaItems;
 //    }
-    
-       public String getPartida() {
+
+    public String getPartida() {
         return partida;
     }
 
     public void setPartida(String partida) {
         this.partida = partida;
     }
-    
+
     public String getTipoAdquisicion() {
         return tipoAdquisicion;
     }
@@ -123,8 +121,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
     public void setTipoAdquisicion(String tipoAdquisicion) {
         this.tipoAdquisicion = tipoAdquisicion;
     }
-
-
 
     public Integer getNumRequisicion() {
         return numRequisicion;
@@ -141,7 +137,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
     public void setAprobado(boolean aprobado) {
         this.aprobado = aprobado;
     }
-
 
     public String getObservaciones() {
         return observaciones;
@@ -166,8 +161,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
     public void setTipoRequisicion(String tipoRequisicion) {
         this.tipoRequisicion = tipoRequisicion;
     }
-    
-       
 
     @Override
     public String toString() {
