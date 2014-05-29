@@ -300,6 +300,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             if (p.getGroupName().equals("Vehiculo")) {
                 System.out.println("Es propiedad de vehiculo");
                 tipos.add("org.mtop.model.EstadoParteMecanica");
+                setPropertyStringValue("Bueno,Malo*");
             }
 
         }

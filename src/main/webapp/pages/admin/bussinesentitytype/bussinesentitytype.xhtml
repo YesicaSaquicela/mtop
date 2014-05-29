@@ -27,6 +27,9 @@ limitations under the License.
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:metadata>
         <f:viewParam name="bussinesEntityTypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
+         <f:viewParam name="bussinesentitytypeName" value="#{bussinesEntityTypeHome.instance.name}" />             
+         <f:viewParam name="bussinesentitytypeLabel" value="#{bussinesEntityTypeHome.instance.label}" />             
+
         <s:viewAction action="#{bussinesEntityTypeHome.load}" if="#{conversation.transient}"/>                          
     </f:metadata>    
     <ui:define name="header-replace">                    
@@ -112,7 +115,7 @@ limitations under the License.
                 <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
                 <div class="input">
                     <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
-                                  rendered="true" >
+                                  rendered="true" disabled="true">
                         <p:ajax event="keyup" rendered="savenew" update="savenew" />  
                     </p:inputText>
                 </div>
@@ -122,7 +125,7 @@ limitations under the License.
                 <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
                 <div class="input">
                     <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
-                                  rendered="true" >
+                                  rendered="true" disabled="true">
                         <p:ajax event="keyup" rendered="savenew" update="savenew" />  
                     </p:inputText>
                 </div>
@@ -148,7 +151,9 @@ limitations under the License.
             </h:panelGroup>
             <c:forEach items="#{bussinesEntityTypeHome.instance.structures}" var="e" id="forEach">
                 <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
-                    <h2><h:outputLabel value="#{bussinesEntityTypeHome.instance.name}"/> </h2>
+                    
+                    <h2><h:outputLabel value="lista de propiedades para la entidad "/>
+                        <h:outputLabel value="#{bussinesEntityTypeHome.instance.name}"/> </h2>
                     <!--<f:facet name="header">
                         <strong>#{e.name}</strong>#{' '}                            
                     </f:facet>-->
@@ -157,6 +162,7 @@ limitations under the License.
                         <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="property" styleClass="btn primary">
                             <f:param name="propertyId"></f:param>
                             <f:param name="structureId" value ="#{e.id}"></f:param>
+                            <f:param name="nombreGrupo" value ="#{bussinesEntityTypeHome.instance.name}"></f:param>
                             <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                             <f:param name="backView" value="bussinesentitytype"></f:param>
                         </h:link>
@@ -205,6 +211,7 @@ limitations under the License.
                         <p:column>
                             <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'}" outcome="bussinesentitytype" styleClass="btn primary">
                                 <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
+                                <f:param name="bussinesentitytypeLabel" value="#{property.name}"></f:param>
                                 <f:param name="bussinesentitytypeId" ></f:param>
                                 <f:param name="backView" value="list"></f:param>
                             </h:button>

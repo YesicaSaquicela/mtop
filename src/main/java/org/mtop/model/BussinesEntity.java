@@ -371,7 +371,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         BussinesEntityAttribute attribute = new BussinesEntityAttribute();
         attribute.setName(p.getName());
         attribute.setType(p.getType());
-        if ("java.lang.String[]".equals(p.getType())) {
+        if ("java.lang.String[]".equals(p.getType())||"org.mtop.model.EstadoParteMecanica".equals(p.getType())) {
             attribute.setValue((Serializable) Lists.findDefaultValue(p.getValue().toString()));
         } else {
             attribute.setValue((Serializable) p.getValue());

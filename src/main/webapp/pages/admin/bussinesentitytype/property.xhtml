@@ -14,6 +14,7 @@
             <s:viewAction action="#{propertyHome.load}" if="#{conversation.transient}"/>
             <f:viewParam name="bussinesEntityTypeId" value="#{propertyHome.bussinesEntityTypeId}" />             
             <f:viewParam name="structureId" value="#{propertyHome.structureId}" />                    
+            <f:viewParam name="nombreGrupo" value="#{propertyHome.instance.groupName}" />                    
         </f:metadata> 
         <ui:define name="header-replace">
             <div class="header-replace">
@@ -26,12 +27,11 @@
             </div>             
         </ui:define>
         <ui:define name="content">    
-            <h:outputText value="entidad.........."/>
-            <h:outputText value="#{propertyHome.bussinesEntityTypeId}"/>
             <h:form id="form" acceptcharset="UTF-8">
                 <p:panel id="fnp" header="#{messages['common.properties']} #{messages['panel.Basic']}">
-                    <mtop:input id="groupn" name="groupName" type="text" label="#{messages['common.property.groupName']}" 
-                                value="#{propertyHome.instance.groupName}" required="false" inlinehelp="#{messages['common.property.groupName.help']}" execute="@this save" />
+                    <p:outputLabel value="#{messages['common.property.groupName']}"/><br/>
+                    <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
+                                 value="#{propertyHome.instance.groupName}" disabled="true" required="false"  />
                     <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
                                 value="#{propertyHome.instance.name}" required="true" inlinehelp="#{messages['common.property.name.help']}" execute="@this save" render="name"/>                     
                     <!--<mtop:input id="typ" name="type" type="text" label="# {messages['common.property.type']}"                      
