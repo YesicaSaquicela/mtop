@@ -372,6 +372,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         attribute.setName(p.getName());
         attribute.setType(p.getType());
         if ("java.lang.String[]".equals(p.getType())||"org.mtop.model.EstadoParteMecanica".equals(p.getType())) {
+            System.out.println("valor del atributo::::::."+p.getValue().toString());
             attribute.setValue((Serializable) Lists.findDefaultValue(p.getValue().toString()));
         } else {
             attribute.setValue((Serializable) p.getValue());
