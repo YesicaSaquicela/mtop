@@ -30,6 +30,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import org.drools.compiler.compiler.BusinessRuleProvider;
 import org.mtop.cdi.Web;
 import org.mtop.model.*;
 import org.mtop.model.profile.Profile;
@@ -236,6 +237,15 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         }        
         return false;
     }
-    
+    public boolean esTipoEntidad(String nombrePropiedad){
+        System.out.println("nombre de propiedad>>>>>> "+nombrePropiedad);
+        for(BussinesEntityType bet : bussinesEntityTypeService.findAll()){
+            System.out.println("nombre de tipo entidad>>> "+bet.getName());
+            if(bet.getName().equals(nombrePropiedad)){
+                return true;
+            }
+        }
+        return false;
+    }
     
 }
