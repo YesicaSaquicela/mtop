@@ -219,11 +219,13 @@ public class Lists {
     public static String findDefaultValue(String values, String mnemotecnico) {
         List<String> options = Lists.stringToList(values);
         String defaultValue = null;
+        System.out.println("entra");
         for (String s : options) {
             if (s.contains(mnemotecnico)) {
                 defaultValue = s.substring(0, s.length() - 1);
             }
         }
+        System.out.println("entra y presente"+defaultValue);
         return defaultValue;
     }
     

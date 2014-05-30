@@ -68,13 +68,14 @@ limitations under the License.
                         <f:ajax event="blur" execute="#{execute}" render="#{render}"  />
                     </h:inputTextarea>
                 </c:when>
-                <c:when test="#{type == 'java.lang.String[]' or type == 'select'}">
+                <c:when test="#{type == 'java.lang.String[]' or type == 'select' or type =='org.mtop.model.EstadoParteMecanica'}">
                     <p:selectOneMenu value="#{value}" effect="fade"  converter="#{converter}" required="#{required}" requiredMessage="#{requiredMessage}" disabled="#{disabled}">  
                         <f:selectItem  itemLabel = "#{messages['common.choice']}"   />  
                         <f:selectItems value="#{values}" var="v" itemLabel="#{v}" itemValue="#{v}"/>  
                         <p:ajax event="change" listener="#{listener}" update="#{render}" partialSubmit="true"/>
                     </p:selectOneMenu>  
                 </c:when>
+               
                 <c:when test="#{type == 'java.lang.Long' or type == 'java.lang.Double' or type == 'java.lang.Float' or type == 'decimal'}">
                     <p:spinner id="#{name}" value="#{value}" styleClass="xLarge" required="#{required}" label="#{label}" disabled="#{disabled}"
                                min="#{min}" max="#{max}" stepFactor="#{stepFactor}" prefix="#{prefix}">  

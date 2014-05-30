@@ -462,8 +462,8 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("SistemaElectrico", "voltaje", String.class.getName(), null, false, "Voltaje", "Ingrese el voltaje del vehículo", false, 5L));
             attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese las luces del vehículo", false, 8L));
-            attributes.add(buildProperty("SistemaElectrico", "alterador", "java.lang.String[]", "Bueno,Malo*", false, "Alterador", "Ingrese el estado para alterador", false, 5L));
-            attributes.add(buildProperty("SistemaElectrico", "baterias", "java.lang.String[]", "Bueno,Malo*", false, "Baterias", "Ingrese el estado para bateria", false, 6L));
+            attributes.add(buildProperty("SistemaElectrico", "alterador", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Alterador", "Ingrese el estado para alterador", false, 5L));
+            attributes.add(buildProperty("SistemaElectrico", "baterias", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Baterias", "Ingrese el estado para bateria", false, 6L));
             attributes.add(buildProperty("SistemaElectrico", "motorArranque", "java.lang.String[]", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));
 //Agregar atributos
             structure.setProperties(attributes);

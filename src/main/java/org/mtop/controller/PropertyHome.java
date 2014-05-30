@@ -118,11 +118,26 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 this.propertyStringValue = "";
             }
         }
+        if (getInstance().getType() != null) {
+            System.out.println("Entor a tipo>>>>>>"+getInstance().getType());
+            if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
+                System.out.println("Ingresas a asignar bueno y malo>>>>>>>>>>>");
+                getInstance().setValue("Bueno,Malo*");
+                setPropertyStringValue("Bueno,Malo*");
+            }else{
+                setPropertyStringValue(null);
+            }
+        }else{
+            System.out.println("no entro a tipo>>>>>");
+        }
+
         return propertyStringValue;
     }
 
     public void setPropertyStringValue(String propertyStringValue) {
+
         this.propertyStringValue = propertyStringValue;
+        getInstance().setValue(this.propertyStringValue);
     }
 
     @Override
@@ -168,7 +183,13 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     @TransactionAttribute
     public String saveProperty() {
         log.info("eqaula --> saving " + getInstance().getName());
+        if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
 
+            getInstance().setValue("Bueno,Malo*");
+        }
+        if (getInstance().getType().equals("java.util.Date")) {
+            getInstance().setValue(Calendar.getInstance().getTime());
+        }
         if (getInstance().isPersistent()) {
             this.getInstance().setValue(converterToType(propertyStringValue));
             save(getInstance());
@@ -234,7 +255,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
         Object o = new Object();
         try {
-            if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
+            if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.model.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
                 o = value;
             } else if ("java.lang.Long".equals(getInstance().getType())) {
                 o = Long.valueOf(value);
@@ -271,7 +292,13 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public String cargarValidador() {
         //log.info("ingreso a validador value");
+        System.out.println("ingresa cargar validador");
+        System.out.println("ingresa cargar validador" + getInstance().getType());
         if ("java.lang.String[]".equals(getInstance().getType().toString())) {
+            log.info("ingreso a validador value valueTextPropertyValidator");
+            return "valueTextPropertyValidator";
+        }
+        if ("org.mtop.model.EstadoParteMecanica".equals(getInstance().getType().toString())) {
             log.info("ingreso a validador value valueTextPropertyValidator");
             return "valueTextPropertyValidator";
         }
@@ -284,23 +311,18 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         tipos.add("org.mtop.model.Group");
 
         List<Property> l = findAllPropiedades();
-        System.out.println("propiedades>>>>>>>>>>>>>>>");
         Structure structura = bussinesEntityTypeService.getStructure(structureId);
-        System.out.println("propiedad actual " + structura.getName());
         Property p = new Property();
         for (int i = 1; i < l.size(); i++) {
-            System.out.println("propiedad " + l.get(i).getName());
             if (structura.getName().equals(l.get(i).getName())) {
                 p = l.get(i);
-                System.out.println("propiedad encontrada");
             }
 
         }
         if (p.getGroupName() != null) {
             if (p.getGroupName().equals("Vehiculo")) {
-                System.out.println("Es propiedad de vehiculo");
                 tipos.add("org.mtop.model.EstadoParteMecanica");
-                setPropertyStringValue("Bueno,Malo*");
+                // setPropertyStringValue("Bueno,Malo");
             }
 
         }
