@@ -53,7 +53,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
 
     public Long getVehiculoId() {
-
+        System.out.println("IIIIDEE"+getId());
         return (Long) getId();
     }
 
@@ -117,45 +117,33 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String guardar() {
-
+       
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        //ojo esto permite que el estado este true para lo dle convertidor
-
-        System.out.println("PRESENTARANTES>>>>>>>>>>>>>>" + getInstance().getNumRegistro());
-
+        System.out.println("PRESENTAR ANTES>>>>>"+getInstance().getNumRegistro());
+        System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                List<BussinesEntityAttribute> listA = getInstance().getAttributes();
-                System.out.println("Attributos " + getInstance().getAttributes().size());
-                for (BussinesEntityAttribute a : listA) {
-                    System.out.println("ATRIB " + a.getName() + " valor " + a.getValue().toString() + " valor String " + a.getStringValue());
-                    //save(a);
-
-                }
-                //update();
-                System.out.println("PRESENTAR" + getInstance().getNumRegistro());
+                System.out.println("PRESENTAR GUERADAR>>>>>"+getInstance().getNumRegistro());
+                getInstance().setEstado(true);
                 save(getInstance());
-
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-
-                //    getInstance().setEstado(true);
+                
+                System.out.println("PRESENTAR EDITAR>>>>>"+getInstance().getNumRegistro());
                 create(getInstance());
                 save(getInstance());
-
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva vehiculo" + getInstance().getId() + " con éxito"," ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
-        //return null;
     }
-
+    
     @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
