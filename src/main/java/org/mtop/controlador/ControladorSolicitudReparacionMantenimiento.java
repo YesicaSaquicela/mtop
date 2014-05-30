@@ -118,9 +118,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     @TransactionAttribute
     public String guardar() {
-        System.out.println("FECHA"+getInstance().getFechaSolicitud());
+       
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("PLACA>>>>>>>>>>...."+getInstance().getVehiculo());
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());

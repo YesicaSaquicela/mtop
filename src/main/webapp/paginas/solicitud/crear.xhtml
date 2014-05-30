@@ -27,7 +27,7 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <p:panel header="Datos Generales">
+            <p:panel  header="Datos Generales">
                 <div class="container-fluid">
                     <!-- Example row of columns -->
                     <div class="row">
@@ -40,72 +40,52 @@
                             <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
                             <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"
                                          styleClass="xLarge" required="true" 
-                                          locale="es" pattern="dd-MMM-yyyy">   
+                                         locale="es" pattern="dd-MMM-yyyy">   
                                 <p:ajax event="dateSelect" rendered="save" />  
                             </p:calendar>  
-                            
-                         
-                            
+
+
+
                             <mtop:input id="observacion" name="observacion1" type="textarea" label="Observación" 
                                         value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" required="true" 
                                         inlinehelp="Ingrese una observación" 
                                         execute ="@this save" render="observacion"/>
 
                         </div>
-
                     </div>
 
-                </div>
+                    <p:panel id="paneld" header="Datos">
+                        <div class="container-fluid">
+                            <!-- Example row of columns -->
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                    <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
+                                                value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
+                                                inlinehelp="Ingrese el nombre de la persona quien recibe la solicitud" 
+                                                execute ="@this save" render="recibidor"/>
 
 
-            </p:panel>
-
-            <p:panel header="Datos">
-                <div class="container-fluid">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-6"> 
-                            <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
-                                        value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
-                                        inlinehelp="Ingrese el nombre de la persona quien recibe la solicitud" 
-                                        execute ="@this save" render="recibidor"/>
+                                    <h:outputLabel value="Vehiculo " />  <br></br>             
+                                    <p:selectOneMenu id="v" value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo}" effect="fade" styleClass="form-control" converter="#{omnifaces.SelectItemsConverter}">  
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItems id="veh" value="#{listaVehiculos.vehiculos}" var="vehiculo" itemLabel="#{vehiculo.placa}" itemValue="#{vehiculo}"/>  
+                                        <p:ajax event="change" update="@parent " partialSubmit="true"/>
+                                    </p:selectOneMenu>
 
 
-                            <h:outputLabel value="Vehiculo " />  <br></br>             
-                            <p:selectOneMenu id="v" value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo}" effect="fade" styleClass="form-control" converter="vehiculoConverter">  
-                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                <f:selectItems id="mecanic" value="#{listaVehiculos.vehiculos}" var="vehiculo" itemLabel="#{vehiculo.placa}" itemValue="#{vehiculo}"/>  
+                                </div>
 
-                            </p:selectOneMenu>
-
+                            </div>
 
                         </div>
 
-                    </div>
+                    </p:panel>
 
-                </div>
-
-            </p:panel>
-            <p:panel header="Item de Solicitud de Reparación/Mantenimiento">
-                <div class="container-fluid">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-6"> 
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </p:panel>
-            
-            
                     <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.instance)}" var="p" >
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
                                 <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
-                                    <h:panelGroup id="attributes" layout="block" class="clearfix">
+                                    <h:panelGroup  layout="block" class="clearfix">
                                         <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                             <h:panelGroup layout="block" class="clearfix">
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
@@ -144,6 +124,9 @@
                             </c:choose>
                         </p:panel>
                     </c:forEach>
+                </div>
+            </p:panel>
+
             <p:panel >
                 <div class="admin-actions ">  
                     <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorSolicitudReparacionMantenimiento.guardar()}"
@@ -155,8 +138,8 @@
 
                 </div>
             </p:panel>
-            
-            
+
+
 
         </h:form>
 

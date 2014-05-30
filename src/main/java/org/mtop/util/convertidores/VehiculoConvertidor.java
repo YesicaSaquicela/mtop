@@ -28,6 +28,8 @@ public class VehiculoConvertidor implements Converter{
     public Object getAsObject(FacesContext fc, UIComponent uic, String valor) {
         if(valor!=null && !valor.isEmpty()){
             try {
+                System.out.println("Ide Vehiculo valor>>>>>>"+valor);
+                System.out.println("Ide Vehiculo key>>>>>>"+getKey(valor));
                 return servGen.buscarPorId(Vehiculo.class, getKey(valor));
             } catch (Exception e) {
                 return new Vehiculo();
