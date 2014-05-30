@@ -40,13 +40,17 @@ import org.mtop.modelo.Vehiculo;
 public class Requisicion extends BussinesEntity implements Serializable {
 
     private boolean aprobado;
-    private Integer numRequisicion;
+    private double numRequisicion;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaRequisicion;
     private String tipoAdquisicion;
     private String partida;
     private String observaciones;
     private String tipoRequisicion;
+    
+    @ManyToOne
+    @JoinColumn(name = "vehiculoId1")
+    private Vehiculo vehiculo;
 
 //    @OneToOne
 //    private SolicitudReparacionMantenimiento solicitudReparacions;
@@ -54,15 +58,22 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //    @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
 ////    
-//    @ManyToOne
-//    @JoinColumn(name = "vehiculoId1")
-//    private Vehiculo vehiculo;
+    
 ////    @ManyToOne
 ////    @JoinColumn(name = "personaId")
 ////    private Persona psolicita;
 //    @ManyToOne
 //    @JoinColumn(name = "kardexId")
 //    private Kardex kardex;
+    
+      public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
 
 //    public Kardex getKardex() {
 //        return kardex;
@@ -87,14 +98,7 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //        this.psolicita = psolicita;
 //    }
 
-//    public Vehiculo getVehiculo() {
-//        return vehiculo;
-//    }
-//
-//    public void setVehiculo(Vehiculo vehiculo) {
-//        this.vehiculo = vehiculo;
-//    }
-//
+//  
 //    public List<ItemRequisicion> getListaItems() {
 //        return listaItems;
 //    }
@@ -122,15 +126,15 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.tipoAdquisicion = tipoAdquisicion;
     }
 
-    public Integer getNumRequisicion() {
+    public double getNumRequisicion() {
         return numRequisicion;
     }
 
-    public void setNumRequisicion(Integer numRequisicion) {
+    public void setNumRequisicion(double numRequisicion) {
         this.numRequisicion = numRequisicion;
     }
 
-    public boolean getAprobado() {
+       public boolean getAprobado() {
         return aprobado;
     }
 

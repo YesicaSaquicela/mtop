@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -7,7 +8,7 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    <ui:param name="titulo" value="Lista de Requisiciones"/>
+    <ui:param name="titulo" value="Asignar Vehiculo a Solicitud"/>
 
     <ui:define name="header">
 
@@ -23,31 +24,26 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
             <!--Botones de admin-->
-            <div class="admin-actions">
-                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" >
-                    <f:param name="requisicionId"></f:param>
-                </p:commandButton>
-            </div>
-            <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
-                <p:column headerText="Numero de Requisicion">
-                    <h:outputText value="#{r.numRequisicion}"></h:outputText>
+            <p:dataTable id="listav" value="#{listaVehiculos.vehiculos}" var="v">
+                <p:column headerText="Color">
+                    <h:outputText value="#{v.color}"></h:outputText>
                 </p:column>
-                <p:column headerText="Fecha de requisicion">
-                    <h:outputText value="#{r.fechaRequisicion}"></h:outputText>
+                <p:column headerText="Marca">
+                    <h:outputText value="#{v.marca}"></h:outputText>
                 </p:column>
-                <p:column headerText="Observación">
-                    <h:outputText value="#{r.observaciones}"></h:outputText>
+                 <p:column headerText="Nro Registro">
+                     <h:outputText value="#{v.numRegistro}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
-                                   
-                    <h:link value="Editar" outcome="crear" type="button" >
-                        <f:param name="requisicionId" value="#{r.id}"></f:param>
-                        <f:param name="vehiculoId" ></f:param>
+                    <h:link value="Aprobar" outcome="crear" type="button" >
+                        <f:param name="vehiculoId" value="#{v.id}"></f:param>
                     </h:link>
                 </p:column>
             </p:dataTable>
+            
         </h:form>
     </ui:define>
 </ui:composition>
+
 
 

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +34,7 @@ import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
+import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
 
@@ -43,16 +44,29 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityHome<SolicitudReparacionMantenimiento> implements Serializable{
-    
+public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityHome<SolicitudReparacionMantenimiento> implements Serializable {
+
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<SolicitudReparacionMantenimiento> listaSolicitud = new ArrayList<SolicitudReparacionMantenimiento>();
+    private List<SolicitudReparacionMantenimiento> listaSolicitud = new ArrayList<SolicitudReparacionMantenimiento>();
+    // private List<Vehiculo> listaVehiculo = new ArrayList<Vehiculo>();
+    private long idvehiculo;
 
+    public long getIdvehiculo() {
+        if(getSolicitudReparacionMantenimientoId()!=null && idvehiculo==0l){
+            idvehiculo=getInstance().getVehiculo().getId();
+        }
+        return idvehiculo;
+    }
 
+    public void setIdvehiculo(long idvehiculo) {
+        this.idvehiculo = idvehiculo;
+    }
+
+    
     public Long getSolicitudReparacionMantenimientoId() {
         return (Long) getId();
     }
@@ -61,6 +75,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         setId(solicitudReparacionMantenimientoId);
     }
 
+  
     @TransactionAttribute   //
     public SolicitudReparacionMantenimiento load() {
         if (isIdDefined()) {
@@ -72,6 +87,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     @TransactionAttribute
     public void wire() {
         getInstance();
+
     }
 
     public List<SolicitudReparacionMantenimiento> getListaSolicitud() {
@@ -82,14 +98,13 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.listaSolicitud = listaSolicitud;
     }
 
-
-
     @PostConstruct
     public void init() {
         setEntityManager(em);
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
+        idvehiculo=0l;
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaSolicitud = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
@@ -118,23 +133,37 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     @TransactionAttribute
     public String guardar() {
-       
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("PLACA>>>>>>>>>>...."+getInstance().getVehiculo());
+         
+//          for(Vehiculo v: findAll(Vehiculo.class)){
+//                   System.out.println("presenta id>>>>>>>>>>>>>>>>>>"+v.getId());
+//                   if(v.getId()==idvehiculo){
+//                       System.out.println("vehiculo encontradooooooooooooooooooooo");
+//                        getInstance().setVehiculo(v);
+//                       break;
+//                   }
+//               }
+//          
+                         
+          Vehiculo vehiculo=servgen.buscarPorId(Vehiculo.class, idvehiculo);
+              getInstance().setVehiculo(vehiculo);   
+                                
         try {
-            if (getInstance().isPersistent()) {
-                save(getInstance());
+            if (getInstance().isPersistent()) {            
+               save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/solicitud/lista.xhtml?faces-redirect=true";

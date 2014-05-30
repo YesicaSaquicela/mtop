@@ -34,8 +34,8 @@ import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
 import org.mtop.modelo.Requisicion;
+import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
-
 
 /**
  *
@@ -43,14 +43,17 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorRequisicion extends BussinesEntityHome<Requisicion> implements Serializable{
+public class ControladorRequisicion extends BussinesEntityHome<Requisicion> implements Serializable {
+
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
     List<Requisicion> listaRequisicion = new ArrayList<Requisicion>();
-
+    private Long idVehiculo;
+    private Vehiculo vehiculo;
+    
     public Long getRequisicionId() {
         return (Long) getId();
     }
@@ -59,12 +62,35 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         setId(requisicionId);
     }
 
+    public Long getIdVehiculo() {
+            return idVehiculo;
+    }
+
+    public void setIdVehiculo(Long idVehiculo) {
+        this.idVehiculo = idVehiculo;
+        vehiculo=servgen.buscarPorId(Vehiculo.class, idVehiculo);
+        
+    }
+
+    public Vehiculo getVehiculo() {
+        
+        if(getRequisicionId() != null ){
+            System.out.println("vehiculo "+getInstance().getVehiculo());
+            vehiculo=getInstance().getVehiculo();
+        }
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
     @TransactionAttribute   //
     public Requisicion load() {
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
+
         return getInstance();
     }
 
@@ -81,7 +107,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.listaRequisicion = listaRequisicion;
     }
 
-
     @PostConstruct
     public void init() {
         setEntityManager(em);
@@ -91,6 +116,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaRequisicion = servgen.buscarTodos(Requisicion.class);
+        vehiculo=new Vehiculo();
+        idVehiculo=0l;
     }
 
     @Override
@@ -103,7 +130,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         requisicion.setLastUpdate(now);
         requisicion.setActivationTime(now);
 
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         requisicion.setType(_type);
         requisicion.buildAttributes(bussinesEntityService);  //
         return requisicion;
@@ -118,19 +144,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String guardar() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+    
+        getInstance().setVehiculo(vehiculo);
+        System.out.println("PRESENTADNOIDE>>>>" + vehiculo);
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
@@ -156,5 +186,5 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
     }
- 
+
 }

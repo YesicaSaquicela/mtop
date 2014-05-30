@@ -125,13 +125,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("PRESENTAR GUERADAR>>>>>"+getInstance().getNumRegistro());
-                getInstance().setEstado(true);
+                
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 
                 System.out.println("PRESENTAR EDITAR>>>>>"+getInstance().getNumRegistro());
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva vehiculo" + getInstance().getId() + " con éxito"," ");

@@ -41,10 +41,13 @@ public class ListaVehiculos {
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
     public List<Vehiculo> getVehiculos() {
+        
+        System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");
         vehiculos=sg.buscarTodos(Vehiculo.class, Vehiculo_.estado.getName());
         return vehiculos;
     }
-
+    
+  
     public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
@@ -52,6 +55,8 @@ public class ListaVehiculos {
     
     @PostConstruct
     public void init(){
+        System.out.println("ENTRO A BUSCAR2222>>>>>>>>>>>");
+        System.out.println("ENTROIDE>>>>>>>>>>>"+Vehiculo_.estado.getName());
         vehiculos=sg.buscarTodos(Vehiculo.class, Vehiculo_.estado.getName());
         
     }
