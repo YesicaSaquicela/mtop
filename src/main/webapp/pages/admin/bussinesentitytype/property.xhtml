@@ -74,10 +74,16 @@
                                              rendered="#{propertyHome.instance.type eq 'java.lang.MultiLineString'}">
                                 <f:ajax event="blur" execute="@this" render="save"/>
                             </p:inputTextarea> 
-                            <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                            <mtop:input rendered="#{propertyHome.instance.type eq 'java.lang.Long' or propertyHome.instance.type eq 'java.lang.Double' or propertyHome.instance.type eq 'java.lang.Float'}"
+                                        id="secuencia" name="sequence" type="java.lang.Long" label="#{messages['common.property.sequence']}" 
+                                value="#{propertyHome.propertyStringValue}" required="false" inlinehelp="ingrese valor" execute="@this save" />
+                            
+                            
+                            
+                            <!--pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                             required="true" label="#{messages['common.property.value']}"
                                             rendered="#{propertyHome.instance.type eq 'java.lang.Long' or propertyHome.instance.type eq 'java.lang.Double' or propertyHome.instance.type eq 'java.lang.Float'}">  
-                                <f:ajax event="blur" execute="@this" render="save"/>
+                                <f:ajax event="blur" execute="@this" render="save"/-->
                             </pe:inputNumber> 
                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
                                             styleClass="validation-status" />

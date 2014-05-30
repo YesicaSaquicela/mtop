@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.ConversationScoped;
@@ -34,6 +35,7 @@ import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityAttribute;
 import org.mtop.model.BussinesEntityType;
+import org.mtop.model.Property;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
 
@@ -164,6 +166,22 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+    }
+    public boolean tieneEstadosEstructura(Property propiedad){
+        for(Property p: servgen.buscarTodos(Property.class)){
+            if(p.getGroupName()!=null){
+                if(p.getGroupName().equals(propiedad.getName())){
+                System.out.println("encontro su propiedad>>>>> "+p.getName());
+                if(p.getType().equals("org.mtop.model.EstadoParteMecanica")){
+                    System.out.println("retornara true");
+                    return true;
+                }
+            }
+            }
+            
+        }
+        System.out.println("retornara false");
+        return false;
     }
 
 }
