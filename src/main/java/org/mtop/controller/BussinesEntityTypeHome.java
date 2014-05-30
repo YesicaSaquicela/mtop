@@ -238,9 +238,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         return false;
     }
     public boolean esTipoEntidad(String nombrePropiedad){
-        System.out.println("nombre de propiedad>>>>>> "+nombrePropiedad);
         for(BussinesEntityType bet : bussinesEntityTypeService.findAll()){
-            System.out.println("nombre de tipo entidad>>> "+bet.getName());
             if(bet.getName().equals(nombrePropiedad)){
                 return true;
             }

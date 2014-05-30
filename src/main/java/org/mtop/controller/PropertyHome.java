@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.model.profile.Profile;
+import org.mtop.modelo.Vehiculo;
+import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -64,6 +66,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private Long structureId;
     private Long bussinesEntityTypeId;
     private String propertyStringValue;
+    @Inject
+    private ServicioGenerico servgen;
 
     public PropertyHome() {
         log.info("mtop --> Inicializo Property Home");
@@ -119,15 +123,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
         }
         if (getInstance().getType() != null) {
-            System.out.println("Entor a tipo>>>>>>"+getInstance().getType());
+            System.out.println("Entor a tipo>>>>>>" + getInstance().getType());
             if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
                 System.out.println("Ingresas a asignar bueno y malo>>>>>>>>>>>");
                 getInstance().setValue("Bueno,Malo*");
                 setPropertyStringValue("Bueno,Malo*");
-            }else{
+            } else {
                 setPropertyStringValue(null);
             }
-        }else{
+        } else {
             System.out.println("no entro a tipo>>>>>");
         }
 
@@ -193,14 +197,38 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         if (getInstance().isPersistent()) {
             this.getInstance().setValue(converterToType(propertyStringValue));
             save(getInstance());
+
         } else {
             try {
                 Structure s = bussinesEntityTypeService.getStructure(getStructureId()); //Retornar la estrucura.
                 s.addProperty(this.getInstance());
+
             } catch (Exception ex) {
+                System.out.println("ERROR>>>" + ex);
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
+        //crear un entity type atribute para una propiedad tipo estadoParteMecanica
+        if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
+            BussinesEntityAttribute beta = new BussinesEntityAttribute();
+            for (Property p : findAll(Property.class)) {
+                if (p.getName().equals(this.getInstance().getName())) {
+
+                    beta.setProperty(p);
+                    beta.setType(p.getType());
+                    beta.setName(p.getLabel());
+                    beta.setValue("");
+                    //save(beta);
+                    break;
+                }
+            }
+            for (Vehiculo v : findAll(Vehiculo.class)) {
+                beta.setBussinesEntity(servgen.buscarPorId(BussinesEntity.class, v.getId()));
+                save(beta);
+            }
+        }
+
+        System.out.println("id de la propiedaaaaaaaad>>>>>>>>>> " + this.getInstance());
         System.out.println("ID entidad>>>>>" + getBussinesEntityTypeId());
         return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
