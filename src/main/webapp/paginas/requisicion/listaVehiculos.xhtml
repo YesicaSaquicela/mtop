@@ -9,7 +9,10 @@
                 template="/WEB-INF/templates/plantilla.xhtml">
 
     <ui:param name="titulo" value="Asignar Vehiculo a Solicitud"/>
-
+    <f:metadata>
+        <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
+       
+    </f:metadata>
     <ui:define name="header">
 
         <h2>#{titulo}</h2>    
@@ -24,7 +27,7 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
             <!--Botones de admin-->
-            <p:dataTable id="listav" value="#{listaVehiculos.vehiculos}" var="v">
+            <p:dataTable id="listav" value="#{controladorRequisicion.vehiculos}" var="v">
                 <p:column headerText="Color">
                     <h:outputText value="#{v.color}"></h:outputText>
                 </p:column>
@@ -37,6 +40,7 @@
                 <p:column headerText="Opciones" style="width: 5%"> 
                     <h:link value="Aprobar" outcome="crear" type="button" >
                         <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                        <f:param name="requisicionId" value="#{controladorRequisicion.requisicionId}"></f:param>
                     </h:link>
                 </p:column>
             </p:dataTable>

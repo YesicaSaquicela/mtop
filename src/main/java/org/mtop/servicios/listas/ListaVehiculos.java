@@ -16,6 +16,7 @@
  */
 
 
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
@@ -57,7 +58,7 @@ public class ListaVehiculos {
     public void init(){
         System.out.println("ENTRO A BUSCAR2222>>>>>>>>>>>");
         System.out.println("ENTROIDE>>>>>>>>>>>"+Vehiculo_.estado.getName());
-        vehiculos=sg.buscarTodos(Vehiculo.class, Vehiculo_.estado.getName());
+        vehiculos=new ArrayList<Vehiculo>();
         
     }
 
