@@ -85,8 +85,9 @@
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
-
+               
                 <p:tab id="address" title="Asignar Vehiculo">
+                     <form id="f1">
                     <p:panel id="vehiculos" header="Lista de Vehiculos">
                         <p:messages />
                         <p:dataTable id="listav" value="#{controladorRequisicion.vehiculos}" var="v">
@@ -100,17 +101,25 @@
                                 <h:outputText value="#{v.numRegistro}"></h:outputText>
                             </p:column>
                             <p:column headerText="Opciones" style="width: 5%"> 
-                                <h:link value="Aprobar"  onclick="#{controladorRequisicion.asignarIdVehiculo(v.id)}" id="edit" type="button" >
-                                    <p:ajax event="keyup" update=":form:vehiculo" partialSubmit="true"/>
-                                </h:link>> 
+                                <h:link value="Aprobar"  outcome="#{controladorRequisicion.asignarIdVehiculo(v.id)}" id="edit" type="button" >
+                                    <p:ajax event="keyup" update=":f1:idv" partialSubmit="true"/>
+                                </h:link>
                             </p:column>
                         </p:dataTable>
-                        <p:outputLabel value="Vehiculo"/><br></br>
-                            <p:inputText id="vehiculo" value="#{controladorRequisicion.idVehiculo}"
-                                             required="true" /><br></br>
+                      
                       
                     </p:panel>
-                </p:tab>
+                    </form>
+                     <p:panel id="idv">
+                         <p:outputLabel value="Vehiculo"/><br></br>
+                            <p:inputText id="vehiculo" value="#{controladorRequisicion.idVehiculo}"
+                                             required="true" /><br></br>
+                    </p:panel>
+                 
+                    </p:tab>
+                    
+                
+                   
 
                 <p:tab id="confirm" title="Confirmacion">
                     <p:panel header="Confirmacion">
