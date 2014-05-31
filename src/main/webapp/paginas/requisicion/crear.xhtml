@@ -13,7 +13,7 @@
     <ui:param name="titulo" value="Gestionar Requisiciones"/>
     <f:metadata>
         <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
-        <f:viewParam name="vehiculoId" value="#{controladorRequisicion.idVehiculo}"/>
+        
     </f:metadata>
     <ui:define name="header">
 
@@ -25,7 +25,7 @@
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
         <!--Formulario dentro de un contenedor-->
-        <h:form>
+        <h:form id="form">
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
@@ -33,7 +33,7 @@
                 <p:tab id="personal" title="Requisicion">
                     <p:panel header="Datos Generales">
                         <p:messages />
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:panelGrid >
                             <mtop:input id="numRequisicion" name="numRequisicion" type="text" label="Número de Requisicion" 
                                         value="#{controladorRequisicion.instance.numRequisicion}" required="true" 
                                         inlinehelp="Ingrese un numero de requisicion" execute ="@this save" render="numRequisicion"/>
@@ -70,11 +70,14 @@
                                 <f:selectItem itemLabel="3030300303" itemValue="3030300303" /> 
                                 <f:selectItem itemLabel="4040404004" itemValue="4040404004" />  
                             </p:selectOneMenu> <br></br>
+                            <p:outputLabel value="Observacio"/><br></br>
+                            <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
+                                             required="true" /><br></br>
 
-                            <mtop:input id="observacion" name="observacion1" type="textarea" label="Observación" 
-                                        value="#{controladorRequisicion.instance.observaciones}" required="true" 
+                            <!--mtop:input id="observacion" name="observacion" type="textarea" label="Observación" 
+                                        value="# {controladorRequisicion.instance.observaciones}" required="true" 
                                         inlinehelp="Ingrese una observación" 
-                                        execute ="@this save" render="observacion"/>
+                                        /-->
 
 
 
@@ -83,7 +86,7 @@
                     </p:panel>
                 </p:tab>
 
-                <p:tab id="address" title="Address">
+                <p:tab id="address" title="Asignar Vehiculo">
                     <p:panel id="vehiculos" header="Lista de Vehiculos">
                         <p:messages />
                         <p:dataTable id="listav" value="#{controladorRequisicion.vehiculos}" var="v">
@@ -97,27 +100,26 @@
                                 <h:outputText value="#{v.numRegistro}"></h:outputText>
                             </p:column>
                             <p:column headerText="Opciones" style="width: 5%"> 
-                                <h:link  value="Aprobar" outcome="#{controladorRequisicion.idVehiculo(v.id)}" type="button" >
-                                    
-                                     <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                </h:link>
+                                <h:link value="Aprobar"  onclick="#{controladorRequisicion.asignarIdVehiculo(v.id)}" id="edit" type="button" >
+                                    <p:ajax event="keyup" update=":form:vehiculo" partialSubmit="true"/>
+                                </h:link>> 
                             </p:column>
                         </p:dataTable>
-                        <mtop:input id="vehiculo" name="vehiculo1" type="text" label="Vehiculo" 
-                                    value="#{controladorRequisicion.idVehiculo}" required="true" 
-                                    inlinehelp="Ingrese asigne un vehiculo" 
-                                    execute ="@this save" render="vehiculo" />
+                        <p:outputLabel value="Vehiculo"/><br></br>
+                            <p:inputText id="vehiculo" value="#{controladorRequisicion.idVehiculo}"
+                                             required="true" /><br></br>
+                      
                     </p:panel>
                 </p:tab>
 
                 <p:tab id="confirm" title="Confirmacion">
                     <p:panel header="Confirmacion">
                         <h:panelGrid id="confirmacion" columns="3" columnClasses="grid,grid,grid">
-                            <h:panelGrid columns="2" columnClasses="label, value">
+                            <h:panelGrid >
                                 <h:outputText value="Numero de reqisicion: " />
                                 <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/>
 
-                                
+
                             </h:panelGrid>
 
                             <h:panelGrid columns="2" columnClasses="label, value">
@@ -125,7 +127,7 @@
                                 <h:outputText value="#{controladorRequisicion.idVehiculo}" styleClass="outputLabel"/>
                             </h:panelGrid>
 
-                            
+
                         </h:panelGrid>
 
                         <p:commandButton id="save" value="Guardar" actionListener="#{controladorRequisicion.guardar()}" update="growl" process="@this"/>

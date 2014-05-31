@@ -16,10 +16,11 @@
 
 package org.mtop.controlador.vista;
 import java.io.Serializable;
-import javax.faces.application.FacesMessage;
+//import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.inject.Named;
+//import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
  
@@ -28,8 +29,7 @@ import org.primefaces.event.FlowEvent;
  *
  * @author carlis
  */
-
-@ManagedBean
+@Named
 @ViewScoped
 public class UserWizard implements Serializable {
  
