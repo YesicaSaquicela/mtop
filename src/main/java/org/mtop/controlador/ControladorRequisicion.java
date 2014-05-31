@@ -35,6 +35,7 @@ import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
 
 /**
@@ -53,38 +54,71 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     List<Requisicion> listaRequisicion = new ArrayList<Requisicion>();
     private Long idVehiculo;
     private Vehiculo vehiculo;
+     private List<Vehiculo> vehiculos;
+     private String ruta;
+
+    // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
+    // Facelets or JSP view)
+    public List<Vehiculo> getVehiculos() {
+        
+        System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");
+        vehiculos=findAll(Vehiculo.class);
+        return vehiculos;
+    }
     
+  
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+   
     public Long getRequisicionId() {
         return (Long) getId();
     }
 
     public void setRequisicionId(Long requisicionId) {
         setId(requisicionId);
+        
     }
 
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+
+    
     public Long getIdVehiculo() {
             return idVehiculo;
     }
 
     public void setIdVehiculo(Long idVehiculo) {
         this.idVehiculo = idVehiculo;
-        vehiculo=servgen.buscarPorId(Vehiculo.class, idVehiculo);
+        vehiculo=findById(Vehiculo.class, idVehiculo);
         
     }
 
+    
     public Vehiculo getVehiculo() {
         
         if(getRequisicionId() != null ){
             System.out.println("vehiculo "+getInstance().getVehiculo());
             vehiculo=getInstance().getVehiculo();
         }
+        
         return vehiculo;
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
+        
         this.vehiculo = vehiculo;
     }
 
+    
+    
+
+    
     @TransactionAttribute   //
     public Requisicion load() {
         if (isIdDefined()) {
@@ -146,14 +180,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setLastUpdate(now);
     
         getInstance().setVehiculo(vehiculo);
-        System.out.println("PRESENTADNOIDE>>>>" + vehiculo);
+        System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
         try {
             if (getInstance().isPersistent()) {
+                System.out.println("ingresa a editar>>>>>>>");
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                getInstance().setEstado(true);
+                System.out.println("ingresa a creaaar>>>>>>>");
+              //  getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
