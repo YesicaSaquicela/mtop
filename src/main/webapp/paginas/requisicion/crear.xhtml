@@ -100,9 +100,10 @@
                                 <h:outputText value="#{v.numRegistro}"></h:outputText>
                             </p:column>
                             <p:column headerText="Opciones" style="width: 5%"> 
-                                <h:link value="Aprobar"  onclick="#{controladorRequisicion.asignarIdVehiculo(v.id)}" id="edit" type="button" >
+                                <p:commandButton value="Aprobar" ajax="true" actionListener="#{controladorRequisicion.asignarIdVehiculo(v.id)}" id="edit">
                                     <p:ajax event="keyup" update=":form:listav" partialSubmit="true"/>
-                                </h:link>
+                                    
+                                </p:commandButton>
                             </p:column>
                             <p:column headerText="vehiculo" style="width: 5%"> 
                                
