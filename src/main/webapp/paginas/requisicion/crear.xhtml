@@ -102,10 +102,11 @@
                                 </p:column>
                                 <p:column headerText="Opciones" style="width: 5%"> 
                                     
-                                    <p:commandButton value="Aprobarc" ajax="true" actionListener="#{controladorRequisicion.asignarIdVehiculo(v.id)}"
+                                    <p:commandButton value="Aprobarc" process=":form:vehiculo" update=":form:vehiculo" ajax="true"
+                                                     action="#{controladorRequisicion.asignarIdVehiculo(v.id)}"
                                                     id="edit" >
-                                        <p:ajax process="@this" update=":form:growl :address:v:vehiculo "/>
-                                    </p:commandButton>>
+                                        
+                                    </p:commandButton>
                                     
                                 </p:column>
                             </p:dataTable>
