@@ -101,6 +101,20 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyStringValue() {
+        if (getInstance().getType() != null) {
+            System.out.println("Entor a tipo>>>>>>" + getInstance().getType());
+            if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
+                System.out.println("Ingresas a asignar bueno y malo>>>>>>>>>>>");
+                getInstance().setValue("Bueno,Malo*");
+                setPropertyStringValue("Bueno,Malo*");
+            } else {
+                
+                System.out.println("No entro>>>>>>" + getInstance().getType());
+               
+                setPropertyStringValue(null);
+                
+            }
+        } 
         if (this.propertyStringValue == null) {
             if (getInstance() != null) {
                 if (getInstance().getValue() != null) {
@@ -121,18 +135,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 log.info("mtop --> Instance from Property for " + propertyStringValue);
                 this.propertyStringValue = "";
             }
-        }
-        if (getInstance().getType() != null) {
-            System.out.println("Entor a tipo>>>>>>" + getInstance().getType());
-            if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
-                System.out.println("Ingresas a asignar bueno y malo>>>>>>>>>>>");
-                getInstance().setValue("Bueno,Malo*");
-                setPropertyStringValue("Bueno,Malo*");
-            } else {
-                setPropertyStringValue(null);
-            }
-        } else {
-            System.out.println("no entro a tipo>>>>>");
         }
 
         return propertyStringValue;
@@ -208,7 +210,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
-        //crear un entity type atribute para una propiedad tipo estadoParteMecanica
+        //crear un entity type atribute para una propiedad
+        // que sea de tipo estadoParteMecanica
         if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
             BussinesEntityAttribute beta = new BussinesEntityAttribute();
             for (Property p : findAll(Property.class)) {

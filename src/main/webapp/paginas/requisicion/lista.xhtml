@@ -26,7 +26,8 @@
             <div class="admin-actions">
                 <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" >
                     <f:param name="requisicionId"></f:param>
-                   
+                    
+                    
                 </p:commandButton>
             </div>
             <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
@@ -43,8 +44,9 @@
                                    
                     <h:link value="Editar" outcome="crear" type="button" >
                         <f:param name="requisicionId" value="#{r.id}"></f:param>
-                    
-                     </h:link>
+                        
+                        
+                    </h:link>
                 </p:column>
             </p:dataTable>
         </h:form>

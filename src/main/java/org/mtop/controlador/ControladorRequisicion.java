@@ -98,6 +98,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         vehiculo=findById(Vehiculo.class, idVehiculo);
         
     }
+    public void asignarIdVehiculo(Long idVehiculo) {
+        this.idVehiculo = idVehiculo;
+        System.out.println("ID del vehiculo"+idVehiculo);
+        vehiculo=findById(Vehiculo.class, idVehiculo);
+        
+        
+    }
 
     
     public Vehiculo getVehiculo() {
