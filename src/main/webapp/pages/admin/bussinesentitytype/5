@@ -74,13 +74,17 @@
                                              rendered="#{propertyHome.instance.type eq 'java.lang.MultiLineString'}">
                                 <f:ajax event="blur" execute="@this" render="save"/>
                             </p:inputTextarea> 
-                           
+                            <mtop:input rendered="#{propertyHome.instance.type eq 'java.lang.Long' or propertyHome.instance.type eq 'java.lang.Double' or propertyHome.instance.type eq 'java.lang.Float'}"
+                                        id="valor" name="valor" type="java.lang.Long" label="#{messages['common.property.value']}" 
+                                value="#{propertyHome.propertyStringValue}" required="false" inlinehelp="ingrese valor" execute="@this save" />
                             
-                            <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
-                                            required="true" label="#{messages['common.property.value']}"
-                                            rendered="#{propertyHome.instance.type eq 'java.lang.Long' or propertyHome.instance.type eq 'java.lang.Double' or propertyHome.instance.type eq 'java.lang.Float'}">  
+                            
+                            
+                            <!--pe:inputNumber value="# {propertyHome.propertyStringValue}" styleClass="xLarge"
+                                            required="true" label="# {messages['common.property.value']}"
+                                            rendered="# {propertyHome.instance.type eq 'java.lang.Long' or propertyHome.instance.type eq 'java.lang.Double' or propertyHome.instance.type eq 'java.lang.Float'}">  
                                 <f:ajax event="blur" execute="@this" render="save"/>
-                            </pe:inputNumber> 
+                            </pe:inputNumber--> 
                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
                                             styleClass="validation-status" />
                             <span class="help-inline"><br/>#{messages['common.property.value.help']}<ocp:message forId="valuep" /></span>
