@@ -35,7 +35,15 @@
 
                         <div class="clearfix">
                             <label for="name">Username</label>
-                            <div class="input">
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user">
+
+                                    </i>
+                                </span>
+
                                 <h:inputText id="username" value="#{credentials.username}"
                                              styleClass="span4 form-control" required="true"/>
                                 <br/><span class="help-inline"></span>
@@ -44,7 +52,9 @@
 
                         <div class="clearfix">
                             <label for="password">Password</label>
-                            <div class="input">
+                            
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 <h:inputSecret id="password" value="#{credentials.password}"
                                                styleClass="span4 form-control" style="text-transform: uppercase;"  required="true">
                                 </h:inputSecret>

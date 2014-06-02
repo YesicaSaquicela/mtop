@@ -90,38 +90,40 @@
 
                     <p:panel id="v" header="Lista de Vehiculos">
                         <p:messages />
-
-                        <p:dataTable id="basicDT" var="item" value="#{controladorRequisicion.vehiculos}">
+                        <p:dataTable id="checkboxDT" value="#{controladorRequisicion.vehiculos}" var="v"
+                                     selection="#{controladorRequisicion.idVehiculo}" rowKey="#{v.id}"
+                                     style="margin-bottom:0">
                             <f:facet name="header">
-                                Vehiculos
+                                Lista de Vehiculos
                             </f:facet>
-                            <p:column headerText="Id">
-                                <h:outputText value="#{item.id}" />
-                            </p:column>
-                            <p:column headerText="Placa">
-                                <h:outputText value="#{item.placa}" />
-                            </p:column>
+                             <p:column selectionMode="single" style="width:2%;text-align:center"/>
                             <p:column headerText="Color">
-                                <h:outputText value="#{item.color}" />
+                                <h:outputText value="#{v.color}"></h:outputText>
                             </p:column>
-                            <p:column headerText="Numero de Registro">
-                                <h:outputText value="#{item.numRegistro}" />
+                            <p:column headerText="Marca">
+                                <h:outputText value="#{v.marca}"></h:outputText>
                             </p:column>
-                            <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:vehiculo" icon="ui-icon-search" title="Seleccionar">
-                                    <f:setPropertyActionListener value="#{item}" target="#{controladorRequisicion.vehiculo}" />
-                                </p:commandButton>
+                            <p:column headerText="Nro Registro">
+                                <h:outputText value="#{v.numRegistro}"></h:outputText>
                             </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton process="checkboxDT"
+                                                 update=":form:multiCarDetail"
+                                                 icon="ui-icon-search"
+                                                 value="Aprobar"
+                                                 oncomplete="#{controladorRequisicion.asignarIdVehiculo(v.id)}" />
+                            </f:facet>
                         </p:dataTable>
-                        <h:outputText value="vehiculo id: " />
-                        <p:inputText id="vehiculo" value="#{controladorRequisicion.vehiculo.id}" disabled="true" rendered="true" />
-
-
 
 
                     </p:panel>
+                 
+                    <p:panel id="vehiculo">
 
-
+                        <p:outputLabel value="Vehiculo"/><br></br>
+                        <p:inputText id="vehiculo1" value="#{controladorRequisicion.idVehiculo}"
+                                     required="true" /><br></br>
+                    </p:panel>
 
 
 
@@ -130,26 +132,19 @@
 
 
 
-
-
-
-
                 <p:tab id="confirm" title="Confirmacion">
                     <p:panel header="Confirmacion">
-                        <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
+                        <h:panelGrid id="confirmacion" columns="3" columnClasses="grid,grid,grid">
                             <h:panelGrid >
-                                <h:outputText value="Numero de requisicion: " />
-                                <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/><br/>
-                                 <h:outputText value="fecha de requisicion: " /><br/>
-                                <h:outputText value="#{controladorRequisicion.instance.fechaRequisicion}" styleClass="outputLabel"/>
+                                <h:outputText value="Numero de reqisicion: " />
+                                <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/>
+
 
                             </h:panelGrid>
 
-                            <h:panelGrid >
+                            <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="vehiculo id: " />
-                                <h:outputText value="#{controladorRequisicion.vehiculo.id}" styleClass="outputLabel"/><br/>
-                                <h:outputText value="vehiculo placa: " />
-                                <h:outputText value="#{controladorRequisicion.vehiculo.placa}" styleClass="outputLabel"/>
+                                <h:outputText value="#{controladorRequisicion.idVehiculo}" styleClass="outputLabel"/>
                             </h:panelGrid>
 
 
