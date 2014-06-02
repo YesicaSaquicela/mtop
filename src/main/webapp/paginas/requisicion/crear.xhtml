@@ -13,7 +13,7 @@
     <ui:param name="titulo" value="Gestionar Requisiciones"/>
     <f:metadata>
         <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
-        
+
     </f:metadata>
     <ui:define name="header">
 
@@ -29,8 +29,8 @@
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
-            <p:wizard flowListener="#{userWizard.onFlowProcess}">
-                <p:tab id="personal" title="Requisicion">
+            <p:wizard  id="p" flowListener="#{userWizard.onFlowProcess}">
+                <p:tab id="req"  title="Requisicion">
                     <p:panel header="Datos Generales">
                         <p:messages />
                         <h:panelGrid >
@@ -87,35 +87,40 @@
                 </p:tab>
 
                 <p:tab id="address" title="Asignar Vehiculo">
-                    <p:panel id="vehiculos" header="Lista de Vehiculos">
-                        <p:messages />
-                        <p:dataTable id="listav" value="#{controladorRequisicion.vehiculos}" var="v">
-                            <p:column headerText="Color">
-                                <h:outputText value="#{v.color}"></h:outputText>
-                            </p:column>
-                            <p:column headerText="Marca">
-                                <h:outputText value="#{v.marca}"></h:outputText>
-                            </p:column>
-                            <p:column headerText="Nro Registro">
-                                <h:outputText value="#{v.numRegistro}"></h:outputText>
-                            </p:column>
-                            <p:column headerText="Opciones" style="width: 5%"> 
-                                <p:commandButton value="Aprobar" ajax="true" actionListener="#{controladorRequisicion.asignarIdVehiculo(v.id)}" id="edit">
-                                    <p:ajax event="keyup" update=":form:listav" partialSubmit="true"/>
+              
+                    <p:panel id="v" header="Lista de Vehiculos">
+                            <p:messages />
+                            <p:dataTable id="listav" value="#{controladorRequisicion.vehiculos}" var="v">
+                                <p:column headerText="Color">
+                                    <h:outputText value="#{v.color}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Marca">
+                                    <h:outputText value="#{v.marca}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Nro Registro">
+                                    <h:outputText value="#{v.numRegistro}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Opciones" style="width: 5%"> 
                                     
-                                </p:commandButton>
-                            </p:column>
-                            <p:column headerText="vehiculo" style="width: 5%"> 
-                               
+                                    <p:commandButton value="Aprobarc" ajax="true" actionListener="#{controladorRequisicion.asignarIdVehiculo(v.id)}"
+                                                    id="edit" >
+                                        <p:ajax process="@this" update=":form:v:vehiculo"/>
+                                    </p:commandButton>>
+                                    
+                                </p:column>
+                            </p:dataTable>
+                            <p:outputLabel value="Vehiculo"/><br></br>
                             <p:inputText id="vehiculo" value="#{controladorRequisicion.idVehiculo}"
-                                             required="true" /><br></br>
-                            </p:column>
-                        </p:dataTable>
-                      
-                      
-                    </p:panel>
-                   
-                 </p:tab>
+                                         required="true" /><br></br>
+
+                        </p:panel>
+                        
+              
+
+                </p:tab>
+
+
+
 
                 <p:tab id="confirm" title="Confirmacion">
                     <p:panel header="Confirmacion">

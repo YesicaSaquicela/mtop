@@ -43,14 +43,17 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorProducto extends BussinesEntityHome<Producto> implements Serializable{
-   @Inject
+public class ControladorProducto extends BussinesEntityHome<Producto> implements Serializable {
+
+    @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<Producto> listaProducto = new ArrayList<Producto>();
+    private List<Producto> listaProducto = new ArrayList<Producto>();
 
+
+      
     public Long getProductoId() {
         return (Long) getId();
     }
@@ -59,18 +62,19 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         setId(productoId);
     }
 
+  
     @TransactionAttribute   //
     public Producto load() {
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
         return getInstance();
     }
 
     @TransactionAttribute
     public void wire() {
         getInstance();
+
     }
 
     public List<Producto> getListaProducto() {
@@ -81,16 +85,18 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         this.listaProducto = listaProducto;
     }
 
- 
+  
+
     @PostConstruct
     public void init() {
         setEntityManager(em);
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
+        
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaProducto = servgen.buscarTodos(Producto.class);
+        listaProducto= servgen.buscarTodos(Producto.class);
     }
 
     @Override
@@ -116,21 +122,31 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
     @TransactionAttribute
     public String guardar() {
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+         
+                       
+         
+         System.out.println("IIIIDEEEntro>>>>>>"+getProductoId());
+        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance().isPersistent());
+                                
         try {
             if (getInstance().isPersistent()) {
-                save(getInstance());
+                System.out.println("Entro a Editar>>>>>>>>");
+               save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Producto" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+                 System.out.println("Entro a crear>>>>>>>>");
+              //  getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Producto" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Producto" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/producto/lista.xhtml?faces-redirect=true";
@@ -138,7 +154,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
     @Transactional
     public String borrarEntidad() {
-        //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
+        
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");
@@ -155,5 +171,6 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
         return "/paginas/producto/lista.xhtml?faces-redirect=true";
-    }   
+    }
+
 }

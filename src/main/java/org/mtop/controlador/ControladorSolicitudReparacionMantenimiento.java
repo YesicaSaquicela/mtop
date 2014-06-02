@@ -119,8 +119,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         solicitudRepMant.setCreatedOn(now);
         solicitudRepMant.setLastUpdate(now);
         solicitudRepMant.setActivationTime(now);
-
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         solicitudRepMant.setType(_type);
         solicitudRepMant.buildAttributes(bussinesEntityService);  //
         return solicitudRepMant;
@@ -147,8 +145,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 //               }
 //          
                          
-          Vehiculo vehiculo=servgen.buscarPorId(Vehiculo.class, idvehiculo);
-              getInstance().setVehiculo(vehiculo);   
+        Vehiculo vehiculo=servgen.buscarPorId(Vehiculo.class, idvehiculo);
+        getInstance().setVehiculo(vehiculo);   
+        System.out.println("IIIIDEEEntro>>>>>>"+getSolicitudReparacionMantenimientoId());
+        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance().isPersistent());
                                 
         try {
             if (getInstance().isPersistent()) {            

@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -24,12 +25,12 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <p:commandButton value="Crear" rendered="#{true}"  action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" icon="ui-icon-document">
-                    <f:param name="partidaId"></f:param>
-                </p:commandButton> <br></br><br></br>
+                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                    <f:param name="partidaId" ></f:param>
+                </p:commandButton>
             </div>
-            <p:dataTable id="listap" value="#{controladorPartidaContabilidad.listaPartidaContabilidad}" var="pc">
-                <p:column headerText="Número de Provincia">
+            <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc">
+                 <p:column headerText="Número de Provincia">
                     <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
                 </p:column>
                 <p:column headerText="Número de Programa">
@@ -45,14 +46,12 @@
                     <h:outputText value="#{pc.numeroFuenteFinanciera}"></h:outputText>
                 </p:column>
                 <p:column headerText="Descripción">
-                    <h:outputText value="#{pc.descripcion}"></h:outputText>
+                    <h:outputText value="#{pc.observacion}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
                     <h:link value="Editar" outcome="crear" type="button" >
-                        <f:param name="partidaId" value="#{pd.id}"></f:param>
+                        <f:param name="partidaId" value="#{pc.id}"></f:param>
                     </h:link>
-                    
-                    
                 </p:column>
             </p:dataTable>
         </h:form>

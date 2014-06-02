@@ -40,6 +40,7 @@ public class Producto extends BussinesEntity implements Serializable {
     private String codigo;
     private long cantidad;
     private String descripcion;
+    //ojo este atrubuto se lo podria heredar de la clases Persisten que es del modelo dinamico 
     private boolean estado;
 
     public String getCodigo() {

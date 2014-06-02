@@ -43,7 +43,8 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     private long numeroProyecto;
     private long numeroItem;
     private long numeroFuenteFinanciera;
-    private String descripcion;
+   // private String descripcion=" ";
+    private String observacion;
 //    @OneToOne(mappedBy = "partidaC")
 //    private PartidaContabilidad pContabilidad;
 
@@ -95,13 +96,14 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
         this.numeroFuenteFinanciera = numeroFuenteFinanciera;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getObservacion() {
+        return observacion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
+
 
     @Override
     public String toString() {

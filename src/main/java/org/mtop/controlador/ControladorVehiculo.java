@@ -123,6 +123,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         System.out.println("PRESENTAR ANTES>>>>>"+getInstance().getNumRegistro());
+         System.out.println("IIIIDEEEntro>>>>>>"+getVehiculoId());
         System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
