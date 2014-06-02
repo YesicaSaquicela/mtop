@@ -37,6 +37,7 @@ import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -76,14 +77,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         
         this.partidaC = partidaC;
     }
-    
-    
-    public List<Vehiculo> getVehiculos() {
-        System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");
-        vehiculos = findAll(Vehiculo.class);
-        return vehiculos;
-    }
-
+  
+  
     public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
@@ -133,7 +128,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-
+        System.out.println("entra a fijar un vehiculo con su iddd"+vehiculo.getId());
+        
         this.vehiculo = vehiculo;
     }
 
