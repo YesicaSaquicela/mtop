@@ -68,15 +68,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         String resultado="250"+partidaC.getNumeroProvincia()+"0000"+partidaC.getNumeroPrograma()+"00"+partidaC.getNumeroProyecto()+"001"+partidaC.getNumeroItem()+"1100"+partidaC.getNumeroFuenteFinanciera();
         return resultado;
     }
-
-    public PartidaContabilidad getPartidaC() {
-        return partidaC;
-    }
-
-    public void setPartidaC(PartidaContabilidad partidaC) {
-        
-        this.partidaC = partidaC;
-    }
   
   
     public void setVehiculos(List<Vehiculo> vehiculos) {
