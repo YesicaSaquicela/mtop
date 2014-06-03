@@ -62,7 +62,7 @@
                                 <f:selectItem itemLabel="Credito" itemValue="credito" />  
 
                             </p:selectOneMenu> <br></br>
-                           
+
                             <p:outputLabel value="Observacio"/><br></br>
                             <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
                                              required="true" /><br></br>
@@ -116,25 +116,16 @@
                     </p:panel>
 
 
-
-
-
                 </p:tab>
 
-
-
-
-
-
-
-
                 <p:tab id="confirm" title="Confirmacion">
+                    <h:outputText  value="#{controladorRequisicion.mensaje} " />
                     <p:panel header="Confirmacion">
                         <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
                             <h:panelGrid >
                                 <h:outputText value="Numero de requisicion: " />
                                 <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/><br/>
-                                 <h:outputText value="fecha de requisicion: " /><br/>
+                                <h:outputText value="fecha de requisicion: " /><br/>
                                 <h:outputText value="#{controladorRequisicion.instance.fechaRequisicion}" styleClass="outputLabel"/>
 
                             </h:panelGrid>
@@ -149,7 +140,10 @@
 
                         </h:panelGrid>
 
-                        <p:commandButton id="save" value="Guardar" actionListener="#{controladorRequisicion.guardar()}" update="growl" process="@this"/>
+                        <div class="admin-actions "> 
+                            <p:commandButton id="save" value="Guardar" action="#{controladorRequisicion.guardar()}" update="growl" process="@this"/>
+                            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/requisicion/lista" styleClass="btn  btn-success"/>
+                        </div>
                     </p:panel>
                 </p:tab>
             </p:wizard>
