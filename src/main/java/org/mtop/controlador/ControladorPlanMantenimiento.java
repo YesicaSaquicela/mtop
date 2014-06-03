@@ -74,8 +74,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         this.idactividad = idactividad;
     }
     
-    
-
     @TransactionAttribute   //
     public PlanMantenimiento load() {
         if (isIdDefined()) {
