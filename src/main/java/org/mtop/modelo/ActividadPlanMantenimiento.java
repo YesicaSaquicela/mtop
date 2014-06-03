@@ -34,9 +34,9 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
     private String kilometraje;
     @NotNull
     private String actividad;
-//    @ManyToOne
-//    @JoinColumn(name = "planMId")
-//    public PlanMantenimiento planMantenimiento=new PlanMantenimiento();
+    @ManyToOne
+    @JoinColumn(name = "planMId")
+    public PlanMantenimiento planMantenimiento=new PlanMantenimiento();
  
 
     public String getKilometraje() {
@@ -55,13 +55,13 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
         this.actividad = actividad;
     }
 
-//    public PlanMantenimiento getPlanMantenimiento() {
-//        return planMantenimiento;
-//    }
-//
-//    public void setPlanMantenimiento(PlanMantenimiento planMantenimiento) {
-//        this.planMantenimiento = planMantenimiento;
-//    }
+    public PlanMantenimiento getPlanMantenimiento() {
+        return planMantenimiento;
+    }
+
+    public void setPlanMantenimiento(PlanMantenimiento planMantenimiento) {
+        this.planMantenimiento = planMantenimiento;
+    }
    
 
 
