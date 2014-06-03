@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 jesica.
+ * Copyright 2014 carlis.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.mtop.controlador;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,37 +38,39 @@ import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityAttribute;
 import org.mtop.model.BussinesEntityType;
 import org.mtop.model.Property;
+import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
 
 /**
  *
- * @author jesica
+ * @author carlis
  */
+
 @Named
 @ViewScoped
-public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements Serializable {
+public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<ActividadPlanMantenimiento> implements Serializable {
 
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
+    List<ActividadPlanMantenimiento> listaActividades = new ArrayList<ActividadPlanMantenimiento>();
 
-    public Long getVehiculoId() {
+    public Long getActividadPlanMantenimientoId() {
         System.out.println("IIIIDEE"+getId());
         return (Long) getId();
     }
 
-    public void setVehiculoId(Long vehiculoId) {
+    public void setActividadPlanMantenimientoId(Long actividadPlanMantenimientoId) {
 
-        setId(vehiculoId);
+        setId(actividadPlanMantenimientoId);
 
     }
 
     @TransactionAttribute   //
-    public Vehiculo load() {
+    public ActividadPlanMantenimiento load() {
         if (isIdDefined()) {
             wire();
         }
@@ -79,13 +83,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         getInstance();
     }
 
-    public List<Vehiculo> getListaVehiculos() {
-        return listaVehiculos;
+    public List<ActividadPlanMantenimiento> getListaActividades() {
+        return listaActividades;
     }
 
-    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
-        this.listaVehiculos = listaVehiculos;
+    public void setListaActividades(List<ActividadPlanMantenimiento> listaActividades) {
+        this.listaActividades = listaActividades;
     }
+
+    
 
     @PostConstruct
     public void init() {
@@ -95,26 +101,26 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaVehiculos = servgen.buscarTodos(Vehiculo.class);
+        listaActividades = servgen.buscarTodos(ActividadPlanMantenimiento.class);
     }
 
     @Override
-    protected Vehiculo createInstance() {
+    protected ActividadPlanMantenimiento createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Vehiculo.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ActividadPlanMantenimiento.class.getName());
         Date now = Calendar.getInstance().getTime();
-        Vehiculo vehiculo = new Vehiculo();
-        vehiculo.setCreatedOn(now);
-        vehiculo.setLastUpdate(now);
-        vehiculo.setActivationTime(now);
-        vehiculo.setType(_type);
-        vehiculo.buildAttributes(bussinesEntityService);  //
-        return vehiculo;
+        ActividadPlanMantenimiento actividadpm = new ActividadPlanMantenimiento();
+        actividadpm.setCreatedOn(now);
+        actividadpm.setLastUpdate(now);
+        actividadpm.setActivationTime(now);
+        actividadpm.setType(_type);
+        actividadpm.buildAttributes(bussinesEntityService);  //
+        return actividadpm;
     }
 
     @Override
-    public Class<Vehiculo> getEntityClass() {
-        return Vehiculo.class;
+    public Class<ActividadPlanMantenimiento> getEntityClass() {
+        return ActividadPlanMantenimiento.class;
     }
 
     @TransactionAttribute
@@ -122,30 +128,27 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
        
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("PRESENTAR ANTES>>>>>"+getInstance().getNumRegistro());
-         System.out.println("IIIIDEEEntro>>>>>>"+getVehiculoId());
+      
         System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                System.out.println("PRESENTAR GUERADAR>>>>>"+getInstance().getNumRegistro());
-                
+                               
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo actividad Plan de Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 
-                System.out.println("PRESENTAR EDITAR>>>>>"+getInstance().getNumRegistro());
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva vehiculo" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Actividad del plan de mantenimiento" + getInstance().getId() + " con éxito"," ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas//lista.xhtml?faces-redirect=true";
     }
     
     @Transactional
@@ -166,7 +169,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas//lista.xhtml?faces-redirect=true";
     }
     public boolean tieneEstadosEstructura(Property propiedad){
         for(Property p: servgen.buscarTodos(Property.class)){

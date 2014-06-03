@@ -44,13 +44,14 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaRequisicion;
     private String tipoAdquisicion;
-    private String partida;
     private String observaciones;
     private String tipoRequisicion;
     
     @ManyToOne
     @JoinColumn(name = "vehiculoId1")
     private Vehiculo vehiculo;
+    @OneToOne
+    private PartidaContabilidad partidaContabilidad;
 
 //    @OneToOne
 //    private SolicitudReparacionMantenimiento solicitudReparacions;
@@ -74,7 +75,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.vehiculo = vehiculo;
     }
 
-
 //    public Kardex getKardex() {
 //        return kardex;
 //    }
@@ -97,7 +97,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //    public void setPsolicita(Persona psolicita) {
 //        this.psolicita = psolicita;
 //    }
-
 //  
 //    public List<ItemRequisicion> getListaItems() {
 //        return listaItems;
@@ -109,16 +108,16 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //        }
 //        this.listaItems = listaItems;
 //    }
-
-    public String getPartida() {
-        return partida;
+    public PartidaContabilidad getPartidaContabilidad() {
+        return partidaContabilidad;
     }
 
-    public void setPartida(String partida) {
-        this.partida = partida;
+    public void setPartidaContabilidad(PartidaContabilidad partidaContabilidad) {
+        this.partidaContabilidad = partidaContabilidad;
     }
 
-    public String getTipoAdquisicion() {
+    
+      public String getTipoAdquisicion() {
         return tipoAdquisicion;
     }
 

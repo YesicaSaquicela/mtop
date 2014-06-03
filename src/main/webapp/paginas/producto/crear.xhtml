@@ -14,12 +14,11 @@
 
     <ui:param name="titulo" value="Gestionar Producto"/>
     <f:metadata>
-        <f:viewParam name="productoId" value="#{controladorRequisicion.requisicionId}"/>
+        <f:viewParam name="productoId" value="#{controladorProducto.productoId}"/>
     </f:metadata>
     <ui:define name="header">
 
-        <h2>#{titulo}</h2>   
-        
+        <h2>#{titulo}</h2>    
 
     </ui:define>
     <ui:define name="content">
@@ -28,13 +27,13 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <p:panel header="Datos Generales">
+            <p:panel  header="Datos Generales">
                 <div class="container-fluid">
                     <!-- Example row of columns -->
                     <div class="row">
                         <div class="col-md-6"> 
 
-                            <mtop:input id="codigo" name="codigo1" type="text" label="Código" 
+                           <mtop:input id="codigo" name="codigo1" type="text" label="Código" 
                                         value="#{controladorProducto.instance.codigo}" required="true" 
                                         inlinehelp="Ingrese el codigo del producto" execute ="@this save" render="codigo"/>
 
@@ -43,21 +42,67 @@
                                         inlinehelp="Ingrese la cantidad" 
                                         execute ="@this save" render="cantidad"/>
                             
-                           <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descripción" 
-                                        value="#{controladorRequisicion.instance.observaciones}" required="true" 
+                       
+                           <!--mtop:input id="descripcion" name="descripcion" type="textarea" label="Descripción" 
+                                       value="# { controladorProducto.instance.descripcion}" required="true" 
                                         inlinehelp="Ingrese una descripción" 
-                                        execute ="@this save" render="descripcion"/>
+                                        execute ="@this save" render="descripcion"/-->
+                           
+                            <p:outputLabel value="Descripcion"/><br></br>
+                            <p:inputTextarea id="descripcion" value="#{controladorProducto.instance.descripcion}"
+                                             required="true" /><br></br>
 
                         </div>
-
                     </div>
 
+                   
+                    <c:forEach items="#{ui.getProperties(controladorProducto.instance)}" var="p" >
+                        <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
+                            <c:choose>                        
+                                <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
+                                    <h:panelGroup  layout="block" class="clearfix">
+                                        <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+                                            <h:panelGroup layout="block" class="clearfix">
+                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                <div class="input">
+                                                    <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
+                                                        <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                        <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                    </p:inputText>
+                                                    <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                rendered="#{a.property.type eq 'java.util.Date'}">
+                                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                    </p:calendar>  
+                                                    <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                                    rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Double' or type eq 'java.lang.Float'}">  
+                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                    </pe:inputNumber>  
+                                                    <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                     rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                        <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                                    </p:selectOneMenu> 
+                                                    <p:inputTextarea value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                    </p:inputTextarea>                                                
+                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                    styleClass="validation-status" />
+                                                    <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                                </div>
+                                            </h:panelGroup>  
+
+                                        </ui:repeat>
+                                    </h:panelGroup>
+                                </c:when>
+                            </c:choose>
+                        </p:panel>
+                    </c:forEach>
                 </div>
-
-
             </p:panel>
 
-           <p:panel >
+            <p:panel >
                 <div class="admin-actions ">  
                     <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorProducto.guardar()}"
                                      immediate="true" icon="ui-icon-disk"/>
@@ -65,8 +110,11 @@
                     &nbsp;&nbsp;
 
                     <h:button value="Regresar" rendered="#{true}" outcome="/paginas/producto/lista" styleClass="btn  btn-success"/>
+
                 </div>
             </p:panel>
+
+
 
         </h:form>
 

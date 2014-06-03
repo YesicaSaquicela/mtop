@@ -33,6 +33,7 @@ import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
+import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.servicios.ServicioGenerico;
 
@@ -43,27 +44,44 @@ import org.mtop.servicios.ServicioGenerico;
 @Named
 @ViewScoped
 public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanMantenimiento> implements Serializable{
+   
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
+    private List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
+    private List<ActividadPlanMantenimiento> listaActividades=new ArrayList<ActividadPlanMantenimiento>();
+    private Long idactividad=0l;
+    private PlanMantenimiento pm;
 
     public Long getPlanMantenimientoId() {
+        System.out.println("IIIIDEE"+getId());
         return (Long) getId();
     }
 
-    public void setPlanmantenimientoId(Long planMantenimientoId) {
+    public void setPlanMantenimientoId(Long planMantenimientoId) {
+
         setId(planMantenimientoId);
+
     }
+
+    public Long getIdactividad() {
+        return idactividad;
+    }
+
+    public void setIdactividad(Long idactividad) {
+        this.idactividad = idactividad;
+    }
+    
+    
 
     @TransactionAttribute   //
     public PlanMantenimiento load() {
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
+
         return getInstance();
     }
 
@@ -79,12 +97,21 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public void setListaPlanMantenimiento(List<PlanMantenimiento> listaPlanMantenimiento) {
         this.listaPlanMantenimiento = listaPlanMantenimiento;
     }
- 
+
+    public List<ActividadPlanMantenimiento> getListaActividades() {
+        return listaActividades;
+    }
+
+    public void setListaActividades(List<ActividadPlanMantenimiento> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
+
+    
 
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
+        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (Vehiculo)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
         bussinesEntityService.setEntityManager(em);
@@ -101,8 +128,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         planM.setCreatedOn(now);
         planM.setLastUpdate(now);
         planM.setActivationTime(now);
-
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         planM.setType(_type);
         planM.buildAttributes(bussinesEntityService);  //
         return planM;
@@ -115,17 +140,23 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     @TransactionAttribute
     public String guardar() {
+       
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+       
+       System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
+                   
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+              
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan Mantenimiento" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito"," ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
@@ -134,7 +165,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
         return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
     }
-
+    
     @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
@@ -153,6 +184,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
-    }   
+        return "/paginas/planMantenimient/lista.xhtml?faces-redirect=true";
+    }
+public void guardarItem(){
+
+
 }
+}
+

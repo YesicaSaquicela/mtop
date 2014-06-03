@@ -32,6 +32,7 @@ import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
+import org.mtop.modelo.PartidaContabilidad;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
@@ -56,10 +57,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Vehiculo vehiculo;
     private List<Vehiculo> vehiculos;
     private String ruta;
-    public String mensaje="";
+    private long idPartidaC=0l;
+    private PartidaContabilidad partidaC;
+    private String mensaje;
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
+ 
+    public String concanertarPartida(){
+        partidaC=findById(PartidaContabilidad.class, idPartidaC);
+        String resultado="250"+partidaC.getNumeroProvincia()+"0000"+partidaC.getNumeroPrograma()+"00"+partidaC.getNumeroProyecto()+"001"+partidaC.getNumeroItem()+"1100"+partidaC.getNumeroFuenteFinanciera();
+        return resultado;
+    }
     public List<Vehiculo> getVehiculos() {
 
         System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");

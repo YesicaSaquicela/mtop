@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +34,6 @@ import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
 import org.mtop.model.BussinesEntityType;
 import org.mtop.modelo.PartidaContabilidad;
-
 import org.mtop.servicios.ServicioGenerico;
 
 /**
@@ -43,54 +42,61 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaContabilidad> implements Serializable{
-       @Inject
+public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaContabilidad> implements Serializable {
+
+    @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<PartidaContabilidad> listaPartidaContabilidad = new ArrayList<PartidaContabilidad>();
+    private List<PartidaContabilidad> listaPartidaC = new ArrayList<PartidaContabilidad>();
 
-    public Long getPartidaContabilidadId() {
+
+      
+    public Long getPartidaCId() {
         return (Long) getId();
+       
     }
 
-    public void setPartidaContabilidadId(Long partidaContabilidadId) {
-        setId(partidaContabilidadId);
+    public void setPartidaCId(Long partidaCId) {
+        setId(partidaCId);
     }
 
+  
     @TransactionAttribute   //
     public PartidaContabilidad load() {
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
         return getInstance();
     }
 
     @TransactionAttribute
     public void wire() {
         getInstance();
+
     }
 
-    public List<PartidaContabilidad> getListaPartidaContabilidad() {
-        return listaPartidaContabilidad;
+    public List<PartidaContabilidad> getListaPartidaC() {
+        return listaPartidaC;
     }
 
-    public void setListaPartidaContabilidad(List<PartidaContabilidad> listaPartidaContabilidad) {
-        this.listaPartidaContabilidad = listaPartidaContabilidad;
+    public void setListaPartidaC(List<PartidaContabilidad> listaPartidaC) {
+        this.listaPartidaC = listaPartidaC;
     }
 
    
+
     @PostConstruct
     public void init() {
         setEntityManager(em);
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
+        
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaPartidaContabilidad = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
     }
 
     @Override
@@ -98,15 +104,15 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         //prellenado estable para cualquier clase 
         BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(PartidaContabilidad.class.getName());
         Date now = Calendar.getInstance().getTime();
-        PartidaContabilidad partidaContabilidad = new PartidaContabilidad();
-        partidaContabilidad.setCreatedOn(now);
-        partidaContabilidad.setLastUpdate(now);
-        partidaContabilidad.setActivationTime(now);
+        PartidaContabilidad partidaC = new PartidaContabilidad();
+        partidaC.setCreatedOn(now);
+        partidaC.setLastUpdate(now);
+        partidaC.setActivationTime(now);
 
         //fichaMedic.setResponsable(null);    //cambiar atributo a 
-        partidaContabilidad.setType(_type);
-        partidaContabilidad.buildAttributes(bussinesEntityService);  //
-        return partidaContabilidad;
+        partidaC.setType(_type);
+        partidaC.buildAttributes(bussinesEntityService);  //
+        return partidaC;
     }
 
     @Override
@@ -116,21 +122,32 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     @TransactionAttribute
     public String guardar() {
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+         
+                       
+         
+         System.out.println("IIIIDEEEntro>>>>>>"+getPartidaCId());
+        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance());
+        System.err.println("Descripcion>>>>>"+getInstance().getObservacion());
+                                
         try {
             if (getInstance().isPersistent()) {
-                save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Partida Contabilidad" + getInstance().getId() + " con éxito", " ");
+                System.out.println("Entro a Editar>>>>>>>>");
+               save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Partida contabilidad" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+                 System.out.println("Entro a crear>>>>>>>>");
+              //  getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida Contabilidad" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
@@ -155,5 +172,6 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
-    }   
+    }
+
 }
