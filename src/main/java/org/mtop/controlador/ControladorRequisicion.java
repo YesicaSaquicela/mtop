@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
@@ -55,30 +54,30 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     List<Requisicion> listaRequisicion = new ArrayList<Requisicion>();
     private Long idVehiculo;
     private Vehiculo vehiculo;
-     private List<Vehiculo> vehiculos;
-     private String ruta;
+    private List<Vehiculo> vehiculos;
+    private String ruta;
+    public String mensaje="";
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
     public List<Vehiculo> getVehiculos() {
-        
+
         System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");
-        vehiculos=findAll(Vehiculo.class);
+        vehiculos = findAll(Vehiculo.class);
         return vehiculos;
     }
-  
-  
+
     public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
-   
+
     public Long getRequisicionId() {
         return (Long) getId();
     }
 
     public void setRequisicionId(Long requisicionId) {
         setId(requisicionId);
-        
+
     }
 
     public String getRuta() {
@@ -89,45 +88,47 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.ruta = ruta;
     }
 
-    
     public Long getIdVehiculo() {
-            return idVehiculo;
+        return idVehiculo;
     }
 
     public void setIdVehiculo(Long idVehiculo) {
         this.idVehiculo = idVehiculo;
-        vehiculo=findById(Vehiculo.class, idVehiculo);
-        
-    }
-    public void asignarIdVehiculo(Long idVehiculo) {
-        this.idVehiculo = idVehiculo;
-        System.out.println("ID del vehiculo>>>>><<<<<<<<<<<<<<<<<<<<<"+idVehiculo);
-        vehiculo=findById(Vehiculo.class, idVehiculo);
-        
-        
+        vehiculo = findById(Vehiculo.class, idVehiculo);
+
     }
 
-    
+    public void asignarIdVehiculo(Long idVehiculo) {
+        this.idVehiculo = idVehiculo;
+        System.out.println("ID del vehiculo>>>>><<<<<<<<<<<<<<<<<<<<<" + idVehiculo);
+        vehiculo = findById(Vehiculo.class, idVehiculo);
+
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
     public Vehiculo getVehiculo() {
-        
-        if(getRequisicionId() != null ){
-            System.out.println("vehiculo "+getInstance().getVehiculo());
-            vehiculo=getInstance().getVehiculo();
+
+        if (getRequisicionId() != null) {
+            System.out.println("vehiculo " + getInstance().getVehiculo());
+            vehiculo = getInstance().getVehiculo();
         }
-        
+
         return vehiculo;
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-        System.out.println("entra a fijar un vehiculo con su iddd"+vehiculo.getId());
-        
+        System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
+
         this.vehiculo = vehiculo;
     }
 
-    
-    
-
-    
     @TransactionAttribute   //
     public Requisicion load() {
         if (isIdDefined()) {
@@ -159,8 +160,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaRequisicion = servgen.buscarTodos(Requisicion.class);
-        vehiculo=new Vehiculo();
-        idVehiculo=0l;
+        vehiculo = new Vehiculo();
+        idVehiculo = 0l;
     }
 
     @Override
@@ -185,30 +186,36 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     @TransactionAttribute
     public String guardar() {
-        Date now = Calendar.getInstance().getTime();
-        getInstance().setLastUpdate(now);
-    
-        getInstance().setVehiculo(vehiculo);
-        System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
-        try {
-            if (getInstance().isPersistent()) {
-                System.out.println("ingresa a editar>>>>>>>");
-                save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
-            } else {
-                System.out.println("ingresa a creaaar>>>>>>>");
-              //  getInstance().setEstado(true);
-                create(getInstance());
-                save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
+        if (this.vehiculo.getId() == null) {
+            mensaje="necesita un asignar un vehiculo";
+             return "/paginas/requisicion/crear.xhtml?faces-redirect=true";
+        } else {
+            mensaje="";
+            Date now = Calendar.getInstance().getTime();
+            getInstance().setLastUpdate(now);
+
+            getInstance().setVehiculo(vehiculo);
+            System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
+            try {
+                if (getInstance().isPersistent()) {
+                    System.out.println("ingresa a editar>>>>>>>");
+                    save(getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                } else {
+                    System.out.println("ingresa a creaaar>>>>>>>");
+                    //  getInstance().setEstado(true);
+                    create(getInstance());
+                    save(getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                }
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
-        } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
+            return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
         }
-        return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
