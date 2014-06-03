@@ -43,14 +43,14 @@
                                         execute ="@this save" render="cantidad"/>
                             
                        
-                           <mtop:input id="descripcion" name="descripcion" type="textarea" label="Descripción" 
-                                       value="#{controladorProducto.instance.descripcion}" required="true" 
+                           <!--mtop:input id="descripcion" name="descripcion" type="textarea" label="Descripción" 
+                                       value="# { controladorProducto.instance.descripcion}" required="true" 
                                         inlinehelp="Ingrese una descripción" 
-                                        execute ="@this save" render="descripcion"/>
+                                        execute ="@this save" render="descripcion"/-->
                            
-                            <!--p:outputLabel value="Descripcion"/><br></br>
-                            <p:inputTextarea id="descripcion" value="# {controladorProducto.instance.descripcion}"
-                                             required="true" /><br></br-->
+                            <p:outputLabel value="Descripcion"/><br></br>
+                            <p:inputTextarea id="descripcion" value="#{controladorProducto.instance.descripcion}"
+                                             required="true" /><br></br>
 
                         </div>
                     </div>

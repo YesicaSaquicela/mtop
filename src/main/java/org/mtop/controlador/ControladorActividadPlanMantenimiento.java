@@ -16,13 +16,16 @@
 
 package org.mtop.controlador;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -32,52 +35,42 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controller.BussinesEntityHome;
+import org.mtop.model.BussinesEntityAttribute;
 import org.mtop.model.BussinesEntityType;
+import org.mtop.model.Property;
 import org.mtop.modelo.ActividadPlanMantenimiento;
-import org.mtop.modelo.PlanMantenimiento;
+import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
 
 /**
  *
  * @author carlis
  */
+
 @Named
 @ViewScoped
-public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanMantenimiento> implements Serializable{
-   
+public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<ActividadPlanMantenimiento> implements Serializable {
+
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    private List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
-    private List<ActividadPlanMantenimiento> listaActividades=new ArrayList<ActividadPlanMantenimiento>();
-    private Long idactividad=0l;
-    private PlanMantenimiento pm;
+    List<ActividadPlanMantenimiento> listaActividades = new ArrayList<ActividadPlanMantenimiento>();
 
-    public Long getPlanMantenimientoId() {
+    public Long getActividadPlanMantenimientoId() {
         System.out.println("IIIIDEE"+getId());
         return (Long) getId();
     }
 
-    public void setPlanMantenimientoId(Long planMantenimientoId) {
+    public void setActividadPlanMantenimientoId(Long actividadPlanMantenimientoId) {
 
-        setId(planMantenimientoId);
+        setId(actividadPlanMantenimientoId);
 
     }
-
-    public Long getIdactividad() {
-        return idactividad;
-    }
-
-    public void setIdactividad(Long idactividad) {
-        this.idactividad = idactividad;
-    }
-    
-    
 
     @TransactionAttribute   //
-    public PlanMantenimiento load() {
+    public ActividadPlanMantenimiento load() {
         if (isIdDefined()) {
             wire();
         }
@@ -88,14 +81,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     @TransactionAttribute
     public void wire() {
         getInstance();
-    }
-
-    public List<PlanMantenimiento> getListaPlanMantenimiento() {
-        return listaPlanMantenimiento;
-    }
-
-    public void setListaPlanMantenimiento(List<PlanMantenimiento> listaPlanMantenimiento) {
-        this.listaPlanMantenimiento = listaPlanMantenimiento;
     }
 
     public List<ActividadPlanMantenimiento> getListaActividades() {
@@ -116,26 +101,26 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaPlanMantenimiento = servgen.buscarTodos(PlanMantenimiento.class);
+        listaActividades = servgen.buscarTodos(ActividadPlanMantenimiento.class);
     }
 
     @Override
-    protected PlanMantenimiento createInstance() {
+    protected ActividadPlanMantenimiento createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(PlanMantenimiento.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ActividadPlanMantenimiento.class.getName());
         Date now = Calendar.getInstance().getTime();
-        PlanMantenimiento planM = new PlanMantenimiento();
-        planM.setCreatedOn(now);
-        planM.setLastUpdate(now);
-        planM.setActivationTime(now);
-        planM.setType(_type);
-        planM.buildAttributes(bussinesEntityService);  //
-        return planM;
+        ActividadPlanMantenimiento actividadpm = new ActividadPlanMantenimiento();
+        actividadpm.setCreatedOn(now);
+        actividadpm.setLastUpdate(now);
+        actividadpm.setActivationTime(now);
+        actividadpm.setType(_type);
+        actividadpm.buildAttributes(bussinesEntityService);  //
+        return actividadpm;
     }
 
     @Override
-    public Class<PlanMantenimiento> getEntityClass() {
-        return PlanMantenimiento.class;
+    public Class<ActividadPlanMantenimiento> getEntityClass() {
+        return ActividadPlanMantenimiento.class;
     }
 
     @TransactionAttribute
@@ -143,27 +128,27 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
        
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-       
-       System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
+      
+        System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                   
+                               
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo actividad Plan de Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-              
+                
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Actividad del plan de mantenimiento" + getInstance().getId() + " con éxito"," ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
+        return "/paginas//lista.xhtml?faces-redirect=true";
     }
     
     @Transactional
@@ -184,11 +169,23 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/planMantenimient/lista.xhtml?faces-redirect=true";
+        return "/paginas//lista.xhtml?faces-redirect=true";
     }
-public void guardarItem(){
-
+    public boolean tieneEstadosEstructura(Property propiedad){
+        for(Property p: servgen.buscarTodos(Property.class)){
+            if(p.getGroupName()!=null){
+                if(p.getGroupName().equals(propiedad.getName())){
+                System.out.println("encontro su propiedad>>>>> "+p.getName());
+                if(p.getType().equals("org.mtop.model.EstadoParteMecanica")){
+                    System.out.println("retornara true");
+                    return true;
+                }
+            }
+            }
+            
+        }
+        System.out.println("retornara false");
+        return false;
+    }
 
 }
-}
-

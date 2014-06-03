@@ -40,8 +40,8 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
 //    @ManyToOne
 //    @JoinColumn(name = "vehiculoId")
 //    private Vehiculo vehiculo;
-//    @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
+    @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
 
 //    public List<ActividadPlanMantenimiento> getListaActividadpm() {
 //        return listaActividadpm;
@@ -53,8 +53,15 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
 //        }
 //        this.listaActividadpm = listaActividadpm;
 //    }
+    public List<ActividadPlanMantenimiento> getListaActividadpm() {
+        return listaActividadpm;
+    }
 
-    
+    public void setListaActividadpm(List<ActividadPlanMantenimiento> listaActividadpm) {
+        this.listaActividadpm = listaActividadpm;
+    }
+
+  
     public String getRegistro() {
         return registro;
     }
