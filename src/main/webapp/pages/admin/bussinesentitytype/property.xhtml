@@ -40,13 +40,13 @@
                     <h:panelGroup id="typeP" layout="block" class="clearfix" >
                         <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
                         <div class="input">
-                            <p:selectOneMenu id="type" value="#{propertyHome.instance.type}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="false" requiredMessage="false" 
+                            <p:selectOneMenu id="type" value="#{propertyHome.propertyType}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="false" requiredMessage="false" 
                                              label="#{messages['common.property.type']}" rendered="true">
                                 <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
                                 <f:selectItems value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
                                 <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
                             </p:selectOneMenu>  
-                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.instance.type  != null}"
+                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyType  != null}"
                                             styleClass="validation-status" />
                             <span class="help-inline"><br/>#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
                         </div>
@@ -56,29 +56,28 @@
                         <div class="input" >
                             <p:inputText id="valuep" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                          required="true" label="#{messages['common.property.value']}"
-                                         rendered="#{propertyHome.instance.type ne 'java.util.Date'
-                                                     and propertyHome.instance.type ne 'java.lang.MultiLineString'
-                                                     and propertyHome.instance.type ne 'java.lang.Long'
-                                                     and propertyHome.instance.type ne 'java.lang.Double'}"
-                                         disabled="#{propertyHome.instance.type eq 'org.mtop.model.EstadoParteMecanica'}">                            
+                                         rendered="#{propertyHome.propertyType ne 'java.util.Date'
+                                                     and propertyHome.propertyType ne 'java.lang.MultiLineString'
+                                                     and propertyHome.propertyType ne 'java.lang.Long'
+                                                     and propertyHome.propertyType ne 'java.lang.Double'}"
+                                         disabled="#{propertyHome.propertyType eq 'org.mtop.model.EstadoParteMecanica'}">                            
                                 <f:ajax execute="@this" render="save"  />
                             </p:inputText>         
-                            <p:calendar id="valuep2" value="#{propertyHome.propertyStringValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
-                                        rendered="#{propertyHome.instance.type eq 'java.util.Date'}" required="true"
-                                        >
+                            <p:calendar id="valuep2" value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
+                                        rendered="#{propertyHome.propertyType eq 'java.util.Date'}" required="true">
 
                                 <f:ajax event="dateSelect" execute="@this" render="save"/>
                             </p:calendar>
                             <p:inputTextarea value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                              required="true" label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
-                                             rendered="#{propertyHome.instance.type eq 'java.lang.MultiLineString'}">
+                                             rendered="#{propertyHome.propertyType eq 'java.lang.MultiLineString'}">
                                 <f:ajax event="blur" execute="@this" render="save"/>
                             </p:inputTextarea> 
                            
                             
                             <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                             required="true" label="#{messages['common.property.value']}"
-                                            rendered="#{propertyHome.instance.type eq 'java.lang.Long' or propertyHome.instance.type eq 'java.lang.Double' or propertyHome.instance.type eq 'java.lang.Float'}">  
+                                            rendered="#{propertyHome.propertyType eq 'java.lang.Long' or propertyHome.propertyType eq 'java.lang.Double' or propertyHome.propertyType eq 'java.lang.Float'}">  
                                 <f:ajax event="blur" execute="@this" render="save"/>
                             </pe:inputNumber> 
                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
