@@ -121,8 +121,10 @@
                                                                 rendered="#{a.property.type eq 'java.util.Date'}">
                                                         <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
                                                     </p:calendar>  
-                                                    <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
-                                                                    rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Double' or type eq 'java.lang.Float'}">  
+
+                                                     
+                                                    <pe:inputNumber  decimalPlaces="0"  value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                                    rendered="#{ type eq 'java.lang.Double'}">  
                                                         <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                                     </pe:inputNumber>  
                                                     <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"

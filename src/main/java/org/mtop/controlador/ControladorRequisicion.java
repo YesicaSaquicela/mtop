@@ -20,11 +20,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -37,7 +40,17 @@ import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+//import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+//import javax.faces.context.FacesContext;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -57,18 +70,61 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Vehiculo vehiculo;
     private List<Vehiculo> vehiculos;
     private String ruta;
-    private long idPartidaC=0l;
+    private long idPartidaC = 0l;
     private PartidaContabilidad partidaC;
     private String mensaje;
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
- 
-    public String concanertarPartida(){
-        partidaC=findById(PartidaContabilidad.class, idPartidaC);
-        String resultado="250"+partidaC.getNumeroProvincia()+"0000"+partidaC.getNumeroPrograma()+"00"+partidaC.getNumeroProyecto()+"001"+partidaC.getNumeroItem()+"1100"+partidaC.getNumeroFuenteFinanciera();
+    private boolean skip;
+    //private static Logger logger = Logger.getLogger(UserWizard.class.getName());
+
+    public String formato(Date fecha) {
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+//        logger.info("Current wizard step:" + event.getOldStep());
+//        logger.info("Next step:" + event.getNewStep());
+
+        if (skip) {
+            skip = false;   //reset in case user goes back  
+            mensaje = "";
+            return "confirm";
+        } else {
+            if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
+
+                mensaje = "debe escoger un vehiculo";
+                return event.getOldStep();
+            } else {
+                mensaje = "";
+                return event.getNewStep();
+            }
+
+        }
+    }
+
+    public String concanertarPartida() {
+        partidaC = findById(PartidaContabilidad.class, idPartidaC);
+        String resultado = "250" + partidaC.getNumeroProvincia() + "0000" + partidaC.getNumeroPrograma() + "00" + partidaC.getNumeroProyecto() + "001" + partidaC.getNumeroItem() + "1100" + partidaC.getNumeroFuenteFinanciera();
         return resultado;
     }
+
     public List<Vehiculo> getVehiculos() {
 
         System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");
@@ -195,36 +251,36 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     @TransactionAttribute
     public String guardar() {
-        if (this.vehiculo.getId() == null) {
-            mensaje="necesita un asignar un vehiculo";
-             return "/paginas/requisicion/crear.xhtml?faces-redirect=true";
-        } else {
-            mensaje="";
-            Date now = Calendar.getInstance().getTime();
-            getInstance().setLastUpdate(now);
+//        if (this.vehiculo.getId() == null) {
+//            mensaje="necesita un asignar un vehiculo";
+//             return "/paginas/requisicion/crear.xhtml?faces-redirect=true";
+//        } else {
+        mensaje = "";
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
 
-            getInstance().setVehiculo(vehiculo);
-            System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
-            try {
-                if (getInstance().isPersistent()) {
-                    System.out.println("ingresa a editar>>>>>>>");
-                    save(getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
-                } else {
-                    System.out.println("ingresa a creaaar>>>>>>>");
-                    //  getInstance().setEstado(true);
-                    create(getInstance());
-                    save(getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
-                }
-            } catch (Exception e) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+        getInstance().setVehiculo(vehiculo);
+        System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
+        try {
+            if (getInstance().isPersistent()) {
+                System.out.println("ingresa a editar>>>>>>>");
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            } else {
+                System.out.println("ingresa a creaaar>>>>>>>");
+                //  getInstance().setEstado(true);
+                create(getInstance());
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
-            return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
         }
+        return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
+
     }
 
     @Transactional

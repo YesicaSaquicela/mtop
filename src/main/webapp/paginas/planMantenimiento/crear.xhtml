@@ -63,7 +63,8 @@
                             <p:commandButton update=":form:listaa :form:actividad :form:kilometraje"  icon="ui-icon-search" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
 
                             </p:commandButton>
-                        </div>
+                        </div><br/>
+                         <h:outputText style="font-style: oblique" value="#{controladorRequisicion.mensaje} " />
                         <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
 
                             <p:column headerText="Actividad">
@@ -103,7 +104,7 @@
 
 
                         </h:panelGrid>
-                        <h:outputText  value="#{controladorPlanMantenimiento.mensaje} " />
+                        
                         <div class="admin-actions "> 
                             <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}" update="growl" process="@this"/>
                             <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
