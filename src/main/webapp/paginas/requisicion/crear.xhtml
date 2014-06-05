@@ -29,7 +29,7 @@
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
-            <p:wizard  id="p" flowListener="#{userWizard.onFlowProcess}">
+            <p:wizard  id="p" flowListener="#{controladorRequisicion.onFlowProcess}">
                 <p:tab id="req"  title="Requisicion">
                     <p:panel header="Datos Generales">
                         <p:messages />
@@ -111,7 +111,7 @@
                                      required="true" readonly="true" />
 
 
-
+                         <h:outputText style="font-style: oblique" value="#{controladorRequisicion.mensaje} " />
 
                     </p:panel>
 
@@ -119,7 +119,7 @@
                 </p:tab>
 
                 <p:tab id="confirm" title="Confirmacion">
-                    <h:outputText  value="#{controladorRequisicion.mensaje} " />
+                   
                     <p:panel header="Confirmacion">
                         <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
                             <h:panelGrid >

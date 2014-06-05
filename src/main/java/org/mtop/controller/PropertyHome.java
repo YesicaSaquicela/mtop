@@ -84,12 +84,14 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         if (getInstance().getType() != null) {
             propertyType = getInstance().getType();
             if (propertyType.equals("java.util.Date")) {
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-                String fecha = sdf.format(getInstance().getValue());
-                System.out.println(fecha);
-                setPropertyStringValue(fecha);
-                String s=getInstance().getValue().toString();
-                setPropertyDateValue(sdf.parse(s));
+                Date fecha = Date.class.cast(getInstance().getValue());
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                //String fecha=sdf.format(getInstance().getValue());
+                //String fecha = sdf.format(getInstance().getValue());
+                System.out.println(sdf.format(fecha));
+                //setPropertyStringValue(fecha);
+
+                setPropertyDateValue(fecha);
             }
         }
         if (getInstance().getValue() != null) {
@@ -145,14 +147,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 if (this.propertyType.equals("java.lang.String")
                         || this.propertyType.equals("java.lang.String[]")
                         || this.propertyType.equals("java.lang.MultiLineString")
-                        || this.propertyType.equals("java.lang.Object")) {
+                        || this.propertyType.equals("java.lang.Object")
+                        || this.propertyType.equals("java.lang.Boolean")) {
 
                     setPropertyStringValue(" ");
                 } else {
                     if (this.propertyType.equals("java.lang.Double")
                             || this.propertyType.equals("java.lang.Long")
-                            || this.propertyType.equals("java.lang.Boolean")) {
-                        setPropertyStringValue("0.0");
+                            || this.propertyType.equals("java.lang.Integer")) {
+                        setPropertyStringValue("0");
                     } else {
                         if (this.propertyType.equals("java.util.Date")) {
                             System.out.println("entro a fecha");
@@ -232,6 +235,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
         if (getInstance().getType().equals("java.util.Date")) {
             getInstance().setValue(Calendar.getInstance().getTime());
+        }
+        if (getInstance().getType().equals("java.lang.Long")||getInstance().getType().equals("java.lang.Integer")) {
+            propertyStringValue = this.propertyStringValue.substring(0, (propertyStringValue.length() - 2));
         }
         if (getInstance().isPersistent()) {
             System.out.println("PRESENTAR GUERADAR>>>>>");
@@ -328,10 +334,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         try {
             if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.model.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
                 o = value;
-            } else if ("java.lang.Long".equals(getInstance().getType())) {
+            } else if ("java.lang.Double".equals(getInstance().getType())) {
                 o = Long.valueOf(value);
             } else if ("java.lang.Float".equals(getInstance().getType())) {
                 o = Float.valueOf(value);
+            } else if ("java.lang.Integer".equals(getInstance().getType())) {
+                o = Integer.valueOf(value);
             } else if ("java.lang.Boolena".equals(getInstance().getType())) {
                 o = Boolean.valueOf(value);
             } else if ("java.util.Date".equals(getInstance().getType())) {
@@ -344,14 +352,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     log.info("eqaula --> error converter date:" + pe.getMessage());
                 }
                 o = fecha;
-            } else if ("java.lang.Double".equals(getInstance().getType())) {
-                o = Double.valueOf(value);
+//            } else if ("java.lang.Double".equals(getInstance().getType())) {
+//                o = Double.valueOf(value);
             } else {
                 o = value;
             }
         } catch (Exception e) {
-            //log.info("eqaula --> error converter: " + value);
+            log.info("eqaula --> error converter: " + value);
         }
+        System.out.println("valor de la propuiedad a convertir" + o);
         return (Serializable) o;
     }
 
@@ -401,6 +410,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         tipos.add("java.util.Date");
         tipos.add("java.lang.String");
         tipos.add("java.lang.Double");
+        tipos.add("java.lang.Integer");
         tipos.add("java.lang.Long");
         tipos.add("java.lang.Boolean");
         tipos.add("java.lang.String[]");

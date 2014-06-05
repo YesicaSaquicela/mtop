@@ -58,8 +58,9 @@
                                          required="true" label="#{messages['common.property.value']}"
                                          rendered="#{propertyHome.propertyType ne 'java.util.Date'
                                                      and propertyHome.propertyType ne 'java.lang.MultiLineString'
+                                                     and propertyHome.propertyType ne 'java.lang.Integer'
                                                      and propertyHome.propertyType ne 'java.lang.Long'
-                                                     and propertyHome.propertyType ne 'java.lang.Double'}"
+                                                     }"
                                          disabled="#{propertyHome.propertyType eq 'org.mtop.model.EstadoParteMecanica'}">                            
                                 <f:ajax execute="@this" render="save"  />
                             </p:inputText>         
@@ -77,7 +78,8 @@
                             
                             <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                             required="true" label="#{messages['common.property.value']}"
-                                            rendered="#{propertyHome.propertyType eq 'java.lang.Long' or propertyHome.propertyType eq 'java.lang.Double' or propertyHome.propertyType eq 'java.lang.Float'}">  
+                                            rendered="#{propertyHome.propertyType eq 'java.lang.Long'  or propertyHome.propertyType eq 'java.lang.Float' or propertyHome.propertyType eq 'java.lang.Integer' }"
+                                            decimalPlaces="0" >  
                                 <f:ajax event="blur" execute="@this" render="save"/>
                             </pe:inputNumber> 
                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
