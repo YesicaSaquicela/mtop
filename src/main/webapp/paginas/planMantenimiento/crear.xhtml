@@ -50,20 +50,21 @@
                     <p:panel id="v" header="Lista de Actividades">
                         <p:messages />
 
-                        <mtop:input id="actividad" name="actividad" type="textarea" label="Actividad" 
-                                    value="#{controladorActividadPlanMantenimiento.instance.actividad}" required="true" 
-                                    inlinehelp="Ingrese la actividad del plan" execute ="@this save" render="actividad"/>
+                        <p:outputLabel value="Actividad"/><br></br>
+                        <p:inputTextarea id="actividad" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
+                                     /><br></br>
+                        <p:outputLabel value="Kilometraje"/><br></br>
+                        <p:inputText id="kilometraje" value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}"
+                                     /><br></br>
 
-                        <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
-                                    value="#{controladorActividadPlanMantenimiento.instance.kilometraje}" required="true" 
-                                    inlinehelp="Ingrese el kilometraje" execute ="@this save" render="kilometraje"/>
+                       
 
                         <div class="admin-actions">
-                            <h:link value="CrearActividad" rendered="#{true}" outcome="/paginas/planMantenimiento/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
-                                <f:param name="actividadId"></f:param>
-                            </h:link>
+                            <p:commandButton update=":form:listaa :form:actividad :form:kilometraje"  icon="ui-icon-search" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
+
+                            </p:commandButton>
                         </div>
-                        <p:dataTable id="listaa" value="#{controladorActividadPlanMantenimiento.listaActividades}" var="la">
+                        <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
 
                             <p:column headerText="Actividad">
                                 <h:outputText value="#{la.actividad}"></h:outputText>
@@ -80,33 +81,31 @@
                         </p:dataTable>
 
 
-
-
                     </p:panel>
 
 
                 </p:tab>
 
                 <p:tab id="confirm" title="Confirmacion">
-                    <h:outputText  value="#{controladorRequisicion.mensaje} " />
+                
                     <p:panel header="Confirmacion">
                         <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
                             <h:panelGrid >
                                 <h:outputText value="Registro: " />
                                 <h:outputText value="#{controladorPlanMantenimiento.instance.registro}" styleClass="outputLabel"/><br/>
-                                
+
 
                             </h:panelGrid>
 
                             <h:panelGrid >
-                              
+
                             </h:panelGrid>
 
 
                         </h:panelGrid>
-
+                        <h:outputText  value="#{controladorPlanMantenimiento.mensaje} " />
                         <div class="admin-actions "> 
-                            <p:commandButton id="save" value="Guardar" action="#{controladorPlanMantenimiento.guardar()}" update="growl" process="@this"/>
+                            <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}" update="growl" process="@this"/>
                             <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
                         </div>
                     </p:panel>
