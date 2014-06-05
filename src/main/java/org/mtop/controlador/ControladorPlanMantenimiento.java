@@ -54,9 +54,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private String mensaje;
 
     
-    
-    
-    
+          
     public ControladorActividadPlanMantenimiento getCactividadpm() {
         return cactividadpm;
     }
