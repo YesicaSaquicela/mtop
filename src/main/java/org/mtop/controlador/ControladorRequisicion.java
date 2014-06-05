@@ -43,6 +43,8 @@ import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 //import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -77,6 +79,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private boolean skip;
     //private static Logger logger = Logger.getLogger(UserWizard.class.getName());
 
+    public String formato(Date fecha) {
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
+
     public boolean isSkip() {
         return skip;
     }
@@ -91,7 +104,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         if (skip) {
             skip = false;   //reset in case user goes back  
-            mensaje="";
+            mensaje = "";
             return "confirm";
         } else {
             if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
@@ -99,7 +112,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 mensaje = "debe escoger un vehiculo";
                 return event.getOldStep();
             } else {
-                mensaje="";
+                mensaje = "";
                 return event.getNewStep();
             }
 

@@ -35,6 +35,7 @@ import org.mtop.model.BussinesEntityType;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -53,10 +54,41 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private ControladorActividadPlanMantenimiento cactividadpm;
     private String mensaje;
 
-    
-    
-    
-    
+    // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
+    // Facelets or JSP view)
+    private boolean skip;
+    //private static Logger logger = Logger.getLogger(UserWizard.class.getName());
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+//        logger.info("Current wizard step:" + event.getOldStep());
+//        logger.info("Next step:" + event.getNewStep());
+
+        if (skip) {
+            skip = false;   //reset in case user goes back  
+            mensaje = "";
+            return "confirm";
+        } else {
+            System.out.println("lista vacia"+this.cactividadpm.listaActividades.isEmpty());
+            if (event.getOldStep().equals("address") && this.cactividadpm.listaActividades.isEmpty()) {
+                System.out.println("estas vaciaaaaaa");
+                mensaje = "debe ingresar al menos una actividas al plan de mantenimiento";
+                return event.getOldStep();
+            } else {
+                mensaje = "";
+                return event.getNewStep();
+            }
+
+        }
+    }
+
     public ControladorActividadPlanMantenimiento getCactividadpm() {
         return cactividadpm;
     }
@@ -150,36 +182,29 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     @TransactionAttribute
     public String guardar() {
 
-        if (cactividadpm.listaActividades.isEmpty()) {
-            mensaje = "necesita agrear propiedad al plan de mantenimiento";
-   
-            
-            return "/paginas/planMantenimiento/crear.xhtml?faces-redirect=true";
-        } else {
-            mensaje = "";
-            Date now = Calendar.getInstance().getTime();
-            getInstance().setLastUpdate(now);
+        mensaje = "";
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
 
-            try {
-                if (getInstance().isPersistent()) {
+        try {
+            if (getInstance().isPersistent()) {
 
-                    save(getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
-                } else {
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            } else {
 
-                    getInstance().setEstado(true);
-                    create(getInstance());
-                    save(getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito", " ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
-                }
-            } catch (Exception e) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+                getInstance().setEstado(true);
+                create(getInstance());
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
-            return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
         }
+        return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
 
     }
 
