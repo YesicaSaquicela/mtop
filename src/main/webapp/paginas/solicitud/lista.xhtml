@@ -34,7 +34,7 @@
                     <h:outputText value="#{s.numSolicitud}"></h:outputText>
                 </p:column>
                 <p:column headerText="Fecha de Solicitud">
-                    <h:outputText value="#{s.fechaSolicitud}"></h:outputText>
+                    <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"></h:outputText>
                 </p:column>
                 <p:column headerText="Recibidor">
                     <h:outputText value="#{s.recibidor}"></h:outputText>
