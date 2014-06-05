@@ -99,14 +99,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String onFlowProcess(FlowEvent event) {
-//        logger.info("Current wizard step:" + event.getOldStep());
-//        logger.info("Next step:" + event.getNewStep());
 
         if (skip) {
             skip = false;   //reset in case user goes back  
             mensaje = "";
             return "confirm";
         } else {
+            System.out.println("pasoooo");
             if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
 
                 mensaje = "debe escoger un vehiculo";

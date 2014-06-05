@@ -113,7 +113,7 @@
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                 <div class="input">
                                                     <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                  rendered="#{a.property.type eq 'java.lang.String'} or a.property.type eq 'java.lang.Double'">
                                                         <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                         <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                     </p:inputText>
@@ -123,9 +123,9 @@
                                                     </p:calendar>  
 
                                                      
-                                                    <pe:inputNumber  decimalPlaces="0"  value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                    <!--pe:inputNumber  decimalPlaces="0"  value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
                                                                     rendered="#{ type eq 'java.lang.Double'}">  
-                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/-->
                                                     </pe:inputNumber>  
                                                     <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
                                                                      rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
