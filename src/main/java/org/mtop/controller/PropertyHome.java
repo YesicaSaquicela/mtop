@@ -334,7 +334,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         try {
             if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.model.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
                 o = value;
-            } else if ("java.lang.Double".equals(getInstance().getType())) {
+            } else if ("java.lang.Long".equals(getInstance().getType())) {
                 o = Long.valueOf(value);
             } else if ("java.lang.Float".equals(getInstance().getType())) {
                 o = Float.valueOf(value);
@@ -352,8 +352,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     log.info("eqaula --> error converter date:" + pe.getMessage());
                 }
                 o = fecha;
-//            } else if ("java.lang.Double".equals(getInstance().getType())) {
-//                o = Double.valueOf(value);
+            } else if ("java.lang.Double".equals(getInstance().getType())) {
+                o = Double.valueOf(value);
             } else {
                 o = value;
             }

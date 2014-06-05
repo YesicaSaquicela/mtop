@@ -29,7 +29,7 @@
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
-            <p:wizard  id="p" flowListener="#{userWizard.onFlowProcess}">
+            <p:wizard  id="p" flowListener="#{controladorPlanMantenimiento.onFlowProcess}">
                 <p:tab id="req"  title="Datos Generales">
                     <p:panel >
                         <p:messages />
@@ -64,7 +64,7 @@
 
                             </p:commandButton>
                         </div><br/>
-                         <h:outputText style="font-style: oblique" value="#{controladorRequisicion.mensaje} " />
+                        <h:outputText style="font-style: oblique" value="#{controladorPlanMantenimiento.mensaje} " />
                         <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
 
                             <p:column headerText="Actividad">
