@@ -66,6 +66,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private Long structureId;
     private Long bussinesEntityTypeId;
     private String propertyStringValue;
+    private Date propertyDateValue;
+    private String propertyType;
     @Inject
     private ServicioGenerico servgen;
 
@@ -77,8 +79,24 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         return (Long) getId();
     }
 
-    public void setPropertyId(Long propertyId) {
+    public void setPropertyId(Long propertyId) throws ParseException {
         setId(propertyId);
+        if (getInstance().getType() != null) {
+            propertyType = getInstance().getType();
+            if (propertyType.equals("java.util.Date")) {
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+                String fecha = sdf.format(getInstance().getValue());
+                System.out.println(fecha);
+                setPropertyStringValue(fecha);
+                String s=getInstance().getValue().toString();
+                setPropertyDateValue(sdf.parse(s));
+            }
+        }
+        if (getInstance().getValue() != null) {
+            propertyStringValue = getInstance().getValue().toString();
+
+        }
+
     }
 
     public Long getStructureId() {
@@ -100,50 +118,69 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         this.bussinesEntityTypeId = bussinesEntityTypeId;
     }
 
-    public String getPropertyStringValue() {
-        if (getInstance().getType() != null) {
-            System.out.println("Entor a tipo>>>>>>" + getInstance().getType());
-            if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
-                System.out.println("Ingresas a asignar bueno y malo>>>>>>>>>>>");
-                getInstance().setValue("Bueno,Malo*");
+    public Date getPropertyDateValue() {
+        return propertyDateValue;
+    }
+
+    public void setPropertyDateValue(Date propertyDateValue) {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        String fecha = sdf.format(propertyDateValue);
+        System.out.println(fecha);
+        setPropertyStringValue(fecha);
+        this.propertyDateValue = propertyDateValue;
+    }
+
+    public String getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
+        if (this.propertyType != null) {
+
+            System.out.println("Entor a tipo>>>>>>" + this.propertyType);
+            if (this.propertyType.equals("org.mtop.model.EstadoParteMecanica")) {
                 setPropertyStringValue("Bueno,Malo*");
             } else {
-                
-                System.out.println("No entro>>>>>>" + getInstance().getType());
-               
-                setPropertyStringValue(null);
-                
-            }
-        } 
-        if (this.propertyStringValue == null) {
-            if (getInstance() != null) {
-                if (getInstance().getValue() != null) {
-                    if ("java.util.Date".equals(getInstance().getType())) {
-                        Date date = (Date) getInstance().getValue();
-                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-                        String fecha = sdf.format(date);
-                        setPropertyStringValue(fecha);
-                    } else {
-                        log.info("mtop --> Instance from Property Value not Date for " + propertyStringValue);
-                        setPropertyStringValue(getInstance().getValue().toString());
-                    }
+                if (this.propertyType.equals("java.lang.String")
+                        || this.propertyType.equals("java.lang.String[]")
+                        || this.propertyType.equals("java.lang.MultiLineString")
+                        || this.propertyType.equals("java.lang.Object")) {
+
+                    setPropertyStringValue(" ");
                 } else {
-                    log.info("mtop --> Instance from Property Value not Date for " + propertyStringValue);
-                    this.propertyStringValue = "";
+                    if (this.propertyType.equals("java.lang.Double")
+                            || this.propertyType.equals("java.lang.Long")
+                            || this.propertyType.equals("java.lang.Boolean")) {
+                        setPropertyStringValue("0.0");
+                    } else {
+                        if (this.propertyType.equals("java.util.Date")) {
+                            System.out.println("entro a fecha");
+                            Date date = Calendar.getInstance().getTime();
+                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+                            String fecha = sdf.format(date);
+                            System.out.println(fecha);
+                            setPropertyStringValue(fecha);
+                            setPropertyDateValue(date);
+                        }
+
+                    }
                 }
-            } else {
-                log.info("mtop --> Instance from Property for " + propertyStringValue);
-                this.propertyStringValue = "";
+
             }
         }
+
+    }
+
+    public String getPropertyStringValue() {
 
         return propertyStringValue;
     }
 
     public void setPropertyStringValue(String propertyStringValue) {
-
+        System.out.println("kkkkkkkk" + propertyStringValue);
         this.propertyStringValue = propertyStringValue;
-        getInstance().setValue(this.propertyStringValue);
+        /// getInstance().setValue(this.propertyStringValue);
     }
 
     @Override
@@ -188,21 +225,26 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @TransactionAttribute
     public String saveProperty() {
+        getInstance().setType(propertyType);
+        System.out.println("tipo de la propiedaaaaaaaad>>>>>>>>>> " + getInstance().getType());
+        System.out.println("valor de la propiedad>>>>>" + this.propertyStringValue);
         log.info("eqaula --> saving " + getInstance().getName());
-        if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
 
-            getInstance().setValue("Bueno,Malo*");
-        }
         if (getInstance().getType().equals("java.util.Date")) {
             getInstance().setValue(Calendar.getInstance().getTime());
         }
         if (getInstance().isPersistent()) {
-            this.getInstance().setValue(converterToType(propertyStringValue));
+            System.out.println("PRESENTAR GUERADAR>>>>>");
+            getInstance().setValue(converterToType(propertyStringValue));
+            System.out.println("propiedad convertida +++++" + getInstance().getValue());
             save(getInstance());
 
         } else {
             try {
+                System.out.println("PRESENTAR Editaaarrr>>>>>");
                 Structure s = bussinesEntityTypeService.getStructure(getStructureId()); //Retornar la estrucura.
+                getInstance().setValue(converterToType(propertyStringValue));
+                System.out.println("propiedad convertida +++++" + getInstance().getValue());
                 s.addProperty(this.getInstance());
 
             } catch (Exception ex) {
@@ -210,13 +252,13 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
         }
+
         //crear un entity type atribute para una propiedad
         // que sea de tipo estadoParteMecanica
         if (getInstance().getType().equals("org.mtop.model.EstadoParteMecanica")) {
             BussinesEntityAttribute beta = new BussinesEntityAttribute();
             for (Property p : findAll(Property.class)) {
                 if (p.getName().equals(this.getInstance().getName())) {
-
                     beta.setProperty(p);
                     beta.setType(p.getType());
                     beta.setName(p.getLabel());
@@ -231,8 +273,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
         }
 
-        System.out.println("id de la propiedaaaaaaaad>>>>>>>>>> " + this.getInstance());
-        System.out.println("ID entidad>>>>>" + getBussinesEntityTypeId());
         return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
@@ -301,7 +341,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 try {
                     fecha = sdf.parse(value);
                 } catch (ParseException pe) {
-                    //log.info("eqaula --> error converter date:"+pe.getMessage());
+                    log.info("eqaula --> error converter date:" + pe.getMessage());
                 }
                 o = fecha;
             } else if ("java.lang.Double".equals(getInstance().getType())) {
