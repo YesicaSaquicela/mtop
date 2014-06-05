@@ -52,8 +52,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private ServicioGenerico servgen;
     private List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
     private List<ActividadPlanMantenimiento> listaActividades=new ArrayList<ActividadPlanMantenimiento>();
-    private Long idactividad=0l;
-    private PlanMantenimiento pm;
+    //private Long idactividad=0l;
+    private ActividadPlanMantenimiento actividadpm=new ActividadPlanMantenimiento();
 
     public Long getPlanMantenimientoId() {
         System.out.println("IIIIDEE"+getId());
@@ -66,14 +66,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     }
 
-    public Long getIdactividad() {
-        return idactividad;
-    }
-
-    public void setIdactividad(Long idactividad) {
-        this.idactividad = idactividad;
-    }
-    
+       
     @TransactionAttribute   //
     public PlanMantenimiento load() {
         if (isIdDefined()) {
@@ -102,6 +95,14 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     public void setListaActividades(List<ActividadPlanMantenimiento> listaActividades) {
         this.listaActividades = listaActividades;
+    }
+
+    public ActividadPlanMantenimiento getActividadpm() {
+        return actividadpm;
+    }
+
+    public void setActividadpm(ActividadPlanMantenimiento actividadpm) {
+        this.actividadpm = actividadpm;
     }
 
     
@@ -140,7 +141,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public String guardar() {
        
         Date now = Calendar.getInstance().getTime();
-        getInstance().setLastUpdate(now);
+       getInstance().setLastUpdate(now);
        
        System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
@@ -184,9 +185,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
         return "/paginas/planMantenimient/lista.xhtml?faces-redirect=true";
     }
-public void guardarItem(){
 
-
-}
 }
 

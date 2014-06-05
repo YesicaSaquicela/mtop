@@ -1,5 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"                
@@ -12,14 +10,15 @@
                 xmlns:mtop="http://mtop.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    <ui:param name="titulo" value="Gestionar Planes de Mantenimiento"/>
+    <ui:param name="titulo" value="Gestionar Plan Mantenimiento"/>
     <f:metadata>
         <f:viewParam name="planMantenimientoId" value="#{controladorPlanMantenimiento.planMantenimientoId}"/>
-         <f:param name="actividadId"></f:param>
+
     </f:metadata>
     <ui:define name="header">
 
-        <h2>#{titulo}</h2>    
+        <h2>#{titulo}</h2>   
+
 
     </ui:define>
     <ui:define name="content">
@@ -27,58 +26,96 @@
 
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
-            <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
 
-            <p:panel header="Datos Generales">
+            <p:growl id="growl" sticky="true" showDetail="true"/>
 
-
-
-                <div class="container-fluid">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-6"> 
-
+            <p:wizard  id="p" flowListener="#{userWizard.onFlowProcess}">
+                <p:tab id="req"  title="Datos Generales">
+                    <p:panel >
+                        <p:messages />
+                        <h:panelGrid >
                             <mtop:input id="registro" name="registro1" type="text" label="Número de Registro" 
                                         value="#{controladorPlanMantenimiento.instance.registro}" required="true" 
                                         inlinehelp="Ingrese un numero de registro del plan mantenimiento" execute ="@this save" render="registro"/>
 
-                        </div>
-                    </div>
-                    
-                    <div class="admin-actions">
-                        <h:link value="CrearActividad" rendered="#{true}" outcome="/paginas/planMantenimiento/crearActividad.xhtml?faces-redirect=true" styleClass="btn btn-img" >
-                            <f:param name="actividadId"></f:param>
-                        </h:link>
-                    </div>
-                    <p:dataTable id="listaa" value="#{controladorActividadPlanMantenimiento.listaActividades}" var="la">
 
-                        <p:column headerText="Actividad">
-                            <h:outputText value="#{la.actividad}"></h:outputText>
-                        </p:column>
-                        
-                        <p:column headerText="Kilometraje">
-                            <h:outputText value="#{la.kilometraje}"></h:outputText>
-                        </p:column>
-                        <p:column headerText="Opciones" style="width: 5%"> 
-                            <h:link value="Editar" outcome="crearActividad" type="button" >
-                                <f:param name="actividadId" value="#{la.id}"></f:param>
+
+                        </h:panelGrid>
+                    </p:panel>
+
+                </p:tab>
+
+                <p:tab id="address" title="Crear Actividades">
+
+                    <p:panel id="v" header="Lista de Actividades">
+                        <p:messages />
+
+                        <mtop:input id="actividad" name="actividad" type="textarea" label="Actividad" 
+                                    value="#{controladorActividadPlanMantenimiento.instance.actividad}" required="true" 
+                                    inlinehelp="Ingrese la actividad del plan" execute ="@this save" render="actividad"/>
+
+                        <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
+                                    value="#{controladorActividadPlanMantenimiento.instance.kilometraje}" required="true" 
+                                    inlinehelp="Ingrese el kilometraje" execute ="@this save" render="kilometraje"/>
+
+                        <div class="admin-actions">
+                            <h:link value="CrearActividad" rendered="#{true}" outcome="/paginas/planMantenimiento/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
+                                <f:param name="actividadId"></f:param>
                             </h:link>
-                        </p:column>
-                    </p:dataTable>
+                        </div>
+                        <p:dataTable id="listaa" value="#{controladorActividadPlanMantenimiento.listaActividades}" var="la">
+
+                            <p:column headerText="Actividad">
+                                <h:outputText value="#{la.actividad}"></h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Kilometraje">
+                                <h:outputText value="#{la.kilometraje}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Opciones" style="width: 5%"> 
+                                <h:link value="Editar" outcome="crear" type="button" >
+                                    <f:param name="actividadId" value="#{la.id}"></f:param>
+                                </h:link>
+                            </p:column>
+                        </p:dataTable>
 
 
-                </div>
-            </p:panel>
-            <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPlanMantenimiento.guardar()}"
-                             immediate="true"/>
 
-            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn">
 
-            </h:button>
+                    </p:panel>
+
+
+                </p:tab>
+
+                <p:tab id="confirm" title="Confirmacion">
+                    <h:outputText  value="#{controladorRequisicion.mensaje} " />
+                    <p:panel header="Confirmacion">
+                        <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
+                            <h:panelGrid >
+                                <h:outputText value="Registro: " />
+                                <h:outputText value="#{controladorPlanMantenimiento.instance.registro}" styleClass="outputLabel"/><br/>
+                                
+
+                            </h:panelGrid>
+
+                            <h:panelGrid >
+                              
+                            </h:panelGrid>
+
+
+                        </h:panelGrid>
+
+                        <div class="admin-actions "> 
+                            <p:commandButton id="save" value="Guardar" action="#{controladorPlanMantenimiento.guardar()}" update="growl" process="@this"/>
+                            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
+                        </div>
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+
         </h:form>
 
     </ui:define>
 </ui:composition>
-
 
 
