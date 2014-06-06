@@ -36,7 +36,7 @@
 
                 <div class="container-fluid">
                     <!-- Example row of columns -->
-                  
+
                     <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                         <p:panel header="#{p.label}" rendered="#{controladorVehiculo.tieneEstadosEstructura(p)}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
