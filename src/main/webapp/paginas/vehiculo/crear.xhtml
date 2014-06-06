@@ -123,9 +123,9 @@
                                                     </p:calendar>  
 
                                                      
-                                                    <!--pe:inputNumber  decimalPlaces="0"  value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                    <pe:inputNumber  decimalPlaces="0"  value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
                                                                     rendered="#{ type eq 'java.lang.Double'}">  
-                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/-->
+                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                                     </pe:inputNumber>  
                                                     <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
                                                                      rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  

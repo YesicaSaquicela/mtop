@@ -75,9 +75,10 @@
                                 <h:outputText value="#{la.kilometraje}"></h:outputText>
                             </p:column>
                             <p:column headerText="Opciones" style="width: 5%"> 
-                                <h:link value="Editar" outcome="crear" type="button" >
-                                    <f:param name="actividadId" value="#{la.id}"></f:param>
-                                </h:link>
+                                <p:commandButton update=":form:listaa :form:actividad :form:kilometraje" value="Editar" icon="ui-icon-search" title="Seleccionar">
+                                    <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.id}" />
+                                </p:commandButton>
+                           
                             </p:column>
                         </p:dataTable>
 
