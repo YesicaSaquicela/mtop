@@ -16,6 +16,8 @@
 package org.mtop.controlador;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -76,6 +78,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
   
+    
+     public String formato(Date fecha) {
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
+     
     @TransactionAttribute   //
     public SolicitudReparacionMantenimiento load() {
         if (isIdDefined()) {
