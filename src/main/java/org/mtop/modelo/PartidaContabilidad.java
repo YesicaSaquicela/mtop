@@ -43,11 +43,10 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     private long numeroProyecto;
     private long numeroItem;
     private long numeroFuenteFinanciera;
-   // private String descripcion=" ";
-    private String observacion;
+    private String descripcion;
+
 //    @OneToOne(mappedBy = "partidaC")
 //    private PartidaContabilidad pContabilidad;
-
 //    public PartidaContabilidad getpContabilidad() {
 //        return pContabilidad;
 //    }
@@ -55,8 +54,16 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
 //    public void setpContabilidad(PartidaContabilidad pContabilidad) {
 //        this.pContabilidad = pContabilidad;
 //    }
- 
-    public long getNumeroProvincia() {
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
+     public long getNumeroProvincia() {
         return numeroProvincia;
     }
 
@@ -96,13 +103,7 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
         this.numeroFuenteFinanciera = numeroFuenteFinanciera;
     }
 
-    public String getObservacion() {
-        return observacion;
-    }
-
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
+  
     public String concatenarPartida() {
         String resultado = "250-" + getNumeroProvincia() + "-0000-" + getNumeroPrograma() + "-00-" + getNumeroProyecto() + "-001-" + getNumeroItem() + "-1100-" + getNumeroFuenteFinanciera();
         return resultado;

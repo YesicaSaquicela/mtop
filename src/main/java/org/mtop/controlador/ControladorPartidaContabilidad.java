@@ -130,7 +130,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
          
          System.out.println("IIIIDEEEntro>>>>>>"+getPartidaCId());
         System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance());
-        System.out.println("Descripcion>>>>>"+getInstance().getObservacion());
+       
                                 
         try {
             if (getInstance().isPersistent()) {

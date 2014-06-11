@@ -27,123 +27,146 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <p:panel  header="Datos Generales">
-                <div class="container-fluid">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-6"> 
 
-                            <p:outputLabel value="Número de Institución"/><br></br>
-                            <p:inputText id="institucion" value="250" disabled="true"
-                                         required="true" /><br></br>
+            <div class="panel panel-primary">
+                <div class="panel-heading"><center>Datos Generales</center></div>
+                <table class="table-striped" cellpadding="50px" width="30px" cellspacing="50px" align="center">
 
-
-                            <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
-                                        in-linehelp="Ingrese el número de provincia" execute ="@this save" render="numProvincia"/>
-
-                            <p:outputLabel value="Número de unidad descentralizada"/><br></br>
-                            <p:inputText id="unidadDescentralizada" value="0000" disabled="true"
-                                         required="true" /><br></br>
-
-                            <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
-                                        inlinehelp="Ingrese el número de programa" 
-                                        execute ="@this save" render="numPrograma"/>
-
-                            <p:outputLabel value="Número de subprograma"/><br></br>
-                            <p:inputText id="subprograma" value="00" disabled="true"
-                                         required="true" /><br></br>
-
-
-                            <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
-                                        inlinehelp="Ingrese el número de proyecto" 
-                                        execute ="@this save" render="numProyecto"/>
-
-                            <p:outputLabel value="Número de actividad"/><br></br>
-                            <p:inputText id="actividad" value="001" disabled="true"
-                                         required="true" /><br></br>
-
-                            <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroItem}" required="true" 
-                                        inlinehelp="Ingrese el número de item" 
-                                        execute ="@this save" render="numItem"/>
-
-                            <p:outputLabel value="Número geográfico"/><br></br>
-                            <p:inputText id="ngeografico" value="1100" disabled="true"
-                                         required="true" /><br></br>
-
-                            <mtop:input id="numFfinanciera" name="numFfinanciera1" type="text" label="Número de Fuente Financiera" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
-                                        inlinehelp="Ingrese el número de fuente financiera" 
-                                        execute ="@this save" render="numFfinanciera"/>
-
-                            <!--mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descrpción" 
-                                        value="# {controladorPartidaContabilidad.instance.description}" required="true" 
-                                        inlinehelp="Ingrese la descripción" 
-                                        execute ="@this save" render="descripcion"/-->
-                            
-                             <p:outputLabel value="Descripcion"/><br></br>
-                             <p:inputTextarea id="observacion" value="#{controladorPartidaContabilidad.instance.observacion}"
+                    <tbody>
+                        <tr align="center" style="column-width: 50px">
+                            <td width="15px" height="15px"> 
+                                <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descripción" 
+                                            value="#{controladorPartidaContabilidad.instance.descripcion}" required="true" 
+                                            inlinehelp="Ingrese la descripción" 
+                                            execute ="@this save" render="descripcion"/> 
+                            </td>
+                            <td width="15px" height="15px"> 
+                                <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
+                                            value="#{controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
+                                            inlinehelp="Ingrese el número de proyecto" 
+                                            execute ="@this save" render="numProyecto"/>
+                            </td>
+                        </tr>
+                        <tr align="center" >
+                            <td width="15px" height="15px"> 
+                                <p:outputLabel value="Número de Institución"/><br></br>
+                                <p:inputText id="institucion" value="250" disabled="true"
                                              required="true" /><br></br>
-                             
-                              
-                            
 
-                        </div>
-                    </div>
+                            </td>
+                            <td width="15px" height="15px"> 
+                                <p:outputLabel value="Número de actividad"/><br></br>
+                                <p:inputText id="actividad" value="001" disabled="true"
+                                             required="true" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td> 
+                                <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
+                                            value="#{controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
+                                            in-linehelp="Ingrese el número de provincia" execute ="@this save" render="numProvincia"/>
+                            </td>
+                            <td>
+                                <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
+                                            value="#{controladorPartidaContabilidad.instance.numeroItem}" required="true" 
+                                            inlinehelp="Ingrese el número de item" 
+                                            execute ="@this save" render="numItem"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                                <p:outputLabel value="Número de unidad descentralizada"/><br></br>
+                                <p:inputText id="unidadDescentralizada" value="0000" disabled="true"
+                                             required="true" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="Número geográfico"/><br></br>
+                                <p:inputText id="ngeografico" value="1100" disabled="true"
+                                             required="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                                <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
+                                            value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
+                                            inlinehelp="Ingrese el número de programa" 
+                                            execute ="@this save" render="numPrograma"/>
+
+                            </td>
+                            <td>
+                                <mtop:input id="numFfinanciera" name="numFfinanciera1" type="text" label="Número de Fuente Financiera" 
+                                            value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
+                                            inlinehelp="Ingrese el número de fuente financiera" 
+                                            execute ="@this save" render="numFfinanciera"/>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
 
 
-                </div>
-                
-                
-                 <c:forEach items="#{ui.getProperties(controladorPartidaContabilidad.instance)}" var="p" >
-                        <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
-                            <c:choose>                        
-                                <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
-                                    <h:panelGroup  layout="block" class="clearfix">
-                                        <ui:repeat value="#{controladorPartidaContabilidad.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
-                                            <h:panelGroup layout="block" class="clearfix">
-                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                                <div class="input">
-                                                    <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
-                                                        <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
-                                                        <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                    </p:inputText>
-                                                    <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                rendered="#{a.property.type eq 'java.util.Date'}">
-                                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                                    </p:calendar>  
-                                                    <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
-                                                                    rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Double' or type eq 'java.lang.Float'}">  
-                                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                    </pe:inputNumber>  
-                                                    <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                     rendered="#{a.property.type eq 'java.lang.String[]'}">  
-                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                        <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                                    </p:selectOneMenu> 
-                                                    <p:inputTextarea value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                        <p:ajax event="blur"  update="@parent" partialSubmit="true"/>
-                                                    </p:inputTextarea>                                                
-                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
-                                                                    styleClass="validation-status" />
-                                                    <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
-                                                </div>
-                                            </h:panelGroup>  
 
-                                        </ui:repeat>
-                                    </h:panelGroup>
-                                </c:when>
-                            </c:choose>
-                        </p:panel>
-                    </c:forEach>
-                
-            </p:panel>
 
+                <c:forEach items="#{ui.getProperties(controladorPartidaContabilidad.instance)}" var="p" >
+                    <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
+                        <c:choose>                        
+                            <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
+                                <h:panelGroup  layout="block" class="clearfix">
+                                    <ui:repeat value="#{controladorPartidaContabilidad.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+                                        <h:panelGroup layout="block" class="clearfix">
+                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                            <div class="input">
+                                                <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                              rendered="#{a.property.type eq 'java.lang.String'}">
+                                                    <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                    <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                </p:inputText>
+                                                <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                            rendered="#{a.property.type eq 'java.util.Date'}">
+                                                    <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                </p:calendar>  
+                                                <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                                rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Double' or type eq 'java.lang.Float'}">  
+                                                    <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                </pe:inputNumber>  
+                                                <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                 rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                    <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                                </p:selectOneMenu> 
+                                                <p:inputTextarea value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                    <p:ajax event="blur"  update="@parent" partialSubmit="true"/>
+                                                </p:inputTextarea>                                                
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                            </div>
+                                        </h:panelGroup>  
+
+                                    </ui:repeat>
+                                </h:panelGroup>
+                            </c:when>
+                        </c:choose>
+                    </p:panel>
+                </c:forEach>
+            
+ <div class="row" >
+     <div class="col-md-6"> 
+         
+     </div>
+     <div class="col-md-6"> uuuuuu</div>
+</div>
+            
+ <div class="row">
+     <div  align="center" class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+     <div align="center" class="col-xs-12 col-sm-6 col-md-8">.col-xs-6 .col-sm-6 .col-md-4</div>
+</div>
+
+            </div>
+            
 
             <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
                              immediate="true" icon="ui-icon-disk"/>
