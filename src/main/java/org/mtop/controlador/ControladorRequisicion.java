@@ -71,7 +71,40 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private List<Vehiculo> vehiculos;
     private long idPartidaC = 0l;
     private PartidaContabilidad partidaC;
+    
+     private String numeroRequisicion;
 
+    public String getNumeroRequisicion() {
+        if (getId() == null) {
+            System.out.println("numero"+getInstance().getNumRequisicion());
+            List<Vehiculo> lista = findAll(Vehiculo.class);
+            int t = lista.size();
+            if (t < 9) {
+                setNumeroRequisicion("000".concat(String.valueOf(t + 1)));
+            } else {
+                if (t >= 9 && t < 99) {
+                    setNumeroRequisicion("00".concat(String.valueOf(t + 1)));
+                } else {
+                    if (t >= 99 && t < 999) {
+                        setNumeroRequisicion("0".concat(String.valueOf(t + 1)));
+                    } else {
+                        setNumeroRequisicion(String.valueOf(t + 1));
+                    }
+                }
+            }
+        }else{
+            setNumeroRequisicion(String.valueOf(getInstance().getNumRequisicion()));
+        }
+        
+        return numeroRequisicion;
+
+    }
+
+    public void setNumeroRequisicion(String numRegistro) {
+        this.numeroRequisicion = numRegistro;
+        getInstance().setNumRequisicion(Double.valueOf(this.numeroRequisicion));
+
+    }
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
