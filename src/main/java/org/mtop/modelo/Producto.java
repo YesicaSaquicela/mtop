@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.modelo;
 
 import java.io.Serializable;
@@ -35,13 +34,25 @@ import org.mtop.model.BussinesEntity;
 @DiscriminatorValue(value = "pdk")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")
 public class Producto extends BussinesEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
- 
+
     private String codigo;
-    private long cantidad;
     private String descripcion;
-    //ojo este atrubuto se lo podria heredar de la clases Persisten que es del modelo dinamico 
+    private long cantidad;
+     //ojo este atrubuto se lo podria heredar de la clases Persisten que es del modelo dinamico 
     private boolean estado;
+
+  
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+
 
     public String getCodigo() {
         return codigo;
@@ -59,13 +70,6 @@ public class Producto extends BussinesEntity implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     public boolean isEstado() {
         return estado;
@@ -74,11 +78,10 @@ public class Producto extends BussinesEntity implements Serializable {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
     @Override
     public String toString() {
         return "org.mtop.modelo.Producto[ id=" + getId() + " ]";
     }
-    
+
 }

@@ -33,29 +33,25 @@
                     <div class="row">
                         <div class="col-md-6"> 
 
-                           <mtop:input id="codigo" name="codigo1" type="text" label="Código" 
+                            <mtop:input id="codigo" name="codigo1" type="text" label="Código" 
                                         value="#{controladorProducto.instance.codigo}" required="true" 
                                         inlinehelp="Ingrese el codigo del producto" execute ="@this save" render="codigo"/>
+
+                            <mtop:input id="des" name="descripcion1" type="textarea" label="Descripcion" 
+                                        value="#{controladorProducto.instance.descripcion}" required="true" 
+                                        inlinehelp="Ingrese el codigo del producto" execute ="@this save" render="des"/>
+
 
                             <mtop:input id="cantidad" name="cantidad1" type="text" label="Cantidad" 
                                         value="#{controladorProducto.instance.cantidad}" required="true" 
                                         inlinehelp="Ingrese la cantidad" 
                                         execute ="@this save" render="cantidad"/>
-                            
-                       
-                           <!--mtop:input id="descripcion" name="descripcion" type="textarea" label="Descripción" 
-                                       value="# { controladorProducto.instance.descripcion}" required="true" 
-                                        inlinehelp="Ingrese una descripción" 
-                                        execute ="@this save" render="descripcion"/-->
-                           
-                            <p:outputLabel value="Descripcion"/><br></br>
-                            <p:inputTextarea id="descripcion" value="#{controladorProducto.instance.descripcion}"
-                                             required="true" /><br></br>
+
 
                         </div>
                     </div>
 
-                   
+
                     <c:forEach items="#{ui.getProperties(controladorProducto.instance)}" var="p" >
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
