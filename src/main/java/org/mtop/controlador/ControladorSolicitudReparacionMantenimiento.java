@@ -60,6 +60,41 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<Vehiculo> listaVehiculos;
 
     private boolean skip;
+    
+      private String numeroSolicitud;
+
+    public String getNumeroSolicitud() {
+        if (getId() == null) {
+            System.out.println("numero"+getInstance().getNumSolicitud());
+            List<Vehiculo> lista = findAll(Vehiculo.class);
+            int t = lista.size();
+            System.out.println("valor de t :::::::::::"+t);
+            if (t < 9) {
+                setNumeroSolicitud("000".concat(String.valueOf(t + 1)));
+            } else {
+                if (t >= 9 && t < 99) {
+                    setNumeroSolicitud("00".concat(String.valueOf(t + 1)));
+                } else {
+                    if (t >= 99 && t < 999) {
+                        setNumeroSolicitud("0".concat(String.valueOf(t + 1)));
+                    } else {
+                        setNumeroSolicitud(String.valueOf(t + 1));
+                    }
+                }
+            }
+        }else{
+            setNumeroSolicitud(String.valueOf(getInstance().getNumSolicitud()));
+        }
+        
+        return numeroSolicitud;
+
+    }
+
+    public void setNumeroSolicitud(String numRegistro) {
+        this.numeroSolicitud = numRegistro;
+        getInstance().setNumSolicitud(Double.valueOf(this.numeroSolicitud));
+
+    }
 
     public boolean isSkip() {
         return skip;
