@@ -32,7 +32,7 @@
             <p:wizard  id="p" flowListener="#{controladorRequisicion.onFlowProcess}">
                 <p:tab id="req"  title="Requisicion">
                     <p:panel header="Datos Generales">
-                        <p:messages />
+                        <p:messages id="mens" showDetail="true" autoUpdate="true" closable="true" />
                         <h:panelGrid >
                             <mtop:input id="numRequisicion" name="numRequisicion" type="text" label="Número de Requisicion" 
                                         value="#{controladorRequisicion.instance.numRequisicion}" required="true" 
@@ -63,7 +63,7 @@
 
                             </p:selectOneMenu> <br></br>
 
-                            <p:outputLabel value="Observacio"/><br></br>
+                            <p:outputLabel value="Observacion"/><br></br>
                             <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
                                              required="true" /><br></br>
 
@@ -121,7 +121,7 @@
                 <p:tab id="address" title="Asignar Vehiculo">
 
                     <p:panel id="v" header="Lista de Vehiculos">
-                        <p:messages />
+                        <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
                         <p:dataTable id="basicDT" var="item" value="#{controladorRequisicion.vehiculos}">
                             <f:facet name="header">
@@ -140,7 +140,7 @@
                                 <h:outputText value="#{item.numRegistro}" />
                             </p:column>
                             <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:vehiculo" icon="ui-icon-search" title="Seleccionar">
+                                <p:commandButton update=":form:vehiculo :form:mensaje" icon="ui-icon-search" title="Seleccionar">
                                     <f:setPropertyActionListener value="#{item}" target="#{controladorRequisicion.vehiculo}" />
                                 </p:commandButton>
                             </p:column>
@@ -150,7 +150,7 @@
                                      required="true" readonly="true" /><br/>
 
 
-                         <h:outputText style="font-style: oblique" value="#{controladorRequisicion.mensaje} " />
+                         <!--h:outputText style="font-style: oblique" value="# {controladorRequisicion.mensaje} " /-->
 
                     </p:panel>
 

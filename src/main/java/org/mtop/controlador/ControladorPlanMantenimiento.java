@@ -52,7 +52,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private ServicioGenerico servgen;
     private List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
     private ControladorActividadPlanMantenimiento cactividadpm;
-    private String mensaje;
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
@@ -68,25 +67,42 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public String onFlowProcess(FlowEvent event) {
-//        logger.info("Current wizard step:" + event.getOldStep());
-//        logger.info("Next step:" + event.getNewStep());
-
         if (skip) {
             skip = false;   //reset in case user goes back  
-            mensaje = "";
             return "confirm";
         } else {
-            System.out.println("lista vacia"+this.cactividadpm.listaActividades.isEmpty());
+            System.out.println("lista vacia" + this.cactividadpm.listaActividades.isEmpty());
             if (event.getOldStep().equals("address") && this.cactividadpm.listaActividades.isEmpty()) {
                 System.out.println("estas vaciaaaaaa");
-                mensaje = "debe ingresar al menos una actividas al plan de mantenimiento";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos una actividas al plan de mantenimiento"));
+
                 return event.getOldStep();
             } else {
-                mensaje = "";
+
                 return event.getNewStep();
             }
 
         }
+    }
+
+    public void editarActividad(ActividadPlanMantenimiento actividad) {
+        System.out.println("ACTIVIDAD>>>>>" + cactividadpm.getInstance().getActividad());;
+        System.out.println("REMOVE>>>>>>>>>>>." + actividad);
+
+        int con = 0;
+        for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
+
+            if (apm.getKilometraje().equals(actividad.getKilometraje())
+                    && apm.getActividad().equals(actividad.getActividad())) {
+                cactividadpm.listaActividades.remove(con);
+                break;
+
+            }
+            con++;
+
+        }
+        System.out.println("tama;o de la lista" + cactividadpm.listaActividades.size());
+
     }
 
     public ControladorActividadPlanMantenimiento getCactividadpm() {
@@ -99,9 +115,25 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void agregarActividad() {
+        if (cactividadpm.getInstance().getActividad().equals("") || cactividadpm.getInstance().getKilometraje().equals("")) {
 
-        cactividadpm.listaActividades.add(cactividadpm.getInstance());
-        cactividadpm.setInstance(new ActividadPlanMantenimiento());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
+
+        } else {
+            cactividadpm.listaActividades.add(cactividadpm.getInstance());
+            cactividadpm.setInstance(new ActividadPlanMantenimiento());
+
+        }
+
+    }
+
+    public void guardarActividad() {
+        for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
+            apm.setPlanMantenimiento(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+            cactividadpm.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+            cactividadpm.guardar();
+        }
+        getInstance().setListaActividadpm(cactividadpm.listaActividades);//fija la lista de actividades al plan de mantenimietno
 
     }
 
@@ -113,16 +145,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public void setPlanMantenimientoId(Long planMantenimientoId) {
 
         setId(planMantenimientoId);
+        //se fija la lista actividades que hay en el plan mantenimiento a la lista actividades.
+        cactividadpm.listaActividades = getInstance().getListaActividadpm();
 
     }
 
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
 
     @TransactionAttribute   //
     public PlanMantenimiento load() {
@@ -182,13 +209,12 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     @TransactionAttribute
     public String guardar() {
 
-        mensaje = "";
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
         try {
             if (getInstance().isPersistent()) {
-
+                guardarActividad();
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -196,6 +222,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
                 getInstance().setEstado(true);
                 create(getInstance());
+                guardarActividad();
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);

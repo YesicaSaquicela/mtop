@@ -132,12 +132,14 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
         System.out.println("PRESENTAR persisten>>>>>"+getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                               
+                System.out.println("ENTRO A ACTUALIZAR ACTIVIDAD>>>>>"+getInstance().getActividad());   
+                System.out.println("ENTRO A ACTUALIZAR KILOMETRAJE>>>>>"+getInstance().getKilometraje()); 
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo actividad Plan de Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                
+                System.out.println("ENTRO A crear ACTIVIDAD>>>>>"+getInstance().getActividad());   
+//                System.out.println("ENTRO A CREAR KILOMETRAJE>>>>>"+getInstance().getKilometraje()); 
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());

@@ -58,6 +58,11 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
     }
 
     public void setListaActividadpm(List<ActividadPlanMantenimiento> listaActividadpm) {
+        
+         for (ActividadPlanMantenimiento actividadpm : listaActividadpm) {
+            actividadpm.setPlanMantenimiento(this);
+        }
+      
         this.listaActividadpm = listaActividadpm;
     }
 

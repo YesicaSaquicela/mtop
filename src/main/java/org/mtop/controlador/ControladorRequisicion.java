@@ -69,10 +69,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Long idVehiculo;
     private Vehiculo vehiculo;
     private List<Vehiculo> vehiculos;
-    private String ruta;
     private long idPartidaC = 0l;
     private PartidaContabilidad partidaC;
-    private String mensaje;
+
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
@@ -102,16 +101,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         if (skip) {
             skip = false;   //reset in case user goes back  
-            mensaje = "";
+          
             return "confirm";
         } else {
             System.out.println("pasoooo");
             if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
-
-                mensaje = "debe escoger un vehiculo";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+                //    mensaje = "debe escoger un vehiculo";
                 return event.getOldStep();
             } else {
-                mensaje = "";
+            //    mensaje = "";
                 return event.getNewStep();
             }
 
@@ -144,14 +143,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
-    public String getRuta() {
-        return ruta;
-    }
-
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
-    }
-
+  
     public Long getIdVehiculo() {
         return idVehiculo;
     }
@@ -167,14 +159,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("ID del vehiculo>>>>><<<<<<<<<<<<<<<<<<<<<" + idVehiculo);
         vehiculo = findById(Vehiculo.class, idVehiculo);
 
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
     }
 
     public Vehiculo getVehiculo() {
@@ -254,7 +238,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //            mensaje="necesita un asignar un vehiculo";
 //             return "/paginas/requisicion/crear.xhtml?faces-redirect=true";
 //        } else {
-        mensaje = "";
+  
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 

@@ -39,6 +39,7 @@ import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -54,21 +55,82 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     @Inject
     private ServicioGenerico servgen;
     private List<SolicitudReparacionMantenimiento> listaSolicitud = new ArrayList<SolicitudReparacionMantenimiento>();
-    // private List<Vehiculo> listaVehiculo = new ArrayList<Vehiculo>();
-    private long idvehiculo;
+    private Long idVehiculo;
+    private Vehiculo vehiculo;
+    private List<Vehiculo> listaVehiculos;
 
-    public long getIdvehiculo() {
-        if(getSolicitudReparacionMantenimientoId()!=null && idvehiculo==0l){
-            idvehiculo=getInstance().getVehiculo().getId();
+    private boolean skip;
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+
+        if (skip) {
+            skip = false;   //reset in case user goes back  
+
+            return "confirm";
+        } else {
+            System.out.println("pasoooo");
+            if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+
+                return event.getOldStep();
+            } else {
+
+                return event.getNewStep();
+            }
+
         }
-        return idvehiculo;
     }
 
-    public void setIdvehiculo(long idvehiculo) {
-        this.idvehiculo = idvehiculo;
+    public Long getIdVehiculo() {
+        return idVehiculo;
     }
 
-    
+    public void setIdVehiculo(Long idVehiculo) {
+        this.idVehiculo = idVehiculo;
+        vehiculo = findById(Vehiculo.class, idVehiculo);
+
+    }
+
+    public void asignarIdVehiculo(Long idVehiculo) {
+        this.idVehiculo = idVehiculo;
+        System.out.println("ID del vehiculo>>>>><<<<<<<<<<<<<<<<<<<<<" + idVehiculo);
+        vehiculo = findById(Vehiculo.class, idVehiculo);
+
+    }
+
+    public Vehiculo getVehiculo() {
+
+        if (getSolicitudReparacionMantenimientoId() != null) {
+            System.out.println("vehiculo " + getInstance().getVehiculo());
+            vehiculo = getInstance().getVehiculo();
+        }
+
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
+
+        this.vehiculo = vehiculo;
+    }
+
+    public List<Vehiculo> getListaVehiculos() {
+        listaVehiculos = findAll(Vehiculo.class);
+        return listaVehiculos;
+    }
+
+    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
+        this.listaVehiculos = listaVehiculos;
+    }
+
     public Long getSolicitudReparacionMantenimientoId() {
         return (Long) getId();
     }
@@ -77,9 +139,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         setId(solicitudReparacionMantenimientoId);
     }
 
-  
-    
-     public String formato(Date fecha) {
+    public String formato(Date fecha) {
         String fechaFormato = "";
         if (fecha != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -89,7 +149,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return fechaFormato;
 
     }
-     
+
     @TransactionAttribute   //
     public SolicitudReparacionMantenimiento load() {
         if (isIdDefined()) {
@@ -118,10 +178,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
-        idvehiculo=0l;
+
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaSolicitud = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        vehiculo = new Vehiculo();
+        idVehiculo = 0l;
     }
 
     @Override
@@ -148,25 +210,14 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-         
-//          for(Vehiculo v: findAll(Vehiculo.class)){
-//                   System.out.println("presenta id>>>>>>>>>>>>>>>>>>"+v.getId());
-//                   if(v.getId()==idvehiculo){
-//                       System.out.println("vehiculo encontradooooooooooooooooooooo");
-//                        getInstance().setVehiculo(v);
-//                       break;
-//                   }
-//               }
-//          
-                         
-        Vehiculo vehiculo=servgen.buscarPorId(Vehiculo.class, idvehiculo);
-        getInstance().setVehiculo(vehiculo);   
-        System.out.println("IIIIDEEEntro>>>>>>"+getSolicitudReparacionMantenimientoId());
-        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance().isPersistent());
-                                
+
+        getInstance().setVehiculo(vehiculo);
+        System.out.println("IIIIDEEEntro>>>>>>" + getSolicitudReparacionMantenimientoId());
+        System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance().isPersistent());
+
         try {
-            if (getInstance().isPersistent()) {            
-               save(getInstance());
+            if (getInstance().isPersistent()) {
+                save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
