@@ -57,6 +57,13 @@
 
                                 </p:selectOneMenu> <br></br>
 
+                                <h:outputText value="Partida de Contabilidad "/> <br></br> 
+
+                                <p:selectOneMenu id="partida" value="#{controladorRequisicion.instance.partidaContabilidad}" effect="fade" >  
+                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                    <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item}"/>  
+                                </p:selectOneMenu> <br></br>
+
                                 <h:outputText value="Tipo de adquisicion "/><br></br>
                                 <p:selectOneMenu id="adquisicion" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" >  
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -67,7 +74,7 @@
 
                                 </p:selectOneMenu> <br></br>
 
-                                <p:outputLabel value="Observacio"/><br></br>
+                                <p:outputLabel value="Observación"/><br></br>
                                 <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
                                                  required="true" /><br></br>
 

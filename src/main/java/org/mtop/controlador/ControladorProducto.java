@@ -52,6 +52,40 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     private ServicioGenerico servgen;
     private List<Producto> listaProducto = new ArrayList<Producto>();
 
+     private String codigo;
+
+    public String getCodigo() {
+        if (getId() == null) {
+            System.out.println("numero"+getInstance().getCodigo());
+            List<Producto> lista = findAll(Producto.class);
+            int t = lista.size();
+            System.out.println("valor de t :::::::::::"+t);
+            if (t < 9) {
+                setCodigo("000".concat(String.valueOf(t + 1)));
+            } else {
+                if (t >= 9 && t < 99) {
+                    setCodigo("00".concat(String.valueOf(t + 1)));
+                } else {
+                    if (t >= 99 && t < 999) {
+                        setCodigo("0".concat(String.valueOf(t + 1)));
+                    } else {
+                        setCodigo(String.valueOf(t + 1));
+                    }
+                }
+            }
+        }else{
+            setCodigo(getInstance().getCodigo());
+        }
+        
+        return codigo;
+
+    }
+
+    public void setCodigo(String numRegistro) {
+        this.codigo = numRegistro;
+        getInstance().setCodigo(this.codigo);
+
+    }
 
       
     public Long getProductoId() {

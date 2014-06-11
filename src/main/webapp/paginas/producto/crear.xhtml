@@ -32,10 +32,13 @@
                     <!-- Example row of columns -->
                     <div class="row">
                         <div class="col-md-6"> 
-
-                            <mtop:input id="codigo" name="codigo1" type="text" label="Código" 
-                                        value="#{controladorProducto.instance.codigo}" required="true" 
-                                        inlinehelp="Ingrese el codigo del producto" execute ="@this save" render="codigo"/>
+                            
+                            <p:outputLabel value="Número de Solicitud"/>
+                             <p:inputText id="codigo"  value="#{controladorProducto.codigo}"
+                                             readonly="true" styleClass="form-control"
+                                             required="true" label="Código" 
+                                             rendered="true" ></p:inputText>
+                            
 
                             <mtop:input id="des" name="descripcion1" type="textarea" label="Descripcion" 
                                         value="#{controladorProducto.instance.descripcion}" required="true" 

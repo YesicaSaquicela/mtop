@@ -103,7 +103,10 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-
+    public String concatenarPartida() {
+        String resultado = "250-" + getNumeroProvincia() + "-0000-" + getNumeroPrograma() + "-00-" + getNumeroProyecto() + "-001-" + getNumeroItem() + "-1100-" + getNumeroFuenteFinanciera();
+        return resultado;
+    }
 
     @Override
     public String toString() {

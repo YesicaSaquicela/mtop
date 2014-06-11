@@ -61,12 +61,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     private boolean skip;
     
-      private String numeroSolicitud;
+    private String numeroSolicitud;
 
     public String getNumeroSolicitud() {
         if (getId() == null) {
             System.out.println("numero"+getInstance().getNumSolicitud());
-            List<Vehiculo> lista = findAll(Vehiculo.class);
+            List<SolicitudReparacionMantenimiento> lista = findAll(SolicitudReparacionMantenimiento.class);
             int t = lista.size();
             System.out.println("valor de t :::::::::::"+t);
             if (t < 9) {
@@ -83,7 +83,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 }
             }
         }else{
-            setNumeroSolicitud(String.valueOf(getInstance().getNumSolicitud()));
+            setNumeroSolicitud(getInstance().getNumSolicitud());
         }
         
         return numeroSolicitud;
@@ -92,7 +92,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setNumeroSolicitud(String numRegistro) {
         this.numeroSolicitud = numRegistro;
-        getInstance().setNumSolicitud(Double.valueOf(this.numeroSolicitud));
+        getInstance().setNumSolicitud(this.numeroSolicitud);
 
     }
 

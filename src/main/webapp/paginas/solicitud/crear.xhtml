@@ -34,11 +34,11 @@
                     <p:panel header="Datos Generales">
                         <p:messages id="mens" showDetail="true" autoUpdate="true" closable="true" />
                         <h:panelGrid >
-                             <p:outputLabel value="Número de Solicitud"/>
-                             <p:inputText id="registro"  value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"
-                                             readonly="true" styleClass="form-control"
-                                             required="true" label="Número de Solicitud" 
-                                             rendered="true" ></p:inputText>
+                            <p:outputLabel value="Número de Solicitud"/>
+                            <p:inputText id="registro"  value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"
+                                         readonly="true" styleClass="form-control"
+                                         required="true" label="Número de Solicitud" 
+                                         rendered="true" ></p:inputText>
 
                             <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
                             <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"

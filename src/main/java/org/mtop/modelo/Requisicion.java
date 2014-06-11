@@ -40,7 +40,7 @@ import org.mtop.modelo.Vehiculo;
 public class Requisicion extends BussinesEntity implements Serializable {
 
     private boolean aprobado;
-    private double numRequisicion;
+    private String numRequisicion;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaRequisicion;
     private String tipoAdquisicion;
@@ -116,6 +116,14 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.partidaContabilidad = partidaContabilidad;
     }
 
+    public String getNumRequisicion() {
+        return numRequisicion;
+    }
+
+    public void setNumRequisicion(String numRequisicion) {
+        this.numRequisicion = numRequisicion;
+    }
+
     
       public String getTipoAdquisicion() {
         return tipoAdquisicion;
@@ -125,13 +133,8 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.tipoAdquisicion = tipoAdquisicion;
     }
 
-    public double getNumRequisicion() {
-        return numRequisicion;
-    }
-
-    public void setNumRequisicion(double numRequisicion) {
-        this.numRequisicion = numRequisicion;
-    }
+  
+   
 
        public boolean getAprobado() {
         return aprobado;
