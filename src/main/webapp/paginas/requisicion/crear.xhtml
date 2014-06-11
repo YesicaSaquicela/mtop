@@ -31,12 +31,14 @@
 
             <p:wizard  id="p" flowListener="#{controladorRequisicion.onFlowProcess}">
                 <p:tab id="req"  title="Requisicion">
-                    <p:panel header="Datos Generales">
-                        <p:messages id="mens" showDetail="true" autoUpdate="true" closable="true" />
-                        <h:panelGrid >
-                            <mtop:input id="numRequisicion" name="numRequisicion" type="text" label="Número de Requisicion" 
-                                        value="#{controladorRequisicion.instance.numRequisicion}" required="true" 
-                                        inlinehelp="Ingrese un numero de requisicion" execute ="@this save" render="numRequisicion"/>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Datos Generales</center></div>
+                        <p:panel >
+                            <p:messages />
+                            <h:panelGrid >
+                                <mtop:input id="numRequisicion" name="numRequisicion" type="text" label="Número de Requisicion" 
+                                            value="#{controladorRequisicion.instance.numRequisicion}" required="true" 
+                                            inlinehelp="Ingrese un numero de requisicion" execute ="@this save" render="numRequisicion"/>
 
                                 <h:outputLabel value="Fecha de Requisicion" /> <br></br> 
                                 <p:calendar  id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
@@ -63,9 +65,9 @@
 
                                 </p:selectOneMenu> <br></br>
 
-                            <p:outputLabel value="Observacion"/><br></br>
-                            <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
-                                             required="true" /><br></br>
+                                <p:outputLabel value="Observacio"/><br></br>
+                                <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
+                                                 required="true" /><br></br>
 
 
 
@@ -153,7 +155,7 @@
                                      required="true" readonly="true" /><br/>
 
 
-                         <!--h:outputText style="font-style: oblique" value="# {controladorRequisicion.mensaje} " /-->
+                        <h:outputText style="font-style: oblique" value="#{controladorRequisicion.mensaje} " />
 
                     </p:panel>
 
