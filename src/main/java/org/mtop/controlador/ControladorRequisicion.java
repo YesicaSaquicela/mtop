@@ -107,10 +107,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("pasoooo");
             if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
-                //    mensaje = "debe escoger un vehiculo";
+               
                 return event.getOldStep();
             } else {
-            //    mensaje = "";
+        
                 return event.getNewStep();
             }
 

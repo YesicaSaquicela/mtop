@@ -43,16 +43,7 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
     @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
 
-//    public List<ActividadPlanMantenimiento> getListaActividadpm() {
-//        return listaActividadpm;
-//    }
-//
-//    public void setListaActividadpm(List<ActividadPlanMantenimiento> listaActividadpm) {
-//         for (ActividadPlanMantenimiento itempm : listaActividadpm) {
-//            itempm.setPlanMantenimiento(this);
-//        }
-//        this.listaActividadpm = listaActividadpm;
-//    }
+
     public List<ActividadPlanMantenimiento> getListaActividadpm() {
         return listaActividadpm;
     }
