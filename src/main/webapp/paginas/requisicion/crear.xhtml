@@ -74,8 +74,8 @@
                             </h:panelGrid>
                         </p:panel>
                     </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><center>Datos Adicionales</center></div>
+                    <div  class="panel panel-primary">
+                        <div  class="panel-heading"><center>Datos Adicionales</center></div>
                         <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
                             <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                                 <c:choose>                        
@@ -154,8 +154,6 @@
                         <p:inputText immediate="true" id="vehiculo" value="#{controladorRequisicion.vehiculo.id}" rendered="true"
                                      required="true" readonly="true" /><br/>
 
-
-                        <h:outputText style="font-style: oblique" value="#{controladorRequisicion.mensaje} " />
 
                     </p:panel>
 
