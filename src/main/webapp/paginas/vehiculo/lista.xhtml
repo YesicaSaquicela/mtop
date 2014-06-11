@@ -36,16 +36,33 @@
                 <p:column headerText="Marca">
                     <h:outputText value="#{v.marca}"></h:outputText>
                 </p:column>
-                 <p:column headerText="Nro Registro">
-                     <h:outputText value="#{v.numRegistro}"></h:outputText>
+                <p:column headerText="Nro Registro">
+                    <h:outputText value="#{v.numRegistro}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
                     <h:link value="Editar" outcome="crear" type="button" >
                         <f:param name="vehiculoId" value="#{v.id}"></f:param>
                     </h:link>
+                    <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="Ver Detalles" styleClass="ui-icon ui-icon-search">
+                        <f:setPropertyActionListener value="#{v}" target="#{controladorVehiculo.instance}" />
+                    </p:commandLink>
+
                 </p:column>
             </p:dataTable>
-            
+            <p:dialog id="dialog" header="Detalles del Vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                <p:outputPanel id="documentPanel">
+                    <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty controladorVehiculo.instance}">
+                        <h:outputLabel for="name" value="Numero de Registro: " />
+                        <h:outputText id="name" value="#{controladorVehiculo.instance.numRegistro}" style="font-weight:bold" />
+
+                        <h:outputLabel for="marca" value="Marca: " />
+                        <h:outputText id="marca" value="#{controladorVehiculo.instance.marca}" style="font-weight:bold" />
+
+                        
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+
         </h:form>
     </ui:define>
 </ui:composition>

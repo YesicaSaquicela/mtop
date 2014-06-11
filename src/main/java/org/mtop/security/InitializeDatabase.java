@@ -236,8 +236,9 @@ public class InitializeDatabase {
         validarEstructuraParaRequisicion();
         validarEstructuraParaPartidaC();
         validarEstructuraParaPlanMantenimiento();
+        validarEstructuraParaChasisV();
+        validarEstructuraParaMotorV();
 
-                
         //validarEstructuraParaPerfilDeUsuario();
     }
 
@@ -346,13 +347,15 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
-            
-            attributes.add(buildStructureTypeProperty("Vehiculo","Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Vehiculo","SistemaElectrico", "Sistema Electrico", "Información del SistemaElectrico", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Vehiculo","Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Vehiculo","Carroceria", "Carroceria", "Información de Carroceria", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Vehiculo","Direccion", "Dirección", "Información de dirección", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("Vehiculo","Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 1L));
+
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "SistemaElectrico", "Sistema Electrico", "Información del SistemaElectrico", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroceria", "Carroceria", "Información de Carroceria", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Direccion", "Dirección", "Información de dirección", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Chasis", "Chasis", "Información de Chasis", "/paginas/vehiculo/crear", 2L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Motor", "Motor", "Información del Motor", "/paginas/vehiculo/crear", 3L));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -395,6 +398,85 @@ public class InitializeDatabase {
             attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 12L));
             attributes.add(buildProperty("Historial", "doubleeee", Double.class.getName(), "", false, "Doubleee", "Ingrese el doubleee", false, 12L));
 //Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+    }
+
+    private void validarEstructuraParaChasisV() {
+        BussinesEntityType bussinesEntityType = null;
+        String name = "Chasis";
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", name);
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(name);
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(name);
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //Para inicializar estructuras llamar [buildProperty()]
+            attributes.add(buildProperty("Chasis", "serie", String.class.getName(), null, false, "Serie", "Ingrese la serie para el chasís", false, 1L));
+            attributes.add(buildProperty("Chasis", "tipo", String.class.getName(), null, false, "Tipo", " Ingrese el tipo de chasís", false, 2L));
+            attributes.add(buildProperty("Chasis", "capacidadTolva", String.class.getName(), null, false, "Capacidad Tolva", "Ingrese la capacidad de Tolva del chasís", false, 3L));
+
+            //Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+    }
+
+    private void validarEstructuraParaMotorV() {
+        BussinesEntityType bussinesEntityType = null;
+        String name = "Motor";
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", name);
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(name);
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(name);
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //Para inicializar estructuras llamar [buildProperty()]
+            attributes.add(buildProperty("Motor", "serie", String.class.getName(), null, false, "Serie", "Ingrese la serie para el Motor", false, 1L));
+            attributes.add(buildProperty("Motor", "marca", String.class.getName(), null, false, "Marca", " Ingrese la marca del Motor", false, 2L));
+            attributes.add(buildProperty("Motor", "modelo", String.class.getName(), null, false, "Modelo Tolva", "Ingrese el modelo del Motor", false, 3L));
+            attributes.add(buildProperty("Motor", "tipo", String.class.getName(), null, false, "Tipo", "Ingrese el tipo de Motor", false, 4L));
+            attributes.add(buildProperty("Motor", "soporte", String.class.getName(), null, false, "Soporte", " Ingrese el soporte del Motor", false, 5L));
+            attributes.add(buildProperty("Motor", "tanque", String.class.getName(), null, false, "Tanque", "Ingrese el tanque del Motor", false, 6L));
+            
+            attributes.add(buildProperty("Motor", "sistemaCombustible", String.class.getName(), null, false, "Sistema de Combustible", "Ingrese la Sistema de Combustible para el Motor", false, 7L));
+            attributes.add(buildProperty("Motor", "potencia", String.class.getName(), null, false, "Potencia", " Ingrese la potencia del Motor", false, 8L));
+            attributes.add(buildProperty("Motor", "sistemaLubricacion", String.class.getName(), null, false, "Sistema de Lubricación", "Ingrese el sistema de lubricación del Motor", false, 8L));
+            attributes.add(buildProperty("Motor", "sistemaRefrigeracion", String.class.getName(), null, false, "Sistema de Refrigeración", "Ingrese el sistema de refrigeración de Motor", false, 10L));
+            attributes.add(buildProperty("Motor", "admicionEscape", String.class.getName(), null, false, "Admición de Escape", " Ingrese la admición de escape del Motor", false, 11L));
+            attributes.add(buildProperty("Motor", "instrumentosControl", String.class.getName(), null, false, "Instrumentos de control", "Ingrese instrumentos de control del Motor", false, 12L));
+            //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
             entityManager.persist(bussinesEntityType);
@@ -465,7 +547,7 @@ public class InitializeDatabase {
             attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese las luces del vehículo", false, 8L));
             attributes.add(buildProperty("SistemaElectrico", "alterador", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Alterador", "Ingrese el estado para alterador", false, 5L));
             attributes.add(buildProperty("SistemaElectrico", "baterias", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Baterias", "Ingrese el estado para bateria", false, 6L));
-            attributes.add(buildProperty("SistemaElectrico", "motorArranque", "java.lang.String[]", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));
+            attributes.add(buildProperty("SistemaElectrico", "motorArranque", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -745,7 +827,8 @@ public class InitializeDatabase {
         property.setSequence(sequence);
         return property;
     }
-    private Property buildStructureTypeProperty(String groupName,String name, String label, String helpinline, String customForm, Long sequence) {
+
+    private Property buildStructureTypeProperty(String groupName, String name, String label, String helpinline, String customForm, Long sequence) {
         Property property = new Property();
         property.setName(name);
         property.setType(Structure.class.getName());

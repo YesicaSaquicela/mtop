@@ -17,9 +17,10 @@
         <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
     </f:metadata>
     <ui:define name="header">
-
-        <h2>#{titulo}</h2>    
-
+        <br/>
+        
+        <h2>Gestionar Vehiculos</h2>    
+<br/>
     </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
@@ -27,89 +28,154 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <h1>Gestionar Vehiculos</h1>
-            <p:panel header="Datos Generales">
+            
+            <div class="panel panel-primary">
+                <div class="panel-heading"><center>Datos Generales</center></div>
 
 
 
-                <div class="container-fluid">
-                    <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-6"> 
-
-                            <mtop:input id="registro" name="registro1" type="text" label="Número de Registro" 
-                                        value="#{controladorVehiculo.instance.numRegistro}" required="true" 
-                                        inlinehelp="Ingrese un numero de registro del vehiculo" execute ="@this save" render="registro"/>
-
-                            <mtop:input id="marca" name="marca" type="text" label="Marca" 
-                                        value="#{controladorVehiculo.instance.marca}" required="true" 
-                                        inlinehelp="Vehiculo" 
-                                        execute ="@this save" render="marca"/>
-                            <mtop:input id="color" name="color" type="text" label="Color" 
-                                        value="#{controladorVehiculo.instance.marca}" required="true" 
-                                        inlinehelp="Ingrese el color del vehiculo" 
-                                        execute ="@this save" render="color"/>
-
-                            <mtop:input id="clase" name="clase" type="text" label="Clase" 
-                                        value="#{controladorVehiculo.instance.clase}" required="true" 
-                                        inlinehelp="Ingrese la clase del vehiculo" 
-                                        execute ="@this save" render="clase"/>
-
-                            <mtop:input id="modelo" name="modelo" type="text" label="Modelo" 
-                                        value="#{controladorVehiculo.instance.modelo}" required="true" 
-                                        inlinehelp="Ingrese el modelo del vehiculo" 
-                                        execute ="@this save" render="modelo"/>
-
-                            <mtop:input id="placa" name="placa" type="text" label="Placa" 
-                                        value="#{controladorVehiculo.instance.placa}" required="true" 
-                                        inlinehelp="Ingrese la placa del vehiculo" 
-                                        execute ="@this save" render="placa"/>
-
-                            <mtop:input id="numPasajeros" name="numPasajeros" type="text" label="Número de Pasajeros" 
-                                        value="#{controladorVehiculo.instance.numPasajeros}" required="true" 
-                                        inlinehelp="Ingrese el numero de pasajeros del vehiculo" 
-                                        execute ="@this save" render="numPasajeros"/>
-
-                            <mtop:input id="anioFabricacion" name="anioFabricacion" type="text" label="Año de Fabricacion" 
-                                        value="#{controladorVehiculo.instance.anioFabricacion}" required="true" 
-                                        inlinehelp="Ingrese el año de fabricación del vehiculo" 
-                                        execute ="@this save" render="anioFabricacion"/>
-
-                            <mtop:input id="peso" name="peso" type="text" label="Peso" 
-                                        value="#{controladorVehiculo.instance.peso}" required="true" 
-                                        inlinehelp="Ingrese el peso del vehiculo" 
-                                        execute ="@this save" render="peso"/>
-
-                            <mtop:input id="tipo" name="tipo" type="text" label="Tipo" 
-                                        value="#{controladorVehiculo.instance.tipo}" required="true" 
-                                        inlinehelp="Ingrese el tipo del vehiculo" 
-                                        execute ="@this save" render="tipo"/>
-
-                            <mtop:input id="cilindraje" name="cilindraje" type="text" label="Cilindraje" 
-                                        value="#{controladorVehiculo.instance.cilindraje}" required="true" 
-                                        inlinehelp="Ingrese el cilindraje del vehiculo" 
-                                        execute ="@this save" render="cilindraje"/>
+                <p:panel>
 
 
-                            <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
-                                        value="#{controladorVehiculo.instance.kilometraje}" required="true" 
-                                        inlinehelp="Ingrese el kilometraje del vehiculo" 
-                                        execute ="@this save" render="kilometraje"/>
 
-                            <mtop:input id="tipoCombustible" name="tipoCombustible" type="text" label="Tipo de Combustible" 
-                                        value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
-                                        inlinehelp="Ingrese el tipo de combustible del vehiculo" 
-                                        execute ="@this save" render="tipoCombustible"/>
+                    <div class="container-fluid">
+                        <!-- Example row of columns -->
+                        <div class="row">
+                            <div class="col-md-6"> 
+                                <p:outputLabel value="Numero de Registro"/>
+                                <p:inputText id="registro"  value="#{controladorVehiculo.numeroRegistro}" readonly="true" styleClass="form-control"
+                                             required="true" label="Numero de Registro" 
+                                             rendered="true" >
+                                </p:inputText>
+
+
+                                <mtop:input id="marca" name="marca" type="text" label="Marca" 
+                                            value="#{controladorVehiculo.instance.marca}" required="true" 
+                                            inlinehelp=" ingrese la marca Vehiculo" 
+                                            execute ="@this save" render="marca"/>
+                                <mtop:input id="color" name="color" type="text" label="Color" 
+                                            value="#{controladorVehiculo.instance.color}" required="true" 
+                                            inlinehelp="Ingrese el color del vehiculo" 
+                                            execute ="@this save" render="color"/>
+
+                                <mtop:input id="clase" name="clase" type="text" label="Clase" 
+                                            value="#{controladorVehiculo.instance.clase}" required="true" 
+                                            inlinehelp="Ingrese la clase del vehiculo" 
+                                            execute ="@this save" render="clase"/>
+
+                                <mtop:input id="modelo" name="modelo" type="text" label="Modelo" 
+                                            value="#{controladorVehiculo.instance.modelo}" required="true" 
+                                            inlinehelp="Ingrese el modelo del vehiculo" 
+                                            execute ="@this save" render="modelo"/>
+
+                                <mtop:input id="placa" name="placa" type="text" label="Placa" 
+                                            value="#{controladorVehiculo.instance.placa}" required="true" 
+                                            inlinehelp="Ingrese la placa del vehiculo" 
+                                            execute ="@this save" render="placa"/>
+
+                                <mtop:input id="numPasajeros" name="numPasajeros" type="text" label="Número de Pasajeros" 
+                                            value="#{controladorVehiculo.instance.numPasajeros}" required="true" 
+                                            inlinehelp="Ingrese el numero de pasajeros del vehiculo" 
+                                            execute ="@this save" render="numPasajeros"/>
+
+                                <mtop:input id="anioFabricacion" name="anioFabricacion" type="text" label="Año de Fabricacion" 
+                                            value="#{controladorVehiculo.instance.anioFabricacion}" required="true" 
+                                            inlinehelp="Ingrese el año de fabricación del vehiculo" 
+                                            execute ="@this save" render="anioFabricacion"/>
+
+                                <mtop:input id="peso" name="peso" type="text" label="Peso" 
+                                            value="#{controladorVehiculo.instance.peso}" required="true" 
+                                            inlinehelp="Ingrese el peso del vehiculo" 
+                                            execute ="@this save" render="peso"/>
+
+                                <mtop:input id="tipo" name="tipo" type="text" label="Tipo" 
+                                            value="#{controladorVehiculo.instance.tipo}" required="true" 
+                                            inlinehelp="Ingrese el tipo del vehiculo" 
+                                            execute ="@this save" render="tipo"/>
+
+                                <mtop:input id="cilindraje" name="cilindraje" type="text" label="Cilindraje" 
+                                            value="#{controladorVehiculo.instance.cilindraje}" required="true" 
+                                            inlinehelp="Ingrese el cilindraje del vehiculo" 
+                                            execute ="@this save" render="cilindraje"/>
+
+
+                                <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
+                                            value="#{controladorVehiculo.instance.kilometraje}" required="true" 
+                                            inlinehelp="Ingrese el kilometraje del vehiculo" 
+                                            execute ="@this save" render="kilometraje"/>
+
+                                <mtop:input id="tipoCombustible" name="tipoCombustible" type="text" label="Tipo de Combustible" 
+                                            value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
+                                            inlinehelp="Ingrese el tipo de combustible del vehiculo" 
+                                            execute ="@this save" render="tipoCombustible"/>
+                            </div>
                         </div>
-                    </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading"><center>Datos Adicionales del Vehículo</center></div>
+                            <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                                <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                    <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.model.Structure'}" >
+                                        <c:choose>                        
+                                            <c:when test="#{p.type == 'org.mtop.model.Structure'}"> 
 
-                    <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                        <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
-                            <c:choose>                        
-                                <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
-                                    <h:panelGroup  layout="block" class="clearfix">
-                                        <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
-                                            <h:panelGroup rendered="#{a.property.type ne 'org.mtop.model.EstadoParteMecanica'}"  layout="block" class="clearfix">
+                                                <h:panelGroup  layout="block" class="clearfix">
+                                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+
+
+                                                        <h:panelGroup rendered="#{a.property.type ne 'org.mtop.model.EstadoParteMecanica'}"  layout="block" class="clearfix">
+                                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                            <div class="input">
+                                                                <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                              rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                    <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                                    <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                                </p:inputText>
+                                                                <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                               rendered="#{a.property.type eq 'java.lang.Double'}">
+
+                                                                    <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                                </p:inputText>
+                                                                <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                            rendered="#{a.property.type eq 'java.util.Date'}">
+                                                                    <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                </p:calendar>  
+                                                                <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                                                rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                                                    <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                                </pe:inputNumber>  
+                                                                <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                                 rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
+                                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                    <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                                                </p:selectOneMenu> 
+                                                                <p:inputTextarea value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                    <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                                </p:inputTextarea>                                                
+                                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                                styleClass="validation-status" />
+                                                                <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                                            </div>
+                                                        </h:panelGroup>  
+
+                                                    </ui:repeat>
+                                                </h:panelGroup>
+
+                                            </c:when>
+                                        </c:choose>
+                                    </p:tab>
+                                </c:forEach>
+
+
+                                <p:tab title="Otros" closable="false"  titleStyleClass="clearfix"  >
+                                    <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+
+                                        <c:if test="#{p.type != 'org.mtop.model.Structure'}">
+
+                                            <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.groupName)}" var="a" varStatus="status">                                               
+
+
+
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                 <div class="input">
                                                     <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
@@ -118,8 +184,8 @@
                                                         <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                     </p:inputText>
                                                     <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                  rendered="#{a.property.type eq 'java.lang.Double'}">
-                                                       
+                                                                   rendered="#{a.property.type eq 'java.lang.Double'}">
+
                                                         <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                     </p:inputText>
                                                     <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
@@ -143,23 +209,27 @@
                                                                     styleClass="validation-status" />
                                                     <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
                                                 </div>
-                                            </h:panelGroup>  
 
-                                        </ui:repeat>
-                                    </h:panelGroup>
-                                </c:when>
-                            </c:choose>
-                        </p:panel>
-                    </c:forEach>
 
-                </div>
-            </p:panel>
-            <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
-                             immediate="true"/>
+                                            </ui:repeat>
 
-            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn">
+                                        </c:if> 
+                                    </c:forEach>
+                                </p:tab>
+                            </p:tabView>
+                        </div>
 
-            </h:button>
+                    </div>
+                </p:panel>
+            </div>
+            <center>
+                <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
+                                 immediate="true"/>
+
+                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn">
+
+                </h:button>
+            </center>
         </h:form>
 
     </ui:define>
