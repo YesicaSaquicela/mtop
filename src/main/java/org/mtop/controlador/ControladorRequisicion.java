@@ -74,6 +74,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private List<PartidaContabilidad> listaPartida;
     private String numeroRequisicion;
 
+    public long getIdPartidaC() {
+        if(getRequisicionId() !=null && idPartidaC==0l){
+            idPartidaC=getInstance().getPartidaContabilidad().getId();
+        }
+        return idPartidaC;
+    }
+
+    public void setIdPartidaC(long idPartidaC) {
+        this.idPartidaC = idPartidaC;
+    }
+
+    
+
+
     public String getNumeroRequisicion() {
         if (getId() == null) {
             System.out.println("numero" + getInstance().getNumRequisicion());
@@ -113,7 +127,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setListaPartida(List<PartidaContabilidad> listaPartida) {
         this.listaPartida = listaPartida;
     }
-    
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
@@ -158,8 +171,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         }
     }
-
-    
 
     public List<Vehiculo> getVehiculos() {
 
@@ -247,7 +258,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaRequisicion = servgen.buscarTodos(Requisicion.class);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
-        listaPartida=findAll(PartidaContabilidad.class);
+        
+        listaPartida = findAll(PartidaContabilidad.class);
     }
 
     @Override
@@ -282,6 +294,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         getInstance().setVehiculo(vehiculo);
         System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
+        PartidaContabilidad p = servgen.buscarPorId(PartidaContabilidad.class, idPartidaC);
+        getInstance().setPartidaContabilidad(p);
+        System.out.println("id de ala partidaaaaaaaaaaaaa"+p.getId());
+
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("ingresa a editar>>>>>>>");

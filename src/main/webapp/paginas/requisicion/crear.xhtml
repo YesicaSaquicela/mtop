@@ -59,9 +59,12 @@
 
                                 <h:outputText value="Partida de Contabilidad "/> <br></br> 
 
-                                <p:selectOneMenu id="partida" value="#{controladorRequisicion.instance.partidaContabilidad}" effect="fade" >  
+                                <p:selectOneMenu id="partida" value="#{controladorRequisicion.idPartidaC}" effect="fade"
+                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                 requiredMessage="false">  
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                    <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item}"/>  
+                                    <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
+                                    <p:ajax event="change" update="@parent" partialSubmit="true"/>
                                 </p:selectOneMenu> <br></br>
 
                                 <h:outputText value="Tipo de adquisicion "/><br></br>

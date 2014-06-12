@@ -25,13 +25,13 @@
             <!--<h:outputScript name="jquery.js" />--> <!-- this loads the jquery bundled with richFaces -->
             <!--<h:outputScript name="jquery-tableSorter-min.js" />
             <h:outputStylesheet name="bootstrap/bootstrap.css" />
-            <h:outputScript name="bootstrap/dropdown.js" />-->
+            <h:outputScript name="bootstrap/dropdown.js" />-
             <h:outputScript name="bootstrap/scrollspy.js" />
             <h:outputScript name="bootstrap/tabs.js" />
             <h:outputScript name="bootstrap/modal.js" />
             <h:outputScript name="bootstrap/twipsy.js" />
             <h:outputScript name="bootstrap/popover.js" />
-            <h:outputScript name="bootstrap/alerts.js" />
+            <h:outputScript name="bootstrap/alerts.js" /-->
 
             <!-- Our customizations -->
             <h:outputStylesheet name="application.css" />
@@ -39,7 +39,7 @@
 
             <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.min.css"/>
             <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.css"/>
-            <h:outputStylesheet name="bootstrap-3.1.1/css/jumbotron.css"/>
+            <h:outputStylesheet name="bootstrap-3.1.1/css/dashboard.css"/>
             <h:outputStylesheet name="bootstrap-3.1.1/css/sticky-footer.css"/>
 
             <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
@@ -48,97 +48,92 @@
 
             <ui:insert name="head"></ui:insert>
         </h:head>
+        <body>
 
-        <h:body>
-            <!--Cabecera-->
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar">                               
-                            </span>
+                            <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" >
-                            <h:panelGroup rendered="#{identity.loggedIn}">
-                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{!identity.loggedIn}">
-                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
-                            </h:panelGroup>
-                        </a>
+                        <a class="navbar-brand" href="#">Project name</a>
                     </div>
                     <div class="navbar-collapse collapse">
-                        <form class="navbar-form navbar-right" role="form">
-                            <div class="form-group">
-
-                                <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
-                                    <div class="form-group">
-                                        <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
-                                    </div>
-                                    <div class="form-group">                                    
-                                        <li><h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
-                                                <h:graphicImage value="/resources/refresh.png" width="30" height="25" style="margin: -4px 0 -9px 0;"/>
-                                            </h:outputLink>
-                                        </li> 
-                                    </div>
-                                </h:panelGroup>
-
-                            </div>
-                            <div class="form-group">
-
-                                <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
-                                    <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
-                                </h:panelGroup>
-                            </div>
-
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Help</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-right">
+                            <input type="text" class="form-control" placeholder="Search..."/>
                         </form>
-                    </div><!--/.navbar-collapse -->
+                    </div>
                 </div>
             </div>
-            <!--Cuerpo-->
-            <div class="jumbotron">
-                <div class="container" style="margin: -3% 0 -10% 10%; ">
-                    <ui:insert name="header">
 
-                    </ui:insert>
-                </div>                
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 sidebar">
+                        <ul class="nav nav-sidebar">
+                            <li class="active"><a href="#">Overview</a></li>
+                            <li><a href="#">Reports</a></li>
+                            <li><a href="#">Analytics</a></li>
+                            <li><a href="#">Export</a></li>
+                        </ul>
+                        <ul class="nav nav-sidebar">
+                            <li><a href="">Nav item</a></li>
+                            <li><a href="">Nav item again</a></li>
+                            <li><a href="">One more nav</a></li>
+                            <li><a href="">Another nav item</a></li>
+                            <li><a href="">More navigation</a></li>
+                        </ul>
+                        <ul class="nav nav-sidebar">
+                            <li><a href="">Nav item again</a></li>
+                            <li><a href="">One more nav</a></li>
+                            <li><a href="">Another nav item</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                        <h1 class="page-header">Dashboard</h1>
 
-                <!--Contenido-->
+
+                    </div>
+
+                    <h2 class="sub-header">Section title</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Header</th>
+                                    <th>Header</th>
+                                    <th>Header</th>
+                                    <th>Header</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,001</td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="container-fluid" style="margin: 0 5% 0 5%">
-                <div class="container-content">
-                    <ocp:messages id="messages" globalOnly="true" />
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#messages\\:messages li').attr("data-alert", "alert");
-                            $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
-                            $('.alert-message').alert();
-                            $('.alert-message').click().alert('close');
-                        });
-                    </script>
-                </div>
-
-                <div class="content" style="margin-left: 10px; float: left; width: 100%; margin-right: 10px">
-                    <ui:insert name="content" />
-                </div>
-            </div>                
-              
-<br/>
-<br/>
-<br/><br/>
 
 
-            <!--PIE pagina-->
-            <!--<div id="footer" style="margin-bottom: -60px">
-                <div class="container">
-                    <p class="text-muted">&copy; Proyecto tesis</p>
-                </div>-->
 
+        </body>
 
-        </h:body>
     </html>
 
 </f:view>
