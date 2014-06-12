@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
+    <ui:composition template="/WEB-INF/templates/plantilla2.xhtml">
         <ui:param name="title" value="Sign up" />
 
         <ui:define name="header">
@@ -12,12 +12,13 @@
         </ui:define>	
 
         <ui:define name="content">
-
+            <div class="table-responsive" >
             <div class="row">
                 <div class="span9 columns" style="margin-left: 220px;">
                     <br/>
-
-                    <center><h3>Ingrese su usuario y contraseña para ingresar </h3></center>                    
+                    
+                        <center><h3>Ingrese su usuario y contraseña para ingresar </h3></center>                    
+                    
                     <br/>
                     <h:form id="signin">
 
@@ -34,7 +35,7 @@
                         </style>
 
                         <div class="clearfix">
-                            <label for="name">Username</label>
+                            <label for="name" >Username</label>
 
                             <div class="input-group">
 
@@ -45,30 +46,31 @@
                                 </span>
 
                                 <h:inputText id="username" value="#{credentials.username}"
-                                             styleClass="span4 form-control" required="true"/>
+                                             styleClass="form-control" required="true"/>
                                 <br/><span class="help-inline"></span>
                             </div>
                         </div>
 
                         <div class="clearfix">
-                            <label for="password">Password</label>
-                            
+                            <label for="password" >Password</label>
+
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 <h:inputSecret id="password" value="#{credentials.password}"
-                                               styleClass="span4 form-control" style="text-transform: uppercase;"  required="true">
+                                               styleClass=" form-control" style="text-transform: uppercase;"  required="true">
                                 </h:inputSecret>
                                 <br/><span class="help-inline"></span>
                             </div>
                         </div>
-
-                        <div class="actions">
+<br/>
+                        <div class="admin-actions">
                             <h:commandButton action="#{authentication.login()}" value="Ingresar"
                                              styleClass="btn btn-lg btn-primary" />
                         </div>
                         <!--<center><h:link outcome="/paginas/recover" value="I forgot my password, what now?" /></center>-->
                     </h:form>
                 </div>
+            </div>
             </div>
 
         </ui:define>

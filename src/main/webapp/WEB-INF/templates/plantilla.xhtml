@@ -59,73 +59,108 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Project name</a>
+                        <a class="navbar-brand" >
+                            <h:panelGroup rendered="#{identity.loggedIn}">
+                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/>
+                            </h:panelGroup>
+                            <!--h:panelGroup rendered="#{!identity.loggedIn}">
+                                <h:link value="# {'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                            </h:panelGroup-->
+                        </a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Dashboard</a></li>
+                            <!--li><a href="#">Dashboard</a></li>
                             <li><a href="#">Settings</a></li>
                             <li><a href="#">Profile</a></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Help</a></li-->
                         </ul>
                         <form class="navbar-form navbar-right">
-                            <input type="text" class="form-control" placeholder="Search..."/>
+                            <!--input type="text" class="form-control" placeholder="Search..."/-->
+                            <div class="form-group">
+
+                                <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
+                                    <div class="form-group">
+                                        <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
+                                    </div>
+                                    <div class="form-group">                                    
+                                        <li><h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
+                                                <h:graphicImage value="/resources/refresh.png" width="30" height="25" style="margin: -4px 0 -9px 0;"/>
+                                            </h:outputLink>
+                                        </li> 
+                                    </div>
+                                </h:panelGroup>
+
+                            </div>
+                            <div class="form-group">
+
+                                <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
+                                    <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                                </h:panelGroup>
+                            </div>
+
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-3 col-md-2 sidebar">
+            <!--Cuerpo-->
+
+            <div class="container-fluid" style="top: 300px">
+                <div class="row-fluid">
+
+                    <div class="col-sm-3 col-md-2 sidebar " >
                         <ul class="nav nav-sidebar">
-                            <li class="active"><a href="#">Overview</a></li>
-                            <li><a href="#">Reports</a></li>
-                            <li><a href="#">Analytics</a></li>
-                            <li><a href="#">Export</a></li>
+                            <li ><a href="#"></a></li>
+                            <li ><a href="#"></a></li>
+                            <li class="active"> <center><div class="admin-actions"><h:link type="button" outcome="/pages/admin/bussinesentitytype/list.xhtml" value="Dinamica" /></div></center></li>
+                            <li><center><div class="admin-actions"><h:link type="button" outcome="/paginas/personal/lista.xhtml" value="Persona" /></div></center></li>
+                            <li> <center><div class="admin-actions"><h:link type="button"  outcome="/paginas/vehiculo/lista.xhtml" value="Vehiculo" /></div></center></li>
+                            <li><center><div class="admin-actions"><h:link type="button" outcome="/paginas/vehiculo/estadoVehiculo/lista.xhtml" value="Estado del Vehiculo" /></div></center></li>
+                            <li><center><div class="admin-actions"><h:link type="link" outcome="/paginas/planMantenimiento/lista.xhtml" value="Plan Mantenimiento" /></div></center></li>
                         </ul>
                         <ul class="nav nav-sidebar">
-                            <li><a href="">Nav item</a></li>
-                            <li><a href="">Nav item again</a></li>
-                            <li><a href="">One more nav</a></li>
-                            <li><a href="">Another nav item</a></li>
-                            <li><a href="">More navigation</a></li>
+                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/solicitud/lista.xhtml" value="Solicitud" /></div></center></li>
+                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/requisicion/lista.xhtml" value="Requisicion" /></div></center></li>
+                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/kardex/lista.xhtml" value="Kardex" /></div></center></li>
+
                         </ul>
                         <ul class="nav nav-sidebar">
-                            <li><a href="">Nav item again</a></li>
-                            <li><a href="">One more nav</a></li>
-                            <li><a href="">Another nav item</a></li>
+                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/producto/lista.xhtml" value="Producto" /></div></center></li>
+                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/partidaContabilidad/lista.xhtml" value="Partida de COntabilidad" /></div></center></li>
+
                         </ul>
                     </div>
                     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                        <h1 class="page-header">Dashboard</h1>
+                        <br/>
+                        <div class="container" style="margin: -3% 0 -10% 10%; ">
+                            <ui:insert name="header">
+
+                            </ui:insert>
+                            <div class="table-responsive">
+                                <div class="container-content">
+                                    <ocp:messages id="messages" globalOnly="true" />
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            $('#messages\\:messages li').attr("data-alert", "alert");
+                                            $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
+                                            $('.alert-message').alert();
+                                            $('.alert-message').click().alert('close');
+                                        });
+                                    </script>
+                                </div>
 
 
-                    </div>
+                               
 
-                    <h2 class="sub-header">Section title</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Header</th>
-                                    <th>Header</th>
-                                    <th>Header</th>
-                                    <th>Header</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1,001</td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                </tr>
 
-                            </tbody>
-                        </table>
+                            </div>   
+                             <ui:insert name="content" ></ui:insert>
+
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>

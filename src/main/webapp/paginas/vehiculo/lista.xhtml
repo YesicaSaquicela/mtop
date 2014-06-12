@@ -12,7 +12,9 @@
 
     <ui:define name="header">
         <br/>
-        <h2>#{titulo}</h2>    
+        <div class="table-responsive">
+            <h2>#{titulo}</h2>    
+        </div>
 
     </ui:define>
     <ui:define name="content">
@@ -24,31 +26,35 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
             <!--Botones de admin-->
-            <div class="admin-actions">
-                <h:link value="Crear" rendered="#{true}" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
-                    <f:param name="vehiculoId"></f:param>
-                </h:link>
-            </div>
-            <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
-                <p:column headerText="Color">
-                    <h:outputText value="#{v.color}"></h:outputText>
-                </p:column>
-                <p:column headerText="Marca">
-                    <h:outputText value="#{v.marca}"></h:outputText>
-                </p:column>
-                <p:column headerText="Nro Registro">
-                    <h:outputText value="#{v.numRegistro}"></h:outputText>
-                </p:column>
-                <p:column headerText="Opciones" style="width: 5%"> 
-                    <h:link value="Editar" outcome="crear" type="button" >
-                        <f:param name="vehiculoId" value="#{v.id}"></f:param>
+            <div class="table-responsive">
+                <div class="admin-actions">
+                    <h:link value="Crear" rendered="#{true}" outcome="/paginas/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
+                        <f:param name="vehiculoId"></f:param>
                     </h:link>
-                    <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="Ver Detalles" styleClass="ui-icon ui-icon-search">
-                        <f:setPropertyActionListener value="#{v}" target="#{controladorVehiculo.instance}" />
-                    </p:commandLink>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
+                    <p:column headerText="Color">
+                        <h:outputText value="#{v.color}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Marca">
+                        <h:outputText value="#{v.marca}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Nro Registro">
+                        <h:outputText value="#{v.numRegistro}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Opciones" style="width: 5%"> 
+                        <h:link value="Editar" outcome="crear" type="button" >
+                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                        </h:link>
+                        <p:commandLink  update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="Ver Detalles" styleClass="ui-icon ui-icon-search">
+                            <f:setPropertyActionListener value="#{v}" target="#{controladorVehiculo.instance}" />
+                        </p:commandLink>
 
-                </p:column>
-            </p:dataTable>
+                    </p:column>
+                </p:dataTable>
+            </div>
             <p:dialog id="dialog" header="Detalles del Vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                 <p:outputPanel id="documentPanel">
                     <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty controladorVehiculo.instance}">
