@@ -26,7 +26,7 @@
             <div class="admin-actions">
                 <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" >
                     <f:param name="requisicionId"></f:param>
-                </p:commandButton><br></br>
+                </p:commandButton><br/><br/>
             </div>
             <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
                 <p:column headerText="Numero de Requisicion">
