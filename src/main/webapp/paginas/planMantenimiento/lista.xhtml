@@ -11,8 +11,8 @@
     <ui:param name="titulo" value="Lista de Plan de Mantenimiento"/>
 
     <ui:define name="header">
-        <br/>
-        <h2>#{titulo}</h2>    
+
+    <br/><br/><h2>#{titulo}</h2>    
 
     </ui:define>
     <ui:define name="content">
@@ -25,9 +25,10 @@
 
             <!--Botones de admin-->
             <div class="admin-actions">
-                <h:link value="Crear" rendered="#{true}" outcome="/paginas/planMantenimiento/crear.xhtml?faces-redirect=true" styleClass="btn btn-img" >
-                    <f:param name="planMantenimientoId"></f:param>
-                </h:link>
+                     <p:commandButton value="Crear" rendered="#{true}" action="/paginas/planMantenimiento/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                    <f:param name="planMantenimientoId" ></f:param>
+                </p:commandButton><br/><br/>
+              
             </div>
             <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm">
                 <p:column headerText="Color">
