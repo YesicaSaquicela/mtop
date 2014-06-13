@@ -80,6 +80,31 @@
                             <div class="form-group">
 
                                 <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
+                                    <ul class="nav navbar-nav navbar-right">
+
+                                        <li> <h:link type="button" outcome="/pages/admin/bussinesentitytype/list.xhtml" value="  Dinamica" /></li>
+                                        <li><h:link type="button" outcome="/paginas/personal/lista.xhtml" value="  Persona" /></li>
+
+                                        <li><h:link type="button" outcome="/paginas/solicitud/lista.xhtml" value="Solicitud" /></li>
+                                        <li><h:link type="button" outcome="/paginas/requisicion/lista.xhtml" value="Requisicion" /></li>
+                                        <li><h:link type="button" outcome="/paginas/kardex/lista.xhtml" value="Kardex" /></li>
+                                        <li><h:link type="button" outcome="/paginas/producto/lista.xhtml" value="Producto" /></li>
+                                        <li><h:link type="button" outcome="/paginas/partidaContabilidad/lista.xhtml" value="Partida de COntabilidad" /></li>
+
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                Vehículos <b class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><h:link type="button"  outcome="/paginas/vehiculo/lista.xhtml" value="  Vehiculo" /></li>        
+                                                <li><h:link type="button" outcome="/paginas/vehiculo/estadoVehiculo/lista.xhtml" value="  Estado del Vehiculo" /></li>
+
+                                                <li class="divider"></li>
+                                                <li><h:link type="button" outcome="/paginas/planMantenimiento/lista.xhtml" value="  Plan Mantenimiento" /></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                     <div class="form-group">
                                         <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
                                     </div>
@@ -109,53 +134,14 @@
             <div class="container-fluid" style="top: 300px">
                 <div class="row-fluid">
 
-                    <div class="col-sm-3 col-md-2 sidebar " >
-                        <ul class="nav nav-sidebar">
-                            <li ><a href="#"></a></li>
-                            <li ><a href="#"></a></li>
-                            <li class="active"> <center><div class="admin-actions"><h:link type="button" outcome="/pages/admin/bussinesentitytype/list.xhtml" value="Dinamica" /></div></center></li>
-                            <li><center><div class="admin-actions"><h:link type="button" outcome="/paginas/personal/lista.xhtml" value="Persona" /></div></center></li>
-                            <li> <center><div class="admin-actions"><h:link type="button"  outcome="/paginas/vehiculo/lista.xhtml" value="Vehiculo" /></div></center></li>
-                            <li><center><div class="admin-actions"><h:link type="button" outcome="/paginas/vehiculo/estadoVehiculo/lista.xhtml" value="Estado del Vehiculo" /></div></center></li>
-                            <li><center><div class="admin-actions"><h:link type="link" outcome="/paginas/planMantenimiento/lista.xhtml" value="Plan Mantenimiento" /></div></center></li>
-                        </ul>
-                        <ul class="nav nav-sidebar">
-                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/solicitud/lista.xhtml" value="Solicitud" /></div></center></li>
-                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/requisicion/lista.xhtml" value="Requisicion" /></div></center></li>
-                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/kardex/lista.xhtml" value="Kardex" /></div></center></li>
 
-                        </ul>
-                        <ul class="nav nav-sidebar">
-                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/producto/lista.xhtml" value="Producto" /></div></center></li>
-                            <li> <center><div class="admin-actions"><h:link type="button" outcome="/paginas/partidaContabilidad/lista.xhtml" value="Partida de COntabilidad" /></div></center></li>
-
-                        </ul>
-                    </div>
                     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                         <br/>
                         <div class="container" style="margin: -3% 0 -10% 10%; ">
                             <ui:insert name="header">
 
                             </ui:insert>
-                            <div class="table-responsive">
-                                <div class="container-content">
-                                    <ocp:messages id="messages" globalOnly="true" />
-                                    <script type="text/javascript">
-                                        $(document).ready(function() {
-                                            $('#messages\\:messages li').attr("data-alert", "alert");
-                                            $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
-                                            $('.alert-message').alert();
-                                            $('.alert-message').click().alert('close');
-                                        });
-                                    </script>
-                                </div>
 
-
-                               
-
-
-                            </div>   
-                             <ui:insert name="content" ></ui:insert>
 
                         </div>
 
@@ -164,6 +150,25 @@
                     </div>
                 </div>
             </div>
+            <div class="table-responsive">
+                <div class="container-fluid">
+                    <ocp:messages id="messages" globalOnly="true" />
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#messages\\:messages li').attr("data-alert", "alert");
+                            $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
+                            $('.alert-message').alert();
+                            $('.alert-message').click().alert('close');
+                        });
+                    </script>
+                </div>
+
+
+
+
+
+            </div>   
+            <ui:insert name="content" ></ui:insert>
 
 
 

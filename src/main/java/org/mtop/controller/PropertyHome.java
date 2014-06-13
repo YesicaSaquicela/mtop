@@ -274,7 +274,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 }
             }
             for (Vehiculo v : findAll(Vehiculo.class)) {
-                beta.setBussinesEntity(servgen.buscarPorId(BussinesEntity.class, v.getId()));
+                beta.setBussinesEntity(findById(BussinesEntity.class, v.getId()));
                 save(beta);
             }
         }
@@ -400,7 +400,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
         }
         if (p.getGroupName() != null) {
-            if (p.getGroupName().equals("Vehiculo")) {
+            if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
                 tipos.add("org.mtop.model.EstadoParteMecanica");
                 // setPropertyStringValue("Bueno,Malo");
             }
