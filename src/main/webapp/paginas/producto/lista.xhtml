@@ -27,7 +27,7 @@
             <div class="admin-actions">
                 <p:commandButton value="Crear" rendered="#{true}" action="/paginas/producto/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
                     <f:param name="productoId" ></f:param>
-                </p:commandButton>
+                </p:commandButton><br></br>
             </div>
             <p:dataTable id="listap" value="#{controladorProducto.listaProducto}" var="pd">
            <p:column headerText="Código">
