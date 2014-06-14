@@ -49,6 +49,8 @@ import java.text.SimpleDateFormat;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
+import org.mtop.modelo.ActividadPlanMantenimiento;
+import org.mtop.modelo.ItemRequisicion;
 //import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -73,10 +75,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private PartidaContabilidad partidaC;
     private List<PartidaContabilidad> listaPartida;
     private String numeroRequisicion;
+    private ControladorItemRequisicion cir = new ControladorItemRequisicion();
 
     public long getIdPartidaC() {
-        if(getRequisicionId() !=null && idPartidaC==0l){
-            idPartidaC=getInstance().getPartidaContabilidad().getId();
+        if (getRequisicionId() != null && idPartidaC == 0l) {
+            idPartidaC = getInstance().getPartidaContabilidad().getId();
         }
         return idPartidaC;
     }
@@ -84,9 +87,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setIdPartidaC(long idPartidaC) {
         this.idPartidaC = idPartidaC;
     }
-
-    
-
 
     public String getNumeroRequisicion() {
         if (getId() == null) {
@@ -111,6 +111,40 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
 
         return numeroRequisicion;
+
+    }
+
+    public void agregarItem() {
+        if (cir.getInstance().getCantidad().equals("") || cir.getInstance().getUnidadMedida().equals("")) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
+
+        } else {
+            cir.listaItemsRequisicion.add(cir.getInstance());
+            cir.setInstance(new ItemRequisicion());
+
+        }
+
+    }
+
+    public void editarItem(ItemRequisicion itemReq) {
+        System.out.println("Item>>>>>" + cir.getInstance().getCantidad());;
+        System.out.println("REMOVE>>>>>>>>>>>." + itemReq);
+
+        int con = 0;
+        for (ItemRequisicion apm : cir.listaItemsRequisicion) {
+
+            if (apm.getCantidad().equals(itemReq.getCantidad())
+                    && apm.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
+                cir.listaItemsRequisicion.remove(con);
+                cir.setInstance(apm);
+                break;
+
+            }
+            con++;
+
+        }
+        System.out.println("tama;o de la lista" + cir.listaItemsRequisicion.size());
 
     }
 
@@ -144,6 +178,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
+    public ControladorItemRequisicion getCir() {
+        return cir;
+    }
+
+    public void setCir(ControladorItemRequisicion cir) {
+        this.cir = cir;
+    }
+
     public boolean isSkip() {
         return skip;
     }
@@ -166,7 +208,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 return event.getOldStep();
             } else {
 
-                return event.getNewStep();
+                if (event.getOldStep().equals("items") && this.cir.listaItemsRequisicion.isEmpty()) {
+                    System.out.println("estas vaciaaaaaa");
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item al plan de mantenimiento"));
+
+                    return event.getOldStep();
+                } else {
+
+                    return event.getNewStep();
+                }
             }
 
         }
@@ -258,8 +308,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaRequisicion = servgen.buscarTodos(Requisicion.class);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
-        
+
         listaPartida = findAll(PartidaContabilidad.class);
+        
+        cir = new ControladorItemRequisicion();
+        cir.setInstance(new ItemRequisicion());
     }
 
     @Override
@@ -296,7 +349,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
         PartidaContabilidad p = servgen.buscarPorId(PartidaContabilidad.class, idPartidaC);
         getInstance().setPartidaContabilidad(p);
-        System.out.println("id de ala partidaaaaaaaaaaaaa"+p.getId());
+        System.out.println("id de ala partidaaaaaaaaaaaaa" + p.getId());
 
         try {
             if (getInstance().isPersistent()) {

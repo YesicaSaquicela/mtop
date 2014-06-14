@@ -46,17 +46,17 @@ limitations under the License.
             <h:form id="control">  
                 <br/><br/><br/><br/>
                 <!--TODO realizar accion para que los botones de add y edit se abran el panel de dialogo-->                            
-                <p:commandButton value="#{messages['common.edit']}" type="button"
+                <!--p:commandButton value="# {messages['common.edit']}" type="button"
                                  onclick="editDlg.show();" update=":edit-dialog"                                             
                                  icon="ui-icon-plus" styleClass="btn primary"
-                                 rendered="#{bussinesEntityTypeHome.instance.persistent}" >
+                                 rendered="# {bussinesEntityTypeHome.instance.persistent}" >
 
                 </p:commandButton>
                 <br/>
                 <br/>  
-                <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn" onclick="deletedDlg.show();"  immediate="true"
-                                 update=":cancel-dialog " rendered="#{bussinesEntityTypeHome.instance.persistent and not bussinesEntityTypeHome.associatedToBussinesEntity}"
-                                 icon="ui-icon-plus"/>                                                         
+                <p:commandButton type="button" value="# {messages['common.delete']}" styleClass="btn" onclick="deletedDlg.show();"  immediate="true"
+                                 update=":cancel-dialog " rendered="# {bussinesEntityTypeHome.instance.persistent and not bussinesEntityTypeHome.associatedToBussinesEntity}"
+                                 icon="ui-icon-plus"/-->                                                         
             </h:form>
         </div>
 
