@@ -33,11 +33,14 @@
            <p:column headerText="Código">
                     <h:outputText value="#{pd.codigo}"></h:outputText>
                 </p:column>
+                 <p:column headerText="Descripción">
+                    <h:outputText value="#{pd.descripcion}"></h:outputText>
+                </p:column>
                 <p:column headerText="Cantidad">
                     <h:outputText value="#{pd.cantidad}"></h:outputText>
                 </p:column>
-                <p:column headerText="Descripción">
-                    <h:outputText value="#{pd.descripcion}"></h:outputText>
+               <p:column headerText="Costo">
+                   <h:outputText value="#{pd.costo}"></h:outputText>
                 </p:column>
                 <p:column headerText="Opciones" style="width: 5%"> 
                     <h:link value="Editar" outcome="crear" type="button" >
