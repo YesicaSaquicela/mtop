@@ -18,7 +18,7 @@
     </f:metadata>
     <ui:define name="header">
 
-       #{titulo}
+        #{titulo}
 
     </ui:define>
     <ui:define name="content">
@@ -26,69 +26,74 @@
 
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
-             <div role="main">
+            <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><center>Datos Generales</center></div>
-                <div class="container-fluid">
-                    <div class="row-fluid"  >
-                        <div class="col-md-6"> 
-                            <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descripción" 
-                                        value="#{controladorPartidaContabilidad.instance.descripcion}" required="true" 
-                                        inlinehelp="Ingrese la descripción" 
-                                        execute ="@this save" render="descripcion"/> 
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Datos Generales</center></div>
+                        <p:panel>
+                            <div class="container-fluid">
+                                <div class="row-fluid"  >
+                                    <div class="col-md-6"> 
 
-                            <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
-                                        inlinehelp="Ingrese el número de proyecto" 
-                                        execute ="@this save" render="numProyecto"/>
+                                        <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
+                                                    inlinehelp="Ingrese el número de proyecto" 
+                                                    execute ="@this save" render="numProyecto"/><br></br>
 
-                            <p:outputLabel value="Número de Institución"/><br></br>
-                            <p:inputText id="institucion" value="250" styleClass="form-control" disabled="true"/>
-                            <span class="help-inline text-muted"><br/>Número de institución<ocp:message forId="valuep" /></span>
-                            <br></br>
+                                        <p:outputLabel value="Número de Institución"/><br></br>
+                                        <p:inputText id="institucion" value="250" styleClass="form-control" disabled="true"/>
+                                        <span class="help-inline text-muted">Número de institución<ocp:message forId="valuep" /></span>
+                                        <br></br><br></br>
 
-                            <p:outputLabel value="Número de actividad" /><br></br>
-                            <p:inputText id="actividad" value="001" styleClass="form-control" disabled="true" />
-                            <span class="help-inline text-muted"><br/>Número de actividad<ocp:message forId="valuep" /></span><br></br>
+                                        <p:outputLabel value="Número de actividad" /><br></br>
+                                        <p:inputText id="actividad" value="001" styleClass="form-control" disabled="true" />
+                                        <span class="help-inline text-muted">Número de actividad<ocp:message forId="valuep" /></span><br></br><br></br>
 
-                            <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
-                                        inlinehelp="Ingrese el número de provincia"
-                                        execute ="@this save" render="numProvincia"/>
+                                        <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
+                                                    inlinehelp="Ingrese el número de provincia"
+                                                    execute ="@this save" render="numProvincia"/><br></br>
 
-                        </div>
+                                        <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descripción" 
+                                                    value="#{controladorPartidaContabilidad.instance.descripcion}" required="true" 
+                                                    inlinehelp="Ingrese la descripción" 
+                                                    execute ="@this save" render="descripcion"/> <br></br>
 
-                        <div class="col-md-6"> 
+                                    </div>
 
-                            <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroItem}" required="true" 
-                                        inlinehelp="Ingrese el número de item" 
-                                        execute ="@this save" render="numItem"/>
+                                    <div class="col-md-6"> 
 
-                            <p:outputLabel value="Número de unidad descentralizada"/><br></br>
-                            <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
-                                         required="true" />
-                            <span class="help-inline text-muted"><br/>Número de unidad descentralizada<ocp:message forId="valuep" /></span><br></br>
+                                        <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroItem}" required="true" 
+                                                    inlinehelp="Ingrese el número de item" 
+                                                    execute ="@this save" render="numItem"/><br></br>
 
-                            <p:outputLabel value="Número geográfico"/><br></br>
-                            <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
-                                         required="true" />
-                            <span class="help-inline text-muted"><br/>Número de geográfico<ocp:message forId="valuep" /></span><br></br>
+                                        <p:outputLabel value="Número de unidad descentralizada"/><br></br>
+                                        <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
+                                                     required="true" />
+                                        <span class="help-inline text-muted">Número de unidad descentralizada<ocp:message forId="valuep" /></span><br></br><br></br>
 
-                            <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
-                                        inlinehelp="Ingrese el número de programa" 
-                                        execute ="@this save" render="numPrograma"/>
+                                        <p:outputLabel value="Número geográfico"/><br></br>
+                                        <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
+                                                     required="true" />
+                                        <span class="help-inline text-muted">Número de geográfico<ocp:message forId="valuep" /></span><br></br><br></br>
+
+                                        <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
+                                                    inlinehelp="Ingrese el número de programa" 
+                                                    execute ="@this save" render="numPrograma"/><br></br>
 
 
-                            <mtop:input id="numFfinanciera" name="numFfinanciera1" type="text" label="Número de Fuente Financiera" 
-                                        value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
-                                        inlinehelp="Ingrese el número de fuente financiera" 
-                                        execute ="@this save" render="numFfinanciera"/>
-                        </div>
+                                        <mtop:input id="numFfinanciera" name="numFfinanciera1" type="text" label="Número de Fuente Financiera" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
+                                                    inlinehelp="Ingrese el número de fuente financiera" 
+                                                    execute ="@this save" render="numFfinanciera"/><br></br>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </p:panel>
                     </div>
-
 
                     <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
                         <div  class="panel panel-primary">
@@ -137,24 +142,21 @@
 
                     </c:forEach>
 
-                </div>
-            </div>
 
-        
-            <div class="admin-actions " align="center" > 
-                    <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
-                                     immediate="true" icon="ui-icon-disk"/>
 
-                    &nbsp;&nbsp;
-                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/partidaContabilidad/lista" styleClass="btn  btn-success"/>
-                </div><br></br>
-        
 
+                    <div class="admin-actions " align="center" > 
+                        <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
+                                         immediate="true" icon="ui-icon-disk"/>
+
+                        &nbsp;&nbsp;
+                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/partidaContabilidad/lista" styleClass="btn  btn-success"/>
+                    </div>
+
+                </div></div>
         </h:form>
 
     </ui:define>
 </ui:composition>
-
-
 
 

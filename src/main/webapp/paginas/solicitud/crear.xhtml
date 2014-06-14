@@ -29,42 +29,41 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-            <p:growl id="growl" sticky="true" showDetail="true"/>
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
 
-            <p:wizard  id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}">
-                <p:tab id="sol"  title="Solicitud">
+                    <p:wizard  id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}">
+                        <p:tab id="sol"  title="Solicitud">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>Datos Generales</center></div>
+                                <p:panel >
+                                    <p:messages />
+                                    <p:outputLabel value="Número de Solicitud"/>
+                                    <p:inputText id="registro"  value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"
+                                                 readonly="true" styleClass="form-control"
+                                                 required="true" label="Número de Solicitud" 
+                                                 rendered="true" ></p:inputText>
+                                    <span class="help-inline text-muted">Número de solicitud<ocp:message forId="valuep" /></span><br></br><br></br>
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><center>Datos Generales</center></div>
-                        <p:panel >
-                            <p:messages />
-                            <h:panelGrid >
-                                <p:outputLabel value="Número de Solicitud"/>
-                                <p:inputText id="registro"  value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"
-                                             readonly="true" styleClass="form-control"
-                                             required="true" label="Número de Solicitud" 
-                                             rendered="true" ></p:inputText>
+                                    <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
+                                    <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"
+                                                 styleClass="xLarge" required="true" 
+                                                 locale="es" pattern="dd-MMM-yyyy">   
+                                        <p:ajax event="dateSelect" rendered="save" />  
+                                    </p:calendar><br></br> 
+                                    <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="valuep" /></span><br></br><br></br>
 
-                                <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
-                                <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"
-                                             styleClass="xLarge" required="true" 
-                                             locale="es" pattern="dd-MMM-yyyy">   
-                                    <p:ajax event="dateSelect" rendered="save" />  
-                                </p:calendar>  
+                                    <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
+                                                value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
+                                                inlinehelp="Ingrese el nombre de la persona quien recibe la solicitud" 
+                                                execute ="@this save" render="recibidor"/><br></br>
 
-                                <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
-                                            value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
-                                            inlinehelp="Ingrese el nombre de la persona quien recibe la solicitud" 
-                                            execute ="@this save" render="recibidor"/>
+                                    <p:outputLabel value="Observación"/><br></br>
+                                    <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
+                                                     required="true" />
+                                    <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="valuep" /></span>
 
-                                <p:outputLabel value="Observacion"/><br></br>
-                                <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
-                                                 required="true" /><br></br>
-
-                          
-                            </h:panelGrid>
-                        </p:panel>
-                    </div>
+                                </p:panel>
+                            </div>  
 
                             <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.instance)}" var="p" >
                                 <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
@@ -110,18 +109,17 @@
                                 </p:panel>
                             </c:forEach>
 
-                            </p:tab>
+                        </p:tab>
 
 
-                            <p:tab id="address" title="Asignar Vehiculo">
-
-                                <p:panel id="v" header="Lista de Vehiculos">
+                        <p:tab id="address" title="Asignar Vehiculo">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>Lista de Vehículo</center></div>
+                                <p:panel>
                                     <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
                                     <p:dataTable id="basicDT" var="v" value="#{controladorSolicitudReparacionMantenimiento.listaVehiculos}">
-                                        <f:facet name="header">
-                                            Vehiculos
-                                        </f:facet>
+
                                         <p:column headerText="Id">
                                             <h:outputText value="#{v.id}" />
                                         </p:column>
@@ -135,21 +133,24 @@
                                             <h:outputText value="#{v.numRegistro}" />
                                         </p:column>
                                         <p:column style="width:4%;text-align: center">
-                                            <p:commandButton update=":form:vehiculo" icon="ui-icon-search"  value="Agregar" title="Seleccionar">
+                                            <p:commandLink update=":form:vehiculo"  value="Agregar" title="Seleccionar">
                                                 <f:setPropertyActionListener value="#{v}" target="#{controladorSolicitudReparacionMantenimiento.vehiculo}" />
-                                            </p:commandButton>
+                                            </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
                                     <h:outputText value="vehiculo id: " />
                                     <p:inputText immediate="true" id="vehiculo" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.id}" rendered="true"
                                                  required="true" readonly="true" /><br/>
                                 </p:panel>
+                            </div> 
+
+                        </p:tab>
+                        <p:tab id="confirm" title="Confirmacion">
 
 
-                            </p:tab>
-                            <p:tab id="confirm" title="Confirmacion">
-
-                                <p:panel header="Confirmacion">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>Confirmación</center></div>
+                                <p:panel>
                                     <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
                                         <h:panelGrid >
                                             <h:outputText value="Numero de solicitud: " />
@@ -171,18 +172,22 @@
 
 
                                     </h:panelGrid>
-
-                                    <div class="admin-actions "> 
-                                        <p:commandButton id="save" value="Guardar" action="#{controladorSolicitudReparacionMantenimiento.guardar()}" update="growl" process="@this"/>
-                                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/solicitud/lista" styleClass="btn  btn-success"/>
-                                    </div>
                                 </p:panel>
-                            </p:tab>
-                            </p:wizard>
+                            </div>
 
-                            </h:form>
 
-                            </ui:define>
-                            </ui:composition>
+
+                            <div class="admin-actions " align="center"> 
+                                <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorSolicitudReparacionMantenimiento.guardar()}" update="growl" process="@this"/>
+
+                                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/solicitud/lista" styleClass="btn  btn-success"/>
+                            </div>
+                        </p:tab>
+                    </p:wizard>
+                </div></div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
 
 

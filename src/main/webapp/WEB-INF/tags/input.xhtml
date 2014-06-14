@@ -90,7 +90,7 @@ limitations under the License.
             </c:choose>
             <h:graphicImage value="#{resource['success.gif']}" rendered="#{value != null}"
                             styleClass="validation-status" />
-            <span class="help-inline text-muted"><br/>#{inlinehelp} <ocp:message forId="#{name}" /></span>
+            <span class="help-inline text-muted">#{inlinehelp} <ocp:message forId="#{name}" /></span>
         </div>
     </h:panelGroup>  
 </ui:composition>
