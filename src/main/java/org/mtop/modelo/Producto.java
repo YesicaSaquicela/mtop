@@ -38,10 +38,19 @@ public class Producto extends BussinesEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String codigo;
-    private String descripcion;
-    private long cantidad;
+    private String descripcion=null;
+    private Long cantidad=null;
      //ojo este atrubuto se lo podria heredar de la clases Persisten que es del modelo dinamico 
     private boolean estado;
+    private Double costo=null;
+
+    public Double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(Double costo) {
+        this.costo = costo;
+    }
 
   
     public String getDescripcion() {
@@ -62,11 +71,11 @@ public class Producto extends BussinesEntity implements Serializable {
         this.codigo = codigo;
     }
 
-    public long getCantidad() {
+    public Long getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(long cantidad) {
+    public void setCantidad(Long cantidad) {
         this.cantidad = cantidad;
     }
 

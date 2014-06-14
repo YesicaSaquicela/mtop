@@ -12,7 +12,7 @@
                 xmlns:mtop="http://mtop.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    <ui:param name="titulo" value="Lista de Vehiculos"/>
+    <ui:param name="titulo" value="Ficha Técnica de Vehículos y Estado Mecánico"/>
     <f:metadata>
         <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
     </f:metadata>
@@ -29,9 +29,10 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <center><h4>Ficha Técnica de Vehículos y Estado Mecánico <br/></h4></center>
+
             <div class="panel panel-primary">
-                <div class="panel-heading"><center>Datos del Vehículo</center></div>
+                <div class="panel-heading" align="center">ESPECIFICACIONES TECNICAS</div>
+                             
                 <div class="container-fluid" align="center">
                     <div class="row-fluid"  >
                         <div class="col-md-4"> 
@@ -94,9 +95,11 @@
                     </div>
                 </div>
             </div>
-
-            <center><h4>Especificaciones Técnicas y Mecánicas<br/></h4></center>
-
+            
+            <div  class="panel panel-primary">
+           
+            <div class="panel-heading" align="center">Estado Mecánico</div>
+         
             <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
                 <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
 
@@ -106,8 +109,8 @@
                         <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{controladorVehiculo.tieneEstadosEstructura(p)}"  >
 
                             <c:choose>                        
-                                <c:when test="#{p.type == 'org.mtop.model.Structure' }">                                    
-                                    <h:panelGroup  layout="block" class="clearfix">
+                                <c:when test="#{p.type == 'org.mtop.model.Structure' }">    
+                                  <h:panelGroup  layout="block" class="clearfix">
                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                             <h:panelGroup rendered="#{a.property.type eq 'org.mtop.model.EstadoParteMecanica'}" layout="block" class="clearfix">
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
@@ -146,7 +149,7 @@
                                             </h:panelGroup>  
 
                                         </ui:repeat>
-                                    </h:panelGroup>
+                                      </h:panelGroup>  
                                 </c:when>
                             </c:choose>
                         </p:tab>
@@ -155,16 +158,18 @@
                 </c:forEach>
 
             </p:tabView><br></br>
+          
+   </div> 
 
-            <center>
+            <div class="admin-actions " align="center">
                 <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
                                  immediate="true"/>
                 &nbsp;&nbsp;
                 <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn  btn-success">
 
                 </h:button>
-            </center>
-                </div></div>
+            </div>
+
         </h:form>
 
     </ui:define>

@@ -31,88 +31,92 @@
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:wizard  id="p" flowListener="#{controladorPlanMantenimiento.onFlowProcess}">
-                <p:tab id="req"  title="Datos Generales">
-                    <p:panel >
-                        <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-                        <h:panelGrid >
-                            <p:outputLabel value="Registro"/><br></br>
-                            <p:inputTextarea id="registro" value="#{controladorPlanMantenimiento.instance.registro}"
-                                             required="true" /><br></br>
-                           
+                <p:tab id="req"  title="Plan de Mantenimiento">
 
-                        </h:panelGrid>
-                    </p:panel>
+                    <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Datos Generales</center></div>
+                        <div class="container-fluid">
+                            <div class="row-fluid"  >
+                                <p:outputLabel value="Registro"/><br></br>
+                                <p:inputTextarea id="registro" styleClass="form-control" value="#{controladorPlanMantenimiento.instance.registro}"
+                                                 required="true" /><br></br>
+
+                            </div>
+
+                        </div>
+                    </div>  
+
 
                 </p:tab>
 
                 <p:tab id="address" title="Crear Actividades">
 
-                    <p:panel id="v" header="Lista de Actividades">
-                        
-                        <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
-
-                        <p:outputLabel value="Actividad"/><br></br>
-                        <p:inputTextarea id="actividad" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
-                                     /><br></br>
-                        <p:outputLabel value="Kilometraje"/><br></br>
-                        <p:inputText id="kilometraje" value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}"
-                                     /><br></br>
-
-                        <div class="admin-actions">
-                            <p:commandButton update=":form:listaa :form:actividad :form:kilometraje :form:mensaje"  icon="ui-icon-search" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
-
-                            </p:commandButton>
-                        </div><br/>
-                        
-                                      
-                     
-                        <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
-
-                            <p:column headerText="Actividad">
-                                <h:outputText value="#{la.actividad}"></h:outputText>
-                            </p:column>
-
-                            <p:column headerText="Kilometraje">
-                                <h:outputText value="#{la.kilometraje}"></h:outputText>
-                            </p:column>
-                            <p:column headerText="Opciones" style="width: 5%"> 
-                                <p:commandButton update=":form:listaa :form:actividad :form:kilometraje" value="Editar"
-                                                 actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" icon="ui-icon-search" title="Seleccionar">
-                                    <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.instance}" />
-                                </p:commandButton>
-                           
-                            </p:column>
-                        </p:dataTable>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Actividades</center></div>
+                        <div class="container-fluid">
+                            <div class="row-fluid"  >
 
 
-                    </p:panel>
+                                <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
+
+                                <p:outputLabel value="Actividad"/><br></br>
+                                <p:inputTextarea id="actividad"  styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
+                                                 /><br></br>
+                                <p:outputLabel value="Kilometraje"/><br></br>
+                                <p:inputText id="kilometraje"   styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}"
+                                             /><br></br>
+
+                                <div class="admin-actions">
+                                    <p:commandButton update=":form:listaa :form:actividad :form:kilometraje :form:mensaje"  styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
+
+                                    </p:commandButton>
+                                </div><br/>
+                            </div>
+
+
+                            <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
+
+                                <p:column headerText="Actividad">
+                                    <h:outputText value="#{la.actividad}"></h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Kilometraje">
+                                    <h:outputText value="#{la.kilometraje}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Opciones" style="width: 5%"> 
+                                    <p:commandLink update=":form:listaa :form:actividad :form:kilometraje" value="Editar"
+                                                   actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" title="Seleccionar">
+                                        <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.instance}" />
+                                    </p:commandLink>
+
+                                </p:column>
+                            </p:dataTable><br></br>
+
+
+                        </div>
+                    </div>
 
 
                 </p:tab>
 
                 <p:tab id="confirm" title="Confirmacion">
-                
-                    <p:panel header="Confirmacion">
-                        <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
-                            <h:panelGrid >
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Actividades</center></div>
+                        <div class="container-fluid">
+                            <div class="row-fluid"  >
+
                                 <h:outputText value="Registro: " />
                                 <h:outputText value="#{controladorPlanMantenimiento.instance.registro}" styleClass="outputLabel"/><br/>
-
-
-                            </h:panelGrid>
-
-                           <h:panelGrid >
-                               
-                            </h:panelGrid>
-
-
-                        </h:panelGrid>
-                        
-                        <div class="admin-actions "> 
-                            <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}" update="growl" process="@this"/>
-                            <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
+                            </div>
                         </div>
-                    </p:panel>
+                    </div>
+                    <div class="admin-actions " align="center"> 
+                        <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" update="growl" process="@this"/>
+                          
+                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
+                    </div>
                 </p:tab>
             </p:wizard>
                 </div></div>
