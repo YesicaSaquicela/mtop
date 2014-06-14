@@ -39,7 +39,10 @@ import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
+import org.mtop.util.UI;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -58,11 +61,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Long idVehiculo;
     private Vehiculo vehiculo;
     private List<Vehiculo> listaVehiculos;
-
+    
     private boolean skip;
     
     private String numeroSolicitud;
 
+    
+
+   
+
+    
     public String getNumeroSolicitud() {
         if (getId() == null) {
             System.out.println("numero"+getInstance().getNumSolicitud());
@@ -95,6 +103,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setNumSolicitud(this.numeroSolicitud);
 
     }
+   
 
     public boolean isSkip() {
         return skip;

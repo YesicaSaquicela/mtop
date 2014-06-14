@@ -12,7 +12,7 @@
 
     <ui:define name="header">
 
-    <br/><br/><h2>#{titulo}</h2>    
+   #{titulo}   
 
     </ui:define>
     <ui:define name="content">
@@ -32,6 +32,12 @@
                 </p:commandButton><br/><br/>
               
             </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="todas">
+                    <div class="table-responsive">
+
+
+                        <tbody>
             <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm">
                 <p:column headerText="Color">
                     <h:outputText value="#{pm.registro}"></h:outputText>
@@ -43,6 +49,7 @@
                     </h:link>
                 </p:column>
             </p:dataTable>
+                            </tbody></div></div></div>
                 </div></div>
             
         </h:form>

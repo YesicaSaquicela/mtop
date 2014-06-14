@@ -12,7 +12,7 @@
 
     <ui:define name="header">
 
-        <br></br><h2>#{titulo}</h2>    
+        #{titulo}    
 
     </ui:define>
     <ui:define name="content">
@@ -23,39 +23,47 @@
             <!--Opción de mensaje, cuando se realiza una acción-->
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
-            <!--Botones de admin-->
-            <div class="admin-actions">
-                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                    <f:param name="partidaId" ></f:param>
-                </p:commandButton><br/><br/>
-            </div>
-            <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc">
-                 <p:column headerText="Número de Provincia">
-                    <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
-                </p:column>
-                <p:column headerText="Número de Programa">
-                    <h:outputText value="#{pc.numeroPrograma}"></h:outputText>
-                </p:column>
-                <p:column headerText="Número de Proyecto">
-                    <h:outputText value="#{pc.numeroProyecto}"></h:outputText>
-                </p:column>
-                <p:column headerText="Número de Item">
-                    <h:outputText value="#{pc.numeroItem}"></h:outputText>
-                </p:column>
-                <p:column headerText="Número de fuente financiera">
-                    <h:outputText value="#{pc.numeroFuenteFinanciera}"></h:outputText>
-                </p:column>
-                <p:column headerText="Descripción">
-                    <h:outputText value="#{pc.descripcion}"></h:outputText>
-                </p:column>
-                <p:column headerText="Opciones" style="width: 5%"> 
-                    <h:link value="Editar" outcome="crear" type="button" >
-                        <f:param name="partidaId" value="#{pc.id}"></f:param>
-                    </h:link>
-                </p:column>
-            </p:dataTable></div></div>
+                    <!--Botones de admin-->
+                    <div class="admin-actions">
+                        <p:commandButton value="Crear" rendered="#{true}" action="/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                            <f:param name="partidaId" ></f:param>
+                        </p:commandButton><br/><br/>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="todas">
+                            <div class="table-responsive">
+                                
+
+                                    <tbody>
+                                        <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc">
+                                            <p:column headerText="Número de Provincia">
+                                                <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Número de Programa">
+                                                <h:outputText value="#{pc.numeroPrograma}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Número de Proyecto">
+                                                <h:outputText value="#{pc.numeroProyecto}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Número de Item">
+                                                <h:outputText value="#{pc.numeroItem}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Número de fuente financiera">
+                                                <h:outputText value="#{pc.numeroFuenteFinanciera}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Descripción">
+                                                <h:outputText value="#{pc.descripcion}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Opciones" style="width: 5%"> 
+                                                <h:link value="Editar" outcome="crear" type="button" >
+                                                    <f:param name="partidaId" value="#{pc.id}"></f:param>
+                                                </h:link>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </tbody></div></div></div></div></div>
+
         </h:form>
     </ui:define>
 </ui:composition>

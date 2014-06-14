@@ -17,18 +17,15 @@
             <f:viewParam name="structureId" value="#{propertyHome.structureId}" />                    
             <f:viewParam name="nombreGrupo" value="#{propertyHome.instance.groupName}" />                    
         </f:metadata> 
-        <ui:define name="header-replace">
-            <div class="header-replace">
-                <div class="container-header" >
-                    <div class="row lf row-title" >
-                        <h3>#{propertyHome.propertyId != null? messages['common.edit'] : messages['common.add']} 
-                            #{messages['common.properties']} </h3>
-                    </div>
-                </div>
-            </div>             
+        <ui:define name="header">
+                        #{propertyHome.propertyId != null? messages['common.edit'] : messages['common.add']} 
+                            #{messages['common.properties']} 
+                               
         </ui:define>
         <ui:define name="content">    
             <h:form id="form" acceptcharset="UTF-8">
+                <div role="main">
+            <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                 <p:panel id="fnp" header="#{messages['common.properties']} #{messages['panel.Basic']}">
                     <p:outputLabel value="#{messages['common.property.groupName']}"/><br/>
                     <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
@@ -143,7 +140,8 @@
                     <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/pages/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn" >                        
                         <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
                     </h:link>
-                </div>                
+                </div>    
+            </div></div>
             </h:form>
             <p:dialog id="cancel-dialog" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
                 <h:form id="form-dialog-confirm-delete">

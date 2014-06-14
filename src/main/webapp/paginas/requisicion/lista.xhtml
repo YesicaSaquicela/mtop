@@ -11,7 +11,7 @@
 
     <ui:define name="header">
 
-        <br></br>  <h2>#{titulo}</h2>    
+  #{titulo}
 
     </ui:define>
     <ui:define name="content">
@@ -30,6 +30,12 @@
                     <f:param name="requisicionId"></f:param>
                 </p:commandButton><br/><br/>
             </div>
+            <div class="tab-content">
+                            <div class="tab-pane active" id="todas">
+                                <div class="table-responsive">
+                                    
+
+                                    <tbody>
             <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
                 <p:column headerText="Numero de Requisicion">
                     <h:outputText value="#{r.numRequisicion}"></h:outputText>
@@ -48,7 +54,7 @@
 
                     </h:link>
                 </p:column>
-            </p:dataTable>
+            </p:dataTable></tbody></div></div></div>
                 </div></div>
         </h:form>
     </ui:define>

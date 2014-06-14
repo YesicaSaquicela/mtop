@@ -12,7 +12,7 @@
 
     <ui:define name="header">
 
-        <br></br><br></br><h2>#{titulo}</h2>    
+        #{titulo} 
 
     </ui:define>
     <ui:define name="content">
@@ -45,7 +45,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="todas">
                                 <div class="table-responsive">
-                                    <table class="data-table table-bordered data-table" data-source="#">
+                                    
 
                                         <tbody>
                                             <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
@@ -65,7 +65,7 @@
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody>
-                                    </table>
+                                    
 
                                 </div>
                             </div>
