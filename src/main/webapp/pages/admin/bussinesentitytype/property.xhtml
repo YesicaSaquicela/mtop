@@ -111,16 +111,8 @@
 
                             </p:panel>
                         </div>
-                        
 
-                        <p:panel header=" #{messages['common.properties']} #{messages['panel.Optional']}" toggleable="true" closable="false" toggleSpeed="100" closeSpeed="0" collapsed="true">                                         
-                            <mtop:input id="render" name="render" type="text" label="#{messages['common.property.render']}" 
-                                        value="#{propertyHome.instance.render}" required="false" inlinehelp="#{messages['common.property.render.help']}" execute="@this save" /><br></br>
-                            <mtop:input id="customf" name="customForm" type="text" label="#{messages['common.property.customForm']}" 
-                                        value="#{propertyHome.instance.customForm}" required="false" inlinehelp="#{messages['common.property.customForm.help']}" execute="@this save" /><br></br> 
-                            <mtop:input id="gntrn" name="generatorName" type="text" label="#{messages['common.property.generatorName']}" 
-                                        value="#{propertyHome.instance.generatorName}" required="false" inlinehelp="#{messages['common.property.generatorName.help']}" execute="@this save" /><br></br> 
-                        </p:panel>
+
 
 
                         <div class="panel panel-primary">
@@ -134,18 +126,42 @@
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                   <p:panel  toggleable="true" closable="false" toggleSpeed="100" closeSpeed="0" collapsed="true">                     
-                                <mtop:input id="overwrite" name="overwrite" type="text" label="#{messages['common.property.overwrite']}" 
-                                            value="#{propertyHome.instance.overwrite}" required="false" inlinehelp="#{messages['common.property.overwrite.help']}" execute="@this save" /><br></br>
-                                <mtop:input id="shwclms" name="showInColumns" type="checkbox" label="#{messages['common.property.showInColumns']}" 
-                                            value="#{propertyHome.instance.showInColumns}" required="false" inlinehelp="#{messages['common.property.showInColumns.help']}" execute="@this save" /><br></br>
-                                <mtop:input id="sdbep" name="showDefaultBEP" type="checkbox" label="#{messages['common.property.showDefaultBussinesEntityProperties']}" 
-                                            value="#{propertyHome.instance.showDefaultBussinesEntityProperties}" required="false" inlinehelp="#{messages['common.property.showDefaultBussinesEntityProperties.help']}" execute="@this save" /><br></br>                     
-                                <mtop:input id="minmb" name="minimumMembers" type="java.lang.Long" label="#{messages['common.property.minimumMembers']}" 
-                                            value="#{propertyHome.instance.minimumMembers}" required="false" inlinehelp="#{messages['common.property.minimumMembers.help']}" execute="@this save" /><br></br>
-                                <mtop:input id="maxmb" name="maximumMembers" type="java.lang.Long" label="#{messages['common.property.maximumMembers']}" 
-                                            value="#{propertyHome.instance.maximumMembers}" required="false" inlinehelp="#{messages['common.property.maximumMembers.help']}" execute="@this save" /><br></br>
-                            </p:panel>
+                                    <p:panel>                     
+                                        <mtop:input id="overwrite" name="overwrite" type="text" label="#{messages['common.property.overwrite']}" 
+                                                    value="#{propertyHome.instance.overwrite}" required="false" inlinehelp="#{messages['common.property.overwrite.help']}" execute="@this save" /><br></br>
+                                        <mtop:input id="shwclms" name="showInColumns" type="checkbox" label="#{messages['common.property.showInColumns']}" 
+                                                    value="#{propertyHome.instance.showInColumns}" required="false" inlinehelp="#{messages['common.property.showInColumns.help']}" execute="@this save" /><br></br>
+                                        <mtop:input id="sdbep" name="showDefaultBEP" type="checkbox" label="#{messages['common.property.showDefaultBussinesEntityProperties']}" 
+                                                    value="#{propertyHome.instance.showDefaultBussinesEntityProperties}" required="false" inlinehelp="#{messages['common.property.showDefaultBussinesEntityProperties.help']}" execute="@this save" /><br></br>                     
+                                        <mtop:input id="minmb" name="minimumMembers" type="java.lang.Long" label="#{messages['common.property.minimumMembers']}" 
+                                                    value="#{propertyHome.instance.minimumMembers}" required="false" inlinehelp="#{messages['common.property.minimumMembers.help']}" execute="@this save" /><br></br>
+                                        <mtop:input id="maxmb" name="maximumMembers" type="java.lang.Long" label="#{messages['common.property.maximumMembers']}" 
+                                                    value="#{propertyHome.instance.maximumMembers}" required="false" inlinehelp="#{messages['common.property.maximumMembers.help']}" execute="@this save" /><br></br>
+                                    </p:panel>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" 
+                                       href="#collapseThree1">
+                                        Propiedades opcionales
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree1" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <p:panel>                                         
+                                        <mtop:input id="render" name="render" type="text" label="#{messages['common.property.render']}" 
+                                                    value="#{propertyHome.instance.render}" required="false" inlinehelp="#{messages['common.property.render.help']}" execute="@this save" /><br></br>
+                                        <mtop:input id="customf" name="customForm" type="text" label="#{messages['common.property.customForm']}" 
+                                                    value="#{propertyHome.instance.customForm}" required="false" inlinehelp="#{messages['common.property.customForm.help']}" execute="@this save" /><br></br> 
+                                        <mtop:input id="gntrn" name="generatorName" type="text" label="#{messages['common.property.generatorName']}" 
+                                                    value="#{propertyHome.instance.generatorName}" required="false" inlinehelp="#{messages['common.property.generatorName.help']}" execute="@this save" /><br></br> 
+                                    </p:panel> 
                                 </div>
                             </div>
                         </div>

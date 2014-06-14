@@ -388,15 +388,15 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 5L));
-            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 5L));
-            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 6L));
-            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehiculo", "Fecha de baja del vehículo", false, 7L));
-            attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 8L));
-            attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "", false, 2L));
-            attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 12L));
-            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 12L));
-            attributes.add(buildProperty("Historial", "doubleeee", Double.class.getName(), "", false, "Doubleee", "Ingrese el doubleee", false, 12L));
+            attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 1L));
+            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 2L));
+            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 3L));
+            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehiculo", "Fecha de baja del vehículo", false, 4L));
+            attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 5L));
+            attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "Seleccione una opción", false, 6L));
+            attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 7L));
+            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 8L));
+           
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -507,10 +507,10 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Lubricantes", "motor", String.class.getName(), null, false, "Motor", "Ingrese el motor de lubricante para el vehículo", false, 5L));
-            attributes.add(buildProperty("Lubricantes", "caja", String.class.getName(), null, false, "Caja", "Ingrese la caja de lubricantes del vehículo", false, 8L));
-            attributes.add(buildProperty("Lubricantes", "hidraulico", String.class.getName(), null, false, "Hidraulico", "Ingrese el hidraulico de lubricantes del vehiculo", false, 5L));
-            attributes.add(buildProperty("Lubricantes", "corona", String.class.getName(), null, false, "Corona", "Ingrese la corona de hidraulico paa el vehículo", false, 6L));
+            attributes.add(buildProperty("Lubricantes", "motor", String.class.getName(), null, false, "Motor", "Ingrese el motor de lubricante para el vehículo", false, 1L));
+            attributes.add(buildProperty("Lubricantes", "caja", String.class.getName(), null, false, "Caja", "Ingrese la caja de lubricantes del vehículo", false, 2L));
+            attributes.add(buildProperty("Lubricantes", "hidraulico", String.class.getName(), null, false, "Hidraulico", "Ingrese el hidraulico de lubricantes del vehiculo", false, 3L));
+            attributes.add(buildProperty("Lubricantes", "corona", String.class.getName(), null, false, "Corona", "Ingrese la corona de hidraulico paa el vehículo", false, 4L));
 
 //Agregar atributos
             structure.setProperties(attributes);

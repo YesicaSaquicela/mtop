@@ -51,13 +51,13 @@ limitations under the License.
                     </p:inputText>
                 </c:when>
                 <c:when test="#{type == 'java.util.Date' or type == 'calendar'}">
-                    <p:calendar value="#{a.value}" id="#{name}" navigator="true" label="#{label}" disabled="#{disabled}" styleClass="form-control">
+                    <p:calendar value="#{a.value}" id="#{name}" navigator="true" label="#{label}" disabled="#{disabled}" styleClass="xLarge">
                         
                         <p:ajax event="dateSelect" listener="#{listener}" update="#{render}" />                        
                     </p:calendar>  
                 </c:when>
                 <c:when test="#{type == 'java.lang.Boolean' or type == 'checkbox'}">
-                    <p:selectBooleanCheckbox value="#{value}" id="#{name}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
+                    <p:selectBooleanCheckbox value="#{value}" id="#{name}" styleClass="xLarge" required="#{required}" label="#{label}" disabled="#{disabled}">
                         <f:ajax execute="#{execute}" render="#{render}"  />
                     </p:selectBooleanCheckbox>
                  
@@ -74,7 +74,7 @@ limitations under the License.
                     </p:selectOneMenu>  
                 </c:when>
                 <c:when test="#{type == 'java.lang.Long' or type == 'java.lang.Double' or type == 'java.lang.Float' or type == 'decimal'}">
-                    <pe:inputNumber id="#{name}" value="#{value}" styleClass="form-control" required="#{required}" label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}">  
+                    <pe:inputNumber id="#{name}" value="#{value}" styleClass="xLarge" required="#{required}" label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}">  
                         <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
                     </pe:inputNumber>  
                     <br/>

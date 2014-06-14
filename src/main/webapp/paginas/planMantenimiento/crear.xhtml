@@ -113,7 +113,7 @@
                             </div>
                             <div class="admin-actions " align="center"> 
                                 <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" update="growl" process="@this"/>
-
+                                #{' '} 
                                 <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
                             </div>
                         </p:tab>
