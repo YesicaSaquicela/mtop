@@ -26,17 +26,23 @@
 
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
             <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
 
             <div class="panel panel-primary">
                 <div class="panel-heading" align="center">Datos Generales</div>
                 <div class="container-fluid">
                     <!-- Example row of columns -->
-                    <div class="row-fuild">
-
-                        <mtop:input id="codigo" name="codigo1" type="text" label="Código" 
-                                    value="#{controladorProducto.instance.codigo}" required="true" 
-                                    inlinehelp="Ingrese el codigo del producto" execute ="@this save" render="codigo"/>
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            
+                            <p:outputLabel value="Número de Solicitud"/>
+                             <p:inputText id="codigo"  value="#{controladorProducto.codigo}"
+                                             readonly="true" styleClass="form-control"
+                                             required="true" label="Código" 
+                                             rendered="true" ></p:inputText>
+                            
 
                         <mtop:input id="des" name="descripcion1" type="textarea" label="Descripcion" 
                                     value="#{controladorProducto.instance.descripcion}" required="true" 
@@ -157,29 +163,9 @@
                                     </div>
 
 
-                                </ui:repeat>
-
-                            </c:if> 
-                        </c:forEach>
-                    </p:tab></c:when> <br></br>
-                
-            </p:tabView><br></br>
-
-
-
-
-ssssss
-
-            <div class="admin-actions " align="center">  
-                <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorProducto.guardar()}"
-                                 immediate="true" icon="ui-icon-disk" update=":form"/>
-
-                &nbsp;&nbsp;
-
-                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/producto/lista" styleClass="btn  btn-success"/>
-
-            </div>
-
+                </div>
+            </p:panel>
+                </div></div>
 
 
 

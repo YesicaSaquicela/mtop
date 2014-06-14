@@ -49,7 +49,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 
     private String observacion;
     private boolean aprobado;
-    private double numSolicitud;
+    private String numSolicitud;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaSolicitud;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -94,13 +94,15 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
         this.fechaSalidaTaller = fechaSalidaTaller;
     }
 
-    public double getNumSolicitud() {
+    public String getNumSolicitud() {
         return numSolicitud;
     }
 
-    public void setNumSolicitud(double numSolicitud) {
+    public void setNumSolicitud(String numSolicitud) {
         this.numSolicitud = numSolicitud;
     }
+
+    
 
     public Date getFechaSolicitud() {
         return fechaSolicitud;

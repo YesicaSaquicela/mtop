@@ -26,7 +26,9 @@
 
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
-               <div class="panel panel-primary">
+             <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+            <div class="panel panel-primary">
                 <div class="panel-heading"><center>Datos Generales</center></div>
                 <div class="container-fluid">
                     <div class="row-fluid"  >
@@ -56,7 +58,7 @@
                                         execute ="@this save" render="numProvincia"/>
 
                         </div>
-                        
+
                         <div class="col-md-6"> 
 
                             <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
@@ -67,12 +69,12 @@
                             <p:outputLabel value="Número de unidad descentralizada"/><br></br>
                             <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
                                          required="true" />
-                               <span class="help-inline text-muted"><br/>Número de unidad descentralizada<ocp:message forId="valuep" /></span><br></br>
+                            <span class="help-inline text-muted"><br/>Número de unidad descentralizada<ocp:message forId="valuep" /></span><br></br>
 
                             <p:outputLabel value="Número geográfico"/><br></br>
                             <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
                                          required="true" />
-                               <span class="help-inline text-muted"><br/>Número de geográfico<ocp:message forId="valuep" /></span><br></br>
+                            <span class="help-inline text-muted"><br/>Número de geográfico<ocp:message forId="valuep" /></span><br></br>
 
                             <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
                                         value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
@@ -88,7 +90,7 @@
                     </div>
 
 
-                      <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
+                    <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
                         <div  class="panel panel-primary">
                             <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>
 

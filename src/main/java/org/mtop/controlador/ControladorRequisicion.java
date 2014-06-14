@@ -71,13 +71,27 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private List<Vehiculo> vehiculos;
     private long idPartidaC = 0l;
     private PartidaContabilidad partidaC;
+    private List<PartidaContabilidad> listaPartida;
+    private String numeroRequisicion;
+
+    public long getIdPartidaC() {
+        if(getRequisicionId() !=null && idPartidaC==0l){
+            idPartidaC=getInstance().getPartidaContabilidad().getId();
+        }
+        return idPartidaC;
+    }
+
+    public void setIdPartidaC(long idPartidaC) {
+        this.idPartidaC = idPartidaC;
+    }
+
     
-     private String numeroRequisicion;
+
 
     public String getNumeroRequisicion() {
         if (getId() == null) {
-            System.out.println("numero"+getInstance().getNumRequisicion());
-            List<Vehiculo> lista = findAll(Vehiculo.class);
+            System.out.println("numero" + getInstance().getNumRequisicion());
+            List<Requisicion> lista = findAll(Requisicion.class);
             int t = lista.size();
             if (t < 9) {
                 setNumeroRequisicion("000".concat(String.valueOf(t + 1)));
@@ -92,18 +106,26 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     }
                 }
             }
-        }else{
-            setNumeroRequisicion(String.valueOf(getInstance().getNumRequisicion()));
+        } else {
+            setNumeroRequisicion(getInstance().getNumRequisicion());
         }
-        
+
         return numeroRequisicion;
 
     }
 
     public void setNumeroRequisicion(String numRegistro) {
         this.numeroRequisicion = numRegistro;
-        getInstance().setNumRequisicion(Double.valueOf(this.numeroRequisicion));
+        getInstance().setNumRequisicion(this.numeroRequisicion);
 
+    }
+
+    public List<PartidaContabilidad> getListaPartida() {
+        return listaPartida;
+    }
+
+    public void setListaPartida(List<PartidaContabilidad> listaPartida) {
+        this.listaPartida = listaPartida;
     }
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
@@ -134,26 +156,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         if (skip) {
             skip = false;   //reset in case user goes back  
-          
+
             return "confirm";
         } else {
             System.out.println("pasoooo");
             if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
-               
+
                 return event.getOldStep();
             } else {
-        
+
                 return event.getNewStep();
             }
 
         }
-    }
-
-    public String concanertarPartida() {
-        partidaC = findById(PartidaContabilidad.class, idPartidaC);
-        String resultado = "250" + partidaC.getNumeroProvincia() + "0000" + partidaC.getNumeroPrograma() + "00" + partidaC.getNumeroProyecto() + "001" + partidaC.getNumeroItem() + "1100" + partidaC.getNumeroFuenteFinanciera();
-        return resultado;
     }
 
     public List<Vehiculo> getVehiculos() {
@@ -176,7 +192,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
-  
     public Long getIdVehiculo() {
         return idVehiculo;
     }
@@ -243,6 +258,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaRequisicion = servgen.buscarTodos(Requisicion.class);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
+        
+        listaPartida = findAll(PartidaContabilidad.class);
     }
 
     @Override
@@ -271,12 +288,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //            mensaje="necesita un asignar un vehiculo";
 //             return "/paginas/requisicion/crear.xhtml?faces-redirect=true";
 //        } else {
-  
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
         getInstance().setVehiculo(vehiculo);
         System.out.println("PRESENTADNOIDE requisicion>>>>" + vehiculo);
+        PartidaContabilidad p = servgen.buscarPorId(PartidaContabilidad.class, idPartidaC);
+        getInstance().setPartidaContabilidad(p);
+        System.out.println("id de ala partidaaaaaaaaaaaaa"+p.getId());
+
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("ingresa a editar>>>>>>>");

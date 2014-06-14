@@ -11,7 +11,7 @@
     <ui:param name="titulo" value="Lista de Productos"/>
 
     <ui:define name="header">
-
+        <br/>
         <h2>#{titulo}</h2>    
 
     </ui:define>
@@ -19,7 +19,10 @@
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
         <!--Formulario dentro de un contenedor-->
-        <h:form id="form">            
+        
+        <h:form id="form">
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
             <!--Opción de mensaje, cuando se realiza una acción-->
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
@@ -48,6 +51,7 @@
                     </h:link>
                 </p:column>
             </p:dataTable>
+                </div></div>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -25,13 +25,13 @@
             <!--<h:outputScript name="jquery.js" />--> <!-- this loads the jquery bundled with richFaces -->
             <!--<h:outputScript name="jquery-tableSorter-min.js" />
             <h:outputStylesheet name="bootstrap/bootstrap.css" />
-            <h:outputScript name="bootstrap/dropdown.js" />-
+            <h:outputScript name="bootstrap/dropdown.js" />-->
             <h:outputScript name="bootstrap/scrollspy.js" />
             <h:outputScript name="bootstrap/tabs.js" />
             <h:outputScript name="bootstrap/modal.js" />
             <h:outputScript name="bootstrap/twipsy.js" />
             <h:outputScript name="bootstrap/popover.js" />
-            <h:outputScript name="bootstrap/alerts.js" /-->
+            <h:outputScript name="bootstrap/alerts.js" />
 
             <!-- Our customizations -->
             <h:outputStylesheet name="application.css" />
@@ -39,7 +39,7 @@
 
             <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.min.css"/>
             <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.css"/>
-            <h:outputStylesheet name="bootstrap-3.1.1/css/dashboard.css"/>
+            <h:outputStylesheet name="bootstrap-3.1.1/css/jumbotron.css"/>
             <h:outputStylesheet name="bootstrap-3.1.1/css/sticky-footer.css"/>
 
             <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
@@ -48,14 +48,16 @@
 
             <ui:insert name="head"></ui:insert>
         </h:head>
-        <body>
 
+        <h:body>
+            <!--Cabecera-->
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
+                            <span class="icon-bar">                               
+                            </span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
@@ -63,48 +65,16 @@
                             <h:panelGroup rendered="#{identity.loggedIn}">
                                 <h:link value="#{'Mtop, Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/>
                             </h:panelGroup>
-                            <!--h:panelGroup rendered="#{!identity.loggedIn}">
-                                <h:link value="# {'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
-                            </h:panelGroup-->
+                            <h:panelGroup rendered="#{!identity.loggedIn}">
+                                <h:link value="#{'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                            </h:panelGroup>
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <!--li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Help</a></li-->
-                        </ul>
-                        <form class="navbar-form navbar-right">
-                            <!--input type="text" class="form-control" placeholder="Search..."/-->
+                        <form class="navbar-form navbar-right" role="form">
                             <div class="form-group">
 
                                 <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
-                                    <ul class="nav navbar-nav navbar-right">
-
-                                        <li> <h:link type="button" outcome="/pages/admin/bussinesentitytype/list.xhtml" value="  Dinamica" /></li>
-                                        <li><h:link type="button" outcome="/paginas/personal/lista.xhtml" value="  Persona" /></li>
-
-                                        <li><h:link type="button" outcome="/paginas/solicitud/lista.xhtml" value="Solicitud" /></li>
-                                        <li><h:link type="button" outcome="/paginas/requisicion/lista.xhtml" value="Requisicion" /></li>
-                                        <li><h:link type="button" outcome="/paginas/kardex/lista.xhtml" value="Kardex" /></li>
-                                        <li><h:link type="button" outcome="/paginas/producto/lista.xhtml" value="Producto" /></li>
-                                        <li><h:link type="button" outcome="/paginas/partidaContabilidad/lista.xhtml" value="Partida de COntabilidad" /></li>
-
-
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                Vehículos <b class="caret"></b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><h:link type="button"  outcome="/paginas/vehiculo/lista.xhtml" value="  Vehiculo" /></li>        
-                                                <li><h:link type="button" outcome="/paginas/vehiculo/estadoVehiculo/lista.xhtml" value="  Estado del Vehiculo" /></li>
-
-                                                <li class="divider"></li>
-                                                <li><h:link type="button" outcome="/paginas/planMantenimiento/lista.xhtml" value="  Plan Mantenimiento" /></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                     <div class="form-group">
                                         <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
                                     </div>
@@ -125,33 +95,21 @@
                             </div>
 
                         </form>
-                    </div>
+                    </div><!--/.navbar-collapse -->
                 </div>
             </div>
-
             <!--Cuerpo-->
+            <div class="jumbotron">
+                <div class="container" style="margin: -3% 0 -10% 10%; ">
+                    <ui:insert name="header">
 
-            <div class="container-fluid" style="top: 300px">
-                <div class="row-fluid">
+                    </ui:insert>
+                </div>                
 
-
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                        <br/>
-                        <div class="container" style="margin: -3% 0 -10% 10%; ">
-                            <ui:insert name="header">
-
-                            </ui:insert>
-
-
-                        </div>
-
-
-
-                    </div>
-                </div>
+                <!--Contenido-->
             </div>
-            <div class="table-responsive">
-                <div class="container-fluid">
+            <div class="container-fluid" style="margin: 0 5% 0 5%">
+                <div class="container-content">
                     <ocp:messages id="messages" globalOnly="true" />
                     <script type="text/javascript">
                         $(document).ready(function() {
@@ -163,17 +121,24 @@
                     </script>
                 </div>
 
+                <div class="content" style="margin-left: 10px; float: left; width: 100%; margin-right: 10px">
+                    <ui:insert name="content" />
+                </div>
+            </div>                
+              
+<br/>
+<br/>
+<br/><br/>
 
 
+            <!--PIE pagina-->
+            <!--<div id="footer" style="margin-bottom: -60px">
+                <div class="container">
+                    <p class="text-muted">&copy; Proyecto tesis</p>
+                </div>-->
 
 
-            </div>   
-            <ui:insert name="content" ></ui:insert>
-
-
-
-        </body>
-
+        </h:body>
     </html>
 
 </f:view>

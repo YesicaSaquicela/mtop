@@ -26,6 +26,8 @@
 
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
+             <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
@@ -57,6 +59,16 @@
 
                                 </p:selectOneMenu> <br></br>
 
+                                <h:outputText value="Partida de Contabilidad "/> <br></br> 
+
+                                <p:selectOneMenu id="partida" value="#{controladorRequisicion.idPartidaC}" effect="fade"
+                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                 requiredMessage="false">  
+                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                    <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
+                                    <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                </p:selectOneMenu> <br></br>
+
                                 <h:outputText value="Tipo de adquisicion "/><br></br>
                                 <p:selectOneMenu id="adquisicion" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" >  
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -67,7 +79,7 @@
 
                                 </p:selectOneMenu> <br></br>
 
-                                <p:outputLabel value="Observacio"/><br></br>
+                                <p:outputLabel value="Observación"/><br></br>
                                 <p:inputTextarea id="observacion" value="#{controladorRequisicion.instance.observaciones}"
                                                  required="true" /><br></br>
 
@@ -195,7 +207,7 @@
                     </p:panel>
                 </p:tab>
             </p:wizard>
-
+                </div></div>
         </h:form>
 
     </ui:define>

@@ -281,7 +281,7 @@ a:hover {
 }
 .row {
     zoom: 1;
-    margin-left: -20px;
+    margin-left: 5px;
 }
 .row:before, .row:after {
     display: table;
