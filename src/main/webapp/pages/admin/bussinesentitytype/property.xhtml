@@ -18,130 +18,151 @@
             <f:viewParam name="nombreGrupo" value="#{propertyHome.instance.groupName}" />                    
         </f:metadata> 
         <ui:define name="header">
-                        #{propertyHome.propertyId != null? messages['common.edit'] : messages['common.add']} 
-                            #{messages['common.properties']} 
-                               
+            #{propertyHome.propertyId != null? messages['common.edit'] : messages['common.add']} 
+            #{messages['common.properties']} 
+
         </ui:define>
         <ui:define name="content">    
             <h:form id="form" acceptcharset="UTF-8">
                 <div role="main">
-            <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                <p:panel id="fnp" header="#{messages['common.properties']} #{messages['panel.Basic']}">
-                    <p:outputLabel value="#{messages['common.property.groupName']}"/><br/>
-                    <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
-                                 value="#{propertyHome.instance.groupName}" disabled="true" required="false"  />
-                    <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
-                                value="#{propertyHome.instance.name}" required="true" inlinehelp="#{messages['common.property.name.help']}" execute="@this save" render="name"/>                     
-                    <!--<mtop:input id="typ" name="type" type="text" label="# {messages['common.property.type']}"                      
-                                value="# {propertyHome.instance.type}" required="true" inlinehelp="# {messages['common.property.type.help']}" execute="@this save" />-->
-                    <h:panelGroup id="typeP" layout="block" class="clearfix" >
-                        <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
-                        <div class="input">
-                            <p:selectOneMenu id="type" value="#{propertyHome.propertyType}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="false" requiredMessage="false" 
-                                             label="#{messages['common.property.type']}" rendered="true">
-                                <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
-                                <f:selectItems value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
-                                <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
-                            </p:selectOneMenu>  
-                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyType  != null}"
-                                            styleClass="validation-status" />
-                            <span class="help-inline"><br/>#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
-                        </div>
-                    </h:panelGroup>
-                    <h:panelGroup id="pvaluep" layout="block" class="clearfix">
-                        <label for="valuep">#{messages['common.property.value']}</label>
-                        <div class="input" >
-                            <p:inputText id="valuep" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
-                                         required="true" label="#{messages['common.property.value']}"
-                                         rendered="#{propertyHome.propertyType ne 'java.util.Date'
-                                                     and propertyHome.propertyType ne 'java.lang.MultiLineString'
-                                                     and propertyHome.propertyType ne 'java.lang.Long'
+                    <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading"><center>Panel Básico</center></div>
+                            <p:panel id="fnp">
+                                <div class="container-fluid">
+                                    <div class="row-fluid"  >
+                                        <div class="col-md-6"> 
+                                            <p:outputLabel value="#{messages['common.property.groupName']}"/><br/>
+                                            <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
+                                                         value="#{propertyHome.instance.groupName}" disabled="true" required="false"  /><br></br><br></br>
+                                            <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
+                                                        value="#{propertyHome.instance.name}" required="true" inlinehelp="#{messages['common.property.name.help']}" execute="@this save" render="name"/><br></br>                   
+                                            <!--<mtop:input id="typ" name="type" type="text" label="# {messages['common.property.type']}"                      
+                                                        value="# {propertyHome.instance.type}" required="true" inlinehelp="# {messages['common.property.type.help']}" execute="@this save" />-->
+                                            <h:panelGroup id="typeP" layout="block" class="clearfix" >
+                                                <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
+                                                <div class="input">
+                                                    <p:selectOneMenu id="type" value="#{propertyHome.propertyType}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="false" requiredMessage="false" 
+                                                                     label="#{messages['common.property.type']}" rendered="true">
+                                                        <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
+                                                        <f:selectItems value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
+                                                        <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
+                                                    </p:selectOneMenu><br></br> 
+                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyType  != null}"
+                                                                    styleClass="validation-status" />
+                                                    <span class="help-inQline text-muted">#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
+                                                </div><br></br>
+                                            </h:panelGroup>
+                                            <h:panelGroup id="pvaluep" layout="block" class="clearfix">
+                                                <label for="valuep">#{messages['common.property.value']}</label>
+                                                <div class="input" >
+                                                    <p:inputText id="valuep" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                                 required="true" label="#{messages['common.property.value']}"
+                                                                 rendered="#{propertyHome.propertyType ne 'java.util.Date'
+                                                                             and propertyHome.propertyType ne 'java.lang.MultiLineString'
+                                                                             and propertyHome.propertyType ne 'java.lang.Long'
                                                      }"
-                                         disabled="#{propertyHome.propertyType eq 'org.mtop.model.EstadoParteMecanica'}">                            
-                                <f:ajax execute="@this" render="save"  />
-                            </p:inputText>         
-                            <p:calendar id="valuep2" value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
-                                        rendered="#{propertyHome.propertyType eq 'java.util.Date'}" required="true">
+                                                                 disabled="#{propertyHome.propertyType eq 'org.mtop.model.EstadoParteMecanica'}">                            
+                                                        <f:ajax execute="@this" render="save"  />
+                                                    </p:inputText>     
+                                                    <p:calendar id="valuep2" value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
+                                                                rendered="#{propertyHome.propertyType eq 'java.util.Date'}" required="true">
 
-                                <f:ajax event="dateSelect" execute="@this" render="save"/>
-                            </p:calendar>
-                            <p:inputTextarea value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
-                                             required="true" label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
-                                             rendered="#{propertyHome.propertyType eq 'java.lang.MultiLineString'}">
-                                <f:ajax event="blur" execute="@this" render="save"/>
-                            </p:inputTextarea> 
-                           
-                            
-                            <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
-                                            required="true" label="#{messages['common.property.value']}"
-                                            rendered="#{propertyHome.propertyType eq 'java.lang.Long'  or propertyHome.propertyType eq 'java.lang.Float'}"
-                                            decimalPlaces="0" >  
-                                <f:ajax event="blur" execute="@this" render="save"/>
-                            </pe:inputNumber> 
-                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
-                                            styleClass="validation-status" />
-                            <span class="help-inline"><br/>#{messages['common.property.value.help']}<ocp:message forId="valuep" /></span>
+                                                        <f:ajax event="dateSelect" execute="@this" render="save"/>
+                                                    </p:calendar>
+                                                    <p:inputTextarea value="#{propertyHome.propertyStringValue}" styleClass="form-control"
+                                                                     required="true" label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
+                                                                     rendered="#{propertyHome.propertyType eq 'java.lang.MultiLineString'}">
+                                                        <f:ajax event="blur" execute="@this" render="save"/>
+                                                    </p:inputTextarea>
+
+                                                    <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="form-control"
+                                                                    required="true" label="#{messages['common.property.value']}"
+                                                                    rendered="#{propertyHome.propertyType eq 'java.lang.Long'  or propertyHome.propertyType eq 'java.lang.Float'}"
+                                                                    decimalPlaces="0" >  
+                                                        <f:ajax event="blur" execute="@this" render="save"/>
+                                                    </pe:inputNumber><br></br>
+                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
+                                                                    styleClass="validation-status" />
+                                                    <span class="help-inline text-muted">#{messages['common.property.value.help']}<ocp:message forId="valuep" /></span>
+                                                </div>
+
+                                            </h:panelGroup><br></br>                   
+
+                                            <!--mtop:input id="validator" name="validator" type="text" label="# {messages['common.property.validator']}" 
+                                                        value="# {propertyHome.instance.validator}" required="false" inlinehelp="# {messages['common.property.validator.help']}" execute="@this save" /><br></br-->
+                                        </div>
+                                        <div class="col-md-6"> 
+
+
+                                            <mtop:input id="rqd" name="requerid" type="checkbox" label="#{messages['common.property.required']}" 
+                                                        value="#{propertyHome.instance.required}" required="false" inlinehelp="#{messages['common.property.required.help']}" execute="@this save" /><br></br>                                   
+                                            <mtop:input id="secuencia" name="sequence" type="java.lang.Long" label="#{messages['common.property.sequence']}" 
+                                                        value="#{propertyHome.instance.sequence}" required="false" inlinehelp="#{messages['common.property.sequence.help']}" execute="@this save" /><br></br>
+                                            <mtop:input id="label" name="label" type="text" label="#{messages['common.property.label']}" 
+                                                        value="#{propertyHome.instance.label}" required="true" inlinehelp="#{messages['common.property.label.help']}" execute="@this save" /><br></br>
+                                            <!--mtop:input id="converter" name="converter" type="text" label="# {messages['common.property.converter']}" 
+                                                        value="# {propertyHome.instance.converter}" required="false" inlinehelp="# {messages['common.property.converter.help']}" execute="@this save" /><br></br-->
+                                            <mtop:input id="hpline" name="helpInline" type="textarea" label="#{messages['common.property.helpinline']}" 
+                                                        value="#{propertyHome.instance.helpInline}" required="false" inlinehelp="Ingrese una descripción de la linea" execute="@this save" /><br></br>
+                                        </div>
+
+                                    </div>   </div>
+
+                            </p:panel>
+                        </div>
+                        
+
+                        <p:panel header=" #{messages['common.properties']} #{messages['panel.Optional']}" toggleable="true" closable="false" toggleSpeed="100" closeSpeed="0" collapsed="true">                                         
+                            <mtop:input id="render" name="render" type="text" label="#{messages['common.property.render']}" 
+                                        value="#{propertyHome.instance.render}" required="false" inlinehelp="#{messages['common.property.render.help']}" execute="@this save" /><br></br>
+                            <mtop:input id="customf" name="customForm" type="text" label="#{messages['common.property.customForm']}" 
+                                        value="#{propertyHome.instance.customForm}" required="false" inlinehelp="#{messages['common.property.customForm.help']}" execute="@this save" /><br></br> 
+                            <mtop:input id="gntrn" name="generatorName" type="text" label="#{messages['common.property.generatorName']}" 
+                                        value="#{propertyHome.instance.generatorName}" required="false" inlinehelp="#{messages['common.property.generatorName.help']}" execute="@this save" /><br></br> 
+                        </p:panel>
+
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" 
+                                       href="#collapseThree">
+                                        Propiedades para grupos
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                   <p:panel  toggleable="true" closable="false" toggleSpeed="100" closeSpeed="0" collapsed="true">                     
+                                <mtop:input id="overwrite" name="overwrite" type="text" label="#{messages['common.property.overwrite']}" 
+                                            value="#{propertyHome.instance.overwrite}" required="false" inlinehelp="#{messages['common.property.overwrite.help']}" execute="@this save" /><br></br>
+                                <mtop:input id="shwclms" name="showInColumns" type="checkbox" label="#{messages['common.property.showInColumns']}" 
+                                            value="#{propertyHome.instance.showInColumns}" required="false" inlinehelp="#{messages['common.property.showInColumns.help']}" execute="@this save" /><br></br>
+                                <mtop:input id="sdbep" name="showDefaultBEP" type="checkbox" label="#{messages['common.property.showDefaultBussinesEntityProperties']}" 
+                                            value="#{propertyHome.instance.showDefaultBussinesEntityProperties}" required="false" inlinehelp="#{messages['common.property.showDefaultBussinesEntityProperties.help']}" execute="@this save" /><br></br>                     
+                                <mtop:input id="minmb" name="minimumMembers" type="java.lang.Long" label="#{messages['common.property.minimumMembers']}" 
+                                            value="#{propertyHome.instance.minimumMembers}" required="false" inlinehelp="#{messages['common.property.minimumMembers.help']}" execute="@this save" /><br></br>
+                                <mtop:input id="maxmb" name="maximumMembers" type="java.lang.Long" label="#{messages['common.property.maximumMembers']}" 
+                                            value="#{propertyHome.instance.maximumMembers}" required="false" inlinehelp="#{messages['common.property.maximumMembers.help']}" execute="@this save" /><br></br>
+                            </p:panel>
+                                </div>
+                            </div>
                         </div>
 
-
-
-
-
-
-                    </h:panelGroup>                    
-                    <mtop:input id="label" name="label" type="text" label="#{messages['common.property.label']}" 
-                                value="#{propertyHome.instance.label}" required="true" inlinehelp="#{messages['common.property.label.help']}" execute="@this save" />
-
-                    <mtop:input id="hpline" name="helpInline" type="textarea" label="#{messages['common.property.helpinline']}" 
-                                value="#{propertyHome.instance.helpInline}" required="false" inlinehelp="#{messages['common.property.helpInline.help']}" execute="@this save" />
-                    <mtop:input id="rqd" name="requerid" type="checkbox" label="#{messages['common.property.required']}" 
-                                value="#{propertyHome.instance.required}" required="false" inlinehelp="#{messages['common.property.required.help']}" execute="@this save" />                                         
-                    <mtop:input id="secuencia" name="sequence" type="java.lang.Long" label="#{messages['common.property.sequence']}" 
-                                value="#{propertyHome.instance.sequence}" required="false" inlinehelp="#{messages['common.property.sequence.help']}" execute="@this save" />
-                    <mtop:input id="validator" name="validator" type="text" label="#{messages['common.property.validator']}" 
-                                value="#{propertyHome.instance.validator}" required="false" inlinehelp="#{messages['common.property.validator.help']}" execute="@this save" />
-                    <mtop:input id="converter" name="converter" type="text" label="#{messages['common.property.converter']}" 
-                                value="#{propertyHome.instance.converter}" required="false" inlinehelp="#{messages['common.property.converter.help']}" execute="@this save" />
-                    <p:outputLabel value="#{messages['common.property.habilitarEstado']}"/>
-
-
-
-
-                </p:panel>
-                <p:panel header="#{messages['common.properties']} para #{messages['panel.Group']}" toggleable="true" closable="false" toggleSpeed="100" closeSpeed="0" collapsed="true">                     
-                    <mtop:input id="overwrite" name="overwrite" type="text" label="#{messages['common.property.overwrite']}" 
-                                value="#{propertyHome.instance.overwrite}" required="false" inlinehelp="#{messages['common.property.overwrite.help']}" execute="@this save" />
-                    <mtop:input id="shwclms" name="showInColumns" type="checkbox" label="#{messages['common.property.showInColumns']}" 
-                                value="#{propertyHome.instance.showInColumns}" required="false" inlinehelp="#{messages['common.property.showInColumns.help']}" execute="@this save" /> 
-                    <mtop:input id="sdbep" name="showDefaultBEP" type="checkbox" label="#{messages['common.property.showDefaultBussinesEntityProperties']}" 
-                                value="#{propertyHome.instance.showDefaultBussinesEntityProperties}" required="false" inlinehelp="#{messages['common.property.showDefaultBussinesEntityProperties.help']}" execute="@this save" />                     
-                    <mtop:input id="minmb" name="minimumMembers" type="java.lang.Long" label="#{messages['common.property.minimumMembers']}" 
-                                value="#{propertyHome.instance.minimumMembers}" required="false" inlinehelp="#{messages['common.property.minimumMembers.help']}" execute="@this save" />
-                    <mtop:input id="maxmb" name="maximumMembers" type="java.lang.Long" label="#{messages['common.property.maximumMembers']}" 
-                                value="#{propertyHome.instance.maximumMembers}" required="false" inlinehelp="#{messages['common.property.maximumMembers.help']}" execute="@this save" /> 
-                </p:panel>
-                <p:panel header=" #{messages['common.properties']} #{messages['panel.Optional']}" toggleable="true" closable="false" toggleSpeed="100" closeSpeed="0" collapsed="true">                                          
-                    <mtop:input id="render" name="render" type="text" label="#{messages['common.property.render']}" 
-                                value="#{propertyHome.instance.render}" required="false" inlinehelp="#{messages['common.property.render.help']}" execute="@this save" />
-                    <mtop:input id="customf" name="customForm" type="text" label="#{messages['common.property.customForm']}" 
-                                value="#{propertyHome.instance.customForm}" required="false" inlinehelp="#{messages['common.property.customForm.help']}" execute="@this save" /> 
-                    <mtop:input id="gntrn" name="generatorName" type="text" label="#{messages['common.property.generatorName']}" 
-                                value="#{propertyHome.instance.generatorName}" required="false" inlinehelp="#{messages['common.property.generatorName.help']}" execute="@this save" /> 
-                </p:panel>
-
-                <div class="actions">
-                    <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 
-                                     value="#{messages['common.save']}" styleClass="btn primary"/>
-                    #{' '}                     
-                    <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn" onclick="#{propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
-                                     update=":cancel-dialog :alerts-dialog:" rendered="#{not empty propertyHome.instance.id}">                        
-                    </p:commandButton>
-                    #{' '}
-                    <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/pages/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn" >                        
-                        <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
-                    </h:link>
-                </div>    
-            </div></div>
+                        <div class="actions" align="center">
+                            <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 
+                                             value="#{messages['common.save']}" styleClass="btn  btn-success" icon="ui-icon-disk"/>
+                            #{' '}                     
+                            <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="#{propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
+                                             update=":cancel-dialog :alerts-dialog:" rendered="#{not empty propertyHome.instance.id}">                        
+                            </p:commandButton>
+                            #{' '}
+                            <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/pages/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn  btn-success" >                        
+                                <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
+                            </h:link>
+                        </div>    
+                    </div></div>
             </h:form>
             <p:dialog id="cancel-dialog" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
                 <h:form id="form-dialog-confirm-delete">
@@ -163,7 +184,7 @@
                         <h:outputText value="#{messages['common.property.hasValues']}"/>  
                     </h:panelGroup>                          
                     <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
-                                     style="margin-top:10px;"/>  
+                                     styleClass="btn  btn-success"/>  
                 </h:form>
             </p:dialog>
         </ui:define>

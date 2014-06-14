@@ -98,13 +98,13 @@ limitations under the License.
                                 <p:commandButton id="save" value="#{messages['common.save']}" rendered="true"
                                                  action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" 
                                                  update=":edit-dialog :form" immediate="true"
-                                                 ajax="true" process="@this" styleClass="btn primary"
-                                                 style="margin-top:10px;" icon="ui-icon-disk">  
+                                                 ajax="true" process="@this" styleClass="btn  btn-success"
+                                                 icon="ui-icon-disk">  
                                 </p:commandButton>
                                 #{' '}                     
-                                <p:commandButton type="button" value="#{messages['common.cancel']}" style="margin-top:10px;" 
+                                <p:commandButton type="button"  value="#{messages['common.cancel']}" styleClass="btn  btn-success"
                                                  rendered="true" onclick="editDlg.hide();"                                      
-                                                 styleClass="btn"/>  
+                                                 />  
                             </div></div></div> 
                 </h:form>
             </p:dialog> 
@@ -144,10 +144,10 @@ limitations under the License.
                         <div class="actions">                                                                                                                                          
                             <p:commandButton id="savenew" value="#{messages['common.save']}" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"
                                              action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
-                                             styleClass="btn primary" icon="ui-icon-disk"/> 
+                                            styleClass="btn  btn-success" icon="ui-icon-disk"/> 
                             #{' '}                                  
                             <h:commandButton id="cancel" action="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
-                                             value="#{messages['common.cancel']}" styleClass="btn" immediate="true" onclick="editDlg.hide();"
+                                             value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
                                              rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
                         </div>
                     </h:panelGroup>
@@ -211,12 +211,12 @@ limitations under the License.
                                     <h:outputText value="#{property.sequence}" />
                                 </p:column>  
                                 <p:column>
-                                    <h:button value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" outcome="bussinesentitytype" styleClass="btn primary">
+                                    <h:link value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" outcome="bussinesentitytype">
                                         <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
                                         <f:param name="bussinesentitytypeLabel" value="#{property.name}"></f:param>
                                         <f:param name="bussinesentitytypeId" ></f:param>
                                         <f:param name="backView" value="list"></f:param>
-                                    </h:button>
+                                    </h:link>
                                 </p:column>
                             </p:dataTable>
                         </p:panel>                 
