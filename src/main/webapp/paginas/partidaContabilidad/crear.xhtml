@@ -95,14 +95,14 @@
                         </p:panel>
                     </div>
 
-                    <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
+                    <c:forEach items="#{ui.getProperties(controladorPartida.instance)}" var="p" >
                         <div  class="panel panel-primary">
                             <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>
 
                             <c:choose>                        
                                 <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
                                     <h:panelGroup  layout="block" class="clearfix">
-                                        <ui:repeat value="#{controladorRequisicion.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+                                        <ui:repeat value="#{controladorPartida.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                             <h:panelGroup layout="block" class="clearfix">
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                 <div class="input">
