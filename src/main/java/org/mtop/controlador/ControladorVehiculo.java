@@ -185,7 +185,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String editarEstado() {
-
+        getInstance().findBussinesEntityAttribute(numeroRegistro).size();
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
