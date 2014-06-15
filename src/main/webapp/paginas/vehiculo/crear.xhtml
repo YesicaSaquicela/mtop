@@ -129,7 +129,7 @@
                                                                           rendered="#{a.property.type eq 'java.lang.String'}">
                                                                 <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                            </p:inputText><br></br>
+                                                            </p:inputText>
                                                             <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                                            rendered="#{a.property.type eq 'java.lang.Double'}">
 
@@ -138,7 +138,7 @@
                                                             <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                         rendered="#{a.property.type eq 'java.util.Date'}">
                                                                 <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                                            </p:calendar>  
+                                                            </p:calendar>
                                                             <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
                                                                             rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
@@ -147,15 +147,17 @@
                                                                              rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
                                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                 <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                                            </p:selectOneMenu> 
+                                                            </p:selectOneMenu>
                                                             <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                              rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                            </p:inputTextarea>                                                
+                                                            </p:inputTextarea>  
+
                                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
                                                                             styleClass="validation-status" />
-                                                            <span class="help-inline text-muted">#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                                            <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                                         </div>
+                                                     
                                                     </h:panelGroup>  
 
                                                 </ui:repeat>
@@ -178,32 +180,32 @@
                                                       rendered="#{a.property.type eq 'java.lang.String'}">
                                             <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                             <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                        </p:inputText><br></br>
+                                        </p:inputText>
                                         <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                        rendered="#{a.property.type eq 'java.lang.Double'}">
 
                                             <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                        </p:inputText><br></br>
+                                        </p:inputText>
                                         <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                     rendered="#{a.property.type eq 'java.util.Date'}">
                                             <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                        </p:calendar><br></br>  
+                                        </p:calendar>
                                         <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
                                                         rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                             <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                        </pe:inputNumber><br></br>  
+                                        </pe:inputNumber>
                                         <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
                                                          rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
                                             <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                             <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                        </p:selectOneMenu><br></br> 
+                                        </p:selectOneMenu>
                                         <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                          rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                             <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                        </p:inputTextarea><br></br>                                               
+                                        </p:inputTextarea>                                             
                                         <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
                                                         styleClass="validation-status" />
-                                        <span class="help-inline">#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                        <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                     </div>
 
 
