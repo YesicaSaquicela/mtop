@@ -119,11 +119,11 @@ limitations under the License.
 
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><center>Datos Generales</center></div>
-                        <div class="container-fluid">
-                            <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
 
+                    <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
+                        <div class="panel panel-primary">
+                            <div class="panel-heading"><center>Datos Generales</center></div>
+                            <div class="container-fluid">
                                 <!--TODO: revisar <ui:include >-->
                                 <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
                                 <div class="input">
@@ -154,11 +154,11 @@ limitations under the License.
                                     </p:inputTextarea><br/>
                                     <span class="help-inline text-muted">Ingrese una descripción</span>
                                 </div> 
+                            </div>     
+                        </div>
+                    </h:panelGroup>
 
-                            </h:panelGroup>
 
-                        </div>     
-                    </div>
                     <div class="actions" align="center">                                                                                                                                          
                         <p:commandButton id="savenew" value="#{messages['common.save']}" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"
                                          action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
@@ -195,7 +195,7 @@ limitations under the License.
                                     <f:param name="structureId" value ="#{e.id}"></f:param>                             
                                     <f:param name="backView" value="bussinesentitytype"></f:param>
                                 </h:link> 
-                                  #{' '}
+                                #{' '}
                                 <h:link outcome="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                         value="#{messages['common.cancel']}" styleClass="btn  btn-success"/>   
 
