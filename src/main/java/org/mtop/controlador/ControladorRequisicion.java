@@ -115,6 +115,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void agregarItem() {
+        System.out.println("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllcraerll");
         if (cir.getInstance().getCantidad().equals("") || cir.getInstance().getUnidadMedida().equals("")) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
@@ -124,20 +125,27 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             cir.setInstance(new ItemRequisicion());
 
         }
+        cir.getInstance().setCantidad(3);
+        System.out.println("enviandi cantidad");
+        editarItem(cir.getInstance());
+        
+        
+        
 
     }
 
     public void editarItem(ItemRequisicion itemReq) {
+        System.out.println("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
         System.out.println("Item>>>>>" + cir.getInstance().getCantidad());;
         System.out.println("REMOVE>>>>>>>>>>>." + itemReq);
 
         int con = 0;
-        for (ItemRequisicion apm : cir.listaItemsRequisicion) {
+        for (ItemRequisicion i : cir.listaItemsRequisicion) {
 
-            if (apm.getCantidad().equals(itemReq.getCantidad())
-                    && apm.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
+            if (i.getCantidad().equals(itemReq.getCantidad())
+                    && i.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
                 cir.listaItemsRequisicion.remove(con);
-                cir.setInstance(apm);
+                cir.setInstance(i);
                 break;
 
             }
@@ -224,7 +232,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public List<Vehiculo> getVehiculos() {
 
-        System.out.println("ENTRO A BUSCAR>>>>>>>>>>>");
+        System.out.println("ENTRO A BUSCAR>vehiculos>>>>>>>>>>");
         vehiculos = findAll(Vehiculo.class);
         return vehiculos;
     }

@@ -169,9 +169,8 @@
 
 
                         <p:tab title="Otros" closable="false"  titleStyleClass="clearfix"  >
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type != 'org.mtop.model.Structure'}">
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.groupName)}" var="a" varStatus="status">                                               
+                            
+                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute('org.mtop.modelo.Vehiculo')}" var="a" varStatus="status"> 
                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                         <div class="input">
                                             <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
@@ -209,8 +208,6 @@
 
                                     </ui:repeat>
 
-                                </c:if> 
-                            </c:forEach>
                         </p:tab><br></br><br></br>
 
                     </p:tabView><br></br><br></br>
