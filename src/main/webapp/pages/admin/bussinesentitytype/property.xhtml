@@ -32,13 +32,14 @@
                                 <div class="container-fluid">
                                     <div class="row-fluid"  >
                                         <div class="col-md-6"> 
-                                            <p:outputLabel value="#{messages['common.property.groupName']}"/><br/>
+                                            <p:outputLabel  value="#{messages['common.property.groupName']}"/><br/>
                                             <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
-                                                         value="#{propertyHome.instance.groupName}" disabled="true" required="false"  /><br></br><br></br>
-                                            <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
+                                                         value="#{propertyHome.instance.groupName}" disabled="true" required="false"  />
+                                             <span class="help-inline text-muted">Nombre del Grupo</span><br/><br/>
+                                            
+                                             <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
                                                         value="#{propertyHome.instance.name}" required="true" inlinehelp="#{messages['common.property.name.help']}" execute="@this save" render="name"/><br></br>                   
-                                            <!--<mtop:input id="typ" name="type" type="text" label="# {messages['common.property.type']}"                      
-                                                        value="# {propertyHome.instance.type}" required="true" inlinehelp="# {messages['common.property.type.help']}" execute="@this save" />-->
+                                           
                                             <h:panelGroup id="typeP" layout="block" class="clearfix" >
                                                 <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
                                                 <div class="input">
