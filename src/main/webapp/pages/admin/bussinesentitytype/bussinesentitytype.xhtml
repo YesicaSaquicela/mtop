@@ -68,33 +68,39 @@ limitations under the License.
                 <h:form id="form-dialog">  
                     <div role="main">
                         <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                            <h:panelGroup layout="block" class="clearfix" rendered="true">
-                                <!--TODO: revisar <ui:include >-->
-                                <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
-                                <div class="input">
-                                    <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
-                                                  rendered="true" >
-                                        <p:ajax event="keyup" rendered="save" update="save" />  
-                                    </p:inputText>
-                                </div>
-                                <br/> 
-                                <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
-                                <div class="input">
-                                    <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
-                                                  rendered="true" >
-                                        <p:ajax event="keyup" rendered="save" update="save" />  
-                                    </p:inputText>
-                                </div>
-                                <br/> 
-                                <h:outputLabel value="#{messages['common.description']}" />
-                                <div class="input">
-                                    <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
-                                                      rendered="true" >
-                                        <p:ajax event="keyup" rendered="save" update="save" />  
-                                    </p:inputTextarea>
-                                </div> 
-                            </h:panelGroup>
-                            <div class="admin-actions">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>Datos Generales</center></div>
+                                <div class="container-fluid">
+                                    <h:panelGroup layout="block" class="clearfix" rendered="true">
+                                        <!--TODO: revisar <ui:include >-->
+                                        <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
+                                        <div class="input">
+                                            <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
+                                                          rendered="true" >
+                                                <p:ajax event="keyup" rendered="save" update="save" />  
+                                            </p:inputText>
+                                            <span class="help-inline text-muted">Ingrese el nombre de la entidad</span>
+                                        </div>
+                                        <br/> 
+                                        <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
+                                        <div class="input">
+                                            <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
+                                                          rendered="true" >
+                                                <p:ajax event="keyup" rendered="save" update="save" />  
+                                            </p:inputText>
+                                        </div>
+                                        <br/> 
+                                        <h:outputLabel value="#{messages['common.description']}" />
+                                        <div class="input">
+                                            <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
+                                                              rendered="true" >
+                                                <p:ajax event="keyup" rendered="save" update="save" />  
+                                            </p:inputTextarea>
+                                        </div> 
+                                    </h:panelGroup>
+                                </div></div>
+
+                            <div class="admin-actions" align="center">
                                 <p:commandButton id="save" value="#{messages['common.save']}" rendered="true"
                                                  action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" 
                                                  update=":edit-dialog :form" immediate="true"
@@ -110,47 +116,61 @@ limitations under the License.
             </p:dialog> 
         </h:panelGroup>
         <h:form id="form">
+
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                    <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Datos Generales</center></div>
+                        <div class="container-fluid">
+                            <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
 
-                        <!--TODO: revisar <ui:include >-->
-                        <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
-                        <div class="input">
-                            <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
-                                          rendered="true" disabled="true">
-                                <p:ajax event="keyup" rendered="savenew" update="savenew" />  
-                            </p:inputText>
-                        </div>
-                        <br/> 
-                        <br/> 
-                        <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
-                        <div class="input">
-                            <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
-                                          rendered="true" disabled="true">
-                                <p:ajax event="keyup" rendered="savenew" update="savenew" />  
-                            </p:inputText>
-                        </div>
+                                <!--TODO: revisar <ui:include >-->
+                                <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
+                                <div class="input">
+                                    <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span10" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
+                                                  rendered="true" disabled="true">
+                                        <p:ajax event="keyup" rendered="savenew" update="savenew" />  
+                                    </p:inputText><br/>
+                                    <span class="help-inline text-muted">Ingrese el nombre de la entidad</span>
+                                </div>
+
+                                <br/> 
+                                <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
+                                <div class="input">
+                                    <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
+                                                  rendered="true" disabled="true">
+                                        <p:ajax event="keyup" rendered="savenew" update="savenew" />  
+                                    </p:inputText><br/>
+                                    <span class="help-inline text-muted">Ingrese la etiqueta de vista</span>
+                                </div>
 
 
-                        <br/> 
-                        <h:outputLabel value="#{messages['common.description']}" />
-                        <div class="input">
-                            <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
-                                              rendered="true" >
-                                <p:ajax event="keyup" rendered="savenew" update="savenew" />  
-                            </p:inputTextarea>
-                        </div> 
-                        <div class="actions">                                                                                                                                          
-                            <p:commandButton id="savenew" value="#{messages['common.save']}" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"
-                                             action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
-                                            styleClass="btn  btn-success" icon="ui-icon-disk"/> 
-                            #{' '}                                  
-                            <h:commandButton id="cancel" action="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
-                                             value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
-                                             rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
-                        </div>
-                    </h:panelGroup>
+                                <br/> 
+                                <h:outputLabel value="#{messages['common.description']}" />
+                                <div class="input">
+                                    <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
+                                                      rendered="true" >
+                                        <p:ajax event="keyup" rendered="savenew" update="savenew" />  
+                                    </p:inputTextarea><br/>
+                                    <span class="help-inline text-muted">Ingrese una descripción</span>
+                                </div> 
+
+                            </h:panelGroup>
+
+                        </div>     
+                    </div>
+                    <div class="actions" align="center">                                                                                                                                          
+                        <p:commandButton id="savenew" value="#{messages['common.save']}" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"
+                                         action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
+                                         styleClass="btn  btn-success" icon="ui-icon-disk"/> 
+                        #{' '}                                  
+                        <h:commandButton id="cancel" action="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+                                         value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
+                                         rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
+
+
+                    </div>
+
                     <c:forEach items="#{bussinesEntityTypeHome.instance.structures}" var="e" id="forEach">
                         <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
 
@@ -174,12 +194,13 @@ limitations under the License.
                                     <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                                     <f:param name="structureId" value ="#{e.id}"></f:param>                             
                                     <f:param name="backView" value="bussinesentitytype"></f:param>
-                                </h:link>                        
-
-                                #{' '}
+                                </h:link> 
+                                  #{' '}
                                 <h:link outcome="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
-                                        value="#{messages['common.cancel']}" styleClass="btn"/>                         
-                            </div>                     
+                                        value="#{messages['common.cancel']}" styleClass="btn  btn-success"/>   
+
+                            </div><br/>
+
                             <p:dataTable var="property" value="#{e.properties}" 
                                          editable="false" resizableColumns="true" liveResize="true" 
                                          id="properties"
@@ -219,7 +240,9 @@ limitations under the License.
                                     </h:link>
                                 </p:column>
                             </p:dataTable>
-                        </p:panel>                 
+                        </p:panel><br/>
+
+
                     </c:forEach> 
                 </div></div>
         </h:form>

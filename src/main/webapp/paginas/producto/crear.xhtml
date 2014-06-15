@@ -32,11 +32,11 @@
 
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
-                        <p:panel>
+                        <p:panel >
                             <div class="container-fluid">
                                 <!-- Example row of columns -->
-                                <div class="row">
-                                    <div class="col-md-6"> 
+                                <div class="row-fluid">
+                                    
 
                                         <p:outputLabel value="Código"/>
                                         <p:inputText id="codigo"  value="#{controladorProducto.codigo}"
@@ -61,7 +61,6 @@
                                                     execute ="@this save" render="costo"/><br></br>
 
 
-                                    </div>
 
                                 </div>
                             </div>
@@ -79,6 +78,7 @@
                                             <div  class="panel panel-default">
                                                 <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                                     <div  class="panel panel-body">
+                                                        
                                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                         <div class="input">
                                                             <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
