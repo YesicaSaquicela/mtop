@@ -123,6 +123,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @PostConstruct
     public void init() {
         setEntityManager(em);
+        
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (Vehiculo)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
