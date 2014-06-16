@@ -29,7 +29,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                
-                    <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+                   
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>Datos Generales</center></div>
                          <p:panel id="panel">
@@ -37,8 +37,8 @@
                                 <div class="row-fluid"  >
                                     <div class="col-md-6"> 
 
-                                        <!--mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
+                                        <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
                                                     inlinehelp="Ingrese el número de proyecto" 
                                                     execute ="@this save" render="numProyecto"/><br></br>
 
@@ -52,23 +52,23 @@
                                         <span class="help-inline text-muted">Número de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
 
                                         <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
                                                     inlinehelp="Ingrese el número de provincia"
-                                                    execute ="@this save" render="numProvincia"/><br></br-->
+                                                    execute ="@this save" render="numProvincia"/><br></br>
 
-                                        <p:outputLabel value="Observación"/><br></br>
-                                        <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorPartidaContabilidad.instance.descripcion}"
-                                                         required="true" />
-                                        <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>                                   
-                                     
+                                         <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descripción" 
+                                                    value="#{controladorPartidaContabilidad.instance.descripcion}" required="true" 
+                                                    inlinehelp="Ingrese una descripción"
+                                                    execute ="@this save" render="descripcion"/><br></br>
+                                        
 
 
                                     </div>
 
-                                    <!--div class="col-md-6"> 
+                                    <div class="col-md-6"> 
 
                                         <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroItem}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroItem}" required="true" 
                                                     inlinehelp="Ingrese el número de item" 
                                                     execute ="@this save" render="numItem"/><br></br>
 
@@ -83,7 +83,7 @@
                                         <span class="help-inline text-muted">Número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
 
                                         <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
                                                     inlinehelp="Ingrese el número de programa" 
                                                     execute ="@this save" render="numPrograma"/><br></br>
 
@@ -92,7 +92,7 @@
                                                     value="# {controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
                                                     inlinehelp="Ingrese el número de fuente financiera" 
                                                     execute ="@this save" render="numFfinanciera"/><br></br>
-                                    </div-->
+                                    </div>
                                 </div>
 
                             </div>
@@ -151,7 +151,7 @@
 
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
-                                         icon="ui-icon-disk" update="panel" process="@this"/>
+                                         ajax="false" icon="ui-icon-disk" update="panel" process="@this"/>
 
                         &nbsp;&nbsp;
                         <h:button value="Regresar" rendered="#{true}" outcome="/paginas/partidaContabilidad/lista" styleClass="btn  btn-success"/>
