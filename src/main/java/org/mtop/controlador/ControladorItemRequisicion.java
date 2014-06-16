@@ -38,6 +38,7 @@ import org.mtop.model.BussinesEntityType;
 import org.mtop.model.Property;
 
 import org.mtop.modelo.ItemRequisicion;
+import org.mtop.modelo.Producto;
 
 import org.mtop.servicios.ServicioGenerico;
 
@@ -55,7 +56,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
     @Inject
     private ServicioGenerico servgen;
     List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
-
+    
     public Long getItemRequisicionId() {
         System.out.println("IIIIDEE" + getId());
         return (Long) getId();
@@ -89,6 +90,17 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
         this.listaItemsRequisicion = listaItemRequisicion;
     }
 
+  
+    public void guardarProducto(){
+        System.out.println("producto "+getInstance().getProducto().getCodigo());
+    }
+    public void cancelarProducto(){
+        if(getInstance().getProducto()!=null){
+            System.out.println("producto a cancelar"+getInstance().getProducto().getCodigo());
+            getInstance().setProducto(new Producto());
+        }
+    }
+    
     @PostConstruct
     public void init() {
         setEntityManager(em);
@@ -98,6 +110,9 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaItemsRequisicion = servgen.buscarTodos(ItemRequisicion.class);
+       
+        getInstance().setProducto(new Producto());
+        
     }
 
     @Override

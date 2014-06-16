@@ -51,6 +51,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ItemRequisicion;
+import org.mtop.modelo.Producto;
 //import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -76,11 +77,34 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private List<PartidaContabilidad> listaPartida;
     private String numeroRequisicion;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
+    List<Producto> listaProductos = new ArrayList<Producto>();
+
+    public List<Producto> getListaProductos() {
+        System.out.println("a;adir");
+        List<Producto> pro=new ArrayList<Producto>();
+        System.out.println("limpio");
+        for (Producto p : findAll(Producto.class)) {
+            System.out.println("encotrados");
+            if (p.getCantidad() > 0) {
+                System.out.println("anadio uno");
+                pro.add(p);
+                
+            }
+        }
+        listaProductos=pro;
+        System.out.println("retorna"+ listaProductos.toString());
+        return listaProductos;
+    }
+
+    public void setListaProductos(List<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
 
     public long getIdPartidaC() {
         if (getRequisicionId() != null && idPartidaC == 0l) {
             idPartidaC = getInstance().getPartidaContabilidad().getId();
         }
+
         return idPartidaC;
     }
 
@@ -125,12 +149,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             cir.setInstance(new ItemRequisicion());
 
         }
-        cir.getInstance().setCantidad(3);
         System.out.println("enviandi cantidad");
+        cir.getInstance().setCantidad(0);
+        cir.getInstance().setUnidadMedida(" ");
         editarItem(cir.getInstance());
-        
-        
-        
 
     }
 
@@ -145,7 +167,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (i.getCantidad().equals(itemReq.getCantidad())
                     && i.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
                 cir.listaItemsRequisicion.remove(con);
+                System.out.println("a fijar cant" + i.getCantidad());
+                System.out.println("a fijar unid" + i.getUnidadMedida());
                 cir.setInstance(i);
+                System.out.println("a fijada" + cir.getInstance().getCantidad());
+                System.out.println("a fijada" + cir.getInstance().getUnidadMedida());
                 break;
 
             }
@@ -313,12 +339,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaRequisicion = servgen.buscarTodos(Requisicion.class);
+        listaRequisicion = findAll(Requisicion.class);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
 
         listaPartida = findAll(PartidaContabilidad.class);
-        
+        listaProductos = findAll(Producto.class);
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
     }
