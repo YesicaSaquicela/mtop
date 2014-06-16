@@ -38,11 +38,11 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
 
     private static final long serialVersionUID = 1L;
 
-    private long numeroProvincia;
-    private long numeroPrograma;
-    private long numeroProyecto;
-    private long numeroItem;
-    private long numeroFuenteFinanciera;
+    private Long numeroProvincia;
+    private Long numeroPrograma;
+    private Long numeroProyecto;
+    private Long numeroItem;
+    private Long numeroFuenteFinanciera;
     private String descripcion;
 
 //    @OneToOne(mappedBy = "partidaC")
@@ -61,51 +61,53 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
-     public long getNumeroProvincia() {
+
+    public Long getNumeroProvincia() {
         return numeroProvincia;
     }
 
-    public void setNumeroProvincia(long numeroProvincia) {
+    public void setNumeroProvincia(Long numeroProvincia) {
         this.numeroProvincia = numeroProvincia;
     }
 
-    public long getNumeroPrograma() {
+    public Long getNumeroPrograma() {
         return numeroPrograma;
     }
 
-    public void setNumeroPrograma(long numeroPrograma) {
+    public void setNumeroPrograma(Long numeroPrograma) {
         this.numeroPrograma = numeroPrograma;
     }
 
-    public long getNumeroProyecto() {
+    public Long getNumeroProyecto() {
         return numeroProyecto;
     }
 
-    public void setNumeroProyecto(long numeroProyecto) {
+    public void setNumeroProyecto(Long numeroProyecto) {
         this.numeroProyecto = numeroProyecto;
     }
 
-    public long getNumeroItem() {
+    public Long getNumeroItem() {
         return numeroItem;
     }
 
-    public void setNumeroItem(long numeroItem) {
+    public void setNumeroItem(Long numeroItem) {
         this.numeroItem = numeroItem;
     }
 
-    public long getNumeroFuenteFinanciera() {
+    public Long getNumeroFuenteFinanciera() {
         return numeroFuenteFinanciera;
     }
 
-    public void setNumeroFuenteFinanciera(long numeroFuenteFinanciera) {
+    public void setNumeroFuenteFinanciera(Long numeroFuenteFinanciera) {
         this.numeroFuenteFinanciera = numeroFuenteFinanciera;
     }
 
+   
+
+
   
     public String concatenarPartida() {
-        String resultado = "250-" + getNumeroProvincia() + "-0000-" + getNumeroPrograma() + "-00-" + getNumeroProyecto() + "-001-" + getNumeroItem() + "-1100-" + getNumeroFuenteFinanciera();
+        String resultado = "250-" + getNumeroProvincia() + "-0000-" + getNumeroPrograma() + "-00-" + getNumeroProyecto() + "-001-" + getNumeroItem() + "-1100-"+ getNumeroFuenteFinanciera();
         return resultado;
     }
 

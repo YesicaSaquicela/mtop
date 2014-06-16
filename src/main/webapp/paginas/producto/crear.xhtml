@@ -32,7 +32,7 @@
 
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
-                        <p:panel id="actualizar" >
+                        <p:panel id="p1" >
                             <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row-fluid">
@@ -67,18 +67,20 @@
                         </p:panel>
                     </div>
 
-                    <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                   <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
                         <c:forEach items="#{ui.getProperties(controladorProducto.instance)}" var="p" >
-                            <div  class="panel-group">
-
+                            <div  class="panel panel-primary">
                                 <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
+
                                 <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.model.Structure'}" >
                                     <c:choose>                        
                                         <c:when test="#{p.type == 'org.mtop.model.Structure'}"> 
-                                            <div  class="panel panel-default">
-                                                <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
-                                                    <div  class="panel panel-body">
 
+                                            <h:panelGroup  layout="block" class="clearfix">
+                                                <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+
+
+                                                    <h:panelGroup layout="block" class="clearfix">
                                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                         <div class="input">
                                                             <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
@@ -94,85 +96,87 @@
                                                             <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                         rendered="#{a.property.type eq 'java.util.Date'}">
                                                                 <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                                            </p:calendar>  
-                                                            <pe:inputNumber value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}"
+                                                            </p:calendar>
+                                                            <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
                                                                             rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                                             </pe:inputNumber>  
                                                             <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
+                                                                             rendered="#{a.property.type eq 'java.lang.String[]'}">  
                                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                 <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                                            </p:selectOneMenu> 
-                                                            <p:inputTextarea value="#{a.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                            </p:selectOneMenu>
+                                                            <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                              rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                            </p:inputTextarea>                                                
+                                                            </p:inputTextarea>  
+
                                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
                                                                             styleClass="validation-status" />
-                                                            <span class="help-inline"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span>
+                                                            <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                                         </div>
-                                                    </div>
+                                                     
+                                                    </h:panelGroup>  
 
                                                 </ui:repeat>
-                                            </div>
+                                            </h:panelGroup>
 
                                         </c:when>
                                     </c:choose>
                                 </p:tab>
-
                             </div>
                         </c:forEach>
 
-
-                        
+                            
+                            
                             <p:tab title="Otros" rendered="#{controladorProducto.instance.findBussinesEntityAttribute('org.mtop.modelo.Producto').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
-                                
-                                <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute('org.mtop.modelo.Producto')}" var="e" varStatus="status">                                               
-                                
-                                    <label for="#{e.name}" class="#{(not empty e.property.required and e.property.required) ? 'required' : ''}">#{e.property.label}#{(not empty e.property.required and e.property.required) ? '*&#160;' : ''}</label>
+                              
+                                <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute('org.mtop.modelo.Producto')}" var="a" varStatus="status"> 
+                                    <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                     <div class="input">
-                                        <p:inputText  value="#{e.value}" styleClass="form-control" required="#{e.property.required}" label="#{e.property.label}" 
-                                                      rendered="#{e.property.type eq 'java.lang.String'}">
-                                            <f:validator validatorId="#{not empty e.property.validator ?  e.property.validator : 'safeTextUTF8Validator'}"/>
+                                        <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                      rendered="#{a.property.type eq 'java.lang.String'}">
+                                            <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                             <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                         </p:inputText>
-                                        <p:inputText   value="#{e.value}" styleClass="form-control" required="#{e.property.required}" label="#{e.property.label}" 
-                                                       rendered="#{e.property.type eq 'java.lang.Double'}">
+                                        <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                       rendered="#{a.property.type eq 'java.lang.Double'}">
 
                                             <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                         </p:inputText>
-                                        <p:calendar value="#{e.value}" navigator="true" label="#{e.property.label}"
-                                                    rendered="#{e.property.type eq 'java.util.Date'}">
+                                        <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                    rendered="#{a.property.type eq 'java.util.Date'}">
                                             <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                        </p:calendar>  
-                                        <pe:inputNumber value="#{e.value}" styleClass="xLarge span4" required="#{a.property.required}" label="#{e.property.label}"
-                                                        rendered="#{e.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                        </p:calendar>
+                                        <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
+                                                        rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                             <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                        </pe:inputNumber>  
-                                        <p:selectOneMenu value="#{e.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{e.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                         rendered="#{e.property.type eq 'java.lang.String[]' or e.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
-                                            <f:selectItems value="#{ui.getValuesAsSelectItem(e.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                        </pe:inputNumber>
+                                        <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                         rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                            <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                             <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                        </p:selectOneMenu> 
-                                        <p:inputTextarea value="#{e.value}" styleClass="xLarge span4" required="#{e.property.required}" label="#{e.property.label}" style="width: 400px; height: 100px;" 
-                                                         rendered="#{e.property.type eq 'java.lang.MultiLineString'}">
+                                        </p:selectOneMenu>
+                                        <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                         rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                             <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                        </p:inputTextarea>                                                
-                                        <h:graphicImage value="#{resource['success.gif']}" rendered="#{e.value != null}"
+                                        </p:inputTextarea>                                             
+                                        <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
                                                         styleClass="validation-status" />
-                                        <span class="help-inline"><br/>#{e.property.helpInline} <ocp:message forId="#{e.name}" /></span>
+                                        <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                     </div>
+
+
                                 </ui:repeat>
+
                             </p:tab>
+                         <br></br><br></br>
 
-
-                        
-                    </p:tabView><br></br>
+                    </p:tabView><br></br><br></br>
 
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorProducto.guardar()}"
-                                         immediate="true" icon="ui-icon-disk" />
+                                         immediate="true" icon="ui-icon-disk" update=":form:p1"/>
 
                         &nbsp;&nbsp;
                         <h:button value="Regresar" rendered="#{true}" outcome="/paginas/partidaContabilidad/lista" styleClass="btn  btn-success"/>
