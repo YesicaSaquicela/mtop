@@ -203,7 +203,7 @@
                                         </p:commandButton>
                                     </div><br/>
                                     <p:commandButton value="Asignar un Producto" type="button"
-                                                     onclick="editDlg.show();" update=":edit-dialog"                                             
+                                                     onclick="editDlg.show();" update=":form:edit-dialog:form-dialog"  
                                                      icon="ui-icon-plus" styleClass="btn primary"></p:commandButton>
 
 
@@ -249,23 +249,23 @@
                                                             <!--TODO: revisar <ui:include >-->
                                                             <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            <p:dataTable id="basicDT" var="item" value="#{controladorRequisicion.listaProductos}">
+                                                            <p:dataTable id="basicDT" var="item3" value="#{controladorRequisicion.listaProductos}">
                                                                 <p:column headerText="Código">
-                                                                    <h:outputText value="#{item.codigo}" />
+                                                                    <h:outputText value="#{item3.codigo}" />
                                                                 </p:column>
                                                                 <p:column headerText="Descripción">
-                                                                    <h:outputText value="#{item.description}" />
+                                                                    <h:outputText value="#{item3.description}" />
                                                                 </p:column>
                                                                 <p:column headerText="Cantidad Actual">
-                                                                    <h:outputText value="#{item.cantidad}" />
+                                                                    <h:outputText value="#{item3.cantidad}" />
                                                                 </p:column>
 
                                                                 <p:column headerText="Costo">
-                                                                    <h:outputText value="#{item.costo}" />
+                                                                    <h:outputText value="#{item3.costo}" />
                                                                 </p:column>
                                                                 <p:column style="width:4%;text-align: center">
-                                                                    <p:commandLink  update=":form:producto1 :form:edit-dialog:form-dialog:producto :form:edit-dialog:form-dialog:mensaje2" value="Agregar" title="Seleccionar">
-                                                                        <f:setPropertyActionListener value="#{item}" target="#{controladorRequisicion.cir.instance.producto}" />
+                                                                    <p:commandLink  update=":form:form-dialog:producto :form:form-dialog:mensaje2" value="Agregar" actionListener="#{controladorRequisicion.cir.guardarProducto(item3)}" title="Seleccionar">
+                                                                        <f:setPropertyActionListener value="#{item3}" target="#{controladorRequisicion.cir.instance.producto}" />
                                                                     </p:commandLink>
                                                                 </p:column>
                                                             </p:dataTable>
@@ -278,7 +278,7 @@
                                                 <div class="admin-actions" align="center">
                                                     <p:commandButton id="save" value="#{messages['common.save']}" rendered="true"
                                                                      action="#{controladorRequisicion.cir.guardarProducto()}" 
-                                                                     update=":form:edit-dialog:mensaje2 :form:producto1 :form:edit-dialog:producto" immediate="true"
+                                                                     update=":form:form-dialog:mensaje2 :form:producto1 :form:form-dialog:producto" immediate="true"
                                                                      ajax="true" process="@this" styleClass="btn  btn-success"
                                                                      icon="ui-icon-disk">  
                                                     </p:commandButton>

@@ -29,7 +29,7 @@
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>Datos Generales</center></div>
-                        <p:panel>
+                        <p:panel id="pv">
                             <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row">
@@ -221,7 +221,7 @@
 
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
-                                         immediate="true"/>
+                                         ajax="false" update="pv"/>
                         &nbsp;&nbsp;
                         <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn  btn-success">
 
