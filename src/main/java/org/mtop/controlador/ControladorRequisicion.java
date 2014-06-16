@@ -155,6 +155,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         editarItem(cir.getInstance());
 
     }
+    
 
     public void editarItem(ItemRequisicion itemReq) {
         System.out.println("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");

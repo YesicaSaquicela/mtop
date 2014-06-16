@@ -62,7 +62,13 @@
                         </button>
                         <a class="navbar-brand" >
                             <h:panelGroup rendered="#{identity.loggedIn}">
-                                <h:link value="#{'Inicio, Mtop-Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/>
+                                 
+
+                                <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
+                                    
+                                    <h:graphicImage value="/resources/mtop.png" width="50" height="60" />
+                                </h:outputLink>
+                                <!--h:link value="#{'Inicio, Mtop-Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/-->
                                 <h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
                                     <h:graphicImage value="/resources/refresh.png" width="30" height="25" />
                                 </h:outputLink>
@@ -71,7 +77,7 @@
                             <!--h:panelGroup rendered="# {!identity.loggedIn}">
                                 <h:link value="# {'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
                             </h:panelGroup-->
-                            
+
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
@@ -138,19 +144,19 @@
             <!--Cuerpo-->
             <div class="jumbotron">
                 <div class="container" style="margin: -3% 0 -10% 10%; ">
-                    
-            
-                
+
+
+
                     <div class="row lf row-title" > 
                         <h2>
-                        <ui:insert name="header">
+                            <ui:insert name="header">
 
-                        </ui:insert>
-                    </h2>
+                            </ui:insert>
+                        </h2>
                     </div>               
 
-                <!--Contenido-->
-            </div>
+                    <!--Contenido-->
+                </div>
             </div>
 
             <div class="table-responsive">
