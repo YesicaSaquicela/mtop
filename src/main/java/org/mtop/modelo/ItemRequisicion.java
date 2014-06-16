@@ -24,7 +24,7 @@ import org.mtop.model.BussinesEntity;
  *
  * @author jesica
  */
-@SuppressWarnings("serial") 
+ 
 @Entity
 @Table(name = "ItemRequisicion")
 @DiscriminatorValue(value = "irk")//valor que se discrimina por cada clase
@@ -36,21 +36,21 @@ public class ItemRequisicion extends BussinesEntity implements Serializable{
     private Integer cantidad;
     @NotNull
     private String unidadMedida;
-//    @ManyToOne
-//    @JoinColumn(name = "requisicionId")
-//    public Requisicion requisicion;
-//    @OneToOne(mappedBy = "producto")
-//    public Producto producto;
-//
-//    public Producto getProducto() {
-//        return producto;
-//    }
-//
-//    public void setProducto(Producto producto) {
-//        this.producto = producto;
-//    }
-//    
-//   
+    @ManyToOne
+    @JoinColumn(name = "requisicionId")
+    public Requisicion requisicion;
+    @OneToOne
+    public Producto producto;
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+    
+   
     public Integer getCantidad() {
         return cantidad;
     }
@@ -68,14 +68,14 @@ public class ItemRequisicion extends BussinesEntity implements Serializable{
         this.unidadMedida = unidadMedida;
     }
     
-   //
-//    public Requisicion getRequisicion() {
-//        return requisicion;
-//    }
-//
-//    public void setRequisicion(Requisicion requisicion) {
-//        this.requisicion = requisicion;
-//    }
+   
+    public Requisicion getRequisicion() {
+        return requisicion;
+    }
+
+    public void setRequisicion(Requisicion requisicion) {
+        this.requisicion = requisicion;
+    }
 
 
     @Override

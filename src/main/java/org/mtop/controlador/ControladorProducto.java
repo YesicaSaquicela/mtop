@@ -83,6 +83,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
     public void setCodigo(String numRegistro) {
         this.codigo = numRegistro;
+        
         getInstance().setCodigo(this.codigo);
 
     }

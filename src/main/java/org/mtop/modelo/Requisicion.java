@@ -46,28 +46,26 @@ public class Requisicion extends BussinesEntity implements Serializable {
     private String tipoAdquisicion;
     private String observaciones;
     private String tipoRequisicion;
-    
+
     @ManyToOne
     @JoinColumn(name = "vehiculoId1")
     private Vehiculo vehiculo;
     @OneToOne
     private PartidaContabilidad partidaContabilidad;
+    @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
 
 //    @OneToOne
 //    private SolicitudReparacionMantenimiento solicitudReparacions;
 //
-//    @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
 ////    
-    
 ////    @ManyToOne
 ////    @JoinColumn(name = "personaId")
 ////    private Persona psolicita;
 //    @ManyToOne
 //    @JoinColumn(name = "kardexId")
 //    private Kardex kardex;
-    
-      public Vehiculo getVehiculo() {
+    public Vehiculo getVehiculo() {
         return vehiculo;
     }
 
@@ -98,16 +96,17 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //        this.psolicita = psolicita;
 //    }
 //  
-//    public List<ItemRequisicion> getListaItems() {
-//        return listaItems;
-//    }
-//
-//    public void setListaItems(List<ItemRequisicion> listaItems) {
-//        for (ItemRequisicion itemRequisicion : listaItems) {
-//            itemRequisicion.setRequisicion(this);
-//        }
-//        this.listaItems = listaItems;
-//    }
+    public List<ItemRequisicion> getListaItems() {
+        return listaItems;
+    }
+
+    public void setListaItems(List<ItemRequisicion> listaItems) {
+        for (ItemRequisicion itemRequisicion : listaItems) {
+            itemRequisicion.setRequisicion(this);
+        }
+        this.listaItems = listaItems;
+    }
+
     public PartidaContabilidad getPartidaContabilidad() {
         return partidaContabilidad;
     }
@@ -124,8 +123,7 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.numRequisicion = numRequisicion;
     }
 
-    
-      public String getTipoAdquisicion() {
+    public String getTipoAdquisicion() {
         return tipoAdquisicion;
     }
 
@@ -133,10 +131,7 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.tipoAdquisicion = tipoAdquisicion;
     }
 
-  
-   
-
-       public boolean getAprobado() {
+    public boolean getAprobado() {
         return aprobado;
     }
 
