@@ -28,8 +28,7 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                    <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-
+                  
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
                         <p:panel id="p1" >
@@ -176,7 +175,7 @@
 
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorProducto.guardar()}"
-                                         immediate="true" icon="ui-icon-disk" update=":form:p1"/>
+                                         icon="ui-icon-disk" update="p1" ajax="false" process="@this"/>
 
                         &nbsp;&nbsp;
                         <h:button value="Regresar" rendered="#{true}" outcome="/paginas/partidaContabilidad/lista" styleClass="btn  btn-success"/>
