@@ -37,7 +37,7 @@
                                 <div class="row-fluid"  >
                                     <div class="col-md-6"> 
 
-                                        <!--mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
+                                        <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
                                                     value="# {controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
                                                     inlinehelp="Ingrese el número de proyecto" 
                                                     execute ="@this save" render="numProyecto"/><br></br>
@@ -54,7 +54,7 @@
                                         <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
                                                     value="# {controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
                                                     inlinehelp="Ingrese el número de provincia"
-                                                    execute ="@this save" render="numProvincia"/><br></br-->
+                                                    execute ="@this save" render="numProvincia"/><br></br>
 
                                         <p:outputLabel value="Observación"/><br></br>
                                         <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorPartidaContabilidad.instance.descripcion}"
@@ -65,7 +65,7 @@
 
                                     </div>
 
-                                    <!--div class="col-md-6"> 
+                                    <div class="col-md-6"> 
 
                                         <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
                                                     value="# {controladorPartidaContabilidad.instance.numeroItem}" required="true" 
@@ -92,7 +92,7 @@
                                                     value="# {controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
                                                     inlinehelp="Ingrese el número de fuente financiera" 
                                                     execute ="@this save" render="numFfinanciera"/><br></br>
-                                    </div-->
+                                    </div>
                                 </div>
 
                             </div>
@@ -151,7 +151,7 @@
 
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
-                                         icon="ui-icon-disk" update="panel" process="@this"/>
+                                         icon="ui-icon-disk" update="panel" process="@this" ajax="false"/>
 
                         &nbsp;&nbsp;
                         <h:button value="Regresar" rendered="#{true}" outcome="/paginas/partidaContabilidad/lista" styleClass="btn  btn-success"/>
