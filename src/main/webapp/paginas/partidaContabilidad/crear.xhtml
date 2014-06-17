@@ -38,7 +38,7 @@
                                     <div class="col-md-6"> 
 
                                         <mtop:input id="numProyecto" name="numProyecto1" type="text" label="Número de Proyecto" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroProyecto}" required="true" 
                                                     inlinehelp="Ingrese el número de proyecto" 
                                                     execute ="@this save" render="numProyecto"/><br></br>
 
@@ -52,14 +52,14 @@
                                         <span class="help-inline text-muted">Número de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
 
                                         <mtop:input id="numProvincia" name="numProvincia1" type="text" label="Número de Provincia" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroProvincia}" required="true" 
                                                     inlinehelp="Ingrese el número de provincia"
                                                     execute ="@this save" render="numProvincia"/><br></br>
 
-                                        <p:outputLabel value="Observación"/><br></br>
-                                        <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorPartidaContabilidad.instance.descripcion}"
+                                        <p:outputLabel value="Descripción"/><br></br>
+                                        <p:inputTextarea id="descripcion" styleClass="form-control" value="#{controladorPartidaContabilidad.instance.descripcion}"
                                                          required="true" />
-                                        <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>                                   
+                                        <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="descripcion" /></span>                                   
                                      
 
 
@@ -68,28 +68,28 @@
                                     <div class="col-md-6"> 
 
                                         <mtop:input id="numItem" name="numItem1" type="text" label="Número de Item" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroItem}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroItem}" required="true" 
                                                     inlinehelp="Ingrese el número de item" 
                                                     execute ="@this save" render="numItem"/><br></br>
 
                                         <p:outputLabel value="Número de unidad descentralizada"/><br></br>
                                         <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
                                                      required="true" />
-                                        <span class="help-inline text-muted">Número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
+                                        <span class="help-inline text-muted">Ingrese el número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
 
                                         <p:outputLabel value="Número geográfico"/><br></br>
                                         <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
                                                      required="true" />
-                                        <span class="help-inline text-muted">Número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
+                                        <span class="help-inline text-muted">Ingrese el número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
 
-                                        <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
+                                        <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Número de Programa" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
                                                     inlinehelp="Ingrese el número de programa" 
                                                     execute ="@this save" render="numPrograma"/><br></br>
 
 
                                         <mtop:input id="numFfinanciera" name="numFfinanciera1" type="text" label="Número de Fuente Financiera" 
-                                                    value="# {controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
+                                                    value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}" required="true" 
                                                     inlinehelp="Ingrese el número de fuente financiera" 
                                                     execute ="@this save" render="numFfinanciera"/><br></br>
                                     </div>
