@@ -100,16 +100,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
         }
         
     }
-    public void guardarProducto(Producto p){
-        getInstance().setProducto(p);
-        if(getInstance().getProducto()!=null){
-            System.out.println("pro");
-            System.out.println("producto "+getInstance().getProducto().getCodigo());
-        }else{
-            System.out.println("no hay producto");
-        }
-        
-    }
+    
     public void cancelarProducto(){
         if(getInstance().getProducto()!=null){
             System.out.println("producto a cancelar"+getInstance().getProducto().getCodigo());

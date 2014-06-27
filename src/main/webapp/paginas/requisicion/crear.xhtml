@@ -264,8 +264,8 @@
                                                                     <h:outputText value="#{item3.costo}" />
                                                                 </p:column>
                                                                 <p:column style="width:4%;text-align: center">
-                                                                    <p:commandLink  update=":form:form-dialog:producto :form:form-dialog:mensaje2" value="Agregar" actionListener="#{controladorRequisicion.cir.guardarProducto(item3)}" title="Seleccionar">
-                                                                        <f:setPropertyActionListener value="#{item3}" target="#{controladorRequisicion.cir.instance.producto}" />
+                                                                    <p:commandLink  update=":form:form-dialog:producto :form:form-dialog:mensaje2" value="Agregar" actionListener="#{controladorRequisicion.p}" title="Seleccionar">
+                                                                        
                                                                     </p:commandLink>
                                                                 </p:column>
                                                             </p:dataTable>
