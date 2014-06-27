@@ -87,8 +87,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setPro(Producto pro) {
-        System.out.println("fijando"+pro);
+        System.out.println("fijandooooooooooooooooooooooooooooo"+pro);
         this.pro = pro;
+        cir.getInstance().setProducto(pro);
     }
     public void guardarProducto(Producto p){
         System.out.println("entra guarrrrrrrrrrrrrrrrrrrrrrrdarrrrrrrrrrrrrrr");
