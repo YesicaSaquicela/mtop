@@ -4,9 +4,9 @@
 package org.mtop.security.authentication;
 
 import org.mtop.cdi.Web;
-import org.mtop.model.profile.Profile;
-import org.mtop.model.security.IdentityObjectAttribute;
-import org.mtop.model.security.IdentityObjectCredential;
+import org.mtop.modelo.profile.Profile;
+import org.mtop.modelo.security.IdentityObjectAttribute;
+import org.mtop.modelo.security.IdentityObjectCredential;
 import org.mtop.profile.ProfileService;
 import java.io.IOException;
 import javax.enterprise.context.RequestScoped;

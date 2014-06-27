@@ -31,6 +31,10 @@
  */
 package org.mtop.security;
 
+import org.mtop.modelo.dinamico.Structure;
+import org.mtop.modelo.dinamico.Group;
+import org.mtop.modelo.dinamico.Property;
+import org.mtop.modelo.dinamico.BussinesEntityType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -46,13 +50,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
-import org.mtop.model.*;
-import org.mtop.model.config.Setting;
-import org.mtop.model.profile.Profile;
-import org.mtop.model.security.IdentityObjectAttribute;
-import org.mtop.model.security.IdentityObjectCredentialType;
-import org.mtop.model.security.IdentityObjectRelationshipType;
-import org.mtop.model.security.IdentityObjectType;
+import org.mtop.modelo.config.Setting;
+import org.mtop.modelo.profile.Profile;
+import org.mtop.modelo.security.IdentityObjectAttribute;
+import org.mtop.modelo.security.IdentityObjectCredentialType;
+import org.mtop.modelo.security.IdentityObjectRelationshipType;
+import org.mtop.modelo.security.IdentityObjectType;
 import org.mtop.service.BussinesEntityService;
 import org.mtop.util.Dates;
 import java.io.BufferedReader;

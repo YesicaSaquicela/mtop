@@ -29,9 +29,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
 
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 
-import org.mtop.model.security.IdentityObjectAttribute;
+import org.mtop.modelo.security.IdentityObjectAttribute;
 import org.mtop.profile.ProfileService;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;

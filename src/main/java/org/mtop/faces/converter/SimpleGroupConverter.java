@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import org.mtop.cdi.Web;
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 import org.omnifaces.converter.SelectItemsConverter;
 import org.picketlink.idm.api.IdentitySession;
 import org.picketlink.idm.common.exception.IdentityException;

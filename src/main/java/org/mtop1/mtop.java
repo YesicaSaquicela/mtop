@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
-import org.mtop.model.config.Setting;
+import org.mtop.modelo.config.Setting;
 import org.mtop.service.SettingService;
 
 /**

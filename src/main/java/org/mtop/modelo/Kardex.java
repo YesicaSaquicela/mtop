@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.mtop.model.BussinesEntity;
+import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.Vehiculo;
 
 /**

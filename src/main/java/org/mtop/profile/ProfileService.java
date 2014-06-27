@@ -31,6 +31,7 @@
  */
 package org.mtop.profile;
 
+import org.mtop.modelo.dinamico.BussinesEntity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
@@ -43,15 +44,13 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.mtop.model.*;
-import org.mtop.model.profile.Profile;
-import org.mtop.model.profile.Profile_;
+import org.mtop.modelo.profile.Profile;
+import org.mtop.modelo.profile.Profile_;
 
 
 
-import org.mtop.model.security.IdentityObjectAttribute;
-
-import org.mtop.model.security.IdentityObjectCredential;
+import org.mtop.modelo.security.IdentityObjectAttribute;
+import org.mtop.modelo.security.IdentityObjectCredential;
 
 import org.mtop.service.BussinesEntityService;
 import org.mtop.util.PersistenceUtil;

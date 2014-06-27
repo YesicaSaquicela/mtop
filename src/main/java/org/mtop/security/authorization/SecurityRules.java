@@ -32,7 +32,7 @@
 package org.mtop.security.authorization;
 
 import org.mtop.cdi.Current;
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.annotations.Secures;
 import org.jboss.solder.logging.Logger;

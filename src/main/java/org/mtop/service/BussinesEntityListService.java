@@ -16,6 +16,8 @@ package org.mtop.service;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.mtop.modelo.dinamico.BussinesEntity;
+import org.mtop.modelo.dinamico.BussinesEntityType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +30,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
-import org.mtop.model.*;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;
 import org.mtop.util.UI;
 import org.jboss.solder.logging.Logger;
+import org.mtop.modelo.dinamico.BussinesEntity_;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.LazyDataModel;

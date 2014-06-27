@@ -1,5 +1,9 @@
 package org.mtop.service;
 
+import org.mtop.modelo.dinamico.BussinesEntity;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute;
+import org.mtop.modelo.dinamico.Property;
+import org.mtop.modelo.dinamico.BussinesEntityType;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +15,9 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.mtop.model.*;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute_;
+import org.mtop.modelo.dinamico.BussinesEntityType_;
+import org.mtop.modelo.dinamico.BussinesEntity_;
 import org.mtop.util.PersistenceUtil;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;
