@@ -75,14 +75,14 @@
                                         <p:outputLabel value="Número de unidad descentralizada"/><br></br>
                                         <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
                                                      required="true" />
-                                        <span class="help-inline text-muted">Número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
+                                        <span class="help-inline text-muted">Ingrese el número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
 
                                         <p:outputLabel value="Número geográfico"/><br></br>
                                         <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
                                                      required="true" />
-                                        <span class="help-inline text-muted">Número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
+                                        <span class="help-inline text-muted">Ingrese el número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
 
-                                        <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Numero de Programa" 
+                                        <mtop:input id="numPrograma" name="numPrograma1" type="text" label="Número de Programa" 
                                                     value="#{controladorPartidaContabilidad.instance.numeroPrograma}" required="true" 
                                                     inlinehelp="Ingrese el número de programa" 
                                                     execute ="@this save" render="numPrograma"/><br></br>

@@ -78,21 +78,45 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String numeroRequisicion;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
     List<Producto> listaProductos = new ArrayList<Producto>();
+    Producto pro;
+
+    public Producto getPro() {
+        System.out.println("reto::::::::::::::::");
+        System.out.println(pro);
+        return pro;
+    }
+
+    public void setPro(Producto pro) {
+        System.out.println("fijando"+pro);
+        this.pro = pro;
+    }
+    public void guardarProducto(Producto p){
+        System.out.println("entra guarrrrrrrrrrrrrrrrrrrrrrrdarrrrrrrrrrrrrrr");
+        cir.getInstance().setProducto(pro);
+        pro=cir.getInstance().getProducto();
+        if(cir.getInstance().getProducto()!=null){
+            System.out.println("pro");
+            System.out.println("producto "+cir.getInstance().getProducto().getCodigo());
+        }else{
+            System.out.println("no hay producto");
+        }
+        
+    }
 
     public List<Producto> getListaProductos() {
-        System.out.println("a;adir");
+        
         List<Producto> pro=new ArrayList<Producto>();
-        System.out.println("limpio");
+        
         for (Producto p : findAll(Producto.class)) {
-            System.out.println("encotrados");
+            
             if (p.getCantidad() > 0) {
-                System.out.println("anadio uno");
+            
                 pro.add(p);
                 
             }
         }
         listaProductos=pro;
-        System.out.println("retorna"+ listaProductos.toString());
+        
         return listaProductos;
     }
 
@@ -295,7 +319,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public Vehiculo getVehiculo() {
-
+        System.out.println("jsjsjs");
         if (getRequisicionId() != null) {
             System.out.println("vehiculo " + getInstance().getVehiculo());
             vehiculo = getInstance().getVehiculo();
@@ -348,6 +372,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaProductos = findAll(Producto.class);
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
+        pro=new Producto();
     }
 
     @Override

@@ -37,10 +37,10 @@
 
                                     <tbody>
             <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
-                <p:column headerText="Numero de Requisicion">
+                <p:column headerText="Número de Requisición">
                     <h:outputText value="#{r.numRequisicion}"></h:outputText>
                 </p:column>
-                <p:column headerText="Fecha de requisicion">
+                <p:column headerText="Fecha de Requisición">
                     <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
                 </p:column>
                 <p:column headerText="Observación">

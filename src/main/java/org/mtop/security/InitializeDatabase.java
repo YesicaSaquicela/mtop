@@ -353,14 +353,14 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
 
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "SistemaElectrico", "Sistema Electrico", "Información del SistemaElectrico", "/paginas/vehiculo/crear", 2L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "SistemaElectrico", "Sistema Eléctrico", "Información del Sistema Eléctrico", "/paginas/vehiculo/crear", 2L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 3L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroceria", "Carroceria", "Información de Carroceria", "/paginas/vehiculo/crear", 4L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Direccion", "Dirección", "Información de dirección", "/paginas/vehiculo/crear", 5L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroceria", "Carrocería", "Información de Carrocería", "/paginas/vehiculo/crear", 4L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Direccion", "Dirección", "Información de Dirección", "/paginas/vehiculo/crear", 5L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 6L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Chasis", "Chasis", "Información de Chasis", "/paginas/vehiculo/crear", 7L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Chasis", "Chasis", "Información de Chasís", "/paginas/vehiculo/crear", 7L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Motor", "Motor", "Información del Motor", "/paginas/vehiculo/crear", 8L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los neumáticos", "/paginas/vehiculo/crear", 3L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los Neumáticos", "/paginas/vehiculo/crear", 3L));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -394,13 +394,13 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 1L));
-            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantia", "Tiempo de garantia del vehículo", false, 2L));
-            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehiculo", "Fecha de alta del vehículo", false, 3L));
-            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehiculo", "Fecha de baja del vehículo", false, 4L));
+            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantía", "Tiempo de garantía del vehículo", false, 2L));
+            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehículo", "Fecha de alta del vehículo", false, 3L));
+            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehículo", "Fecha de baja del vehículo", false, 4L));
             attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 5L));
             attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "Seleccione una opción", false, 6L));
             attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 7L));
-            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fin de Vigencia de Soat", "Ingrese el fin de vigencia del soat", false, 8L));
+            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fín de Vigencia de Soat", "Ingrese el fín de vigencia del soat", false, 8L));
 
 //Agregar atributos
             structure.setProperties(attributes);
@@ -472,18 +472,17 @@ public class InitializeDatabase {
             attributes.add(buildProperty("Motor", "marca", String.class.getName(), null, false, "Marca", " Ingrese la marca del Motor", false, 2L));
             attributes.add(buildProperty("Motor", "modelo", String.class.getName(), null, false, "Modelo Tolva", "Ingrese el modelo del Motor", false, 3L));
             attributes.add(buildProperty("Motor", "tipo", String.class.getName(), null, false, "Tipo", "Ingrese el tipo de Motor", false, 4L));
-            attributes.add(buildProperty("Motor", "soporte", String.class.getName(), null, false, "Soporte", " Ingrese el soporte del Motor", false, 5L));
-            attributes.add(buildProperty("Motor", "tanque", String.class.getName(), null, false, "Tanque", "Ingrese el tanque del Motor", false, 6L));
+            attributes.add(buildProperty("Motor", "soporte", String.class.getName(), null, false, "Soporte", " Ingrese el valor para soporte del Motor", false, 5L));
+            attributes.add(buildProperty("Motor", "tanque", String.class.getName(), null, false, "Tanque", "Ingrese el valor para tanque del Motor", false, 6L));
 
-            attributes.add(buildProperty("Motor", "sistemaCombustible", String.class.getName(), null, false, "Sistema de Combustible", "Ingrese la Sistema de Combustible para el Motor", false, 7L));
+            attributes.add(buildProperty("Motor", "sistemaCombustible", String.class.getName(), null, false, "Sistema de Combustible", "Ingrese el Sistema de Combustible para el Motor", false, 7L));
             attributes.add(buildProperty("Motor", "potencia", String.class.getName(), null, false, "Potencia", " Ingrese la potencia del Motor", false, 8L));
-            attributes.add(buildProperty("Motor", "sistemaRefrigeracion", String.class.getName(), null, false, "Sistema de Refrigeración", "Ingrese el sistema de refrigeración de Motor", false, 10L));
+            attributes.add(buildProperty("Motor", "sistemaRefrigeracion", String.class.getName(), null, false, "Sistema de Refrigeración", "Ingrese el valor para sistema de refrigeración de Motor", false, 10L));
             attributes.add(buildProperty("Motor", "admicionEscape", String.class.getName(), null, false, "Admición de Escape", " Ingrese la admición de escape del Motor", false, 11L));
             attributes.add(buildProperty("Motor", "instrumentosControl", String.class.getName(), null, false, "Instrumentos de control", "Ingrese instrumentos de control del Motor", false, 12L));
             attributes.add(buildProperty("Motor", "potencia", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Potencia", "Escoja el estado para potencia del motor", false, 13L));
             attributes.add(buildProperty("Motor", "sistemaLubricacion", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Sistema de Lubricación", "Escoja el estado para sistema de lubricación del motor", false, 13L));
             attributes.add(buildProperty("Motor", "sistemaRefrigeracion", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Sistema de Refrigeración", "Escoja el estado para sistema de refrigeración del motor", false, 14L));
-            attributes.add(buildProperty("Motor", "sistemaAdmEsc", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Sistema de Admición y Escape", "Escoja el estado para sistema de admición y escape del motor", false, 15L));
             attributes.add(buildProperty("Motor", "sistemaAdmEsc", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Sistema de Admición y Escape", "Escoja el estado para sistema de admición y escape del motor", false, 15L));
             attributes.add(buildProperty("Motor", "sistemaInsCon", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Sistema de Instrumentos de Control", "Escoja el estado para sistema de instrumentos de control y escape del motor", false, 16L));
             //Agregar atributos
@@ -554,8 +553,8 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Lubricantes", "motor", String.class.getName(), null, false, "Motor", "Ingrese el motor de lubricante para el vehículo", false, 1L));
             attributes.add(buildProperty("Lubricantes", "caja", String.class.getName(), null, false, "Caja", "Ingrese la caja de lubricantes del vehículo", false, 2L));
-            attributes.add(buildProperty("Lubricantes", "hidraulico", String.class.getName(), null, false, "Hidraulico", "Ingrese el hidraulico de lubricantes del vehiculo", false, 3L));
-            attributes.add(buildProperty("Lubricantes", "corona", String.class.getName(), null, false, "Corona", "Ingrese la corona de hidraulico paa el vehículo", false, 4L));
+            attributes.add(buildProperty("Lubricantes", "hidraulico", String.class.getName(), null, false, "Hidráulico", "Ingrese el hidráulico de lubricantes del vehículo", false, 3L));
+            attributes.add(buildProperty("Lubricantes", "corona", String.class.getName(), null, false, "Corona", "Ingrese la corona de hidráulico para el vehículo", false, 4L));
 
 //Agregar atributos
             structure.setProperties(attributes);
@@ -589,7 +588,7 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("SistemaElectrico", "voltaje", String.class.getName(), null, false, "Voltaje", "Ingrese el voltaje del vehículo", false, 5L));
-            attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese las luces del vehículo", false, 8L));
+            attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese valor para las luces del vehículo", false, 8L));
             attributes.add(buildProperty("SistemaElectrico", "alterador", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Alterador", "Ingrese el estado para alterador", false, 5L));
             attributes.add(buildProperty("SistemaElectrico", "baterias", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Baterias", "Ingrese el estado para bateria", false, 6L));
             attributes.add(buildProperty("SistemaElectrico", "motorArranque", "org.mtop.model.EstadoParteMecanica", "Bueno,Malo*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L));
