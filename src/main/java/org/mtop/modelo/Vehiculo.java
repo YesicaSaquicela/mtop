@@ -19,8 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import org.mtop.model.BussinesEntity;
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.dinamico.BussinesEntity;
+import org.mtop.modelo.profile.Profile;
 
 /**
  *

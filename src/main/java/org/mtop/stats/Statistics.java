@@ -38,7 +38,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 import org.mtop.service.BussinesEntityService;
 import org.primefaces.model.chart.CartesianChartModel;

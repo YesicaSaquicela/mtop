@@ -29,7 +29,7 @@ import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.mtop.model.BussinesEntity;
+import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.Persona;
 import org.mtop.modelo.Vehiculo;
 

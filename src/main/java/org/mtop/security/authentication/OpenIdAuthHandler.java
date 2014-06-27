@@ -43,7 +43,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.servlet.ServletContext;
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 import org.jboss.seam.security.Authenticator.AuthenticationStatus;
 import org.jboss.seam.security.Identity;

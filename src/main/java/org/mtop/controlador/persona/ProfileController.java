@@ -13,8 +13,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.solder.logging.Logger;
-import org.mtop.model.Property;
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.dinamico.Property;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 import org.mtop.service.BussinesEntityService;
 import org.mtop.util.Dates;

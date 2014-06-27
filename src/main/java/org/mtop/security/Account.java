@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import org.mtop.cdi.LoggedIn;
 import org.mtop.cdi.Web;
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 import org.mtop.security.authorization.SecurityRules;
 import javax.enterprise.context.SessionScoped;

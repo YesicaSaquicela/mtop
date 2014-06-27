@@ -44,7 +44,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.LoggedIn;
 
-import org.mtop.model.profile.Profile;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 
 @RequestScoped

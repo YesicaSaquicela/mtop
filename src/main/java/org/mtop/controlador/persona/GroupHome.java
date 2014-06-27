@@ -32,12 +32,12 @@ import javax.persistence.EntityManager;
 
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
-import org.mtop.controller.BussinesEntityHome;
-import org.mtop.model.BussinesEntity;
-import org.mtop.model.BussinesEntityAttribute;
-import static org.mtop.model.BussinesEntityAttribute_.bussinesEntity;
-import org.mtop.model.Group;
-import org.mtop.model.profile.Profile;
+import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.modelo.dinamico.BussinesEntity;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute;
+import static org.mtop.modelo.dinamico.BussinesEntityAttribute_.bussinesEntity;
+import org.mtop.modelo.dinamico.Group;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.util.Dates;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;

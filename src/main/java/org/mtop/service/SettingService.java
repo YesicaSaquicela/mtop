@@ -22,8 +22,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.mtop.model.config.Setting;
-import org.mtop.model.config.Setting_;
+import org.mtop.modelo.config.Setting;
+import org.mtop.modelo.config.Setting_;
 
 import org.mtop.util.PersistenceUtil;
 

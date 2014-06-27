@@ -15,6 +15,7 @@
  */
 package org.mtop.service;
 
+import org.mtop.modelo.dinamico.BussinesEntityType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
-import org.mtop.model.*;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;
 import org.mtop.util.UI;

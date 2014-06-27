@@ -32,10 +32,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
-import org.mtop.controller.BussinesEntityHome;
+import org.mtop.controlador.dinamico.BussinesEntityHome;
 
-import org.mtop.model.BussinesEntityType;
-import org.mtop.model.Property;
+import org.mtop.modelo.dinamico.BussinesEntityType;
+import org.mtop.modelo.dinamico.Property;
 
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.Producto;

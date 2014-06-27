@@ -31,6 +31,10 @@
  */
 package org.mtop.util;
 
+import org.mtop.modelo.dinamico.BussinesEntity;
+import org.mtop.modelo.dinamico.Group;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute;
+import org.mtop.modelo.dinamico.Property;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -49,7 +53,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.mtop.cdi.Web;
 //import edu.sgssalud.controller.profile.GroupHome;
-import org.mtop.model.*;
 import org.mtop.service.BussinesEntityService;
 import java.io.File;
 import java.io.FileInputStream;

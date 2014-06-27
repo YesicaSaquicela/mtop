@@ -1,6 +1,6 @@
 package org.mtop.data;
 
-import org.mtop.model.Member;
+import org.mtop.modelo.dinamico.Member;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
