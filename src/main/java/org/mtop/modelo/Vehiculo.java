@@ -41,7 +41,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String placa;
     private String numRegistro;
     private Integer numPasajeros;
-    private double peso;
+    private Double peso;
 //    @OneToOne
 //    private Persona conductor;
     @OneToOne
@@ -185,11 +185,11 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.numPasajeros = numPasajeros;
     }
 
-    public double getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
