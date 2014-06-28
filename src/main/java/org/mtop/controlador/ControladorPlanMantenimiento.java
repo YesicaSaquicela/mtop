@@ -71,7 +71,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             skip = false;   //reset in case user goes back  
             return "confirm";
         } else {
-            System.out.println("lista vacia" + this.cactividadpm.listaActividades.isEmpty());
+            System.out.println("jkjhjjjjjjjjjjjjjjjjjjjjjjjjj");
+            if(getInstance().getId()!=null){
+                this.cactividadpm.setListaActividades(getInstance().getListaActividadpm());
+            }
+            System.out.println("llllllllllll"+cactividadpm.getListaActividades());
             if (event.getOldStep().equals("address") && this.cactividadpm.listaActividades.isEmpty()) {
                 System.out.println("estas vaciaaaaaa");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos una actividas al plan de mantenimiento"));

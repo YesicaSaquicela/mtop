@@ -115,15 +115,15 @@
                             <div  class="panel panel-primary">
                                 <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.model.Structure'}" >
+                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
                                     <c:choose>                        
-                                        <c:when test="#{p.type == 'org.mtop.model.Structure'}"> 
+                                        <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
                                             <h:panelGroup  layout="block" class="clearfix">
                                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
 
-                                                    <h:panelGroup rendered="#{a.property.type ne 'org.mtop.model.EstadoParteMecanica'}"  layout="block" class="clearfix">
+                                                    <h:panelGroup rendered="#{a.property.type ne 'org.mtop.modelo.EstadoParteMecanica'}"  layout="block" class="clearfix">
                                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                         <div class="input">
                                                             <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
@@ -145,7 +145,7 @@
                                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                                             </pe:inputNumber>  
                                                             <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
+                                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                 <p:ajax event="change" update="@parent" partialSubmit="true"/>
                                                             </p:selectOneMenu>
@@ -196,7 +196,7 @@
                                         <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                     </pe:inputNumber>
                                     <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.model.EstadoParteMecanica'}">  
+                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                         <p:ajax event="change" update="@parent" partialSubmit="true"/>
                                     </p:selectOneMenu>

@@ -63,7 +63,7 @@ public class ItemSolicitudReparacion extends BussinesEntity implements Serializa
 
     @Override
     public String toString() {
-        return "org.mtop.model.ItemSolicicitudReparacion[ id=" + getId() + " ]";
+        return "org.mtop.modelo.ItemSolicicitudReparacion[ id=" + getId() + " ]";
     }
     
 }

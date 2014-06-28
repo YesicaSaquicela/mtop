@@ -173,7 +173,7 @@ public class BussinesEntityAttribute implements Serializable, Comparable<Bussine
 
     @Override
     public String toString() {
-        return "org.mtop.model.BussinesEntityAttribute[ "
+        return "org.mtop.modelo.dinamico.BussinesEntityAttribute[ "
                 + "id=" + id + ","
                 + "name=" + name + ","
                 + "type=" + type + ","

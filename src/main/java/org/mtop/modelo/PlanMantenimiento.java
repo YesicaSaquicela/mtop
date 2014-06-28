@@ -79,7 +79,7 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "org.mtop.model.PlanMantenimiento[ id=" + getId() + " ]";
+        return "org.mtop.modelo.PlanMantenimiento[ id=" + getId() + " ]";
     }
     
 }

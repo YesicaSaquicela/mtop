@@ -68,7 +68,7 @@ limitations under the License.
                         <f:ajax event="blur" execute="#{execute}" render="#{render}"  />
                     </h:inputTextarea>
                 </c:when>
-                <c:when test="#{type == 'java.lang.String[]' or type == 'select' or type =='org.mtop.model.EstadoParteMecanica'}">
+                <c:when test="#{type == 'java.lang.String[]' or type == 'select' or type =='org.mtop.modelo.EstadoParteMecanica'}">
                     <p:selectOneMenu value="#{value}" effect="fade"  converter="#{converter}" required="#{required}" requiredMessage="#{requiredMessage}" disabled="#{disabled}">  
                         <f:selectItem  itemLabel = "#{messages['common.choice']}"   />  
                         <f:selectItems value="#{values}" var="v" itemLabel="#{v}" itemValue="#{v}"/>  

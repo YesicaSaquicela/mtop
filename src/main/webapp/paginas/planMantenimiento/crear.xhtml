@@ -41,7 +41,7 @@
                                     <p:outputLabel value="Registro"/><br></br>
                                     <p:inputTextarea id="registro" styleClass="form-control" value="#{controladorPlanMantenimiento.instance.registro}"
                                                      required="true" /><br></br>
-                                    <span class="help-inline text-muted">Número de registro<ocp:message forId="valuep" /></span>
+                                    <span class="help-inline text-muted">Número de registro<ocp:message forId="registro" /></span>
 
                                 </p:panel>
 
@@ -52,9 +52,9 @@
                                         <div  class="panel panel-primary">
                                             <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                            <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.model.Structure'}" >
+                                            <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
                                                 <c:choose>                        
-                                                    <c:when test="#{p.type == 'org.mtop.model.Structure'}"> 
+                                                    <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
                                                         <h:panelGroup  layout="block" class="clearfix">
                                                             <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               

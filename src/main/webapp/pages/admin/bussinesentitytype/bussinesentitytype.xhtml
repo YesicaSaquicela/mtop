@@ -232,7 +232,7 @@ limitations under the License.
                                     <h:outputText value="#{property.sequence}" />
                                 </p:column>  
                                 <p:column>
-                                    <h:link value="Crear Entidad" rendered="#{property.type == 'org.mtop.model.Structure'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" outcome="bussinesentitytype">
+                                    <h:link value="Crear Entidad" rendered="#{property.type == 'org.mtop.modelo.Structure'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" outcome="bussinesentitytype">
                                         <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
                                         <f:param name="bussinesentitytypeLabel" value="#{property.name}"></f:param>
                                         <f:param name="bussinesentitytypeId" ></f:param>

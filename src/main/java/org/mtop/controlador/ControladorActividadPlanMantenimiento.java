@@ -178,7 +178,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
             if(p.getGroupName()!=null){
                 if(p.getGroupName().equals(propiedad.getName())){
                 System.out.println("encontro su propiedad>>>>> "+p.getName());
-                if(p.getType().equals("org.mtop.model.EstadoParteMecanica")){
+                if(p.getType().equals("org.mtop.modelo.EstadoParteMecanica")){
                     System.out.println("retornara true");
                     return true;
                 }

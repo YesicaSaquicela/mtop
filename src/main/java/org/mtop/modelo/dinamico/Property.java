@@ -330,7 +330,7 @@ public class Property implements Comparable<Property>, Serializable {
 
     @Override
     public String toString() {
-        return "org.mtop.model.Property[ "
+        return "org.mtop.modelo.dinamico.Property[ "
                 + "id=" + id + ","
                 + "name=" + name + ","
                 + "type=" + type + ","

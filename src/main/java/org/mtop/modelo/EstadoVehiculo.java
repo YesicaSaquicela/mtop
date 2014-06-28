@@ -71,7 +71,7 @@ public class EstadoVehiculo extends BussinesEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "org.mtop.model.Estado[ id=" + getId() + " ]";
+        return "org.mtop.modelo.EstadoVehiculo[ id=" + getId() + " ]";
     }
 
 }

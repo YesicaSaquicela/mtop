@@ -32,7 +32,7 @@
                     <p:growl id="growl" sticky="true" showDetail="true"/>
 
                     <p:wizard  id="p" flowListener="#{controladorRequisicion.onFlowProcess}">
-                        <p:tab id="req"  title="Requisicion">
+                        <p:tab id="req"  title="Requisición">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos Generales</center></div>
                                 <p:panel >
@@ -44,7 +44,7 @@
                                                  required="true" label="Número de Requisición" 
                                                  rendered="true"  />
                                     <span class="help-inline text-muted">Número de requisición<ocp:message forId="numRequisicion" /></span><br></br><br></br> 
-                                    <h:outputLabel value="Fecha de Requisicion" /> <br></br> 
+                                    <h:outputLabel value="Fecha de Requisición" /> <br></br> 
                                     <p:calendar  id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
                                                  styleClass="xLarge" required="true" 
                                                  locale="es" pattern="dd-MMM-yyyy">   
@@ -52,11 +52,11 @@
                                     </p:calendar>  <br></br> 
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
 
-                                    <h:outputText value="Tipo de requisicion "/> <br></br> 
+                                    <h:outputText value="Tipo de requisición "/> <br></br> 
                                     <p:selectOneMenu id="tipoRequisicion"  value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                        <f:selectItem itemLabel="Requisicion de Reparación" itemValue="requisicionRep" />  
-                                        <f:selectItem itemLabel="Requisicion de Bienes y Servicios" itemValue="requisicionByS" />  
+                                        <f:selectItem itemLabel="Requisición de Reparación" itemValue="requisicionRep" />  
+                                        <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="requisicionByS" />  
 
                                     </p:selectOneMenu> <br></br>
                                     <span class="help-inline text-muted">Elija el tipo de requisición<ocp:message forId="tipoRequisicion" /></span><br></br><br></br> 
@@ -71,8 +71,8 @@
                                     </p:selectOneMenu> <br></br>
                                     <span class="help-inline text-muted">Elija el tipo de partida<ocp:message forId="partida" /></span><br></br><br></br> 
 
-                                    <h:outputText value="Tipo de adquisicion "/><br></br>
-                                    <p:selectOneMenu id="adquisicion" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" >  
+                                    <h:outputLabel value="Tipo de adquisición "/><br></br>
+                                    <p:selectOneMenu id="adquisicion" label="Tipo de Adquisición" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
                                         <f:selectItem itemLabel="Compra" itemValue="compra" />  
@@ -90,15 +90,15 @@
 
                                 </p:panel>
                             </div>
-                            
+
                             <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
                                 <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
                                     <div  class="panel panel-primary">
                                         <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                        <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.model.Structure'}" >
+                                        <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
                                             <c:choose>                        
-                                                <c:when test="#{p.type == 'org.mtop.model.Structure'}"> 
+                                                <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
                                                     <h:panelGroup  layout="block" class="clearfix">
                                                         <ui:repeat value="#{controladorRequisicion.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
@@ -247,36 +247,75 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Items</center></div>
                                 <p:panel >
-                                    <p:messages id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
-                                    <p:outputLabel value="Cantidad"/><br></br>
-                                    <p:inputText id="cantidad" label="Cantidad" rendered="true" styleClass="form-control" required="true" value="#{controladorRequisicion.cir.instance.cantidad}"
-                                                 /><br></br>
-                                    <p:outputLabel value="Unidad de Medida"/><br></br>
-                                    <p:inputText id="unidadMedida" label="Unidad de medida" styleClass="form-control"
-                                                 required="true" rendered="true" value="#{controladorRequisicion.cir.instance.unidadMedida}"
-                                                 /><br></br>
+                                    <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
 
-
-                                    <div class="admin-actions">
-                                        <p:commandButton update=":form:listai :form:cantidad :form:unidadMedida :form:mensaje1"  styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorRequisicion.agregarItem()}">
-
-                                        </p:commandButton>
-                                    </div><br/>
-                                    <p:commandButton value="Asignar un Producto" type="button"
-                                                     onclick="editDlg.show();" update=":form:edit-dialog:form-dialog"  
-                                                     icon="ui-icon-plus" styleClass="btn primary"></p:commandButton>
-
-
-                                    <h:outputText value="codigop del producto: " />
-                                    <p:inputText immediate="true" id="producto1" value="#{controladorRequisicion.cir.instance.producto.codigo}" rendered="true"
-                                                 required="true" readonly="true" /><br/>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
 
 
                                                 <tbody>
-                                                    <p:dataTable id="listai"  value="#{controladorRequisicion.cir.listaItemRequisicion}" var="item2">
+
+
+                                                    <p:dataTable rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" id="basicoDT" var="itemp" value="#{controladorRequisicion.listaProductos}">
+                                                        <p:column headerText="Id">
+                                                            <h:outputText value="#{itemp.codigo}" />
+                                                        </p:column>
+                                                        <p:column headerText="descripción">
+                                                            <h:outputText value="#{itemp.description}" />
+                                                        </p:column>
+                                                        <p:column headerText="cantidad">
+                                                            <h:outputText value="#{itemp.cantidad}" />
+                                                        </p:column>
+                                                        <p:column style="width:4%;text-align: center">
+                                                            <p:commandLink update=":form:productosel :form:cantidad" value="Agregar" title="Seleccionar">
+                                                                <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
+                                                            </p:commandLink>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                    <br/>
+                                                    <h:outputLabel value="producto id: " rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" />
+                                                    <p:inputText immediate="true" rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" id="productosel" value="#{controladorRequisicion.pro.codigo}" 
+                                                                 required="true" readonly="true" /><br/>
+                                                </tbody></div></div></div>
+
+
+
+                                    <p:outputLabel value="Cantidad"/><br></br>
+                                    <p:spinner  id="cantidad" onkeyup="true" onkeydown="true" readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" value="#{controladorRequisicion.cir.instance.cantidad}" min="1" max="#{controladorRequisicion.maximo}" />
+                                   
+                                    <br></br>
+ 
+                                    <p:outputLabel value="Descripción"/><br></br>
+                                    <p:inputTextarea id="descrip"  label="Descripción" styleClass="form-control"
+                                                 required="true" rendered="true" value="#{controladorRequisicion.cir.instance.description}"
+                                                 /><br></br>
+
+                                    <br></br>
+                                    <p:outputLabel value="Unidad de Medida"/><br></br>
+                                    <p:inputText id="unidadMedida" label="Unidad de medida" styleClass="form-control"
+                                                 required="true" rendered="true" value="#{controladorRequisicion.cir.instance.unidadMedida}"
+                                                 /><br></br>
+
+
+
+
+
+
+
+
+                                    <div class="admin-actions">
+                                        <p:commandButton update=":form:listai :form:cantidad :form:unidadMedida :form:mensaje2"  styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorRequisicion.agregarItem()}">
+
+                                        </p:commandButton>
+                                    </div><br/>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="todas">
+                                            <div class="table-responsive">
+
+
+                                                <tbody>
+                                                    <p:dataTable id="listai" value="#{controladorRequisicion.cir.listaItemRequisicion}" var="item2">
 
                                                         <p:column headerText="Cantidad">
                                                             <h:outputText value="#{item2.cantidad}"></h:outputText>
@@ -285,8 +324,13 @@
                                                         <p:column headerText="Unidad de Medida">
                                                             <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                         </p:column>
+                                                        <p:column headerText="Descripción">
+                                                            <h:outputText value="#{item2.description}"></h:outputText>
+                                                        </p:column>
+                                                        
                                                         <p:column headerText="Opciones" style="width: 5%"> 
-                                                            <p:commandLink update=":form:listai :form:cantidad :form:unidadMedida :form:mensaje1" value="Editar"
+                                                            
+                                                            <p:commandLink update=":form:listai :form:cantidad :form:unidadMedida :form:mensaje2" value="Editar"
                                                                            actionListener="#{controladorRequisicion.editarItem(item2)}" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandLink>
@@ -298,57 +342,7 @@
 
 
                                 </p:panel>
-                                <p:dialog id="edit-dialog" appendToBody="true" header="Agregar Producto" widgetVar="editDlg" modal="true" resizable="true" dynamic="true" width="650">
-                                    <h:form id="form-dialog">  
-                                        <div role="main">
-                                            <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading"><center>Lista de productos disponibles</center></div>
-                                                    <div class="container-fluid">
-                                                        <h:panelGroup layout="block" class="clearfix" rendered="true">
-                                                            <!--TODO: revisar <ui:include >-->
-                                                            <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            <p:dataTable id="basicDT" var="item3" value="#{controladorRequisicion.listaProductos}">
-                                                                <p:column headerText="Código">
-                                                                    <h:outputText value="#{item3.codigo}" />
-                                                                </p:column>
-                                                                <p:column headerText="Descripción">
-                                                                    <h:outputText value="#{item3.description}" />
-                                                                </p:column>
-                                                                <p:column headerText="Cantidad Actual">
-                                                                    <h:outputText value="#{item3.cantidad}" />
-                                                                </p:column>
-
-                                                                <p:column headerText="Costo">
-                                                                    <h:outputText value="#{item3.costo}" />
-                                                                </p:column>
-                                                                <p:column style="width:4%;text-align: center">
-                                                                    <p:commandLink  update=":form:form-dialog:producto :form:form-dialog:mensaje2" value="Agregar" actionListener="#{controladorRequisicion.p}" title="Seleccionar">
-                                                                        
-                                                                    </p:commandLink>
-                                                                </p:column>
-                                                            </p:dataTable>
-                                                            <h:outputText value="codigop del producto: " />
-                                                            <p:inputText immediate="true" id="producto" value="#{controladorRequisicion.cir.instance.producto.codigo}" rendered="true"
-                                                                         required="true" readonly="true" /><br/>
-                                                        </h:panelGroup>
-                                                    </div></div>
-
-                                                <div class="admin-actions" align="center">
-                                                    <p:commandButton id="save" value="#{messages['common.save']}" rendered="true"
-                                                                     action="#{controladorRequisicion.cir.guardarProducto()}" 
-                                                                     update=":form:form-dialog:mensaje2 :form:producto1 :form:form-dialog:producto" immediate="true"
-                                                                     ajax="true" process="@this" styleClass="btn  btn-success"
-                                                                     icon="ui-icon-disk">  
-                                                    </p:commandButton>
-                                                    #{' '}                     
-                                                    <p:commandButton type="button" actionListener="#{controladorRequisicion.cir.cancelarProducto()}" value="#{messages['common.cancel']}" styleClass="btn  btn-success"
-                                                                     rendered="true" onclick="editDlg.hide();"                                      
-                                                                     />  
-                                                </div></div></div> 
-                                    </h:form>
-                                </p:dialog> 
                             </div>
 
                         </p:tab>
