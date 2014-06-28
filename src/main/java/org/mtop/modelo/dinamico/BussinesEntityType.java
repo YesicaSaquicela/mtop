@@ -129,7 +129,7 @@ public class BussinesEntityType implements Serializable {
 
     @Override
     public String toString() {
-        return "org.mtop.model.BussinesEntityType[ id=" + id + " ]";
+        return "org.mtop.modelo.dinamico.BussinesEntityType[ id=" + id + " ]";
     }
 
     public void addStructure(Structure structure) {

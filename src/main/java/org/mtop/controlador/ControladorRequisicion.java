@@ -76,12 +76,33 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private PartidaContabilidad partidaC;
     private List<PartidaContabilidad> listaPartida;
     private String numeroRequisicion;
+    private Integer maximo;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
     List<Producto> listaProductos = new ArrayList<Producto>();
     Producto pro;
 
+    public Integer getMaximo() {
+        if(getInstance().getTipoAdquisicion().equals("bodega")){
+            if(pro!=null){
+                setMaximo(pro.getCantidad());
+            }
+            
+        }else{
+            setMaximo(100);
+        }
+        System.out.println("maaaaaaaximo"+maximo);
+        return maximo;
+    }
+
+    public void setMaximo(Integer maximo) {
+        this.maximo = maximo;
+    }
+    
+    
+    
     public Producto getPro() {
         System.out.println("reto::::::::::::::::");
+            
         System.out.println(pro);
         return pro;
     }
@@ -89,6 +110,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setPro(Producto pro) {
         System.out.println("fijandooooooooooooooooooooooooooooo"+pro);
         this.pro = pro;
+        cir.getInstance().setDescription(pro.getDescription());
+        cir.getInstance().setCantidad(0);
         cir.getInstance().setProducto(pro);
     }
     public void guardarProducto(Producto p){
@@ -162,7 +185,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         return numeroRequisicion;
 
     }
+    public void guardarItem() {
+        for (ItemRequisicion apm : cir.listaItemsRequisicion) {
+            apm.setRequisicion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+            cir.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+            cir.guardar();
+        }
+        getInstance().setListaItems(cir.listaItemsRequisicion);//fija la lista de actividades al plan de mantenimietno
 
+    }
     public void agregarItem() {
         System.out.println("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllcraerll");
         if (cir.getInstance().getCantidad().equals("") || cir.getInstance().getUnidadMedida().equals("")) {
@@ -239,6 +270,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public ControladorItemRequisicion getCir() {
+        
         return cir;
     }
 
@@ -298,7 +330,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setRequisicionId(Long requisicionId) {
+        
         setId(requisicionId);
+        cir.listaItemsRequisicion=getInstance().getListaItems();
 
     }
 
@@ -320,7 +354,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public Vehiculo getVehiculo() {
-        System.out.println("jsjsjs");
+        System.out.println("jsjsjsjsjsjsjjsjsjsjjsjsjjs");
         if (getRequisicionId() != null) {
             System.out.println("vehiculo " + getInstance().getVehiculo());
             vehiculo = getInstance().getVehiculo();
@@ -398,10 +432,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     @TransactionAttribute
     public String guardar() {
-//        if (this.vehiculo.getId() == null) {
-//            mensaje="necesita un asignar un vehiculo";
-//             return "/paginas/requisicion/crear.xhtml?faces-redirect=true";
-//        } else {
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
@@ -414,6 +444,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         try {
             if (getInstance().isPersistent()) {
+                guardarItem();
                 System.out.println("ingresa a editar>>>>>>>");
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
@@ -422,6 +453,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("ingresa a creaaar>>>>>>>");
                 //  getInstance().setEstado(true);
                 create(getInstance());
+                guardarItem();
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -456,3 +488,4 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
 }
+

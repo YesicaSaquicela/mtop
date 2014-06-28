@@ -99,7 +99,7 @@ public class Kardex extends BussinesEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "org.mtop.model.Kardex[ id=" + getId()+ " ]";
+        return "org.mtop.modelo.Kardex[ id=" + getId()+ " ]";
     }
 
 }

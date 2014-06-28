@@ -180,7 +180,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 
     @Override
     public String toString() {
-        return "org.mtop.model.Solicitud[ id=" + getId() + " ]";
+        return "org.mtop.modelo.Solicitud[ id=" + getId() + " ]";
     }
 
     //enum tclase k representa tipos de datos enumerados

@@ -104,7 +104,7 @@
                     <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
                         <p:panel header="#{p.label}" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{p.name}">
                             <c:choose>                        
-                                <c:when test="#{p.type == 'org.mtop.model.Structure'}">                                    
+                                <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}">                                    
                                     <h:panelGroup  layout="block" class="clearfix">
                                         <ui:repeat value="#{controladorRequisicion.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
                                             <h:panelGroup layout="block" class="clearfix">

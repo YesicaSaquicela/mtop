@@ -67,7 +67,7 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
 
     @Override
     public String toString() {
-        return "org.mtop.model.ItemRequisicion[ id=" + getId() + " ]";
+        return "org.mtop.modelo.ItemRequisicion[ id=" + getId() + " ]";
     }
     
 }

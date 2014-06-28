@@ -80,7 +80,7 @@ public class ItemRequisicion extends BussinesEntity implements Serializable{
 
     @Override
     public String toString() {
-        return "org.mtop.model.ItemRequisicion[ id=" + getId() + " ]";
+        return "org.mtop.modelo.ItemRequisicion[ id=" + getId() + " ]";
     }
     
 }

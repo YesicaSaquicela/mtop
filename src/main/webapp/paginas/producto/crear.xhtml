@@ -44,7 +44,7 @@
                                                  rendered="true" ></p:inputText>
                                     <span class="help-inline text-muted">Número de código<ocp:message forId="valuep" /></span><br></br><br></br>
 
-                                    <mtop:input id="des" name="descripcion1" type="textarea" label="Descripcion" 
+                                    <mtop:input id="des" name="descripcion1" type="textarea" label="Descripción" 
                                                 value="#{controladorProducto.instance.description}" required="true" 
                                                 inlinehelp="Ingrese una descripción del producto" execute ="@this save" render="des"/><br></br>
 
@@ -71,9 +71,9 @@
                             <div  class="panel panel-primary">
                                 <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.model.Structure'}" >
+                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
                                     <c:choose>                        
-                                        <c:when test="#{p.type == 'org.mtop.model.Structure'}"> 
+                                        <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
                                             <h:panelGroup  layout="block" class="clearfix">
                                                 <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               

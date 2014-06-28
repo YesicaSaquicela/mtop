@@ -211,7 +211,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "org.mtop.model.Vehiculo[ "
+        return "org.mtop.modelo.Vehiculo[ "
                 + "id=" + getId() + ","
                 + "marca" + getMarca() + ","
                 + " ]";
