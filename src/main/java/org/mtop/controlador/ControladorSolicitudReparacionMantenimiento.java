@@ -34,6 +34,7 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
@@ -61,22 +62,29 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Long idVehiculo;
     private Vehiculo vehiculo;
     private List<Vehiculo> listaVehiculos;
-    
+    private ControladorItemSolicitud citemsolicitud;
+
     private boolean skip;
-    
+
     private String numeroSolicitud;
 
-    
+    public ControladorItemSolicitud getCitemsolicitud() {
+//        if(getInstance().getId()!=null){
+//            citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
+//        }
+        return citemsolicitud;
+    }
 
-   
+    public void setCitemsolicitud(ControladorItemSolicitud citemsolicitud) {
+        this.citemsolicitud = citemsolicitud;
+    }
 
-    
     public String getNumeroSolicitud() {
         if (getId() == null) {
-            System.out.println("numero"+getInstance().getNumSolicitud());
+            System.out.println("numero" + getInstance().getNumSolicitud());
             List<SolicitudReparacionMantenimiento> lista = findAll(SolicitudReparacionMantenimiento.class);
             int t = lista.size();
-            System.out.println("valor de t :::::::::::"+t);
+            System.out.println("valor de t :::::::::::" + t);
             if (t < 9) {
                 setNumeroSolicitud("000".concat(String.valueOf(t + 1)));
             } else {
@@ -90,10 +98,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                     }
                 }
             }
-        }else{
+        } else {
             setNumeroSolicitud(getInstance().getNumSolicitud());
         }
-        
+
         return numeroSolicitud;
 
     }
@@ -103,7 +111,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setNumSolicitud(this.numeroSolicitud);
 
     }
-   
 
     public boolean isSkip() {
         return skip;
@@ -126,8 +133,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                 return event.getOldStep();
             } else {
+               
+                if (event.getOldStep().equals("items") && this.citemsolicitud.listaItemsSolicitud.isEmpty()) {
+                    System.out.println("estas vaciaaaaaa");
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
 
-                return event.getNewStep();
+                    return event.getOldStep();
+                } else {
+
+                    return event.getNewStep();
+                }
             }
 
         }
@@ -181,6 +196,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         setId(solicitudReparacionMantenimientoId);
+           citemsolicitud.listaItemsSolicitud = getInstance().getListaItemSR();
+
     }
 
     public String formato(Date fecha) {
@@ -212,8 +229,50 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return listaSolicitud;
     }
 
+    public void editarItemS(ItemSolicitudReparacion itemsol) {
+
+        int con = 0;
+        for (ItemSolicitudReparacion items : citemsolicitud.listaItemsSolicitud) {
+
+            if (items.getDescripcionElementoRevisar().equals(itemsol.getDescripcionElementoRevisar())
+                    && items.getDescripcionFalla().equals(itemsol.getDescripcionFalla())) {
+                citemsolicitud.listaItemsSolicitud.remove(con);
+                break;
+
+            }
+            con++;
+
+        }
+
+    }
+
+    public void agregarItemS() {
+        if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
+
+        } else {
+            citemsolicitud.listaItemsSolicitud.add(citemsolicitud.getInstance());
+            citemsolicitud.setInstance(new ItemSolicitudReparacion());
+
+        }
+
+    }
+
+    public void guardarItemS() {
+        for (ItemSolicitudReparacion items : citemsolicitud.listaItemsSolicitud) {
+            //se llama al objeto solicitud que se encuentra en itemsolicitud clases
+            items.setSolicitudReparacion(getInstance());
+            citemsolicitud.setInstance(items);
+            citemsolicitud.guardar();
+        }
+        //esta lista se encuntra en la clase solicitud
+        getInstance().setListaItemSR(citemsolicitud.listaItemsSolicitud);
+    }
+
     public void setListaSolicitud(List<SolicitudReparacionMantenimiento> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
+        citemsolicitud.listaItemsSolicitud = getInstance().getListaItemSR();
     }
 
     @PostConstruct
@@ -228,6 +287,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaSolicitud = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
+        citemsolicitud = new ControladorItemSolicitud();
+        citemsolicitud.setInstance(new ItemSolicitudReparacion());
     }
 
     @Override
@@ -261,12 +322,14 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         try {
             if (getInstance().isPersistent()) {
+                guardarItemS();
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 getInstance().setEstado(true);
                 create(getInstance());
+                guardarItemS();
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);

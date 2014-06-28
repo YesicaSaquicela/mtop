@@ -62,10 +62,10 @@
                         </button>
                         <a class="navbar-brand" >
                             <h:panelGroup rendered="#{identity.loggedIn}">
-                                 
+
 
                                 <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
-                                    
+
                                     <h:graphicImage value="/resources/mtop.png" width="200" height="40" />
                                 </h:outputLink>
                                 <!--h:link value="#{'Inicio, Mtop-Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/-->
@@ -102,7 +102,7 @@
                                         <li><h:link type="button" outcome="/paginas/kardex/lista.xhtml" value="Kardex" /></li>
                                         <li><h:link type="button" outcome="/paginas/producto/lista.xhtml" value="Producto" /></li>
                                         <li><h:link type="button" outcome="/paginas/partidaContabilidad/lista.xhtml" value="Partida de Contabilidad" /></li>
-
+                                        <li><h:link type="button" outcome="/paginas/planMantenimiento/lista.xhtml" value="Plan Mantenimiento" /></li>
 
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -110,10 +110,11 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li><h:link type="button"  outcome="/paginas/vehiculo/lista.xhtml" value="Vehículo" /></li>        
-                                                <li><h:link type="button" outcome="/paginas/vehiculo/estadoVehiculo/lista.xhtml" value="  Estado del Vehículo" /></li>
-
+                                                <li><h:link type="button" outcome="/paginas/vehiculo/estadoVehiculo/lista.xhtml" value="  Estado mecánico del Vehículo" /></li>
+                                                <li><h:link type="button" outcome="/paginas/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
+                                              
                                                 <li class="divider"></li>
-                                                <li><h:link type="button" outcome="/paginas/planMantenimiento/lista.xhtml" value="Plan Mantenimiento" /></li>
+
                                             </ul>
                                         </li>
                                     </ul>
