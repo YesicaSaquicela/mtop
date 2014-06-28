@@ -333,6 +333,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         
         setId(requisicionId);
         cir.listaItemsRequisicion=getInstance().getListaItems();
+        System.out.println("liiiiiist"+cir.listaItemsRequisicion);
 
     }
 
