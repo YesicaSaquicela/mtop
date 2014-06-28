@@ -69,9 +69,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private String numeroSolicitud;
 
     public ControladorItemSolicitud getCitemsolicitud() {
-//        if(getInstance().getId()!=null){
-//            citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
-//        }
         return citemsolicitud;
     }
 
