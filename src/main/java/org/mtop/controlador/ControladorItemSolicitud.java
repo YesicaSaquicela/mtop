@@ -32,9 +32,11 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.modelo.ItemRequisicion;
+import org.mtop.modelo.ItemSolicitudReparacion;
+import org.mtop.modelo.Producto;
 import org.mtop.modelo.dinamico.BussinesEntityType;
-import org.mtop.modelo.EstadoVehiculo;
-
+import org.mtop.modelo.dinamico.Property;
 import org.mtop.servicios.ServicioGenerico;
 
 /**
@@ -43,28 +45,32 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo> implements Serializable{
-             @Inject
+public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudReparacion> implements Serializable {
+
+    @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<EstadoVehiculo> listaEstadoVehiculo = new ArrayList<EstadoVehiculo>();
-
-    public Long getEstadoVehiculoId() {
+    List<ItemSolicitudReparacion> listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
+    
+    public Long getItemSolicitudRMId() {
+        System.out.println("IIIIDEE" + getId());
         return (Long) getId();
     }
 
-    public void setEstadoVehiculoId(Long estadoVehiculoId) {
-        setId(estadoVehiculoId);
+    public void setItemSolicitudRMId(Long itemSolicitudRMId) {
+
+        setId(itemSolicitudRMId);
+
     }
 
     @TransactionAttribute   //
-    public EstadoVehiculo load() {
+    public ItemSolicitudReparacion load() {
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
+
         return getInstance();
     }
 
@@ -73,75 +79,75 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         getInstance();
     }
 
-    public List<EstadoVehiculo> getListaEstadoVehiculo() {
-        return listaEstadoVehiculo;
+    public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
+        return listaItemsSolicitud;
     }
 
-    public void setListaEstadoVehiculo(List<EstadoVehiculo> listaEstadoVehiculo) {
-        this.listaEstadoVehiculo = listaEstadoVehiculo;
+    public void setListaItemsSolicitud(List<ItemSolicitudReparacion> listaItemsSolicitud) {
+        this.listaItemsSolicitud = listaItemsSolicitud;
     }
 
-  
+    
+
+    
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
+        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (Vehiculo)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaEstadoVehiculo = servgen.buscarTodos(EstadoVehiculo.class);
+        listaItemsSolicitud = servgen.buscarTodos(ItemSolicitudReparacion.class);
+       
     }
 
     @Override
-    protected EstadoVehiculo createInstance() {
+    protected ItemSolicitudReparacion createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(EstadoVehiculo.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
         Date now = Calendar.getInstance().getTime();
-        EstadoVehiculo estadoVehiculo = new EstadoVehiculo();
-        estadoVehiculo.setCreatedOn(now);
-        estadoVehiculo.setLastUpdate(now);
-        estadoVehiculo.setActivationTime(now);
-        estadoVehiculo.setType(_type);
-        estadoVehiculo.buildAttributes(bussinesEntityService);  //
-        return estadoVehiculo;
+        ItemSolicitudReparacion itemSolicitudRm = new ItemSolicitudReparacion();
+        itemSolicitudRm.setCreatedOn(now);
+        itemSolicitudRm.setLastUpdate(now);
+        itemSolicitudRm.setActivationTime(now);
+        itemSolicitudRm.setType(_type);
+        itemSolicitudRm.buildAttributes(bussinesEntityService);  //
+        return itemSolicitudRm;
     }
 
     @Override
-    public Class<EstadoVehiculo> getEntityClass() {
-        return EstadoVehiculo.class;
+    public Class<ItemSolicitudReparacion> getEntityClass() {
+        return ItemSolicitudReparacion.class;
     }
 
-   @TransactionAttribute
+    @TransactionAttribute
     public String guardar() {
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        
-        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance());
-       
-                                
+
+        System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                System.out.println("Entro a Editar>>>>>>>>");
-               save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Partida contabilidad" + getInstance().getId() + " con éxito", " ");
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Item deRequisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                 System.out.println("Entro a crear>>>>>>>>");
-             
+                System.out.println("ENTRO A crear Item>>>>>" );
+//                System.out.println("ENTRO A CREAR KILOMETRAJE>>>>>"+getInstance().getKilometraje()); 
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Item de Requisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
+        return "/paginas//lista.xhtml?faces-redirect=true";
     }
-    
 
     @Transactional
     public String borrarEntidad() {
@@ -161,6 +167,9 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/vehiculo/estadoUbicacion/lista.xhtml?faces-redirect=true";
-    }   
+        return "/paginas//lista.xhtml?faces-redirect=true";
+    }
+
+   
+
 }

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
+                xmlns:mtop="http://mtop.org/jsf/facelets"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:param name="titulo" value="Ficha Técnica de Vehículos y Estado Mecánico"/>
+    <f:metadata>
+        <f:viewParam name="estadoId" value="#{controladorEstadoVehiculo.estadoVehiculoId}"/>
+    </f:metadata>
+    <ui:define name="header">
+
+        #{titulo}
+
+    </ui:define>
+    <ui:define name="content">
+        <!--Metadato que se realiza antes de renderizarse la vista-->
+
+        <!--Formulario dentro de un contenedor-->
+        <h:form id="form">
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" align="center">Datos Generales</div>
+                        <p:panel id="p1" >
+                            <div class="container-fluid">
+                                <!-- Example row of columns -->
+                                <div class="row-fluid">
+
+
+
+                                    <h:outputLabel value="Fecha de Inicio" /> <br></br> 
+                                    <p:calendar  id="fechainicio" value="#{controladorEstadoVehiculo.instance.fechaEntrada}"  label="Fecha de Inicio"
+                                                 styleClass="xLarge" required="true" 
+                                                 locale="es" pattern="dd-MMM-yyyy">   
+                                        <p:ajax event="dateSelect" rendered="save" />  
+                                    </p:calendar><br></br> 
+                                    <span class="help-inline text-muted">Ingrese la fecha de inicio<ocp:message forId="fechainicio" /></span><br></br><br></br>
+
+                                    <h:outputLabel value="Estado"/> <br></br> 
+                                    <p:selectOneMenu id="estado"  value="#{controladorEstadoVehiculo.instance.nombre}" effect="fade" >  
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItem itemLabel="Equipo para baja o remate" itemValue="Equipo para baja o remate" />  
+                                        <f:selectItem itemLabel="Equipo trabajando con fallas" itemValue="Equipo trabajando con fallas" />  
+                                        <f:selectItem itemLabel="Equipo bueno inactivo" itemValue="Equipo bueno inactivo" />  
+                                        <f:selectItem itemLabel="Equipo trabajando normal" itemValue="Equipo trabajando normal" /> 
+                                        <f:selectItem itemLabel="Equipo en reparación" itemValue="Equipo en reparación" /> 
+                                    </p:selectOneMenu> <br></br>
+                                    <span class="help-inline text-muted">Elija que se encuentra haciendo el vehículo<ocp:message forId="estado" /></span><br></br><br></br> 
+
+                                    <mtop:input id="ubicacion" name="ubicacion" type="text" label="Ubicacion" 
+                                                value="#{controladorEstadoVehiculo.instance.ubicacion}" required="true" 
+                                                inlinehelp="Ingrese ubicación del vehículo" 
+                                                execute ="@this save" render="ubicacion"/><br></br>
+
+
+
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
+
+
+                    <center>
+                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorEstadoVehiculo.guardar()}"
+                                         ajax="false" update="p1"/>
+                        &nbsp;&nbsp;
+                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/estadodeubicacion/lista" styleClass="btn  btn-success">
+
+                        </h:button>
+                    </center>
+                </div></div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

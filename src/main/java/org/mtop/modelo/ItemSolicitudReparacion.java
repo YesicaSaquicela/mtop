@@ -30,9 +30,10 @@ import org.mtop.modelo.dinamico.BussinesEntity;
 public class ItemSolicitudReparacion extends BussinesEntity implements Serializable{
     private String descripcionElementoRevisar;
     private String descripcionFalla;
-//    @ManyToOne()
-//    @JoinColumn(name = "solicitudReparacionId")
-//    private SolicitudReparacionMantenimiento solicitudReparacion;
+   @ManyToOne()
+    @JoinColumn(name = "solicitudReparacionId")
+    private SolicitudReparacionMantenimiento solicitudReparacion;
+
 
     public String getDescripcionElementoRevisar() {
         return descripcionElementoRevisar;
@@ -50,15 +51,14 @@ public class ItemSolicitudReparacion extends BussinesEntity implements Serializa
         this.descripcionFalla = descripcionFalla;
     }
 
-//    public SolicitudReparacionMantenimiento getSolicitudReparacion() {
-//        return solicitudReparacion;
-//    }
-//
-//    public void setSolicitudReparacion(SolicitudReparacionMantenimiento solicitudReparacion) {
-//        this.solicitudReparacion = solicitudReparacion;
-//    }
-//    
-// 
+    public SolicitudReparacionMantenimiento getSolicitudReparacion() {
+        return solicitudReparacion;
+    }
+
+    public void setSolicitudReparacion(SolicitudReparacionMantenimiento solicitudReparacion) {
+        this.solicitudReparacion = solicitudReparacion;
+    }
+    
 
 
     @Override

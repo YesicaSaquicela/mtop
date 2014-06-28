@@ -66,8 +66,8 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     @ManyToOne
     @JoinColumn(name = "vehiculoId")
     private Vehiculo vehiculo;
-//    @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
+    @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
 //    @OneToOne(mappedBy = "solicitudReparacions")
 //    Requisicion requisicions;
 
@@ -151,18 +151,18 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
         this.vehiculo = vehiculo;
     }
 
-//    public List<ItemSolicitudReparacion> getListaItemSR() {
-//        return listaItemSR;
-//    }
-//
-//    public void setListaItemSR(List<ItemSolicitudReparacion> listaItemSR) {
-//        for (ItemSolicitudReparacion itemSolicicitudReparacion : listaItemSR) {
-//            itemSolicicitudReparacion.setSolicitudReparacion(this);
-//
-//        }
-//        this.listaItemSR = listaItemSR;
-//    }
-//
+    public List<ItemSolicitudReparacion> getListaItemSR() {
+       return listaItemSR;
+   }
+
+    public void setListaItemSR(List<ItemSolicitudReparacion> listaItemSR) {
+        for (ItemSolicitudReparacion itemSolicicitudReparacion : listaItemSR) {
+            itemSolicicitudReparacion.setSolicitudReparacion(this);
+
+        }
+        this.listaItemSR = listaItemSR;
+    }
+
 //    public Kardex getKardex() {
 //        return kardex;
 //    }
