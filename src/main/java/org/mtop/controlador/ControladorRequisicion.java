@@ -48,10 +48,12 @@ import java.text.SimpleDateFormat;
 //import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.Producto;
+import org.mtop.modelo.Requisicion_;
 //import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -79,9 +81,60 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Integer maximo;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
     List<Producto> listaProductos = new ArrayList<Producto>();
-
+    private String palabrab;
+    
     Producto pro;
 
+    public void buscar() {
+        System.out.print("Entra a buscar"+Requisicion_.class.getName());
+        
+        List<Requisicion> le = new ArrayList<Requisicion>();
+        le.clear();
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        le=servgen.buscarTodoscoincidencia(Requisicion.class, "Requisicion", Requisicion_.numRequisicion.getName(), palabrab);
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+         
+        }else{
+            listaRequisicion=le;
+        }
+        
+    }
+    
+    
+    
+     public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        System.out.println("PAlabrafijando >>"+palabrab);
+        this.palabrab = palabrab;
+    }
+    
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy"+query);
+        
+        ArrayList<String> ced = new ArrayList<String>();
+        System.out.println("REEEEq>>>>>>>"+Requisicion.class.getName());
+        System.out.println("atruiii>>>>>>>"+Requisicion_.numRequisicion.getName());
+        List<Requisicion> lr=servgen.buscarTodoscoincidencia(Requisicion.class, "Requisicion", Requisicion_.numRequisicion.getName()  , query);
+        
+        for (Requisicion requisicion : lr) {
+            System.out.println("econtro uno "+requisicion.getNumRequisicion());
+            ced.add(requisicion.getNumRequisicion());
+        }
+        System.out.println("listaaaaa autocompletar"+ced);
+        return ced;
+    }
     public Integer getMaximo() {
         if (getInstance().getTipoAdquisicion().equals("bodega")) {
             if (pro.getId() != null) {
@@ -409,6 +462,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setListaRequisicion(List<Requisicion> listaRequisicion) {
         this.listaRequisicion = listaRequisicion;
+        cir.listaItemsRequisicion = getInstance().getListaItems();
     }
 
     @PostConstruct
@@ -429,6 +483,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cir.setInstance(new ItemRequisicion());
         maximo = 100;
         pro = new Producto();
+        palabrab="";
     }
 
     @Override

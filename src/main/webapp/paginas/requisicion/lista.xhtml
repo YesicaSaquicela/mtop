@@ -11,50 +11,76 @@
 
     <ui:define name="header">
 
-  #{titulo}
+        #{titulo}
 
     </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
         <!--Formulario dentro de un contenedor-->
+
+
+
+
         <h:form id="form">            
-             <div role="main">
+            <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-            <!--Opción de mensaje, cuando se realiza una acción-->
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <!--Opción de mensaje, cuando se realiza una acción-->
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
-            <!--Botones de admin-->
-            <div class="admin-actions">
-                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success" >
-                    <f:param name="requisicionId"></f:param>
-                </p:commandButton><br/><br/>
-            </div>
-            <div class="tab-content">
-                            <div class="tab-pane active" id="todas">
-                                <div class="table-responsive">
-                                    
-
-                                    <tbody>
-            <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r">
-                <p:column headerText="Número de Requisición">
-                    <h:outputText value="#{r.numRequisicion}"></h:outputText>
-                </p:column>
-                <p:column headerText="Fecha de Requisición">
-                    <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
-                </p:column>
-                <p:column headerText="Observación">
-                    <h:outputText value="#{r.observaciones}"></h:outputText>
-                </p:column>
-                <p:column headerText="Opciones" style="width: 5%"> 
-
-                    <h:link value="Editar" outcome="crear" type="button" >
-                        <f:param name="requisicionId" value="#{r.id}"></f:param>
+                    <!--Botones de admin-->
+                    <div class="row">
 
 
-                    </h:link>
-                </p:column>
-            </p:dataTable></tbody></div></div></div>
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <h:outputLabel value="Buscar:  " />
+                                
+                                <p:autoComplete id="acSimple" value="#{controladorRequisicion.palabrab}"   
+                                completeMethod="#{controladorRequisicion.autocompletar}"/> 
+                                
+                                <span class="input-group-btn">
+                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+                                        
+                                    </p:commandButton>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="admin-actions">
+
+                        <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
+                            <f:param name="requisicionId"></f:param>
+                        </p:commandButton><br/><br/>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="todas">
+                            <div class="table-responsive">
+
+
+                                <tbody>
+                                    <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
+                                                  
+                                                 >
+                                        <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
+                                            <h:outputText value="#{r.numRequisicion}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
+                                            <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Observación" sortBy="#{r.observaciones}">
+                                            <h:outputText value="#{r.observaciones}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Opciones" style="width: 5%"> 
+
+                                            <h:link value="Editar" outcome="crear" type="button" >
+                                                <f:param name="requisicionId" value="#{r.id}"></f:param>
+
+
+                                            </h:link>
+                                        </p:column>
+                                    </p:dataTable></tbody></div></div></div>
                 </div></div>
         </h:form>
     </ui:define>
