@@ -31,21 +31,21 @@ import org.mtop.modelo.dinamico.BussinesEntity;
 public class ActividadPlanMantenimiento extends BussinesEntity implements Serializable {
     
     @NotNull
-    private String kilometraje;
+    private Integer kilometraje;
     @NotNull
     private String actividad;
     @ManyToOne
     @JoinColumn(name = "planMId")
     public PlanMantenimiento planMantenimiento=new PlanMantenimiento();
- 
 
-    public String getKilometraje() {
+    public Integer getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(String kilometraje) {
+    public void setKilometraje(Integer kilometraje) {
         this.kilometraje = kilometraje;
     }
+ 
 
     public String getActividad() {
         return actividad;
@@ -67,7 +67,7 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
 
     @Override
     public String toString() {
-        return "org.mtop.modelo.ItemRequisicion[ id=" + getId() + " ]";
+        return "org.mtop.modelo.Actividades[ id=" + getId() + " ]";
     }
     
 }

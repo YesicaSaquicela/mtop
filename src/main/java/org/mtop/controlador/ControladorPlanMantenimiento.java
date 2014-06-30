@@ -53,40 +53,47 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
     private ControladorActividadPlanMantenimiento cactividadpm;
 
-    // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
-    // Facelets or JSP view)
-    private boolean skip;
-    //private static Logger logger = Logger.getLogger(UserWizard.class.getName());
+    private String numeroPlanMantenimiento;
+    private List<Integer> listaKilometraje = new ArrayList();
 
-    public boolean isSkip() {
-        return skip;
+    public List<Integer> getListaKilometraje() {
+
+        return listaKilometraje;
     }
 
-    public void setSkip(boolean skip) {
-        this.skip = skip;
+    public void setListaKilometraje(List<Integer> listaKilometraje) {
+        this.listaKilometraje = listaKilometraje;
     }
 
-    public String onFlowProcess(FlowEvent event) {
-        if (skip) {
-            skip = false;   //reset in case user goes back  
-            return "confirm";
-        } else {
-            System.out.println("jkjhjjjjjjjjjjjjjjjjjjjjjjjjj");
-            if(getInstance().getId()!=null){
-                this.cactividadpm.setListaActividades(getInstance().getListaActividadpm());
-            }
-            System.out.println("llllllllllll"+cactividadpm.getListaActividades());
-            if (event.getOldStep().equals("address") && this.cactividadpm.listaActividades.isEmpty()) {
-                System.out.println("estas vaciaaaaaa");
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos una actividas al plan de mantenimiento"));
-
-                return event.getOldStep();
+    public String getNumeroPlanMantenimiento() {
+        if (getId() == null) {
+            List<PlanMantenimiento> lista = findAll(PlanMantenimiento.class);
+            int t = lista.size();
+            System.out.println("valor de t :::::::::::" + t);
+            if (t < 9) {
+                setNumeroPlanMantenimiento("000".concat(String.valueOf(t + 1)));
             } else {
-
-                return event.getNewStep();
+                if (t >= 9 && t < 99) {
+                    setNumeroPlanMantenimiento("00".concat(String.valueOf(t + 1)));
+                } else {
+                    if (t >= 99 && t < 999) {
+                        setNumeroPlanMantenimiento("0".concat(String.valueOf(t + 1)));
+                    } else {
+                        setNumeroPlanMantenimiento(String.valueOf(t + 1));
+                    }
+                }
             }
-
+        } else {
+            setNumeroPlanMantenimiento(getInstance().getRegistro());
         }
+
+        return numeroPlanMantenimiento;
+    }
+
+    public void setNumeroPlanMantenimiento(String numRegistro) {
+        this.numeroPlanMantenimiento = numRegistro;
+        getInstance().setRegistro(this.numeroPlanMantenimiento);
+
     }
 
     public void editarActividad(ActividadPlanMantenimiento actividad) {
@@ -99,6 +106,9 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             if (apm.getKilometraje().equals(actividad.getKilometraje())
                     && apm.getActividad().equals(actividad.getActividad())) {
                 cactividadpm.listaActividades.remove(con);
+                cactividadpm.setInstance(apm);
+                System.out.println("OBJETO LISTA>>>>>>>>>>>>>" + apm.getKilometraje());
+                System.out.println("FIJAR>>>>>>" + cactividadpm.getInstance().getKilometraje());
                 break;
 
             }
@@ -119,19 +129,36 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void agregarActividad() {
-        if (cactividadpm.getInstance().getActividad().equals("") || cactividadpm.getInstance().getKilometraje().equals("")) {
+        boolean ban=true;
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
+                   
+                    for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
+                        System.out.println("ENTRO>>>>>>>"+ apm.getKilometraje());
+                        if (apm.getKilometraje().equals(cactividadpm.getInstance().getKilometraje())) {
+                            System.out.println("Entro al if>>>>>>"+cactividadpm.getInstance().getKilometraje());
+                           
+                            ban=false;
+                            break;
+                            
+                        }
+                    }
+                    if(ban==true){
+                     cactividadpm.listaActividades.add(cactividadpm.getInstance());
+                     cactividadpm.setInstance(new ActividadPlanMantenimiento());   
+                    }else{
+                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "EL kilometraje escojido ya se encuentra agregado en la lista"));
+                    }
+                    
+                    
 
-        } else {
-            cactividadpm.listaActividades.add(cactividadpm.getInstance());
-            cactividadpm.setInstance(new ActividadPlanMantenimiento());
+//                }
 
-        }
-
+//            }
+//        }
     }
 
     public void guardarActividad() {
+
         for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
             apm.setPlanMantenimiento(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
             cactividadpm.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
@@ -153,7 +180,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         cactividadpm.listaActividades = getInstance().getListaActividadpm();
 
     }
-
 
     @TransactionAttribute   //
     public PlanMantenimiento load() {
@@ -177,6 +203,39 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         this.listaPlanMantenimiento = listaPlanMantenimiento;
     }
 
+    public void listak() {
+        listaKilometraje.add(5000);
+        listaKilometraje.add(10000);
+        listaKilometraje.add(15000);
+        listaKilometraje.add(20000);
+        listaKilometraje.add(25000);
+        listaKilometraje.add(30000);
+        listaKilometraje.add(35000);
+        listaKilometraje.add(40000);
+        listaKilometraje.add(45000);
+        listaKilometraje.add(50000);
+        listaKilometraje.add(55000);
+        listaKilometraje.add(60000);
+        listaKilometraje.add(65000);
+        listaKilometraje.add(70000);
+        listaKilometraje.add(75000);
+        listaKilometraje.add(80000);
+        listaKilometraje.add(85000);
+        listaKilometraje.add(90000);
+        listaKilometraje.add(95000);
+        listaKilometraje.add(100000);
+        listaKilometraje.add(105000);
+        listaKilometraje.add(110000);
+        listaKilometraje.add(115000);
+        listaKilometraje.add(120000);
+        listaKilometraje.add(125000);
+        listaKilometraje.add(130000);
+        listaKilometraje.add(135000);
+        listaKilometraje.add(145000);
+        listaKilometraje.add(150000);
+
+    }
+
     @PostConstruct
     public void init() {
         setEntityManager(em);
@@ -189,6 +248,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         cactividadpm = new ControladorActividadPlanMantenimiento();
         cactividadpm.setInstance(new ActividadPlanMantenimiento());
+        listak();
+
     }
 
     @Override
@@ -215,27 +276,31 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        if (cactividadpm.listaActividades.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "La Lista de activiades se encuentra vacia"));
+            return "";
+        } else {
+            try {
+                if (getInstance().isPersistent()) {
+                    guardarActividad();
+                    save(getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                } else {
 
-        try {
-            if (getInstance().isPersistent()) {
-                guardarActividad();
-                save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
-            } else {
-
-                getInstance().setEstado(true);
-                create(getInstance());
-                guardarActividad();
-                save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito", " ");
+                    getInstance().setEstado(true);
+                    create(getInstance());
+                    guardarActividad();
+                    save(getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Plan MAntenimiento" + getInstance().getId() + " con éxito", " ");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                }
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
-        } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
+            return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
         }
-        return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
 
     }
 

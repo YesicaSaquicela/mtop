@@ -49,7 +49,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     //registro hace referencia al codigo heredado
     private String tipo;
     private String cilindraje;
-    private String kilometraje;
+    private Integer kilometraje;
     private String tipoCombustible;
 //
 //    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -82,13 +82,14 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.cilindraje = cilindraje;
     }
 
-    public String getKilometraje() {
+    public Integer getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(String kilometraje) {
+    public void setKilometraje(Integer kilometraje) {
         this.kilometraje = kilometraje;
     }
+
 
     public String getPlaca() {
         return placa;

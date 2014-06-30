@@ -28,202 +28,182 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                    <p:growl id="growl" sticky="true" showDetail="true"/>
 
-                    <p:wizard  id="p" flowListener="#{controladorPlanMantenimiento.onFlowProcess}">
-                        <p:tab id="req"  title="Plan de Mantenimiento">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>Asignar Actividades</center></div>
+                        <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
+                        <p:panel id="p1">
 
-                            <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Datos Generales</center></div>
-                                <p:panel>
+                            <p:outputLabel value="Número de Registro"/><br></br>
+                            <p:inputText id="registro" value="#{controladorPlanMantenimiento.numeroPlanMantenimiento }"
+                                         readonly="true" styleClass="form-control"
+                                         required="true" label="Número de Registro" 
+                                         rendered="true" /><br/>
+                            <span class="help-inline text-muted">Número de registro</span><br></br>
 
-                                    <p:outputLabel value="Registro"/><br></br>
-                                    <p:inputTextarea id="registro" styleClass="form-control" value="#{controladorPlanMantenimiento.instance.registro}"
-                                                     required="true" /><br></br>
-                                    <span class="help-inline text-muted">Número de registro<ocp:message forId="registro" /></span>
+                            <p:outputLabel value="Actividad"/><br></br>
+                            <p:inputTextarea id="actividad" required="true" styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
+                                             />
+                            <span class="help-inline text-muted">Descripción de actividad</span><br></br>
+         
 
-                                </p:panel>
+                            <h:outputLabel value="Kilometraje"/> <br></br> 
+                            <p:selectOneMenu required="true" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
+                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
 
+                            </p:selectOneMenu><br></br>
+                            <span class="help-inline text-muted">Elija el Kilometraje</span><br></br><br></br> 
+                        
+                           
+                            <div class="admin-actions">
+                                <p:commandButton ajax="false" update=":form:listaa :form:actividad :form:kilometraje"  styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
+
+                                </p:commandButton>
+                            </div><br/>
+
+
+
+                            <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
+
+                                <p:column headerText="Actividad">
+                                    <h:outputText value="#{la.actividad}"></h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Kilometraje">
+                                    <h:outputText value="#{la.kilometraje}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Opciones" style="width: 5%"> 
+                                    <p:commandLink immediate="true" ajax="true" process="@this"
+                                                   update=":form:listaa :form:actividad :form:kilometraje" value="Editar"
+                                                   actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" title="Seleccionar">
+                                        <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.instance}" />
+                                    </p:commandLink>
+
+                                </p:column>
+                            </p:dataTable><br></br>
+
+                        </p:panel>
+
+                    </div>
+
+                    <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                        <c:forEach items="#{ui.getProperties(controladorPlanMantenimiento.instance)}" var="p" >
+                            <div  class="panel panel-primary">
+                                <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
+
+                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
+                                    <c:choose>                        
+                                        <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
+
+                                            <h:panelGroup  layout="block" class="clearfix">
+                                                <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+
+
+                                                    <h:panelGroup layout="block" class="clearfix">
+                                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                        <div class="input">
+                                                            <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                          rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                                <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                            </p:inputText>
+                                                            <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                           rendered="#{a.property.type eq 'java.lang.Double'}">
+
+                                                                <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                                            </p:inputText>
+                                                            <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                        rendered="#{a.property.type eq 'java.util.Date'}">
+                                                                <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                            </p:calendar>
+                                                            <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
+                                                                            rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                                                <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                            </pe:inputNumber>  
+                                                            <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                             rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                                                <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                                            </p:selectOneMenu>
+                                                            <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                             rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                                            </p:inputTextarea>  
+
+                                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                            styleClass="validation-status" />
+                                                            <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
+                                                        </div>
+
+                                                    </h:panelGroup>  
+
+                                                </ui:repeat>
+                                            </h:panelGroup>
+
+                                        </c:when>
+                                    </c:choose>
+                                </p:tab>
                             </div>
-                       
-                                <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
-                                    <c:forEach items="#{ui.getProperties(controladorPlanMantenimiento.instance)}" var="p" >
-                                        <div  class="panel panel-primary">
-                                            <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
-
-                                            <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
-                                                <c:choose>                        
-                                                    <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
-
-                                                        <h:panelGroup  layout="block" class="clearfix">
-                                                            <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
-
-
-                                                                <h:panelGroup layout="block" class="clearfix">
-                                                                    <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                                                    <div class="input">
-                                                                        <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                      rendered="#{a.property.type eq 'java.lang.String'}">
-                                                                            <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
-                                                                            <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                                        </p:inputText>
-                                                                        <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                       rendered="#{a.property.type eq 'java.lang.Double'}">
-
-                                                                            <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                                        </p:inputText>
-                                                                        <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                                    rendered="#{a.property.type eq 'java.util.Date'}">
-                                                                            <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                                                        </p:calendar>
-                                                                        <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
-                                                                                        rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
-                                                                            <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                                        </pe:inputNumber>  
-                                                                        <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                                         rendered="#{a.property.type eq 'java.lang.String[]'}">  
-                                                                            <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                            <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                                                        </p:selectOneMenu>
-                                                                        <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                                         rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                            <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                                        </p:inputTextarea>  
-
-                                                                        <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
-                                                                                        styleClass="validation-status" />
-                                                                        <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
-                                                                    </div>
-
-                                                                </h:panelGroup>  
-
-                                                            </ui:repeat>
-                                                        </h:panelGroup>
-
-                                                    </c:when>
-                                                </c:choose>
-                                            </p:tab>
-                                        </div>
-                                    </c:forEach>
+                        </c:forEach>
 
 
 
-                                    <p:tab title="Otros" rendered="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.PlanMantenimiento').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
+                        <p:tab title="Otros" rendered="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.PlanMantenimiento').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
 
-                                        <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.PlanMantenimiento')}" var="a" varStatus="status"> 
-                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                            <div class="input">
-                                                <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                              rendered="#{a.property.type eq 'java.lang.String'}">
-                                                    <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
-                                                    <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                </p:inputText>
-                                                <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                               rendered="#{a.property.type eq 'java.lang.Double'}">
+                            <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.PlanMantenimiento')}" var="a" varStatus="status"> 
+                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                <div class="input">
+                                    <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                  rendered="#{a.property.type eq 'java.lang.String'}">
+                                        <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                        <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                    </p:inputText>
+                                    <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                   rendered="#{a.property.type eq 'java.lang.Double'}">
 
-                                                    <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                </p:inputText>
-                                                <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                            rendered="#{a.property.type eq 'java.util.Date'}">
-                                                    <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                                </p:calendar>
-                                                <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
-                                                                rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
-                                                    <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                </pe:inputNumber>
-                                                <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                 rendered="#{a.property.type eq 'java.lang.String[]'}">  
-                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                    <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                                </p:selectOneMenu>
-                                                <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                    <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                </p:inputTextarea>                                             
-                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
-                                                                styleClass="validation-status" />
-                                                <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
-                                            </div>
+                                        <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
+                                    </p:inputText>
+                                    <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                rendered="#{a.property.type eq 'java.util.Date'}">
+                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                    </p:calendar>
+                                    <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
+                                                    rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                    </pe:inputNumber>
+                                    <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                     rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                        <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                    </p:selectOneMenu>
+                                    <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                        <p:ajax event="blur" update="@parent" partialSubmit="true"/>
+                                    </p:inputTextarea>                                             
+                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                    styleClass="validation-status" />
+                                    <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
+                                </div>
 
 
-                                        </ui:repeat>
-
-                                    </p:tab>
-                                    <br/>
-
-                                </p:tabView><br></br><br></br>
+                            </ui:repeat>
 
                         </p:tab>
+                        <br/>
 
-                        <p:tab id="address" title="Crear Actividades">
+                    </p:tabView><br></br><br></br>
 
-                            <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Actividades</center></div>
-
-                                <p:panel>
-
-
-                                    <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
-
-                                    <p:outputLabel value="Actividad"/><br></br>
-                                    <p:inputTextarea id="actividad"  styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
-                                                     /><br></br>
-                                    <p:outputLabel value="Kilometraje"/><br></br>
-                                    <p:inputText id="kilometraje"   styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}"
-                                                 /><br></br>
-
-                                    <div class="admin-actions">
-                                        <p:commandButton update=":form:listaa :form:actividad :form:kilometraje :form:mensaje"  styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
-
-                                        </p:commandButton>
-                                    </div><br/>
+                    <div class="admin-actions " align="center"> 
+                        <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" 
+                                         update="p1" process="@this"/>
+                        #{' '}
+                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
+                    </div>
 
 
-
-                                    <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
-
-                                        <p:column headerText="Actividad">
-                                            <h:outputText value="#{la.actividad}"></h:outputText>
-                                        </p:column>
-
-                                        <p:column headerText="Kilometraje">
-                                            <h:outputText value="#{la.kilometraje}"></h:outputText>
-                                        </p:column>
-                                        <p:column headerText="Opciones" style="width: 5%"> 
-                                            <p:commandLink update=":form:listaa :form:actividad :form:kilometraje" value="Editar"
-                                                           actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" title="Seleccionar">
-                                                <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.instance}" />
-                                            </p:commandLink>
-
-                                        </p:column>
-                                    </p:dataTable><br></br>
-
-                                </p:panel>
-
-                            </div>
-
-
-                        </p:tab>
-
-                        <p:tab id="confirm" title="Confirmacion">
-
-                            <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Actividades</center></div>
-                                <p:panel>
-
-                                    <h:outputText value="Registro: " />
-                                    <h:outputText value="#{controladorPlanMantenimiento.instance.registro}" styleClass="outputLabel"/><br/>
-                                </p:panel>
-                            </div>
-                            <div class="admin-actions " align="center"> 
-                                <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" update="growl" process="@this"/>
-                                #{' '}
-                                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/planMantenimiento/lista" styleClass="btn  btn-success"/>
-                            </div>
-                        </p:tab>
-                    </p:wizard>
-                </div></div>
+                </div>
+            </div>
 
         </h:form>
 

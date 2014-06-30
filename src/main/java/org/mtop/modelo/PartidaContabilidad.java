@@ -105,8 +105,7 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
    
 
 
-  
-    public String concatenarPartida() {
+   public String concatenarPartida() {
         String resultado = "250-" + getNumeroProvincia() + "-0000-" + getNumeroPrograma() + "-00-" + getNumeroProyecto() + "-001-" + getNumeroItem() + "-1100-"+ getNumeroFuenteFinanciera();
         return resultado;
     }
