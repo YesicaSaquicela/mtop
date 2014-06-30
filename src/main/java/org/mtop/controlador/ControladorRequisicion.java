@@ -48,10 +48,12 @@ import java.text.SimpleDateFormat;
 //import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.Producto;
+import org.mtop.modelo.Requisicion_;
 //import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -79,68 +81,123 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Integer maximo;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
     List<Producto> listaProductos = new ArrayList<Producto>();
+    private String palabrab;
+    
     Producto pro;
 
-    public Integer getMaximo() {
-        if(getInstance().getTipoAdquisicion().equals("bodega")){
-            if(pro!=null){
-                setMaximo(pro.getCantidad());
+    public void buscar() {
+        System.out.print("Entra a buscar"+Requisicion_.class.getName());
+        
+        List<Requisicion> le = new ArrayList<Requisicion>();
+        le.clear();
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        le=servgen.buscarTodoscoincidencia(Requisicion.class, "Requisicion", Requisicion_.numRequisicion.getName(), palabrab);
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
             }
-            
+         
         }else{
+            listaRequisicion=le;
+        }
+        
+    }
+    
+    
+    
+     public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        System.out.println("PAlabrafijando >>"+palabrab);
+        this.palabrab = palabrab;
+    }
+    
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy"+query);
+        
+        ArrayList<String> ced = new ArrayList<String>();
+        System.out.println("REEEEq>>>>>>>"+Requisicion.class.getName());
+        System.out.println("atruiii>>>>>>>"+Requisicion_.numRequisicion.getName());
+        List<Requisicion> lr=servgen.buscarTodoscoincidencia(Requisicion.class, "Requisicion", Requisicion_.numRequisicion.getName()  , query);
+        
+        for (Requisicion requisicion : lr) {
+            System.out.println("econtro uno "+requisicion.getNumRequisicion());
+            ced.add(requisicion.getNumRequisicion());
+        }
+        System.out.println("listaaaaa autocompletar"+ced);
+        return ced;
+    }
+    public Integer getMaximo() {
+        if (getInstance().getTipoAdquisicion().equals("bodega")) {
+            if (pro.getId() != null) {
+                System.out.println("enrra a obtener cantidaaaaa>>>>>>>>>>>>>>>>>>>>>>>");
+                setMaximo(pro.getCantidad());
+            } else {
+                setMaximo(100);
+            }
+
+        } else {
             setMaximo(100);
         }
-        System.out.println("maaaaaaaximo"+maximo);
+        System.out.println("maaaaaaaximo" + maximo);
         return maximo;
     }
 
     public void setMaximo(Integer maximo) {
         this.maximo = maximo;
     }
-    
-    
-    
+
     public Producto getPro() {
         System.out.println("reto::::::::::::::::");
-            
+
         System.out.println(pro);
         return pro;
     }
 
     public void setPro(Producto pro) {
-        System.out.println("fijandooooooooooooooooooooooooooooo"+pro);
+        System.out.println("fijandooooooooooooooooooooooooooooo" + pro);
         this.pro = pro;
         cir.getInstance().setDescription(pro.getDescription());
-        cir.getInstance().setCantidad(0);
+        cir.getInstance().setCantidad(1);
+        cir.getInstance().setUnidadMedida(" ");
+        cir.getInstance().setDescription(pro.getDescription());
         cir.getInstance().setProducto(pro);
+
     }
-    public void guardarProducto(Producto p){
+
+    public void guardarProducto(Producto p) {
         System.out.println("entra guarrrrrrrrrrrrrrrrrrrrrrrdarrrrrrrrrrrrrrr");
         cir.getInstance().setProducto(pro);
-        pro=cir.getInstance().getProducto();
-        if(cir.getInstance().getProducto()!=null){
+        pro = cir.getInstance().getProducto();
+        if (cir.getInstance().getProducto() != null) {
             System.out.println("pro");
-            System.out.println("producto "+cir.getInstance().getProducto().getCodigo());
-        }else{
+            System.out.println("producto " + cir.getInstance().getProducto().getCodigo());
+        } else {
             System.out.println("no hay producto");
         }
-        
+
     }
 
     public List<Producto> getListaProductos() {
-        
-        List<Producto> pro=new ArrayList<Producto>();
-        
-        for (Producto p : findAll(Producto.class)) {
-            
-            if (p.getCantidad() > 0) {
-            
-                pro.add(p);
-                
+        if (listaProductos.isEmpty()) {
+            for (Producto p : findAll(Producto.class)) {
+
+                if (p.getCantidad() > 0) {
+
+                    listaProductos.add(p);
+
+                }
             }
         }
-        listaProductos=pro;
-        
+
         return listaProductos;
     }
 
@@ -185,6 +242,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         return numeroRequisicion;
 
     }
+
     public void guardarItem() {
         for (ItemRequisicion apm : cir.listaItemsRequisicion) {
             apm.setRequisicion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
@@ -194,29 +252,33 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setListaItems(cir.listaItemsRequisicion);//fija la lista de actividades al plan de mantenimietno
 
     }
+
     public void agregarItem() {
-        System.out.println("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllcraerll");
+
         if (cir.getInstance().getCantidad().equals("") || cir.getInstance().getUnidadMedida().equals("")) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
 
         } else {
+            int i = listaProductos.lastIndexOf(pro);
+
+            pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
+            listaProductos.set(i, pro);
+
             cir.listaItemsRequisicion.add(cir.getInstance());
             cir.setInstance(new ItemRequisicion());
 
         }
-        System.out.println("enviandi cantidad");
-        cir.getInstance().setCantidad(0);
+
+        pro = new Producto();
+        cir.getInstance().setCantidad(1);
         cir.getInstance().setUnidadMedida(" ");
+        cir.getInstance().setDescription(" ");
         editarItem(cir.getInstance());
 
     }
-    
 
     public void editarItem(ItemRequisicion itemReq) {
-        System.out.println("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
-        System.out.println("Item>>>>>" + cir.getInstance().getCantidad());;
-        System.out.println("REMOVE>>>>>>>>>>>." + itemReq);
 
         int con = 0;
         for (ItemRequisicion i : cir.listaItemsRequisicion) {
@@ -227,6 +289,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("a fijar cant" + i.getCantidad());
                 System.out.println("a fijar unid" + i.getUnidadMedida());
                 cir.setInstance(i);
+                pro = itemReq.getProducto();
+
+                int j = listaProductos.lastIndexOf(pro);
+                System.out.println("pro"+pro.getCantidad());
+                System.out.println("pro de lista"+pro.getCantidad());
+                pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
+                listaProductos.set(j, pro);
+                pro= listaProductos.get(j);
+
                 System.out.println("a fijada" + cir.getInstance().getCantidad());
                 System.out.println("a fijada" + cir.getInstance().getUnidadMedida());
                 break;
@@ -235,7 +306,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             con++;
 
         }
-        System.out.println("tama;o de la lista" + cir.listaItemsRequisicion.size());
 
     }
 
@@ -270,7 +340,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public ControladorItemRequisicion getCir() {
-        
+
         return cir;
     }
 
@@ -294,6 +364,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             return "confirm";
         } else {
             System.out.println("pasoooo");
+            if(getInstance().getId()!=null){
+                this.cir.setListaItemsRequisicion(getInstance().getListaItems());
+            }
             if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
 
@@ -330,9 +403,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setRequisicionId(Long requisicionId) {
-        
+
         setId(requisicionId);
-        cir.listaItemsRequisicion=getInstance().getListaItems();
+        cir.listaItemsRequisicion = getInstance().getListaItems();
 
     }
 
@@ -389,6 +462,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setListaRequisicion(List<Requisicion> listaRequisicion) {
         this.listaRequisicion = listaRequisicion;
+        cir.listaItemsRequisicion = getInstance().getListaItems();
     }
 
     @PostConstruct
@@ -404,10 +478,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         idVehiculo = 0l;
 
         listaPartida = findAll(PartidaContabilidad.class);
-        listaProductos = findAll(Producto.class);
+        listaProductos = new ArrayList<Producto>();
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
-        pro=new Producto();
+        maximo = 100;
+        pro = new Producto();
+        palabrab="";
     }
 
     @Override
@@ -488,4 +564,3 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
 }
-
