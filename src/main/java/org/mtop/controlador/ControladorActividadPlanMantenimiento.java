@@ -58,6 +58,9 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
     private ServicioGenerico servgen;
     List<ActividadPlanMantenimiento> listaActividades = new ArrayList<ActividadPlanMantenimiento>();
 
+    
+      
+ 
     public Long getActividadPlanMantenimientoId() {
         System.out.println("IIIIDEE"+getId());
         return (Long) getId();

@@ -15,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -51,7 +53,21 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String cilindraje;
     private Integer kilometraje;
     private String tipoCombustible;
-//
+
+    @ManyToOne
+    @JoinColumn(name = "planMantenimientoId")
+    private PlanMantenimiento planM;
+
+    public PlanMantenimiento getPlanM() {
+        return planM;
+    }
+
+    public void setPlanM(PlanMantenimiento planM) {
+        this.planM = planM;
+    }
+    
+    
+    
 //    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<PlanMantenimiento> listaPlanMantenimiento= new ArrayList<PlanMantenimiento>();
 //    @OneToMany(mappedBy = "vehiculo" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)

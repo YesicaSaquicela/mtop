@@ -36,6 +36,7 @@ import org.mtop.modelo.Vehiculo;
 public class PlanMantenimiento extends BussinesEntity implements Serializable {
 
     private String registro;
+    
 
 //    @ManyToOne
 //    @JoinColumn(name = "vehiculoId")

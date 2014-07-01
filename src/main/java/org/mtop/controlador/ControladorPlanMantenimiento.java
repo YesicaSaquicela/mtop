@@ -34,6 +34,7 @@ import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.PlanMantenimiento;
+import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.event.FlowEvent;
 
@@ -52,9 +53,33 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private ServicioGenerico servgen;
     private List<PlanMantenimiento> listaPlanMantenimiento = new ArrayList<PlanMantenimiento>();
     private ControladorActividadPlanMantenimiento cactividadpm;
-
     private String numeroPlanMantenimiento;
     private List<Integer> listaKilometraje = new ArrayList();
+   
+    
+     public void activar() {
+         System.out.println("entro>>>>>>>>>>>.");
+        addMessage("", "El Plan de Manteniiento seleccionado ha sido activado");
+    }
+     
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    public void activarPlan(){
+       
+        ControladorVehiculo cv=new ControladorVehiculo();
+         System.out.println("CONTROLADOR>>>>>>>>"+ cv);
+        for (Vehiculo vehiculo : findAll(Vehiculo.class)) {
+            vehiculo.setPlanM(getInstance());
+            System.out.println("VEHICULO>>>..."+vehiculo);
+            cv.setInstance(vehiculo);
+            cv.guardar();
+            
+        }
+    }
+    
+
 
     public List<Integer> getListaKilometraje() {
 
@@ -129,30 +154,26 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void agregarActividad() {
-        boolean ban=true;
+        boolean ban = true;
 
-                   
-                    for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
-                        System.out.println("ENTRO>>>>>>>"+ apm.getKilometraje());
-                        if (apm.getKilometraje().equals(cactividadpm.getInstance().getKilometraje())) {
-                            System.out.println("Entro al if>>>>>>"+cactividadpm.getInstance().getKilometraje());
-                           
-                            ban=false;
-                            break;
-                            
-                        }
-                    }
-                    if(ban==true){
-                     cactividadpm.listaActividades.add(cactividadpm.getInstance());
-                     cactividadpm.setInstance(new ActividadPlanMantenimiento());   
-                    }else{
-                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "EL kilometraje escojido ya se encuentra agregado en la lista"));
-                    }
-                    
-                    
+        for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
+            System.out.println("ENTRO>>>>>>>" + apm.getKilometraje());
+            if (apm.getKilometraje().equals(cactividadpm.getInstance().getKilometraje())) {
+                System.out.println("Entro al if>>>>>>" + cactividadpm.getInstance().getKilometraje());
+
+                ban = false;
+                break;
+
+            }
+        }
+        if (ban == true) {
+            cactividadpm.listaActividades.add(cactividadpm.getInstance());
+            cactividadpm.setInstance(new ActividadPlanMantenimiento());
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "EL kilometraje escojido ya se encuentra agregado en la lista"));
+        }
 
 //                }
-
 //            }
 //        }
     }
@@ -324,5 +345,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
         return "/paginas/planMantenimient/lista.xhtml?faces-redirect=true";
     }
+
+
 
 }

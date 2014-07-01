@@ -33,7 +33,7 @@ limitations under the License.
         <source>tags/output.xhtml</source>
     </tag>
     <tag>
-        <tag-name>view</tag-name>
-        <source>tags/view.xhtml</source>
+        <tag-name>vista</tag-name>
+        <source>tags/vista.xhtml</source>
     </tag>
 </facelet-taglib>
