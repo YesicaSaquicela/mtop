@@ -55,16 +55,16 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
 
-//    @OneToOne
-//    private SolicitudReparacionMantenimiento solicitudReparacions;
-//
+    @OneToOne
+    private SolicitudReparacionMantenimiento solicitudReparacions;
+
 ////    
 ////    @ManyToOne
 ////    @JoinColumn(name = "personaId")
 ////    private Persona psolicita;
-//    @ManyToOne
-//    @JoinColumn(name = "kardexId")
-//    private Kardex kardex;
+    @ManyToOne
+    @JoinColumn(name = "kardexId")
+    private Kardex kardex;
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -73,21 +73,21 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.vehiculo = vehiculo;
     }
 
-//    public Kardex getKardex() {
-//        return kardex;
-//    }
-//
-//    public void setKardex(Kardex kardex) {
-//        this.kardex = kardex;
-//    }
-//
-//    public SolicitudReparacionMantenimiento getSolicitudReparacions() {
-//        return solicitudReparacions;
-//    }
-//
-//    public void setSolicitudReparacions(SolicitudReparacionMantenimiento solicitudReparacions) {
-//        this.solicitudReparacions = solicitudReparacions;
-//    }
+    public Kardex getKardex() {
+        return kardex;
+    }
+
+    public void setKardex(Kardex kardex) {
+        this.kardex = kardex;
+    }
+
+    public SolicitudReparacionMantenimiento getSolicitudReparacions() {
+        return solicitudReparacions;
+    }
+
+    public void setSolicitudReparacions(SolicitudReparacionMantenimiento solicitudReparacions) {
+        this.solicitudReparacions = solicitudReparacions;
+    }
 //    public Persona getPsolicita() {
 //        return psolicita;
 //    }
@@ -96,9 +96,11 @@ public class Requisicion extends BussinesEntity implements Serializable {
 //        this.psolicita = psolicita;
 //    }
 //  
+
     public List<ItemRequisicion> getListaItems() {
         return listaItems;
     }
+   
 
     public void setListaItems(List<ItemRequisicion> listaItems) {
         for (ItemRequisicion itemRequisicion : listaItems) {

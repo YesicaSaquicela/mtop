@@ -60,24 +60,24 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     // @JoinColumn(name = "personaId")
     // private Persona psolicita;
     private String recibidor;
-//    @ManyToOne
-//    @JoinColumn(name = "kardexId")
-//    private Kardex kardex;
+    @ManyToOne
+    @JoinColumn(name = "kardexId")
+    private Kardex kardex;
     @ManyToOne
     @JoinColumn(name = "vehiculoId")
     private Vehiculo vehiculo;
     @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
-//    @OneToOne(mappedBy = "solicitudReparacions")
-//    Requisicion requisicions;
+    @OneToOne(mappedBy = "solicitudReparacions")
+    Requisicion requisicions;
 
-//    public Requisicion getRequisicions() {
-//        return requisicions;
-//    }
-//
-//    public void setRequisicions(Requisicion requisicions) {
-//        this.requisicions = requisicions;
-//    }
+    public Requisicion getRequisicions() {
+        return requisicions;
+    }
+
+    public void setRequisicions(Requisicion requisicions) {
+        this.requisicions = requisicions;
+    }
     public Date getFechaEntradaTaller() {
         return fechaEntradaTaller;
     }
@@ -163,13 +163,13 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
         this.listaItemSR = listaItemSR;
     }
 
-//    public Kardex getKardex() {
-//        return kardex;
-//    }
-//
-//    public void setKardex(Kardex kardex) {
-//        this.kardex = kardex;
-//    }
+    public Kardex getKardex() {
+        return kardex;
+    }
+
+    public void setKardex(Kardex kardex) {
+        this.kardex = kardex;
+    }
     public datosEnumerador getListaEnum() {
         return listaEnum;
     }

@@ -88,6 +88,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         if (getInstance().getType() != null) {
             propertyType = getInstance().getType();
             if (propertyType.equals("java.util.Date")) {
+                
                 Date fecha = Date.class.cast(getInstance().getValue());
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
                 //String fecha=sdf.format(getInstance().getValue());

@@ -1,12 +1,239 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
+                xmlns:mtop="http://mtop.org/jsf/facelets"
+                template="/WEB-INF/templates/plantilla.xhtml">
 
+    <ui:param name="titulo" value="Kardex"/>
+    <f:metadata>
+        <f:viewParam name="kardexId" value="#{controladorKardex.kardexId}"/>
+        <f:viewParam name="valorVista" value="#{controladorKardex.vista}"/>
+    </f:metadata>
+    <ui:define name="header">
+
+        #{titulo}
+
+    </ui:define>
+    <ui:define name="content">
+        <!--Metadato que se realiza antes de renderizarse la vista-->
+
+        <!--Formulario dentro de un contenedor-->
+        <h:form id="form">
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+                    <p:panel id="infovehiculo" rendered="#{controladorKardex.vista eq 'kardex'}">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">ESPECIFICACIÓNES TÉCNICAS DEL VEHÍCULO</div>
+                            <p:panel >
+                                <div class="container-fluid" align="center">
+                                    <div class="row-fluid"  >
+                                        <div class="col-md-4"> 
+                                            <h:outputLabel class="navbar-text" value=" Registro:"/>
+                                            <h:outputText class="navbar-text" value="#{controladorKardex.instance.vehiculo.numRegistro}"/>
+
+                                        </div>
+                                        <div class="col-md-4"> 
+                                            <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
+
+                                            <c:forEach items="#{ui.getProperties(controladorKardex.instance.vehiculo)}" var="p" >
+                                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
+                                                    <ui:repeat value="#{controladorKardex.instance.vehiculo.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
+                                                        <h:outputText rendered="#{a.name =='serie'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                    </ui:repeat>
+                                                </c:if>
+                                            </c:forEach>
+
+                                        </div>
+                                        <div class="col-md-4"> 
+                                            <h:outputLabel class="navbar-text" value=" Placa: "/>
+                                            <h:outputText class="navbar-text" value="#{controladorKardex.instance.vehiculo.placa}"/>
+
+                                        </div>
+
+                                        <div class="col-md-4"> 
+                                            <h:outputLabel class="navbar-text" value=" Tipo:"/>
+                                            <h:outputText class="navbar-text" value="#{controladorKardex.instance.vehiculo.tipo}"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="row-fluid"  >
+                                        <div class="col-md-4"> 
+                                            <h:outputLabel class="navbar-text" value=" Modelo:"/>
+                                            <h:outputText class="navbar-text" value="#{controladorKardex.instance.vehiculo.modelo}"/>
+                                        </div>
+                                        <div class="col-md-4"> 
+
+                                            <h:outputLabel class="navbar-text" value=" Color:"/>
+                                            <h:outputText class="navbar-text" value="#{controladorKardex.instance.vehiculo.color}"/>
+
+                                        </div>
+                                        <div class="col-md-4"> 
+                                            <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
+                                            <c:forEach items="#{ui.getProperties(controladorKardex.instance.vehiculo)}" var="p" >
+                                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                                    <ui:repeat value="#{controladorKardex.instance.vehiculo.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">
+                                                        <h:outputText rendered="#{a.name =='serie'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                    </ui:repeat>
+                                                </c:if>
+                                            </c:forEach>
+
+                                        </div>
+
+                                        <div class="col-md-4"> 
+
+                                            <h:outputLabel class="navbar-text" value=" Marca:"/>
+                                            <h:outputText class="navbar-text" value="#{controladorKardex.instance.vehiculo.marca}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+
+
+                        </div>
+
+                    </p:panel>
+                    <div  class="panel panel-primary">
+
+                        <div class="panel-heading" align="center">BUSCAR SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO, Y REQUISICIONES</div>
+                        <p:panel>
+                            <div class="container-fluid" align="center">
+                                <div class="row-fluid">
+
+
+                                    <div class="col-lg-6">
+                                        <center>
+                                            <div class="input-group">
+                                                <center>
+                                                    <h:outputLabel value="Buscar:  " />
+
+                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrab}"   
+                                                                    completeMethod="#{controladorKardex.autocompletarsyr}"/> 
+
+
+
+                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+
+                                                    </p:commandButton>
+
+
+                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+
+                                                    </p:commandButton>
+                                                </center>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                                <div  class="panel panel-primary">
+                                    <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
+
+                                    <p:tab title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
+
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="todas">
+                                                <div class="table-responsive">
+
+
+                                                    <tbody>
+                                                        <p:dataTable id="listap" value="#{controladorKardex.instance.listaSolicitudReparacion}" var="s"
+
+                                                                     >
+
+
+                                                            <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
+                                                                <h:outputText value="#{s.numSolicitud}"></h:outputText>
+                                                            </p:column>z
+                                                            <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
+                                                                <h:outputText value="#{controladorKardex.formato(s.fechaSolicitud)}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Fecha de Entrada a Taller" sortBy="#{s.fechaEntradaTaller}">
+                                                                <h:outputText value="#{controladorKardex.formato(s.fechaEntradaTaller)}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Fecha de Salida de Taller" sortBy="#{s.fechaSalidaTaller}">
+                                                                <h:outputText value="#{controladorKardex.formato(s.fechaSalidaTaller)}"></h:outputText>
+                                                            </p:column>
+
+                                                            <p:column headerText="Opciones" style="width: 5%"> 
+                                                                <h:link value="Editar" outcome="crear" type="button" >
+                                                                    <f:param name="solicitudId" value="#{s.id}"></f:param>
+                                                                </h:link>
+                                                            </p:column>
+                                                        </p:dataTable></tbody></div></div>
+                                        </div>
+
+                                    </p:tab>
+                                    <p:tab title="Requisiciones" closable="false"  titleStyleClass="clearfix" >
+
+
+
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="todas">
+                                                <div class="table-responsive">
+
+
+                                                    <tbody>
+                                                        <p:dataTable id="listap" value="#{controladorKardex.instance.listaRequisicion}" var="item"
+
+                                                                     >
+                                                            <p:column headerText="Número de Requisición" sortBy="#{item.numRequisicion}" >
+                                                                <h:outputText value="#{item.numRequisicion}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Fecha de Requisición" sortBy="#{item.fechaRequisicion}">
+                                                                <h:outputText value="#{controladorRequisicion.formato(item.fechaRequisicion)}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Observación" sortBy="#{item.observaciones}">
+                                                                <h:outputText value="#{item.observaciones}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Opciones" style="width: 5%"> 
+
+                                                                <h:link value="Editar" outcome="crear" type="button" >
+                                                                    <f:param name="requisicionId" value="#{item.id}"></f:param>
+
+
+                                                                </h:link>
+                                                            </p:column>
+                                                        </p:dataTable></tbody></div></div>
+                                        </div>
+                                    </p:tab>
+                                </div>
+
+
+
+                            </p:tabView>
+
+
+                    </div> <div class="admin-actions " align="center">
+                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
+                                         immediate="true"/>
+                        &nbsp;&nbsp;
+                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn  btn-success">
+
+                        </h:button>
+                    </div>
+
+                    </p:panel>
+                        <p:panel id="#{controladorKardex.vista eq 'requisicion'}">
+                            dfsd
+                        </p:panel>
+
+
+
+                </div></div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -29,27 +29,41 @@
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
                     <!--Botones de admin-->
-                    <div class="row">
 
-
-                        <div class="col-lg-6">
-                            <div class="input-group">
-                                <h:outputLabel value="Buscar:  " />
-                                
-                                <p:autoComplete id="acSimple" value="#{controladorRequisicion.palabrab}"   
-                                completeMethod="#{controladorRequisicion.autocompletar}"/> 
-                                
-                                <span class="input-group-btn">
-                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
-                                        
-                                    </p:commandButton>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                     <br/>
                     <div class="admin-actions">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="container-fluid" align="center">
+                                    <div class="row-fluid">
 
+
+                                        <div class="col-lg-6">
+                                            <center>
+                                                <div class="input-group">
+                                                    <center>
+                                                        <h:outputLabel value="Buscar:  " />
+
+                                                        <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
+                                                                        completeMethod="#{controladorRequisicion.autocompletar}"/> 
+
+
+
+                                                        <p:commandButton value="Buscar" update=":form:listap" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+
+                                                        </p:commandButton>
+
+
+                                                        <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+
+                                                        </p:commandButton>
+                                                    </center>
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></div>
                         <p:commandButton value="Crear" rendered="#{true}" action="/paginas/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
                             <f:param name="requisicionId"></f:param>
                         </p:commandButton><br/><br/>
@@ -61,13 +75,16 @@
 
                                 <tbody>
                                     <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
-                                                  
+
                                                  >
                                         <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
                                             <h:outputText value="#{r.numRequisicion}"></h:outputText>
                                         </p:column>
                                         <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
                                             <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
+                                            <h:outputText value="#{r.vehiculo.numRegistro}"></h:outputText>
                                         </p:column>
                                         <p:column headerText="Observación" sortBy="#{r.observaciones}">
                                             <h:outputText value="#{r.observaciones}"></h:outputText>

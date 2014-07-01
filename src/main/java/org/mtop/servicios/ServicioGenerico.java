@@ -6,6 +6,7 @@
 package org.mtop.servicios;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.MapAttribute;
+import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
 //import org.mtop.model.EntidadAbstracta_;
 //import org.mtop.model.Persona;
@@ -110,8 +112,8 @@ public class ServicioGenerico {
         CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(objetoTipo);
         System.out.println("3");
         Root<T> objeto = query.from(objetoTipo);
-        System.out.println("4");
-        query.where(builder.equal(objeto.get(at), true));
+        
+        query.where(builder.equal(objeto.get(at), objeto.get(at)));
         System.out.println("5");
         return em.createQuery(query).getResultList();
     }
@@ -147,7 +149,7 @@ public class ServicioGenerico {
     }
 
     public <T> List<T> buscarTodoscoincidencia(final Class<T> objetoTipo, String tabla, String nombreatributo, final Object valoratributo) {
-
+        
         TypedQuery<T> query = em.createQuery(
                 "select e from " + tabla + " e where"
                 + " lower(e." + nombreatributo + ") like lower(concat('%',:clave,'%')) ", objetoTipo);
@@ -158,6 +160,26 @@ public class ServicioGenerico {
 
         //builder.equal(objeto.get(at), true)
     }
+    public List<Requisicion> buscarRequisicionporFecha(String nombreatributo, final Object valoratributo) {
+        List<Requisicion> l= new ArrayList<Requisicion>();
+        String s="";
+        l.clear();
+        for (Requisicion t : buscarTodos(Requisicion.class, nombreatributo)) {
+            
+            s=t.getFechaRequisicion().toString();
+            if(s.contains(valoratributo.toString())){
+                l.add(t);
+            }
+        }
+        
+        
+       
+        return l;
+
+        //builder.equal(objeto.get(at), true)
+    }
+    
+   
 
 //    public List<Vehiculo> buscarTodos( boolean activo, String valorTipo, final Date f) {
 //        CriteriaBuilder builder = em.getCriteriaBuilder();
