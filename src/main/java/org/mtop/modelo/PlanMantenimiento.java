@@ -35,7 +35,8 @@ import org.mtop.modelo.Vehiculo;
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class PlanMantenimiento extends BussinesEntity implements Serializable {
 
-    private long registro;
+    private String registro;
+    
 
 //    @ManyToOne
 //    @JoinColumn(name = "vehiculoId")
@@ -57,16 +58,15 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
         this.listaActividadpm = listaActividadpm;
     }
 
-    public long getRegistro() {
+    public String getRegistro() {
         return registro;
     }
 
-    public void setRegistro(long registro) {
+    public void setRegistro(String registro) {
         this.registro = registro;
     }
 
- 
-
+  
     
 //    public Vehiculo getVehiculo() {
 //        return vehiculo;

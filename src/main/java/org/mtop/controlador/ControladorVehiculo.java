@@ -33,11 +33,14 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.modelo.ActividadPlanMantenimiento;
+import org.mtop.modelo.ActividadPlanMantenimiento_;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.dinamico.Property;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -54,13 +57,168 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private ServicioGenerico servgen;
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
     private String numeroRegistro;
+    private ActividadPlanMantenimiento actividadplan;
+    private Integer prokilometraje;
+
+    public Integer getProkilometraje() {
+        return prokilometraje;
+    }
+
+    public void setProkilometraje(Integer prokilometraje) {
+        System.out.println(getInstance());
+        System.out.println(getInstance().getPlanM().getListaActividadpm());
+         for (ActividadPlanMantenimiento actividadpm : getInstance().getPlanM().getListaActividadpm()) {
+            if (actividadpm.getKilometraje() == prokilometraje) {
+                actividadplan = actividadpm;
+            }
+        }
+        this.prokilometraje = prokilometraje;
+    }
+    
+    
+
+    public ActividadPlanMantenimiento getActividadplan() {
+        return actividadplan;
+    }
+
+    public void setActividadplan(ActividadPlanMantenimiento actividadplan) {
+        this.actividadplan = actividadplan;
+    }
+
+    //Actividades por kilometraje
+    
+
+    //metodo para obtener proximo kilometraje
+    public Integer obtenerKilometraje(Integer kilometaje) {
+        Integer proKilometraje = null;
+        if (kilometaje < 5000) {
+            proKilometraje = 5000;
+        } else {
+            if (kilometaje < 10000) {
+                proKilometraje = 10000;
+            } else {
+                if (kilometaje < 20000) {
+                    proKilometraje = 20000;
+                } else {
+                    if (kilometaje < 25000) {
+                        proKilometraje = 25000;
+                    } else {
+                        if (kilometaje < 30000) {
+                            proKilometraje = 30000;
+                        } else {
+                            if (kilometaje < 35000) {
+                                proKilometraje = 35000;
+                            } else {
+                                if (kilometaje < 40000) {
+                                    proKilometraje = 40000;
+                                } else {
+                                    if (kilometaje < 45000) {
+                                        proKilometraje = 45000;
+                                    } else {
+                                        if (kilometaje < 50000) {
+                                            proKilometraje = 50000;
+                                        } else {
+                                            if (kilometaje < 55000) {
+                                                proKilometraje = 55000;
+                                            } else {
+                                                if (kilometaje < 60000) {
+                                                    proKilometraje = 60000;
+                                                } else {
+                                                    if (kilometaje < 65000) {
+                                                        proKilometraje = 65000;
+                                                    } else {
+                                                        if (kilometaje < 70000) {
+                                                            proKilometraje = 70000;
+                                                        } else {
+                                                            if (kilometaje < 75000) {
+                                                                proKilometraje = 75000;
+                                                            } else {
+                                                                if (kilometaje < 80000) {
+                                                                    proKilometraje = 80000;
+                                                                } else {
+                                                                    if (kilometaje < 85000) {
+                                                                        proKilometraje = 85000;
+                                                                    } else {
+                                                                        if (kilometaje < 90000) {
+                                                                            proKilometraje = 90000;
+                                                                        } else {
+                                                                            if (kilometaje < 95000) {
+                                                                                proKilometraje = 95000;
+                                                                            } else {
+                                                                                if (kilometaje < 100000) {
+                                                                                    proKilometraje = 100000;
+                                                                                } else {
+                                                                                    if (kilometaje < 105000) {
+                                                                                        proKilometraje = 105000;
+                                                                                    } else {
+                                                                                        if (kilometaje < 110000) {
+                                                                                            proKilometraje = 110000;
+                                                                                        } else {
+                                                                                            if (kilometaje < 115000) {
+                                                                                                proKilometraje = 115000;
+                                                                                            } else {
+                                                                                                if (kilometaje < 120000) {
+                                                                                                    proKilometraje = 1200000;
+                                                                                                } else {
+                                                                                                    if (kilometaje < 130000) {
+                                                                                                        proKilometraje = 130000;
+                                                                                                    } else {
+                                                                                                        if (kilometaje < 135000) {
+                                                                                                            proKilometraje = 135000;
+                                                                                                        } else {
+                                                                                                            if (kilometaje < 140000) {
+                                                                                                                proKilometraje = 140000;
+                                                                                                            } else {
+                                                                                                                if (kilometaje < 145000) {
+                                                                                                                    proKilometraje = 145000;
+                                                                                                                } else {
+                                                                                                                    if (kilometaje < 150000) {
+                                                                                                                        proKilometraje = 150000;
+                                                                                                                    } else {
+                                                                                                                        if (kilometaje < 15000) {
+                                                                                                                            proKilometraje = 15000;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return proKilometraje;
+
+    }
 
     public String getNumeroRegistro() {
         if (getId() == null) {
-            System.out.println("numero"+getInstance().getNumRegistro());
-            List<Vehiculo> lista = findAll(Vehiculo.class);
+            System.out.println("numero" + getInstance().getNumRegistro());
+            List<Vehiculo> lista = findAll(Vehiculo.class
+            );
             int t = lista.size();
-            if (t < 9) {
+            if (t
+                    < 9) {
                 setNumeroRegistro("000".concat(String.valueOf(t + 1)));
             } else {
                 if (t >= 9 && t < 99) {
@@ -73,10 +231,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     }
                 }
             }
-        }else{
+        } else {
             setNumeroRegistro(getInstance().getNumRegistro());
         }
-        
+
         return numeroRegistro;
 
     }
@@ -123,27 +281,35 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        
+
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (Vehiculo)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-        
-        
+        listaVehiculos
+                = servgen.buscarTodos(Vehiculo.class
+                );
+
     }
 
     @Override
-    protected Vehiculo createInstance() {
+    protected Vehiculo
+            createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Vehiculo.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Vehiculo.class
+                .getName());
         Date now = Calendar.getInstance().getTime();
         Vehiculo vehiculo = new Vehiculo();
+
         vehiculo.setCreatedOn(now);
+
         vehiculo.setLastUpdate(now);
+
         vehiculo.setActivationTime(now);
+
         vehiculo.setType(_type);
+
         vehiculo.buildAttributes(bussinesEntityService);  //
         return vehiculo;
     }
@@ -163,15 +329,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                System.out.println("PRESENTAR GUERADAR>>>>>" + getInstance().getNumRegistro());
-
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Exitoso" , "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
 
-                System.out.println("PRESENTAR EDITAR>>>>>" + getInstance().getNumRegistro());
                 getInstance().setEstado(true);
+                getInstance().setDescription("Kilometraje inicial");
                 create(getInstance());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva vehiculo" + getInstance().getId() + " con éxito", " ");
@@ -182,6 +346,26 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+    }
+
+    @TransactionAttribute
+    public String guardarMantenimiento() {
+
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+
+        try {
+            if (getInstance().isPersistent()) {
+                save(getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Exitoso" , "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
+                RequestContext.getCurrentInstance().showMessageInDialog(msg); 
+            }
+
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        }
+        return "/paginas/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -225,9 +409,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
-    public boolean tieneEstadosEstructura(Property propiedad) {
-        for (Property p : servgen.buscarTodos(Property.class)) {
-            if (p.getGroupName() != null) {
+    public
+            boolean tieneEstadosEstructura(Property propiedad) {
+        for (Property p : servgen.buscarTodos(Property.class
+        )) {
+            if (p.getGroupName()
+                    != null) {
                 if (p.getGroupName().equals(propiedad.getName())) {
                     System.out.println("encontro su propiedad>>>>> " + p.getName());
                     if (p.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {

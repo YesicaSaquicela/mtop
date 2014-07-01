@@ -130,7 +130,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                 return event.getOldStep();
             } else {
-               
+
                 if (event.getOldStep().equals("items") && this.citemsolicitud.listaItemsSolicitud.isEmpty()) {
                     System.out.println("estas vaciaaaaaa");
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
@@ -193,7 +193,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         setId(solicitudReparacionMantenimientoId);
-           citemsolicitud.listaItemsSolicitud = getInstance().getListaItemSR();
+        citemsolicitud.listaItemsSolicitud = getInstance().getListaItemSR();
 
     }
 
@@ -246,7 +246,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void agregarItemS() {
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
+            FacesMessage msg=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios.");
 
         } else {
             citemsolicitud.listaItemsSolicitud.add(citemsolicitud.getInstance());
