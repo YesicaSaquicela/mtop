@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/templates/diseno1.xhtml">
+        <ui:define name="left">
+            
+            
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+                
+                <h1>Gestionar Kardex</h1>
+                <h:link value="Nuevo" outcome="crearEditar" type="button" ></h:link>
+                <p:dataTable id="listap" value="#{listaKardex.kardex}" var="item">
+                    <p:column headerText="Número">
+                        <h:outputText value="#{item.numero}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Observaciones">
+                        <h:outputText value="#{item.observaciones}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Vehículo">
+                        <h:outputText value="#{item.vehiculo.placa}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Acciones" style="width: 5%"> 
+                        <h:link value="Editar" outcome="crearEditar" type="button" >
+                            <f:param name="kardexId" value="#{item.id}"></f:param>
+                        </h:link>
+                    </p:column>
+                </p:dataTable>
+             <a href="./page1" >Inicio</a><br></br>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

@@ -37,11 +37,7 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
 
     private String registro;
     
-
-//    @ManyToOne
-//    @JoinColumn(name = "vehiculoId")
-//    private Vehiculo vehiculo;
-    @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+     @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
 
 

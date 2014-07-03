@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/templates/diseno1.xhtml">
+        <f:metadata>
+            <f:viewParam name="planMantenimientoId" value="#{controladorPlanMantenimiento.id}"/>
+        </f:metadata>
+        <ui:define name="left">
+
+
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+                <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+                <h1>Gestionar Plan de Mantenimiento</h1>
+                <p:panel header="Plan de mantenimiento">
+                    <p:panelGrid columns="2" >
+                        <h:outputText value="Numero de Registro"/>
+                        <h:inputText id="registro" value="#{controladorPlanMantenimiento.planMantenimiento.registro}"/>
+
+                        <h:outputText value="Fecha Creación"/>
+                        <p:calendar value="#{controladorPlanMantenimiento.planMantenimiento.fechaCreacion}"/>
+                    </p:panelGrid>
+
+                </p:panel>
+                <p:panel header="Crear Actividad">
+                    <p:panelGrid columns="2" >
+                        <h:outputText value="Kilometraje"/>
+                        <h:inputText id="kilometraje" value="#{controladorPlanMantenimiento.actividadpm.kilometraje}"/>
+
+                        <h:outputText value="Actividad"/>
+                        <h:inputText id="actividad" value="#{controladorPlanMantenimiento.actividadpm.actividad}"/>
+
+                        <h:commandLink action="#{controladorPlanMantenimiento.crearActividad()}" value="Guardar"/>
+                    </p:panelGrid>
+                </p:panel>
+
+                <p:panel header="Lista">
+
+                    <p:panelGrid columns="2" >
+
+                        <p:dataTable id="listapK" value="#{controladorPlanMantenimiento.listaActividadpm}" var="item">
+                            <p:column headerText="Kilometraje">
+                                <h:outputText value="#{item.kilometraje}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Actividades">
+                                <h:outputText value="#{item.actividad}"></h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Opciones" style="width: 5%"> 
+                                <h:commandLink action="#{controladorPlanMantenimiento.editarActividad(item)}" value="Editar"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panelGrid>
+
+
+
+                </p:panel>
+
+                <p:commandButton value="Guardar" action="#{controladorPlanMantenimiento.guardar()}" 
+                                 update=":form"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

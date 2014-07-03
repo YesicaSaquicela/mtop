@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <!-- Integracion con bootstrap-->
+        <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.min.css"/>
+        <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.css"/>
+        
+        <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
+        <h:outputScript name="bootstrap-3.1.1/js/bootstrap.min.js"/> 
+        <title>Mtop</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:include src="/paginas/letf.xhtml"/>
+        </div>
+        
+        <div>
+            <div id="left">
+                <ui:insert name="left">Left</ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+        
+        
+        
+        <div id="bottom">
+       <h:link outcome="/page1.xhtml" styleClass="btn-link" value="Inicio" /> 
+        </div>
+
+    </h:body>
+
+</html>

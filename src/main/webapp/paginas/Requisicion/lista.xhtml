@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/templates/diseno1.xhtml">
+        <ui:define name="left">
+
+
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+                <p:splitButton value="Tipo Requisicion"   icon="ui-icon-disk">  
+                    <p:menuitem value="De Reparacion del Vehiculo" url="crearEditar1.xhtml"  icon="ui-icon-arrowrefresh-1-w">
+                        <f:param name="titulo" value="De Reparacion de Vehiculo"></f:param>
+                    </p:menuitem>  
+                    <p:menuitem value="De Reparacion del Vehiculo" url="crearEditar2.xhtml"  icon="ui-icon-arrowrefresh-1-w">
+                        <f:param name="titulo" value="De Bienes y Servicios"></f:param>
+                    </p:menuitem> 
+                </p:splitButton> 
+                <h1>Buscar Requisicion
+
+                </h1>
+
+
+                <h:link value="Nuevo" outcome="crearEditar1" type="button" ></h:link>
+                <p:dataTable id="listap" value="#{listaRequisicion.requisicionAprovada}" var="item">
+                    <p:column headerText="Numero Requisicion">
+                        <h:outputText value="#{item.numRequisicion}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Fecha Requisicion">
+                        <h:outputText value="#{item.fechaCreacion}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Observaciones">
+                        <h:outputText value="#{item.observaciones}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Placa Vehiculo">
+                        <h:outputText value="#{item.vehiculo.placa}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Conductor">
+                        <h:outputText value="#{item.vehiculo.conductor.nombre}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Acciones" style="width: 5%"> 
+                        <h:link value="Editar" outcome="crearEditar" type="button" >
+                            <f:param name="requisicion" value="#{item}"></f:param>
+                        </h:link>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+
