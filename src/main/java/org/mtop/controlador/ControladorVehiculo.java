@@ -34,7 +34,8 @@ import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ActividadPlanMantenimiento;
-import org.mtop.modelo.ActividadPlanMantenimiento_;
+
+import org.mtop.modelo.Kardex;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.dinamico.Property;
@@ -59,6 +60,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private String numeroRegistro;
     private ActividadPlanMantenimiento actividadplan;
     private Integer prokilometraje;
+    ControladorKardex ck;
 
     public Integer getProkilometraje() {
         return prokilometraje;
@@ -67,15 +69,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setProkilometraje(Integer prokilometraje) {
         System.out.println(getInstance());
         System.out.println(getInstance().getPlanM().getListaActividadpm());
-         for (ActividadPlanMantenimiento actividadpm : getInstance().getPlanM().getListaActividadpm()) {
+        for (ActividadPlanMantenimiento actividadpm : getInstance().getPlanM().getListaActividadpm()) {
             if (actividadpm.getKilometraje() == prokilometraje) {
                 actividadplan = actividadpm;
             }
         }
         this.prokilometraje = prokilometraje;
     }
-    
-    
 
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
@@ -86,8 +86,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     //Actividades por kilometraje
-    
-
     //metodo para obtener proximo kilometraje
     public Integer obtenerKilometraje(Integer kilometaje) {
         Integer proKilometraje = null;
@@ -285,11 +283,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (Vehiculo)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
+        System.out.println("antes de fija em en vehicu;looo");
         bussinesEntityService.setEntityManager(em);
+        System.out.println("despues de fija em en vehicu;looo");
         servgen.setEm(em);
         listaVehiculos
                 = servgen.buscarTodos(Vehiculo.class
                 );
+        ck = new ControladorKardex();
 
     }
 
@@ -327,17 +328,26 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getVehiculoId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
+        Kardex k = new Kardex();
+        k.setNumero(getInstance().getNumRegistro());
+
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Exitoso" , "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-
+                System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
                 getInstance().setDescription("Kilometraje inicial");
                 create(getInstance());
                 save(getInstance());
+//                k.setVehiculo(findById(Vehiculo.class, getInstance().getId()));
+//                ck.setInstance(k);
+//                System.out.println("guaradar Kardexx" + ck.getInstance().getId());
+//                ck.guardar();
+//                System.out.println("ha guardado" + ck.getInstance().getId());
+//                System.out.println("guardando Vehiculoooooooo88888" + findAll(Kardex.class));
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva vehiculo" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
@@ -345,7 +355,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
+        guardarKardex();
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+    }
+
+    public void guardarKardex() {
+
     }
 
     @TransactionAttribute
@@ -357,8 +372,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Exitoso" , "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
-                RequestContext.getCurrentInstance().showMessageInDialog(msg); 
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
+                RequestContext.getCurrentInstance().showMessageInDialog(msg);
             }
 
         } catch (Exception e) {

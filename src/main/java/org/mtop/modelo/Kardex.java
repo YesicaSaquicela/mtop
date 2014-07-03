@@ -44,8 +44,12 @@ public class Kardex extends BussinesEntity implements Serializable {
     private List<Requisicion> listaRequisicion=new ArrayList<Requisicion>();
     private String numero;
     
+   
+    
+  
+
+      @JoinColumn(name = "vehiculoId")
     @OneToOne
-    @JoinColumn(name = "vehiculoId")
     private Vehiculo vehiculo;
 
     public List<Requisicion> getListaRequisicion() {

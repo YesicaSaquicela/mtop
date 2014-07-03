@@ -42,6 +42,8 @@ public abstract class PersistenceController<T> extends Controller implements Ser
     protected abstract String getPersistenceContextName();
 
     public EntityManager getEntityManager() {
+        System.out.println("aaaaaaaaaaaaaaaaaa");
+        System.out.println("entyty en persinstence"+entityManager.toString());
         return entityManager;
     }
 

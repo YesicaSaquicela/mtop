@@ -167,6 +167,8 @@ public class ServicioGenerico {
         for (Requisicion t : buscarTodos(Requisicion.class, nombreatributo)) {
             
             s=t.getFechaRequisicion().toString();
+            System.out.println("valor de SSSSSSSSSSSS"+s);
+            System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
             if(s.contains(valoratributo.toString())){
                 l.add(t);
             }

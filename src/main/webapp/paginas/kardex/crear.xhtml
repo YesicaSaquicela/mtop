@@ -31,6 +31,7 @@
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
                     <p:panel id="infovehiculo" rendered="#{controladorKardex.vista eq 'kardex'}">
+                        entro a kardex
                         <div class="panel panel-primary">
                             <div class="panel-heading" align="center">ESPECIFICACIÓNES TÉCNICAS DEL VEHÍCULO</div>
                             <p:panel >
@@ -216,19 +217,20 @@
                             </p:tabView>
 
 
-                    </div> <div class="admin-actions " align="center">
-                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
-                                         immediate="true"/>
-                        &nbsp;&nbsp;
-                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn  btn-success">
+                            <div class="admin-actions " align="center">
+                                <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
+                                                 immediate="true"/>
+                                &nbsp;&nbsp;
+                                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn  btn-success">
 
-                        </h:button>
-                    </div>
+                                </h:button>
+                            </div>
 
-                    </p:panel>
-                        <p:panel id="#{controladorKardex.vista eq 'requisicion'}">
-                            dfsd
                         </p:panel>
+                    </div>
+                    <p:panel id="#{controladorKardex.vista eq 'requisicion'}">
+                        dfsd
+                    </p:panel>
 
 
 

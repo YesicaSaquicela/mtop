@@ -40,6 +40,7 @@ import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.SolicitudReparacionMantenimiento_;
+import org.mtop.modelo.Vehiculo;
 
 import org.mtop.servicios.ServicioGenerico;
 
@@ -67,9 +68,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setVista(String vista) {
         this.vista = vista;
     }
-    
-    
-    
 
     public String formato(Date fecha) {
         String fechaFormato = "";
@@ -210,6 +208,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public List<Kardex> getListakardex() {
+
         return listakardex;
     }
 
@@ -223,9 +222,31 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
+        System.out.println("antes de fija em en kardex");
         bussinesEntityService.setEntityManager(em);
+        System.out.println("despues de fija em en kardex");
         servgen.setEm(em);
         listakardex = servgen.buscarTodos(Kardex.class);
+        List lc = new ArrayList();
+        for (Kardex kardex : listakardex) {
+            lc.add(kardex.getVehiculo().getNumRegistro());
+            System.out.println("registro en kardex"+kardex.getNumero());
+        }
+        
+        for (Vehiculo v : findAll(Vehiculo.class)) {
+            System.out.println("lcccc"+lc.size());
+            System.out.println("registro de vehiculo"+v.getNumRegistro());
+            if (!lc.contains(v.getNumRegistro())) {
+                System.out.println("entro a cardexxx"); 
+               getInstance().setVehiculo(v);
+                getInstance().setNumero(v.getNumRegistro());
+                guardar();
+
+            }
+
+        }
+        listakardex = servgen.buscarTodos(Kardex.class);
+
     }
 
     @Override
@@ -237,8 +258,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         kardex.setCreatedOn(now);
         kardex.setLastUpdate(now);
         kardex.setActivationTime(now);
-
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         kardex.setType(_type);
         kardex.buildAttributes(bussinesEntityService);  //
         return kardex;
@@ -249,24 +268,38 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         return Kardex.class;
     }
 
+    public void saveK() {
+        save(this);
+    }
+
     @TransactionAttribute
     public String guardar() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("entro guardar kardexxxxxxxxxx");
+        this.instance.setVehiculo(getInstance().getVehiculo());
+
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+                System.out.println("Guardando kardeXXXXXXXXXXXXXX" + getInstance().getNumero());
+                System.out.println("Guardando kardeXXXXXXXXXXXXXX" + getInstance().getVehiculo());
+                getInstance().setEstado(true);
+                System.out.println("lallalalallalalallalalalla");
                 create(getInstance());
+
                 save(getInstance());
+                System.out.println("se ha creado000000000000000000000000000000000000000000000 " + getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ErrorRRRRRRRRRRRRRRRRRRRRRR al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         }
         return "/paginas/kardex/lista.xhtml?faces-redirect=true";
     }
