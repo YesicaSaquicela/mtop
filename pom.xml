@@ -14,8 +14,7 @@
         <system>JIRA</system>
         <url>http://jira.jboss.com/jira/browse/KEYCLOAK</url>
     </issueManagement>
-
-
+<!-- hol-->
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
         message: -->
@@ -33,7 +32,7 @@
         <errai.version>2.1.1.Final</errai.version>
         <seam.version>3.1.0.Final</seam.version>
         <solder.version>3.1.1.Final</solder.version>
-        <seam.servlet.version>3.1.0.Beta2</seam.servlet.version>
+        <seam.servet.version>3.1.0.Beta2</seam.servlet.version>
         <hibernate-core-version>4.1.7.Final</hibernate-core-version>
         <hibernate.jpamodelgen.version>1.2.0.Final</hibernate.jpamodelgen.version>
         <ocpsoft.logging.version>1.0.2.Final</ocpsoft.logging.version>
