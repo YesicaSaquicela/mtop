@@ -121,12 +121,12 @@
 
 
 
-                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+                                                    <p:commandButton  id="buscar" value="Buscar" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
 
                                                     </p:commandButton>
 
 
-                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+                                                    <p:commandButton id="limpiar" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
 
                                                     </p:commandButton>
                                                 </center>
@@ -156,7 +156,7 @@
 
                                                             <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
                                                                 <h:outputText value="#{s.numSolicitud}"></h:outputText>
-                                                            </p:column>z
+                                                            </p:column>
                                                             <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
                                                                 <h:outputText value="#{controladorKardex.formato(s.fechaSolicitud)}"></h:outputText>
                                                             </p:column>
