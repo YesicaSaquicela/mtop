@@ -24,7 +24,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <p:growl id="message" showDetail="true" />
-                  
+
 
                     <!--Botones de admin-->
                     <div class="admin-actions">
@@ -50,14 +50,30 @@
                                             </h:link>
 
                                             &nbsp;&nbsp;
-                                            <p:commandButton id="confirmacion"  value="Activar Plan" actionListener="#{controladorPlanMantenimiento.activar()}" update=":form:message">
+                                            <p:commandButton rendered="#{pm.estado eq false}" id="confirmacion"  value="Activar Plan" actionListener="#{controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
                                                 <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
                                             </p:commandButton>
 
                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{controladorPlanMantenimiento.activarPlan()}"/>
-                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                             </p:confirmDialog>
+
+
+                                            <p:commandButton id ="selec"    icon="ui-icon-trash"
+                                                             title="ELIMINAR" onclick="confirmation.show()" type="button" >
+                                                <f:param name="id" value="#{pm.registro}" />
+                                            </p:commandButton>
+                                            <p:confirmDialog id="confirmDialog" message="Esta Seguro que desea Eliminar ?"  
+                                                             header="Doctores" severity="alert" widgetVar="confirmation">
+                                                <p:commandButton  id="confirm"  ajax="false" value="SI" update="maestra" oncomplete="confirmation.hide()"  
+                                                                  action="#{controladorPlanMantenimiento.activarPlan(pm.id)}" actionListener="#{controladorPlanMantenimiento.activarPlan(pm.id)}">
+                                                    <f:param name="id" value="#{pm.registro}" />
+                                                </p:commandButton> 
+
+                                                <p:commandButton id="decline" value="NO" onclick="confirmation.hide()" type="button" />   
+                                            </p:confirmDialog> 
+
                                         </p:column>
                                     </p:dataTable>
                                 </tbody></div></div></div>

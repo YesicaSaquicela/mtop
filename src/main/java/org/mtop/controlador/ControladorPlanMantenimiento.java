@@ -66,17 +66,22 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    public void activarPlan(){
-       
-        ControladorVehiculo cv=new ControladorVehiculo();
-         System.out.println("CONTROLADOR>>>>>>>>"+ cv);
-        for (Vehiculo vehiculo : findAll(Vehiculo.class)) {
-            vehiculo.setPlanM(getInstance());
-            System.out.println("VEHICULO>>>..."+vehiculo);
-            cv.setInstance(vehiculo);
-            cv.guardar();
+    
+    public String activarPlan(Long idplan){
+        
+        for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
+            System.out.println("cambio de estado<|>>>>>>>>>>>>>>>");
             
+            planMantenimiento.setEstado(false);
+            setInstance(planMantenimiento);
+            guardar();
         }
+        System.out.println("salio del for>>>>>>>>>>>>>>>>>>");
+        setId(idplan);
+        getInstance().setEstado(true);
+        guardar();
+        addMessage("", "El Plan de Mantenimiento seleccionado ha sido activado");
+        return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
     }
     
 
@@ -303,13 +308,13 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         } else {
             try {
                 if (getInstance().isPersistent()) {
+                    System.out.println("entro actualizar>>>>>>>>>>>>>>>>>>>>.");
                     guardarActividad();
                     save(getInstance());
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 } else {
-
-                    getInstance().setEstado(true);
+                    getInstance().setEstado(false);
                     create(getInstance());
                     guardarActividad();
                     save(getInstance());
@@ -319,6 +324,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
+                System.out.println("errrrrrrrrrorrrrr");
             }
             return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
         }

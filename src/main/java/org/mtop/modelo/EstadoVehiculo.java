@@ -34,10 +34,19 @@ public class EstadoVehiculo extends BussinesEntity implements Serializable {
 
     private String ubicacion;
     private String nombre;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "vehiculoId")
-//    private Vehiculo vehiculo;
+
+   @ManyToOne
+    @JoinColumn(name = "vehiculoId")
+    private Vehiculo vehiculo;
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+   
     public Date getFechaEntrada() {
         return fechaEntrada;
     }
