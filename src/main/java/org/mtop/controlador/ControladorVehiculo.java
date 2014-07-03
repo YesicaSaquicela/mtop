@@ -338,9 +338,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
-        Kardex k = new Kardex();
-        k.setNumero(getInstance().getNumRegistro());
-
+        
         try {
             if (getInstance().isPersistent()) {
 
