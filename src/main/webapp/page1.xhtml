@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
+        <ui:define name="left">
+
+            <a href="paginas/Vehiculo/lista.xhtml" >Vehiculos</a><br></br><br></br>
+            <a href="paginas/Solicitud/lista.xhtml" >Solicitudes  de Reparacion</a><br></br><br></br>
+            <a href="paginas/Personal/lista.xhtml" >Personal</a><br></br><br></br>
+            <a href="paginas/Requisicion/lista.xhtml" >Requisicion</a><br></br><br></br>
+            <a href="paginas/kardex/lista.xhtml" >Kardex</a><br></br><br></br>
+            <a href="paginas/PlanMantenimiento/lista.xhtml" >Plan de Mantenimiento</a><br></br><br></br>
+            <a href="paginas/MantenimientoVehiculo/lista.xhtml" >Mantenimiento del Vehiculo</a><br></br><br></br>
+       
+        </ui:define>
+        
+        <ui:define name="content">
+            <h1>pagina con plantilla</h1>
+
+            <br/>
+            <br/>
+            <h3>pagina de prueba</h3>
+            
+            <h:form id="form1">
+                
+                <p:messages id="msg1" showDetail="true" autoUpdate="true" closable="true"/>
+                <p:commandButton value="Cargar" styleClass="btn-success" action="#{controladorGenerico.cargar()}" update=":form1:msg1"/>
+            
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

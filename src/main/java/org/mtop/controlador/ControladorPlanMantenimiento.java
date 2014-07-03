@@ -71,9 +71,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         
         for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
             System.out.println("cambio de estado<|>>>>>>>>>>>>>>>");
-            
-            planMantenimiento.setEstado(false);
             setInstance(planMantenimiento);
+            getInstance().setEstado(false);
             guardar();
         }
         System.out.println("salio del for>>>>>>>>>>>>>>>>>>");

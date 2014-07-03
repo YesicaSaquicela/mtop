@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/templates/diseno1.xhtml">
+        <ui:define name="left">
+            
+            
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+                
+                <h1>Asignar Vehiculo a Solicitudes de Reparación</h1>
+                
+                
+               
+                <p:dataTable id="listap" value="#{listaVehiculos.vehiculos}" var="item">
+                    <p:column headerText="Registro">
+                        <h:outputText value="#{item.numRegistro}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Placa">
+                        <h:outputText value="#{item.placa}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Modelo">
+                        <h:outputText value="#{item.modelo}"></h:outputText>
+                    </p:column>
+                   
+                    <p:column headerText="Conductor">
+                        <h:outputText value="#{item.conductor.nombre}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Acciones" style="width: 5%"> 
+                        <h:link value="Asignar" outcome="crearEditar" type="button" >
+                            <f:param name="vehiculoId" value="#{item.id}"></f:param>
+                        </h:link>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

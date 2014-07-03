@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/templates/diseno1.xhtml">
+        <f:metadata>
+
+            <f:viewParam name="solicitudId" value="#{controladorSolicitudReparacion.solicitudReparacion.id}"/>
+        </f:metadata>
+        <ui:define name="left">
+
+
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+
+                <h1>Crear/Editar Solicitud de Reparacion</h1>
+
+                <p:panelGrid columns="3"  >
+
+                    <f:facet name="header">  
+                        <h:outputText value="Datos Generales"/>
+                    </f:facet>  
+
+                    <h:outputText value="Numero de Solicitud"/>
+                    <p:inputText id="numReferencia" value="#{controladorSolicitudReparacion.solicitudReparacion.numSolicitud}"/>
+                    <h:message for="numReferencia" errorClass="invalid" />
+                    <h:outputText value="Fecha Solicitud"/>
+                    <p:inputText id="fechaSolicitud" value="#{controladorSolicitudReparacion.solicitudReparacion.fechaCreacion}"/> 
+                    <h:message for="fechaSolicitud" errorClass="invalid" />
+                    <h:outputText value="Observacion"/>
+                    <p:inputText id="observacion" value="#{controladorSolicitudReparacion.solicitudReparacion.observacion}"/> 
+                    <h:message for="observacion" errorClass="invalid" />
+                    <h:outputText value="Personal que solicita: " />  
+                    <p:selectOneMenu value="#{controladorSolicitudReparacion.solicitudReparacion.psolicita}" effect="fade" 
+                                     converter="personaConverter">  
+                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                        <f:selectItems id="mecanic" value="#{listaPersonas.personas}" var="persona" itemLabel="#{persona.nombre}" itemValue="#{persona}"/>  
+                    </p:selectOneMenu> 
+                    <h:message for="persona" errorClass="invalid" />
+                    <h:outputText value="Vehiculo: " />
+                    <p:inputText id="vehiculo" value="#{controladorSolicitudReparacion.solicitudReparacion.vehiculo.id}"/> 
+
+                    <h:link value="Vehiculo" outcome="listaAVehiculos" type="button" >
+
+                    </h:link>
+                     <h:outputText value="Items" />
+
+                     <p:dataTable id="listap" value="#{controladorSolicitudReparacion.listaitem}" var="item">
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{item.cantidad}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Unidad Medida">
+                            <h:outputText value="#{item.unidadMedida}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <h:outputText value="#{item.descripcion}"></h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Acciones" style="width: 5%"> 
+                            <h:commandLink action="#{controladorSolicitudReparacion.editarItem(item)}" value="Editar"/>
+                            
+                        </p:column>
+                    </p:dataTable>
+                     <h:commandLink action="#{controladorSolicitudReparacion.crearItem()}" value="Crear"/>
+                    
+                    
+                </p:panelGrid>
+
+                <p:commandButton value="Guardar" action="#{controladorSolicitudReparacion.guardar()}" 
+                                 update=":form"/>
+
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+
