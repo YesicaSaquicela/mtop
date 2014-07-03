@@ -33,7 +33,7 @@ import org.mtop.modelo.profile.Profile;
 @DiscriminatorValue(value = "vk")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Vehiculo extends BussinesEntity implements Serializable {
-
+   
     private Integer anioFabricacion;
     private String cabina;
     private String color;
@@ -53,6 +53,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String cilindraje;
     private Integer kilometraje;
     private String tipoCombustible;
+   
 
     @ManyToOne
     @JoinColumn(name = "planMantenimientoId")
@@ -115,7 +116,8 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.placa = placa;
     }
 
-
+   
+   
    
     
     

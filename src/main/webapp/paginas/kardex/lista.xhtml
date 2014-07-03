@@ -1,12 +1,109 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:param name="titulo" value="Lista de Requisiciones"/>
+
+    <ui:define name="header">
+
+        #{titulo}
+
+    </ui:define>
+    <ui:define name="content">
+        <!--Metadato que se realiza antes de renderizarse la vista-->
+
+        <!--Formulario dentro de un contenedor-->
+
+
+
+
+        <h:form id="form">            
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <!--Opción de mensaje, cuando se realiza una acción-->
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+
+                    <!--Botones de admin-->
+
+                    <br/>
+                    <div class="admin-actions">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+
+
+                                    <div class="col-lg-6">
+                                        <center>
+                                            <div class="input-group">
+                                                <center>
+                                                    <h:outputLabel value="Buscar:  " />
+
+                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrab}"   
+                                                                    completeMethod="#{controladorKardex.autocompletar}"/> 
+
+
+
+                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+
+                                                    </p:commandButton>
+
+
+                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
+
+                                                    </p:commandButton>
+                                                </center>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div></div>
+                        <p:commandButton value="Crear" rendered="#{true}" action="/paginas/kardex/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
+                            <f:param name="kardexId"></f:param>
+                        </p:commandButton><br/><br/>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="todas">
+                            <div class="table-responsive">
+
+
+                                <tbody>
+                                    <p:dataTable id="listap" value="#{controladorKardex.listakardex}" var="item"
+
+                                                 >
+                                        <p:column headerText="Número de kardex" sortBy="#{item.numero}" >
+                                            <h:outputText value="#{item.numero}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Observación" sortBy="#{item.observaciones}">
+                                            <h:outputText value="#{item.observaciones}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Vehículo" sortBy="#{item.vehiculo.numRegistro}">
+                                            <h:outputText value="#{item.vehiculo.numRegistro}"></h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Opciones" style="width: 5%"> 
+
+                                            <h:link value="Editar" outcome="crear" type="button" >
+                                                <f:param name="kardexId" value="#{item.id}"></f:param>
+                                                <f:param name="valorVista" value="kardex"></f:param>
+
+                                            </h:link>
+                                            <h:link value="Requisicion" outcome="crear" type="button" >
+                                                <f:param name="kardexId" value="#{item.id}"></f:param>
+                                                <f:param name="valorVista" value="Requisicion"></f:param>
+
+
+                                            </h:link>
+                                        </p:column>
+                                    </p:dataTable></tbody></div></div></div>
+                </div></div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+
 

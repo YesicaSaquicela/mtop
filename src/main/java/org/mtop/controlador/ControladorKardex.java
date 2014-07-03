@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +35,12 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.Kardex;
+import org.mtop.modelo.Kardex_;
+import org.mtop.modelo.Requisicion;
+import org.mtop.modelo.Requisicion_;
+import org.mtop.modelo.SolicitudReparacionMantenimiento;
+import org.mtop.modelo.SolicitudReparacionMantenimiento_;
+import org.mtop.modelo.Vehiculo;
 
 import org.mtop.servicios.ServicioGenerico;
 
@@ -43,13 +50,140 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorKardex extends BussinesEntityHome<Kardex> implements Serializable{
-           @Inject
+public class ControladorKardex extends BussinesEntityHome<Kardex> implements Serializable {
+
+    @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
     List<Kardex> listakardex = new ArrayList<Kardex>();
+    private String palabrab;
+    private String vista;
+
+    public String getVista() {
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        this.vista = vista;
+    }
+
+    public String formato(Date fecha) {
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
+
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+        System.out.println("REEEEq>>>>>>>" + Requisicion.class.getName());
+        System.out.println("atruiii>>>>>>>" + Requisicion_.numRequisicion.getName());
+        List<Kardex> lr = servgen.buscarTodoscoincidencia(Kardex.class, "Kardex", Kardex_.numero.getName(), query);
+
+        for (Kardex kar : lr) {
+            System.out.println("econtro uno " + kar.getNumero());
+            ced.add(kar.getNumero());
+        }
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+    }
+
+    public ArrayList<String> autocompletarsyr(String query) {
+        ArrayList<String> ced = new ArrayList<String>();
+        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), query);
+
+        for (SolicitudReparacionMantenimiento item : ls) {
+            System.out.println("econtro uno " + item.getNumSolicitud());
+            ced.add(item.getNumSolicitud());
+        }
+        List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), query);
+
+        for (Requisicion item : lr) {
+            System.out.println("econtro uno " + item.getNumRequisicion());
+            if (!ced.contains(item.getNumRequisicion())) {
+                ced.add(item.getNumRequisicion());
+            }
+
+        }
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+    }
+
+    public void buscar() {
+
+        List<Kardex> le = new ArrayList<Kardex>();
+        le.clear();
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        le = servgen.buscarTodoscoincidencia(Kardex.class, Kardex.class.getSimpleName(), Kardex_.numero.getName(), palabrab);
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listakardex = le;
+        }
+
+    }
+
+    public void buscarsyr() {
+
+        List<SolicitudReparacionMantenimiento> ls = new ArrayList<SolicitudReparacionMantenimiento>();
+        List<Requisicion> lr = new ArrayList<Requisicion>();
+        ls.clear();
+        lr.clear();
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        ls = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), palabrab);
+
+        if (ls.isEmpty() && lr.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            if (!ls.isEmpty()) {
+                getInstance().setListaSolicitudReparacion(ls);
+            }
+            if (!ls.isEmpty()) {
+                getInstance().setListaRequisicion(lr);
+            }
+
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        listakardex = findAll(Kardex.class);
+    }
 
     public Long getKardexId() {
         return (Long) getId();
@@ -74,6 +208,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public List<Kardex> getListakardex() {
+
         return listakardex;
     }
 
@@ -81,17 +216,37 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.listakardex = listakardex;
     }
 
-  
-  
     @PostConstruct
     public void init() {
         setEntityManager(em);
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
+        System.out.println("antes de fija em en kardex");
         bussinesEntityService.setEntityManager(em);
+        System.out.println("despues de fija em en kardex");
         servgen.setEm(em);
         listakardex = servgen.buscarTodos(Kardex.class);
+        List lc = new ArrayList();
+        for (Kardex kardex : listakardex) {
+            lc.add(kardex.getVehiculo().getNumRegistro());
+            System.out.println("registro en kardex"+kardex.getNumero());
+        }
+        
+        for (Vehiculo v : findAll(Vehiculo.class)) {
+            System.out.println("lcccc"+lc.size());
+            System.out.println("registro de vehiculo"+v.getNumRegistro());
+            if (!lc.contains(v.getNumRegistro())) {
+                System.out.println("entro a cardexxx"); 
+               getInstance().setVehiculo(v);
+                getInstance().setNumero(v.getNumRegistro());
+                guardar();
+
+            }
+
+        }
+        listakardex = servgen.buscarTodos(Kardex.class);
+
     }
 
     @Override
@@ -103,8 +258,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         kardex.setCreatedOn(now);
         kardex.setLastUpdate(now);
         kardex.setActivationTime(now);
-
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         kardex.setType(_type);
         kardex.buildAttributes(bussinesEntityService);  //
         return kardex;
@@ -115,24 +268,38 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         return Kardex.class;
     }
 
+    public void saveK() {
+        save(this);
+    }
+
     @TransactionAttribute
     public String guardar() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("entro guardar kardexxxxxxxxxx");
+        this.instance.setVehiculo(getInstance().getVehiculo());
+
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+                System.out.println("Guardando kardeXXXXXXXXXXXXXX" + getInstance().getNumero());
+                System.out.println("Guardando kardeXXXXXXXXXXXXXX" + getInstance().getVehiculo());
+                getInstance().setEstado(true);
+                System.out.println("lallalalallalalallalalalla");
                 create(getInstance());
+
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo Kardex" + getInstance().getId() + " con éxito"," ");
+                System.out.println("se ha creado000000000000000000000000000000000000000000000 " + getInstance());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ErrorRRRRRRRRRRRRRRRRRRRRRR al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         }
         return "/paginas/kardex/lista.xhtml?faces-redirect=true";
     }
@@ -156,5 +323,5 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
         return "/paginas/kardex/lista.xhtml?faces-redirect=true";
-    } 
+    }
 }

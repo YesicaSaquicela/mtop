@@ -38,26 +38,30 @@ import org.mtop.modelo.Vehiculo;
 public class Kardex extends BussinesEntity implements Serializable {
   
     private String observaciones;
-//    @OneToMany(mappedBy = "kardex", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<SolicitudReparacionMantenimiento> listaSolicitudReparacion = new ArrayList<SolicitudReparacionMantenimiento>();
-//    @OneToMany(mappedBy = "kardex",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Requisicion> listaRequisicion=new ArrayList<Requisicion>();
+    @OneToMany(mappedBy = "kardex", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SolicitudReparacionMantenimiento> listaSolicitudReparacion = new ArrayList<SolicitudReparacionMantenimiento>();
+    @OneToMany(mappedBy = "kardex",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Requisicion> listaRequisicion=new ArrayList<Requisicion>();
     private String numero;
     
+   
+    
+  
+
+      @JoinColumn(name = "vehiculoId")
     @OneToOne
-    @JoinColumn(name = "vehiculoId")
     private Vehiculo vehiculo;
 
-//    public List<Requisicion> getListaRequisicion() {
-//        return listaRequisicion;
-//    }
-//
-//    public void setListaRequisicion(List<Requisicion> listaRequisicion) {
-//         for (Requisicion requisicion : listaRequisicion) {
-//           requisicion.setKardex(this);
-//        }
-//        this.listaRequisicion = listaRequisicion;
-//    }
+    public List<Requisicion> getListaRequisicion() {
+        return listaRequisicion;
+    }
+
+    public void setListaRequisicion(List<Requisicion> listaRequisicion) {
+         for (Requisicion requisicion : listaRequisicion) {
+           requisicion.setKardex(this);
+        }
+        this.listaRequisicion = listaRequisicion;
+    }
      
     public Vehiculo getVehiculo() {
         return vehiculo;
@@ -85,16 +89,16 @@ public class Kardex extends BussinesEntity implements Serializable {
         this.observaciones = observaciones;
     }
 
-//    public List<SolicitudReparacionMantenimiento> getListaSolicitudReparacion() {
-//        return listaSolicitudReparacion;
-//    }
-//
-//    public void setListaSolicitudReparacion(List<SolicitudReparacionMantenimiento> listaSolicitudReparacion) {
-//        for (SolicitudReparacionMantenimiento solicitudReparacion : listaSolicitudReparacion) {
-//            solicitudReparacion.setKardex(this);
-//        }
-//        this.listaSolicitudReparacion = listaSolicitudReparacion;
-//    }
+    public List<SolicitudReparacionMantenimiento> getListaSolicitudReparacion() {
+        return listaSolicitudReparacion;
+    }
+
+    public void setListaSolicitudReparacion(List<SolicitudReparacionMantenimiento> listaSolicitudReparacion) {
+        for (SolicitudReparacionMantenimiento solicitudReparacion : listaSolicitudReparacion) {
+            solicitudReparacion.setKardex(this);
+        }
+        this.listaSolicitudReparacion = listaSolicitudReparacion;
+    }
 
 
     @Override

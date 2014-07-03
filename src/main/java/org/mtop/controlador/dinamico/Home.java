@@ -233,6 +233,7 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
     }
 
     protected <E> void create(final E entity) {
+        System.out.println("creandoOOOO>>>"+entity.toString());
         getEntityManager().persist(entity);
     }
     

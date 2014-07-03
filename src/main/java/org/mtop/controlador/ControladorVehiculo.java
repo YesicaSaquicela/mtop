@@ -60,6 +60,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private String numeroRegistro;
     private ActividadPlanMantenimiento actividadplan;
     private Integer prokilometraje;
+    ControladorKardex ck;
 
     public Integer getProkilometraje() {
         return prokilometraje;
@@ -280,6 +281,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         setEntityManager(em);
 
         bussinesEntityService.setEntityManager(em);
+        System.out.println("despues de fija em en vehicu;looo");
         servgen.setEm(em);
         PlanMantenimiento pmat = new PlanMantenimiento();
         for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
@@ -336,6 +338,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
+        Kardex k = new Kardex();
+        k.setNumero(getInstance().getNumRegistro());
+
         try {
             if (getInstance().isPersistent()) {
 
@@ -346,11 +351,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", "");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-
+                System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
                 getInstance().setDescription("Kilometraje inicial");
                 create(getInstance());
                 save(getInstance());
+//                k.setVehiculo(findById(Vehiculo.class, getInstance().getId()));
+//                ck.setInstance(k);
+//                System.out.println("guaradar Kardexx" + ck.getInstance().getId());
+//                ck.guardar();
+//                System.out.println("ha guardado" + ck.getInstance().getId());
+//                System.out.println("guardando Vehiculoooooooo88888" + findAll(Kardex.class));
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva vehiculo" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
@@ -359,7 +370,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesContext.getCurrentInstance().addMessage("", msg);
             System.out.println("errrrrrrrrrrrrrrrrrrrrrrrorrrrrrrr");
         }
+        guardarKardex();
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+    }
+
+    public void guardarKardex() {
+
     }
 
     @TransactionAttribute
