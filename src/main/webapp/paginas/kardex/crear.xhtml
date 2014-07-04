@@ -105,7 +105,7 @@
                     <div  class="panel panel-primary">
 
                         <div class="panel-heading" align="center">BUSCAR SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO, Y REQUISICIONES</div>
-                        <p:panel>
+                        <p:panel >
                             <div class="container-fluid" align="center">
                                 <div class="row-fluid">
 
@@ -121,12 +121,12 @@
 
 
 
-                                                    <p:commandButton  id="buscar" value="Buscar" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+                                                    <p:commandButton  id="buscar" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
 
                                                     </p:commandButton>
 
 
-                                                    <p:commandButton id="limpiar" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+                                                    <p:commandButton id="limpiar" value="Limpiar" update=":form:infoFM :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
 
                                                     </p:commandButton>
                                                 </center>
@@ -140,19 +140,16 @@
                                 <div  class="panel panel-primary">
                                     <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
 
-                                    <p:tab title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
-
+                                    <p:tab  title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
 
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="todas">
                                                 <div class="table-responsive">
 
-
                                                     <tbody>
                                                         <p:dataTable id="listap" value="#{controladorKardex.instance.listaSolicitudReparacion}" var="s"
 
                                                                      >
-
 
                                                             <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
                                                                 <h:outputText value="#{s.numSolicitud}"></h:outputText>
@@ -179,8 +176,6 @@
                                     <p:tab title="Requisiciones" closable="false"  titleStyleClass="clearfix" >
 
 
-
-
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="todas">
                                                 <div class="table-responsive">
@@ -200,10 +195,8 @@
                                                                 <h:outputText value="#{item.observaciones}"></h:outputText>
                                                             </p:column>
                                                             <p:column headerText="Opciones" style="width: 5%"> 
-
                                                                 <h:link value="Editar" outcome="crear" type="button" >
                                                                     <f:param name="requisicionId" value="#{item.id}"></f:param>
-
 
                                                                 </h:link>
                                                             </p:column>
