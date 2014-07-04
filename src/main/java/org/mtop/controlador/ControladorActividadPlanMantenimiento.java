@@ -150,8 +150,9 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar actividad: " + getInstance().getId()," ");
             FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("no guardo actividaddddd");
         }
         return "/paginas//lista.xhtml?faces-redirect=true";
     }
