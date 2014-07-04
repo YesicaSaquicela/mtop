@@ -338,7 +338,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
-        
+       
+
         try {
             if (getInstance().isPersistent()) {
 
@@ -386,7 +387,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (getInstance().isPersistent()) {
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
-               // RequestContext.getCurrentInstance().showMessageInDialog(msg);
+//                RequestContext.getCurrentInstance().showMessageInDialog(msg);
             }
 
         } catch (Exception e) {
