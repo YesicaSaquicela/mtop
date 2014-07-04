@@ -69,15 +69,23 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     
     public String activarPlan(Long idplan){
         
-        for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
-            System.out.println("cambio de estado<|>>>>>>>>>>>>>>>");
+        for (PlanMantenimiento planMantenimiento : findAll(PlanMantenimiento.class)) {
+            System.out.println("cambio de estado<|>>>>>>>>>>>>>>> a "+planMantenimiento.getId());
+            System.out.println("que tiene un estado "+planMantenimiento.isEstado());
+            
             setInstance(planMantenimiento);
+            
             getInstance().setEstado(false);
+            cactividadpm.listaActividades=getInstance().getListaActividadpm();
             guardar();
+            
         }
+        
         System.out.println("salio del for>>>>>>>>>>>>>>>>>>");
         setId(idplan);
+        System.out.println("plaaan"+getInstance());
         getInstance().setEstado(true);
+        cactividadpm.listaActividades=getInstance().getListaActividadpm();
         guardar();
         addMessage("", "El Plan de Mantenimiento seleccionado ha sido activado");
         return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
