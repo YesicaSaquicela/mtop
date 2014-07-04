@@ -37,7 +37,7 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
     @ManyToOne
     @JoinColumn(name = "planMId")
     public PlanMantenimiento planMantenimiento=new PlanMantenimiento();
-
+    
     public Integer getKilometraje() {
         return kilometraje;
     }
@@ -45,6 +45,8 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
     public void setKilometraje(Integer kilometraje) {
         this.kilometraje = kilometraje;
     }
+
+   
  
 
     public String getActividad() {

@@ -36,9 +36,17 @@ import org.mtop.modelo.Vehiculo;
 public class PlanMantenimiento extends BussinesEntity implements Serializable {
 
     private String registro;
-    
+    private boolean activado ;
      @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
+
+    public boolean isActivado() {
+        return activado;
+    }
+
+    public void setActivado(boolean activado) {
+        this.activado = activado;
+    }
 
 
     public List<ActividadPlanMantenimiento> getListaActividadpm() {

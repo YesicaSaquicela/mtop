@@ -292,7 +292,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         }
         for (Vehiculo v : findAll(Vehiculo.class)) {
-            if (pmat != null) {
+            if (null != pmat.getId()) {
                 System.out.println("forr vehiculo>>>>>>>>");
                 v.setPlanM(pmat);
                 setInstance(v);
@@ -346,9 +346,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
-
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", "");
-                FacesContext.getCurrentInstance().addMessage("", msg);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Información", "Se actualizo con exito"));
+//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", "");
+//                FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
