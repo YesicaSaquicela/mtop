@@ -35,6 +35,7 @@ import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ItemSolicitudReparacion;
+import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
@@ -63,8 +64,42 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Vehiculo vehiculo;
     private List<Vehiculo> listaVehiculos;
     private ControladorItemSolicitud citemsolicitud;
-
+    private List<Requisicion> listaRequisiciones;
+    private Requisicion requisicion;
     private boolean skip;
+
+    public Requisicion getRequisicion() {
+        return requisicion;
+    }
+
+    public void setRequisicion(Requisicion requisicion) {
+        this.requisicion = requisicion;
+    }
+
+    public List<Requisicion> getListaRequisiciones() {
+         listaRequisiciones= findAll(Requisicion.class);
+        for (SolicitudReparacionMantenimiento sol : listaSolicitud) {
+            if(sol.getRequisicions()!=null){
+                listaRequisiciones.remove(sol.getRequisicions());
+            }
+           
+            
+        }
+        System.out.println("lista requisicionessss sin solicitud"+listaRequisiciones);
+        System.out.println("lista antes"+listaRequisiciones);
+        System.out.println("id de vehiculo actual"+getVehiculo());
+        for (Requisicion req : listaRequisiciones) {
+            if(req.getVehiculo().getId()!=getVehiculo().getId()){
+                listaRequisiciones.remove(req);
+            }
+        }
+         System.out.println("lista despues"+listaRequisiciones);
+        return listaRequisiciones;
+    }
+
+    public void setListaRequisiciones(List<Requisicion> listaRequisiciones) {
+        this.listaRequisiciones = listaRequisiciones;
+    }
 
     private String numeroSolicitud;
 
@@ -282,6 +317,17 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaSolicitud = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        listaRequisiciones= findAll(Requisicion.class);
+        for (SolicitudReparacionMantenimiento sol : listaSolicitud) {
+            if(sol.getRequisicions()!=null){
+                listaRequisiciones.remove(sol.getRequisicions());
+            }
+            if(sol.getAprobado()){
+                listaSolicitud.remove(sol);
+            }
+            
+        }
+        System.out.println("lista requisicionessss sin solicitud"+listaRequisiciones);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
         citemsolicitud = new ControladorItemSolicitud();
@@ -314,6 +360,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setLastUpdate(now);
 
         getInstance().setVehiculo(vehiculo);
+        getInstance().setRequisicions(requisicion);
+        
+        
         System.out.println("IIIIDEEEntro>>>>>>" + getSolicitudReparacionMantenimientoId());
         System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance().isPersistent());
 
@@ -334,10 +383,21 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("Error al crear solicitud");
         }
+        System.out.println("antes de fija solicitud");
+        ControladorRequisicion cr= new ControladorRequisicion();
+        cr.fijarSolicitud(getInstance(),getInstance().getRequisicions());
+         System.out.println("despues de fijar solicitud");
         return "/paginas/solicitud/lista.xhtml?faces-redirect=true";
     }
 
+    
+    public void fijarRequisicion(Requisicion requ,SolicitudReparacionMantenimiento soli ){
+        setInstance(soli);
+        getInstance().setRequisicions(requ);
+        save(getInstance());
+    }
     @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());

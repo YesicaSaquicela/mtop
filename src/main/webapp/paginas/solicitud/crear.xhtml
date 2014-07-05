@@ -227,30 +227,68 @@
                                         </p:commandButton>
                                     </div><br/>
 
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="todas">
+                                            <div class="table-responsive">
 
 
-                                    <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la">
+                                                <tbody>
 
-                                        <p:column headerText="Elemento a Revisar">
-                                            <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
-                                        </p:column>
+                                                    <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la">
 
-                                        <p:column headerText="Descripción de la falla">
-                                            <h:outputText value="#{la.descripcionFalla }"></h:outputText>
-                                        </p:column>
-                                        <p:column headerText="Opciones" style="width: 5%"> 
-                                            <p:commandLink update=":form:listaa :form:elementoRevisar :form:descripcionFalla" value="Editar"
-                                                           actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" title="Seleccionar">
-                                                <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
-                                            </p:commandLink>
+                                                        <p:column headerText="Elemento a Revisar">
+                                                            <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
+                                                        </p:column>
 
-                                        </p:column>
-                                    </p:dataTable><br></br>
+                                                        <p:column headerText="Descripción de la falla">
+                                                            <h:outputText value="#{la.descripcionFalla }"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Opciones" style="width: 5%"> 
+                                                            <p:commandLink update=":form:listaa :form:elementoRevisar :form:descripcionFalla" value="Editar"
+                                                                           actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" title="Seleccionar">
+                                                                <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
+                                                            </p:commandLink>
+
+                                                        </p:column>
+                                                    </p:dataTable></tbody></div></div></div>
+                                    <br></br>
 
                                 </p:panel>
 
                             </div>
 
+
+                        </p:tab>
+
+                        <p:tab id="requi" title="Asignar Requisición">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>Lista de Requisición</center></div>
+                                <p:panel>
+
+
+                                    <p:dataTable id="basicDT2" var="vr" value="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}">
+
+                                        <p:column headerText="Número">
+                                            <h:outputText value="#{vr.numRequisicion}" />
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <h:outputText value="#{vr.fechaRequisicion}" />
+                                        </p:column>
+                                        <p:column headerText="Observación">
+                                            <h:outputText value="#{vr.observaciones}" />
+                                        </p:column>
+                              
+                                        <p:column style="width:4%;text-align: center">
+                                            <p:commandLink update=":form:req"  value="Agregar" title="Seleccionar">
+                                                <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <h:outputText value="Requisición id: " />
+                                    <p:inputText immediate="true" id="req" value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" rendered="true"
+                                                 required="true" readonly="true" /><br/>
+                                </p:panel>
+                            </div> 
 
                         </p:tab>
 
@@ -273,12 +311,33 @@
                                         </h:panelGrid>
 
                                         <h:panelGrid >
-                                            <h:outputText value="vehiculo id: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.vehiculo.id}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="Requisición id: " />
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="vehiculo placa: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.vehiculo.placa}" styleClass="outputLabel"/>
                                         </h:panelGrid>
+                                        <h:panelGrid>
 
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="todas">
+                                                    <div class="table-responsive">
+
+
+                                                        <tbody>
+
+                                                            <p:dataTable id="listaaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la">
+
+                                                                <p:column headerText="Elemento a Revisar">
+                                                                    <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
+                                                                </p:column>
+
+                                                                <p:column headerText="Descripción de la falla">
+                                                                    <h:outputText value="#{la.descripcionFalla }"></h:outputText>
+                                                                </p:column>
+                                                               
+                                                            </p:dataTable></tbody></div></div></div>
+                                        </h:panelGrid>
 
                                     </h:panelGrid>
                                 </p:panel>

@@ -145,6 +145,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("Error al crear item");
         }
         return "/paginas//lista.xhtml?faces-redirect=true";
     }
