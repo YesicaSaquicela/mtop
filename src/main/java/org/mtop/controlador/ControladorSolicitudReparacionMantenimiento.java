@@ -291,16 +291,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     }
 
-    public void guardarItemS() {
-        for (ItemSolicitudReparacion items : citemsolicitud.listaItemsSolicitud) {
-            //se llama al objeto solicitud que se encuentra en itemsolicitud clases
-            items.setSolicitudReparacion(getInstance());
-            citemsolicitud.setInstance(items);
-            citemsolicitud.guardar();
-        }
-        //esta lista se encuntra en la clase solicitud
-        getInstance().setListaItemSR(citemsolicitud.listaItemsSolicitud);
-    }
 
     public void setListaSolicitud(List<SolicitudReparacionMantenimiento> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
@@ -368,14 +358,15 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         try {
             if (getInstance().isPersistent()) {
-                guardarItemS();
+                citemsolicitud.guardarItemSol(citemsolicitud.listaItemsSolicitud);
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 getInstance().setEstado(true);
                 create(getInstance());
-                guardarItemS();
+                citemsolicitud.guardarItemSol(citemsolicitud.listaItemsSolicitud);
+                
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
