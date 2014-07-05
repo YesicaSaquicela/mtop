@@ -55,6 +55,7 @@ import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.Producto;
 import org.mtop.modelo.Requisicion_;
+import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.Property;
 //import javax.faces.context.FacesContext;
@@ -85,8 +86,31 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
     List<Producto> listaProductos = new ArrayList<Producto>();
     private String palabrab;
+    private List<SolicitudReparacionMantenimiento> listaSolicitudes;
+    private SolicitudReparacionMantenimiento solicitudrep;
 
     Producto pro;
+
+    public SolicitudReparacionMantenimiento getSolicitudrep() {
+        return solicitudrep;
+    }
+
+    public void setSolicitudrep(SolicitudReparacionMantenimiento solicitudrep) {
+        this.solicitudrep = solicitudrep;
+    }
+
+    public List<SolicitudReparacionMantenimiento> getListaSolicitudes() {
+        for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
+            if(sol.getVehiculo().getId()!=getInstance().getVehiculo().getId()){
+                listaSolicitudes.remove(sol);
+            }
+        }
+        return listaSolicitudes;
+    }
+
+    public void setListaSolicitudes(List<SolicitudReparacionMantenimiento> listaSolicitudes) {
+        this.listaSolicitudes = listaSolicitudes;
+    }
 
     public void buscar() {
         if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
@@ -541,6 +565,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaRequisicion = findAll(Requisicion.class);
+        listaSolicitudes=findAll(SolicitudReparacionMantenimiento.class);
+        
+        for (Requisicion requisicion : listaRequisicion) {
+            if(requisicion.getSolicitudReparacions()!=null){
+                listaSolicitudes.remove(requisicion.getSolicitudReparacions());
+            }
+            if(requisicion.getAprobado()){
+                listaRequisicion.remove(requisicion);
+            }
+            
+        }
+        
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
 
@@ -551,6 +587,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         maximo = 100;
         pro = new Producto();
         palabrab = "";
+        
     }
 
     @Override
@@ -605,10 +642,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
+       ControladorSolicitudReparacionMantenimiento csrm= new ControladorSolicitudReparacionMantenimiento();
+        csrm.fijarRequisicion(getInstance(),getInstance().getSolicitudReparacions());
         return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
 
     }
-
+    public void fijarSolicitud(SolicitudReparacionMantenimiento soli,Requisicion requ ){
+        setInstance(requ);
+        getInstance().setSolicitudReparacions(soli);
+        save(getInstance());
+    }
     @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());

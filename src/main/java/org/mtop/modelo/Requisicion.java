@@ -58,10 +58,10 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @OneToOne
     private SolicitudReparacionMantenimiento solicitudReparacions;
 
-////    
-////    @ManyToOne
-////    @JoinColumn(name = "personaId")
-////    private Persona psolicita;
+//    
+//    @ManyToOne
+//    @JoinColumn(name = "personaId")
+//    private Persona psolicita;
     @ManyToOne
     @JoinColumn(name = "kardexId")
     private Kardex kardex;

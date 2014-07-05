@@ -56,10 +56,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private String numeroPlanMantenimiento;
     private List<Integer> listaKilometraje = new ArrayList();
 
-    public void activar() {
-        System.out.println("entro>>>>>>>>>>>.");
-        addMessage("", "El Plan de Manteniiento seleccionado ha sido activado");
-    }
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -86,18 +82,18 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         getInstance().setActivado(true);
         cactividadpm.listaActividades = getInstance().getListaActividadpm();
         guardarCambioPlan();
-        addMessage("", "El Plan de Mantenimiento seleccionado ha sido activado");
+        addMessage("Información", "El Plan de Mantenimiento seleccionado ha sido activado");
+        ControladorVehiculo cv =new ControladorVehiculo();
+       
+        cv.fijarPlan(getInstance());
         return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
     }
 
     public void guardarCambioPlan() {
         try {
-            System.out.println("entro actualizar>>>>>>>>>>>>>>>>>>>>.");
+           
             save(getInstance());
-            System.out.println("actualizo el ide" + getInstance().getId());
-            System.out.println("actualizoooooooo" + getInstance().isActivado());
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
+           
         } catch (Exception e) {
             System.out.println("no activo plannnn");
         }
