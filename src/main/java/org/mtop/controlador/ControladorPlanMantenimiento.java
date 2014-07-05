@@ -66,7 +66,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         for (PlanMantenimiento planMantenimiento : findAll(PlanMantenimiento.class)) {
             System.out.println("cambio de estado<|>>>>>>>>>>>>>>> a " + planMantenimiento.getId());
-            System.out.println("que tiene un estado " + planMantenimiento.isEstado());
+            System.out.println("que tiene un estado " + planMantenimiento.isActivado());
 
             setInstance(planMantenimiento);
 
@@ -93,7 +93,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         try {
            
             save(getInstance());
-           
+            System.out.println("editando"+getInstance().getId());
+            System.out.println("editando estado"+getInstance().isActivado());
         } catch (Exception e) {
             System.out.println("no activo plannnn");
         }
@@ -330,7 +331,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 } else {
-                    getInstance().setEstado(false);
+                    getInstance().setEstado(true);
                     getInstance().setActivado(false);
                     create(getInstance());
                     guardarActividad();

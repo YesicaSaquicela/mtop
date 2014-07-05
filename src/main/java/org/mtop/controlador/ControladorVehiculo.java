@@ -276,7 +276,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.listaVehiculos = listaVehiculos;
     }
     public void fijarPlan(PlanMantenimiento pmat){
-        
+        System.out.println("entro fijar plan");
         for (Vehiculo v : listaVehiculos) {
             if (null != pmat.getId()) {
                 System.out.println("forr vehiculo>>>>>>>>");
