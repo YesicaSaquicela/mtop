@@ -43,11 +43,12 @@ public abstract class PersistenceController<T> extends Controller implements Ser
 
     public EntityManager getEntityManager() {
         System.out.println("aaaaaaaaaaaaaaaaaa");
-        System.out.println("entyty en persinstence"+entityManager.toString());
+        System.out.println("entyty en persinstence"+entityManager);
         return entityManager;
     }
 
     public void setEntityManager(EntityManager entityManager) {
+        
         this.entityManager = entityManager;
     }
 }

@@ -275,13 +275,21 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
         this.listaVehiculos = listaVehiculos;
     }
-    public void fijarPlan(PlanMantenimiento pmat){
-        System.out.println("entro fijar plan");
-        for (Vehiculo v : listaVehiculos) {
+    
+    public void fijarPlan(PlanMantenimiento pmat, List<Vehiculo> vehs,EntityManager ema){
+        System.out.println("entro fijar plan"+vehs);
+        System.out.println("emaaaaa"+ema);
+         setEntityManager(ema);
+
+        bussinesEntityService.setEntityManager(getEntityManager());
+        System.out.println("despues de fija em en vehicu;looo");
+        servgen.setEm(em);
+        for (Vehiculo v : vehs) {
             if (null != pmat.getId()) {
                 System.out.println("forr vehiculo>>>>>>>>");
-                v.setPlanM(pmat);
-                setInstance(v);
+                 setInstance(v);
+                getInstance().setPlanM(pmat);
+               
                 System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");

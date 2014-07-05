@@ -56,14 +56,13 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private String numeroPlanMantenimiento;
     private List<Integer> listaKilometraje = new ArrayList();
 
-
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public String activarPlan(Long idplan) {
-
+        ControladorVehiculo cv = new ControladorVehiculo();
         for (PlanMantenimiento planMantenimiento : findAll(PlanMantenimiento.class)) {
             System.out.println("cambio de estado<|>>>>>>>>>>>>>>> a " + planMantenimiento.getId());
             System.out.println("que tiene un estado " + planMantenimiento.isActivado());
@@ -71,7 +70,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             setInstance(planMantenimiento);
 
             getInstance().setActivado(false);
-            cactividadpm.listaActividades = getInstance().getListaActividadpm();
+
             guardarCambioPlan();
 
         }
@@ -80,21 +79,21 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         setId(idplan);
         System.out.println("plaaan" + getInstance());
         getInstance().setActivado(true);
-        cactividadpm.listaActividades = getInstance().getListaActividadpm();
+
         guardarCambioPlan();
         addMessage("Información", "El Plan de Mantenimiento seleccionado ha sido activado");
-        ControladorVehiculo cv =new ControladorVehiculo();
-       
-        cv.fijarPlan(getInstance());
+
+        System.out.println("ema antes" + cv.getEntityManager());
+        cv.fijarPlan(getInstance(), servgen.buscarTodos(Vehiculo.class), cv.getEntityManager());
         return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
     }
 
     public void guardarCambioPlan() {
         try {
-           
+
             save(getInstance());
-            System.out.println("editando"+getInstance().getId());
-            System.out.println("editando estado"+getInstance().isActivado());
+            System.out.println("editando" + getInstance().getId());
+            System.out.println("editando estado" + getInstance().isActivado());
         } catch (Exception e) {
             System.out.println("no activo plannnn");
         }
