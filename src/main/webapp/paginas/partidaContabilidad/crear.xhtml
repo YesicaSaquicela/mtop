@@ -48,20 +48,10 @@
                                         <span class="help-inline text-muted">Número de institución<ocp:message forId="institucion" /></span>
                                         <br></br><br></br>
 
-                                        
-                                           
-                                        <mtop:input id="provincia" name="provincia1" type="textarea" label="Numero de provincia" 
-                                                    value="#{controladorPartidaContabilidad.instance.numeroProvincia}"  
-                                                    inlinehelp="Ingrese una descripción"
-                                                    execute ="@this save" render="descripcion" maxlength="3" >
-                                         <f:validateLength minimum="3"/>   
-                                        </p:mtop>
-                                            
-                                            <br></br>
-                                        
                                         <p:outputLabel value="Número de Provincia"/><br></br>
-                                        <p:inputText id="provincia" required="true" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"  styleClass="form-control" >
-                                             
+                                        <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"  styleClass="form-control" >
+                                             <f:validateLength minimum="4"/>
+                                             <f:validateRegex pattern="[0-9]+" />
                                           </p:inputText>
                                         <span class="help-inline text-muted">Numero de provincia (0011)<ocp:message forId="provincia"/></span>
                                         <br></br><br></br>
@@ -72,17 +62,17 @@
                                         <span class="help-inline text-muted">Ingrese el número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
 
                                           <p:outputLabel value="Número de Programa"/><br></br>
-                                          <p:inputText id="programa" required="true" value="#{controladorPartidaContabilidad.instance.numeroPrograma}"  styleClass="form-control" >
-                                            
+                                          <p:inputText id="programa" maxlength="2" value="#{controladorPartidaContabilidad.instance.numeroPrograma}"  styleClass="form-control" >
+                                             <f:validateLength minimum="2"/>
                                           </p:inputText>
-                                        <span class="help-inline text-muted">Numero de programa(01-25)<ocp:message forId="provincia"/></span>
+                                        <span class="help-inline text-muted">Numero de programa(01-25)<ocp:message forId="programa"/></span>
                                         <br></br><br></br>
                                         
                                          <p:outputLabel value="Número de Proyecto"/><br></br>
-                                          <p:inputText id="proyecto" required="true" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
-                                               
+                                          <p:inputText id="proyecto" maxlength="5" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
+                                               <f:validateLength minimum="5"/>
                                           </p:inputText>
-                                        <span class="help-inline text-muted">Numero de proyecto(00011-00000)<ocp:message forId="provincia"/></span>
+                                        <span class="help-inline text-muted">Numero de proyecto(00011-00000)<ocp:message forId="proyecto"/></span>
                                         <br></br><br></br>
                                         
 
@@ -97,10 +87,10 @@
                                         <span class="help-inline text-muted">Número de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
 
                                         <p:outputLabel value="Número de Item"/><br></br>
-                                        <p:inputText id="item" required="true" value="#{controladorPartidaContabilidad.instance.numeroItem}"  styleClass="form-control" >
-                                             
+                                        <p:inputText id="item" maxlength="6" value="#{controladorPartidaContabilidad.instance.numeroItem}"  styleClass="form-control" >
+                                             <f:validateLength minimum="6"/>
                                           </p:inputText>
-                                        <span class="help-inline text-muted">Número de ítem. Ejm(530101)<ocp:message forId="provincia"/></span>
+                                        <span class="help-inline text-muted">Número de ítem. Ejm(530101)<ocp:message forId="item"/></span>
                                         <br></br><br></br>
                                    
                                         <p:outputLabel value="Número geográfico"/><br></br>
@@ -109,10 +99,10 @@
                                         <span class="help-inline text-muted">Número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
 
                                         <p:outputLabel value="Número de Fuente Financiera"/><br></br>
-                                        <p:inputText id="fuenteFinanciera" required="true" value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}"  styleClass="form-control" >
-                                            
+                                        <p:inputText id="fuenteFinanciera" maxlength="3" value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}"  styleClass="form-control" >
+                                             <f:validateLength minimum="3"/>
                                           </p:inputText>
-                                        <span class="help-inline text-muted">Número de fuente financiera. Ejm(001-002)<ocp:message forId="provincia"/></span>
+                                        <span class="help-inline text-muted">Número de fuente financiera. Ejm(001-002)<ocp:message forId="fuenteFinanciera"/></span>
                                         <br></br><br></br>
                                         
                                        

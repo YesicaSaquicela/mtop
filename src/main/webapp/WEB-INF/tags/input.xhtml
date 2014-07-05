@@ -44,10 +44,9 @@ limitations under the License.
         <div class="input">
             <c:choose>
                 <c:when test="#{type == 'java.lang.String' or type == 'text'}">
-                    <p:inputText value="#{value}" maxlength="#{maximo}" id="#{name}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
+                    <p:inputText value="#{value}" id="#{name}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
                         <f:validator validatorId="#{validator}"/>
                         <f:validateLength minimum="#{minLength}" rendered="#{validateLength}"/>
-                         
                         <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
                     </p:inputText>
                 </c:when>
