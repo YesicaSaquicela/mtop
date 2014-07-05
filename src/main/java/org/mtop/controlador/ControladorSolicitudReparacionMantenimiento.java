@@ -358,7 +358,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         try {
             if (getInstance().isPersistent()) {
-                citemsolicitud.guardarItemSol(citemsolicitud.listaItemsSolicitud);
+                citemsolicitud.editarItemSol(citemsolicitud.listaItemsSolicitud);
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);

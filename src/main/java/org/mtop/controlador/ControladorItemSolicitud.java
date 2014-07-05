@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
@@ -53,7 +52,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
     @Inject
     private ServicioGenerico servgen;
     List<ItemSolicitudReparacion> listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
-    
+
     public Long getItemSolicitudRMId() {
         System.out.println("IIIIDEE" + getId());
         return (Long) getId();
@@ -87,9 +86,6 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         this.listaItemsSolicitud = listaItemsSolicitud;
     }
 
-    
-
-    
     @PostConstruct
     public void init() {
         setEntityManager(em);
@@ -99,7 +95,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaItemsSolicitud = servgen.buscarTodos(ItemSolicitudReparacion.class);
-       
+
     }
 
     @Override
@@ -134,7 +130,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Item deRequisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                System.out.println("ENTRO A crear Item>>>>>" );
+                System.out.println("ENTRO A crear Item>>>>>");
 //                System.out.println("ENTRO A CREAR KILOMETRAJE>>>>>"+getInstance().getKilometraje()); 
                 getInstance().setEstado(true);
                 create(getInstance());
@@ -149,12 +145,24 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         }
         return "/paginas//lista.xhtml?faces-redirect=true";
     }
-    public void guardarItemSol( List<ItemSolicitudReparacion> ls) {
+
+    public void guardarItemSol(List<ItemSolicitudReparacion> ls) {
         for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
             setInstance(itemSolicitudReparacion);
-            guardar();
+            getInstance().setEstado(true);
+            System.out.println("antes crear item");
+            create(getInstance());
+             System.out.println("antes guardar item");
+            save(getInstance());
         }
-       
+
+    }
+    public void editarItemSol(List<ItemSolicitudReparacion> ls) {
+        for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
+            setInstance(itemSolicitudReparacion);
+            save(getInstance());
+        }
+
     }
     @Transactional
     public String borrarEntidad() {
@@ -176,7 +184,5 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         }
         return "/paginas//lista.xhtml?faces-redirect=true";
     }
-
-   
 
 }
