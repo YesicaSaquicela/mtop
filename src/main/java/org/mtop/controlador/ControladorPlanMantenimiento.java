@@ -330,7 +330,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Plan Mantenimiento" + getInstance().getId() + " con éxito", " ");
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 } else {
-                    getInstance().setEstado(true);
+                    getInstance().setEstado(false);
                     getInstance().setActivado(false);
                     create(getInstance());
                     guardarActividad();

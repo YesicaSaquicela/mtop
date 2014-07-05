@@ -50,7 +50,44 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     @Inject
     private ServicioGenerico servgen;
     private List<PartidaContabilidad> listaPartidaC = new ArrayList<PartidaContabilidad>();
-    private String mensaje ="";
+    private String mensaje = "";
+
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public String inactivarPartida(Long idpartidac) {
+
+        for (PartidaContabilidad partidaC : findAll(PartidaContabilidad.class)) {
+
+            setInstance(partidaC);
+
+            getInstance().setEstado(false);
+            guardarCambioPlan();
+
+        }
+
+        setId(idpartidac);
+        System.out.println("plaaan" + getInstance());
+        getInstance().setEstado(true);
+
+        guardarCambioPlan();
+        addMessage("Información", "El Plan de Mantenimiento seleccionado ha sido activado");
+        ControladorVehiculo cv = new ControladorVehiculo();
+
+        return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
+    }
+
+    public void guardarCambioPlan() {
+        try {
+
+            save(getInstance());
+
+        } catch (Exception e) {
+            System.out.println("no activo plannnn");
+        }
+    }
 
     public String getMensaje() {
         return mensaje;
@@ -59,7 +96,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-    
+
     public Long getPartidaCId() {
         return (Long) getId();
 
@@ -151,7 +188,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 } else {
                     System.out.println("Entro a crear>>>>>>>>");
-                    //  getInstance().setEstado(true);
+                    getInstance().setEstado(false);
                     create(getInstance());
                     save(getInstance());
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");
@@ -161,14 +198,14 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
-            
+
             return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
-      
+
         } else {
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"La partida de contabilidad", "ya exite ");
-             FacesContext.getCurrentInstance().addMessage("", msg);
-            mensaje= "La partida de contabilidad ya exite";
-            
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "La partida de contabilidad", "ya exite ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+            mensaje = "La partida de contabilidad ya exite";
+
             return "";
         }
 
