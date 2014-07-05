@@ -23,8 +23,7 @@
             <!--Opción de mensaje, cuando se realiza una acción-->
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                    <div class="panel panel-primary">
-                        <p:panel>
+                 
                             <p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />  
 
                             <!--Botones de admin-->
@@ -40,19 +39,19 @@
 
                                         <tbody>
                                             <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc">
-                                                <p:column headerText="Número de Provincia">
+                                                <p:column headerText="# de provincia">
                                                     <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Número de Programa">
+                                                <p:column headerText="# de programa">
                                                     <h:outputText value="#{pc.numeroPrograma}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Número de Proyecto">
+                                                <p:column headerText="# de proyecto">
                                                     <h:outputText value="#{pc.numeroProyecto}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Número de Item">
+                                                <p:column headerText="# de ítem">
                                                     <h:outputText value="#{pc.numeroItem}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Número de fuente financiera">
+                                                <p:column headerText="# de fuente financiera">
                                                     <h:outputText value="#{pc.numeroFuenteFinanciera}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Descripción">
@@ -63,18 +62,21 @@
                                                         <f:param name="partidaId" value="#{pc.id}"></f:param>
                                                     </h:link>
 
-                                                    <p:commandButton id="confirmacion"  value="Inactivar" actionListener="#{controladorPlanMantenimiento.inactivarPartida(pc.id)}" update=":form:message">
+                                                    <p:commandButton rendered="#{controladorPartidaContabilidad.instance.estado eq false}" id="confirmacion"  value="Inactivar" actionListener="#{controladorPlanMantenimiento.inactivarPartida()}" update=":form:message">
                                                         <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
+                                                    </p:commandButton>
+                                                    <p:commandButton rendered="#{controladorPartidaContabilidad.instance.estado eq true}" id="confirmacion"  value="Activar" actionListener="#{controladorPlanMantenimiento.activarPlan()}" update=":form:message">
+                                                        <p:confirm header="Confirmación" message="¿Desea Realmente activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                     </p:commandButton>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" update="listapc" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                     </p:confirmDialog>
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div></div>
-                        </p:panel></div></div>
+                        </div>
             </div>
 
         </h:form>

@@ -57,27 +57,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public String inactivarPartida(Long idpartidac) {
-
-        for (PartidaContabilidad partidaC : findAll(PartidaContabilidad.class)) {
-
-            setInstance(partidaC);
-
-            getInstance().setEstado(false);
-            guardarCambioPlan();
-
-        }
-
-        setId(idpartidac);
-        System.out.println("plaaan" + getInstance());
-        getInstance().setEstado(true);
-
-        guardarCambioPlan();
-        addMessage("Información", "El Plan de Mantenimiento seleccionado ha sido activado");
-        ControladorVehiculo cv = new ControladorVehiculo();
-
-        return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
-    }
+ 
 
     public void guardarCambioPlan() {
         try {
@@ -212,17 +192,40 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     @Transactional
-    public String borrarEntidad() {
-        //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
+    public String inactivarPartida() {
+       
         try {
             if (getInstance() == null) {
-                throw new NullPointerException("Servicio is null");
+                throw new NullPointerException("Servicio nulo");
             }
             if (getInstance().isPersistent()) {
-                delete(getInstance());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
+                getInstance().setEstado(true);
+                guardar();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se inactivo exitosamente:  " + getInstance().getName(), ""));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
+        }
+        return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
+    }
+    
+      @Transactional
+    public String activarPartida() {
+       
+        try {
+            if (getInstance() == null) {
+                throw new NullPointerException("Servicio nulo");
+            }
+            if (getInstance().isPersistent()) {
+                getInstance().setEstado(false);
+                guardar();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se activo exitosamente:  " + getInstance().getName(), ""));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser activar!", ""));
             }
 
         } catch (Exception e) {

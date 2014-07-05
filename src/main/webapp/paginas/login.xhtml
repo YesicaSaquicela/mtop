@@ -15,18 +15,13 @@
 
         <ui:define name="content">
             <div class="panel panel-primary">
+                 <div class="panel-heading"><center>Ingrese su usuario y contraseña para ingresar</center></div>
                 <p:panel>
 
                     <div class="table-responsive" >
                         
                         <div class="row-fluid">
 
-
-                            <br/>
-
-                            <center><h3>Ingrese su usuario y contraseña para ingresar </h3></center>                    
-
-                            <br/>
                             <h:form id="signin">
 
                                 <script type="text/javascript">
@@ -46,11 +41,10 @@
 
                                     <div class="input-group">
 
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-user">
-
-                                            </i>
+                                        <span class="input-group-addon glyphicon glyphicon-use">
+                                            
                                         </span>
+                                       
 
                                         <h:inputText id="username" value="#{credentials.username}"
                                                      styleClass="form-control" required="true"/>

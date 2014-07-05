@@ -275,27 +275,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
         this.listaVehiculos = listaVehiculos;
     }
-    public void fijarPlan(PlanMantenimiento pmat){
-        System.out.println("entro fijar plan");
-        for (Vehiculo v : listaVehiculos) {
-            if (null != pmat.getId()) {
-                System.out.println("forr vehiculo>>>>>>>>");
-                v.setPlanM(pmat);
-                setInstance(v);
-                System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
-                save(getInstance());
-                System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
-            }
-
-        }
-    }
-
+    
     @PostConstruct
     public void init() {
         setEntityManager(em);
-
         bussinesEntityService.setEntityManager(em);
-        System.out.println("despues de fija em en vehicu;looo");
         servgen.setEm(em);
 //        PlanMantenimiento pmat = new PlanMantenimiento();
 //        for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
@@ -315,7 +299,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 //
 //        }
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-        
+        System.out.println("lista vehiculos"+listaVehiculos);
        
        
     }
@@ -328,6 +312,27 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 //        setId(null);
 //    return "/paginas/vehiculo/crear.xhtml?faces-redirect=true";
 //    }
+
+    public void fijarPlan(PlanMantenimiento pmat, List<Vehiculo> lv ){
+        System.out.println("entro fijar plan");
+        System.out.println("listallega"+lv);
+//        System.out.println("listarecuperaaaada"+findAll(Vehiculo.class));
+        for (Vehiculo v : lv) {
+            if (null != pmat.getId()) {
+                System.out.println("forr vehiculo>>>>>>>>");
+                setId(v.getId());
+                System.out.println("iddd"+getId());
+                setInstance(v);
+                getInstance().setPlanM(pmat);
+                
+                System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
+                save(getInstance());
+                System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
+            }
+
+        }
+        System.out.println("llllllllllllllll");
+    }
 
     @Override
     protected Vehiculo
@@ -397,7 +402,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesContext.getCurrentInstance().addMessage("", msg);
             System.out.println("errrrrrrrrrrrrrrrrrrrrrrrorrrrrrrr");
         }
-        System.out.println("va a redirecccionar");
+        
         return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
     }
 

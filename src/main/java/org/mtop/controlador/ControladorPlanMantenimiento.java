@@ -82,10 +82,13 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         getInstance().setActivado(true);
         cactividadpm.listaActividades = getInstance().getListaActividadpm();
         guardarCambioPlan();
+        
         addMessage("Información", "El Plan de Mantenimiento seleccionado ha sido activado");
         ControladorVehiculo cv =new ControladorVehiculo();
-       
-        cv.fijarPlan(getInstance());
+        
+        List<Vehiculo> lv=findAll(Vehiculo.class);
+        System.out.println("lvvvvv"+lv);
+        cv.fijarPlan(getInstance(),lv);
         return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
     }
 
