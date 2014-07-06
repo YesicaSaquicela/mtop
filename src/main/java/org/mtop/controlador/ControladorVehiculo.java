@@ -302,6 +302,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 //        }
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
 
+        System.out.println("lista vehiculos"+listaVehiculos);
+       
+       
+
     }
 //    public String irCrear(){
 //        setId(null);
