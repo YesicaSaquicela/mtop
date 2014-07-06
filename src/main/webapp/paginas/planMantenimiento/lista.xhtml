@@ -52,10 +52,15 @@
                                             </h:link>
 
                                             &nbsp;&nbsp;
-                                            <p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="#{controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:listap :form:message">
+                                            <!--p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="# {controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
                                                 <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
-                                            </p:commandButton>
-
+                                            </p:commandButton-->
+                                            
+                                            <p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}" update="@form">
+                                                <!--p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" /-->
+                                               
+                                             </p:commandButton>
+                                            
                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                 <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                 <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
