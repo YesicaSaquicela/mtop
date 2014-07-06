@@ -239,11 +239,10 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
     
     protected <E> void save(final E entity) {
         
-        System.out.println("antes de verificar null");
-        if (getEntityManager() == null) {
-            System.out.println("entro entity null");
-            throw new IllegalStateException("Must initialize EntityManager before using Services!");
-        }
+     
+      //  if (getEntityManager() == null) {
+        //    throw new IllegalStateException("Must initialize EntityManager before using Services!");
+       // }
         
         
         getEntityManager().merge(entity);

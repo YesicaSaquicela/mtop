@@ -227,25 +227,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("despues de fija em en kardex");
         servgen.setEm(em);
         listakardex = servgen.buscarTodos(Kardex.class);
-        List lc = new ArrayList();
-        for (Kardex kardex : listakardex) {
-            lc.add(kardex.getVehiculo().getNumRegistro());
-            System.out.println("registro en kardex"+kardex.getNumero());
-        }
-        
-        for (Vehiculo v : findAll(Vehiculo.class)) {
-            System.out.println("lcccc"+lc.size());
-            System.out.println("registro de vehiculo"+v.getNumRegistro());
-            if (!lc.contains(v.getNumRegistro())) {
-                System.out.println("entro a cardexxx"); 
-               getInstance().setVehiculo(v);
-                getInstance().setNumero(v.getNumRegistro());
-                guardar();
-
-            }
-
-        }
-        listakardex = servgen.buscarTodos(Kardex.class);
+       
 
     }
 
