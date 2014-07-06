@@ -59,16 +59,6 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
  
 
-    public void guardarCambioPlan() {
-        try {
-
-            save(getInstance());
-
-        } catch (Exception e) {
-            System.out.println("no activo plannnn");
-        }
-    }
-
     public String getMensaje() {
         return mensaje;
     }
@@ -190,49 +180,49 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         }
 
     }
-
+    
     @Transactional
-    public String inactivarPartida() {
+    public String inactivarPartida(Long idPartidac) {
+        System.out.println("entro inactivar>>>>>>");
+      for (PartidaContabilidad partidaContabilidad : listaPartidaC){
+            System.out.println("entro al for false>>>>...");
+             partidaContabilidad.setEstado(false);
+             setInstance(partidaContabilidad);
+             guardar();
+             System.out.println("guardao>>>>>...");
+         }
+         System.out.println("salio del for>>>>>.");
+         setId(idPartidac);
+         setInstance(findById(PartidaContabilidad.class, idPartidac));
+         getInstance().setEstado(true);
+         guardar();
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se inactivo exitosamente:  " + getInstance().getName(), ""));
        
-        try {
-            if (getInstance() == null) {
-                throw new NullPointerException("Servicio nulo");
-            }
-            if (getInstance().isPersistent()) {
-                getInstance().setEstado(true);
-                guardar();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se inactivo exitosamente:  " + getInstance().getName(), ""));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
-        }
+       
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
     }
     
-      @Transactional
-    public String activarPartida() {
+     @Transactional
+    public String activarPartida(Long idPartidac) {
+         System.out.println("entro a activar>>>>>>>>>>...");
+         for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
+             System.out.println("entro for>>...");
+             partidaContabilidad.setEstado(false);
+             setInstance(partidaContabilidad);
+             guardar();
+             System.out.println("guardo for>>>>..");
+         }
+         
+         System.out.println("salio del for>>>>>>");
+         setId(idPartidac);
+         getInstance().setEstado(false);
+         guardar();
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se activo exitosamente:  " + getInstance().getName(), ""));
        
-        try {
-            if (getInstance() == null) {
-                throw new NullPointerException("Servicio nulo");
-            }
-            if (getInstance().isPersistent()) {
-                getInstance().setEstado(false);
-                guardar();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se activo exitosamente:  " + getInstance().getName(), ""));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser activar!", ""));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
-        }
+       
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
     }
 
+
+    
 }

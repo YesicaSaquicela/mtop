@@ -40,7 +40,7 @@ public class Producto extends BussinesEntity implements Serializable {
     private String codigo;
     private Integer cantidad;
      //ojo este atrubuto se lo podria heredar de la clases Persisten que es del modelo dinamico 
-    private boolean estado;
+    private Boolean estado;
     private Double costo;
 
     public Double getCosto() {
@@ -51,7 +51,6 @@ public class Producto extends BussinesEntity implements Serializable {
         this.costo = costo;
     }
 
-  
   
 
     public String getCodigo() {
@@ -73,13 +72,7 @@ public class Producto extends BussinesEntity implements Serializable {
    
 
 
-    public boolean isEstado() {
-        return estado;
-    }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
 
     @Override
     public String toString() {

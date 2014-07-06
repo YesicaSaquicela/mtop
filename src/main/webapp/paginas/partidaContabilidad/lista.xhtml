@@ -62,10 +62,10 @@
                                                         <f:param name="partidaId" value="#{pc.id}"></f:param>
                                                     </h:link>
 
-                                                    <p:commandButton rendered="#{controladorPartidaContabilidad.instance.estado eq false}" id="confirmacion"  value="Inactivar" actionListener="#{controladorPlanMantenimiento.inactivarPartida()}" update=":form:message">
+                                                    <p:commandButton rendered="#{controladorPartidaContabilidad.instance.estado eq false}" id="confirmacion"  value="Inactivar" actionListener="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" update="@form">
                                                         <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                     </p:commandButton>
-                                                    <p:commandButton rendered="#{controladorPartidaContabilidad.instance.estado eq true}" id="confirmacion"  value="Activar" actionListener="#{controladorPlanMantenimiento.activarPlan()}" update=":form:message">
+                                                    <p:commandButton rendered="#{controladorPartidaContabilidad.instance.estado eq true}" id="confirmacion1"  value="Activar" actionListener="#{controladorPartidaContabilidad.activarPartida(pc.id)}" update="@form">
                                                         <p:confirm header="Confirmación" message="¿Desea Realmente activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                     </p:commandButton>
 
