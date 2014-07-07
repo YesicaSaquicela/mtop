@@ -379,7 +379,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("antes de fija solicitud");
         ControladorRequisicion cr= new ControladorRequisicion();
         cr.fijarSolicitud(getInstance(),getInstance().getRequisicions());
-         System.out.println("despues de fijar solicitud");
+       ControladorItemSolicitud cis=new ControladorItemSolicitud();
+       
+        
+        System.out.println("despues de fijar solicitud");
         return "/paginas/solicitud/lista.xhtml?faces-redirect=true";
     }
 

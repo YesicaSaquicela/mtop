@@ -151,9 +151,14 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
             setInstance(itemSolicitudReparacion);
             getInstance().setEstado(true);
             System.out.println("antes crear item");
-            create(getInstance());
+            try {
+                create(getInstance());
              System.out.println("antes guardar item");
             save(getInstance());
+            } catch (Exception e) {
+                System.out.println("error creando item");
+            }
+            
         }
 
     }
