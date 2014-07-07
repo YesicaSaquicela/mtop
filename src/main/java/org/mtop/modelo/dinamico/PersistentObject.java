@@ -76,7 +76,7 @@ public abstract class PersistentObject<E extends PersistentObject<E>> implements
     @Column(nullable=true)
     private Integer priority;
     @Column(nullable=true)
-    private Boolean estado;
+    private boolean estado;
 
     @PrePersist
     void prePersist() {
@@ -186,15 +186,14 @@ public abstract class PersistentObject<E extends PersistentObject<E>> implements
         this.code = code;
     }
 
-    public Boolean getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
-   
 
   
     

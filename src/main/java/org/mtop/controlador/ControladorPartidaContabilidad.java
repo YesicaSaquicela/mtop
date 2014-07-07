@@ -183,7 +183,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     
     @Transactional
     public String inactivarPartida(Long idPartidac) {
-        System.out.println("entro inactivar>>>>>>");
+       System.out.println("entro inactivar>>>>>>");
       for (PartidaContabilidad partidaContabilidad : listaPartidaC){
             System.out.println("entro al for false>>>>...");
              partidaContabilidad.setEstado(false);
@@ -194,9 +194,11 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
          System.out.println("salio del for>>>>>.");
          setId(idPartidac);
          setInstance(findById(PartidaContabilidad.class, idPartidac));
+         Date now = Calendar.getInstance().getTime();
+          getInstance().setLastUpdate(now);
          getInstance().setEstado(true);
          guardar();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se inactivo exitosamente:  " + getInstance().getName(), ""));
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada se inactivo ", "exitosamente"));
        
        
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
