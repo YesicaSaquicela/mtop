@@ -174,7 +174,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                  System.out.println("Entro a crear>>>>>>>>");
-              //  getInstance().setEstado(true);
+                getInstance().setEstado(false);
                 create(getInstance());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Producto" + getInstance().getId() + " con éxito", " ");
@@ -187,6 +187,27 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         return "/paginas/producto/lista.xhtml?faces-redirect=true";
     }
 
+    
+     @Transactional
+     public String darDeBaja(Long idproducto){
+        System.out.println("entro inactivar>>>>>>");
+      for (Producto producto: listaProducto){
+             producto.setEstado(false);
+             setInstance(producto);
+             guardar();
+      }
+         System.out.println("salio del for>>>>>.");
+         setId(idproducto);
+         setInstance(findById(Producto.class, idproducto));
+         Date now = Calendar.getInstance().getTime();
+         getInstance().setLastUpdate(now);
+         getInstance().setEstado(true);
+         guardar();
+         listaProducto.remove(idproducto);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
+         return "/paginas/producto/lista.xhtml?faces-redirect=true";
+     }
+    
     @Transactional
     public String borrarEntidad() {
         

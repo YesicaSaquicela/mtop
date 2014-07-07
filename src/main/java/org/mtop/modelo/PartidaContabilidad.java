@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import org.mtop.modelo.dinamico.BussinesEntity;
 
 /**
@@ -37,11 +38,16 @@ import org.mtop.modelo.dinamico.BussinesEntity;
 public class PartidaContabilidad extends BussinesEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+ 
+    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
     private String numeroProvincia;
+    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
     private String numeroPrograma;
+    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
     private String numeroProyecto;
+    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
     private String numeroItem;
+    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
     private String numeroFuenteFinanciera;
     private String descripcion;
 

@@ -220,7 +220,7 @@
 
 
                     <center>
-                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" actionListener="#{controladorVehiculo.guardar()}"
+                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
                                          ajax="false" update="pv">
                             <f:param name="mensaje" value="#{controladorVehiculo.mensaje}"></f:param>
                         </p:commandButton>

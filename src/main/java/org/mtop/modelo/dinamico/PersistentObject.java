@@ -194,6 +194,7 @@ public abstract class PersistentObject<E extends PersistentObject<E>> implements
         this.estado = estado;
     }
 
+
   
     
 }
