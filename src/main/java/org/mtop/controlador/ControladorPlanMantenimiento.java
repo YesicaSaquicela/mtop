@@ -68,29 +68,30 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         Date now = Calendar.getInstance().getTime();
         try {
             List<PlanMantenimiento> pms = servgen.buscarTodos(PlanMantenimiento.class); //findAll(PlanMantenimiento.class);
-            PlanMantenimiento planm = new PlanMantenimiento();
-            System.out.println("Lista pm " + pms);
+
             for (PlanMantenimiento planMantenimiento : pms) {
                 if (planMantenimiento.getActivado()) {
 //               setInstance(planMantenimiento);
-                    planm = planMantenimiento;
-                    System.out.println("plan " + planm.getId());
+                    setInstance(planMantenimiento);
+                    System.out.println("plan " + getInstance().getId());
                 }
 
                 // setInstance(planMantenimiento);
                 //getInstance().setActivado(false);
                 //           guardarCambioPlan();
             }
-            planm.setActivado(false);
-            planm.setLastUpdate(now);
-            //getInstance().setActivado(false);
-            System.out.println("Ingreso a actualizar");
-            //setInstance(planm);
-//            save(getInstance());
-            servgen.actualizar(planm);
+            if (getInstance().getId() != null) {
+                getInstance().setActivado(false);
+                getInstance().setLastUpdate(now);
+                //getInstance().setActivado(false);
+                System.out.println("Ingreso a actualizar el id a fijar false" + getInstance().getId());
+
+                save(getInstance());
+            }
+
             listaPlanMantenimiento = servgen.buscarTodos(PlanMantenimiento.class);
 //            planm = findById(PlanMantenimiento.class, planm.getId());
-            System.out.println("plan db " + planm.getActivado());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,22 +100,21 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void activarPlan(Long idplan) {
-        System.out.println("llego id");
+        System.out.println("llego id"+idplan);
 
         try {
             descativarPlan();
 
             setInstance(findById(PlanMantenimiento.class, idplan));
             System.out.println("salio del for>>>>>>>>>>>>>>>>>>");
-            //setId(idplan);
-            getInstance().setActivado(true);
-//            servgen.actualizar(getInstance());
-//            getInstance().setActivado(true)
-//            save(getInstance());
+
+           
+
             Date now = Calendar.getInstance().getTime();
             getInstance().setLastUpdate(now);
+             getInstance().setActivado(true);
             servgen.actualizar(getInstance());
-
+            System.out.println("Ingreso a actualizar el id a fijar trueeeee" + getInstance().getId());
             List<Vehiculo> lv = findAll(Vehiculo.class);
             System.out.println("lista de vehiculosss" + lv);
             for (Vehiculo v : lv) {
@@ -124,11 +124,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                     v.setPlanM(getInstance());
                     v.setLastUpdate(now);
                     servgen.actualizar(v);
-               
+
                 }
 
             }
-            System.out.println("plaaan" + getInstance().getId());
+         
 
             addMessage("Información", "El Plan de Mantenimiento seleccionado ha sido activado");
         } catch (Exception e) {

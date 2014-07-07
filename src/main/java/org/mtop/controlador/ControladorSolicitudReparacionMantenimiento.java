@@ -351,13 +351,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         getInstance().setVehiculo(vehiculo);
         getInstance().setRequisicions(requisicion);
-        
-        
-        System.out.println("IIIIDEEEntro>>>>>>" + getSolicitudReparacionMantenimientoId());
-        System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance().isPersistent());
 
         try {
             if (getInstance().isPersistent()) {
+                
                 citemsolicitud.editarItemSol(citemsolicitud.listaItemsSolicitud);
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");

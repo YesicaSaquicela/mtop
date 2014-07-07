@@ -162,13 +162,10 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         }
 
     }
-    public void editarItemSol(List<ItemSolicitudReparacion> ls) {
-        for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
+    for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
             setInstance(itemSolicitudReparacion);
             save(getInstance());
         }
-
-    }
     @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
