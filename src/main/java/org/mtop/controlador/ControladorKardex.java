@@ -253,10 +253,12 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     public void setSolicitudId(Long solicitudId) {
         Date now= Calendar.getInstance().getTime();
+        System.out.println("fijanddsasadasdadas");
         solicitud=findById(SolicitudReparacionMantenimiento.class, solicitudId);
         solicitud.setKardex(getInstance());
         solicitud.setLastUpdate(now);
         save(solicitud);
+        System.out.println("fijanddsasadasdadassssssssssss");
     }
 
     @TransactionAttribute   //

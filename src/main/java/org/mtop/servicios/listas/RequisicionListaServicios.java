@@ -33,7 +33,7 @@ import org.mtop.controlador.ControladorRequisicion;
 import org.mtop.controlador.ControladorSolicitudReparacionMantenimiento;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
-import org.mtop.modelo.SolicitudReparacionMantenimiento_;
+import org.mtop.modelo.Requisicion_;
 
 import org.mtop.servicios.ServicioGenerico;
 import org.mtop.util.QueryData;
@@ -68,7 +68,7 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
 
     public List<Requisicion> getResultList() {
         if (resultList.isEmpty() /*&& getSelectedBussinesEntityType() != null*/) {
-            resultList = servgen.find(Requisicion.class, Requisicion_.getNumRequisicion.getName(), this.getPageSize(), firstResult);
+            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
         }
 
         return resultList;

@@ -138,14 +138,14 @@
                                         </div>
                                     </div>
                                 </div>
-<br/><br/>
-                                <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%">
+                                <br/><br/>
+                                <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
                                     <div  class="panel panel-primary">
                                         <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
 
                                         <p:tab  title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
-                                            <p:commandButton  update=":form:soli :form:infovehiculo :form:kar" process="@this" value="Aprobar nueva Solicitud de Reparación y Mantenimiento"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
-                                                <f:param name="kardexId" value="#{controladorKardex.instance.id}"></f:param>
+                                            <p:commandButton update=":form:soli :form:infovehiculo :form:kar"  process="@this" value="Aprobar nueva Solicitud de Reparación y Mantenimiento"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
+                                                <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="#{controladorKardex.vista}"></f:param>
                                                 <f:param name="solicitudId" value="#{controladorKardex.solicitudId}"></f:param>
                                             </p:commandButton><br/><br/>
@@ -262,7 +262,7 @@
                                         <h:form id="forms">            
 
                                             <!--Opción de mensaje, cuando se realiza una acción-->
-                                           
+
 
                                             <!--Botones de admin-->
                                             <p:outputLabel value="Fecha de Entrada a Taller:*"/>
