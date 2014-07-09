@@ -357,11 +357,10 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
         return getEntityManager().find(entityClass, id);
     }
     
-    public QueryData<E> find(int start, int end, String sortField,
-            QuerySortOrder order, Map<String, Object> filters) {
-
+    public QueryData<E> find(int start, int end, String sortField, QuerySortOrder order, Map<String, Object> filters) {
+        System.out.println("entroooo a find");
         QueryData<E> queryData = new QueryData<E>();
-
+        
         CriteriaBuilder cb = getCriteriaBuilder();
         CriteriaQuery<E> c = cb.createQuery(entityClass);
         Root<E> account = c.from(entityClass);
@@ -416,7 +415,7 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
         queryData.setResult(q.getResultList());
         Long totalResultCount = countquery.getSingleResult();
         queryData.setTotalResultCount(totalResultCount);
-
+        System.out.println("saliendo soutsssssssssssssssssssssssssss");
         return queryData;
     }
 }

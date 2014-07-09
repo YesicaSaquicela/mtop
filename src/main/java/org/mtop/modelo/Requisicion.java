@@ -55,8 +55,9 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
 
-    @OneToOne
-    private SolicitudReparacionMantenimiento solicitudReparacions;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    private SolicitudReparacionMantenimiento solicitudReparacionId;
 
 //    
 //    @ManyToOne
@@ -81,13 +82,14 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.kardex = kardex;
     }
 
-    public SolicitudReparacionMantenimiento getSolicitudReparacions() {
-        return solicitudReparacions;
+    public SolicitudReparacionMantenimiento getSolicitudReparacionId() {
+        return solicitudReparacionId;
     }
 
-    public void setSolicitudReparacions(SolicitudReparacionMantenimiento solicitudReparacions) {
-        this.solicitudReparacions = solicitudReparacions;
+    public void setSolicitudReparacionId(SolicitudReparacionMantenimiento solicitudReparacionId) {
+        this.solicitudReparacionId = solicitudReparacionId;
     }
+
 //    public Persona getPsolicita() {
 //        return psolicita;
 //    }

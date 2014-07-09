@@ -61,7 +61,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
     public void setItemSolicitudRMId(Long itemSolicitudRMId) {
 
         setId(itemSolicitudRMId);
-
+        
     }
 
     @TransactionAttribute   //
@@ -147,25 +147,35 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
     }
 
     public void guardarItemSol(List<ItemSolicitudReparacion> ls) {
+        Date now = Calendar.getInstance().getTime();
         for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
             setInstance(itemSolicitudReparacion);
             getInstance().setEstado(true);
+            getInstance().setCreatedOn(now);
+            getInstance().setLastUpdate(now);
+            getInstance().setActivationTime(now);
             System.out.println("antes crear item");
             try {
                 create(getInstance());
-             System.out.println("antes guardar item");
-            save(getInstance());
+                System.out.println("antes guardar item");
+                save(getInstance());
             } catch (Exception e) {
                 System.out.println("error creando item");
             }
-            
+
         }
 
     }
-    for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
+
+    public void editarItemSol(List<ItemSolicitudReparacion> ls) {
+        Date now = Calendar.getInstance().getTime();
+        for (ItemSolicitudReparacion itemSolicitudReparacion : ls) {
             setInstance(itemSolicitudReparacion);
+            getInstance().setLastUpdate(now);
             save(getInstance());
         }
+    }
+
     @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
