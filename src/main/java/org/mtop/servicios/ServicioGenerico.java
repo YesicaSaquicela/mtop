@@ -160,6 +160,26 @@ public class ServicioGenerico {
 
         //builder.equal(objeto.get(at), true)
     }
+    
+    
+    public <T> List<T> find(final Class<T> objetoTipo,String criterio,int maxresults, int firstresult) {
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(objetoTipo);
+
+        Root<T> objeto = query.from(objetoTipo);
+        query.select(objeto).orderBy(builder.desc(objeto.get(criterio)));
+        return getResultList(query, maxresults, firstresult);
+    }
+    
+    
+    protected <T> List<T> getResultList(final CriteriaQuery<T> query,
+            int maxresults, int firstresult) {
+        return em.createQuery(query).setMaxResults(maxresults)
+                .setFirstResult(firstresult).getResultList();
+    }
+    
+    
     public List<Requisicion> buscarRequisicionporFecha(String nombreatributo, final Object valoratributo) {
         List<Requisicion> l= new ArrayList<Requisicion>();
         String s="";

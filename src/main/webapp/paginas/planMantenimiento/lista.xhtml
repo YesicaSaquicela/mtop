@@ -52,7 +52,7 @@
                                             </h:link>
 
                                             &nbsp;&nbsp;
-                                            <!--p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="# {controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
+                                            <!--p:commandButton rendered="# {pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="# {controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
                                                 <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
                                             </p:commandButton-->
                                             

@@ -68,16 +68,20 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     private Vehiculo vehiculo;
     @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
-    @OneToOne(mappedBy = "solicitudReparacions")
-    Requisicion requisicions;
+ 
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "solicitudReparacionId")
+    private Requisicion requisicionId;
 
-    public Requisicion getRequisicions() {
-        return requisicions;
+    public Requisicion getRequisicionId() {
+        return requisicionId;
     }
 
-    public void setRequisicions(Requisicion requisicions) {
-        this.requisicions = requisicions;
+    public void setRequisicionId(Requisicion requisicionId) {
+        this.requisicionId = requisicionId;
+        
     }
+
+   
     public Date getFechaEntradaTaller() {
         return fechaEntradaTaller;
     }
