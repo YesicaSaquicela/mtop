@@ -6,7 +6,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/view/templates/glue.xhtml">    
+                xmlns:mtop="http://mtop.org/jsf/facelets"
+               template="/WEB-INF/templates/plantilla.xhtml">    
     <ui:param name="title" value="#{messages['security.group']}" />
     <ui:define name="header-replace">        
         <div class="header-replace">
@@ -38,7 +39,7 @@
                 </p:commandLink>-->
                 &nbsp;
                 <h:link value="#{messages['common.cancel']} #{'a'} #{messages['module.profile.profiles']}" rendered="#{true}" 
-                        outcome="/pages/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn secondary" style="float: right;">
+                        outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn secondary" style="float: right;">
                     <f:param name="result"></f:param>                
                 </h:link> 
             </div>

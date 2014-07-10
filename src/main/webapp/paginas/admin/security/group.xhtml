@@ -4,9 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"      
       xmlns:f="http://java.sun.com/jsf/core"  
       xmlns:p="http://primefaces.org/ui"            
-      xmlns:glue="http://eqaula.org/jsf/facelets"      
+      xmlns:mtop="http://mtop.org/jsf/facelets"   
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition  template="/WEB-INF/view/templates/glue.xhtml">
+    <ui:composition  template="/WEB-INF/templates/plantilla.xhtml">
         
         <f:metadata>
             <f:viewParam name="groupKey" value="#{securityGroupHome.groupKey}" />             
@@ -24,12 +24,12 @@
         <ui:define name="content">
             <h:form id="form" acceptcharset="UTF-8">
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
-                <glue:input id="name" name="name" type="text" label="#{messages['security.group.name']}" value="#{securityGroupHome.groupName}" required="true" inlinehelp="#{messages['common.name.inlinehelp']}" execute="@this save" render="name"/>
+                <mtop:input id="name" name="name" type="text" label="#{messages['security.group.name']}" value="#{securityGroupHome.groupName}" required="true" inlinehelp="#{messages['common.name.inlinehelp']}" execute="@this save" render="name"/>
                 <!-- Attributos personalizados -->                
                 <div class="actions">
                     <h:commandButton id="save" action="#{securityGroupHome.saveGroup}" value="#{messages['common.save']}" styleClass="btn primary"/>
                    
-                    <h:link outcome="/pages/admin/security/list.xhtml?faces-redirect=true" onclick="editDlg.hide();"
+                    <h:link outcome="/paginas/admin/security/list.xhtml?faces-redirect=true" onclick="editDlg.hide();"
                             value="#{messages['common.cancel']}" styleClass="btn" >
                     </h:link>
                 </div>               
