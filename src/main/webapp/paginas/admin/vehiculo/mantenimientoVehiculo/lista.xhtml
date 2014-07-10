@@ -38,7 +38,7 @@
                                     <div class="tab-pane active" id="todas">
                                         <div class="table-responsive">
 
-
+/
                                             <tbody>
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
                                                     <p:column headerText="Registro">
@@ -61,7 +61,11 @@
                                                         &nbsp;&nbsp;
                                                         <h:link value="Visualizar Actividades" outcome="visualizar" type="button" >
                                                             <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                            <f:param name="prokilometraje" value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></f:param>
+                                        </p:panel></div></div></div>
+        </h:form>
+    </ui:define>                 </p:panel></div></div></div>
+        </h:form>
+    </ui:define>                                     <f:param name="prokilometraje" value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></f:param>
                                                         </h:link>
                                                         <p:commandLink update="@form" value="Visualizar1"  immediate="true" actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  title="Visualizar">
                                                             <p:ajax process="@this" update=":form:prok"/> 
@@ -108,7 +112,7 @@
                     </h:commandLink>
 
                     &nbsp;&nbsp;
-                    <p:button value="Regresar" icon="fa fa-history"  rendered="#{true}" outcome="/paginas/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
+                    <p:button value="Regresar" icon="fa fa-history"  rendered="#{true}" outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
 
                     </p:button>
                 </center>

@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"      
       xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition  template="/WEB-INF/view/templates/glue.xhtml">
+    <ui:composition  template="/WEB-INF/templates/plantilla.xhtml">
         <f:metadata>
             <f:viewParam name="username" value="#{securityHome.username}" />                                    
             <f:viewParam name="groupname" value="#{securityHome.groupname}" /> 
@@ -57,7 +57,7 @@
                     </p:commandButton>                      
                    
                     <h:link value="#{messages['common.cancel']} #{'a'} #{messages['module.profile.profiles']} " rendered="#{true}" 
-                            outcome="/pages/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn secondary" style="float: right;">
+                            outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn secondary" style="float: right;">
                     </h:link> 
                 </div>
 

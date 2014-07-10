@@ -20,7 +20,7 @@ limitations under the License.
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/view/templates/glue.xhtml">
+                template="/WEB-INF/templates/plantilla.xhtml">
     <f:metadata>
         <f:viewParam name="result" value="#{profileListService.firstResult}" />
         <f:viewParam name="estado" value="#{profileListService.estado}" />
@@ -42,10 +42,10 @@ limitations under the License.
             <div class="admin-actions">
                 <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/profile/profile.xhtml?faces-redirect=true" styleClass="btn primary">
                     <f:param name="profileId"></f:param>
-                    <f:param name="backView" value="/admin/listProfile"></f:param>
+                    <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
                 </h:link>
                 #{' '}
-                <h:link id="button-authorize" value="#{messages['common.authorize']}" rendered="#{true}" outcome="/pages/admin/security/authorization.xhtml?faces-redirect=true" styleClass="btn"
+                <h:link id="button-authorize" value="#{messages['common.authorize']}" rendered="#{true}" outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" styleClass="btn"
                         disabled="#{empty  profileListService.selectedProfile}">
                     <f:param name="username" value="#{profileListService.selectedProfile.username}"></f:param>
                     <f:param name="backView" value="listProfile"></f:param>
@@ -109,7 +109,7 @@ limitations under the License.
                 <p:column headerText="Opcion" >                                        
                     <h:link value="#{messages['common.edit']}" rendered="#{true}" outcome="/pages/profile/profile.xhtml?faces-redirect=true" styleClass="btn" >                          
                         <f:param name="profileId" value="#{profile_.id}"></f:param>
-                        <f:param name="backView" value="/admin/listProfile"></f:param>
+                        <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
                     </h:link>   
                 </p:column>
             </p:dataTable>          
@@ -119,7 +119,7 @@ limitations under the License.
                     <h:outputText value="Exportar Datos" />  
                     <br/>
                     <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn">                    
-                        <p:graphicImage value="/resources/images/pdf.png" />                          
+                                               
                         <f:setPropertyActionListener target="#{reporteListas.estado}" value="#{profileListService.estado eq 'inactivo'? true: false}" />
                     </h:commandLink>                    
                 </p:panel>

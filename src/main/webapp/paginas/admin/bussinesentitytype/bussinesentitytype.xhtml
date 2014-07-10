@@ -164,7 +164,7 @@ limitations under the License.
                                          action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
                                          styleClass="btn  btn-success" icon="ui-icon-disk"/> 
                         #{' '}                                  
-                        <h:commandButton id="cancel" action="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+                        <h:commandButton id="cancel" action="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                          value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
                                          rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
 
@@ -196,7 +196,7 @@ limitations under the License.
                                     <f:param name="backView" value="bussinesentitytype"></f:param>
                                 </h:link> 
                                 #{' '}
-                                <h:link outcome="/pages/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+                                <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                         value="#{messages['common.cancel']}" styleClass="btn  btn-success"/>   
 
                             </div><br/>
