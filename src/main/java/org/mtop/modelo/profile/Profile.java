@@ -66,24 +66,24 @@ public class Profile extends BussinesEntity implements Serializable {
 
     private static Logger log = Logger.getLogger(Profile.class);
     private static final long serialVersionUID = 274770881776410973L;
-    @Column(nullable = true)
+    //@Column(nullable = true)
     private String firstname;
-    @Column(nullable = true)
+    //@Column(nullable = true)
     private String surname;
-    @NotEmpty
-    @Column(nullable = false, unique = true)
+    //@NotEmpty
+    @Column( unique = true)
     private String username;
-    @NotEmpty
-    @Column(nullable = false)
+    //@NotEmpty
+    //@Column(nullable = true)
     private String password;
     @Column(length = 2147483647)
     @Basic(fetch = FetchType.LAZY)
     private byte[] photo;
     @Email(message = "#{messages['MailBadFormat']}")
     @Index(name = "userEmailIndex")
-    @Column(nullable = false, length = 128, unique = false)
+    @Column( length = 128, unique = false)
     private String email;
-    @ManyToOne
+    @ManyToOne()
     private Group role;
     private String mobileNumber;
     private String workPhoneNumber;

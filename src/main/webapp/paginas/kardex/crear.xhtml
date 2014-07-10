@@ -339,9 +339,9 @@
 
                                                     <f:viewParam name="valorVista" value="kardex"/>
                                                 </h:link--> 
-                                                <p:commandButton  id="button-edit" update="@form"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
+                                                <p:commandButton process="@this" id="button-edit" update="@form"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
                                                                  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorKardex.guardarAprobacionS()}" >
-                                                    <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
+                                                    <f:param name="solicitudNum" value="#{solicitudListaServicios.solicitudSeleccionada.numSolicitud}"></f:param>
 
                                                     <f:param name="valorVista" value="kardex"/>
                                                 </p:commandButton>
@@ -387,7 +387,16 @@
                                                         <tbody>
                                                             <p:messages id="mensajer" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            <p:dataTable id="basicDT13" var="items" rendered="#{controladorKardex.vista eq 'requisicion'}" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}">
+                                                            
+                                                            <p:dataTable var="items" id="basicDT13" rendered="#{controladorKardex.vista eq 'requisicion'}" var="items" value="#{requisicionListaServicios}"
+                                                                         lazy="true"              
+                                                                         paginator="true" rows="15"                         
+                                                                         paginatorPosition="top"
+                                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
+                                                                         rowsPerPageTemplate="5,10,15,20"
+                                                                         selection="#{solicitudListaServicios.solicitudSeleccionada}"
+                                                                         
+                                                                         selectionMode="single">
                                                                 <p:column headerText="Número">
                                                                     <h:outputText value="#{items.numSolicitud}" />
                                                                 </p:column>

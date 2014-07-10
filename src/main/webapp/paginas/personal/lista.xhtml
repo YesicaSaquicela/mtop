@@ -38,7 +38,7 @@
 
 
                                 <p:column headerText="nombre" sortBy="#{persona.firstname}">
-                                    <h:outputText value="#{parsona.firstname}"></h:outputText>
+                                    <h:outputText value="#{persona.firstname}"></h:outputText>
                                 </p:column>
 
                                 <p:column headerText="apellidos" sortBy="#{persona.firstname}">
@@ -50,6 +50,11 @@
                                         <f:param name="personaId" value="#{profileListService.selectedProfile.id}"></f:param>
                                         <f:param name="backView" value="list"></f:param>
                                     </h:link>  
+                                    <h:link id="button-user" value="CrearUsuario" rendered="#{true}" outcome="crearUsuario" styleClass="btn"
+                                            >
+                                        <f:param name="personaId" value="#{profileListService.selectedProfile.id}"></f:param>
+                                        <f:param name="backView" value="list"></f:param>
+                                    </h:link> 
                                 </p:column>
                             </p:dataTable>    
 

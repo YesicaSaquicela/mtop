@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
@@ -21,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
@@ -29,6 +30,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import org.jboss.seam.security.Credentials;
+import org.jboss.seam.security.Identity;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
@@ -37,8 +40,15 @@ import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.modelo.Persona;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.dinamico.Group;
 import org.mtop.profile.ProfileService;
 import org.mtop.servicios.ServicioGenerico;
+import org.picketlink.idm.api.AttributesManager;
+import org.picketlink.idm.api.IdentitySession;
+import org.picketlink.idm.api.PersistenceManager;
+import org.picketlink.idm.api.User;
+import org.picketlink.idm.common.exception.IdentityException;
+import org.picketlink.idm.impl.api.PasswordCredential;
 
 /**
  *
@@ -46,24 +56,50 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorPersona extends BussinesEntityHome<Profile> implements Serializable{
-    
+public class ControladorPersona extends BussinesEntityHome<Profile> implements Serializable {
+
     @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
+    @Inject
+    private Identity identity;
+    @Inject
+    private Credentials credentials;
+    @Inject
+    private IdentitySession security;
+
+    private String password;
+    private String passwordConfirm;
     //@Inject
     //private ProfileService pservicio;
-    List<Profile> listaPersona= new ArrayList<Profile>();
-    
+    List<Profile> listaPersona = new ArrayList<Profile>();
+
     public Long getPersonaId() {
- 
+
         return (Long) getId();
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+    
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setPersonaId(Long personaId) {
-       
+
         setId(personaId);
 
     }
@@ -84,14 +120,11 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
     public void setListaPersona(List<Profile> listaPersona) {
         this.listaPersona = listaPersona;
     }
-    
 
     @TransactionAttribute
     public void wire() {
         getInstance();
     }
-
-
 
     @PostConstruct
     public void init() {
@@ -100,12 +133,10 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
         bussinesEntityService.setEntityManager(em);
-       // pservicio.setEntityManager(em);
-      servgen.setEm(em);
-      listaPersona = servgen.buscarTodos(Profile.class);
+        // pservicio.setEntityManager(em);
+        servgen.setEm(em);
+        listaPersona = servgen.buscarTodos(Profile.class);
     }
-    
-    
 
     @Override
     protected Profile createInstance() {
@@ -116,9 +147,9 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         persona.setCreatedOn(now);
         persona.setLastUpdate(now);
         persona.setActivationTime(now);
-
+        persona.setResponsable(null);
         persona.setType(_type);
-        persona.buildAttributes(bussinesEntityService);  //
+        // persona.buildAttributes(bussinesEntityService);  //
         return persona;
     }
 
@@ -127,41 +158,70 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         return Profile.class;
     }
 //tiene muchas variaciones
+
     @TransactionAttribute
     public String guardar() {
-Date now = Calendar.getInstance().getTime();
+        Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        
+
         try {
             if (getInstance().isPersistent()) {
                 List<BussinesEntityAttribute> listA = getInstance().getAttributes();
-                System.out.println("Attributos "+getInstance().getAttributes().size());
+                System.out.println("Attributos " + getInstance().getAttributes().size());
                 for (BussinesEntityAttribute a : listA) {
-                    System.out.println("ATRIB "+a.getName()+" valor "+a.getValue().toString() +" valor String "+a.getStringValue());
+                    System.out.println("ATRIB " + a.getName() + " valor " + a.getValue().toString() + " valor String " + a.getStringValue());
                     //save(a);
-                    
+
                 }
                 //update();
-                save(getInstance());                
+                save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Persona" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
+
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo nueva Vehiculo " + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al guardar: " + getInstance().getId()," ");
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-         return "/paginas/personal/lista.xhtml?faces-redirect=true";
-
+        return "/paginas/personal/lista.xhtml?faces-redirect=true";
+    }
+    @TransactionAttribute
+    public void guardarUsuario(){
+        try {       
+            crearCuentaUsuario();
+        } catch (IdentityException ex) {
+            Logger.getLogger(ControladorPersona.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+    @TransactionAttribute
+    public void crearCuentaUsuario() throws IdentityException {
+        
+            
+            // TODO validate username, email address, and user existence
+            System.out.println("nombre de usuario>>>>>>>>>>>"+getInstance().getUsername());
+            PersistenceManager identityManager = security.getPersistenceManager();
+            User user = identityManager.createUser(getInstance().getUsername());
+            System.out.println("antres atributooo managerrrr");
+            AttributesManager attributesManager = security.getAttributesManager();
+            PasswordCredential p = new PasswordCredential(getPassword());
+            System.out.println("antres usuariooooooooooooooooooooo");
+            attributesManager.updatePassword(user, p.getValue());
+            attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario
+            attributesManager.addAttribute(user, "estado", "ACTIVO");
+            System.out.println("finalizo creaaaaaar usuariooooo");
+        
     }
 
     @Transactional
     public String borrarEntidad() {
-      
+
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");

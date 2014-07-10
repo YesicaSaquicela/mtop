@@ -88,6 +88,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String palabrab;
     private List<SolicitudReparacionMantenimiento> listaSolicitudes;
     private SolicitudReparacionMantenimiento solicitudrep;
+    List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
+
+    public List<ItemRequisicion> getListaItemsRequisicion() {
+        return listaItemsRequisicion;
+    }
+
+    public void setListaItemsRequisicion(List<ItemRequisicion> listaItemsRequisicion) {
+        this.listaItemsRequisicion = listaItemsRequisicion;
+    }
+    
+    
 
     Producto pro;
 
@@ -342,14 +353,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void guardarItem() {
-        for (ItemRequisicion apm : cir.listaItemsRequisicion) {
+        for (ItemRequisicion apm : listaItemsRequisicion) {
             Date now = Calendar.getInstance().getTime();
             apm.setRequisicion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
             cir.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
             cir.getInstance().setLastUpdate(now);
             cir.guardar();
         }
-        getInstance().setListaItems(cir.listaItemsRequisicion);//fija la lista de actividades al plan de mantenimietno
+        getInstance().setListaItems(listaItemsRequisicion);//fija la lista de actividades al plan de mantenimietno
 
     }
 
@@ -365,7 +376,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
             listaProductos.set(i, pro);
 
-            cir.listaItemsRequisicion.add(cir.getInstance());
+            listaItemsRequisicion.add(cir.getInstance());
             cir.setInstance(new ItemRequisicion());
 
         }
@@ -381,11 +392,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void editarItem(ItemRequisicion itemReq) {
 
         int con = 0;
-        for (ItemRequisicion i : cir.listaItemsRequisicion) {
+        for (ItemRequisicion i : listaItemsRequisicion) {
 
             if (i.getCantidad().equals(itemReq.getCantidad())
                     && i.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
-                cir.listaItemsRequisicion.remove(con);
+                listaItemsRequisicion.remove(con);
                 System.out.println("a fijar cant" + i.getCantidad());
                 System.out.println("a fijar unid" + i.getUnidadMedida());
                 cir.setInstance(i);
@@ -473,7 +484,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 return event.getOldStep();
             } else {
 
-                if (event.getOldStep().equals("items") && this.cir.listaItemsRequisicion.isEmpty()) {
+                if (event.getOldStep().equals("items") && this.listaItemsRequisicion.isEmpty()) {
                     System.out.println("estas vaciaaaaaa");
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item al plan de mantenimiento"));
 
@@ -506,7 +517,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         setId(requisicionId);
         vehiculo = getInstance().getVehiculo();
-        cir.listaItemsRequisicion = new ArrayList<ItemRequisicion>();
+        listaItemsRequisicion = new ArrayList<ItemRequisicion>();
         for (ItemRequisicion itr : findAll(ItemRequisicion.class)) {
 
             if (getInstance().getId() != null) {
@@ -516,12 +527,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (getInstance().getId().equals(itr.getRequisicion().getId())) {
                     System.out.println("fijo un ide");
                     System.out.println("get id de productoooo"+itr.getProducto().getId());
-                    cir.listaItemsRequisicion.add(itr);
+                    listaItemsRequisicion.add(itr);
                 }
 
             }
         }
-        System.out.println("lista de items" + cir.listaItemsRequisicion);
+        System.out.println("lista de items" + listaItemsRequisicion);
 
     }
 
@@ -575,7 +586,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setListaRequisicion(List<Requisicion> listaRequisicion) {
         this.listaRequisicion = listaRequisicion;
-        cir.listaItemsRequisicion = getInstance().getListaItems();
+        listaItemsRequisicion = getInstance().getListaItems();
     }
 
     @PostConstruct
@@ -694,7 +705,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setSolicitudReparacionId(soli);
         getInstance().setLastUpdate(now);
         try {
-            save(getInstance());
+            servgen.actualizar(getInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }

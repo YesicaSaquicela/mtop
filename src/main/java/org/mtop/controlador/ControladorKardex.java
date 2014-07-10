@@ -66,6 +66,17 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     private String palabrab;
     private String vista;
     private List<SolicitudReparacionMantenimiento> listaSol;
+     private SolicitudReparacionMantenimiento solicitud;
+     private Requisicion requisicion;
+
+    public Requisicion getRequisicion() {
+        return requisicion;
+    }
+
+    public void setRequisicion(Requisicion requisicion) {
+        this.requisicion = requisicion;
+    }
+     
 
     public List<SolicitudReparacionMantenimiento> getListaSol() {
         return listaSol;
@@ -75,7 +86,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.listaSol = listaSol;
     }
 
-    private SolicitudReparacionMantenimiento solicitud;
+   
 
     public void fijarSol(SolicitudReparacionMantenimiento s) {
         setSolicitud(solicitud);
@@ -91,11 +102,28 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         try {
             Date now = Calendar.getInstance().getTime();
             solicitud.setLastUpdate(now);
-            solicitud.setFechaSalidaTaller(now);
             solicitud.setAprobado(true);
+            solicitud.setKardex(getInstance());
             save(solicitud);
             getInstance().setLastUpdate(now);
             getInstance().getListaSolicitudReparacion().add(solicitud);
+
+            save(getInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void guardarAprobacionR() {
+        try {
+            Date now = Calendar.getInstance().getTime();
+            requisicion.setLastUpdate(now);
+           
+            requisicion.setAprobado(true);
+            requisicion.setKardex(getInstance());
+            save(requisicion);
+            getInstance().setLastUpdate(now);
+            getInstance().getListaRequisicion().add(requisicion);
 
             save(getInstance());
         } catch (Exception e) {

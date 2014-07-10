@@ -142,6 +142,7 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
 
     public BussinesEntityType getSelectedBussinesEntityType() {
         return selectedBussinesEntityType;
+       
     }
 
     public void setSelectedBussinesEntityType(BussinesEntityType selectedBussinesEntityType) {
