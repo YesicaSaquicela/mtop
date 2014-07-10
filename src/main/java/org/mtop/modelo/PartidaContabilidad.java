@@ -39,15 +39,15 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
 
     private static final long serialVersionUID = 1L;
  
-    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String numeroProvincia;
-    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String numeroPrograma;
-    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String numeroProyecto;
-    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String numeroItem;
-    @Pattern(regexp = "[0-9]+", message = "Solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String numeroFuenteFinanciera;
     private String descripcion;
 

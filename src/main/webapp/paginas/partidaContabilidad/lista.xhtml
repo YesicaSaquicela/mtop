@@ -61,11 +61,11 @@
                                             <h:link value="Editar" outcome="crear" type="button" >
                                                 <f:param name="partidaId" value="#{pc.id}"></f:param>
                                             </h:link>
-                                            <p:commandButton id="selectButton" ajax="false" immediate="true" 
-                                                             actionListener="#{controladorPartidaContabilidad.vistaC}" action="#{controladorPartidaContabilidad.vistaC()}"
-                                                             icon="ui-icon-pencil" title="Editar">  
+                                            <p:button id="selectButton" 
+                                                      outcome="crear"
+                                                      icon="ui-icon-pencil" title="Editar">  
                                                 <f:param name="partidaId" value="#{pc.id}"></f:param>
-                                            </p:commandButton>
+                                            </p:button>
                                             <p:commandButton rendered="#{pc.estado eq false}" id="confirmacion" value="Activar" action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" update="@form">
                                                 <p:confirm header="Confirmación" message="¿Desea Realmente Activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                             </p:commandButton>

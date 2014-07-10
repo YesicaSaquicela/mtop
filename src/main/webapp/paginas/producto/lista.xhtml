@@ -54,6 +54,12 @@
                                                     <h:link value="Editar" outcome="crear" type="button" >
                                                         <f:param name="productoId" value="#{pd.id}"></f:param>
                                                     </h:link>
+                                                                    
+                                                        <p:button id="selectButton" 
+                                                                  outcome="crear"
+                                                                  icon="ui-icon-pencil" title="Editar">  
+                                                            <f:param name="productoId" value="#{pd.id}"></f:param>
+                                                        </p:button>
 
                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash"
                                                                      action="#{controladorProducto.darDeBaja(pd.id)}" 
