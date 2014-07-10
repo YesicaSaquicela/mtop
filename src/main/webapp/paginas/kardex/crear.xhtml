@@ -15,9 +15,9 @@
 
     <ui:param name="titulo" value="Kardex"/>
     <f:metadata>
-        <f:viewParam name="kardexId" value="#{controladorKardex.kardexId}"/>
-        <f:viewParam name="valorVista" value="#{controladorKardex.vista}"/>
-        <f:viewParam name="solicitudId" value="#{controladorKardex.solicitudId}"/>
+        <f:viewParam id="kardexx" name="kardexId" value="#{controladorKardex.kardexId}"/>
+        <f:viewParam id="vistaaa" name="valorVista" value="#{controladorKardex.vista}"/>
+        <f:viewParam id="solicituddd" name="solicitudNum" value="#{controladorKardex.solicitud.numSolicitud}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -144,11 +144,14 @@
                                         <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
 
                                         <p:tab  title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
-                                            <p:commandButton update=":form:soli :form:infovehiculo :form:kar"  process="@this" value="Aprobar nueva Solicitud de Reparación y Mantenimiento"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
+                                            <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
-                                                <f:param name="valorVista" value="#{controladorKardex.vista}"></f:param>
-                                                <f:param name="solicitudId" value="#{controladorKardex.solicitudId}"></f:param>
-                                            </p:commandButton><br/><br/>
+                                                <f:param name="valorVista" value="solicitud"></f:param>
+                                                <f:param name="solicitudId" value="#{controladorKardex.solicitud.numSolicitud}"></f:param>
+                                            </p:commandButton>
+                                          
+
+                                            <br/><br/>
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="todas">
                                                     <div class="table-responsive">
@@ -255,11 +258,11 @@
                         <div  class="panel panel-primary">
 
                             <div class="panel-heading" align="center">APROBAR SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO</div>
-                            <p:panel >
+                            <p:panel rendered="#{controladorKardex.vista eq 'solicitud'}" >
                                 <div class="container-fluid" align="center">
                                     <div class="row-fluid"  >
 
-                                        <h:form id="forms">            
+                                        <h:form id="forms" rendered="#{controladorKardex.vista eq 'solicitud'}">            
 
                                             <!--Opción de mensaje, cuando se realiza una acción-->
 
@@ -294,18 +297,18 @@
                                                         <tbody>
                                                             <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            <p:dataTable id="basicDT12" var="items" value="#{solicitudListaServicios}"
+                                                            <p:dataTable rendered="#{controladorKardex.vista eq 'solicitud'}" id="basicDT12" var="items" value="#{solicitudListaServicios}"
                                                                          lazy="true"              
                                                                          paginator="true" rows="15"                         
                                                                          paginatorPosition="top"
                                                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
                                                                          rowsPerPageTemplate="5,10,15,20"
                                                                          selection="#{solicitudListaServicios.solicitudSeleccionada}"
-                                                                         rendered="true"
+                                                                         
                                                                          selectionMode="single">
                                                                 <p:ajax event="rowSelect" listener="#{solicitudListaServicios.onRowSelect}"   
-                                                                        update=":form:forms:mensaje :form:forms:button-edit :form:forms:button-edit1"/>  
-                                                                <p:ajax event="rowUnselect" listener="#{solicitudListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit :form:forms:button-edit1"/>
+                                                                        update=":form:forms:mensaje :form:forms:button-edit "/>  
+                                                                <p:ajax event="rowUnselect" listener="#{solicitudListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
 
                                                                 <p:column headerText="Número" sortBy="#{items.id}">
                                                                     <h:outputText value="#{items.numSolicitud}" />
@@ -330,13 +333,13 @@
 
 
                                             <div class="admin-actions " align="center"> 
-                                                <h:link id="button-edit1" value="Aprobar" rendered="#{true}" outcome="#{controladorKardex.guardarAprobacionS()}" styleClass="btn"
+                                                <!--h:link id="button-edit1" value="Aprobar" rendered="#{true}" outcome="#{controladorKardex.guardarAprobacionS()}" styleClass="btn"
                                                         disabled="#{solicitudListaServicios.solicitudSeleccionada == null}" >
                                                     <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
 
                                                     <f:viewParam name="valorVista" value="kardex"/>
-                                                </h:link> 
-                                                <p:commandButton id="button-edit" update="@form"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
+                                                </h:link--> 
+                                                <p:commandButton  id="button-edit" update="@form"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
                                                                  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorKardex.guardarAprobacionS()}" >
                                                     <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
 
@@ -366,11 +369,11 @@
                         <div  class="panel panel-primary">
 
                             <div class="panel-heading" align="center">APROBAR REQUISICIONES</div>
-                            <p:panel >
+                            <p:panel rendered="#{controladorKardex.vista eq 'requisicion'}">
                                 <div class="container-fluid" align="center">
                                     <div class="row-fluid"  >
 
-                                        <h:form id="formr">            
+                                        <h:form id="formr" rendered="#{controladorKardex.vista eq 'requisicion'}">            
 
                                             <!--Opción de mensaje, cuando se realiza una acción-->
 
@@ -384,7 +387,7 @@
                                                         <tbody>
                                                             <p:messages id="mensajer" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            <p:dataTable id="basicDT13" var="items" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}">
+                                                            <p:dataTable id="basicDT13" var="items" rendered="#{controladorKardex.vista eq 'requisicion'}" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}">
                                                                 <p:column headerText="Número">
                                                                     <h:outputText value="#{items.numSolicitud}" />
                                                                 </p:column>
