@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -34,8 +35,8 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.Producto;
+import org.mtop.modelo.Requisicion;
 import org.mtop.servicios.ServicioGenerico;
-
 
 /**
  *
@@ -48,18 +49,27 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     @Inject
     @Web
     private EntityManager em;
-    @Inject
+    @EJB
     private ServicioGenerico servgen;
-    private List<Producto> listaProducto = new ArrayList<Producto>();
+    private List<Producto> listaProducto;
 
-     private String codigo;
+    private String codigo;
+
+    public ControladorRequisicion getCrequisicion() {
+        return crequisicion;
+    }
+
+    public void setCrequisicion(ControladorRequisicion crequisicion) {
+        this.crequisicion = crequisicion;
+    }
+    private ControladorRequisicion crequisicion;
 
     public String getCodigo() {
         if (getId() == null) {
-            System.out.println("numero"+getInstance().getCodigo());
+            System.out.println("numero" + getInstance().getCodigo());
             List<Producto> lista = findAll(Producto.class);
             int t = lista.size();
-            System.out.println("valor de t :::::::::::"+t);
+            System.out.println("valor de t :::::::::::" + t);
             if (t < 9) {
                 setCodigo("000".concat(String.valueOf(t + 1)));
             } else {
@@ -73,22 +83,21 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
                     }
                 }
             }
-        }else{
+        } else {
             setCodigo(getInstance().getCodigo());
         }
-        
+
         return codigo;
 
     }
 
     public void setCodigo(String numRegistro) {
         this.codigo = numRegistro;
-        
+
         getInstance().setCodigo(this.codigo);
 
     }
 
-      
     public Long getProductoId() {
         return (Long) getId();
     }
@@ -97,7 +106,6 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         setId(productoId);
     }
 
-  
     @TransactionAttribute   //
     public Producto load() {
         if (isIdDefined()) {
@@ -120,18 +128,41 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         this.listaProducto = listaProducto;
     }
 
-  
-
     @PostConstruct
     public void init() {
         setEntityManager(em);
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
-        
+
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaProducto= servgen.buscarTodos(Producto.class);
+        listaProducto = servgen.buscarTodos(Producto.class);
+        System.out.println("lisssssstaa...a. de remover." + listaProducto);
+        crequisicion = new ControladorRequisicion();
+        System.out.println("tama;o listaaaa" + listaProducto.size());
+
+        List<Producto> lp = servgen.buscarTodos(Producto.class);
+        listaProducto.clear();
+        System.out.println("lppp" + lp);
+        
+            for (Producto produ : lp) {
+                System.out.println("iddddd" + produ.getId());
+                System.out.println("entro a for lista>>>>" + produ.isEstado());
+                if (produ.isEstado()) {
+                    System.out.println("listatesssa" + listaProducto);
+                    listaProducto.add(produ);
+
+                    System.out.println("Entro a remover>>>>");
+                    System.out.println("a;iadia" + listaProducto);
+
+                }
+
+            }
+
+        
+
+        System.out.println("Lista dfinaaaaaaalllll>>>" + listaProducto);
     }
 
     @Override
@@ -160,21 +191,19 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-         
-                       
-         
-         System.out.println("IIIIDEEEntro>>>>>>"+getProductoId());
-        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance().isPersistent());
-                                
+
+        System.out.println("IIIIDEEEntro>>>>>>" + getProductoId());
+        System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance().isPersistent());
+
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a Editar>>>>>>>>");
-               save(getInstance());
+                save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Producto" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                 System.out.println("Entro a crear>>>>>>>>");
-                getInstance().setEstado(false);
+                System.out.println("Entro a crear>>>>>>>>");
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Producto" + getInstance().getId() + " con éxito", " ");
@@ -187,30 +216,25 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         return "/paginas/producto/lista.xhtml?faces-redirect=true";
     }
 
-    
-     @Transactional
-     public String darDeBaja(Long idproducto){
-        System.out.println("entro inactivar>>>>>>");
-      for (Producto producto: listaProducto){
-             producto.setEstado(false);
-             setInstance(producto);
-             guardar();
-      }
-         System.out.println("salio del for>>>>>.");
-         setId(idproducto);
-         setInstance(findById(Producto.class, idproducto));
-         Date now = Calendar.getInstance().getTime();
-         getInstance().setLastUpdate(now);
-         getInstance().setEstado(true);
-         guardar();
-         listaProducto.remove(idproducto);
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
-         return "/paginas/producto/lista.xhtml?faces-redirect=true";
-     }
-    
+    @Transactional
+    public String darDeBaja(Long idproducto) {
+        System.out.println("Entro a dar de baja>>>>>>" + idproducto);
+        setId(idproducto);
+        setInstance(servgen.buscarPorId(Producto.class, idproducto));
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        getInstance().setEstado(false);
+
+        //listaProducto.remove(findById(Producto.class,idproducto));
+        save(getInstance());
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
+        return "/paginas/producto/lista.xhtml?faces-redirect=true";
+    }
+
     @Transactional
     public String borrarEntidad() {
-        
+
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");

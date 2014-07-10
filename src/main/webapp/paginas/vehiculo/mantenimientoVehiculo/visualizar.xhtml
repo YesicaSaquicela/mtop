@@ -15,7 +15,6 @@
     <ui:param name="titulo" value="ATIVIDADES POR KILOMETRAJE"/>
     <f:metadata>
         <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
-        <f:viewParam name="prokilometraje" value="#{controladorVehiculo.prokilometraje}"/>
     </f:metadata>
     <ui:define name="header-replace">
         <div class="header-replace">
@@ -33,12 +32,12 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-                    <p:panel id="infoP" header="Información Personal" style="margin-top: -5px;">                    
+                    <p:panel id="infoP" header="Actividades" style="margin-top: -5px;">                    
                         <div class="container-fluid">   
                             <div class="row-fluid" >
                                 <div style="margin-left: -1%; float: left" class="span7">
-                                    <mtop:vista id="kilometraje" name="kilometraje" type="text" label="Kilometraje" value="#{controladorVehiculo.actividadplan.kilometraje}" /> 
-                                    <mtop:vista id="actividades" name="actividades" type="textarea" label="Actividades" value="#{controladorVehiculo.actividadplan.actividad}" />
+                                    <mtop:vista id="kilometraje" name="kilometraje" type="text" label="Kilometraje" value="#{controladorVehiculo.prokilometraje}" /> 
+                                    <mtop:vista id="actividades" name="actividades" type="textarea" label="Actividades" value="#{controladorVehiculo.actividadekilometraje}" />
 
 
                                 </div>

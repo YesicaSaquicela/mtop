@@ -26,6 +26,7 @@ import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -51,13 +52,28 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     private ServicioGenerico servgen;
     private List<PartidaContabilidad> listaPartidaC = new ArrayList<PartidaContabilidad>();
     private String mensaje = "";
+    private String vista="";
+
+    
+    
+    public void vistaC(ActionEvent event) {
+        System.out.println("entro a evento>>>>>>>");
+        final Long id = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("partidaId"));
+        getInstance().setId(id);
+        System.out.println("se fijo el id>>>>>"+getInstance().getId());
+    
+    }
+    
+    public String vistaC(){
+        System.out.println("retornando vista crear>>>>>>");
+        return "/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true";
+    }
+    
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-
- 
 
     public String getMensaje() {
         return mensaje;
@@ -74,6 +90,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     public void setPartidaCId(Long partidaCId) {
         setId(partidaCId);
+
     }
 
     @TransactionAttribute   //
@@ -108,6 +125,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
+        System.out.println("liata en init>>>>>>>>" + listaPartidaC);
     }
 
     @Override
@@ -132,19 +150,34 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public boolean verificarPartida() {
+        List<PartidaContabilidad> lpc=findAll(PartidaContabilidad.class);
+        System.out.println("LISTA PARTIDA>>>>>>." + lpc);
         boolean ban = true;
-        for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
+        System.out.println("lista antes de borrar" + lpc);
+        //si viene de editar... comprueba que el ide se diferente de 
+        System.out.println("ide antes de borrar del k llega>>>>"+getInstance().getId());
+        if (getInstance().getId() != null) {
+            System.out.println("ENTRO A BORRAR>>>>>>>");
+            lpc.remove(findById(PartidaContabilidad.class, getInstance().getId()));
+
+        }
+        System.out.println("lista despues de borrar" + lpc);
+        for (PartidaContabilidad partidaContabilidad : lpc) {
+            System.out.println("ENTRANDO AL FOR>>>>.");
             if (partidaContabilidad.concatenarPartida().equals(getInstance().concatenarPartida())) {
+                System.out.println("entro a verificar>>>>>>>"+ban);
                 ban = false;
                 break;
             }
         }
+        System.out.println("salio del for>>>>>");
         return ban;
 
     }
 
     @TransactionAttribute
     public String guardar() {
+
         if (verificarPartida() == true) {
             Date now = Calendar.getInstance().getTime();
             getInstance().setLastUpdate(now);
@@ -158,7 +191,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 } else {
                     System.out.println("Entro a crear>>>>>>>>");
-                    getInstance().setEstado(false);
+                    getInstance().setEstado(true);
                     create(getInstance());
                     save(getInstance());
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");
@@ -180,51 +213,32 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         }
 
     }
-    
+
     @Transactional
     public String inactivarPartida(Long idPartidac) {
-       System.out.println("entro inactivar>>>>>>");
-      for (PartidaContabilidad partidaContabilidad : listaPartidaC){
-            System.out.println("entro al for false>>>>...");
-             partidaContabilidad.setEstado(false);
-             setInstance(partidaContabilidad);
-             guardar();
-             System.out.println("guardao>>>>>...");
-         }
-         System.out.println("salio del for>>>>>.");
-         setId(idPartidac);
-         setInstance(findById(PartidaContabilidad.class, idPartidac));
-         Date now = Calendar.getInstance().getTime();
-          getInstance().setLastUpdate(now);
-         getInstance().setEstado(true);
-         guardar();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada se inactivo ", "exitosamente"));
-       
-       
+
+        setId(idPartidac);
+        setInstance(findById(PartidaContabilidad.class, idPartidac));
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        getInstance().setEstado(false);
+        servgen.actualizar(getInstance());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada se inactivo ", "exitosamente"));
+
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
     }
-    
-     @Transactional
+
+    @Transactional
     public String activarPartida(Long idPartidac) {
-         System.out.println("entro a activar>>>>>>>>>>...");
-         for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
-             System.out.println("entro for>>...");
-             partidaContabilidad.setEstado(false);
-             setInstance(partidaContabilidad);
-             guardar();
-             System.out.println("guardo for>>>>..");
-         }
-         
-         System.out.println("salio del for>>>>>>");
-         setId(idPartidac);
-         getInstance().setEstado(false);
-         guardar();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se activo exitosamente:  " + getInstance().getName(), ""));
-       
-       
+
+        setId(idPartidac);
+        getInstance().setEstado(true);
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        servgen.actualizar(getInstance());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se activo exitosamente:  " + getInstance().getName(), ""));
+
         return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
     }
 
-
-    
 }

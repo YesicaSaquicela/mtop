@@ -12,7 +12,7 @@
                 xmlns:mtop="http://mtop.org/jsf/facelets"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    <ui:param name="titulo" value="Gestionar Solicitudes de Reparacion/Mantenimiento"/>
+    <ui:param name="titulo" value="Gestionar Personal"/>
     <f:metadata>
         <f:viewParam name="personaId" value="#{controladorPersona.personaId}"/>
     </f:metadata>
@@ -26,40 +26,46 @@
 
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">
-            <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-            <p:panel header="Datos Generales">
-                <div class="container-fluid">
+
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+
                     <!-- Example row of columns -->
-                    <div class="row">
-                        <div class="col-md-6"> 
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" align="center">Datos Generales</div>
+                        <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+                        <p:panel id="p1" >
+                            <div class="row">
+                                <div class="col-md-6"> 
 
-                            <mtop:input id="nombre" name="nombre" type="text" label="Nombres" 
-                                        value="#{controladorPersona.instance.firstname}" required="true" 
-                                        inlinehelp="Ingrese sus nombres" execute ="@this save" render="nombre"/>
+                                    <mtop:input id="nombre" name="nombre" type="text" label="Nombres" 
+                                                value="#{controladorPersona.instance.firstname}" required="true" 
+                                                inlinehelp="Ingrese sus nombres" execute ="@this save" render="nombre"/>
 
-                            <mtop:input id="apellido" name="apellido" type="text" label="Apellidos" 
-                                        value="#{controladorPersona.instance.surname}" required="true" 
-                                        inlinehelp="Ingrese sus apellidos" 
-                                        execute ="@this save" render="apellido"/>
-
-
-                            <mtop:input id="tipo" name="tipo" type="text" label="Tipo de persona" 
-                                        value="#{controladorPersona.instance.tipo}" required="true" 
-                                        inlinehelp="Ingrese el tipo de persona" 
-                                        execute ="@this save" render="tipo"/>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                                    <mtop:input id="apellido" name="apellido" type="text" label="Apellidos" 
+                                                value="#{controladorPersona.instance.surname}" required="true" 
+                                                inlinehelp="Ingrese sus apellidos" 
+                                                execute ="@this save" render="apellido"/>
 
 
-            </p:panel>
+                                    <mtop:input id="tipo" name="tipo" type="text" label="Tipo de persona" 
+                                                value="#{controladorPersona.instance.tipo}" required="true" 
+                                                inlinehelp="Ingrese el tipo de persona" 
+                                                execute ="@this save" render="tipo"/>
 
-        
-            <p:panel >
-                <div class="admin-actions ">  
+                                </div>
+
+                            </div>
+
+
+
+
+                        </p:panel></div> </div></div>
+
+
+
+          
+            <div class="admin-actions " align="center">  
                     <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPersona.guardar()}"
                                      immediate="true" icon="ui-icon-disk"/>
 
@@ -68,7 +74,7 @@
                     <h:button value="Regresar" rendered="#{true}" outcome="/paginas/personal/lista" styleClass="btn  btn-success"/>
 
                 </div>
-            </p:panel>
+     
 
         </h:form>
 

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+
+
+    <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+
+        <!-- Our customizations -->
+        <h:outputStylesheet name="application.css" />
+        <h:outputScript name="application.js" />
+
+        <h:outputStylesheet name="bootstrap/css/bootstrap-responsive.css"/>
+        <h:outputStylesheet name="bootstrap/css/estilo.css"/>
+        <h:outputStylesheet name="bootstrap/css/bootstrap-responsive.min.css"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">< /script&gt;
+                        < script src ="js/bootstrap.js" ></script>
+
+        <script type=”text/javascript” >
+                    $(document).ready(function(){
+            $(‘.dropdown - toggle’).dropdown();
+            });</script>
+
+
+        <div class="container" id="general">
+            <div id="encabezado" class="row">
+
+                <div class="span4" id="logo"><h3>LOGO DE MI EMPRESA</h3></div>
+
+                <div id="menu" class="span8">
+                    <ul class="nav nav-pills">
+                        <li class="active" style="width:150px"><a href="#">Inicio</a></li>
+                        <li class="dropdown" id="menu1">
+                            <a style="background:#CEECF5" class="dropdown-toggle" data-toggle="#fat" href="#menu1">
+                                Nosotros
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Misión</a></li>
+                                <li><a href="#">Visión</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Staff</a></li>
+
+                            </ul>
+
+                        </li>
+                        <li class=""><a style="background:#CEECF5" href="#">Portafolio</a></li>
+                        <li class=""><a href="#" style="background:#CEECF5">Contacto</a></li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div id="cuerpo" class="row">
+
+                <div id="izquierda" class="span4">
+                    <h3>Izquierda</h3>
+                    <!–<ul class="nav nav-tabs nav-stacked">
+                           <li class="active">
+                            <a href="#">Inicio</a>
+                        </li>
+                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="#">Portafolio</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>–>
+                    <ul class="nav nav-list"><br/>
+                        <li class="nav-header">
+                            Menu vertical
+                        </li>
+                        <li class="active">
+                            <a href="#">Inicio</a>
+                        </li>
+                        <li><a href="#">Nosotros</a></li>
+                        
+                            <li> <a href="#"><li class=”icon-book”></li>Mision</a></li>
+                            <li> <a href="#"><li class=”icon-book”></li>Vision</a></li>
+                            <li> <a href="#"><li class=”icon-book”></li>Staff</a></li>
+
+                            <li><a href="#">Portafolio</a></li>
+                            <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div id="derecha" class="span7">
+                    <h3>Contenido</h3>
+                    <br/>
+                    <h1>Bienvenidos a nuestra pagina!</h1>
+                    <p>
+                        Esta Pagina ha sido maquetada con twitter bootstrap
+                    </p>
+                    <p><a class=”btn btn-primary btn-large”>Mas información</a></p>
+                </div>
+
+            </div>
+            <div id="" class="row">
+
+                <div id=”footer” class=”span12″>
+                    <span>Todos los derechos reservados</span><br/><b>Sitio maquetado con Twitter Bootstrap</b>
+                </div>
+            </div>
+        </div>
+
+    </html>
+
+</f:view>
