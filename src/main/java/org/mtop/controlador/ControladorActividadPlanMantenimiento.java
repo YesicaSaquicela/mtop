@@ -154,7 +154,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
             FacesContext.getCurrentInstance().addMessage("", msg);
             System.out.println("no guardo actividaddddd");
         }
-        return "/paginas//lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/lista.xhtml?faces-redirect=true";
     }
     
     @Transactional

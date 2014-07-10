@@ -147,5 +147,15 @@ public class Account implements Serializable {
     public void setSecurityRules(SecurityRules securityRules) {
         this.securityRules = securityRules;
     }
+    
+    public boolean tienePermiso(final String grupoUser) {
+        SecurityRules s = new SecurityRules();
+        if (SecurityRules.ADMIN.equals(grupoUser)) {
+            return s.isAdmin(identity);
+        } else if (SecurityRules.SECRETARIO.equals(grupoUser)) {
+            return s.isSecretario(identity);
+        } 
+        return false;
+    }
 
 }

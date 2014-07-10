@@ -66,7 +66,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     
     public String vistaC(){
         System.out.println("retornando vista crear>>>>>>");
-        return "/paginas/partidaContabilidad/crear.xhtml?faces-redirect=true";
+        return "/paginas/secretario/partidaContabilidad/crear.xhtml?faces-redirect=true";
     }
     
 
@@ -202,7 +202,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
-            return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
+            return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
 
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "La partida de contabilidad", "ya exite ");
@@ -225,7 +225,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         servgen.actualizar(getInstance());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada se inactivo ", "exitosamente"));
 
-        return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -238,7 +238,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         servgen.actualizar(getInstance());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se activo exitosamente:  " + getInstance().getName(), ""));
 
-        return "/paginas/partidaContabilidad/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
     }
 
 }

@@ -393,7 +393,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             FacesContext.getCurrentInstance().addMessage("", msg);
             System.out.println("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         }
-        return "/paginas/kardex/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/kardex/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -414,6 +414,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/kardex/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/kardex/lista.xhtml?faces-redirect=true";
     }
 }

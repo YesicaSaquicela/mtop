@@ -481,7 +481,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             System.out.println("errrrrrrrrrrrrrrrrrrrrrrrorrrrrrrr");
         }
 
-        return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -501,7 +501,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -521,7 +521,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/vehiculo/estadoVehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/estadoVehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -542,7 +542,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
     public

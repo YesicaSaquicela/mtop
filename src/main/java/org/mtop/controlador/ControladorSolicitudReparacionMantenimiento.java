@@ -383,7 +383,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
 
         System.out.println("despues de fijar solicitud");
-        return "/paginas/solicitud/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
     }
 
     public void guardarItem() {
@@ -429,7 +429,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/solicitud/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
     }
 
 }

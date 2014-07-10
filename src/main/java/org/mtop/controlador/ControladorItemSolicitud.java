@@ -143,7 +143,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
             FacesContext.getCurrentInstance().addMessage("", msg);
             System.out.println("Error al crear item");
         }
-        return "/paginas//lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/lista.xhtml?faces-redirect=true";
     }
 
     public void guardarItemSol(List<ItemSolicitudReparacion> ls) {
@@ -194,7 +194,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas//lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/lista.xhtml?faces-redirect=true";
     }
 
 }
