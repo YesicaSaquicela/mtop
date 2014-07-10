@@ -66,6 +66,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     String mensaje = "";
     ControladorPlanMantenimiento cplanMantenimiento;
     private String actividadekilometraje = "";
+    
 
     public String getActividadekilometraje() {
         return actividadekilometraje;
@@ -76,21 +77,38 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void vizualizarActividades(Long vehiculoid) {
-        System.out.println("entro a vizualiza>>>>>>>."+vehiculoid);
-        Vehiculo v= findById(Vehiculo.class, vehiculoid);
-        System.out.println("vehiculo iddddddd"+v.getId());
-        PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
-        List<ActividadPlanMantenimiento> la = servgen.buscarTodoscoincidencia(ActividadPlanMantenimiento.class, ActividadPlanMantenimiento.class.getSimpleName(), ActividadPlanMantenimiento_.planMantenimiento.getName(), pMantenimiento.getId());
-        System.out.println("lsiat de actividades" + la);
-        for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
-            System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
-            if (actividadPlanMantenimiento.getKilometraje() == getProkilometraje()) {
 
-                actividadekilometraje = actividadPlanMantenimiento.getActividad();
-                System.out.println("fijo la actividad" + actividadekilometraje);
-                break;
+        System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
+        Vehiculo v = findById(Vehiculo.class, vehiculoid);
+        System.out.println("vehiculo iddddddd" + v.getId());
+        if (v.getPlanM() != null) {
+            PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
+            List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
+            //encontrar listas del plan
+            for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
+                if(actividadPlanMantenimiento.getPlanMantenimiento().getId()==pMantenimiento.getId()){
+                la.add(actividadPlanMantenimiento);
+                }
             }
+            System.out.println("lsiat de actividades" + la);
+            //encontrar kilometraje de cada lista del plan
+            for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
+                System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
+               
+                prokilometraje=obtenerKilometraje(v.getKilometraje());
+                 System.out.println("proximo kilometraje>>>>>>"+prokilometraje);
+                if (actividadPlanMantenimiento.getKilometraje() == prokilometraje) {
+                    System.out.println("entro..... a comparar");
+                    actividadekilometraje = actividadPlanMantenimiento.getActividad();
+                    System.out.println("fijo la actividad" + actividadekilometraje);
+                    break;
+                }
+            }
+
+        } else {
+              FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
         }
+
     }
 
     public Integer getProkilometraje() {
@@ -98,16 +116,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setProkilometraje(Integer prokilometraje) {
-        System.out.println(getInstance());
-        System.out.println(getInstance().getPlanM().getListaActividadpm());
-        for (ActividadPlanMantenimiento actividadpm : getInstance().getPlanM().getListaActividadpm()) {
-            if (actividadpm.getKilometraje() == prokilometraje) {
-                actividadplan = actividadpm;
-            }
-        }
         this.prokilometraje = prokilometraje;
     }
 
+    
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
     }

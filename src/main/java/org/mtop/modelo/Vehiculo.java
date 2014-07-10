@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.profile.Profile;
 
@@ -35,10 +36,14 @@ import org.mtop.modelo.profile.Profile;
 public class Vehiculo extends BussinesEntity implements Serializable {
    
     private Integer anioFabricacion;
-    private String cabina;
+    private Integer cabina;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String color;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String clase;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String marca;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String modelo;
     private String placa;
     private String numRegistro;
@@ -49,9 +54,11 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     @OneToOne
     private Profile persona;
     //registro hace referencia al codigo heredado
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String tipo;
     private String cilindraje;
     private Integer kilometraje;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String tipoCombustible;
    
 
@@ -156,13 +163,14 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.anioFabricacion = anioFabricacion;
     }
 
-    public String getCabina() {
+    public Integer getCabina() {
         return cabina;
     }
 
-    public void setCabina(String cabina) {
+    public void setCabina(Integer cabina) {
         this.cabina = cabina;
     }
+
 
     public String getColor() {
         return color;

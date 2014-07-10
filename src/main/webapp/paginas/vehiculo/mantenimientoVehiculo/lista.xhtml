@@ -43,7 +43,8 @@
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
                                                     <p:column headerText="Registro">
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
-                                                    </p:column>
+
+                                                    </p:column>vehiculoidvehiculoid
                                                     <p:column headerText="Kilometraje Actual">
                                                         <h:outputText value="#{v.kilometraje}"></h:outputText>
                                                     </p:column>
@@ -62,14 +63,14 @@
                                                             <f:param name="vehiculoId" value="#{v.id}"></f:param>
                                                             <f:param name="prokilometraje" value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></f:param>
                                                         </h:link>
-                                                        <p:commandButton oncomplete="PF('carDialog').show()" action="#{controladorVehiculo.vizualizarActividades(v.id)}" icon="ui-icon-search" title="Visualizar">
-                                                            
-                                                        </p:commandButton>
+                                                        <p:commandLink update="@form" value="Visualizar1"  immediate="true" actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  title="Visualizar">
+                                                            <p:ajax process="@this" update=":form:prok"/> 
+                                                        </p:commandLink>
                                                     </p:column>
                                                 </p:dataTable>
                                             </tbody>
 
-
+                                            <h:inputText id="prok" value="#{controladorVehiculo.prokilometraje}"></h:inputText>
                                         </div>
                                     </div>
                                 </div>
@@ -94,11 +95,11 @@
 
         </h:form>
 
-        <h:form id="form-dialog">        
-            <p:dialog header="Actividades por kilometraje" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-               
-                        <mtop:vista id="kilometraje" name="kilometraje" type="text" label="Kilometraje" value="#{controladorVehiculo.prokilometraje}" /> 
-                        <mtop:vista id="actividades" name="actividades" type="textarea" label="Actividades" value="#{controladorVehiculo.actividadekilometraje}" />
+
+        <p:dialog id="form-dialog" header="Actividades por " appendToBody="true"  widgetVar="carDialog"  modal="true" resizable="true" dynamic="true" width="550">
+            <h:form>
+                <mtop:vista id="k" name="kilometraje" type="text" label="Kilometraje" value="#{controladorVehiculo.prokilometraje}" /> 
+                <mtop:vista id="act" name="actividades" type="textarea" label="Actividades" value="#{controladorVehiculo.actividadekilometraje}" />
 
 
                 <center>
@@ -107,12 +108,13 @@
                     </h:commandLink>
 
                     &nbsp;&nbsp;
-                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
+                    <p:button value="Regresar" icon="fa fa-history"  rendered="#{true}" outcome="/paginas/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
 
-                    </h:button>
+                    </p:button>
                 </center>
-            </p:dialog>
-        </h:form>
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 
