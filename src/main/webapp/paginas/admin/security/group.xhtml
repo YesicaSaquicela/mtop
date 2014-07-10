@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui"            
+      xmlns:glue="http://eqaula.org/jsf/facelets"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition  template="/WEB-INF/view/templates/glue.xhtml">
+        
+        <f:metadata>
+            <f:viewParam name="groupKey" value="#{securityGroupHome.groupKey}" />             
+        </f:metadata>
+        <ui:param name="title" value="#{not empty securityGroupHome.managed ? messages['common.edit'] : messages['common.add']} #{empty securityGroupHome.managed ? securityGroupHome.instance.name : messages['security.group']}" />
+        <ui:define name="header-replace">
+            <div class="header-replace">
+                <div class="container-header" >
+                    <div class="row lf row-title" >
+                        <h3>#{not empty securityGroupHome.managed ? messages['common.edit'] : messages['common.add']} #{empty securityGroupHome.managed ? securityGroupHome.instance.name : messages['security.group']}</h3>   
+                    </div>
+                </div>
+            </div>             
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="form" acceptcharset="UTF-8">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                <glue:input id="name" name="name" type="text" label="#{messages['security.group.name']}" value="#{securityGroupHome.groupName}" required="true" inlinehelp="#{messages['common.name.inlinehelp']}" execute="@this save" render="name"/>
+                <!-- Attributos personalizados -->                
+                <div class="actions">
+                    <h:commandButton id="save" action="#{securityGroupHome.saveGroup}" value="#{messages['common.save']}" styleClass="btn primary"/>
+                   
+                    <h:link outcome="/pages/admin/security/list.xhtml?faces-redirect=true" onclick="editDlg.hide();"
+                            value="#{messages['common.cancel']}" styleClass="btn" >
+                    </h:link>
+                </div>               
+            </h:form>                 
+        </ui:define>             
+    </ui:composition>
+</html>
