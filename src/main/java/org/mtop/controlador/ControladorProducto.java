@@ -213,7 +213,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/producto/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -229,7 +229,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         save(getInstance());
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
-        return "/paginas/producto/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -250,7 +250,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/producto/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
 }

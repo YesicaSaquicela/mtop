@@ -385,7 +385,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             PlanMantenimiento oo = findById(PlanMantenimiento.class, getInstance().getId());
             System.out.println("entrontro" + oo.getId());
             System.out.println("entrontro" + oo.getActivado());
-            return "/paginas/planMantenimiento/lista.xhtml?faces-redirect=true";
+            return "/paginas/admin/planMantenimiento/lista.xhtml?faces-redirect=true";
         }
 
     }
@@ -408,7 +408,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/planMantenimient/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/planMantenimient/lista.xhtml?faces-redirect=true";
     }
 
 }

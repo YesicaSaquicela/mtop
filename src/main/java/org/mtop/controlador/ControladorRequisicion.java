@@ -695,7 +695,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //            csrm.fijarRequisicion(getInstance(), getInstance().getSolicitudReparacionId());
 //        }
 
-        return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/requisicion/lista.xhtml?faces-redirect=true";
 
     }
 
@@ -730,7 +730,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/requisicion/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/requisicion/lista.xhtml?faces-redirect=true";
     }
 
 }

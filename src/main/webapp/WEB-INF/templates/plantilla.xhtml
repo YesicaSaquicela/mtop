@@ -93,32 +93,51 @@
                             <div class="form-group">
 
                                 <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
-                                    <ul class="nav navbar-nav navbar-right">
+                                    <h:panelGroup rendered="#{account.tienePermiso('ADMIN') }">
+                                        <ul class="nav navbar-nav navbar-right">
 
-                                        <li> <p:button outcome="/paginas/admin/bussinesentitytype/list.xhtml" value="  Configuraciones" /></li>
-                                        <li><p:button outcome="/paginas/admin/personal/lista.xhtml" value="  Persona" /></li>
+                                            <li> <p:button outcome="/paginas/admin/bussinesentitytype/list.xhtml" value="  Configuraciones" /></li>
+                                            <li><p:button outcome="/paginas/admin/personal/lista.xhtml" value="  Persona" /></li>
 
-                                        <li><p:button outcome="/paginas/secretario/solicitud/lista.xhtml" value="Solicitud" /></li>
-                                        <li><p:button outcome="/paginas/secretario/requisicion/lista.xhtml" value="Requisición" /></li>
-                                        <li><p:button outcome="/paginas/admin/kardex/lista.xhtml" value="Kardex" /></li>
-                                        <li><p:button outcome="/paginas/secretario/producto/lista.xhtml" value="Producto" /></li>
-                                        <li><p:button outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" value="Partida de Contabilidad" /></li>
-                                        <li><p:button outcome="/paginas/admin/planMantenimiento/lista.xhtml" value="Plan Mantenimiento"/></li>
+                                            
+                                            
+                                            <li><p:button outcome="/paginas/admin/kardex/lista.xhtml" value="Kardex" /></li>
+                                            
+                                            
+                                            <li><p:button outcome="/paginas/admin/planMantenimiento/lista.xhtml" value="Plan Mantenimiento"/></li>
 
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                Vehículos <b class="caret"></b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><p:button  outcome="/paginas/admin/vehiculo/lista.xhtml" value="Vehículo" /></li>        
-                                                <li><p:button  outcome="/paginas/admin/vehiculo/estadoVehiculo/lista.xhtml" value="  Estado mecánico del Vehículo" /></li>
-                                                <li><p:button  outcome="/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
-                                                <li><p:button outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml" value="Mantenimiento del Vehículo" /></li>
-                                                <li class="divider"></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    Vehículos <b class="caret"></b>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><p:button  outcome="/paginas/admin/vehiculo/lista.xhtml" value="Vehículo" /></li>        
+                                                    <li><p:button  outcome="/paginas/admin/vehiculo/estadoVehiculo/lista.xhtml" value="  Estado mecánico del Vehículo" /></li>
+                                                    <li><p:button  outcome="/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
+                                                    <li><p:button outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml" value="Mantenimiento del Vehículo" /></li>
+                                                    <li class="divider"></li>
 
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{account.tienePermiso('SECREATARIO') }">
+                                        <ul class="nav navbar-nav navbar-right">
+
+                                            
+                                            
+
+                                            <li><p:button outcome="/paginas/secretario/solicitud/lista.xhtml" value="Solicitud" /></li>
+                                            <li><p:button outcome="/paginas/secretario/requisicion/lista.xhtml" value="Requisición" /></li>
+                                            
+                                            <li><p:button outcome="/paginas/secretario/producto/lista.xhtml" value="Producto" /></li>
+                                            <li><p:button outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" value="Partida de Contabilidad" /></li>
+                                            
+
+                                           
+                                        </ul>
+                                    </h:panelGroup>
+
                                     <!--div class="form-group">
                                         <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
                                     </div-->

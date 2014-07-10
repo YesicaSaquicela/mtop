@@ -3,24 +3,24 @@
                xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.4.1
                                    		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.4.1.xsd">
 
-   <rewrite match=".*/" trailingSlash="remove"/>
+    <rewrite match=".*/" trailingSlash="remove"/>
    
-   <!-- Content Pages -->
+    <!-- Content Pages -->
    
-   <url-mapping id="home">
-       <pattern value="/"></pattern>
-       <view-id value="/paginas/inicio.xhtml"></view-id>
-   </url-mapping> 
+    <url-mapping id="home">
+        <pattern value="/"></pattern>
+        <view-id value="/paginas/inicio.xhtml"></view-id>
+    </url-mapping> 
    
-   <url-mapping id="loggedOffHome">
-       <pattern value="/"></pattern>
-       <view-id value="/pages/loggedOffHome.xhtml"></view-id>
-   </url-mapping> 
+    <url-mapping id="loggedOffHome">
+        <pattern value="/"></pattern>
+        <view-id value="/pages/loggedOffHome.xhtml"></view-id>
+    </url-mapping> 
    
-   <url-mapping id="login">
-       <pattern value="/"></pattern>
-       <view-id value="/paginas/login.xhtml"></view-id>
-   </url-mapping> 
+    <url-mapping id="login">
+        <pattern value="/"></pattern>
+        <view-id value="/paginas/login.xhtml"></view-id>
+    </url-mapping> 
    
          
     <!-- Begin Exception Mappings -->
@@ -35,18 +35,24 @@
     <url-mapping id="kardex">
         <pattern value="/kardex/lista" />
         <view-id value="/paginas/kardex/lista.xhtml" />
+        
+    </url-mapping>
+    
+    <url-mapping id="solicitud">
+        <pattern value="/solicitud/lista" />
+        <view-id value="/paginas/secretario/solicitud/lista.xhtml" />
     </url-mapping>
     
     <!-- End Exception Mappings -->
     
     <url-mapping id="changePassword">
-      <pattern value="/reset"></pattern>
-      <view-id value="/pages/reset.xhtml"></view-id>
+        <pattern value="/reset"></pattern>
+        <view-id value="/pages/reset.xhtml"></view-id>
       
-   </url-mapping>
-   <url-mapping id="cambioClavePaciente">
-      <pattern value="/paciente/reset"></pattern>
-      <view-id value="/pages/paciente/reset.xhtml"></view-id>   
-   </url-mapping>
+    </url-mapping>
+    <url-mapping id="cambioClavePaciente">
+        <pattern value="/paciente/reset"></pattern>
+        <view-id value="/pages/paciente/reset.xhtml"></view-id>   
+    </url-mapping>
 
 </pretty-config>

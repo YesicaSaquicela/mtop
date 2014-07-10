@@ -168,7 +168,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas//lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -189,7 +189,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas//lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/lista.xhtml?faces-redirect=true";
     }
 
     public boolean tieneEstadosEstructura(Property propiedad) {

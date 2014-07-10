@@ -139,7 +139,7 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
     }
     
 
@@ -161,6 +161,6 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/vehiculo/estadoUbicacion/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/estadoUbicacion/lista.xhtml?faces-redirect=true";
     }   
 }

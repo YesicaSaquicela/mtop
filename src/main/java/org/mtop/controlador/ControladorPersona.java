@@ -188,7 +188,7 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/personal/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/personal/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -246,6 +246,6 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
-        return "/paginas/personal/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/personal/lista.xhtml?faces-redirect=true";
     }
 }
