@@ -184,7 +184,7 @@ public class Registration
       p.setUsernameConfirmed(true);
       ps.save(p);
       msg.info("Congrats! Your username is, and forever will be, \"" + p.getUsername() + "\".");
-      return "/pages/home?faces-redirect=true";
+      return "/paginas/inicio?faces-redirect=true";
    }
 
    /*

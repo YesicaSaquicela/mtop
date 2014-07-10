@@ -21,6 +21,7 @@ import org.mtop.security.authorization.SecurityRules;
 import javax.enterprise.context.SessionScoped;
 
 import org.jboss.seam.security.Identity;
+import org.mtop.servicios.ServicioGenerico;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,18 +42,17 @@ public class Account implements Serializable {
     private Identity identity;
     @Inject
     private ProfileService ps;
-  
+    @Inject
+    private ServicioGenerico servgen;
     private SecurityRules securityRules;
 
     @PostConstruct
     public void init() {
         ps.setEntityManager(em);
-        
+        servgen.setEm(em);
     }
-    
-    Profile loggedIn = new Profile();
 
-    
+    Profile loggedIn = new Profile();
 
     @Produces
     @LoggedIn
@@ -80,7 +80,7 @@ public class Account implements Serializable {
                     id = loggedIn.getId();
                     return id;
                 } else {
-                    
+
                 }
             } catch (NoResultException e) {
                 throw e;
@@ -113,7 +113,7 @@ public class Account implements Serializable {
     public void setEntityManager(final EntityManager em) {
         this.em = em;
         ps.setEntityManager(em);
-    }   
+    }
 
     public boolean isUserProfile() {
 
@@ -127,10 +127,45 @@ public class Account implements Serializable {
         } else if (!identity.isLoggedIn()) {
         }
         return false;
-    }   
+    }
+
+    public boolean isRenderView() {
+        SecurityRules s = new SecurityRules();
+        if (s.isAdmin(identity) || s.isSecretario(identity) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+  
 
     
-
+    public String loadPages() {
+        SecurityRules s = new SecurityRules();
+        if (identity.isLoggedIn()) {
+            if (s.isAdmin(identity) || s.isSecretario(identity)) {
+                return null;
+            } else {
+                return "/paginas/denied.xhtml";
+            }
+        } else {
+            return "/paginas/login.xhtml";
+        }
+    }
+    
+    public String loadPagesRol() {
+        SecurityRules s = new SecurityRules();
+        if (identity.isLoggedIn()) {
+            if (s.isAdmin(identity) || s.isSecretario(identity)) {
+                return null;
+            } else {
+                return "/paginas/denied.xhtml";
+            }
+        } else {
+            return "/paginas/login.xhtml";
+        }
+    }
     public String loadPagesLoggedIn() {
         //SecurityRules s = new SecurityRules();
         if (identity.isLoggedIn()) {
@@ -147,14 +182,14 @@ public class Account implements Serializable {
     public void setSecurityRules(SecurityRules securityRules) {
         this.securityRules = securityRules;
     }
-    
+
     public boolean tienePermiso(final String grupoUser) {
         SecurityRules s = new SecurityRules();
         if (SecurityRules.ADMIN.equals(grupoUser)) {
             return s.isAdmin(identity);
         } else if (SecurityRules.SECRETARIO.equals(grupoUser)) {
             return s.isSecretario(identity);
-        } 
+        }
         return false;
     }
 
