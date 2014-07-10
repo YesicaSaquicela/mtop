@@ -43,9 +43,12 @@
                                                 inlinehelp="Ingrese el nombre de usuario" execute ="@this save" render="usuario"/>
                                     <br/><br/>
                                     <p:outputLabel value="Contraseña"/>
-                                    <p:password id="contrasenia"  label="Contraseña" 
+                                    <h:inputSecret id="contrasenia"  label="Contraseña" 
                                                 value="#{controladorPersona.password}" required="true" 
-                                                />
+                                                >
+                                        <p:ajax event="keyup" update=":form:save" process="@this" >
+                                    </p:ajax>
+                                    </h:inputSecret>
                                     <br/><br/>
                                     <p:outputLabel value="Confirme la Contraseña"/>
                                     <p:password id="contrasenia2"   label="Confirme la Contraseña" 
@@ -56,7 +59,10 @@
                                     <p:inputText id="email"  type="text" label="Email" 
                                                  value="#{controladorPersona.instance.email}" required="true" 
 
-                                                 />
+                                                 >
+                                    <p:ajax event="keyup" update=":form:save" process="@this" >
+                                    </p:ajax>
+                                    </p:inputText>
 
 
                                 </div>

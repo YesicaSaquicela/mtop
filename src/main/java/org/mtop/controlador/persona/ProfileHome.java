@@ -332,6 +332,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         AttributesManager attributesManager = security.getAttributesManager();
         PasswordCredential p = new PasswordCredential(getPassword());
         attributesManager.updatePassword(user, p.getValue());
+        
         attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario 
         attributesManager.addAttribute(user, "estado", "ACTIVO");
 //Attribute att = attributesManager.

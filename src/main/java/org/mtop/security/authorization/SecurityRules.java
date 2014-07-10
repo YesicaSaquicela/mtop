@@ -42,14 +42,8 @@ public class SecurityRules {
 
     private static Logger log = Logger.getLogger(SecurityRules.class);
     public static String ADMIN = "ADMIN";
-    public static String MEDICOS = "MEDICOS";
-    public static String ODONTOLOGOS = "ODONTOLOGOS";
-    public static String FARMACEUTICOS = "FARMACEUTICOS";
-    public static String LABORATORISTAS = "LABORATORISTAS";
-    public static String ENFERMEROS = "ENFERMEROS";
-    public static String SECRETARIA = "SECRETARIA";
-    public static String PACIENTE = "PACIENTE";
-
+    public static String SECRETARIO = "SECRETARIO";
+ 
     /*public @Secures
      @Admin
      boolean adminCheck() {
@@ -69,8 +63,6 @@ public class SecurityRules {
         }
     }
 
- 
-
 //    @Secures
 //    @Secretaria
 //    public boolean isPacienteOwner(Identity identity, @Current edu.sgssalud.model.paciente.Paciente pacienteU) {
@@ -87,6 +79,7 @@ public class SecurityRules {
 //                    || "admin".contains(getUsername(identity));
 //        }
 //    }
+    
     @Secures
     @Admin
     public boolean isAdmin(Identity identity) {
@@ -99,7 +92,20 @@ public class SecurityRules {
                     || identity.inGroup(SecurityRules.ADMIN, "GROUP");
         }
     }
-   
+
+    @Secures
+    @Secretario
+    public boolean isSecretario(Identity identity) {
+        if (identity.getUser() == null) {
+            return false;
+
+        } else {
+            return 
+                   identity.hasRole(SECRETARIO, "USERS", "GROUP")
+                    || identity.inGroup(SecurityRules.SECRETARIO, "GROUP");
+        }
+    }
+
     public static String getUsername(Identity identity) {
         String user = "";
         if (identity != null && identity.getUser() != null) {

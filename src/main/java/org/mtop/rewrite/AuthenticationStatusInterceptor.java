@@ -69,7 +69,7 @@ public class AuthenticationStatusInterceptor extends HttpConfigurationProvider {
          * If the user is not logged in, show them the guest home page instead of the dashboard.
          */
         return ConfigurationBuilder.begin()
-                .addRule(Join.path("/").to("/paginas/login.xhtml")
+                .addRule(Join.path("/").to("/login.xhtml")
                       .when(Direction.isInbound().andNot(loggedIn)))
                 .defineRule()
                 .when(Direction.isInbound()

@@ -186,8 +186,11 @@ public class InitializeDatabase {
         Profile admin = null;
         //List<User> members = new ArrayList<User>();
         org.picketlink.idm.api.Group g = session.getPersistenceManager().findGroup("ADMIN", "GROUP");
-        //session.getAttributesManager().
+        
+//session.getAttributesManager().
         if (g == null) {
+            org.picketlink.idm.api.Group g1;
+            g1=session.getPersistenceManager().createGroup("SECRETARIO", "GROUP");
             g = session.getPersistenceManager().createGroup("ADMIN", "GROUP");
         }
 

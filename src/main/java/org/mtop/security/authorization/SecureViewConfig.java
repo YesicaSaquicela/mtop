@@ -47,13 +47,40 @@ public interface SecureViewConfig {
     static enum Pages {
 
         @FacesRedirect
-        @ViewPattern("/paginas/*")
+        @ViewPattern("/paginas/inicio.xhtml")
         @Owner
         USER,        
         @ViewPattern("/pages/admin/*")
         @Admin
-        ADMIN,                  
-        @ViewPattern("/paginas/*")
+        ADMIN,
+        @ViewPattern("/paginas/vehiculo/*")
+        @Admin
+        ADMIN2,
+        @ViewPattern("/paginas/kardex/*")
+        @Admin
+        ADMIN1,
+        
+//        @ViewPattern("/paginas/planMantenimiento/*")
+//        @Admin
+//        ADMIN3,
+//        @ViewPattern("/paginas/personal/*")
+//        @Admin
+//        ADMIN4,
+        
+        
+        @ViewPattern("/paginas/solicitud/*")
+        @Secretario
+        SECRETARIO,
+//        @ViewPattern("/paginas/requisicion/*")
+//        @Secretario
+//        SECRETARIO1,
+//        @ViewPattern("/paginas/partidaContabilida/*")
+//        @Secretario
+//        SECRETARIO2,
+//        @ViewPattern("/paginas/producto/*")
+//        @Secretario
+//        SECRETARIO3,
+        @ViewPattern("/paginas/*")        
         @AccessDeniedView("/paginas/denied.xhtml")
         @LoginView("/paginas/login.xhtml")
         ALL;

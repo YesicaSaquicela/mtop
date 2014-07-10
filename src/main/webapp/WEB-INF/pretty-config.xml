@@ -32,6 +32,10 @@
         <pattern value="/error" />
         <view-id value="/pages/error.xhtml" />
     </url-mapping>
+    <url-mapping id="kardex">
+        <pattern value="/kardex/lista" />
+        <view-id value="/paginas/kardex/lista.xhtml" />
+    </url-mapping>
     
     <!-- End Exception Mappings -->
     

@@ -47,12 +47,12 @@
                                 <p:column headerText="Opciones" style="width: 5%"> 
                                     <h:link id="button-edit" value="Editar" rendered="#{true}" outcome="crear" styleClass="btn"
                                             >
-                                        <f:param name="personaId" value="#{profileListService.selectedProfile.id}"></f:param>
+                                        <f:param name="personaId" value="#{persona.id}"></f:param>
                                         <f:param name="backView" value="list"></f:param>
                                     </h:link>  
                                     <h:link id="button-user" value="CrearUsuario" rendered="#{true}" outcome="crearUsuario" styleClass="btn"
                                             >
-                                        <f:param name="personaId" value="#{profileListService.selectedProfile.id}"></f:param>
+                                        <f:param name="personaId" value="#{persona.id}"></f:param>
                                         <f:param name="backView" value="list"></f:param>
                                     </h:link> 
                                 </p:column>

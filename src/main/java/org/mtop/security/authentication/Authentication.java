@@ -213,7 +213,7 @@ public class Authentication {
         } else {
             messages.warn(UI.getMessages("common.login.bad.usernamepassword"));
         }
-        //buscar usuario si esta habilitado para realizar ingresar al sistema y realizar las acciones solicitadas
+        //buscar   /*
     }
 
     public String logout() {
@@ -222,58 +222,7 @@ public class Authentication {
         //session.invalidate();
         return "/pages/loggedOffHome.xhtml?faces-redirect=true";
     }
-    /*
-     public boolean isUserLoggedIn() throws InterruptedException, IdentityException {
-     bloque de codigo para descifrar la clave
-     System.out.println("ERROR 0_______-");
-     User user = security.getPersistenceManager().findUser(credencials.getUsername());
-     //security.getPersistenceManager().
-
-     IdentityObjectAttribute ida = profileService.getAttributos(user.getKey(), "estado").get(0);
-     if (user != null) {
-     //credencials.setUsername(user.getKey());  
-     System.out.println("ERROR 1_______-");
-     Profile userPro = profileService.getProfileByIdentityKey(user.getKey());
-     String pass = ((PasswordCredential) credencials.getCredential()).getValue();
-     if (userPro.isPersistent()) {
-     System.out.println("ERROR 2_______-" + pass);
-     return new BasicPasswordEncryptor().checkPassword(pass, userPro.getUsername());
-     } else {
-     System.out.println("ERROR 3_______-");
-     Paciente p = pacienteServic.getPacientePorIdentityKey(user.getKey());
-     if (p.isPersistent()) {
-     return new BasicPasswordEncryptor().checkPassword(pass, p.getClave());
-     }
-     }
-     }
-     return false;
-     }*/
-
-    public String actualizarPass(String pass, User user) throws InterruptedException {
-        try {
-            //IdentityObjectCredential credent = profileService.getCredencial(user.getKey()).get(0);
-            System.out.println("cambio password  " + user.getKey());
-            //credent.setValue(pass);            
-            //em.merge(credent);
-            AttributesManager attributesManager = security.getAttributesManager();
-            attributesManager.updatePassword(user, user.getKey());
-            System.out.println("cambio password 1 " + pass);
-            credencials.setUsername(user.getKey());
-            credencials.setCredential(new PasswordCredential(pass));
-            idmAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
-            identity.setAuthenticatorClass(IdmAuthenticator.class);
-            System.out.println("cambio password con exito 1");
-            String result = identity.login();
-            if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
-                result = identity.login();
-            }
-            return "/pages/home.xhtml?faces-redirect=true";
-        } catch (IdentityException ex) {
-            System.out.println("Error____");
-            ex.printStackTrace();
-            java.util.logging.Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+  
+ 
 
 }

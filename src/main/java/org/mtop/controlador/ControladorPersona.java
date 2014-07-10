@@ -92,7 +92,6 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
-    
 
     public void setPassword(String password) {
         this.password = password;
@@ -191,32 +190,42 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         }
         return "/paginas/personal/lista.xhtml?faces-redirect=true";
     }
+
     @TransactionAttribute
-    public void guardarUsuario(){
-        try {       
+    public void guardarUsuario() {
+        try {
             crearCuentaUsuario();
         } catch (IdentityException ex) {
             Logger.getLogger(ControladorPersona.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
+
     @TransactionAttribute
     public void crearCuentaUsuario() throws IdentityException {
-        
-            
-            // TODO validate username, email address, and user existence
-            System.out.println("nombre de usuario>>>>>>>>>>>"+getInstance().getUsername());
-            PersistenceManager identityManager = security.getPersistenceManager();
-            User user = identityManager.createUser(getInstance().getUsername());
-            System.out.println("antres atributooo managerrrr");
-            AttributesManager attributesManager = security.getAttributesManager();
-            PasswordCredential p = new PasswordCredential(getPassword());
-            System.out.println("antres usuariooooooooooooooooooooo");
-            attributesManager.updatePassword(user, p.getValue());
-            attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario
-            attributesManager.addAttribute(user, "estado", "ACTIVO");
-            System.out.println("finalizo creaaaaaar usuariooooo");
-        
+
+        // TODO validate username, email address, and user existence
+        System.out.println("nombre de usuario>>>>>>>>>>>" + getInstance().getUsername());
+        PersistenceManager identityManager = security.getPersistenceManager();
+        User user = identityManager.createUser(getInstance().getUsername());
+        System.out.println("antres atributooo managerrrr");
+        AttributesManager attributesManager = security.getAttributesManager();
+        System.out.println("antres usuariooooooooooooooooooooo " + password);
+        PasswordCredential p = new PasswordCredential(getPassword());
+        System.out.println("pasooo pasword");
+        attributesManager.updatePassword(user, p.getValue());
+//            attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario
+        attributesManager.addAttribute(user, "estado", "ACTIVO");
+        System.out.println("finalizo creaaaaaar usuariooooo");
+        em.flush();
+        getInstance().setPassword(getPassword());
+        getInstance().getIdentityKeys().add(user.getKey());
+        getInstance().setUsernameConfirmed(true);
+        getInstance().setShowBootcamp(true);
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        save(getInstance()); //
+
     }
 
     @Transactional
