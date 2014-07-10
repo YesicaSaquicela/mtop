@@ -10,41 +10,52 @@
 
     <ui:param name="titulo" value="Lista de Personas"/>
 
- 
-        <ui:define name="content">
-            <h:form id="form">
 
-                <h1>Gestionar Personal</h1>
-                <h:link value="Nuevo" outcome="crear" type="button" ></h:link>
-                <p:dataTable var="persona" value="#{profileListService}"
-                             paginator="true" rows="15"                         
-                             paginatorPosition="top"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
-                             rowsPerPageTemplate="5,10,15,20"
-                             id="personaTable" lazy="true"                          
-                             selection="#{profileListService.selectedProfile}"
-                             rendered="true"
-                             selectionMode="single">
+    <ui:define name="content">
+        <h:form id="form">
 
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <div class="panel panel-primary">
+                        <p:panel>
 
-                    <p:column headerText="nombre" sortBy="#{persona.firstname}">
-                        <h:outputText value="#{parsona.firstname}"></h:outputText>
-                    </p:column>
+                            <div class="admin-actions">
+                                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/personal/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                    <f:param name="personaId" ></f:param>
+                                </p:commandButton><br/><br/>
 
-                    <p:column headerText="apellidos" sortBy="#{persona.firstname}">
-                        <h:outputText value="#{persona.surname}"></h:outputText>
-                    </p:column>
-                    <p:column headerText="Opciones" style="width: 5%"> 
-                        <h:link id="button-edit" value="Editar" rendered="#{true}" outcome="crear" styleClass="btn"
-                              >
-                            <f:param name="personaId" value="#{profileListService.selectedProfile.id}"></f:param>
-                            <f:param name="backView" value="list"></f:param>
-                        </h:link>  
-                    </p:column>
-                </p:dataTable>    
+                            </div>
+
+                            <p:dataTable var="persona" value="#{profileListService}"
+                                         paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
+                                         rowsPerPageTemplate="5,10,15,20"
+                                         id="personaTable" lazy="true"                          
+                                         selection="#{profileListService.selectedProfile}"
+                                         rendered="true"
+                                         selectionMode="single">
 
 
-            </h:form>
-        </ui:define>
+                                <p:column headerText="nombre" sortBy="#{persona.firstname}">
+                                    <h:outputText value="#{parsona.firstname}"></h:outputText>
+                                </p:column>
 
-    </ui:composition>
+                                <p:column headerText="apellidos" sortBy="#{persona.firstname}">
+                                    <h:outputText value="#{persona.surname}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Opciones" style="width: 5%"> 
+                                    <h:link id="button-edit" value="Editar" rendered="#{true}" outcome="crear" styleClass="btn"
+                                            >
+                                        <f:param name="personaId" value="#{profileListService.selectedProfile.id}"></f:param>
+                                        <f:param name="backView" value="list"></f:param>
+                                    </h:link>  
+                                </p:column>
+                            </p:dataTable>    
+
+                        </p:panel>
+                    </div></div></div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

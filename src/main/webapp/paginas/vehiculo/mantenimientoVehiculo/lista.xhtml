@@ -6,9 +6,10 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-                template="/WEB-INF/templates/plantilla.xhtml">
+                template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns:mtop="http://mtop.org/jsf/facelets">
 
-    <ui:param name="titulo" value="Lista de Vehiculos"/>
+    <ui:param name="titulo" value="Mantenimiento de los vehiculos"/>
 
     <ui:define name="header">
 
@@ -23,58 +24,58 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <!--Opción de mensaje, cuando se realiza una acción-->
-                        <div class="panel panel-primary">
-                            <p:panel>
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <div class="panel panel-primary">
+                        <p:panel>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
-                    <!--Botones de admin-->
-                    <br></br><br></br>
-
-
-                    <div class="row">
-
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="todas">
-                                <div class="table-responsive">
+                            <!--Botones de admin-->
+                            <br></br><br></br>
 
 
-                                    <tbody>
-                                        <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
-                                            <p:column headerText="Registro">
-                                                <h:outputText value="#{v.numRegistro}"></h:outputText>
-                                            </p:column>
-                                            <p:column headerText="Kilometraje Actual">
-                                                <h:outputText value="#{v.kilometraje}"></h:outputText>
-                                            </p:column>
-                                             <p:column headerText="Próximo Kilometraje">
-                                                 <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
-                                            </p:column>
-                                            <p:column headerText="Observación">
-                                                <h:outputText value="#{v.description}"></h:outputText>
-                                            </p:column>
-                                            <p:column headerText="Opciones" style="width: 5%"> 
-                                                <h:link value="Cambiar Kilometraje" outcome="cambiarKilometraje" type="button" >
-                                                    <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                </h:link>
-                                                 &nbsp;&nbsp;
-                                                 <h:link value="Visualizar Actividades" outcome="visualizar" type="button" >
-                                                    <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                    <f:param name="prokilometraje" value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></f:param>
-                                                </h:link>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </tbody>
+                            <div class="row">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="todas">
+                                        <div class="table-responsive">
 
 
+                                            <tbody>
+                                                <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
+                                                    <p:column headerText="Registro">
+                                                        <h:outputText value="#{v.numRegistro}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Kilometraje Actual">
+                                                        <h:outputText value="#{v.kilometraje}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Próximo Kilometraje">
+                                                        <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Observación">
+                                                        <h:outputText value="#{v.description}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Opciones" style="width: 5%"> 
+                                                        <h:link value="Cambiar Kilometraje" outcome="cambiarKilometraje" type="button" >
+                                                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                        </h:link>
+                                                        &nbsp;&nbsp;
+                                                        <h:link value="Visualizar Actividades" outcome="visualizar" type="button" >
+                                                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                            <f:param name="prokilometraje" value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></f:param>
+                                                        </h:link>
+                                                        <p:commandButton oncomplete="PF('carDialog').show()" action="#{controladorVehiculo.vizualizarActividades(v.id)}" icon="ui-icon-search" title="Visualizar">
+                                                            
+                                                        </p:commandButton>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </tbody>
+
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-              </p:panel>  </div></div>
+                        </p:panel>  </div></div>
             </div>
-
-
-
 
 
             <p:dialog id="dialog" header="Detalles del Vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
@@ -91,6 +92,26 @@
                 </p:outputPanel>
             </p:dialog>
 
+        </h:form>
+
+        <h:form id="form-dialog">        
+            <p:dialog header="Actividades por kilometraje" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+               
+                        <mtop:vista id="kilometraje" name="kilometraje" type="text" label="Kilometraje" value="#{controladorVehiculo.prokilometraje}" /> 
+                        <mtop:vista id="actividades" name="actividades" type="textarea" label="Actividades" value="#{controladorVehiculo.actividadekilometraje}" />
+
+
+                <center>
+                    <h:commandLink value="Imprimir" type="link" >  
+                        <p:printer target=":form-dialog" />  
+                    </h:commandLink>
+
+                    &nbsp;&nbsp;
+                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
+
+                    </h:button>
+                </center>
+            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>
