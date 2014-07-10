@@ -74,21 +74,19 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setListaSol(List<SolicitudReparacionMantenimiento> listaSol) {
         this.listaSol = listaSol;
     }
-    
 
     private SolicitudReparacionMantenimiento solicitud;
 
-    
-    
-  
     public void fijarSol(SolicitudReparacionMantenimiento s) {
         setSolicitud(solicitud);
     }
-    public void irASolicitud(){
-        this.vista="solicitud";
-        System.out.println("fijando a >>>>"+this.vista);
-        
+
+    public void irASolicitud() {
+        this.vista = "solicitud";
+        System.out.println("fijando a >>>>" + this.vista);
+
     }
+
     public void guardarAprobacionS() {
         try {
             Date now = Calendar.getInstance().getTime();
@@ -98,8 +96,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             save(solicitud);
             getInstance().setLastUpdate(now);
             getInstance().getListaSolicitudReparacion().add(solicitud);
-            
-            servgen.actualizar(getInstance());
+
+            save(getInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,12 +113,12 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public String getVista() {
-        System.out.println("retornando vistaaaaa"+vista);
+        System.out.println("retornando vistaaaaa" + vista);
         return vista;
     }
 
     public void setVista(String vista) {
-        System.out.println("VISta>>>>"+vista);
+        System.out.println("VISta>>>>" + vista);
         this.vista = vista;
     }
 
@@ -247,17 +245,33 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setKardexId(Long kardexId) {
         setId(kardexId);
     }
-    public Long getSolicitudId() {
-        return (Long) solicitud.getId();
+
+    public String getSolicitudNum() {
+        
+            return solicitud.getNumSolicitud();
+       
+
     }
 
-    public void setSolicitudId(Long solicitudId) {
-        Date now= Calendar.getInstance().getTime();
+    public void setSolicitudNum(String  solicitudNum) {
+        Date now = Calendar.getInstance().getTime();
         System.out.println("fijanddsasadasdadas");
-        solicitud=findById(SolicitudReparacionMantenimiento.class, solicitudId);
-        solicitud.setKardex(getInstance());
-        solicitud.setLastUpdate(now);
-        save(solicitud);
+        
+        if (!solicitudNum.equals("")) {
+            listaSol = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+            for (SolicitudReparacionMantenimiento so : listaSol) {
+                if(so.getNumSolicitud().equals(solicitudNum)){
+                    solicitud=so;
+                    System.out.println("fijo una solicitud con numero"+so.getNumSolicitud());
+                }
+            }
+            solicitud.setKardex(getInstance());
+            solicitud.setLastUpdate(now);
+            save(solicitud);
+        } else {
+            solicitud.setNumSolicitud("");
+        }
+
         System.out.println("fijanddsasadasdadassssssssssss");
     }
 
@@ -296,7 +310,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         servgen.setEm(em);
         listakardex = servgen.buscarTodos(Kardex.class);
         solicitud = new SolicitudReparacionMantenimiento();
-        listaSol=findAll(SolicitudReparacionMantenimiento.class);
+        listaSol = findAll(SolicitudReparacionMantenimiento.class);
     }
 
     @Override
