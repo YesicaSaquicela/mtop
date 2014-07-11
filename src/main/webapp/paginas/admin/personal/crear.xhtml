@@ -62,19 +62,19 @@
 
                         </p:panel></div> </div></div>
 
-xmlns:glue="http://eqaula.org/jsf/facelets"
+            xmlns:glue="http://eqaula.org/jsf/facelets"
 
-          
+
             <div class="admin-actions " align="center">  
-                    <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPersona.guardar()}"
-                                     immediate="true" icon="ui-icon-disk"/>
+                <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPersona.guardar()}"
+                                 immediate="true" icon="ui-icon-disk"/>
 
-                    &nbsp;&nbsp;
+                &nbsp;&nbsp;
 
-                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/personal/lista" styleClass="btn  btn-success"/>
+                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/personal/lista" styleClass="btn  btn-success"/>
 
-                </div>
-     
+            </div>
+
 
         </h:form>
 
