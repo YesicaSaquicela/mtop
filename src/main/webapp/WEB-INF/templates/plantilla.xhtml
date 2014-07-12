@@ -121,17 +121,17 @@
                                             </li>
                                         </ul>
                                     </h:panelGroup>
-                                    <h:panelGroup rendered="#{account.tienePermiso('SECREATARIO') }">
+                                    <h:panelGroup rendered="#{account.tienePermiso('SECRETARIO') }">
                                         <ul class="nav navbar-nav navbar-right">
 
                                             
                                             
 
-                                            <li><p:button outcome="/paginas/secretario/solicitud/lista.xhtml" value="Solicitud" /></li>
-                                            <li><p:button outcome="/paginas/secretario/requisicion/lista.xhtml" value="Requisición" /></li>
+                                            <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" value="Solicitud" /></li>
+                                            <li><h:link  outcome="/paginas/secretario/requisicion/lista.xhtml" value="Requisición" /></li>
                                             
-                                            <li><p:button outcome="/paginas/secretario/producto/lista.xhtml" value="Producto" /></li>
-                                            <li><p:button outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" value="Partida de Contabilidad" /></li>
+                                            <li><h:link outcome="/paginas/secretario/producto/lista.xhtml" value="Producto" /></li>
+                                            <li><h:link outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" value="Partida de Contabilidad" /></li>
                                             
 
                                            

@@ -66,7 +66,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     String mensaje = "";
     ControladorPlanMantenimiento cplanMantenimiento;
     private String actividadekilometraje = "";
-    
 
     public String getActividadekilometraje() {
         return actividadekilometraje;
@@ -86,17 +85,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
             //encontrar listas del plan
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
-                if(actividadPlanMantenimiento.getPlanMantenimiento().getId()==pMantenimiento.getId()){
-                la.add(actividadPlanMantenimiento);
+                if (actividadPlanMantenimiento.getPlanMantenimiento().getId() == pMantenimiento.getId()) {
+                    la.add(actividadPlanMantenimiento);
                 }
             }
             System.out.println("lsiat de actividades" + la);
             //encontrar kilometraje de cada lista del plan
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
                 System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
-               
-                prokilometraje=obtenerKilometraje(v.getKilometraje());
-                 System.out.println("proximo kilometraje>>>>>>"+prokilometraje);
+
+                prokilometraje = obtenerKilometraje(v.getKilometraje());
+                System.out.println("proximo kilometraje>>>>>>" + prokilometraje);
                 if (actividadPlanMantenimiento.getKilometraje() == prokilometraje) {
                     System.out.println("entro..... a comparar");
                     actividadekilometraje = actividadPlanMantenimiento.getActividad();
@@ -106,7 +105,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         } else {
-              FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
         }
 
     }
@@ -119,7 +118,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.prokilometraje = prokilometraje;
     }
 
-    
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
     }
@@ -288,11 +286,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public Long getVehiculoId() {
         System.out.println("IIIIDEE" + getId());
+        System.out.println("obtiene objeto::::::::::::: " + getInstance().getColor());
         return (Long) getId();
     }
 
     public void setVehiculoId(Long vehiculoId) {
-
+        System.out.println("obtiene objeto::::::::::::: " + getInstance().getColor());
         setId(vehiculoId);
 
     }

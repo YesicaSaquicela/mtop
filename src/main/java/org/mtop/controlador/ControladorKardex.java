@@ -272,6 +272,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     public void setKardexId(Long kardexId) {
         setId(kardexId);
+        
     }
 
     public String getSolicitudNum() {

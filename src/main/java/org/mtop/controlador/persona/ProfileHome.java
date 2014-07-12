@@ -99,11 +99,14 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private IdentitySessionFactory identitySessionFactory;
 
     public Long getProfileId() {
+        System.out.println("obtiene objeto::::::::::::: "+getInstance().getFirstname());
         return (Long) getId();
+         
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
+        System.out.println("obtiene objeto::::::::::::: "+getInstance().getFirstname());
     }
 
     public String getStructureName() {
@@ -220,7 +223,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             //return "/pages/recover";
         }
-        String mailTO = "sgssalud@gmail.com";
+        String mailTO = "ynsaquicelac@unl.edu.ec";
         String mailFrom = getInstance().getEmail();
         String host = "localhost";
         Properties props = new Properties();
@@ -238,7 +241,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             message.setSubject("Mensaje de recuperación de contraseña");
             message.setContent("Este mensaje se envio para verificar el cambio de contraseña"
                     + "<br/> acceda desde este link"
-                    + "<br/>  http://localhost:8080/Sgssalud/pages/reset?faces-redirect=true&profileId=" + getInstance().getId(),
+                    + "<br/>  http://localhost:8080/mtop/paginas/reset?faces-redirect=true&profileId=" + getInstance().getId(),
                     "text/html");
             Transport.send(message);
             FacesContext.getCurrentInstance().addMessage(null,
@@ -320,7 +323,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 //        if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
 //            result = identity.login();
 //        }
-        return "/pages/home.xhtml?faces-redirect=true";
+        return "/paginas/inicio.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -369,14 +372,14 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
          }
          }*/
         save(getInstance());
-        return "/pages/profile/view?faces-redirect=true&profileId=" + getProfileId();
+        return "/paginas/admin/profile/view?faces-redirect=true&profileId=" + getProfileId();
     }
 
     @TransactionAttribute
     public String saveProfile() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String salida = "/pages" + getBackView() + "?faces-redirect=true";
+        String salida = "/paginas" + getBackView() + "?faces-redirect=true";
         if (getInstance().isPersistent()) {
             try {
                 changeEmail();
@@ -502,7 +505,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
                 save(getInstance());
                 FacesMessage msg = new FacesMessage("EL Usuario: " + getInstance().getFullName(), "ha sido deshabilitado");
                 FacesContext.getCurrentInstance().addMessage("", msg);
-                salida = "/pages" + getBackView() + "?faces-redirect=true";
+                salida = "/paginas" + getBackView() + "?faces-redirect=true";
             } else {
                 FacesMessage msg = new FacesMessage("No se puede deshabilitar este usuario", "el usuario esta logeado");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -531,6 +534,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         } catch (IdentityException ex) {
 
         }
-        return "/pages" + getBackView() + "?faces-redirect=true";
+        return "/paginas" + getBackView() + "?faces-redirect=true";
     }
 }
