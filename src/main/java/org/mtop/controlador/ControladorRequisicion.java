@@ -600,18 +600,25 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         servgen.setEm(em);
         listaRequisicion = findAll(Requisicion.class);
         listaSolicitudes = findAll(SolicitudReparacionMantenimiento.class);
+        SolicitudReparacionMantenimiento soli=new SolicitudReparacionMantenimiento();
         listaRequisicion.clear();
+        List<Long> lg= new ArrayList<Long>();
         for (Requisicion requisicion : findAll(Requisicion.class)) {
+            soli=requisicion.getSolicitudReparacionId();
             if (requisicion.getSolicitudReparacionId() != null) {
-                listaSolicitudes.remove(requisicion.getSolicitudReparacionId());
+                lg.add(requisicion.getSolicitudReparacionId().getId());
+                System.out.println("lista despues "+lg);
             }
-
             if (!requisicion.getAprobado()) {
 
                 listaRequisicion.add(requisicion);
             }
-
         }
+        System.out.println("lsiat de solicitudes"+listaSolicitudes);
+        for(Long l:lg){
+            listaSolicitudes.remove(findById(SolicitudReparacionMantenimiento.class, l));
+        }
+        System.out.println("lsiat de solicitudes"+listaSolicitudes);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
 
