@@ -24,60 +24,71 @@
             </div>
         </ui:define>
         <ui:define name="content">
-            <h:form id="form" acceptcharset="UTF-8">                
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                <div>
-                    <h:panelGroup id="group-add" layout="block" class="clearfix">
-                        <label for="group_" class="">#{messages['common.security.associateto']}</label>
-                        <div class="input">
-                            <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
-                                             converter="omnifaces.SelectItemsConverter" 
-                                             required="true" requiredMessage="false"
-                                             rendered="true" label="#{messages['security.group']}">                         
-                                <f:selectItem itemLabel="#{messages['common.choice']}"  itemValue = ""  />  
-                                <f:selectItems value="#{securityHome.findAllGroups}" var="g" itemValue="#{g}" itemLabel="#{g.name}"/>
-                                <p:ajax event="change" process="@this" update="@parent" partialSubmit="true"/>
-                            </p:selectOneMenu>  
-                            #{' '}
-                            <span class="help-inline"><br/>#{messages['security.associateto.inlinehelp']} <ocp:message forId="#{name}" /></span>
-                        </div>                       
-                    </h:panelGroup>                
-                </div>
-                <div style="margin: -47px 0 0 1px">
-                    <p:commandButton id="add" value="#{messages['common.assignto']}"
-                                     actionListener="#{securityHome.associateTo()}" styleClass="btn primary offset4" style="margin-top: -40%; "
-                                     icon="ui-icon-disk" rendered="true" update="groupTable" process="@this"/>
-                </div>                             
-                <br/><br/>
-                <h3>#{messages['security.assignedgroup']}</h3>
-                <div class="admin-actions" >
-                    <p:commandButton id="button-delete" value="#{messages['security.rolAsignado']}" type="button" styleClass="btn"
-                                     onclick="deletedDlg.show();" rendered="true" disabled="#{empty securityHome.groupSelected}" 
-                                     ajax="true">                                                                
-                    </p:commandButton>                      
-                   
-                    <h:link value="#{messages['common.cancel']} #{'a'} #{messages['module.profile.profiles']} " rendered="#{true}" 
-                            outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn secondary" style="float: right;">
-                    </h:link> 
-                </div>
+            <h:form id="form" acceptcharset="UTF-8">      
+                <div role="main">
+                    <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-                <p:dataTable id="groupTable" var="group1" value="#{securityHome.findGroups()}"
-                             editable="true" rendered="true" rowKey="#{group1.name}"
-                             paginator="true" rows="10" selection="#{securityHome.groupSelected}"
-                             selectionMode="single"
-                             paginatorAlwaysVisible="false">
+                        <!-- Example row of columns -->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">Autorización</div>
 
-                    <p:ajax event="rowSelect" listener="#{securityHome.onRowSelect}" update=":form:button-delete :form:messages"/>                 
-                    <p:ajax event="rowUnselect" listener="#{securityHome.onRowUnselect}" update=":form:button-delete :form:messages"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <div>
+                                <h:panelGroup id="group-add" layout="block" class="clearfix">
+                                    <label for="group_" class="">#{messages['common.security.associateto']}</label>
+                                    <div class="input">
+                                        <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
+                                                         converter="omnifaces.SelectItemsConverter" 
+                                                         required="true" requiredMessage="false"
+                                                         rendered="true" label="#{messages['security.group']}">                         
+                                            <f:selectItem itemLabel="#{messages['common.choice']}"  itemValue = ""  />  
+                                            <f:selectItems value="#{securityHome.findAllGroups}" var="g" itemValue="#{g}" itemLabel="#{g.name}"/>
+                                            <p:ajax event="change" process="@this" update="@parent" partialSubmit="true"/>
+                                        </p:selectOneMenu>  
+                                        #{' '}
+                                        <span class="help-inline"><br/>#{messages['security.associateto.inlinehelp']} <ocp:message forId="#{name}" /></span>
+                                        <br/><br/>
+                                        
+                                        <p:commandButton id="add" value="#{messages['common.assignto']}"
+                                                         actionListener="#{securityHome.associateTo()}" styleClass="btn primary offset4" style="btn"
+                                                         icon="ui-icon-disk" rendered="true" update="groupTable" process="@this"/>
 
-                    <p:column headerText="#{messages['security.group.name']}" sortBy="#{group1.name}">
-                        <h:outputText value="#{group1.name}" />
-                    </p:column>             
-                    <p:column headerText="#{messages['common.actions']}" style="width:30%">                            
-                        <h:outputText value="#{group1.groupType}" />
-                    </p:column>
-                </p:dataTable>      
 
+
+                                    </div>                       
+                                </h:panelGroup>                
+                            </div>
+
+                            <br/><br/>
+                            <h3>#{messages['security.assignedgroup']}</h3>
+                            <div class="admin-actions" >
+                                <p:commandButton id="button-delete" value="#{messages['security.rolAsignado']}" type="button" styleClass="btn"
+                                                 onclick="deletedDlg.show();" rendered="true" disabled="#{empty securityHome.groupSelected}" 
+                                                 ajax="true">                                                                
+                                </p:commandButton>                      
+
+                                <h:link value="#{messages['common.cancel']} #{'a'} #{messages['module.profile.profiles']} " rendered="#{true}" 
+                                        outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn secondary" style="float: right;">
+                                </h:link> 
+                            </div>
+
+                            <p:dataTable id="groupTable" var="group1" value="#{securityHome.findGroups()}"
+                                         editable="true" rendered="true" rowKey="#{group1.name}"
+                                         paginator="true" rows="10" selection="#{securityHome.groupSelected}"
+                                         selectionMode="single"
+                                         paginatorAlwaysVisible="false">
+
+                                <p:ajax event="rowSelect" listener="#{securityHome.onRowSelect}" update=":form:button-delete :form:messages"/>                 
+                                <p:ajax event="rowUnselect" listener="#{securityHome.onRowUnselect}" update=":form:button-delete :form:messages"/>
+
+                                <p:column headerText="#{messages['security.group.name']}" sortBy="#{group1.name}">
+                                    <h:outputText value="#{group1.name}" />
+                                </p:column>             
+                                <p:column headerText="#{messages['common.actions']}" style="width:30%">                            
+                                    <h:outputText value="#{group1.groupType}" />
+                                </p:column>
+                            </p:dataTable>      
+                        </div></div></div>
             </h:form>    
             <p:dialog id="delete-dialog" header="#{messages['common.delete.confirm']}" 
                       widgetVar="deletedDlg" resizable="false" modal="true" >  <!--dynamic="true"-->

@@ -255,7 +255,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         } else {
             setMaximo(100);
         }
-        System.out.println("lista itemmmm"+cir.getListaItemRequisicion());
+        System.out.println("lista itemmmm"+listaItemsRequisicion);
         System.out.println("maaaaaaaximo" + maximo);
         return maximo;
     }
@@ -266,8 +266,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public Producto getPro() {
         System.out.println("reto::::::::::::::::");
-
+        
         System.out.println(pro);
+        System.out.println("maximooo"+maximo);
         return pro;
     }
 

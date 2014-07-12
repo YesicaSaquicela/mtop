@@ -160,7 +160,7 @@
                     <h:panelGroup layout="block" style="padding:5px;">  
                         <h:outputText value="Esta seguro que quiere deshabilitar esta cuenta de usuario de #{profileHome.instance.fullName}"/>  
                     </h:panelGroup>  
-                    <p:commandButton value="#{messages['common.yes']}" action="#{profileHome.inavilitarCuenta()}" 
+                    <p:commandButton value="#{messages['common.yes']}" actionListener="#{profileHome.inavilitarCuenta()}" 
                                      oncomplete="#{'deletedDlg.hide();'}" update=":profile" ajax="true"
                                      style="margin-top:10px;" process="@this"> 
                     </p:commandButton>  #{' '}
