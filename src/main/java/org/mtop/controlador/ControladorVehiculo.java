@@ -61,10 +61,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
     private String numeroRegistro;
     private ActividadPlanMantenimiento actividadplan;
-    private Integer prokilometraje;
-    ControladorKardex ck;
-    String mensaje = "";
-    ControladorPlanMantenimiento cplanMantenimiento;
+
+    private ControladorKardex ck;
+    private String mensaje = "";
+    private ControladorPlanMantenimiento cplanMantenimiento;
     private String actividadekilometraje = "";
 
     public String getActividadekilometraje() {
@@ -75,7 +75,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.actividadekilometraje = actividadekilometraje;
     }
 
-    public void vizualizarActividades(Long vehiculoid) {
+    public void vizualizarActividades(Long vehiculoid, Integer proKilometraje) {
 
         System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
         Vehiculo v = findById(Vehiculo.class, vehiculoid);
@@ -94,9 +94,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
                 System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
 
-                prokilometraje = obtenerKilometraje(v.getKilometraje());
-                System.out.println("proximo kilometraje>>>>>>" + prokilometraje);
-                if (actividadPlanMantenimiento.getKilometraje() == prokilometraje) {
+               
+                System.out.println("proximo kilometraje>>>>>>" + proKilometraje);
+                if (actividadPlanMantenimiento.getKilometraje() == proKilometraje) {
                     System.out.println("entro..... a comparar");
                     actividadekilometraje = actividadPlanMantenimiento.getActividad();
                     System.out.println("fijo la actividad" + actividadekilometraje);
@@ -110,13 +110,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
-    public Integer getProkilometraje() {
-        return prokilometraje;
-    }
-
-    public void setProkilometraje(Integer prokilometraje) {
-        this.prokilometraje = prokilometraje;
-    }
 
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
@@ -296,7 +289,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
-    @TransactionAttribute   //
+    @TransactionAttribute
     public Vehiculo load() {
         if (isIdDefined()) {
             wire();
@@ -323,26 +316,20 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-//        PlanMantenimiento pmat = new PlanMantenimiento();
-//        for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
-//            System.out.println("for plan de mantenimiento>>>>>>>>>>>");
-//            if (pm.isEstado()) {
-//                pmat = pm;
-//            }
-//
-//        }
-//        for (Vehiculo v : findAll(Vehiculo.class)) {
-//            if (null != pmat.getId()) {
-//                System.out.println("forr vehiculo>>>>>>>>");
-//                v.setPlanM(pmat);
-//                setInstance(v);
-//                guardar();
-//            }
-//
-//        }
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-
         System.out.println("lista vehiculos" + listaVehiculos);
+        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
+        listaVehiculos.clear();
+
+        for (Vehiculo vehiculo : lv) {
+            if (vehiculo.isEstado()) {
+                listaVehiculos.add(vehiculo);
+                System.out.println("Entro a remover>>>>");
+                System.out.println("a;iadia" + listaVehiculos);
+
+            }
+
+        }
 
     }
 //    public String irCrear(){
@@ -445,6 +432,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         k.setActivationTime(now);
         k.setVehiculo(getInstance());
         save(k);
+
     }
 
     @TransactionAttribute
@@ -463,6 +451,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
+
             } else {
                 System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
@@ -524,6 +513,24 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     @Transactional
+    public String darDeBaja(Long idvehiculo) {
+        ControladorEstadoVehiculo cestado = new ControladorEstadoVehiculo();
+        System.out.println("Entro a dar de baja>>>>>>" + idvehiculo);
+        setId(idvehiculo);
+        setInstance(servgen.buscarPorId(Vehiculo.class, idvehiculo));
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        getInstance().setEstado(false);
+        //    ck.getInstance().setEstado(false);
+        save(getInstance());
+//        cestado.getInstance().setEstado(false);
+//        crearEstadoUbicacion();
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La vehículo seleccionado ha sido dada de baja ", "exitosamente"));
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
+    }
+
+    @Transactional
     public String borrarEntidad() {
         //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
         try {
@@ -534,7 +541,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 delete(getInstance());
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
+
             }
 
         } catch (Exception e) {
