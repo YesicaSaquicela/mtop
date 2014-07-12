@@ -52,6 +52,13 @@
                                                     <h:link value="Editar Estado mecanico" outcome="estadoMecanico" type="button" >
                                                         <f:param name="vehiculoId" value="#{v.id}"></f:param>
                                                     </h:link>
+                                                    
+                                                    
+                                                        <p:button id="selectButton" 
+                                                                 outcome="estadoMecanico"
+                                                                  icon="ui-icon-pencil" title="Editar Estado Mecánico">  
+                                                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                        </p:button>
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div>

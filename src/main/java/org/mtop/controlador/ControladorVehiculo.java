@@ -62,11 +62,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private String numeroRegistro;
     private ActividadPlanMantenimiento actividadplan;
     private Integer prokilometraje;
-    ControladorKardex ck;
-    String mensaje = "";
-    ControladorPlanMantenimiento cplanMantenimiento;
+    private ControladorKardex ck;
+    private String mensaje = "";
+    private ControladorPlanMantenimiento cplanMantenimiento;
     private String actividadekilometraje = "";
-    
 
     public String getActividadekilometraje() {
         return actividadekilometraje;
@@ -86,17 +85,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
             //encontrar listas del plan
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
-                if(actividadPlanMantenimiento.getPlanMantenimiento().getId()==pMantenimiento.getId()){
-                la.add(actividadPlanMantenimiento);
+                if (actividadPlanMantenimiento.getPlanMantenimiento().getId() == pMantenimiento.getId()) {
+                    la.add(actividadPlanMantenimiento);
                 }
             }
             System.out.println("lsiat de actividades" + la);
             //encontrar kilometraje de cada lista del plan
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
                 System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
-               
-                prokilometraje=obtenerKilometraje(v.getKilometraje());
-                 System.out.println("proximo kilometraje>>>>>>"+prokilometraje);
+
+                prokilometraje = obtenerKilometraje(v.getKilometraje());
+                System.out.println("proximo kilometraje>>>>>>" + prokilometraje);
                 if (actividadPlanMantenimiento.getKilometraje() == prokilometraje) {
                     System.out.println("entro..... a comparar");
                     actividadekilometraje = actividadPlanMantenimiento.getActividad();
@@ -106,7 +105,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         } else {
-              FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
         }
 
     }
@@ -119,7 +118,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.prokilometraje = prokilometraje;
     }
 
-    
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
     }
@@ -297,7 +295,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
-    @TransactionAttribute   //
+    @TransactionAttribute
     public Vehiculo load() {
         if (isIdDefined()) {
             wire();
@@ -324,26 +322,20 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-//        PlanMantenimiento pmat = new PlanMantenimiento();
-//        for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
-//            System.out.println("for plan de mantenimiento>>>>>>>>>>>");
-//            if (pm.isEstado()) {
-//                pmat = pm;
-//            }
-//
-//        }
-//        for (Vehiculo v : findAll(Vehiculo.class)) {
-//            if (null != pmat.getId()) {
-//                System.out.println("forr vehiculo>>>>>>>>");
-//                v.setPlanM(pmat);
-//                setInstance(v);
-//                guardar();
-//            }
-//
-//        }
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-
         System.out.println("lista vehiculos" + listaVehiculos);
+        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
+        listaVehiculos.clear();
+
+        for (Vehiculo vehiculo : lv) {
+            if (vehiculo.isEstado()) {
+                listaVehiculos.add(vehiculo);
+                System.out.println("Entro a remover>>>>");
+                System.out.println("a;iadia" + listaVehiculos);
+
+            }
+
+        }
 
     }
 //    public String irCrear(){
@@ -439,13 +431,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void crearKardex() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        Kardex k = new Kardex();
-        k.setNumero(getInstance().getNumRegistro());
-        k.setCreatedOn(now);
-        k.setLastUpdate(now);
-        k.setActivationTime(now);
-        k.setVehiculo(getInstance());
-        save(k);
+            Kardex k = new Kardex();
+            k.setNumero(getInstance().getNumRegistro());
+            k.setCreatedOn(now);
+            k.setLastUpdate(now);
+            k.setActivationTime(now);
+            k.setVehiculo(getInstance());
+            save(k);
+        
+
     }
 
     @TransactionAttribute
@@ -464,6 +458,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
+                
             } else {
                 System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
@@ -522,6 +517,26 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/admin/vehiculo/estadoVehiculo/lista.xhtml?faces-redirect=true";
+    }
+
+    @Transactional
+    public String darDeBaja(Long idvehiculo) {
+        ControladorEstadoVehiculo cestado=new ControladorEstadoVehiculo();
+        System.out.println("Entro a dar de baja>>>>>>" + idvehiculo);
+        setId(idvehiculo);
+        setInstance(servgen.buscarPorId(Vehiculo.class, idvehiculo));
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        getInstance().setEstado(false);
+    //    ck.getInstance().setEstado(false);
+        save(getInstance());
+//        cestado.getInstance().setEstado(false);
+//        crearEstadoUbicacion();
+        
+       
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La vehículo seleccionado ha sido dada de baja ", "exitosamente"));
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional

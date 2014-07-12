@@ -91,6 +91,18 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaEstadoVehiculo = servgen.buscarTodos(EstadoVehiculo.class);
+//        List<EstadoVehiculo> le= servgen.buscarTodos(EstadoVehiculo.class);
+//        listaEstadoVehiculo.clear();
+////
+//        for (EstadoVehiculo estado : le) {
+//            if (estado.isEstado()) {
+//                listaEstadoVehiculo.add(estado);
+//                System.out.println("Entro a remover>>>>");
+//                System.out.println("a;iadia" + listaEstadoVehiculo);
+//
+//            }
+//
+//        }
     }
 
     @Override
@@ -129,7 +141,7 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                  System.out.println("Entro a crear>>>>>>>>");
-             
+                getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");

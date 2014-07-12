@@ -339,6 +339,18 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         listakardex = servgen.buscarTodos(Kardex.class);
         solicitud = new SolicitudReparacionMantenimiento();
         listaSol = findAll(SolicitudReparacionMantenimiento.class);
+//        List<Kardex> lk = servgen.buscarTodos(Kardex.class);
+//        listakardex.clear();
+//
+//        for (Kardex kardex : lk) {
+//            if (kardex.isEstado()) {
+//                listakardex.add(kardex);
+//                System.out.println("Entro a remover>>>>");
+//                System.out.println("a;iadia" + listakardex);
+//
+//            }
+//
+//        }
     }
 
     @Override

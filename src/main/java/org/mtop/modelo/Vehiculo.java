@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,6 +46,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String marca;
     @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String modelo;
+    @Column(unique = true)
     private String placa;
     private String numRegistro;
     private Integer numPasajeros;
