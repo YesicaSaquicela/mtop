@@ -35,6 +35,7 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.PartidaContabilidad;
+import org.mtop.modelo.PartidaContabilidad_;
 import org.mtop.servicios.ServicioGenerico;
 
 /**
@@ -52,23 +53,97 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     private ServicioGenerico servgen;
     private List<PartidaContabilidad> listaPartidaC = new ArrayList<PartidaContabilidad>();
     private String mensaje = "";
-    private String vista="";
+    private String vista = "";
+    private String palabrab = "";
 
-    
-    
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+
+    public void buscar() {
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia
+        List<PartidaContabilidad> lp = servgen.buscarTodoscoincidencia(PartidaContabilidad.class, PartidaContabilidad.class.getSimpleName(), PartidaContabilidad_.descripcion.getName(), palabrab);
+        //buscando por numero de partidalistaPartidaC
+        for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
+
+            String resultado = partidaContabilidad.concatenarPartida();
+
+            if (resultado.contains(palabrab)) {
+
+                if (!lp.contains(partidaContabilidad)) {
+                    lp.add(partidaContabilidad);
+                }
+            }
+        }
+
+        if (lp.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaPartidaC = lp;
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        listaPartidaC = findAll(PartidaContabilidad.class);
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        List<PartidaContabilidad> lr = servgen.buscarTodoscoincidencia(PartidaContabilidad.class, PartidaContabilidad.class.getSimpleName(), PartidaContabilidad_.descripcion.getName(), query);
+
+        for (PartidaContabilidad partida : lr) {
+            System.out.println("econtro uno " + partida.getDescripcion());
+            ced.add(partida.getDescripcion());
+        }
+
+        for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
+
+            String resultado = partidaContabilidad.concatenarPartida();
+
+            if (resultado.contains(query)) {
+
+                if (!ced.contains(partidaContabilidad)) {
+                    ced.add(resultado);
+                }
+            }
+        }
+
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
+
     public void vistaC(ActionEvent event) {
         System.out.println("entro a evento>>>>>>>");
         final Long id = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("partidaId"));
         getInstance().setId(id);
-        System.out.println("se fijo el id>>>>>"+getInstance().getId());
-    
+        System.out.println("se fijo el id>>>>>" + getInstance().getId());
+
     }
-    
-    public String vistaC(){
+
+    public String vistaC() {
         System.out.println("retornando vista crear>>>>>>");
         return "/paginas/secretario/partidaContabilidad/crear.xhtml?faces-redirect=true";
     }
-    
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -150,12 +225,12 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public boolean verificarPartida() {
-        List<PartidaContabilidad> lpc=findAll(PartidaContabilidad.class);
+        List<PartidaContabilidad> lpc = findAll(PartidaContabilidad.class);
         System.out.println("LISTA PARTIDA>>>>>>." + lpc);
         boolean ban = true;
         System.out.println("lista antes de borrar" + lpc);
         //si viene de editar... comprueba que el ide se diferente de 
-        System.out.println("ide antes de borrar del k llega>>>>"+getInstance().getId());
+        System.out.println("ide antes de borrar del k llega>>>>" + getInstance().getId());
         if (getInstance().getId() != null) {
             System.out.println("ENTRO A BORRAR>>>>>>>");
             lpc.remove(findById(PartidaContabilidad.class, getInstance().getId()));
@@ -165,7 +240,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         for (PartidaContabilidad partidaContabilidad : lpc) {
             System.out.println("ENTRANDO AL FOR>>>>.");
             if (partidaContabilidad.concatenarPartida().equals(getInstance().concatenarPartida())) {
-                System.out.println("entro a verificar>>>>>>>"+ban);
+                System.out.println("entro a verificar>>>>>>>" + ban);
                 ban = false;
                 break;
             }

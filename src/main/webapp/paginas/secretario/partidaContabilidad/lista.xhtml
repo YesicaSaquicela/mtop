@@ -23,15 +23,57 @@
             <!--Opción de mensaje, cuando se realiza una acción-->
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-
+ <div class="panel panel-primary">
+                        <p:panel>
                     <p:messages for="confirmacion confirmacion1" showDetail="true" autoUpdate="true" closable="true" />  
-
-                    <!--Botones de admin-->
                     <div class="admin-actions">
-                        <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                            <f:param name="partidaId" ></f:param>
-                        </p:commandButton><br/><br/>
+                        <div class="panel panel-success">
+                            <p:panel>
+                                <div class="panel-body">
+                                    <div class="container-fluid" align="center">
+                                        <div class="row-fluid">
+
+
+                                            <div class="col-lg-6">
+                                                <center>
+                                                    <div class="input-group">
+                                                        <center>
+                                                            <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                            <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorPartidaContabilidad.palabrab}"   
+                                                                            completeMethod="#{controladorPartidaContabilidad.autocompletar}"/> 
+                                                            &nbsp;&nbsp;
+
+
+
+                                       
+        for (PartidaContabilidad partidac : listaPartidaC) {
+            ced.add(partidac.concatenarPartida().toString());
+        }
+                     <p:commandButton value="Buscar" update=":form:listapc" action="#{controladorPartidaContabilidad.buscar()}" styleClass="btn btn-success" >
+
+                                                            </p:commandButton>
+
+
+                                                            <p:commandButton value="Limpiar" update=":form:listapc :form:acSimple" action="#{controladorPartidaContabilidad.limpiar()}" styleClass="btn btn-success" >
+
+                                                            </p:commandButton>
+                                                        </center>
+                                                    </div>
+                                      <div class="panel panel-primary">
+                        <p:panel>           </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> </p:panel></div>
+                        <div class="admin-actions">
+                            <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                <f:param name="partidaId" ></f:param>
+                            </p:commandButton><br/><br/>
+                        </div><br/><br/>
                     </div>
+                    <!--Botones de admin-->
+
                     <div class="tab-content">
                         <div class="tab-pane active" id="todas">
                             <div class="table-responsive">
@@ -83,6 +125,7 @@
                                         </p:column>
                                     </p:dataTable>
                                 </tbody></div></div></div>
+                    </p:panel></div>
                 </div>
             </div>
 
