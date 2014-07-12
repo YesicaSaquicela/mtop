@@ -61,7 +61,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
     private String numeroRegistro;
     private ActividadPlanMantenimiento actividadplan;
-    private Integer prokilometraje;
+
     private ControladorKardex ck;
     private String mensaje = "";
     private ControladorPlanMantenimiento cplanMantenimiento;
@@ -75,7 +75,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.actividadekilometraje = actividadekilometraje;
     }
 
-    public void vizualizarActividades(Long vehiculoid) {
+    public void vizualizarActividades(Long vehiculoid, Integer proKilometraje) {
 
         System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
         Vehiculo v = findById(Vehiculo.class, vehiculoid);
@@ -94,9 +94,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
                 System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
 
-                prokilometraje = obtenerKilometraje(v.getKilometraje());
-                System.out.println("proximo kilometraje>>>>>>" + prokilometraje);
-                if (actividadPlanMantenimiento.getKilometraje() == prokilometraje) {
+               
+                System.out.println("proximo kilometraje>>>>>>" + proKilometraje);
+                if (actividadPlanMantenimiento.getKilometraje() == proKilometraje) {
                     System.out.println("entro..... a comparar");
                     actividadekilometraje = actividadPlanMantenimiento.getActividad();
                     System.out.println("fijo la actividad" + actividadekilometraje);
@@ -110,13 +110,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
-    public Integer getProkilometraje() {
-        return prokilometraje;
-    }
-
-    public void setProkilometraje(Integer prokilometraje) {
-        this.prokilometraje = prokilometraje;
-    }
 
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
@@ -432,14 +425,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void crearKardex() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-            Kardex k = new Kardex();
-            k.setNumero(getInstance().getNumRegistro());
-            k.setCreatedOn(now);
-            k.setLastUpdate(now);
-            k.setActivationTime(now);
-            k.setVehiculo(getInstance());
-            save(k);
-        
+        Kardex k = new Kardex();
+        k.setNumero(getInstance().getNumRegistro());
+        k.setCreatedOn(now);
+        k.setLastUpdate(now);
+        k.setActivationTime(now);
+        k.setVehiculo(getInstance());
+        save(k);
 
     }
 
@@ -459,7 +451,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
-                
+
             } else {
                 System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
@@ -522,19 +514,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @Transactional
     public String darDeBaja(Long idvehiculo) {
-        ControladorEstadoVehiculo cestado=new ControladorEstadoVehiculo();
+        ControladorEstadoVehiculo cestado = new ControladorEstadoVehiculo();
         System.out.println("Entro a dar de baja>>>>>>" + idvehiculo);
         setId(idvehiculo);
         setInstance(servgen.buscarPorId(Vehiculo.class, idvehiculo));
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         getInstance().setEstado(false);
-    //    ck.getInstance().setEstado(false);
+        //    ck.getInstance().setEstado(false);
         save(getInstance());
 //        cestado.getInstance().setEstado(false);
 //        crearEstadoUbicacion();
-        
-       
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La vehículo seleccionado ha sido dada de baja ", "exitosamente"));
         return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
@@ -551,7 +541,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 delete(getInstance());
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
+
             }
 
         } catch (Exception e) {
