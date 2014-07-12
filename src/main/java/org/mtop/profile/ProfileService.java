@@ -47,8 +47,6 @@ import javax.persistence.criteria.Root;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.modelo.profile.Profile_;
 
-
-
 import org.mtop.modelo.security.IdentityObjectAttribute;
 import org.mtop.modelo.security.IdentityObjectCredential;
 
@@ -232,7 +230,7 @@ public class ProfileService extends PersistenceUtil<Profile> implements Serializ
         try {
             TypedQuery<IdentityObjectCredential> query = em.createQuery(
                     "SELECT a FROM IdentityObjectCredential a WHERE a.identityObject.name = :userName ", IdentityObjectCredential.class);
-            query.setParameter("userName", userName);            
+            query.setParameter("userName", userName);
             return query.getResultList().isEmpty() ? null : query.getResultList();
         } catch (Exception e) {
             return null;

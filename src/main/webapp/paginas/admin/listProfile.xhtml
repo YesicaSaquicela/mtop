@@ -39,91 +39,106 @@ limitations under the License.
     <ui:define name="content">
         <h:form id="form">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-            <div class="admin-actions">
-                <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="/pages/profile/profile.xhtml?faces-redirect=true" styleClass="btn primary">
-                    <f:param name="profileId"></f:param>
-                    <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
-                </h:link>
-                #{' '}
-                <h:link id="button-authorize" value="#{messages['common.authorize']}" rendered="#{true}" outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" styleClass="btn"
-                        disabled="#{empty  profileListService.selectedProfile}">
-                    <f:param name="username" value="#{profileListService.selectedProfile.username}"></f:param>
-                    <f:param name="backView" value="listProfile"></f:param>
-                </h:link> 
-                #{' '}
-                <h:panelGroup style="float: right">
-                    <h:link id="Acc" value="Activos" title="Cuentas de usuarios activas" 
-                            outcome="listProfile" styleClass="btn success" >                                        
-                    </h:link>
-                    #{' '}
-                    <h:link id="Acc1" value="Inactivos" title="Cuentas de usuarios inactivas" 
-                            outcome="listProfile" styleClass="btn success" >                                        
-                        <f:param name="estado" value="inactivo"/>
-                    </h:link>                    
-                </h:panelGroup>
+            <div role="main">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <div class="panel panel-primary">
+                        <p:panel>
+                            <div class="admin-actions">
+                                <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true" styleClass="btn primary">
+                                    <f:param name="profileId"></f:param>
+                                    <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
+                                </h:link>
+                                #{' '}
+                                <h:link id="button-authorize" value="#{messages['common.authorize']}" rendered="#{true}" outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" styleClass="btn"
+                                        disabled="#{empty  profileListService.selectedProfile}">
+                                    <f:param name="username" value="#{profileListService.selectedProfile.username}"></f:param>
+                                    <f:param name="backView" value="listProfile"></f:param>
+                                </h:link> 
+                                #{' '}
+                                <h:panelGroup style="float: right">
+                                    <h:link id="Acc" value="Activos" title="Cuentas de usuarios activas" 
+                                            outcome="listProfile" styleClass="btn success" >                                        
+                                    </h:link>
+                                    #{' '}
+                                    <h:link id="Acc1" value="Inactivos" title="Cuentas de usuarios inactivas" 
+                                            outcome="listProfile" styleClass="btn success" >                                        
+                                        <f:param name="estado" value="inactivo"/>
+                                    </h:link>                    
+                                </h:panelGroup>
+                            </div>
+                            <p:dataTable id="profileDataTable"  var="profile_" value="#{profileListService.resultList}" 
+                                         paginator="true" rows="10"                         
+                                         paginatorPosition="top"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
+                                         rowsPerPageTemplate="5,10,20,50,100"
+                                         lazy="true" rowKey="#{profile_.id}" 
+                                         selection="#{profileListService.selectedProfile}"                         
+                                         selectionMode="single">
+
+                                <p:ajax event="rowSelect" listener="#{profileListService.onRowSelect}"   
+                                        update=":form:messages   :cancel-dialog :form:button-authorize"/>   
+                                <p:ajax event="rowUnselect" listener="#{profileListService.onRowUnselect}" 
+                                        update=":form:messages  :cancel-dialog :form:button-authorize"/>
+
+
+                                <p:column sortBy="#{profile_.id}">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Id" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{profile_.id}" />
+                                </p:column>
+                                <p:column sortBy="#{profile_.username}">
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{messages['common.username']}" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{profile_.username}" />
+                                </p:column>
+                                <p:column sortBy="#{profile_.firstname}">
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{messages['common.firstname']}" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{profile_.firstname}" />
+                                </p:column>
+                                <p:column sortBy="#{profile_.surname}">
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{messages['profile.surname']}" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{profile_.surname}" />
+                                </p:column>
+                                <p:column sortBy="#{profile_.code}">
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{messages['profile.dni']}" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{profile_.code}" />
+                                </p:column>
+                                <p:column sortBy="#{profile_.email}">
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{messages['common.email']}" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{profile_.email}" />
+                                </p:column>
+                                <p:column headerText="Opcion" >                                        
+                                    <h:link value="#{messages['common.edit']}" rendered="#{true}" outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true" styleClass="btn" >                          
+                                        <f:param name="profileId" value="#{profile_.id}"></f:param>
+                                        <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
+                                    </h:link>   
+                                </p:column>
+                            </p:dataTable>          
+
+                            <h:panelGrid id="export" class="columns" >
+                                <p:panel>
+                                    <h:outputText value="Exportar Datos" />  
+                                    <br/>
+                                    <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn">                    
+
+                                        <f:setPropertyActionListener target="#{reporteListas.estado}" value="#{profileListService.estado eq 'inactivo'? true: false}" />
+                                    </h:commandLink>                    
+                                </p:panel>
+                            </h:panelGrid>
+                        </p:panel>
+                    </div>
+                </div>
             </div>
-            <p:dataTable id="profileDataTable"  var="profile_" value="#{profileListService.resultList}" 
-                         paginator="true" rows="10"                         
-                         paginatorPosition="top"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
-                         rowsPerPageTemplate="5,10,20,50,100"
-                         lazy="true" rowKey="#{profile_.id}" 
-                         selection="#{profileListService.selectedProfile}"                         
-                         selectionMode="single">
-
-                <p:ajax event="rowSelect" listener="#{profileListService.onRowSelect}"   
-                        update=":form:messages   :cancel-dialog :form:button-authorize"/>   
-                <p:ajax event="rowUnselect" listener="#{profileListService.onRowUnselect}" 
-                        update=":form:messages  :cancel-dialog :form:button-authorize"/>
-
-                <p:column sortBy="#{profile_.username}">
-                    <f:facet name="header">  
-                        <h:outputText value="#{messages['common.username']}" />  
-                    </f:facet> 
-                    <h:outputText value="#{profile_.username}" />
-                </p:column>
-                <p:column sortBy="#{profile_.firstname}">
-                    <f:facet name="header">  
-                        <h:outputText value="#{messages['common.firstname']}" />  
-                    </f:facet> 
-                    <h:outputText value="#{profile_.firstname}" />
-                </p:column>
-                <p:column sortBy="#{profile_.surname}">
-                    <f:facet name="header">  
-                        <h:outputText value="#{messages['profile.surname']}" />  
-                    </f:facet> 
-                    <h:outputText value="#{profile_.surname}" />
-                </p:column>
-                <p:column sortBy="#{profile_.code}">
-                    <f:facet name="header">  
-                        <h:outputText value="#{messages['profile.dni']}" />  
-                    </f:facet> 
-                    <h:outputText value="#{profile_.code}" />
-                </p:column>
-                <p:column sortBy="#{profile_.email}">
-                    <f:facet name="header">  
-                        <h:outputText value="#{messages['common.email']}" />  
-                    </f:facet> 
-                    <h:outputText value="#{profile_.email}" />
-                </p:column>
-                <p:column headerText="Opcion" >                                        
-                    <h:link value="#{messages['common.edit']}" rendered="#{true}" outcome="/pages/profile/profile.xhtml?faces-redirect=true" styleClass="btn" >                          
-                        <f:param name="profileId" value="#{profile_.id}"></f:param>
-                        <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
-                    </h:link>   
-                </p:column>
-            </p:dataTable>          
-
-            <h:panelGrid id="export" class="columns" >
-                <p:panel>
-                    <h:outputText value="Exportar Datos" />  
-                    <br/>
-                    <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn">                    
-                                               
-                        <f:setPropertyActionListener target="#{reporteListas.estado}" value="#{profileListService.estado eq 'inactivo'? true: false}" />
-                    </h:commandLink>                    
-                </p:panel>
-            </h:panelGrid>
         </h:form>
         <p:dialog id="cancel-dialog" header="Desactivar Cuenta de Usuario" widgetVar="deletedDlg" resizable="false" modal="true">  
             <h:form id="form-dialog-confirm-delete1">
@@ -140,5 +155,6 @@ limitations under the License.
 
             </h:form>
         </p:dialog>
+
     </ui:define>
 </ui:composition>

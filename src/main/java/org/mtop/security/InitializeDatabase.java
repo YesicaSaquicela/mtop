@@ -189,8 +189,8 @@ public class InitializeDatabase {
         
 //session.getAttributesManager().
         if (g == null) {
-            org.picketlink.idm.api.Group g1;
-            g1=session.getPersistenceManager().createGroup("SECRETARIO", "GROUP");
+            
+            g = session.getPersistenceManager().createGroup("SECRETARIO", "GROUP");
             g = session.getPersistenceManager().createGroup("ADMIN", "GROUP");
         }
 

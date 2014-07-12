@@ -78,20 +78,18 @@ public class Authentication {
     private EntityManager em;
     @Inject
     private ProfileService profileService;
-    
+
     private IdmAuthenticator idmAuth;
     @Inject
     private OpenIdAuthenticator openAuth;
     @Inject
     Event<DeferredAuthenticationEvent> deferredAuthentication;
 
-    
-
     @PostConstruct
     public void init() {
-        
+
         profileService.setEntityManager(em);
-        
+
     }
 
     public void loginSuccess(@Observes final LoggedInEvent event, final NavigationHandler navigation,
@@ -104,7 +102,7 @@ public class Authentication {
         String viewId = context.getViewRoot().getViewId();
         //logger.info("viewId [{}]", viewId);
 
-        if (!"/pages/signup.xhtml".equals(viewId) && !"/pages/login.xhtml".equals(viewId) && !"/pages/reset.xhtml".equals(viewId)) {
+        if (!"/paginas/signup.xhtml".equals(viewId) && !"/paginas/login.xhtml".equals(viewId) && !"/paginas/reset.xhtml".equals(viewId)) {
             // TODO need a better way to navigate: this doesn't work with AJAX requests
             HttpInboundServletRewrite rewrite = new HttpInboundRewriteImpl(request, response);
 
@@ -220,9 +218,35 @@ public class Authentication {
         identity.setAuthenticatorClass(IdmAuthenticator.class);
         identity.logout();
         //session.invalidate();
-        return "/pages/loggedOffHome.xhtml?faces-redirect=true";
+        return "/paginas/loggedOffHome.xhtml?faces-redirect=true";
     }
-  
- 
+
+    public String actualizarPass(String pass, User user) throws InterruptedException {
+        try {
+            //IdentityObjectCredential credent = profileService.getCredencial(user.getKey()).get(0);
+            System.out.println("cambio password  " + user.getKey());
+            //credent.setValue(pass);            
+            //em.merge(credent);
+            AttributesManager attributesManager = security.getAttributesManager();
+            attributesManager.updatePassword(user, user.getKey());
+            System.out.println("cambio password 1 " + pass);
+            credencials.setUsername(user.getKey());
+            credencials.setCredential(new PasswordCredential(pass));
+            idmAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
+            identity.setAuthenticatorClass(IdmAuthenticator.class);
+            System.out.println("cambio password con exito 1");
+            String result = identity.login();
+            if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
+                result = identity.login();
+            }
+            //regresa a homeee
+            return "/paginas/inicio.xhtml?faces-redirect=true";
+        } catch (IdentityException ex) {
+            System.out.println("Error____");
+            ex.printStackTrace();
+            java.util.logging.Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 }

@@ -106,7 +106,7 @@ public class SecurityGroupHome implements Serializable {
                 Logger.getLogger(SecurityGroupHome.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return "/pages/admin/security/list?faces-redirect=true";
+        return "/paginas/admin/security/list?faces-redirect=true";
     }
 
     protected Group createInstance() {

@@ -395,7 +395,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             }
         }
         if ("/admin/listProfile".equalsIgnoreCase(getBackView())) {
-            return "/pages/admin/security/authorization.xhtml?faces-redirect=true&username=" + getInstance().getUsername() + "&backView=" + getBackView();
+            return "/paginas/admin/security/authorization.xhtml?faces-redirect=true&username=" + getInstance().getUsername() + "&backView=" + getBackView();
         } else {
             return salida;
         }
