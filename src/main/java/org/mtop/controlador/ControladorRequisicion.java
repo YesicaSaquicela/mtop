@@ -97,8 +97,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setListaItemsRequisicion(List<ItemRequisicion> listaItemsRequisicion) {
         this.listaItemsRequisicion = listaItemsRequisicion;
     }
-    
-    
 
     Producto pro;
 
@@ -255,7 +253,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         } else {
             setMaximo(100);
         }
-        System.out.println("lista itemmmm"+listaItemsRequisicion);
+        System.out.println("lista itemmmm" + listaItemsRequisicion);
         System.out.println("maaaaaaaximo" + maximo);
         return maximo;
     }
@@ -266,9 +264,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public Producto getPro() {
         System.out.println("reto::::::::::::::::");
-        
+
         System.out.println(pro);
-        System.out.println("maximooo"+maximo);
+        System.out.println("maximooo" + maximo);
         return pro;
     }
 
@@ -518,6 +516,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         setId(requisicionId);
         vehiculo = getInstance().getVehiculo();
+        solicitudrep = getInstance().getSolicitudReparacionId();
         listaItemsRequisicion = new ArrayList<ItemRequisicion>();
         for (ItemRequisicion itr : findAll(ItemRequisicion.class)) {
 
@@ -527,13 +526,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("idde itr" + itr.getRequisicion().getId());
                 if (getInstance().getId().equals(itr.getRequisicion().getId())) {
                     System.out.println("fijo un ide");
-                    System.out.println("get id de productoooo"+itr.getProducto().getId());
+                    System.out.println("get id de productoooo" + itr.getProducto().getId());
                     listaItemsRequisicion.add(itr);
                 }
 
             }
         }
         System.out.println("lista de items" + listaItemsRequisicion);
+        System.out.println("la solicitud>>>>>>>>>>>>>>>>"+solicitudrep);
 
     }
 
@@ -599,29 +599,26 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaRequisicion = findAll(Requisicion.class);
-        listaSolicitudes = new ArrayList<SolicitudReparacionMantenimiento>();
-        System.out.println("lista de solicitudesantteeees" + listaSolicitudes);
-        List<Long> l = new ArrayList<Long>();
-        for (Requisicion requisicion : listaRequisicion) {
+        listaSolicitudes = findAll(SolicitudReparacionMantenimiento.class);
+        SolicitudReparacionMantenimiento soli=new SolicitudReparacionMantenimiento();
+        listaRequisicion.clear();
+        List<Long> lg= new ArrayList<Long>();
+        for (Requisicion requisicion : findAll(Requisicion.class)) {
+            soli=requisicion.getSolicitudReparacionId();
             if (requisicion.getSolicitudReparacionId() != null) {
-                if (!l.contains(requisicion.getSolicitudReparacionId().getId())) {
-                    System.out.println("añade la solicitudddDDDD" + requisicion.getSolicitudReparacionId());
-                    l.add(requisicion.getSolicitudReparacionId().getId());
-                }
+                lg.add(requisicion.getSolicitudReparacionId().getId());
+                System.out.println("lista despues "+lg);
             }
+            if (!requisicion.getAprobado()) {
 
-            if (requisicion.getAprobado()) {
-
-                listaRequisicion.remove(requisicion);
+                listaRequisicion.add(requisicion);
             }
-
         }
-        System.out.println("lista de solicitudesdespuessss" + listaSolicitudes);
-        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
-        for (Long soli : l) {
-            ls.remove(findById(SolicitudReparacionMantenimiento.class, soli));
+        System.out.println("lsiat de solicitudes"+listaSolicitudes);
+        for(Long l:lg){
+            listaSolicitudes.remove(findById(SolicitudReparacionMantenimiento.class, l));
         }
-        System.out.println("lista de solicitudesdespuessss final" + listaSolicitudes);
+        System.out.println("lsiat de solicitudes"+listaSolicitudes);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
 
@@ -668,6 +665,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setPartidaContabilidad(p);
         System.out.println("id de ala partidaaaaaaaaaaaaa" + p.getId());
         if (solicitudrep.getId() != null) {
+
+            solicitudrep.setLastUpdate(now);
+            try {
+                servgen.actualizar(getInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             getInstance().setSolicitudReparacionId(solicitudrep);
         }
         try {
@@ -690,26 +694,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-//        if (solicitudrep.getId() != null) {
-//            ControladorSolicitudReparacionMantenimiento csrm = new ControladorSolicitudReparacionMantenimiento();
-//
-//            csrm.fijarRequisicion(getInstance(), getInstance().getSolicitudReparacionId());
-//        }
 
         return "/paginas/secretario/requisicion/lista.xhtml?faces-redirect=true";
-
-    }
-
-    public void fijarSolicitud(SolicitudReparacionMantenimiento soli, Requisicion requ) {
-        Date now = Calendar.getInstance().getTime();
-        setInstance(requ);
-        getInstance().setSolicitudReparacionId(soli);
-        getInstance().setLastUpdate(now);
-        try {
-            servgen.actualizar(getInstance());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
