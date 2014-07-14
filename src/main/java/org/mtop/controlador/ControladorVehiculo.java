@@ -320,18 +320,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
         ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
         System.out.println("lista vehiculos" + listaVehiculos);
-        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
-        listaVehiculos.clear();
-
-        for (Vehiculo vehiculo : lv) {
-            if (vehiculo.isEstado()) {
-                listaVehiculos.add(vehiculo);
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaVehiculos);
-
-            }
-
-        }
+//        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
+//        listaVehiculos.clear();
+//
+//        for (Vehiculo vehiculo : lv) {
+//            if (vehiculo.isEstado()) {
+//                listaVehiculos.add(vehiculo);
+//                System.out.println("Entro a remover>>>>");
+//                System.out.println("a;iadia" + listaVehiculos);
+//
+//            }
+//
+//        }
         verificarPlan();
         
 //        if (!verificarPlan()) {

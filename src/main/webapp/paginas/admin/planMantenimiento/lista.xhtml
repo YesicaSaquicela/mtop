@@ -25,54 +25,96 @@
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <div class="panel panel-primary">
                         <p:panel>
-                    <p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />  
-                      
-                  
-                    <!--Botones de admin-->
-                    <div class="admin-actions">
-                        <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/planMantenimiento/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                            <f:param name="planMantenimientoId" ></f:param>
-                        </p:commandButton><br/><br/>
-
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="todas">
-                            <div class="table-responsive">
+                            <p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />  
+                            <div class="admin-actions">
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                                <tbody>
-                                    <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm">
-                                        <p:column headerText="Número de Registro">
-                                            <h:outputText value="#{pm.registro}"></h:outputText>
-                                        </p:column>
+                                                    <div class="col-lg-6">
 
-                                        <p:column headerText="Opciones" style="width: 5%"> 
-                                            <h:link value="Editar" outcome="crear" type="button" >
-                                                <f:param name="planMantenimientoId" value="#{pm.id}"></f:param>
-                                            </h:link>
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                            &nbsp;&nbsp;
-                                            <!--p:commandButton rendered="# {pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="# {controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
-                                                <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
-                                            </p:commandButton-->
-                                            
-                                            <p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}" update="@form">
-                                                <!--p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" /-->
-                                               
-                                             </p:commandButton>
-                                            
-                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                            </p:confirmDialog>
+                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorPlanMantenimiento.palabrab}"   
+                                                                                completeMethod="#{controladorPlanMantenimiento.autocompletar}"/> 
+                                                                &nbsp;&nbsp;
 
 
-                                            
 
-                                        </p:column>
-                                    </p:dataTable>
-                                </tbody></div></div></div>
-                </p:panel></div></div></div>
+
+
+                                                                <p:commandButton value="Buscar" update=":form:listap" action="#{controladorPlanMantenimiento.buscar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+
+                                                                <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorPlanMantenimiento.limpiar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+                                <div class="admin-actions">
+                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/planMantenimiento/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                        <f:param name="planMantenimientoId" ></f:param>
+                                    </p:commandButton><br/><br/>
+
+                                </div><br/><br/>
+                            </div>
+
+                            <!--Botones de admin-->
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="todas">
+                                    <div class="table-responsive">
+
+
+                                        <tbody>
+                                            <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm">
+                                                <p:column headerText="Número de Registro">
+                                                    <h:outputText value="#{pm.registro}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Fecha de creación">
+                                                    <h:outputText value="#{controladorPlanMantenimiento.formato()}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Opciones" style="width: 5%"> 
+                                                    
+                                                    <p:button id="selectButton" 
+                                                              outcome="crear"
+                                                              icon="ui-icon-pencil" title="Editar">  
+                                                        <f:param name="planMantenimientoId" value="#{pm.id}"></f:param>
+                                                    </p:button>
+                                                    &nbsp;&nbsp;
+                                                    <!--p:commandButton rendered="# {pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="# {controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
+                                                        <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
+                                                    </p:commandButton-->
+
+                                                    <p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}" update="@form">
+                                                        <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
+
+                                                    </p:commandButton>
+
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                    </p:confirmDialog>
+
+
+
+
+                                                </p:column>
+                                            </p:dataTable>
+                                        </tbody></div></div></div>
+                        </p:panel></div></div></div>
 
         </h:form>
     </ui:define>

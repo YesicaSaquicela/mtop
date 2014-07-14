@@ -100,7 +100,23 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     public void limpiar() {
         palabrab = "";
-        listaPartidaC = findAll(PartidaContabilidad.class);
+        List<PartidaContabilidad> lp = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC.clear();
+        System.out.println("lppp" + lp);
+
+        for (PartidaContabilidad partida : lp) {
+            System.out.println("iddddd" + partida.getId());
+            System.out.println("entro a for lista>>>>" + partida.isEstado());
+            if (partida.isEstado()) {
+                System.out.println("listatesssa" + listaPartidaC);
+                listaPartidaC.add(partida);
+
+                System.out.println("Entro a remover>>>>");
+                System.out.println("a;iadia" + listaPartidaC);
+
+            }
+
+        }
     }
 
     public ArrayList<String> autocompletar(String query) {

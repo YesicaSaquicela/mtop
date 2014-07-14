@@ -41,11 +41,18 @@
                                          rendered="true" />
                             <span class="help-inline text-muted">Número de registro</span><br></br><br></br>
 
+                            <h:outputLabel value="Fecha de Creación" /> <br></br> 
+                            <p:inputText id="fecha" value="#{controladorPlanMantenimiento.instance.createdOn}"
+                                         readonly="true" styleClass="form-control"
+                                         required="true" label="Fecha de Creación" 
+                                         rendered="true" />
+                            <span class="help-inline text-muted">Ingrese la fecha de creación<ocp:message forId="fechaCreacion" /></span><br></br><br></br> 
+
                             <p:outputLabel value="Actividad"/><br></br>
                             <p:inputTextarea id="actividad" required="true" styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
                                              />
                             <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
-         
+
 
                             <h:outputLabel value="Kilometraje"/> <br></br> 
                             <p:selectOneMenu required="true" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
@@ -54,8 +61,8 @@
 
                             </p:selectOneMenu><br></br>
                             <span class="help-inline text-muted">Elija el Kilometraje</span><br></br><br></br> 
-                        
-                           
+
+
                             <div class="admin-actions">
                                 <p:commandButton ajax="false" update=":form:listaa :form:actividad :form:kilometraje"  styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
 

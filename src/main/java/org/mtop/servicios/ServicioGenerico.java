@@ -21,6 +21,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.MapAttribute;
+import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
 //import org.mtop.model.EntidadAbstracta_;
@@ -201,7 +202,26 @@ public class ServicioGenerico {
         //builder.equal(objeto.get(at), true)
     }
     
-   
+     public List<PlanMantenimiento> buscarPlanMporFecha(String nombreatributo, final Object valoratributo) {
+        List<PlanMantenimiento> l= new ArrayList<PlanMantenimiento>();
+        String s="";
+        l.clear();
+        for (PlanMantenimiento t : buscarTodos(PlanMantenimiento.class, nombreatributo)) {
+            
+            s=t.getCreatedOn().toString();
+            System.out.println("valor de SSSSSSSSSSSS"+s);
+            System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
+            if(s.contains(valoratributo.toString())){
+                l.add(t);
+            }
+        }
+        
+        
+       
+        return l;
+
+        //builder.equal(objeto.get(at), true)
+    }
 
 //    public List<Vehiculo> buscarTodos( boolean activo, String valorTipo, final Date f) {
 //        CriteriaBuilder builder = em.getCriteriaBuilder();
