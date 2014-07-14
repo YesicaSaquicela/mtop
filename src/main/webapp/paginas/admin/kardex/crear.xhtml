@@ -224,7 +224,7 @@
                                     <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
                                                      immediate="true"/>
                                     &nbsp;&nbsp;
-                                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/lista" styleClass="btn  btn-success">
+                                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success">
 
                                     </h:button>
                                 </div>
@@ -342,11 +342,12 @@
                                                 <p:commandButton process="@this" id="button-edit" update="@form"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
                                                                  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorKardex.guardarAprobacionS()}" >
                                                     <f:param name="solicitudNum" value="#{solicitudListaServicios.solicitudSeleccionada.numSolicitud}"></f:param>
-
+                                                    
                                                     <f:param name="valorVista" value="kardex"/>
+                                                    <f:setPropertyActionListener value="#{controladorKardex.solicitudSelec}" target="#{solicitudListaServicios.solicitudSeleccionada}"/>
                                                 </p:commandButton>
                                                 #{' '} 
-                                                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/solicitud/lista" styleClass="btn  btn-success"/>
+                                                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success"/>
                                             </div>
                                         </h:form>
                                     </div>
