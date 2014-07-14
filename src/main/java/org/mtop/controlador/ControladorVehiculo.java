@@ -65,51 +65,52 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private ControladorKardex ck;
     private String mensaje = "";
     private ControladorPlanMantenimiento cplanMantenimiento;
-    private String actividadekilometraje = "";
 
-    public String getActividadekilometraje() {
-        return actividadekilometraje;
+    public boolean verificarPlan() {
+        boolean ban = false;
+        for(PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
+            if (pm.getActivado()) {
+                ban = true;
+            } else {
+                ban = false;
+            }
+        }
+        return ban;
     }
 
-    public void setActividadekilometraje(String actividadekilometraje) {
-        this.actividadekilometraje = actividadekilometraje;
-    }
-
-    public void vizualizarActividades(Long vehiculoid, Integer proKilometraje) {
-
+    public void vizualizarActividades(Long vehiculoid) {
         System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
         Vehiculo v = findById(Vehiculo.class, vehiculoid);
+        Integer proKilometraje = obtenerKilometraje(v.getKilometraje());
+        System.out.println("prokilooooooooo" + proKilometraje);
+        actividadplan = new ActividadPlanMantenimiento();
+
         System.out.println("vehiculo iddddddd" + v.getId());
-        if (v.getPlanM() != null) {
-            PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
-            List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
-            //encontrar listas del plan
-            for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
-                if (actividadPlanMantenimiento.getPlanMantenimiento().getId() == pMantenimiento.getId()) {
-                    la.add(actividadPlanMantenimiento);
-                }
-            }
-            System.out.println("lsiat de actividades" + la);
-            //encontrar kilometraje de cada lista del plan
-            for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
-                System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
 
-               
-                System.out.println("proximo kilometraje>>>>>>" + proKilometraje);
-                if (actividadPlanMantenimiento.getKilometraje() == proKilometraje) {
-                    System.out.println("entro..... a comparar");
-                    actividadekilometraje = actividadPlanMantenimiento.getActividad();
-                    System.out.println("fijo la actividad" + actividadekilometraje);
-                    break;
-                }
+        actividadplan.setKilometraje(proKilometraje);
+        PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
+        List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
+        //encontrar listas del plan
+        for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
+            if (actividadPlanMantenimiento.getPlanMantenimiento().getId() == pMantenimiento.getId()) {
+                la.add(actividadPlanMantenimiento);
             }
+        }
+        System.out.println("lsiat de actividades" + la);
+        //encontrar kilometraje de cada lista del plan
+        for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
+            System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
 
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
+            System.out.println("proximo kilometraje>>>>>>" + actividadplan.getKilometraje());
+            if (actividadPlanMantenimiento.getKilometraje().equals(actividadplan.getKilometraje())) {
+                System.out.println("entro..... a comparar");
+                actividadplan.setActividad(actividadPlanMantenimiento.getActividad());
+                System.out.println("fijo la actividad" + actividadplan.getActividad());
+                break;
+            }
         }
 
     }
-
 
     public ActividadPlanMantenimiento getActividadplan() {
         return actividadplan;
@@ -122,7 +123,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     //Actividades por kilometraje
     //metodo para obtener proximo kilometraje
     public Integer obtenerKilometraje(Integer kilometaje) {
-        Integer proKilometraje = null;
+        Integer proKilometraje = 0;
         if (kilometaje < 5000) {
             proKilometraje = 5000;
         } else {
@@ -317,6 +318,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
+        ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
         System.out.println("lista vehiculos" + listaVehiculos);
         List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
         listaVehiculos.clear();
@@ -330,6 +332,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         }
+        verificarPlan();
+        
+//        if (!verificarPlan()) {
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
+//            FacesContext.getCurrentInstance().addMessage("Información", msg);
+//        }
 
     }
 //    public String irCrear(){
@@ -541,7 +549,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 delete(getInstance());
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
             } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
 
             }
 
