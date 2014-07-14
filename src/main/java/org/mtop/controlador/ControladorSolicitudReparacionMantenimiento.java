@@ -239,7 +239,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
-        requisicion=getInstance().getRequisicionId();
+        if (requisicion.getId() == null) {
+            requisicion = getInstance().getRequisicionId();
+        }
+
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         for (ItemSolicitudReparacion itr : findAll(ItemSolicitudReparacion.class)) {
 
@@ -386,6 +389,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             requisicion.setLastUpdate(now);
 
             try {
+                if(getInstance().getRequisicionId()!=null){
+                    Requisicion r=getInstance().getRequisicionId();
+                    r.setSolicitudReparacionId(null);
+                    servgen.actualizar(r);
+                }
                 servgen.actualizar(requisicion);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -415,7 +423,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             System.out.println("Error al crear solicitud");
         }
         System.out.println("antes de fija solicitud");
-       
 
         System.out.println("despues de fijar solicitud");
         return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
@@ -432,8 +439,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setListaItemSR(listaItemsSolicitud);//fija la lista de actividades al plan de mantenimietno
 
     }
-
-  
 
     @Transactional
     public String borrarEntidad() {
