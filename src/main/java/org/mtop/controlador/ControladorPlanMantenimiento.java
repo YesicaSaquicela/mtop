@@ -149,7 +149,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
           List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), query);
         for (PlanMantenimiento planM : lc) {
             System.out.println("econtro uno " + planM.getCreatedOn());
-            ced.add(planM.getCreatedOn().toString());
+            setInstance(planM);
+            ced.add(formato());
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
