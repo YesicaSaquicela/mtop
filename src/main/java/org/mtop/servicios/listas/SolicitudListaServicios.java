@@ -17,6 +17,8 @@ package org.mtop.servicios.listas;
  * limitations under the License.
  */
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -30,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.ControladorSolicitudReparacionMantenimiento;
+import org.mtop.modelo.Kardex;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.SolicitudReparacionMantenimiento_;
 
@@ -70,6 +73,43 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
         }
 
         return resultList;
+    }
+
+    public String guardarSolicitud(Kardex k, Date fe, Date fs) {
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando SOlidituuzzxxzzuuud en guardar en lista de solicitud");
+
+        if (solicitudSeleccionada != null) {
+            if (fe == null || fs == null) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " , " Debe ingresar fecha de entrada y fecha de salida");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            } else {
+                try {
+
+                    System.out.println("recupero solicitud" + solicitudSeleccionada);
+                    solicitudSeleccionada.setKardex(k);
+                    solicitudSeleccionada.setLastUpdate(now);
+                    solicitudSeleccionada.setAprobado(true);
+                    solicitudSeleccionada.setFechaEntradaTaller(fe);
+                    solicitudSeleccionada.setFechaSalidaTaller(fs);
+                    servgen.actualizar(solicitudSeleccionada);
+
+                    System.out.println("guando solicicitud con kardex cooon" + solicitudSeleccionada.getKardex());
+                    k.setLastUpdate(now);
+                    k.getListaSolicitudReparacion().add(solicitudSeleccionada);
+
+                    servgen.actualizar(k);
+                    System.out.println("guardo kardex con solicitudes" + k.getListaSolicitudReparacion());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+        return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
 
     public void setResultList(List<SolicitudReparacionMantenimiento> resultList) {
@@ -166,13 +206,25 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
         /*_filters.put(BussinesEntityType_.name, getSelectedBussinesEntityType()); //Filtro por defecto
          _filters.putAll(filters);*/
         System.out.println("crssssssssssssssssssssssssssssss" + csr);
-        QueryData<SolicitudReparacionMantenimiento> qData=new QueryData<SolicitudReparacionMantenimiento>();
-        
+        QueryData<SolicitudReparacionMantenimiento> qData = new QueryData<SolicitudReparacionMantenimiento>();
+
         try {
             csr.setEntityClass(SolicitudReparacionMantenimiento.class);
             qData = csr.find(first, end, sortField, order, _filters);
+
+            List<SolicitudReparacionMantenimiento> lr = new ArrayList<SolicitudReparacionMantenimiento>();
+
+            for (SolicitudReparacionMantenimiento qd : qData.getResult()) {
+                System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
+                if (qd.getAprobado() == false) {
+                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
+                    lr.add(qd);
+                }
+
+            }
+            qData.setResult(lr);
             this.setRowCount(qData.getTotalResultCount().intValue());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

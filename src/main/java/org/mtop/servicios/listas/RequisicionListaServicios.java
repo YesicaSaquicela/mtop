@@ -58,6 +58,7 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     private int firstResult = 0;
     private Requisicion[] requisicionSeleccionadas;
     private Requisicion requisicionSeleccionada; //Filtro de cuenta schema
+    private String estado;
 
     public RequisicionListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -65,15 +66,42 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     }
 
     public List<Requisicion> getResultList() {
-        if (resultList.isEmpty() /*&& getSelectedBussinesEntityType() != null*/) {
-            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
-        }
 
         return resultList;
     }
 
     public void setResultList(List<Requisicion> resultList) {
         this.resultList = resultList;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+//        if ("noAprobada".equals(estado)) {
+//            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            List<Requisicion> resultado = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            resultList.clear();
+//            System.out.println("\n>>>>\n>>>\nentro a noAprobada>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n>>>>\n>>>\n");
+//            for (Requisicion requisicion : resultado) {
+//                if (requisicion.getAprobado() == false) {
+//                    resultList.add(requisicion);
+//                }
+//            }
+//        } else {
+//            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            List<Requisicion> resultado = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            resultList.clear();
+//            System.out.println("\n>>>>\n>>>\nentro a aprobada>>>>>>>>>>>>>>>>>>>>>>>\n>>>>\n>>>\n");
+//            for (Requisicion requisicion : resultado) {
+//                if (requisicion.getAprobado() == true) {
+//                    resultList.add(requisicion);
+//                }
+//            }
+//        }
+        System.out.println("entro a fijR ESTADOOOOO" + estado);
+        this.estado = estado;
     }
 
     public String find() {
@@ -119,6 +147,7 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         log.info("Setup entityManager into bussinesEntityTypeService...");
         servgen.setEm(em);
 
+
     }
 
     @Override
@@ -148,8 +177,6 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         this.requisicionSeleccionada = requisicionSeleccionada;
     }
 
-   
-
     @Override
     public List<Requisicion> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
         ControladorRequisicion csr = new ControladorRequisicion();
@@ -168,13 +195,25 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         /*_filters.put(BussinesEntityType_.name, getSelectedBussinesEntityType()); //Filtro por defecto
          _filters.putAll(filters);*/
         System.out.println("crssssssssssssssssssssssssssssss" + csr);
-        QueryData<Requisicion> qData=new QueryData<Requisicion>();
-        
+        QueryData<Requisicion> qData = new QueryData<Requisicion>();
+
         try {
             csr.setEntityClass(Requisicion.class);
             qData = csr.find(first, end, sortField, order, _filters);
-            this.setRowCount(qData.getTotalResultCount().intValue());
+            List<Requisicion> lr = new ArrayList<Requisicion>();
+           
             
+            for (Requisicion qd : qData.getResult()) {
+                System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
+                if (qd.getAprobado() == false) {
+                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n"+qd);
+                    lr.add(qd);
+                }
+
+            }
+            qData.setResult(lr);
+            this.setRowCount(qData.getTotalResultCount().intValue());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

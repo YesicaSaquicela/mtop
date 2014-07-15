@@ -267,28 +267,33 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void setSolicitudId(Long id) {
+          
+        System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
         solicitud = findById(SolicitudReparacionMantenimiento.class, id);
         Date now = Calendar.getInstance().getTime();
-        System.out.println("fijando SOlidituuuuud en guardar");
 
         if (solicitud != null) {
 
             try {
 
-                System.out.println("recupero solicitud" + solicitud);
-                solicitud.setKardex(getInstance());
+                System.out.println("\n\n\n\n\nrecupero solicitud\n" + solicitud);
+                solicitud.setKardex(null);
                 solicitud.setLastUpdate(now);
-                solicitud.setAprobado(true);
-                solicitud.setKardex(getInstance());
-                solicitud.setFechaEntradaTaller(fechaEntrada);
+                solicitud.setAprobado(false);
+                System.out.println("fechaaaa"+fechaEntrada); 
+                System.out.println("fechaaaa"+fechaSalida);
+               solicitud.setFechaEntradaTaller(fechaEntrada);
                 solicitud.setFechaSalidaTaller(fechaSalida);
+                 System.out.println("fechaaaa"+solicitud.getFechaEntradaTaller()); 
+                System.out.println("fechaaaa"+solicitud.getFechaSalidaTaller());
                 save(solicitud);
-                System.out.println("guando solicicitud con kardex cooon" + solicitud.getKardex());
+                System.out.println("\n\n\n\n\n\n\nguando solicicitud con kardex cooon" + solicitud.getKardex());
                 getInstance().setLastUpdate(now);
-                getInstance().getListaSolicitudReparacion().add(solicitud);
+                System.out.println("\n\n\n\nantessguardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                getInstance().getListaSolicitudReparacion().remove(solicitud);
 
                 servgen.actualizar(getInstance());
-                System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                System.out.println("\n\n\n\nguardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
                 fechaEntrada = new Date();
                 fechaSalida = new Date();
             } catch (Exception e) {
@@ -352,17 +357,15 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
             try {
 
-                System.out.println("recupero solicitud" + solicitud);
-                solicitud.setKardex(getInstance());
-                solicitud.setLastUpdate(now);
-                solicitud.setAprobado(true);
-                solicitud.setKardex(getInstance());
-                solicitud.setFechaEntradaTaller(fechaEntrada);
-                solicitud.setFechaSalidaTaller(fechaSalida);
-                save(solicitud);
-                System.out.println("guando solicicitud con kardex cooon" + solicitud.getKardex());
+                System.out.println("recupero requisicion " +requisicion);
+                requisicion.setKardex(getInstance());
+                requisicion.setLastUpdate(now);
+                requisicion.setAprobado(true);
+                requisicion.setKardex(getInstance());
+                save(requisicion);
+                System.out.println("guando requi coon con kardex cooon" + requisicion.getKardex());
                 getInstance().setLastUpdate(now);
-                getInstance().getListaSolicitudReparacion().add(solicitud);
+                getInstance().getListaRequisicion().add(requisicion);
 
                 servgen.actualizar(getInstance());
                 System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
@@ -376,7 +379,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
 
         System.out.println("fijanddsasadasdadassssssssssss");
-        // return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
+       // return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
     
     
@@ -394,6 +397,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 requisicion.setLastUpdate(now);
                 requisicion.setAprobado(true);
                 requisicion.setKardex(getInstance());
+                
                 save(requisicion);
                 System.out.println("guando requisicion con kardex cooon" + requisicion.getKardex());
                 getInstance().setLastUpdate(now);
