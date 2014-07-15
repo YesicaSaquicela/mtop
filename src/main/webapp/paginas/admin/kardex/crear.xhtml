@@ -149,7 +149,7 @@
                                                 <f:param name="valorVista" value="solicitud"></f:param>
                                                 <f:param name="solicitudId" value="#{controladorKardex.solicitudId}"></f:param>
                                             </p:commandButton>
-                                          
+
 
                                             <br/><br/>
                                             <div class="tab-content">
@@ -184,7 +184,11 @@
 
                                         </p:tab>
                                         <p:tab title="Requisiciones" closable="false"  titleStyleClass="clearfix" >
-
+                                            <p:commandButton update="@form"  process="@this" value="Aprobar Requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
+                                                <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
+                                                <f:param name="valorVista" value="requisicion"></f:param>
+                                                <f:param name="requisicionId" value="#{controladorKardex.solicitudId}"></f:param>
+                                            </p:commandButton><br/><br/>
 
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="todas">
@@ -295,7 +299,8 @@
 
 
                                                         <tbody>
-                                                     
+                                                            <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
+
                                                             <p:dataTable rendered="#{controladorKardex.vista eq 'solicitud'}" id="basicDT12" var="items" value="#{solicitudListaServicios}"
                                                                          lazy="true"   
                                                                          paginator="true" rows="15"                         
@@ -303,12 +308,12 @@
                                                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
                                                                          rowsPerPageTemplate="5,10,15,20"
                                                                          selection="#{solicitudListaServicios.solicitudSeleccionada}"
-                                                                         
+
                                                                          selectionMode="single">
                                                                 <p:ajax event="rowSelect" listener="#{solicitudListaServicios.onRowSelect}"   
                                                                         update=":form:forms:mensaje :form:forms:button-edit "/>  
                                                                 <p:ajax event="rowUnselect" listener="#{solicitudListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
-                                                                
+
                                                                 <p:column headerText="Número" sortBy="#{items.id}">
                                                                     <h:outputText value="#{items.numSolicitud}" />
                                                                 </p:column>
@@ -332,26 +337,26 @@
 
 
                                             <div class="admin-actions " align="center"> 
-                                              
-                                                
+
+
                                                 <!--h:link rendered="true" id="button-edit"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
-                                                        styleClass="btn  btn-success" outcome="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
+                                                        styleClass="btn  btn-success" onclick="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
                                                     <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
                                                     <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
                                                     
                                                     <f:param name="valorVista" value="kardex"/>
                                                     
                                                 </h:link-->
-                                                
-                                                <p:commandButton rendered="true" immediate="false" ajax="true" id="button-edit"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
-                                                                  update="@form"  styleClass="btn  btn-success"  action="/paginas/admin/kardex/crear.xhtml?faces-redirect=true" >
+
+                                                <p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
+                                                                 styleClass="btn  btn-success"  action="#{controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
                                                     <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                                                     <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-                                                    
+
                                                     <f:param name="valorVista" value="kardex"/>
-                                                    
+
                                                 </p:commandButton>
-                                                
+
                                                 #{' '} 
                                                 <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success"/>
                                             </div>
@@ -394,49 +399,60 @@
                                                         <tbody>
                                                             <p:messages id="mensajer" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            
+
                                                             <p:dataTable var="items" id="basicDT13" rendered="#{controladorKardex.vista eq 'requisicion'}" value="#{requisicionListaServicios}"
                                                                          lazy="true"              
                                                                          paginator="true" rows="15"                         
                                                                          paginatorPosition="top"
                                                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
                                                                          rowsPerPageTemplate="5,10,15,20"
-                                                                         selection="#{solicitudListaServicios.solicitudSeleccionada}"
-                                                                         
+                                                                         selection="#{requisicionListaServicios.requisicionSeleccionada}"
+
                                                                          selectionMode="single">
+                                                                
+                                                                <p:ajax event="rowSelect" listener="#{requisicionListaServicios.onRowSelect}"   
+                                                                        update=":form:forms:mensaje :form:forms:button-edit2 "/>  
+                                                                <p:ajax event="rowUnselect" listener="#{requisicionListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
+ 
                                                                 <p:column headerText="Número">
-                                                                    <h:outputText value="#{items.numSolicitud}" />
+                                                                    <h:outputText value="#{items.numRequisicion}" />
                                                                 </p:column>
                                                                 <p:column headerText="Fecha">
-                                                                    <h:outputText value="#{items.fechaSolicitud}" />
+                                                                    <h:outputText value="#{items.fechaRequisicion}" />
                                                                 </p:column>
                                                                 <p:column headerText="Observación">
-                                                                    <h:outputText value="#{items.observacion}" />
+                                                                    <h:outputText value="#{items.observaciones}" />
                                                                 </p:column>
 
-                                                                <p:column headerText="Acciones" style="width:4%;text-align: center">
-                                                                    <h:link value="Editar" outcome="crear" type="button" >
-                                                                        <f:param name="kardexId" value="#{items.id}"></f:param>
-                                                                        <f:param name="valorVista" value="kardex"></f:param>
 
-                                                                    </h:link>
-                                                                    <p:commandLink update=":form:forms:sol :form:mensaje" value="Agregar" title="Seleccionar">
-                                                                        <f:param name="kardexId" value="#{items.id}"></f:param>
-                                                                        <f:param name="valorVista" value="kardex"></f:param>
-                                                                    </p:commandLink>
-                                                                </p:column>
                                                             </p:dataTable>
                                                             <br/>
-                                                            <h:outputText value="solicitud id: " />
-                                                            <p:inputText immediate="true" id="sol" value="#{controladorKardex.solicitud.id}" rendered="true"
-                                                                         required="true" readonly="true" /><br/>
+
                                                         </tbody>
                                                     </div>
                                                 </div>
 
-
                                                 <div class="admin-actions " align="center"> 
-                                                    <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorKardex.guardarAprobacionS()}" />
+
+
+                                                    <!--h:link rendered="true" id="button-edit"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
+                                                            styleClass="btn  btn-success" onclick="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
+                                                        <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                                                        <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
+                                                        
+                                                        <f:param name="valorVista" value="kardex"/>
+                                                        
+                                                    </h:link>
+
+                                                    <p:commandButton rendered="true" id="button-edit2" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="#{requisicionListaServicios.requisicionSeleccionada == null}"  value="Guardar"
+                                                                     styleClass="btn  btn-success"  action="#{controladorKardex.guardarRequisicion(requisicionListaServicios.requisicionSeleccionada)}" >
+                                                        <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                                                        <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
+
+                                                        <f:param name="valorVista" value="kardex"/>
+
+                                                    </p:commandButton-->
+
                                                     #{' '} 
                                                     <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success"/>
                                                 </div>

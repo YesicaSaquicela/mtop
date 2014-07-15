@@ -30,9 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.ControladorRequisicion;
-import org.mtop.controlador.ControladorSolicitudReparacionMantenimiento;
 import org.mtop.modelo.Requisicion;
-import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.Requisicion_;
 
 import org.mtop.servicios.ServicioGenerico;
@@ -58,8 +56,8 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     private ServicioGenerico servgen;
     private List<Requisicion> resultList;
     private int firstResult = 0;
-    private SolicitudReparacionMantenimiento[] requisicionSeleccionadas;
-    private SolicitudReparacionMantenimiento requisicionSeleccionada; //Filtro de cuenta schema
+    private Requisicion[] requisicionSeleccionadas;
+    private Requisicion requisicionSeleccionada; //Filtro de cuenta schema
 
     public RequisicionListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -134,19 +132,19 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         return entity.getId();
     }
 
-    public SolicitudReparacionMantenimiento[] getRequisicionSeleccionadas() {
+    public Requisicion[] getRequisicionSeleccionadas() {
         return requisicionSeleccionadas;
     }
 
-    public void setRequisicionSeleccionadas(SolicitudReparacionMantenimiento[] requisicionSeleccionadas) {
+    public void setRequisicionSeleccionadas(Requisicion[] requisicionSeleccionadas) {
         this.requisicionSeleccionadas = requisicionSeleccionadas;
     }
 
-    public SolicitudReparacionMantenimiento getRequisicionSeleccionada() {
+    public Requisicion getRequisicionSeleccionada() {
         return requisicionSeleccionada;
     }
 
-    public void setRequisicionSeleccionada(SolicitudReparacionMantenimiento requisicionSeleccionada) {
+    public void setRequisicionSeleccionada(Requisicion requisicionSeleccionada) {
         this.requisicionSeleccionada = requisicionSeleccionada;
     }
 
@@ -185,13 +183,13 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     }
 
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
+        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una requisición con id "), ((Requisicion) event.getObject()).getNumRequisicion());
 
         FacesContext.getCurrentInstance().addMessage("", msg);
     }
 
     public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha deseleccionado la solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
+        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha deseleccionado la requisición con id "), ((Requisicion) event.getObject()).getNumRequisicion());
 
         FacesContext.getCurrentInstance().addMessage("", msg);
         this.setRequisicionSeleccionada(null);

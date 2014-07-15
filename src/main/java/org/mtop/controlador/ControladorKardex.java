@@ -109,6 +109,18 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     }
 
+    public void irARequisicion() {
+        this.vista = "requisicion";
+        System.out.println("fijando a >>>>" + this.vista);
+
+    }
+
+    public String irAKardex() {
+        this.vista = "kardex";
+        System.out.println("fijando a >>>>" + this.vista);
+        return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
+    }
+
     public String getVista() {
         System.out.println("retornando vistaaaaa" + vista);
         return vista;
@@ -246,20 +258,19 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public Long getSolicitudId() {
-        if(solicitud!=null){
+        if (solicitud != null) {
             return solicitud.getId();
-        }else{
-            return  0l;
+        } else {
+            return 0l;
         }
-        
 
     }
 
     public void setSolicitudId(Long id) {
-        solicitud=findById(SolicitudReparacionMantenimiento.class, id);
+        solicitud = findById(SolicitudReparacionMantenimiento.class, id);
         Date now = Calendar.getInstance().getTime();
         System.out.println("fijando SOlidituuuuud en guardar");
-        
+
         if (solicitud != null) {
 
             try {
@@ -290,10 +301,53 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("fijanddsasadasdadassssssssssss");
     }
 
-    public String guardarSolicitud(SolicitudReparacionMantenimiento sol) {
+    public Long getRequisicionId() {
+        if (solicitud != null) {
+            return solicitud.getId();
+        } else {
+            return 0l;
+        }
+
+    }
+
+    public void setRequisicionId(Long id) {
+        requisicion = findById(Requisicion.class, id);
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando REquisicion en guardar");
+
+        if (solicitud != null) {
+
+            try {
+
+                System.out.println("recupero requisicion " +requisicion);
+                requisicion.setKardex(getInstance());
+                requisicion.setLastUpdate(now);
+                requisicion.setAprobado(true);
+                requisicion.setKardex(getInstance());
+                save(requisicion);
+                System.out.println("guando requi coon con kardex cooon" + requisicion.getKardex());
+                getInstance().setLastUpdate(now);
+                getInstance().getListaRequisicion().add(requisicion);
+
+                servgen.actualizar(getInstance());
+                System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                fechaEntrada = new Date();
+                fechaSalida = new Date();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            solicitud.setNumSolicitud("");
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+    }
+
+    public void guardarSolicitud(SolicitudReparacionMantenimiento sol) {
         Date now = Calendar.getInstance().getTime();
         System.out.println("fijando SOlidituuzzxxzzuuud en guardar");
         solicitud = sol;
+        setVista("kardex");
         if (solicitud != null) {
 
             try {
@@ -322,7 +376,42 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
 
         System.out.println("fijanddsasadasdadassssssssssss");
-         return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
+        // return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
+    }
+    
+    
+    public void guardarRequisicion(Requisicion req) {
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando SOlidituuzzxxzzuuud en guardar");
+        requisicion = req;
+        setVista("kardex");
+        if (solicitud != null) {
+
+            try {
+
+                System.out.println("recupero requisicion" + requisicion);
+                requisicion.setKardex(getInstance());
+                requisicion.setLastUpdate(now);
+                requisicion.setAprobado(true);
+                requisicion.setKardex(getInstance());
+                save(requisicion);
+                System.out.println("guando requisicion con kardex cooon" + requisicion.getKardex());
+                getInstance().setLastUpdate(now);
+                getInstance().getListaRequisicion().add(requisicion);
+
+                servgen.actualizar(getInstance());
+                System.out.println("guardo kardex con solicitudes" + getInstance().getListaRequisicion());
+                fechaEntrada = new Date();
+                fechaSalida = new Date();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            solicitud.setNumSolicitud("");
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+        // return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute   //
