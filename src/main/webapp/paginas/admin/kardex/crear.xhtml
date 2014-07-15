@@ -17,7 +17,7 @@
     <f:metadata>
         <f:viewParam id="kardexx" name="kardexId" value="#{controladorKardex.kardexId}"/>
         <f:viewParam id="vistaaa" name="valorVista" value="#{controladorKardex.vista}"/>
-        <f:viewParam id="solicituddd" name="solicitudNum" value="#{controladorKardex.solicitud.numSolicitud}"/>
+        <f:viewParam id="solicituddd" name="solicitudId" value="#{controladorKardex.solicitudId}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -147,7 +147,7 @@
                                             <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="solicitud"></f:param>
-                                                <f:param name="solicitudId" value="#{controladorKardex.solicitud.numSolicitud}"></f:param>
+                                                <f:param name="solicitudId" value="#{controladorKardex.solicitudId}"></f:param>
                                             </p:commandButton>
                                           
 
@@ -269,13 +269,13 @@
 
                                             <!--Botones de admin-->
                                             <p:outputLabel value="Fecha de Entrada a Taller:*"/>
-                                            <p:calendar  id="fechaEntrada" value="#{controladorKardex.solicitud.fechaEntradaTaller}"  label="Fecha Entrada al Taller "
+                                            <p:calendar  id="fechaEntrada" value="#{controladorKardex.fechaEntrada}"  label="Fecha Entrada al Taller "
                                                          styleClass="xLarge" required="true" 
                                                          locale="es" pattern="dd-MMM-yyyy">   
                                                 <p:ajax event="dateSelect" rendered="save" />  
                                             </p:calendar><br/><br/> 
                                             <p:outputLabel value="Fecha de Salida de Taller:*"/>
-                                            <p:calendar  id="fechaSalida" value="#{controladorKardex.solicitud.fechaSalidaTaller}"  label="Fecha Salida de Taller "
+                                            <p:calendar  id="fechaSalida" value="#{controladorKardex.fechaSalida}"  label="Fecha Salida de Taller "
                                                          styleClass="xLarge" required="true" 
                                                          locale="es" pattern="dd-MMM-yyyy">   
                                                 <p:ajax event="dateSelect" rendered="save" />  
@@ -295,10 +295,9 @@
 
 
                                                         <tbody>
-                                                            <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
-
+                                                     
                                                             <p:dataTable rendered="#{controladorKardex.vista eq 'solicitud'}" id="basicDT12" var="items" value="#{solicitudListaServicios}"
-                                                                         lazy="true"              
+                                                                         lazy="true"   
                                                                          paginator="true" rows="15"                         
                                                                          paginatorPosition="top"
                                                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
@@ -309,7 +308,7 @@
                                                                 <p:ajax event="rowSelect" listener="#{solicitudListaServicios.onRowSelect}"   
                                                                         update=":form:forms:mensaje :form:forms:button-edit "/>  
                                                                 <p:ajax event="rowUnselect" listener="#{solicitudListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
-
+                                                                
                                                                 <p:column headerText="Número" sortBy="#{items.id}">
                                                                     <h:outputText value="#{items.numSolicitud}" />
                                                                 </p:column>
@@ -333,19 +332,26 @@
 
 
                                             <div class="admin-actions " align="center"> 
-                                                <!--h:link id="button-edit1" value="Aprobar" rendered="#{true}" outcome="#{controladorKardex.guardarAprobacionS()}" styleClass="btn"
-                                                        disabled="#{solicitudListaServicios.solicitudSeleccionada == null}" >
-                                                    <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-
-                                                    <f:viewParam name="valorVista" value="kardex"/>
-                                                </h:link--> 
-                                                <p:commandButton process="@this" id="button-edit" update="@form"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
-                                                                 icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorKardex.guardarAprobacionS()}" >
-                                                    <f:param name="solicitudNum" value="#{solicitudListaServicios.solicitudSeleccionada.numSolicitud}"></f:param>
+                                              
+                                                
+                                                <!--h:link rendered="true" id="button-edit"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
+                                                        styleClass="btn  btn-success" outcome="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
+                                                    <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                                                    <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
                                                     
                                                     <f:param name="valorVista" value="kardex"/>
-                                                    <f:setPropertyActionListener value="#{controladorKardex.solicitudSelec}" target="#{solicitudListaServicios.solicitudSeleccionada}"/>
+                                                    
+                                                </h:link-->
+                                                
+                                                <p:commandButton rendered="true" immediate="false" ajax="true" id="button-edit"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
+                                                                  update="@form"  styleClass="btn  btn-success"  action="/paginas/admin/kardex/crear.xhtml?faces-redirect=true" >
+                                                    <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                                                    <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
+                                                    
+                                                    <f:param name="valorVista" value="kardex"/>
+                                                    
                                                 </p:commandButton>
+                                                
                                                 #{' '} 
                                                 <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success"/>
                                             </div>
