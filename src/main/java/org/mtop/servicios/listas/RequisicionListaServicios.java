@@ -30,9 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.ControladorRequisicion;
-import org.mtop.controlador.ControladorSolicitudReparacionMantenimiento;
 import org.mtop.modelo.Requisicion;
-import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.Requisicion_;
 
 import org.mtop.servicios.ServicioGenerico;
@@ -58,8 +56,9 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     private ServicioGenerico servgen;
     private List<Requisicion> resultList;
     private int firstResult = 0;
-    private SolicitudReparacionMantenimiento[] requisicionSeleccionadas;
-    private SolicitudReparacionMantenimiento requisicionSeleccionada; //Filtro de cuenta schema
+    private Requisicion[] requisicionSeleccionadas;
+    private Requisicion requisicionSeleccionada; //Filtro de cuenta schema
+    private String estado;
 
     public RequisicionListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -67,15 +66,42 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     }
 
     public List<Requisicion> getResultList() {
-        if (resultList.isEmpty() /*&& getSelectedBussinesEntityType() != null*/) {
-            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
-        }
 
         return resultList;
     }
 
     public void setResultList(List<Requisicion> resultList) {
         this.resultList = resultList;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+//        if ("noAprobada".equals(estado)) {
+//            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            List<Requisicion> resultado = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            resultList.clear();
+//            System.out.println("\n>>>>\n>>>\nentro a noAprobada>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n>>>>\n>>>\n");
+//            for (Requisicion requisicion : resultado) {
+//                if (requisicion.getAprobado() == false) {
+//                    resultList.add(requisicion);
+//                }
+//            }
+//        } else {
+//            resultList = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            List<Requisicion> resultado = servgen.find(Requisicion.class, Requisicion_.numRequisicion.getName(), this.getPageSize(), firstResult);
+//            resultList.clear();
+//            System.out.println("\n>>>>\n>>>\nentro a aprobada>>>>>>>>>>>>>>>>>>>>>>>\n>>>>\n>>>\n");
+//            for (Requisicion requisicion : resultado) {
+//                if (requisicion.getAprobado() == true) {
+//                    resultList.add(requisicion);
+//                }
+//            }
+//        }
+        System.out.println("entro a fijR ESTADOOOOO" + estado);
+        this.estado = estado;
     }
 
     public String find() {
@@ -121,6 +147,7 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         log.info("Setup entityManager into bussinesEntityTypeService...");
         servgen.setEm(em);
 
+
     }
 
     @Override
@@ -134,23 +161,21 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         return entity.getId();
     }
 
-    public SolicitudReparacionMantenimiento[] getRequisicionSeleccionadas() {
+    public Requisicion[] getRequisicionSeleccionadas() {
         return requisicionSeleccionadas;
     }
 
-    public void setRequisicionSeleccionadas(SolicitudReparacionMantenimiento[] requisicionSeleccionadas) {
+    public void setRequisicionSeleccionadas(Requisicion[] requisicionSeleccionadas) {
         this.requisicionSeleccionadas = requisicionSeleccionadas;
     }
 
-    public SolicitudReparacionMantenimiento getRequisicionSeleccionada() {
+    public Requisicion getRequisicionSeleccionada() {
         return requisicionSeleccionada;
     }
 
-    public void setRequisicionSeleccionada(SolicitudReparacionMantenimiento requisicionSeleccionada) {
+    public void setRequisicionSeleccionada(Requisicion requisicionSeleccionada) {
         this.requisicionSeleccionada = requisicionSeleccionada;
     }
-
-   
 
     @Override
     public List<Requisicion> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
@@ -170,13 +195,25 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         /*_filters.put(BussinesEntityType_.name, getSelectedBussinesEntityType()); //Filtro por defecto
          _filters.putAll(filters);*/
         System.out.println("crssssssssssssssssssssssssssssss" + csr);
-        QueryData<Requisicion> qData=new QueryData<Requisicion>();
-        
+        QueryData<Requisicion> qData = new QueryData<Requisicion>();
+
         try {
             csr.setEntityClass(Requisicion.class);
             qData = csr.find(first, end, sortField, order, _filters);
-            this.setRowCount(qData.getTotalResultCount().intValue());
+            List<Requisicion> lr = new ArrayList<Requisicion>();
+           
             
+            for (Requisicion qd : qData.getResult()) {
+                System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
+                if (qd.getAprobado() == false) {
+                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n"+qd);
+                    lr.add(qd);
+                }
+
+            }
+            qData.setResult(lr);
+            this.setRowCount(qData.getTotalResultCount().intValue());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,13 +222,13 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     }
 
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
+        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una requisición con id "), ((Requisicion) event.getObject()).getNumRequisicion());
 
         FacesContext.getCurrentInstance().addMessage("", msg);
     }
 
     public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha deseleccionado la solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
+        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha deseleccionado la requisición con id "), ((Requisicion) event.getObject()).getNumRequisicion());
 
         FacesContext.getCurrentInstance().addMessage("", msg);
         this.setRequisicionSeleccionada(null);

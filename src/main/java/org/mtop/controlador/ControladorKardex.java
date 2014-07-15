@@ -68,15 +68,23 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     private List<SolicitudReparacionMantenimiento> listaSol;
     private SolicitudReparacionMantenimiento solicitud;
     private Requisicion requisicion;
-    SolicitudReparacionMantenimiento solicitudSelec;
+    private Date fechaEntrada;
+    private Date fechaSalida;
 
-    public SolicitudReparacionMantenimiento getSolicitudSelec() {
-        return solicitudSelec;
+    public Date getFechaEntrada() {
+        return fechaEntrada;
     }
 
-    public void setSolicitudSelec(SolicitudReparacionMantenimiento solicitudSelec) {
-        this.solicitudSelec = solicitudSelec;
-        System.out.println("sijando soli"+solicitudSelec);
+    public void setFechaEntrada(Date fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public Date getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(Date fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
     public Requisicion getRequisicion() {
@@ -95,59 +103,22 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.listaSol = listaSol;
     }
 
-    public void fijarSol(SolicitudReparacionMantenimiento s) {
-        setSolicitud(solicitud);
-    }
-
     public void irASolicitud() {
         this.vista = "solicitud";
         System.out.println("fijando a >>>>" + this.vista);
 
     }
 
-    public void guardarAprobacionS() {
-        try {
-            Date now = Calendar.getInstance().getTime();
-            solicitudSelec.setLastUpdate(now);
-            solicitudSelec.setAprobado(true);
-            solicitudSelec.setKardex(getInstance());
-            solicitudSelec.setFechaEntradaTaller(solicitud.getFechaEntradaTaller());
-            solicitudSelec.setFechaSalidaTaller(solicitud.getFechaSalidaTaller());
-            save(solicitudSelec);
-            getInstance().setLastUpdate(now);
-            getInstance().getListaSolicitudReparacion().add(solicitud);
-
-            servgen.actualizar(getInstance());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void irARequisicion() {
+        this.vista = "requisicion";
+        System.out.println("fijando a >>>>" + this.vista);
 
     }
 
-    public void guardarAprobacionR() {
-        try {
-            Date now = Calendar.getInstance().getTime();
-            requisicion.setLastUpdate(now);
-
-            requisicion.setAprobado(true);
-            requisicion.setKardex(getInstance());
-            save(requisicion);
-            getInstance().setLastUpdate(now);
-            getInstance().getListaRequisicion().add(requisicion);
-
-            save(getInstance());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public SolicitudReparacionMantenimiento getSolicitud() {
-        return solicitud;
-    }
-
-    public void setSolicitud(SolicitudReparacionMantenimiento solicitud) {
-        this.solicitud = solicitud;
+    public String irAKardex() {
+        this.vista = "kardex";
+        System.out.println("fijando a >>>>" + this.vista);
+        return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
 
     public String getVista() {
@@ -281,36 +252,170 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void setKardexId(Long kardexId) {
+        System.out.println("recuprando krdezzzzzzzz");
         setId(kardexId);
 
     }
 
-    public String getSolicitudNum() {
-
-        return solicitud.getNumSolicitud();
+    public Long getSolicitudId() {
+        if (solicitud != null) {
+            return solicitud.getId();
+        } else {
+            return 0l;
+        }
 
     }
 
-    public void setSolicitudNum(String solicitudNum) {
+    public void setSolicitudId(Long id) {
+          
+        System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
+        solicitud = findById(SolicitudReparacionMantenimiento.class, id);
         Date now = Calendar.getInstance().getTime();
-        System.out.println("fijanddsasadasdadas");
 
-        if (!solicitudNum.equals("")) {
-            listaSol = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
-            for (SolicitudReparacionMantenimiento so : listaSol) {
-                if (so.getNumSolicitud().equals(solicitudNum)) {
-                    solicitud = so;
-                    System.out.println("fijo una solicitud con numero" + so.getNumSolicitud());
-                }
+        if (solicitud != null) {
+
+            try {
+
+                System.out.println("\n\n\n\n\nrecupero solicitud\n" + solicitud);
+                solicitud.setKardex(null);
+                solicitud.setLastUpdate(now);
+                solicitud.setAprobado(false);
+                System.out.println("fechaaaa"+fechaEntrada); 
+                System.out.println("fechaaaa"+fechaSalida);
+               solicitud.setFechaEntradaTaller(fechaEntrada);
+                solicitud.setFechaSalidaTaller(fechaSalida);
+                 System.out.println("fechaaaa"+solicitud.getFechaEntradaTaller()); 
+                System.out.println("fechaaaa"+solicitud.getFechaSalidaTaller());
+                save(solicitud);
+                System.out.println("\n\n\n\n\n\n\nguando solicicitud con kardex cooon" + solicitud.getKardex());
+                getInstance().setLastUpdate(now);
+                System.out.println("\n\n\n\nantessguardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                getInstance().getListaSolicitudReparacion().remove(solicitud);
+
+                servgen.actualizar(getInstance());
+                System.out.println("\n\n\n\nguardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                fechaEntrada = new Date();
+                fechaSalida = new Date();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            solicitud.setKardex(getInstance());
-            solicitud.setLastUpdate(now);
-            save(solicitud);
         } else {
             solicitud.setNumSolicitud("");
         }
 
         System.out.println("fijanddsasadasdadassssssssssss");
+    }
+
+    public Long getRequisicionId() {
+        if (solicitud != null) {
+            return solicitud.getId();
+        } else {
+            return 0l;
+        }
+
+    }
+
+    public void setRequisicionId(Long id) {
+        requisicion = findById(Requisicion.class, id);
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando REquisicion en guardar");
+
+        if (solicitud != null) {
+
+            try {
+
+                System.out.println("recupero requisicion " +requisicion);
+                requisicion.setKardex(getInstance());
+                requisicion.setLastUpdate(now);
+                requisicion.setAprobado(true);
+                requisicion.setKardex(getInstance());
+                save(requisicion);
+                System.out.println("guando requi coon con kardex cooon" + requisicion.getKardex());
+                getInstance().setLastUpdate(now);
+                getInstance().getListaRequisicion().add(requisicion);
+
+                servgen.actualizar(getInstance());
+                System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                fechaEntrada = new Date();
+                fechaSalida = new Date();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            solicitud.setNumSolicitud("");
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+    }
+
+    public void guardarSolicitud(SolicitudReparacionMantenimiento sol) {
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando SOlidituuzzxxzzuuud en guardar");
+        solicitud = sol;
+        setVista("kardex");
+        if (solicitud != null) {
+
+            try {
+
+                System.out.println("recupero requisicion " +requisicion);
+                requisicion.setKardex(getInstance());
+                requisicion.setLastUpdate(now);
+                requisicion.setAprobado(true);
+                requisicion.setKardex(getInstance());
+                save(requisicion);
+                System.out.println("guando requi coon con kardex cooon" + requisicion.getKardex());
+                getInstance().setLastUpdate(now);
+                getInstance().getListaRequisicion().add(requisicion);
+
+                servgen.actualizar(getInstance());
+                System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+                fechaEntrada = new Date();
+                fechaSalida = new Date();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            solicitud.setNumSolicitud("");
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+       // return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
+    }
+    
+    
+    public void guardarRequisicion(Requisicion req) {
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando SOlidituuzzxxzzuuud en guardar");
+        requisicion = req;
+        setVista("kardex");
+        if (solicitud != null) {
+
+            try {
+
+                System.out.println("recupero requisicion" + requisicion);
+                requisicion.setKardex(getInstance());
+                requisicion.setLastUpdate(now);
+                requisicion.setAprobado(true);
+                requisicion.setKardex(getInstance());
+                
+                save(requisicion);
+                System.out.println("guando requisicion con kardex cooon" + requisicion.getKardex());
+                getInstance().setLastUpdate(now);
+                getInstance().getListaRequisicion().add(requisicion);
+
+                servgen.actualizar(getInstance());
+                System.out.println("guardo kardex con solicitudes" + getInstance().getListaRequisicion());
+                fechaEntrada = new Date();
+                fechaSalida = new Date();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            solicitud.setNumSolicitud("");
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+        // return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute   //
