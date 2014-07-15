@@ -27,13 +27,51 @@
                     <div class="panel panel-primary">
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-
-                            <!--Botones de admin-->
                             <div class="admin-actions">
-                                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/producto/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                                    <f:param name="productoId" ></f:param>
-                                </p:commandButton><br/><br/>
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
+
+
+                                                    <div class="col-lg-6">
+
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorProducto.palabrab}"   
+                                                                                completeMethod="#{controladorProducto.autocompletar}"/> 
+                                                                &nbsp;&nbsp;
+
+
+
+
+
+                                                                <p:commandButton value="Buscar" update=":form:listap" action="#{controladorProducto.buscar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+
+                                                                <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorProducto.limpiar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+                                <div class="admin-actions">
+                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/producto/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                        <f:param name="productoId" ></f:param>
+                                    </p:commandButton><br/><br/>
+                                </div><br/><br/>
                             </div>
+                            <!--Botones de admin-->
+
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -51,15 +89,12 @@
                                                     <h:outputText value="#{pd.description}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 
-                                                    <h:link value="Editar" outcome="crear" type="button" >
+
+                                                    <p:button id="selectButton" 
+                                                              outcome="crear"
+                                                              icon="ui-icon-pencil" title="Editar">  
                                                         <f:param name="productoId" value="#{pd.id}"></f:param>
-                                                    </h:link>
-                                                                  
-                                                        <p:button id="selectButton" 
-                                                                  outcome="crear"
-                                                                  icon="ui-icon-pencil" title="Editar">  
-                                                            <f:param name="productoId" value="#{pd.id}"></f:param>
-                                                        </p:button>
+                                                    </p:button>
 
                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash"
                                                                      action="#{controladorProducto.darDeBaja(pd.id)}" 
