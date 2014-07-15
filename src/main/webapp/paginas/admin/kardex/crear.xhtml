@@ -184,7 +184,7 @@
 
                                         </p:tab>
                                         <p:tab title="Requisiciones" closable="false"  titleStyleClass="clearfix" >
-                                            <p:commandButton update="@form"  process="@this" value="Aprobar Requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
+                                            <p:commandButton update="@form" ajax="true" process="@this" value="Aprobar Requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="requisicion"></f:param>
                                                 <f:param name="requisicionId" value="#{controladorKardex.solicitudId}"></f:param>
@@ -411,7 +411,7 @@
                                                                          selectionMode="single">
                                                                 
                                                                 <p:ajax event="rowSelect" listener="#{requisicionListaServicios.onRowSelect}"   
-                                                                        update=":form:forms:mensaje :form:forms:button-edit2 "/>  
+                                                                        update=":form:forms:mensaje :form:formr:button-edit2 "/>  
                                                                 <p:ajax event="rowUnselect" listener="#{requisicionListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
  
                                                                 <p:column headerText="Número">
@@ -442,16 +442,16 @@
                                                         
                                                         <f:param name="valorVista" value="kardex"/>
                                                         
-                                                    </h:link>
+                                                    </h:link-->
 
                                                     <p:commandButton rendered="true" id="button-edit2" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="#{requisicionListaServicios.requisicionSeleccionada == null}"  value="Guardar"
                                                                      styleClass="btn  btn-success"  action="#{controladorKardex.guardarRequisicion(requisicionListaServicios.requisicionSeleccionada)}" >
                                                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
-                                                        <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-
+                                                        
+                                                        <f:param name="requisicionId" value="#{requisicionListaServicios.requisicionSeleccionada.id}"></f:param>
                                                         <f:param name="valorVista" value="kardex"/>
 
-                                                    </p:commandButton-->
+                                                    </p:commandButton>
 
                                                     #{' '} 
                                                     <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success"/>
