@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.controlador;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +35,7 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.EstadoVehiculo;
+import org.mtop.modelo.EstadoVehiculo_;
 
 import org.mtop.servicios.ServicioGenerico;
 
@@ -43,13 +45,107 @@ import org.mtop.servicios.ServicioGenerico;
  */
 @Named
 @ViewScoped
-public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo> implements Serializable{
-             @Inject
+public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo> implements Serializable {
+
+    @Inject
     @Web
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
     List<EstadoVehiculo> listaEstadoVehiculo = new ArrayList<EstadoVehiculo>();
+    private String palabrab = "";
+
+    public String formato(Date fecha) {
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
+
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+
+    public void buscar() {
+        palabrab=palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        System.out.println("Ingrese la palabra>>>>>>>>>"+palabrab);
+        //buscando por coincidencia descripciion
+        List<EstadoVehiculo> lv = servgen.buscarTodoscoincidencia(EstadoVehiculo.class, EstadoVehiculo.class.getSimpleName(), EstadoVehiculo_.nombre.getName(), palabrab);
+        //buscando por codigo
+        System.out.println("lista>>>>lv"+lv);
+        List<EstadoVehiculo> lc = servgen.buscarEstadoVporFecha(EstadoVehiculo_.fechaEntrada.getName(), palabrab);
+        System.out.println("lista>>>lc"+lc);
+        for (EstadoVehiculo estado : lc) {
+            if (!lv.contains(estado)) {
+                lv.add(estado);
+            }
+        }
+        System.out.println("Ingrese la palabra>>>>>>>>>"+palabrab);
+        System.out.println("lista:::"+lv);
+        if (lv.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaEstadoVehiculo = lv;
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        List<EstadoVehiculo> lv = servgen.buscarTodos(EstadoVehiculo.class);
+        listaEstadoVehiculo.clear();
+        System.out.println("lppp" + lv);
+
+        for (EstadoVehiculo estado : lv){
+            System.out.println("iddddd" + estado.getId());
+            System.out.println("entro a for lista>>>>" + estado.isEstado());
+           
+                System.out.println("listatesssa" + listaEstadoVehiculo);
+                listaEstadoVehiculo.add(estado);
+
+                System.out.println("Entro a remover>>>>");
+                System.out.println("a;iadia" + listaEstadoVehiculo);
+        }
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        List<EstadoVehiculo> lv = servgen.buscarTodoscoincidencia(EstadoVehiculo.class, EstadoVehiculo.class.getSimpleName(), EstadoVehiculo_.nombre.getName(), query);
+
+        for (EstadoVehiculo estado : lv) {
+            System.out.println("econtro uno " + estado.getNombre());
+            ced.add(estado.getNombre());
+        }
+        List<EstadoVehiculo> lc = servgen.buscarEstadoVporFecha(EstadoVehiculo_.fechaEntrada.getName(), query);
+        for (EstadoVehiculo estado : lc) {
+            System.out.println("econtro uno " + estado.getFechaEntrada());
+            ced.add(estado.getFechaEntrada().toString());
+        }
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
 
     public Long getEstadoVehiculoId() {
         return (Long) getId();
@@ -59,7 +155,7 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         setId(estadoVehiculoId);
     }
 
-    @TransactionAttribute   //
+    @TransactionAttribute   
     public EstadoVehiculo load() {
         if (isIdDefined()) {
             wire();
@@ -81,7 +177,6 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         this.listaEstadoVehiculo = listaEstadoVehiculo;
     }
 
-  
     @PostConstruct
     public void init() {
         setEntityManager(em);
@@ -124,23 +219,22 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         return EstadoVehiculo.class;
     }
 
-   @TransactionAttribute
+    @TransactionAttribute
     public String guardar() {
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        
-        System.out.println("IIIIDEPERSISTEN  >>>>>>"+getInstance());
-       
-                                
+
+        System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance());
+
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a Editar>>>>>>>>");
-               save(getInstance());
+                save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Partida contabilidad" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                 System.out.println("Entro a crear>>>>>>>>");
+                System.out.println("Entro a crear>>>>>>>>");
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
@@ -153,7 +247,6 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         }
         return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
     }
-    
 
     @Transactional
     public String borrarEntidad() {
@@ -174,5 +267,5 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
         }
         return "/paginas/admin/vehiculo/estadoUbicacion/lista.xhtml?faces-redirect=true";
-    }   
+    }
 }

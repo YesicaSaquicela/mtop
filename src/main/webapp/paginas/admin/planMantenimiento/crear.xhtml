@@ -42,7 +42,7 @@
                             <span class="help-inline text-muted">Número de registro</span><br></br><br></br>
 
                             <h:outputLabel value="Fecha de Creación" /> <br></br> 
-                            <p:inputText id="fecha" value="#{controladorPlanMantenimiento.instance.createdOn}"
+                            <p:inputText id="fecha" value="#{controladorPlanMantenimiento.formato(controladorPlanMantenimiento.instance.createdOn)}"
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Fecha de Creación" 
                                          rendered="true" />

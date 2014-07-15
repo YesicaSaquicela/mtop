@@ -7,10 +7,8 @@
  * limitations under the License.
  */
 
-
 import java.io.Serializable;
 import java.util.Calendar;
-import static java.util.Calendar.getInstance;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,13 +25,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.mail.*;
 
-import java.util.List;
-import java.util.Map;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.jboss.seam.international.status.Messages;
-import org.jboss.seam.security.Attribute;
 import org.jboss.seam.security.Authenticator;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
@@ -99,14 +94,14 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private IdentitySessionFactory identitySessionFactory;
 
     public Long getProfileId() {
-        System.out.println("obtiene objeto::::::::::::: "+getInstance().getFirstname());
+        System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
         return (Long) getId();
-         
+
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
-        System.out.println("obtiene objeto::::::::::::: "+getInstance().getFirstname());
+        System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
     }
 
     public String getStructureName() {
@@ -284,7 +279,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 //        }
 //
 //    }
-
     //TODO- Revisar implementación de envío de mensaje para cambio de contraseña
     public void activateButtonByEmail() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -335,7 +329,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         AttributesManager attributesManager = security.getAttributesManager();
         PasswordCredential p = new PasswordCredential(getPassword());
         attributesManager.updatePassword(user, p.getValue());
-        
+
         attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario 
         attributesManager.addAttribute(user, "estado", "ACTIVO");
 //Attribute att = attributesManager.
@@ -376,17 +370,11 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     }
 
     @TransactionAttribute
-    public String saveProfile() {
+    public String saveUsuario() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String salida = "/paginas" + getBackView() + "?faces-redirect=true";
+        String salida = "/paginas/admin/listaUsuario.xhtml?faces-redirect=true";
         if (getInstance().isPersistent()) {
-            try {
-                changeEmail();
-            } catch (IdentityException ex) {
-                Logger.getLogger(ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
-                ex.printStackTrace();
-            }
             save(getInstance());
         } else {
             try {
@@ -402,6 +390,34 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         } else {
             return salida;
         }
+
+    }
+
+    @TransactionAttribute
+    public String saveProfile() {
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+
+        try {
+            if (getInstance().isPersistent()) {
+//            try {
+//                changeEmail();
+//            } catch (IdentityException ex) {
+//                Logger.getLogger( ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
+//                ex.printStackTrace();
+//            }
+                save(getInstance());
+            } else {
+                create();
+                save(getInstance());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        }
+        return "/paginas/admin/listProfile.xhtml?faces-redirect=true";
+
     }
 
     public void changeEmail() throws IdentityException {

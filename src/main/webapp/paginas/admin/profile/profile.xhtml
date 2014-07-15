@@ -78,96 +78,23 @@
 
                                         <!--<glue:input id="showBootcamp" name="showBootcamp" type="checkbox" value="# {profileHome.instance.showBootcamp}" required="true" inlinehelp="# {messages['common.bootcamp.inlinehelp']}" execute="@this save"/>-->
 
-                                        <p:panel rendered="#{not profileHome.instance.persistent}" transient="true">
-                                            <h:panelGroup id="unm" layout="block" class="clearfix">
-                                                <label for="username">#{messages['common.username']}</label>
-                                                <div class="input">
-                                                    <p:inputText id="username" value="#{profileHome.instance.username}" styleClass="xLarge" label="#{messages['common.username']}">
-                                                        <f:ajax execute="@this" render="unm" />
-                                                        <f:validator validatorId="usernameValidator" />
-                                                        <f:validator validatorId="signupUsernameAvailabilityValidator" />
-                                                    </p:inputText>
-                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.username != null}"
-                                                                    styleClass="validation-status" />
-                                                    <span class="help-inline"><br/>Su nombre de usuario. Ej.:<b>jlgranda, juan, carlos21</b>. (Lo necesitará más adelante.) <ocp:message forId="username" /></span>
-                                                </div>
-                                            </h:panelGroup>
 
-                                            <div class="clearfix">
-                                                <label for="password">#{messages['common.password']}</label>
-                                                <div class="input">
-                                                    <h:inputSecret class="form-control" id="password" value="#{profileHome.password}" redisplay="true" 
-                                                                   styleClass="xLarge" style="text-transform: uppercase;" label="#{messages['common.password']}">
-                                                        <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
-                                                        <f:validator validatorId="passwordValidator" />
-                                                    </h:inputSecret>
-                                                    <h:panelGroup id="pwg">
-                                                        <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.password != null}"
-                                                                        styleClass="validation-status"/>
-                                                        <span class="help-inline"><ocp:message id="pm"  forId="password" /></span>
-                                                    </h:panelGroup>
-                                                </div>
-                                            </div>
-
-                                            <div class="clearfix">
-                                                <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
-                                                <div class="input">
-                                                    <h:inputSecret class="form-control" id="passwordConfirm" value="#{profileHome.passwordConfirm}"
-                                                                   redisplay="true" styleClass="xLarge" style="text-transform: uppercase;" label="#{messages['common.confirmPassword']}">
-                                                        <f:ajax execute="password passwordConfirm passwordValidator signupValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
-                                                        <f:validator validatorId="passwordValidator" />
-                                                    </h:inputSecret>
-                                                    <h:panelGroup id="pwcg">
-                                                        <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.passwordConfirm != null}"
-                                                                        styleClass="validation-status"/>
-                                                        <span class="help-inline"><ocp:message forId="passwordConfirm" /></span>
-                                                    </h:panelGroup>
-                                                </div>
-                                            </div>
-                                        </p:panel>
-
-                                        <s:validateForm id="passwordValidator" validatorId="passwordConfirm" />
-                                        <s:validateForm id="signupValidator" validatorId="signupValidator" />
-
-
-                                        <div class="actions">
-                                            <h:commandButton id="save" action="#{profileHome.saveProfile()}" value="#{messages['common.save']}" styleClass="btn primary"/>
-                                            &nbsp;
-                                            <p:commandLink action="/paginas/admin/listProfile.xhtml?faces-redirect=true"
-                                                           value="#{messages['common.cancel']}" styleClass="btn primary"  rendered="#{profileHome.backView eq('/admin/listProfile')}"/>
-                                            <p:commandLink action="/paginas/inicio?faces-redirect=true"
-                                                           value="#{messages['common.cancel']}" styleClass="btn" rendered="#{profileHome.backView eq('/home')}"/>
-                                            &nbsp;
-                                            <p:commandLink id="delete" type="button" value="Desactivar Cuenta" title="#{messages['common.delete']}" 
-                                                           onclick="#{'deletedDlg.show();'}"  styleClass="btn success" 
-                                                           rendered="#{profileHome.instance.persistent and not profileHome.instance.deleted and account.tienePermiso('ADMIN') }"> 
-                                                <p:ajax process="@this" update=":cancel-dialog"/>
-                                            </p:commandLink>
-                                            &nbsp;
-                                            <h:commandButton id="active" action="#{profileHome.activarCuenta()}" value="Activar cuenta" styleClass="btn primary"
-                                                             rendered="#{profileHome.instance.persistent and profileHome.instance.deleted and account.tienePermiso('ADMIN')}"/>
-                                        </div>
                                     </div>
                                 </div>
                             </p:panel>
                         </div>
+                  
+                        <div class="actions" align="center">
+                            <h:commandButton id="save" action="#{profileHome.saveProfile()}" value="#{messages['common.save']}" styleClass="btn primary"/>
+                            &nbsp;
+                            <h:button outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true"
+                                      value="Regresar" styleClass="btn primary" rendered="#{true}"/>
+                           
+                        </div>
                     </div>
                 </div>
             </h:form>
-            <p:dialog id="cancel-dialog" header="Desactivar Cuenta de Usuario" widgetVar="deletedDlg" resizable="false" modal="true">  
-                <h:form id="form-dialog-confirm-delete">
 
-                    <h:panelGroup layout="block" style="padding:5px;">  
-                        <h:outputText value="Esta seguro que quiere deshabilitar esta cuenta de usuario de #{profileHome.instance.fullName}"/>  
-                    </h:panelGroup>  
-                    <p:commandButton value="#{messages['common.yes']}" actionListener="#{profileHome.inavilitarCuenta()}" 
-                                     oncomplete="#{'deletedDlg.hide();'}" update=":profile" ajax="true"
-                                     style="margin-top:10px;" process="@this"> 
-                    </p:commandButton>  #{' '}
-                    <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                     style="margin-top:10px;"/> 
-                </h:form>
-            </p:dialog>
         </ui:define>        
     </ui:composition>
 </html>

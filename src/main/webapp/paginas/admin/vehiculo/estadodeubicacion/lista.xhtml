@@ -24,40 +24,80 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <!--Opción de mensaje, cuando se realiza una acción-->
-                     <div class="panel panel-primary">
-                         <p:panel>
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <div class="panel panel-primary">
+                        <p:panel>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
-                    <!--Botones de admin-->
-                    <div class="admin-actions">
-                        <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/vehiculo/estadodeubicacion/estadoUbicacion.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                            <f:param name="estadoId" ></f:param>
-                        </p:commandButton><br/><br/>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="todas">
-                            <div class="table-responsive">
+                            <!--Botones de admin-->
+                            <div class="admin-actions">
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                                <tbody>
-                                    <p:dataTable id="listae" value="#{controladorEstadoVehiculo.listaEstadoVehiculo}" var="estado">
-                                        <p:column headerText="Fecha de Inicio">
-                                            <h:outputText value="#{estado.fechaEntrada}"></h:outputText>
-                                        </p:column>
-                                        <p:column headerText="Estado">
-                                            <h:outputText value="#{estado.nombre}"></h:outputText>
-                                        </p:column>
-                                        <p:column headerText="Ubicacion">
-                                            <h:outputText value="#{estado.ubicacion}"></h:outputText>
-                                        </p:column>
-                                        <p:column headerText="Opciones" style="width: 5%"> 
-                                            <h:link value="Editar" outcome="estadoUbicacion" type="button" >
-                                                <f:param name="estadoId" value="#{estado.id}"></f:param>
-                                            </h:link>
-                                        </p:column>
-                                    </p:dataTable>
-                                </tbody></div></div></div>
-                </p:panel></div></div></div>
+                                                    <div class="col-lg-6">
+
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorEstadoVehiculo.palabrab}"   
+                                                                                completeMethod="#{controladorEstadoVehiculo.autocompletar}"/> 
+                                                                &nbsp;&nbsp;
+
+
+
+
+
+                                                                <p:commandButton value="Buscar" update=":form:listae" action="#{controladorEstadoVehiculo.buscar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+
+                                                                <p:commandButton value="Limpiar" update=":form:listae :form:acSimple" action="#{controladorEstadoVehiculo.limpiar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+
+                                <div class="admin-actions">
+                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/vehiculo/estadodeubicacion/estadoUbicacion.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                        <f:param name="estadoId" ></f:param>
+                                    </p:commandButton><br/><br/>
+                                </div><br/><br/>
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="todas">
+                                    <div class="table-responsive">
+
+
+                                        <tbody>
+                                            <p:dataTable id="listae" value="#{controladorEstadoVehiculo.listaEstadoVehiculo}" var="estado">
+                                                <p:column headerText="Fecha de Inicio">
+                                                    <h:outputText value="#{controladorEstadoVehiculo.formato(estado.fechaEntrada)}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Estado">
+                                                    <h:outputText value="#{estado.nombre}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Ubicacion">
+                                                    <h:outputText value="#{estado.ubicacion}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Opciones" style="width: 5%"> 
+                                                    <h:link value="Editar" outcome="estadoUbicacion" type="button" >
+                                                        <f:param name="estadoId" value="#{estado.id}"></f:param>
+                                                    </h:link>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </tbody></div></div></div>
+                        </p:panel></div></div></div>
         </h:form>
     </ui:define>
 </ui:composition>

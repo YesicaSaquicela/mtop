@@ -6,6 +6,8 @@
 package org.mtop.servicios;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.MapAttribute;
+import org.mtop.modelo.EstadoVehiculo;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
@@ -201,14 +204,46 @@ public class ServicioGenerico {
 
         //builder.equal(objeto.get(at), true)
     }
-    
+       public List<EstadoVehiculo> buscarEstadoVporFecha(String nombreatributo, final Object valoratributo) {
+        List<EstadoVehiculo> l= new ArrayList<EstadoVehiculo>();
+        String s="";
+        l.clear();
+        for (EstadoVehiculo e : buscarTodos(EstadoVehiculo.class, nombreatributo)) {
+            
+            s=e.getFechaEntrada().toString();
+            System.out.println("valor de SSSSSSSSSSSS"+s);
+            System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
+            if(s.contains(valoratributo.toString())){
+                l.add(e);
+            }
+        }
+        
+        
+       
+        return l;
+
+        //builder.equal(objeto.get(at), true)
+    }
+       
+        public String formato(Date fecha) {
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
+  
+       
      public List<PlanMantenimiento> buscarPlanMporFecha(String nombreatributo, final Object valoratributo) {
         List<PlanMantenimiento> l= new ArrayList<PlanMantenimiento>();
         String s="";
         l.clear();
         for (PlanMantenimiento t : buscarTodos(PlanMantenimiento.class, nombreatributo)) {
             
-            s=t.getCreatedOn().toString();
+            s=formato(t.getCreatedOn());
             System.out.println("valor de SSSSSSSSSSSS"+s);
             System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
             if(s.contains(valoratributo.toString())){

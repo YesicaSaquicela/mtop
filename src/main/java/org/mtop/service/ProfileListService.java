@@ -72,9 +72,32 @@ public class ProfileListService extends LazyDataModel<Profile> {
     private Profile[] selectedProfiles;
     private Profile selectedProfile;
     private String estado;
+    private String listarUsuarios;
 
     @Inject
     private IdentitySession security;
+
+    public String getListarUsuarios() {
+        return listarUsuarios;
+    }
+
+    public void setListarUsuarios(String listarUsuarios) {
+        List<Profile> lc = profileService.findAll();
+        List<Profile> lp = new ArrayList<Profile>();
+        System.out.println("ento all meetodo>>>>>>>>>>.>>>>>>>>");
+        if (listarUsuarios.equals("registrados")) {
+            System.out.println("ento all ifff>>>>>>>>>>.>>>>>>>>");
+            for (Profile profile : lc) {
+                System.out.println("ento all for>>>>>>>>>>.>>>>>>>>");
+                if (profile.getUsername() != null) {
+                    System.out.println("ento all >>>>>>>>>>.>>>>>>>>");
+                    lp.add(profile);
+                }
+            }
+
+        }
+        this.listarUsuarios = listarUsuarios;
+    }
 
     public ProfileListService() {
         setPageSize(MAX_RESULTS);
@@ -90,6 +113,21 @@ public class ProfileListService extends LazyDataModel<Profile> {
         } else {
             resultList = resultList = profileService.findAllA(false);
         }
+
+        List<Profile> lc = profileService.findAll();
+        List<Profile> lp = new ArrayList<Profile>();
+        System.out.println("ento all meetodo>>>>>>>>>>.>>>>>>>>");
+
+        System.out.println("ento all ifff>>>>>>>>>>.>>>>>>>>");
+        for (Profile profile : lc) {
+            System.out.println("ento all for>>>>>>>>>>.>>>>>>>>");
+            if (profile.getUsername() != null) {
+                System.out.println("ento all >>>>>>>>>>.>>>>>>>>");
+                lp.add(profile);
+            }
+        }
+
+        resultList = lp;
 
     }
 
@@ -187,7 +225,7 @@ public class ProfileListService extends LazyDataModel<Profile> {
     public void setEstado(String estado) {
         if ("inactivo".equals(estado)) {
             setResultList(profileService.findAllA(true));
-        }else{
+        } else {
             resultList = profileService.findAllA(false);
         }
         this.estado = estado;
@@ -195,6 +233,7 @@ public class ProfileListService extends LazyDataModel<Profile> {
 
     public void onRowSelect(SelectEvent event) {
         //this.setSelectedProfile((Profile) event.getObject());
+
         FacesMessage msg = new FacesMessage(UI.getMessages("profile") + " " + UI.getMessages("common.selected"), ((Profile) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage("", msg);
     }

@@ -33,6 +33,46 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
                                         <div class="table-responsive">
+      <div class="admin-actions">
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
+
+
+                                                    <div class="col-lg-6">
+
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                completeMethod="#{controladorVehiculo.autocompletar}"/> 
+                                                                &nbsp;&nbsp;
+
+
+
+
+
+                                                                <p:commandButton value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+
+                                                                <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+
+                            
+                            </div>
 
 
                                             <tbody>
