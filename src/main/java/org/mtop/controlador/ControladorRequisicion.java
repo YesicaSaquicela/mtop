@@ -184,7 +184,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         palabrab = "";
         listaRequisicion = findAll(Requisicion.class);
     }
-
+    
     public String getPalabrab() {
         return palabrab;
     }
