@@ -8,6 +8,8 @@ package org.mtop.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -21,8 +23,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.util.FechasUtil;
 
 /**
  *
@@ -37,10 +41,30 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
 
     private String registro;
     private Boolean activado ;
+    @Transient
+    private String alerta;
      @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
 
-    public Boolean getActivado() {
+//    public String getAlerta() {
+//        Date now = Calendar.getInstance().getTime();
+//        int dias = FechasUtil.getFechaLimite(now, fechaCaducidad);
+//        if (dias >= 0 && dias < 90) {
+//            return "POR CADUCARSE";
+//        } else {
+//            return "";
+//        }
+//        
+//    }
+//
+//    public void setAlerta(String alerta) {
+//        this.alerta = alerta;
+//    }
+
+   
+     
+     
+     public Boolean getActivado() {
         return activado;
     }
 
