@@ -61,6 +61,26 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     private int firstResult = 0;
     private SolicitudReparacionMantenimiento[] solicitudSeleccionadas;
     private SolicitudReparacionMantenimiento solicitudSeleccionada; //Filtro de cuenta schema
+    private Date fe;
+    private Date fs;
+
+    public Date getFe() {
+        return fe;
+    }
+
+    public void setFe(Date fe) {
+        System.out.println("\n\n\nfijoo>>>\n\n\n"+fe);
+        this.fe = fe;
+    }
+
+    public Date getFs() {
+        return fs;
+    }
+
+    public void setFs(Date fs) {
+        System.out.println("\n\n\nfijoo>>>\n\n\n"+fs);
+        this.fs = fs;
+    }
 
     public SolicitudListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -75,13 +95,13 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
         return resultList;
     }
 
-    public String guardarSolicitud(Kardex k, Date fe, Date fs) {
+    public String guardarSolicitud(Kardex k) {
         Date now = Calendar.getInstance().getTime();
         System.out.println("fijando SOlidituuzzxxzzuuud en guardar en lista de solicitud");
 
         if (solicitudSeleccionada != null) {
             if (fe == null || fs == null) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " , " Debe ingresar fecha de entrada y fecha de salida");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " Debe ingresar fecha de entrada y fecha de salida");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 try {
@@ -233,9 +253,20 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     }
 
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
+        if (fe == null) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " Debe ingresar fecha de entrada");
+            
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } else {
+            if (fs == null) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " Debe ingresar fecha de salida");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            } else {
+                FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            }
+        }
 
-        FacesContext.getCurrentInstance().addMessage("", msg);
     }
 
     public void onRowUnselect(UnselectEvent event) {

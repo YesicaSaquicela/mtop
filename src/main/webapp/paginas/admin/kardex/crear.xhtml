@@ -20,6 +20,7 @@
         <f:viewParam id="solicituddd" name="solicitudId" value="#{controladorKardex.solicitudId}"/>
         <f:viewParam id="requisicioniddd" name="requisicionId" value="#{controladorKardex.requisicionId}"/>
         <f:event listener="#{requisicionListaServicios.init()}" type="preRenderView"/>
+        <f:event listener="#{controladorKardex.init()}" type="preRenderView"/>
         <f:viewParam name="estado" value="#{requisicionListaServicios.estado}" />
     </f:metadata>
     <ui:define name="header">
@@ -116,37 +117,38 @@
                                 <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
                                     <div  class="panel panel-primary">
                                         <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
-                                        <div class="container-fluid" align="center">
-                                            <div class="row-fluid">
+
+                                        <p:tab id="ts" title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                                                <div class="col-lg-6">
-                                                    <center>
-                                                        <div class="input-group">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />
 
-                                                                "   <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrabs}"   
-                                                                                    completeMethod="#{controladorKardex.autocompletars}"/> 
-
-
-
-                                                                <p:commandButton  id="buscar" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
-
-                                                                </p:commandButton>
+                                                                    "   <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrabs}"   
+                                                                                        completeMethod="#{controladorKardex.autocompletars}"/> 
 
 
-                                                                <p:commandButton id="limpiar" value="Limpiar" update=":form:infoFM :form:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
-                                                    </center>
+                                                                    <p:commandButton  id="buscar" value="Buscar" update=":form:infoFM:ts" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton id="limpiar" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <br/><br/>
-                                        <p:tab  title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
+                                            <br/><br/>
                                             <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="solicitud"></f:param>
@@ -204,7 +206,7 @@
                                                                 <center>
                                                                     <h:outputLabel value="Buscar:  " />
 
-                                                                    "   <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrabr}"   
+                                                                    "   <p:autoComplete styleClass="xLarge" id="acSimple2" value="#{controladorKardex.palabrabr}"   
                                                                                         completeMethod="#{controladorKardex.autocompletarr}"/> 
 
 
@@ -214,7 +216,7 @@
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar2" value="Limpiar" update=":form:infoFM :form:acSimple" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar2" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple2" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -316,13 +318,13 @@
 
                                             <!--Botones de admin-->
                                             <p:outputLabel value="Fecha de Entrada a Taller:*"/>
-                                            <p:calendar id="fechaEntrada" value="#{controladorKardex.fechaEntrada}"  label="Fecha Entrada al Taller "
+                                            <p:calendar id="fechaEntrada" value="#{solicitudListaServicios.fe}"  label="Fecha Entrada al Taller "
                                                         styleClass="xLarge" required="true" 
                                                         locale="es" pattern="dd-MMM-yyyy">   
                                                 <p:ajax event="dateSelect" rendered="save" />  
                                             </p:calendar><br/><br/> 
                                             <p:outputLabel value="Fecha de Salida de Taller:*"/>
-                                            <p:calendar  id="fechaSalida" value="#{controladorKardex.fechaSalida}"  label="Fecha Salida de Taller "
+                                            <p:calendar  id="fechaSalida" value="#{solicitudListaServicios.fs}"  label="Fecha Salida de Taller "
                                                          styleClass="xLarge" required="true" 
                                                          locale="es" pattern="dd-MMM-yyyy">   
                                                 <p:ajax event="dateSelect" rendered="save" />  
@@ -374,16 +376,13 @@
                                                 </div>
 
                                             </div>
-                                            <h:outputText value="solicitud id: " />
-                                            <p:inputText disabled="#{solicitudListaServicios.solicitudSeleccionada == null}" immediate="true" id="sol" value="#{solicitudListaServicios.solicitudSeleccionada.id}" rendered="true"
-                                                         required="true" readonly="true" /><br></br>
-
+                                           <br/><br/>
 
                                             <div class="admin-actions " align="center"> 
 
 
                                                 <h:link rendered="true" id="button-edit"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="Guardar"
-                                                        styleClass="btn  btn-success"  onclick="#{solicitudListaServicios.guardarSolicitud(controladorKardex.instance, controladorKardex.fechaEntrada , controladorKardex.fechaSalida)}" >
+                                                        styleClass="btn  btn-success"  onclick="#{solicitudListaServicios.guardarSolicitud(controladorKardex.instance)}" >
                                                     <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
 
                                                     <f:param name="valorVista" value="kardex"/>
