@@ -17,6 +17,8 @@ package org.mtop.servicios.listas;
  * limitations under the License.
  */
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -30,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.ControladorRequisicion;
+import org.mtop.modelo.Kardex;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Requisicion_;
 
@@ -72,6 +75,36 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
 
     public void setResultList(List<Requisicion> resultList) {
         this.resultList = resultList;
+    }
+
+    public String guardarRequisicion(Kardex k) {
+        Date now = Calendar.getInstance().getTime();
+        System.out.println("fijando Requisicion en guardar en lista de Requisicion");
+
+        if (requisicionSeleccionada != null) {
+
+            try {
+
+                System.out.println("recupero Requisicion" + requisicionSeleccionada);
+                requisicionSeleccionada.setKardex(k);
+                requisicionSeleccionada.setLastUpdate(now);
+                requisicionSeleccionada.setAprobado(true);
+                servgen.actualizar(requisicionSeleccionada);
+
+                System.out.println("guando Requisicion con kardex cooon" + requisicionSeleccionada.getKardex());
+                k.setLastUpdate(now);
+                k.getListaRequisicion().add(requisicionSeleccionada);
+
+                servgen.actualizar(k);
+                System.out.println("guardo kardex con Requisicion" + k.getListaRequisicion());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("fijanddsasadasdadassssssssssss");
+        return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
 
     public String getEstado() {
@@ -147,7 +180,6 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         log.info("Setup entityManager into bussinesEntityTypeService...");
         servgen.setEm(em);
 
-
     }
 
     @Override
@@ -201,12 +233,11 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
             csr.setEntityClass(Requisicion.class);
             qData = csr.find(first, end, sortField, order, _filters);
             List<Requisicion> lr = new ArrayList<Requisicion>();
-           
-            
+
             for (Requisicion qd : qData.getResult()) {
                 System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
                 if (qd.getAprobado() == false) {
-                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n"+qd);
+                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
                     lr.add(qd);
                 }
 
