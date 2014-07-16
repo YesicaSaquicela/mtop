@@ -42,6 +42,7 @@ import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.dinamico.Property;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.context.RequestContext;
 
@@ -65,10 +66,105 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private ControladorKardex ck;
     private String mensaje = "";
     private ControladorPlanMantenimiento cplanMantenimiento;
+    private String palabrab = "";
+
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+
+    public void buscar() {
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia descripciion
+        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), palabrab);
+        //buscando por codigo
+        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), palabrab);
+//        List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
+
+        for (Vehiculo vehiculo : lc) {
+            if (!lv.contains(vehiculo)) {
+                lv.add(vehiculo);
+            }
+        }
+
+//        for (Vehiculo vehiculo : lk) {
+//            if (!lv.contains(vehiculo)) {
+//                lv.add(vehiculo);
+//            }
+//        }
+
+        if (lv.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaVehiculos = lv;
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
+        listaVehiculos.clear();
+        System.out.println("lppp" + lv);
+
+        for (Vehiculo vehiculo : lv) {
+            System.out.println("iddddd" + vehiculo.getId());
+            System.out.println("entro a for lista>>>>" + vehiculo.isEstado());
+            if (vehiculo.isEstado()) {
+                System.out.println("listatesssa" + listaVehiculos);
+                listaVehiculos.add(vehiculo);
+
+                System.out.println("Entro a remover>>>>");
+                System.out.println("a;iadia" + listaVehiculos);
+
+            }
+
+        }
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), query);
+
+        for (Vehiculo vehiculo : lv) {
+            System.out.println("econtro uno " + vehiculo.getNumRegistro());
+            ced.add(vehiculo.getNumRegistro());
+        }
+        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), query);
+        for (Vehiculo vehiculo : lc) {
+            System.out.println("econtro uno " + vehiculo.getPlaca());
+            ced.add(vehiculo.getPlaca());
+        }
+        
+//         List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
+//          for (Vehiculo vehiculo : lk) {
+//            System.out.println("econtro uno " + vehiculo.getPlaca());
+//            String cad=vehiculo.getKilometraje().toString();
+//            ced.add(cad);
+//        }
+         System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
 
     public boolean verificarPlan() {
         boolean ban = false;
-        for(PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
+        for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
             if (pm.getActivado()) {
                 ban = true;
             } else {
@@ -333,12 +429,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 //
 //        }
         verificarPlan();
-        
+
 //        if (!verificarPlan()) {
 //            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Necesita activar un plan de mantenimiento para visualizar ", " las actividades por kilometraje");
 //            FacesContext.getCurrentInstance().addMessage("Información", msg);
 //        }
-
     }
 //    public String irCrear(){
 //        setId(null);
@@ -409,7 +504,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         getInstance().setLastUpdate(now);
         EstadoVehiculo estadoU = new EstadoVehiculo();
         estadoU.setFechaEntrada(now);
-        estadoU.setNombre("Trabajando Normalmente");
+        estadoU.setNombre("Equipo Trabajando Normalmente");
         estadoU.setUbicacion("Taller Mtop Loja");
         estadoU.setCreatedOn(now);
         estadoU.setLastUpdate(now);

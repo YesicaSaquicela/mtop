@@ -39,6 +39,7 @@ import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.PlanMantenimiento_;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.dinamico.PersistentObject_;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.event.FlowEvent;
 
@@ -71,11 +72,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         this.palabrab = palabrab;
     }
 
-    public String formato() {
+    public String formato(Date fecha) {
         String fechaFormato = "";
-        if (getInstance().getCreatedOn() != null) {
+        if (fecha != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            fechaFormato = formatter.format(getInstance().getCreatedOn());
+            fechaFormato = formatter.format(fecha);
         }
 
         return fechaFormato;
@@ -84,13 +85,14 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     public void buscar() {
         if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            System.out.println("entro a comparar>>>>"+palabrab);
             palabrab = "Ingrese algun valor a buscar";
         }
         System.out.println("Palabra ingresada?>>>>>"+palabrab);
         //buscando por coincidencia descripciion
         List<PlanMantenimiento> lp = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), palabrab);
         //buscando por codigo
-        List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), palabrab);
+        List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PersistentObject_.createdOn.getName(), palabrab);
 
         for (PlanMantenimiento planMantenimiento : lc) {
             if (!lp.contains(planMantenimiento)) {
@@ -98,6 +100,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                 lp.add(planMantenimiento);
             }
         }
+        System.out.println("Palabra ingresada?>>>>>"+palabrab);
         System.out.println("lisssssssta lp"+lp);
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -140,17 +143,16 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<PlanMantenimiento> lp = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), palabrab);
+        List<PlanMantenimiento> lp = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), query);
 
         for (PlanMantenimiento planM : lp) {
             System.out.println("econtro uno " + planM.getRegistro());
             ced.add(planM.getRegistro());
         }
-          List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), query);
+          List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PersistentObject_.createdOn.getName(), query);
         for (PlanMantenimiento planM : lc) {
             System.out.println("econtro uno " + planM.getCreatedOn());
-            setInstance(planM);
-            ced.add(formato());
+             ced.add(formato(planM.getCreatedOn()));
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;

@@ -30,14 +30,52 @@
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
                             <!--Botones de admin-->
-                            <br></br><br></br>
-
-
                             <div class="admin-actions">
-                                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                                    <f:param name="vehiculoId" ></f:param>
-                                </p:commandButton><br/><br/>
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
+
+
+                                                    <div class="col-lg-6">
+
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                completeMethod="#{controladorVehiculo.autocompletar}"/> 
+                                                                &nbsp;&nbsp;
+
+
+
+
+
+                                                                <p:commandButton value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+
+                                                                <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+
+                                <div class="admin-actions">
+                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                        <f:param name="vehiculoId" ></f:param>
+                                    </p:commandButton><br/><br/>
+                                </div><br/><br/>
                             </div>
+
+
                             <div class="row">
 
 
@@ -48,14 +86,17 @@
 
                                             <tbody>
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
+                                                    <p:column headerText="Nro Registro">
+                                                        <h:outputText value="#{v.numRegistro}"></h:outputText>
+                                                    </p:column>
                                                     <p:column headerText="Color">
                                                         <h:outputText value="#{v.color}"></h:outputText>
                                                     </p:column>
                                                     <p:column headerText="Marca">
                                                         <h:outputText value="#{v.marca}"></h:outputText>
                                                     </p:column>
-                                                    <p:column headerText="Nro Registro">
-                                                        <h:outputText value="#{v.numRegistro}"></h:outputText>
+                                                    <p:column headerText="Placa">
+                                                        <h:outputText value="#{v.placa}"></h:outputText>
                                                     </p:column>
                                                     <p:column headerText="Opciones" style="width: 5%"> 
 
@@ -64,7 +105,7 @@
                                                                   icon="ui-icon-pencil" title="Editar">  
                                                             <f:param name="vehiculoId" value="#{v.id}"></f:param>
                                                         </p:button>
-                                                       
+
                                                     </p:column>
                                                 </p:dataTable>
                                             </tbody>

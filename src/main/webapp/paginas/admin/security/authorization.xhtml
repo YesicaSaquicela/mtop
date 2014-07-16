@@ -47,7 +47,7 @@
                                                             <div class="input-group">
 
                                                                 <div class="input">
-                                                                    <label for="group_" class="">#{messages['common.security.associateto']}:</label> #{' '}
+                                                                    <p:outputLabel value="Roles:"></p:outputLabel>
                                                                     <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
                                                                                      converter="omnifaces.SelectItemsConverter" 
                                                                                      required="true" requiredMessage="false"
@@ -108,7 +108,7 @@
                         <div class="admin-actions " align="center" > 
 
                             <h:button value="Regresar" rendered="#{true}" 
-                                      outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true" styleClass="btn  btn-success" style="float: right;">
+                                      outcome="/paginas/admin/listaUsuario.xhtml?faces-redirect=true" styleClass="btn  btn-success" style="float: right;">
                             </h:button> 
 
                         </div>
