@@ -26,8 +26,8 @@ import javax.persistence.Temporal;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.mtop.modelo.dinamico.BussinesEntity;
-import org.mtop.modelo.Persona;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.profile.Profile;
 
 /**
  *
@@ -59,10 +59,10 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private SolicitudReparacionMantenimiento solicitudReparacionId;
 
-//    
-//    @ManyToOne
-//    @JoinColumn(name = "personaId")
-//    private Persona psolicita;
+    
+    @ManyToOne
+    @JoinColumn(name = "personaId")
+    private Profile psolicita;
     @ManyToOne
     @JoinColumn(name = "kardexId")
     private Kardex kardex;
@@ -90,14 +90,14 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.solicitudReparacionId = solicitudReparacionId;
     }
 
-//    public Persona getPsolicita() {
-//        return psolicita;
-//    }
-//
-//    public void setPsolicita(Persona psolicita) {
-//        this.psolicita = psolicita;
-//    }
-//  
+    public Profile getPsolicita() {
+        return psolicita;
+    }
+
+    public void setPsolicita(Profile psolicita) {
+        this.psolicita = psolicita;
+    }
+ 
 
     public List<ItemRequisicion> getListaItems() {
         return listaItems;

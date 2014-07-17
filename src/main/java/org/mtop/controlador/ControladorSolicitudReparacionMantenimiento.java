@@ -239,9 +239,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
-        if (requisicion.getId() == null) {
+       
             requisicion = getInstance().getRequisicionId();
-        }
+       
 
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         for (ItemSolicitudReparacion itr : findAll(ItemSolicitudReparacion.class)) {
