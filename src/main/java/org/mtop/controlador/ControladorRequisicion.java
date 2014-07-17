@@ -94,6 +94,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setPersonal(Profile personal) {
+        System.out.println("fijando personalsss"+personal);
         this.personal = personal;
     }
     
