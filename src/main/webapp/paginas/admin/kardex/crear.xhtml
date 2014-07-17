@@ -318,19 +318,20 @@
 
                                             <!--Botones de admin-->
                                             <p:outputLabel value="Fecha de Entrada a Taller:*"/>
-                                            <p:calendar id="fechaEntrada" value="#{solicitudListaServicios.fe}"  label="Fecha Entrada al Taller "
+                                            <p:calendar id="fechaEntrada" value="#{solicitudListaServicios.fe}" 
                                                         styleClass="xLarge" required="true" 
-                                                        locale="es" pattern="dd-MMM-yyyy">   
+                                                        >   
                                                 <p:ajax event="dateSelect" rendered="save" />  
                                             </p:calendar><br/><br/> 
                                             <p:outputLabel value="Fecha de Salida de Taller:*"/>
                                             <p:calendar  id="fechaSalida" value="#{solicitudListaServicios.fs}"  label="Fecha Salida de Taller "
                                                          styleClass="xLarge" required="true" 
-                                                         locale="es" pattern="dd-MMM-yyyy">   
+                                                         >   
                                                 <p:ajax event="dateSelect" rendered="save" />  
+                                                <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg2" />  
                                             </p:calendar><br></br> 
 
-
+                                            <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
                                             <!--ul class="nav nav-tabs">
                                                 <li class="active"><a href="#todas" data-toggle="tab">Venta</a></li>
                                                 <li><a href="#anuladas" data-toggle="tab">Anuladas</a></li>

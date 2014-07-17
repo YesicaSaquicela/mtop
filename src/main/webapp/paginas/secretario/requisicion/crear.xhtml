@@ -47,7 +47,7 @@
                                     <h:outputLabel value="Fecha de Requisición" /> <br></br> 
                                     <p:calendar  id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
                                                  styleClass="xLarge" required="true" 
-                                                 locale="es" pattern="dd-MMM-yyyy">   
+                                                 >   
                                         <p:ajax event="dateSelect" rendered="save" />  
                                     </p:calendar>  <br></br> 
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
