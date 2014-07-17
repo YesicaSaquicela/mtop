@@ -325,7 +325,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         // TODO validate username, email address, and user existence
         PersistenceManager identityManager = security.getPersistenceManager();
         User user = identityManager.createUser(getInstance().getUsername());
-
+        System.out.println("\n\\n\ncreando el usuerrrr\n\n\n"+getInstance().getUsername());
         AttributesManager attributesManager = security.getAttributesManager();
         PasswordCredential p = new PasswordCredential(getPassword());
         attributesManager.updatePassword(user, p.getValue());
@@ -343,7 +343,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         getInstance().getIdentityKeys().add(user.getKey());
         getInstance().setUsernameConfirmed(true);
         getInstance().setShowBootcamp(true);
-        create(getInstance()); //
+       // save(getInstance()); //
         setProfileId(getInstance().getId());
         wire();
         getInstance().setName(getInstance().getUsername()); //Para referencia
@@ -375,9 +375,18 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         getInstance().setLastUpdate(now);
         String salida = "/paginas/admin/listaUsuario.xhtml?faces-redirect=true";
         if (getInstance().isPersistent()) {
+            try {
+                System.out.println("\n\n\n\nentra registroo\n\n\n");
+                register();
+            } catch (IdentityException ex) {
+                ex.printStackTrace();
+                Logger.getLogger(ProfileHome.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
             save(getInstance());
         } else {
             try {
+                System.out.println("\n\n\n\nentra registroo\n\n\n");
                 register();
             } catch (IdentityException ex) {
                 ex.printStackTrace();
@@ -400,14 +409,15 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
         try {
             if (getInstance().isPersistent()) {
-//            try {
-//                changeEmail();
-//            } catch (IdentityException ex) {
-//                Logger.getLogger( ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
-//                ex.printStackTrace();
-//            }
+                try {
+                    changeEmail();
+                } catch (IdentityException ex) {
+                    Logger.getLogger(ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
+                }
                 save(getInstance());
             } else {
+                
                 create();
                 save(getInstance());
             }

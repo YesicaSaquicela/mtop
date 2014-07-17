@@ -67,11 +67,7 @@
                                             </div>
                                         </div> </p:panel></div>
 
-                                <div class="admin-actions">
-                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/vehiculo/estadodeubicacion/estadoUbicacion.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                                        <f:param name="estadoId" ></f:param>
-                                    </p:commandButton><br/><br/>
-                                </div><br/><br/>
+                                <br/><br/>
                             </div>
 
                             <div class="tab-content">
@@ -81,13 +77,18 @@
 
                                         <tbody>
                                             <p:dataTable id="listae" value="#{controladorEstadoVehiculo.listaEstadoVehiculo}" var="estado">
-                                                <p:column headerText="Fecha de Inicio">
+                                                <p:column headerText="Placa Vehículo">
+                                                    <h:outputText value="#{estado.vehiculo.placa}"></h:outputText>
+                                                </p:column>
+                                                
+                                                
+                                                <p:column headerText="Fecha de Inicio actual">
                                                     <h:outputText value="#{controladorEstadoVehiculo.formato(estado.fechaEntrada)}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Estado">
+                                                <p:column headerText="Estado actual">
                                                     <h:outputText value="#{estado.nombre}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Ubicacion">
+                                                <p:column headerText="Ubicacion actual">
                                                     <h:outputText value="#{estado.ubicacion}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 

@@ -36,7 +36,7 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos Generales</center></div>
                                 <p:panel >
-                                    <p:messages />
+                                    <p:messages/>
 
                                     <p:outputLabel value="Número de Requisición"/>
                                     <p:inputText id="numRequisicion"  value="#{controladorRequisicion.numeroRequisicion}"
@@ -67,7 +67,7 @@
                                                      requiredMessage="Se requiere eleguir una partida de contabilidad">  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
-                                        <p:ajax event="change" update="@parent" partialSubmit="true"/>
+                                        <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                     </p:selectOneMenu> <br></br>
                                     <span class="help-inline text-muted">Elija el tipo de partida<ocp:message forId="partida" /></span><br></br><br></br> 
 
@@ -201,8 +201,51 @@
 
 
                         </p:tab>
+                        
+                        <p:tab id="persona" title="Asignar Persona Solicita">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>Lista de Personas</center></div>
+                                <p:panel >
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="todas">
+                                            <div class="table-responsive">
 
-                        <p:tab id="address" title="Asignar Vehiculo">
+
+                                                <tbody>
+                                                    <p:messages id="mensaje6" showDetail="true" autoUpdate="true" closable="true" />
+
+                                                    <p:dataTable id="basicDT4" var="itemp" value="#{controladorRequisicion.listaPersonal}">
+                                                        <p:column headerText="Cédula">
+                                                            <h:outputText value="#{itemp.code}" />
+                                                        </p:column>
+                                                        <p:column headerText="Nombre">
+                                                            <h:outputText value="#{itemp.firstname}" />
+                                                        </p:column>
+                                                        <p:column headerText="Apellido">
+                                                            <h:outputText value="#{itemp.fullName}" />
+                                                        </p:column>
+                                                        <p:column headerText="Cargo">
+                                                            <h:outputText value="#{itemp.tipo}" />
+                                                        </p:column>
+                                                        <p:column headerText="Acciones" style="width:4%;text-align: center">
+                                                            <p:commandLink update=":form:personal :form:mensaje6" value="Agregar" title="Seleccionar">
+                                                                <f:setPropertyActionListener value="#{item}" target="#{controladorRequisicion.personal}" />
+                                                            </p:commandLink>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                    <br/>
+                                                    <h:outputText value="personal id: " />
+                                                    <p:inputText immediate="true" id="personal" value="#{controladorRequisicion.personal.id}" rendered="true"
+                                                                 required="true" readonly="true" /><br/>
+                                                </tbody></div></div></div>
+
+                                </p:panel>
+                            </div>
+
+                        </p:tab>
+                        
+                        
+                        <p:tab id="address" title="Asignar Vehículo">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de Vehículo</center></div>
                                 <p:panel >
@@ -224,10 +267,10 @@
                                                         <p:column headerText="Color">
                                                             <h:outputText value="#{item.color}" />
                                                         </p:column>
-                                                        <p:column headerText="Numero de Registro">
+                                                        <p:column headerText="Número de Registro">
                                                             <h:outputText value="#{item.numRegistro}" />
                                                         </p:column>
-                                                        <p:column style="width:4%;text-align: center">
+                                                        <p:column headerText="Acciones" style="width:4%;text-align: center">
                                                             <p:commandLink update=":form:vehiculo :form:mensaje5" value="Agregar" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{item}" target="#{controladorRequisicion.vehiculo}" />
                                                             </p:commandLink>

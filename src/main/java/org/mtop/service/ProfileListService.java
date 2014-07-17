@@ -113,21 +113,21 @@ public class ProfileListService extends LazyDataModel<Profile> {
         } else {
             resultList = resultList = profileService.findAllA(false);
         }
-
-        List<Profile> lc = profileService.findAll();
-        List<Profile> lp = new ArrayList<Profile>();
-        System.out.println("ento all meetodo>>>>>>>>>>.>>>>>>>>");
-
-        System.out.println("ento all ifff>>>>>>>>>>.>>>>>>>>");
-        for (Profile profile : lc) {
-            System.out.println("ento all for>>>>>>>>>>.>>>>>>>>");
-            if (profile.getUsername() != null) {
-                System.out.println("ento all >>>>>>>>>>.>>>>>>>>");
-                lp.add(profile);
-            }
-        }
-
-        resultList = lp;
+//
+//        List<Profile> lc = profileService.findAll();
+//        List<Profile> lp = new ArrayList<Profile>();
+//        System.out.println("ento all meetodo>>>>>>>>>>.>>>>>>>>");
+//
+//        System.out.println("ento all ifff>>>>>>>>>>.>>>>>>>>");
+//        for (Profile profile : lc) {
+//            System.out.println("ento all for>>>>>>>>>>.>>>>>>>>");
+//            if (profile.getUsername() != null) {
+//                System.out.println("ento all >>>>>>>>>>.>>>>>>>>");
+//                lp.add(profile);
+//            }
+//        }
+//
+//        resultList = lp;
 
     }
 

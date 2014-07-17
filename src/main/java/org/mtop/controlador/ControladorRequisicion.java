@@ -15,21 +15,20 @@
  */
 package org.mtop.controlador;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
+
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+
 import javax.inject.Inject;
-import javax.inject.Named;
+
 import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
@@ -38,26 +37,23 @@ import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.PartidaContabilidad;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Vehiculo;
-import org.mtop.modelo.Vehiculo_;
-import org.mtop.util.UI;
+
 import org.mtop.servicios.ServicioGenerico;
-import org.primefaces.event.FlowEvent;
-import org.primefaces.event.SelectEvent;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 //import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
+
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.ListDataModel;
+
 import javax.inject.Named;
-import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.Producto;
 import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
-import org.mtop.modelo.dinamico.BussinesEntityAttribute;
-import org.mtop.modelo.dinamico.Property;
+
+import org.mtop.modelo.profile.Profile;
 //import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -85,12 +81,33 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Integer maximo;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
     List<Producto> listaProductos = new ArrayList<Producto>();
+    List<Profile> listaPersonal;
     private String palabrab;
     private List<SolicitudReparacionMantenimiento> listaSolicitudes;
     private SolicitudReparacionMantenimiento solicitudrep;
     List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
     Producto pro;
+    Profile personal;
 
+    public Profile getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Profile personal) {
+        this.personal = personal;
+    }
+    
+
+    public List<Profile> getListaPersonal() {
+        return listaPersonal;
+    }
+
+    public void setListaPersonal(List<Profile> listaPersonal) {
+        this.listaPersonal = listaPersonal;
+    }
+
+    
+        
     public List<ItemRequisicion> getListaItemsRequisicion() {
         return listaItemsRequisicion;
     }
@@ -164,7 +181,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //            }
 //
 //        }
-
         if (le.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
@@ -184,7 +200,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         palabrab = "";
         listaRequisicion = findAll(Requisicion.class);
     }
-    
+
     public String getPalabrab() {
         return palabrab;
     }
@@ -466,6 +482,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String onFlowProcess(FlowEvent event) {
+        System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
 
         if (skip) {
             skip = false;   //reset in case user goes back  
@@ -494,6 +511,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         }
+
     }
 
     public List<Vehiculo> getVehiculos() {
@@ -514,18 +532,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setRequisicionId(Long requisicionId) {
 
         setId(requisicionId);
-
+        
         vehiculo = getInstance().getVehiculo();
-        if (solicitudrep.getId() == null) {
-            solicitudrep = getInstance().getSolicitudReparacionId();
-        }
+        solicitudrep = getInstance().getSolicitudReparacionId();
 
+       
         listaItemsRequisicion = new ArrayList<ItemRequisicion>();
         for (ItemRequisicion itr : findAll(ItemRequisicion.class)) {
-
+            System.out.println("entra al for");
             if (getInstance().getId() != null) {
-                System.out.println("entro a itemsSSSSSSSSSSSSSSSSSSS" + getInstance().getId());
-
+           
                 System.out.println("idde itr" + itr.getRequisicion().getId());
                 if (getInstance().getId().equals(itr.getRequisicion().getId())) {
                     System.out.println("fijo un ide");
@@ -535,9 +551,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             }
         }
-        System.out.println("lista de items" + listaItemsRequisicion);
-        System.out.println("la solicitud>>>>>>>>>>>>>>>>" + solicitudrep);
-
+     
     }
 
     public Long getIdVehiculo() {
@@ -634,6 +648,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         pro = new Producto();
         palabrab = "";
         solicitudrep = new SolicitudReparacionMantenimiento();
+        listaPersonal=findAll(Profile.class);
+        personal=new Profile();
 
     }
 

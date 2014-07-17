@@ -96,11 +96,15 @@
                                                         <h:outputText value="#{group1.name}" />
                                                     </p:column>             
                                                     <p:column headerText="#{messages['common.actions']}" style="width:30%">                            
+                                                        
+                                                            <h:outputText value="#{group1.groupType}" />
+                                                        
                                                         <!--p:commandButton id="button-delete" title="Dar de Baja"  icon="ui-icon-trash" styleClass="btn"
                                                                         onclick="deletedDlg.show();" rendered="true" disabled="#{empty securityHome.groupSelected}" 
                                                                         ajax="true">                                                                
                                                        </p:commandButton--> 
                                                     </p:column>
+
                                                 </p:dataTable>     
                                             </tbody> </div></div></div>   
                             </p:panel>   </div>
