@@ -8,6 +8,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
                 xmlns:mtop="http://mtop.org/jsf/facelets"
+                xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
     <ui:param name="titulo" value="Gestionar Solicitud de Reparación/Mantenimiento"/>
@@ -47,11 +48,12 @@
                                     <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
                                     <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"
                                                  styleClass="xLarge" required="true" 
-                                                 locale="es" pattern="dd-MMM-yyyy">   
+                                                 >   
                                         <p:ajax event="dateSelect" rendered="save" />  
+                                        
                                     </p:calendar><br></br> 
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaSolicitud" /></span><br></br><br></br>
-
+     
                                     <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
                                                 value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
                                                 inlinehelp="Ingrese el nombre de la persona quien recibe la solicitud" 
