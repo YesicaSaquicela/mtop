@@ -216,4 +216,17 @@ public class FechasUtil {
         return true;
 
     }
+    
+    public static Date obtenerFechaMayor(List<Date> listaFechas){
+        Date fMayor=new Date();
+        fMayor=listaFechas.get(0);
+        
+        for (Date f : listaFechas) {
+            if(fMayor.before(f)){
+                fMayor=f;
+            }
+        }
+
+        return fMayor;
+    }
 }

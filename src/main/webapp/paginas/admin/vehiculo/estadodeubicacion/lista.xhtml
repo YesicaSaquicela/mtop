@@ -43,19 +43,19 @@
                                                             <center>
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorEstadoVehiculo.palabrab}"   
-                                                                                completeMethod="#{controladorEstadoVehiculo.autocompletar}"/> 
+                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                completeMethod="#{controladorVehiculo.autocompletarEstadoV}"/> 
                                                                 &nbsp;&nbsp;
 
 
 
 
 
-                                                                <p:commandButton value="Buscar" update=":form:listae" action="#{controladorEstadoVehiculo.buscar()}" styleClass="btn btn-success" >
+                                                                <p:commandButton value="Buscar" update=":form:listae" action="#{controladorVehiculo.buscarEstadoV()}" styleClass="btn btn-success" >
 
                                                                 </p:commandButton>
 
-                                                                <p:commandButton value="Limpiar" update=":form:listae :form:acSimple" action="#{controladorEstadoVehiculo.limpiar()}" styleClass="btn btn-success" >
+                                                                <p:commandButton value="Limpiar" update=":form:listae :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
 
                                                                 </p:commandButton>
                                                             </center>
@@ -76,25 +76,29 @@
 
 
                                         <tbody>
-                                            <p:dataTable id="listae" value="#{controladorEstadoVehiculo.listaEstadoVehiculo}" var="estado">
-                                                <p:column headerText="Placa Vehículo">
-                                                    <h:outputText value="#{estado.vehiculo.placa}"></h:outputText>
+                                            <p:dataTable id="listae" value="#{controladorVehiculo.listaVehiculos}" var="vehiculo"
+                                                          paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
+                                                <!--f:setPropertyActionListener target="# {controladorVehiculo.instance}" value="vehiculo"/-->
+                                                <p:column headerText="Registro del Vehículo" sortBy="#{vehiculo.numRegistro}">
+                                                    <h:outputText value="#{vehiculo.numRegistro}"></h:outputText>
                                                 </p:column>
                                                 
                                                 
-                                                <p:column headerText="Fecha de Inicio actual">
-                                                    <h:outputText value="#{controladorEstadoVehiculo.formato(estado.fechaEntrada)}"></h:outputText>
+                                                <p:column headerText="Fecha de Inicio actual"   >
+                                                    <h:outputText value="#{controladorVehiculo.obtenerUltimaFechaV(vehiculo)}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Estado actual">
-                                                    <h:outputText value="#{estado.nombre}"></h:outputText>
+                                                    <h:outputText value="#{controladorVehiculo.obtenerUltimoEstadoV(vehiculo)}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Ubicacion actual">
-                                                    <h:outputText value="#{estado.ubicacion}"></h:outputText>
+                                                    <h:outputText value="#{controladorVehiculo.obtenerUltimaUbicacionV(vehiculo)}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 
-                                                    <h:link value="Editar" outcome="estadoUbicacion" type="button" >
-                                                        <f:param name="estadoId" value="#{estado.id}"></f:param>
-                                                    </h:link>
+                                                    <p:button  icon="ui-icon-pencil" outcome="estadoUbicacion" title="Cambiar Estado Ubicación">
+                                                        <f:param name="estadovId" value="#{vehiculo.id}"></f:param>
+                                                    </p:button>
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div></div>

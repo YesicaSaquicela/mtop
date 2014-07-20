@@ -16,12 +16,16 @@
 package org.mtop.controlador;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -36,6 +40,7 @@ import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ActividadPlanMantenimiento_;
 import org.mtop.modelo.EstadoVehiculo;
+import static org.mtop.modelo.EstadoVehiculo_.vehiculo;
 import org.mtop.modelo.Kardex;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
@@ -57,16 +62,62 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @Inject
     @Web
     private EntityManager em;
-    @Inject
+    @EJB
     private ServicioGenerico servgen;
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
     private String numeroRegistro;
     private ActividadPlanMantenimiento actividadplan;
-
     private ControladorKardex ck;
     private String mensaje = "";
     private ControladorPlanMantenimiento cplanMantenimiento;
     private String palabrab = "";
+    private EstadoVehiculo estado = new EstadoVehiculo();
+    private ControladorEstadoVehiculo cev;
+    private Date fechaFinal=Calendar.getInstance().getTime();
+
+    public Date getFechaFinal() {
+       
+        fechaFinal = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
+       // calendario=Calendar.class.cast(fechaFinal);
+//        calendario.setTime(fechaFinal);
+        System.out.println("fecha final" + fechaFinal);
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    public ControladorEstadoVehiculo getCev() {
+        return cev;
+    }
+
+    public void setCev(ControladorEstadoVehiculo cev) {
+        this.cev = cev;
+    }
+
+    public String obtenerUltimoEstadoV(Vehiculo vehiculo) {
+        String estado = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getNombre();
+        return estado;
+    }
+
+    public String obtenerUltimaFechaV(Vehiculo vehiculo) {
+        String fechaFormato = "";
+        System.out.println("lista de vehiculos" + listaVehiculos);
+        System.out.println("vehiculooooo"+vehiculo);
+        Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
+
+        if (fEntrada != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fEntrada);
+        }
+        return fechaFormato;
+    }
+
+    public String obtenerUltimaUbicacionV(Vehiculo vehiculo) {
+        String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
+        return ubicacion;
+    }
 
     public ServicioGenerico getServgen() {
         return servgen;
@@ -86,6 +137,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void buscar() {
+
         if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
             palabrab = "Ingrese algun valor a buscar";
         }
@@ -106,7 +158,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 //                lv.add(vehiculo);
 //            }
 //        }
-
         if (lv.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
@@ -159,14 +210,79 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             System.out.println("econtro uno " + vehiculo.getPlaca());
             ced.add(vehiculo.getPlaca());
         }
-        
+
 //         List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
 //          for (Vehiculo vehiculo : lk) {
 //            System.out.println("econtro uno " + vehiculo.getPlaca());
 //            String cad=vehiculo.getKilometraje().toString();
 //            ced.add(cad);
 //        }
-         System.out.println("listaaaaa autocompletar" + ced);
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
+
+    public void buscarEstadoV() {
+        palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia descripciion
+        List<Vehiculo> lv1 = new ArrayList<Vehiculo>();
+        for (Vehiculo vehiculo : listaVehiculos) {
+            EstadoVehiculo ev = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
+            if (ev.getNombre().contains(palabrab)) {
+                lv1.add(vehiculo);
+            }
+            if (ev.getUbicacion().contains(palabrab)) {
+
+                lv1.add(vehiculo);
+            }
+            String s = ev.getFechaEntrada().toString();
+            System.out.println("valor de SSSSSSSSSSSS" + s);
+            if (s.contains(palabrab)) {
+                lv1.add(vehiculo);
+            }
+
+        }
+
+        if (lv1.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaVehiculos = lv1;
+        }
+
+    }
+
+    public ArrayList<String> autocompletarEstadoV(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        for (Vehiculo vehiculo : listaVehiculos) {
+            EstadoVehiculo ev = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
+            if (ev.getNombre().contains(query)) {
+                ced.add(ev.getNombre());
+
+            }
+            if (ev.getUbicacion().contains(query)) {
+                ced.add(ev.getUbicacion());
+            }
+            String s = ev.getFechaEntrada().toString();
+            System.out.println("valor de SSSSSSSSSSSS" + s);
+            if (s.contains(query)) {
+                ced.add(ev.getFechaEntrada().toString());
+            }
+        }
+
+        System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
     }
@@ -511,16 +627,34 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void crearEstadoUbicacion() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("\n\n\n entro crear estado\n\n\n\n");
         EstadoVehiculo estadoU = new EstadoVehiculo();
+        System.out.println("\n\n\n entro crear nuevo\n\n\n\n");
         estadoU.setFechaEntrada(now);
         estadoU.setNombre("Equipo Trabajando Normalmente");
         estadoU.setUbicacion("Taller Mtop Loja");
+
         estadoU.setCreatedOn(now);
         estadoU.setLastUpdate(now);
         estadoU.setActivationTime(now);
         estadoU.setVehiculo(getInstance());
+        System.out.println("\n\n\n entro crear estado AnTES\n\n\n\n" + estadoU);
         save(estadoU);
+        System.out.println("\n\n\n entro crear estado despues\n\n\n\n" + estadoU);
+    }
 
+    public void crearEstadoUbicacion2() {
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        System.out.println("\n\n\n entro crear estado\n\n\n\n");
+        System.out.println("\n\n\n entro crear nuevo\n\n\n\n");
+        estado.setCreatedOn(now);
+        estado.setLastUpdate(now);
+        estado.setActivationTime(now);
+        estado.setVehiculo(getInstance());
+        System.out.println("\n\n\n entro crear estado AnTES\n\n\n\n" + estado);
+        servgen.actualizar(estado);
+        System.out.println("\n\n\n entro crear estado despues\n\n\n\n" + estado);
     }
 
     public void crearPlanMantenimientoActivo() {
@@ -572,7 +706,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(getInstance());
                 crearKardex();
                 crearEstadoUbicacion();
+                System.out.println("volcio a guardar");
                 crearPlanMantenimientoActivo();
+                System.out.println("finalizo");
                 mensaje = "Se creó Vehiculo" + getInstance().getId() + " con éxito";
             }
         } catch (Exception e) {
@@ -602,6 +738,34 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
         return "/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true";
+    }
+
+    public String guardarEstadoVehiculo() {
+        System.out.println("entro metodo a guardarEstado::::::.");
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+
+        try {
+            if (getInstance().isPersistent()) {
+                System.out.println("entro a editar estado:::::: ");
+                System.out.println("ante");
+                crearEstadoUbicacion2();
+                System.out.println("finalizo");
+                System.out.println("\n\n\n\n estado\n\n\n\n " + estado);
+
+                getInstance().getListaEstados().add(estado);
+                System.out.println("lista de estado de l vehiculo" + getInstance().getListaEstados());
+                save(getInstance());
+
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
+
+            }
+
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        }
+        return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -682,6 +846,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         }
         System.out.println("retornara false");
         return false;
+    }
+
+    public EstadoVehiculo getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoVehiculo estado) {
+        this.estado = estado;
     }
 
 }

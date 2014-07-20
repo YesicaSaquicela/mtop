@@ -10,11 +10,12 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
                 xmlns:mtop="http://mtop.org/jsf/facelets"
+                xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
     <ui:param name="titulo" value="Ficha Técnica de Vehículos y Estado Mecánico"/>
     <f:metadata>
-        <f:viewParam name="estadoId" value="#{controladorEstadoVehiculo.estadoVehiculoId}"/>
+        <f:viewParam name="estadovId" value="#{controladorVehiculo.vehiculoId}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -31,22 +32,30 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
                         <p:panel id="p1" >
+                            <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row-fluid">
-
-
-
-                                    <h:outputLabel value="Fecha de Inicio" /> <br></br> 
-                                    <p:calendar  id="fechainicio" value="#{controladorEstadoVehiculo.instance.fechaEntrada}"  label="Fecha de Inicio"
+                                    <p:outputLabel value="Fecha Final:"/>
+                                    <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.fechaFinal}" 
                                                  styleClass="xLarge" required="true" 
-                                                 locale="es" pattern="dd-MMM-yyyy">   
+                                                 >   
                                         <p:ajax event="dateSelect" rendered="save" />  
-                                    </p:calendar><br></br> 
-                                    <span class="help-inline text-muted">Ingrese la fecha de inicio<ocp:message forId="fechainicio" /></span><br></br><br></br>
+                                    </p:calendar><br/>
+                                    <span class="help-inline text-muted">Fecha del estado anterior del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
+
+                                    <p:outputLabel value="Fecha Inicio:"/>
+                                    <p:calendar  id="fechaSalida" value="#{controladorVehiculo.estado.fechaEntrada}"  label="Fecha entrada de Taller "
+                                                 styleClass="xLarge" required="true" 
+                                                 >   
+                                        <p:ajax event="dateSelect" rendered="save" />  
+                                        <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg2" />  
+                                    </p:calendar><br/>
+                                    <span class="help-inline text-muted">Fecha de Incio del estado actual del vehículo<ocp:message forId="fechaSalida" /></span><br></br><br></br> 
+                                    <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
 
                                     <h:outputLabel value="Estado"/> <br></br> 
-                                    <p:selectOneMenu id="estado"  value="#{controladorEstadoVehiculo.instance.nombre}" effect="fade" >  
+                                    <p:selectOneMenu id="estado"  value="#{controladorVehiculo.estado.nombre}" effect="fade" >  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Equipo para baja o remate" itemValue="Equipo para baja o remate" />  
                                         <f:selectItem itemLabel="Equipo trabajando con fallas" itemValue="Equipo trabajando con fallas" />  
@@ -56,8 +65,8 @@
                                     </p:selectOneMenu> <br></br>
                                     <span class="help-inline text-muted">Elija que se encuentra haciendo el vehículo<ocp:message forId="estado" /></span><br></br><br></br> 
 
-                                    <mtop:input id="ubicacion" name="ubicacion" type="text" label="Ubicacion" 
-                                                value="#{controladorEstadoVehiculo.instance.ubicacion}" required="true" 
+                                    <mtop:input id="ubicacion" name="ubicacion" type="text" label="Ubicación" 
+                                                value="#{controladorVehiculo.estado.ubicacion}" required="true" 
                                                 inlinehelp="Ingrese ubicación del vehículo" 
                                                 execute ="@this save" render="ubicacion"/><br></br>
 
@@ -70,7 +79,7 @@
 
 
                     <center>
-                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorEstadoVehiculo.guardar()}"
+                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.guardarEstadoVehiculo()}"
                                          ajax="false" update="p1"/>
                         &nbsp;&nbsp;
                         <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/estadodeubicacion/lista" styleClass="btn  btn-success">

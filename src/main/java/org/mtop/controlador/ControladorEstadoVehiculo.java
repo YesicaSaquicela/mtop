@@ -54,18 +54,21 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
     private ServicioGenerico servgen;
     List<EstadoVehiculo> listaEstadoVehiculo = new ArrayList<EstadoVehiculo>();
     private String palabrab = "";
+    private Date fechaFinal;
+   
 
-    public String formato(Date fecha) {
-        String fechaFormato = "";
-        if (fecha != null) {
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            fechaFormato = formatter.format(fecha);
-        }
-
-        return fechaFormato;
-
+    public Date getFechaFinal() {
+        fechaFinal=listaEstadoVehiculo.get(listaEstadoVehiculo.size()-1).getFechaEntrada();
+        System.out.println("fecha final"+fechaFinal);
+        return fechaFinal;
     }
 
+    public void setFechaFinal(Date fechaFinal) {
+              this.fechaFinal = fechaFinal;
+    }
+    
+    
+ 
     public String getPalabrab() {
         return palabrab;
     }
@@ -160,7 +163,7 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
+
         return getInstance();
     }
 

@@ -35,7 +35,7 @@ import org.mtop.modelo.profile.Profile;
 @DiscriminatorValue(value = "vk")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Vehiculo extends BussinesEntity implements Serializable {
-   
+
     private Integer anioFabricacion;
     private Integer cabina;
     @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
@@ -62,11 +62,13 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private Integer kilometraje;
     @Pattern(regexp = "^[a-zA-Z]*$", message = "Error: solo puede ingresar letras")
     private String tipoCombustible;
-   
 
     @ManyToOne
     @JoinColumn(name = "planMantenimientoId")
     private PlanMantenimiento planM;
+
+    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EstadoVehiculo> listaEstados = new ArrayList<EstadoVehiculo>();
 
     public PlanMantenimiento getPlanM() {
         return planM;
@@ -75,14 +77,9 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setPlanM(PlanMantenimiento planM) {
         this.planM = planM;
     }
-    
-    
-    
+
 //    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<PlanMantenimiento> listaPlanMantenimiento= new ArrayList<PlanMantenimiento>();
-//    @OneToMany(mappedBy = "vehiculo" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<EstadoVehiculo> listaEstados= new ArrayList<EstadoVehiculo>();
-   
     public Profile getPersona() {
         return persona;
     }
@@ -91,7 +88,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.persona = persona;
     }
 
-    
     public String getNumRegistro() {
         return numRegistro;
     }
@@ -116,7 +112,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.kilometraje = kilometraje;
     }
 
-
     public String getPlaca() {
         return placa;
     }
@@ -125,21 +120,17 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.placa = placa;
     }
 
-   
-   
-   
-    
-    
-//    public List<EstadoVehiculo> getListaEstados() {
-//        return listaEstados;
-//    }
-//    
-//    public void setListaEstados(List<EstadoVehiculo> listaEstados) {
-//        for (EstadoVehiculo estadoVehiculo : listaEstados) {
-//            estadoVehiculo.setVehiculo(this);
-//        }
-//        this.listaEstados = listaEstados;
-//    }
+    public List<EstadoVehiculo> getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(List<EstadoVehiculo> listaEstados) {
+        for (EstadoVehiculo estadoVehiculo : listaEstados) {
+            estadoVehiculo.setVehiculo(this);
+        }
+        this.listaEstados = listaEstados;
+    }
+
 //    //agregar una sola propiedad
 //    public void agregarEstado(EstadoVehiculo estadoVehiculo){
 //        if(!listaEstados.contains(estadoVehiculo)){
@@ -172,7 +163,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setCabina(Integer cabina) {
         this.cabina = cabina;
     }
-
 
     public String getColor() {
         return color;

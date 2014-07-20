@@ -6,6 +6,7 @@
 package org.mtop.modelo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ public class EstadoVehiculo extends BussinesEntity implements Serializable {
     private String ubicacion;
     private String nombre;
 
-   @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "vehiculoId")
     private Vehiculo vehiculo;
 
@@ -44,15 +45,19 @@ public class EstadoVehiculo extends BussinesEntity implements Serializable {
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
+        
         this.vehiculo = vehiculo;
     }
    
     public Date getFechaEntrada() {
+        
         return fechaEntrada;
     }
 
     public void setFechaEntrada(Date fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
+       this.fechaEntrada = fechaEntrada;
+        
+        System.out.println("fija fecha"+this.fechaEntrada);
     }
 
     public String getUbicacion() {
