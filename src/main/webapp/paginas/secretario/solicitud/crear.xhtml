@@ -60,7 +60,7 @@
                                                 execute ="@this save" render="recibidor"/><br></br>
 
                                     <p:outputLabel value="Observación"/><br></br>
-                                    <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
+                                    <p:inputTextarea maxlength="150" id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
                                                      required="true" />
                                     <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>
 

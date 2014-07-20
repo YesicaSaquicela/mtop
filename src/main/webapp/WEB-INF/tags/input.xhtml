@@ -37,6 +37,7 @@ limitations under the License.
     <c:set var="converter" value="#{not empty converter ? converter : omnifaces.SelectItemsConverter}" />    
     <c:set var="disabled" value="#{not empty disabled ? disabled : 'false'}" />    
     <c:set var="numDecimales" value="#{not empty numDecimales ? numDecimales : '2'}" />
+    <c:set var="maxl" value="#{not empty maxl ? maxl : null}" /> 
     <c:set var="validateLength" value="#{not empty validateLength ? validateLength : false}" />
     <!-- TODO habilitar o deshabilitar ajax validation -->
     <h:panelGroup id="panel-group-#{id}" layout="block" class="clearfix">

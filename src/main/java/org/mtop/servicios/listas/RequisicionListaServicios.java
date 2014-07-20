@@ -44,6 +44,9 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.mtop.modelo.config.Setting;
+
+
 
 @Named
 @RequestScoped

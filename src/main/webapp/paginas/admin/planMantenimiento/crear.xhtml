@@ -49,13 +49,13 @@
                             <span class="help-inline text-muted">Ingrese la fecha de creación<ocp:message forId="fechaCreacion" /></span><br></br><br></br> 
 
                             <p:outputLabel value="Actividad"/><br></br>
-                            <p:inputTextarea id="actividad" required="true" styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
+                            <p:inputTextarea maxlength="100" id="actividad" required="true" styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
                                              />
                             <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
 
 
                             <h:outputLabel value="Kilometraje"/> <br></br> 
-                            <p:selectOneMenu required="true" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
+                            <p:selectOneMenu maxlength="100" required="true" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
                                 <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                 <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
 

@@ -63,6 +63,11 @@
             stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
             from the Hibernate family of projects) -->
             <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>core-renderer</artifactId>
+            <version>R8</version>
+        </dependency>
+            <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
                 <version>${jboss.bom.version}</version>

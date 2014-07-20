@@ -35,14 +35,14 @@
                                 <div class="row">
                                     <div class="col-md-6"> 
                                         <p:outputLabel value="Número de Registro"/>
-                                        <p:inputText  id="registro"  value="#{controladorVehiculo.numeroRegistro}" readonly="true" styleClass="form-control"
+                                        <p:inputText id="registro"  value="#{controladorVehiculo.numeroRegistro}" readonly="true" styleClass="form-control"
                                                       required="true" label="Número de Registro" 
                                                       rendered="true" >
                                         </p:inputText>
                                         <span class="help-inline text-muted">Número de registro<ocp:message forId="valuep" /></span><br></br><br></br>
 
 
-                                        <mtop:input id="marca" name="marca" type="text" label="Marca" 
+                                        <mtop:input maxlength="5" id="marca" name="marca" type="text" label="Marca" 
                                                     value="#{controladorVehiculo.instance.marca}" required="true" 
                                                     inlinehelp=" ingrese la marca Vehículo" 
                                                     execute ="@this save" render="marca"/><br></br>
