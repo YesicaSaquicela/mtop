@@ -88,7 +88,7 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
          }
          */
         this.getResultList();
-        return "/pages/admin/bussinesentitytype/list";
+        return "/paginas/admin/bussinesentitytype/list";
     }
 
     public int getNextFirstResult() {

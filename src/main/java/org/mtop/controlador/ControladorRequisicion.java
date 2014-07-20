@@ -552,10 +552,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void agregarItem() {
+        String des = cir.getInstance().getDescription().trim();
+        String uni = cir.getInstance().getUnidadMedida().trim();
+        if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
 
-        if (cir.getInstance().getCantidad().equals("") || cir.getInstance().getUnidadMedida().equals("")) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, cantidad, descripción y unidad de medida"));
             System.out.println("\n\n\n\n no entro guardarrrrr\n\n\n\n");
         } else {
             if (!pro.getCodigo().equals("")) {
@@ -564,7 +565,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
                 listaProductos.set(i, pro);
             }
-            System.out.println("\n\nanadioooo\n\n\n"+cir.getInstance());
+            System.out.println("\n\nanadioooo\n\n\n" + cir.getInstance());
 
             listaItemsRequisicion.add(cir.getInstance());
             cir.setInstance(new ItemRequisicion());
@@ -677,13 +678,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             } else {
 
                 if (event.getOldStep().equals("items") && this.listaItemsRequisicion.isEmpty()) {
-                    System.out.println("estas vaciaaaaaa");
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item al plan de mantenimiento"));
+                    
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la lista"));
 
                     return event.getOldStep();
                 } else {
-
-                    return event.getNewStep();
+                    
+//                    if (event.getNewStep().equals("items") && this.listaItemsRequisicion.isEmpty() ) {
+//                        System.out.println("\n\n\n\n entro a regresar\n\n\n\n");
+//                        return event.getOldStep();
+//                    } else {
+                        return event.getNewStep();
+//                    }
                 }
             }
 
@@ -821,6 +827,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaProductos = new ArrayList<Producto>();
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
+        cir.getInstance().setCantidad(0);
+        cir.getInstance().setUnidadMedida(" ");
+        cir.getInstance().setDescription(" ");
         maximo = 100;
         pro = new Producto();
         pro.setCodigo("");

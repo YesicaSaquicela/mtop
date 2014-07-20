@@ -32,7 +32,7 @@
 
 
 
-                    <p:wizard  id="p" flowListener="#{controladorRequisicion.onFlowProcess}">
+                    <p:wizard  id="p" flowListener="#{controladorRequisicion.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente" >
                         <p:tab id="req"  title="Requisición">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos Generales</center></div>
@@ -96,7 +96,7 @@
                                     <span class="help-inline text-muted">Elija el tipo de adquisición<ocp:message forId="adquisicion" /></span><br></br><br></br>
 
                                     <p:outputLabel value="Observación"/><br></br>
-                                    <p:inputTextarea id="observacion" styleClass="form-control" value="#{controladorRequisicion.instance.observaciones}"
+                                    <p:inputTextarea id="observacion" maxlength="150" styleClass="form-control" value="#{controladorRequisicion.instance.observaciones}"
                                                      required="true" />
                                     <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>                                   
 
@@ -223,6 +223,7 @@
                                 <div class="panel-heading"><center>Lista de Vehículos de Reparación y Mantenimiento</center></div>
                                 <br/>
                                 <p:panel>
+                                    <p:messages/>
                                     <div class="admin-actions">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
@@ -383,8 +384,9 @@
                         <p:tab id="items" title="Agregar Items">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Items</center></div>
+                                
                                 <p:panel id="bodegas" rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-
+                                    
                                     <div class="admin-actions">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
@@ -531,6 +533,7 @@
 
 
                                                 <tbody>
+                                                    <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2">
 
                                                         <p:column headerText="Cantidad">
