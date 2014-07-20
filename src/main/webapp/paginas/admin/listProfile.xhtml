@@ -60,39 +60,42 @@ limitations under the License.
 
 
                                                 <tbody>
-                                                    <p:dataTable id="profileDataTable1"  var="profile_" value="#{profileListService.resultList}" >
+                                                    <p:dataTable id="profileDataTable1"  var="profile_" value="#{profileListService.resultList}" 
+                                                                     paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
 
-                                                        <p:column>
+                                                        <p:column sortBy="#{profile_.id}">
                                                             <f:facet name="header">  
                                                                 <h:outputText value="Id" />  
                                                             </f:facet> 
                                                             <h:outputText value="#{profile_.id}" />
                                                         </p:column>
-                                                        <p:column>
+                                                        <p:column sortBy="#{profile_.firstname}">
                                                             <f:facet name="header">  
                                                                 <h:outputText value="#{messages['common.firstname']}" />  
                                                             </f:facet> 
                                                             <h:outputText value="#{profile_.firstname}" />
                                                         </p:column>
-                                                        <p:column>
+                                                        <p:column sortBy="#{profile_.surname}">
                                                             <f:facet name="header">  
                                                                 <h:outputText value="#{messages['profile.surname']}" />  
                                                             </f:facet> 
                                                             <h:outputText value="#{profile_.surname}" />
                                                         </p:column>
-                                                        <p:column>
+                                                        <p:column sortBy="#{profile_.code}">
                                                             <f:facet name="header">  
                                                                 <h:outputText value="#{messages['profile.dni']}" />  
                                                             </f:facet> 
                                                             <h:outputText value="#{profile_.code}" />
                                                         </p:column>
-                                                        <p:column>
+                                                        <p:column sortBy="#{profile_.email}">
                                                             <f:facet name="header">  
                                                                 <h:outputText value="#{messages['common.email']}" />  
                                                             </f:facet> 
                                                             <h:outputText value="#{profile_.email}" />
                                                         </p:column>
-                                                        <p:column>
+                                                        <p:column sortBy="#{profile_.tipo}">
                                                             <f:facet name="header">  
                                                                 <h:outputText value="Tipo de Persona" />  
                                                             </f:facet> 

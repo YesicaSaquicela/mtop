@@ -37,7 +37,7 @@ limitations under the License.
     <c:set var="converter" value="#{not empty converter ? converter : omnifaces.SelectItemsConverter}" />    
     <c:set var="disabled" value="#{not empty disabled ? disabled : 'false'}" />    
     <c:set var="numDecimales" value="#{not empty numDecimales ? numDecimales : '2'}" />
-    <c:set var="maxl" value="#{not empty maxl ? maxl : null}" /> 
+    <c:set var="maxl" value="#{not empty maxl ? maxl : '50'}" /> 
     <c:set var="validateLength" value="#{not empty validateLength ? validateLength : false}" />
     <!-- TODO habilitar o deshabilitar ajax validation -->
     <h:panelGroup id="panel-group-#{id}" layout="block" class="clearfix">
@@ -45,7 +45,7 @@ limitations under the License.
         <div class="input">
             <c:choose>
                 <c:when test="#{type == 'java.lang.String' or type == 'text'}">
-                    <p:inputText value="#{value}" id="#{name}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
+                    <p:inputText value="#{value}" id="#{name}" maxlength="#{maxl}" styleClass="form-control" required="#{required}" label="#{label}" disabled="#{disabled}">
                         <f:validator validatorId="#{validator}"/>
                         <!--f:validateLength minimum="# {minLength}" rendered="# {validateLength}"/-->
                         <p:ajax event="blur" update="#{render}" partialSubmit="true"/>

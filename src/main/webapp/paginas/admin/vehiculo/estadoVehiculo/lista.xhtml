@@ -38,7 +38,10 @@
                                     
 
                                         <tbody>
-                                            <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v">
+                                            <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v"
+                                                             paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
                                                 <p:column headerText="Color">
                                                     <h:outputText value="#{v.color}"></h:outputText>
                                                 </p:column>
