@@ -296,4 +296,8 @@ public class Profile extends BussinesEntity implements Serializable {
 //    public Object getId() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+    public String concatenarNombre(){
+        String resultado = getFirstname() + " " + getSurname();
+        return resultado;
+    }
 }

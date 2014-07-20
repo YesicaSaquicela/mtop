@@ -119,6 +119,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return ubicacion;
     }
 
+    public ServicioGenerico getServgen() {
+        return servgen;
+    }
+
+    public void setServgen(ServicioGenerico servgen) {
+        this.servgen = servgen;
+    }
+    
+
     public String getPalabrab() {
         return palabrab;
     }

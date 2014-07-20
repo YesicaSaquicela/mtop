@@ -493,7 +493,7 @@
 
                                                     </h:link>
 
-                                                <!--p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
+                                                <!--p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
                                                                  styleClass="btn  btn-success"  action="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
                                                     <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
                                                     <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>

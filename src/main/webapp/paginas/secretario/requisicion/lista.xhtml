@@ -68,9 +68,15 @@
                                             </div>
                                         </div>
                                     </div> </p:panel></div>
-                                <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
+                                <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
                                     <f:param name="requisicionId"></f:param>
-                                </p:commandButton><br/><br/>
+                                </p:commandButton-->
+                                <h:link styleClass="btn btn-success" value="Crear" outcome="crear" type="button" >
+                                                        <f:param name="requisicionId" ></f:param>
+
+
+                                                    </h:link>
+                                <br/><br/>
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
