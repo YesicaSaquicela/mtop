@@ -78,14 +78,17 @@
 
 
                                         <tbody>
-                                            <p:dataTable id="listap" value="#{controladorProducto.listaProducto}" var="pd">
-                                                <p:column headerText="Código">
+                                            <p:dataTable id="listap" value="#{controladorProducto.listaProducto}" var="pd"
+                                                             paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
+                                                <p:column headerText="Código" sortBy="#{pd.codigo}">
                                                     <h:outputText value="#{pd.codigo}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Cantidad">
+                                                <p:column headerText="Cantidad" sortBy="#{pd.cantidad}">
                                                     <h:outputText value="#{pd.cantidad}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Descripción">
+                                                <p:column headerText="Descripción" sortBy="#{pd.description}">
                                                     <h:outputText value="#{pd.description}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 
