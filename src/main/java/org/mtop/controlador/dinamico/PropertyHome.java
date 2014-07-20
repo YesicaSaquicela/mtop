@@ -88,7 +88,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         if (getInstance().getType() != null) {
             propertyType = getInstance().getType();
             if (propertyType.equals("java.util.Date")) {
-                
+
                 Date fecha = Date.class.cast(getInstance().getValue());
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
                 //String fecha=sdf.format(getInstance().getValue());
@@ -135,49 +135,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         System.out.println(fecha);
         setPropertyStringValue(fecha);
         this.propertyDateValue = propertyDateValue;
-    }
-
-    public String getPropertyType() {
-        return propertyType;
-    }
-
-    public void setPropertyType(String propertyType) {
-        this.propertyType = propertyType;
-        if (this.propertyType != null) {
-
-            System.out.println("Entor a tipo>>>>>>" + this.propertyType);
-            if (this.propertyType.equals("org.mtop.modelo.EstadoParteMecanica")) {
-                setPropertyStringValue("Bueno,Malo*");
-            } else {
-                if (this.propertyType.equals("java.lang.String")
-                        || this.propertyType.equals("java.lang.String[]")
-                        || this.propertyType.equals("java.lang.MultiLineString")
-                        || this.propertyType.equals("java.lang.Object")
-                        || this.propertyType.equals("java.lang.Boolean")) {
-
-                    setPropertyStringValue(" ");
-                } else {
-                    if (this.propertyType.equals("java.lang.Double")
-                            || this.propertyType.equals("java.lang.Long")
-                            || this.propertyType.equals("java.lang.Integer")) {
-                        setPropertyStringValue("0");
-                    } else {
-                        if (this.propertyType.equals("java.util.Date")) {
-                            System.out.println("entro a fecha");
-                            Date date = Calendar.getInstance().getTime();
-                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-                            String fecha = sdf.format(date);
-                            System.out.println(fecha);
-                            setPropertyStringValue(fecha);
-                            setPropertyDateValue(date);
-                        }
-
-                    }
-                }
-
-            }
-        }
-
     }
 
     public String getPropertyStringValue() {
@@ -231,17 +188,187 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         return Property.class;
     }
 
+    public List<String> getTiposDatos() {
+        List<String> tipos = new ArrayList<String>();
+        // tipos.add("org.mtop.modelo.dinamico.Structure");
+        tipos.add("Estructura");
+        // tipos.add("org.mtop.modelo.dinamico.Group");
+
+        List<Property> l = findAllPropiedades();
+        Structure structura = bussinesEntityTypeService.getStructure(structureId);
+        Property p = new Property();
+        for (int i = 1; i < l.size(); i++) {
+            if (structura.getName().equals(l.get(i).getName())) {
+                p = l.get(i);
+            }
+
+        }
+        if (p.getGroupName() != null) {
+            if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
+                //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
+                tipos.add("EstadoParteMecanica");
+                // setPropertyStringValue("Bueno,Malo");
+            }
+
+        }
+
+//        tipos.add("java.util.Date");
+//        tipos.add("java.lang.String");
+//        tipos.add("java.lang.Double");
+//        tipos.add("java.lang.Integer");
+//        tipos.add("java.lang.Long");
+//        tipos.add("java.lang.Boolean");
+//        tipos.add("java.lang.String[]");
+//        tipos.add("java.lang.MultiLineString");
+//        tipos.add("java.lang.Object");
+        tipos.add("Fecha");
+        tipos.add("Texto");
+        tipos.add("Real");
+        tipos.add("Entero");
+        tipos.add("EnteroMayor");
+        tipos.add("Booleano");
+        tipos.add("Lista");
+        tipos.add("AreaTexto");
+        //  tipos.add("java.lang.Object");
+        return tipos;
+    }
+
+    public void ConvertirStringPropiedades() {
+        if (getInstance().getType().equals("AreaTexto")) {
+            getInstance().setType("java.lang.MultiLineString");
+        } else {
+            if (getInstance().getType().equals("Lista")) {
+                getInstance().setType("java.lang.String[]");
+            } else {
+                if (getInstance().getType().equals("Booleano")) {
+                    getInstance().setType("java.lang.Boolean");
+                } else {
+                    if (getInstance().getType().equals("EnteroMayor")) {
+                        getInstance().setType("java.lang.Long");
+                    } else {
+                        if (getInstance().getType().equals("Entero")) {
+                            getInstance().setType("java.lang.Integer");
+                        } else {
+                            if (getInstance().getType().equals("Real")) {
+                                getInstance().setType("java.lang.Double");
+                            } else {
+                                if (getInstance().getType().equals("Texto")) {
+                                    getInstance().setType("java.lang.String");
+                                } else {
+                                    if (getInstance().getType().equals("EstadoParteMecanica")) {
+                                        getInstance().setType("org.mtop.modelo.EstadoParteMecanica");
+                                    } else {
+
+                                        getInstance().setType("org.mtop.modelo.dinamico.Structure");
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public String getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
+        if (this.propertyType != null) {
+
+            System.out.println("Entor a tipo>>>>>>" + this.propertyType);
+            if (this.propertyType.equals("EstadoParteMecanica")) {
+                setPropertyStringValue("Bueno,Malo*");
+            } else {
+                if (this.propertyType.equals("Texto")
+                        || this.propertyType.equals("Lista")
+                        || this.propertyType.equals("AreaTexto")
+                        || this.propertyType.equals("java.lang.Object")
+                        || this.propertyType.equals("Booleano")) {
+
+                    setPropertyStringValue(" ");
+                } else {
+                    if (this.propertyType.equals("Real")
+                            || this.propertyType.equals("EnteroMayor")
+                            || this.propertyType.equals("Entero")) {
+                        setPropertyStringValue("0");
+                    } else {
+                        if (this.propertyType.equals("Fecha")) {
+                            System.out.println("entro a fecha");
+                            Date date = Calendar.getInstance().getTime();
+                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+                            String fecha = sdf.format(date);
+                            System.out.println(fecha);
+                            setPropertyStringValue(fecha);
+                            setPropertyDateValue(date);
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    public String ConvertirPropiedadesString(Property p) {
+        if (p.getType().equals("java.lang.MultiLineString")) {
+            return "AreaTexto";
+        } else {
+            if (p.getType().equals("java.lang.String[]")) {
+                return "Lista";
+            } else {
+                if (p.getType().equals("java.lang.Boolean")) {
+                    return "Booleano";
+                } else {
+                    if (p.getType().equals("java.lang.Long")) {
+                        return "EnteroMayor";
+                    } else {
+                        if (p.getType().equals("java.lang.Integer")) {
+                            return "Entero";
+                        } else {
+                            if (p.getType().equals("java.lang.Double")) {
+                                return "Real";
+                            } else {
+                                if (p.getType().equals("java.lang.String")) {
+                                    return "Texto";
+                                } else {
+                                    if (p.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
+                                        return "EstadoParteMecanica";
+                                    } else {
+                                        if (p.getType().equals("java.util.Date")) {
+                                            return "Fecha";
+                                        } else {
+                                            return "Estructura";
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @TransactionAttribute
     public String saveProperty() {
+        ConvertirStringPropiedades();
         getInstance().setType(propertyType);
         System.out.println("tipo de la propiedaaaaaaaad>>>>>>>>>> " + getInstance().getType());
         System.out.println("valor de la propiedad>>>>>" + this.propertyStringValue);
         log.info("eqaula --> saving " + getInstance().getName());
 
         if (getInstance().getType().equals("java.util.Date")) {
+
             getInstance().setValue(Calendar.getInstance().getTime());
         }
-        if (getInstance().getType().equals("java.lang.Long")||getInstance().getType().equals("java.lang.Integer")) {
+        if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
+
             propertyStringValue = this.propertyStringValue.substring(0, (propertyStringValue.length() - 2));
         }
         if (getInstance().isPersistent()) {
@@ -388,43 +515,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             return "valueTextPropertyValidator";
         }
         return "";
-    }
-
-    public List<String> getTiposDatos() {
-        List<String> tipos = new ArrayList<String>();
-       // tipos.add("org.mtop.modelo.dinamico.Structure");
-        tipos.add("Estructura");
-       // tipos.add("org.mtop.modelo.dinamico.Group");
-        
-
-        List<Property> l = findAllPropiedades();
-        Structure structura = bussinesEntityTypeService.getStructure(structureId);
-        Property p = new Property();
-        for (int i = 1; i < l.size(); i++) {
-            if (structura.getName().equals(l.get(i).getName())) {
-                p = l.get(i);
-            }
-
-        }
-        if (p.getGroupName() != null) {
-            if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
-              //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
-                 tipos.add("EstadoParteMecanica");
-                // setPropertyStringValue("Bueno,Malo");
-            }
-
-        }
-
-        tipos.add("java.util.Date");
-        tipos.add("java.lang.String");
-        tipos.add("java.lang.Double");
-        tipos.add("java.lang.Integer");
-        tipos.add("java.lang.Long");
-        tipos.add("java.lang.Boolean");
-        tipos.add("java.lang.String[]");
-        tipos.add("java.lang.MultiLineString");
-        tipos.add("java.lang.Object");
-        return tipos;
     }
 
     public List<Property> findAllPropiedades() {

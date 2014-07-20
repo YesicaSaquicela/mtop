@@ -59,27 +59,27 @@
                                                 <div class="input" >
                                                     <p:inputText id="valuep" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                                                  required="true" label="#{messages['common.property.value']}"
-                                                                 rendered="#{propertyHome.propertyType ne 'java.util.Date'
-                                                                             and propertyHome.propertyType ne 'java.lang.MultiLineString'
-                                                                             and propertyHome.propertyType ne 'java.lang.Long'
+                                                                 rendered="#{propertyHome.propertyType ne 'Fecha'
+                                                                             and propertyHome.propertyType ne 'AreaTexto'
+                                                                             and propertyHome.propertyType ne 'EnteroMayor'
                                                      }"
-                                                                 disabled="#{propertyHome.propertyType eq 'org.mtop.modelo.EstadoParteMecanica'}">                            
+                                                                 disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica'}">                            
                                                         <f:ajax execute="@this" render="save"  />
                                                     </p:inputText>     
                                                     <p:calendar id="valuep2" value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
-                                                                rendered="#{propertyHome.propertyType eq 'java.util.Date'}" required="true">
+                                                                rendered="#{propertyHome.propertyType eq 'Fecha'}" required="true">
 
                                                         <f:ajax event="dateSelect" execute="@this" render="save"/>
                                                     </p:calendar>
                                                     <p:inputTextarea value="#{propertyHome.propertyStringValue}" styleClass="form-control"
                                                                      required="true" label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
-                                                                     rendered="#{propertyHome.propertyType eq 'java.lang.MultiLineString'}">
+                                                                     rendered="#{propertyHome.propertyType eq 'AreaTexto'}">
                                                         <f:ajax event="blur" execute="@this" render="save"/>
                                                     </p:inputTextarea>
 
                                                     <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="form-control"
                                                                     required="true" label="#{messages['common.property.value']}"
-                                                                    rendered="#{propertyHome.propertyType eq 'java.lang.Long'  or propertyHome.propertyType eq 'java.lang.Float'}"
+                                                                    rendered="#{propertyHome.propertyType eq 'EnteroMayor'  or propertyHome.propertyType eq 'Real'}"
                                                                     decimalPlaces="0" >  
                                                         <f:ajax event="blur" execute="@this" render="save"/>
                                                     </pe:inputNumber><br></br>

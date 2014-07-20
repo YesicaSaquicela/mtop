@@ -218,7 +218,7 @@ limitations under the License.
                                     <h:outputText value="#{property.label}" />
                                 </p:column>                        
                                 <p:column headerText="#{messages['common.property.type']}" sortBy="#{property.type}" style="width: 5%">
-                                    <h:outputText value="#{property.type}" styleClass="span1"/>
+                                    <h:outputText value="#{propertyHome.ConvertirPropiedadesString(property)}" styleClass="span1"/>
                                 </p:column>                                 
                                 <p:column headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 20%">
                                     <h:outputText value="#{property.value}" styleClass="span3"/>
