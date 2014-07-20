@@ -68,6 +68,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private ControladorPlanMantenimiento cplanMantenimiento;
     private String palabrab = "";
 
+    public ServicioGenerico getServgen() {
+        return servgen;
+    }
+
+    public void setServgen(ServicioGenerico servgen) {
+        this.servgen = servgen;
+    }
+    
+
     public String getPalabrab() {
         return palabrab;
     }

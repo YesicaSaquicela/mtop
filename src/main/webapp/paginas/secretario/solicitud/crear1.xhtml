@@ -69,7 +69,7 @@
                                     <p:selectOneMenu id="vehiculo" value="#{controladorSolicitudReparacionMantenimiento.idvehiculo}" effect="fade" styleClass="form-control" converter="#{omnifaces.GenericEnumConverter}" required="true" requiredMessage="false" 
                                                      rendered="true" label="Vehiculo">  
                                         <f:selectItem itemLabel="Selecione uno" />  
-                                        <f:selectItems value="#{listaVehiculos.vehiculos}" var="vehiculo" itemLabel="#{vehiculo.placa}" itemValue="#{vehiculo.id}"/>  
+                                        <f:selectItems value="#{vehiculoListaServicios().vehiculos}" var="vehiculo" itemLabel="#{vehiculo.placa}" itemValue="#{vehiculo.id}"/>  
                                         <p:ajax event="change" update="@parent" partialSubmit="true"/>
                                     </p:selectOneMenu>
 
