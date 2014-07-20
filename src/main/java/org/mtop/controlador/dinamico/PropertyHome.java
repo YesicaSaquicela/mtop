@@ -392,8 +392,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public List<String> getTiposDatos() {
         List<String> tipos = new ArrayList<String>();
-        tipos.add("org.mtop.modelo.dinamico.Structure");
-        tipos.add("org.mtop.modelo.dinamico.Group");
+       // tipos.add("org.mtop.modelo.dinamico.Structure");
+        tipos.add("Estructura");
+       // tipos.add("org.mtop.modelo.dinamico.Group");
+        
 
         List<Property> l = findAllPropiedades();
         Structure structura = bussinesEntityTypeService.getStructure(structureId);
@@ -406,7 +408,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
         if (p.getGroupName() != null) {
             if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
-                tipos.add("org.mtop.modelo.EstadoParteMecanica");
+              //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
+                 tipos.add("EstadoParteMecanica");
                 // setPropertyStringValue("Bueno,Malo");
             }
 
