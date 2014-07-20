@@ -78,7 +78,9 @@
                                 <tbody>
                                     <p:dataTable id="listap" value="#{controladorKardex.listakardex}" var="item"
 
-                                                 >
+                                                paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20" >
                                         <p:column headerText="Número de kardex" sortBy="#{item.numero}" >
                                             <h:outputText value="#{item.numero}"></h:outputText>
                                         </p:column>

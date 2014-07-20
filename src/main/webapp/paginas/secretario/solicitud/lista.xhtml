@@ -49,7 +49,10 @@
 
 
                                     <tbody>
-                                        <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s">
+                                        <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
+                                                     paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
                                             
 
                                             <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">

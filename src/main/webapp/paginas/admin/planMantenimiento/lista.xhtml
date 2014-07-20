@@ -79,11 +79,14 @@
 
 
                                         <tbody>
-                                            <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm">
-                                                <p:column headerText="Número de Registro">
+                                            <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm"
+                                                         paginator="true" rows="15"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
+                                                <p:column headerText="Número de Registro" sortBy="#{pm.registro}">
                                                     <h:outputText value="#{pm.registro}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Fecha de creación">
+                                                <p:column headerText="Fecha de creación" >
                                                     <h:outputText value="#{controladorPlanMantenimiento.formato(pm.createdOn)}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 

@@ -35,47 +35,47 @@
                             <br/>
                             <div class="admin-actions">
                                 <div class="panel panel-success">
-                                   <p:panel>
-                                    <div class="panel-body">
-                                        <div class="container-fluid" align="center">
-                                            <div class="row-fluid">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                                                <div class="col-lg-6">
-                                                    <center>
-                                                        <div class="input-group">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
-                                                                                completeMethod="#{controladorRequisicion.autocompletar}"/> 
-                                                                 &nbsp;&nbsp;
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
+                                                                                    completeMethod="#{controladorRequisicion.autocompletar}"/> 
+                                                                    &nbsp;&nbsp;
 
 
 
-                                                                <p:commandButton value="Buscar" update=":form:listap" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
+                                                                    </p:commandButton>
 
-                                                              
-                                                                <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
-                                                    </center>
+                                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div> </p:panel></div>
-                                <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
-                                    <f:param name="requisicionId"></f:param>
-                                </p:commandButton-->
+                                        </div> </p:panel></div>
+                                    <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
+                                        <f:param name="requisicionId"></f:param>
+                                    </p:commandButton-->
                                 <h:link styleClass="btn btn-success" value="Crear" outcome="crear" type="button" >
-                                                        <f:param name="requisicionId" ></f:param>
+                                    <f:param name="requisicionId" ></f:param>
 
 
-                                                    </h:link>
+                                </h:link>
                                 <br/><br/>
                             </div>
                             <div class="tab-content">
@@ -85,7 +85,9 @@
 
                                         <tbody>
                                             <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
-
+                                                         paginator="true" rows="15"                         
+                                                         paginatorPosition="top"
+                                                         rowsPerPageTemplate="5,10,15,20"
                                                          >
                                                 <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
                                                     <h:outputText value="#{r.numRequisicion}"></h:outputText>
