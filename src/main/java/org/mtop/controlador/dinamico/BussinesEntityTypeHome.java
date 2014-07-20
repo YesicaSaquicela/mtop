@@ -158,7 +158,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                 log.info("mtop --> error al guardar nuevo" + getInstance().getName());
             }
         }
-        return "/pages/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+        return "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
     @Transactional
@@ -203,7 +203,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRORE", e.toString()));
         }
-        return "/pages/admin/bussinesentitytype/list";
+        return "/paginas/admin/bussinesentitytype/list";
     }
 
     @TransactionAttribute
