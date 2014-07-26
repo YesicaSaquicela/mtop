@@ -1,6 +1,6 @@
 /**
  */
-package edu.sgssalud.faces.validator;
+
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
