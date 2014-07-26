@@ -1,7 +1,4 @@
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -10,15 +7,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextOutputDevice;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.pdf.ITextUserAgent;
+import org.xhtmlrenderer.resource.XMLResource;
+
+import com.lowagie.text.DocumentException;
 
 /**
  * @author
  * 
  */
-public class PDF {
+public class GeneradorPDF {
 
 	public static byte[] getValidHtmlDocument(InputStream is) {
 		Tidy t = new Tidy();
@@ -28,32 +30,34 @@ public class PDF {
 		return baus.toByteArray();
 	}
 
- 
-public static void createPDF(InputStream is, OutputStream os)
-            throws IOException, DocumentException {
-        try {
-            Document document = new Document();
-            
-            PdfWriter writer = PdfWriter.getInstance(document, os);
+	public static void createPDF(InputStream is, OutputStream os)
+			throws IOException, DocumentException {
+		try {                   
+			is = new ByteArrayInputStream(getValidHtmlDocument(is));
+			ITextRenderer renderer = new ITextRenderer();
+			ResourceLoaderUserAgent callback = new ResourceLoaderUserAgent(
+					renderer.getOutputDevice());
+			callback.setSharedContext(renderer.getSharedContext());
+			renderer.getSharedContext().setUserAgentCallback(callback);
 
-            document.open();
-            is = new ByteArrayInputStream(getValidHtmlDocument(is));
-            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
+			Document doc = XMLResource.load(is).getDocument();
 
-            document.close();
-            writer.close();
-            os.close();
-            os = null;
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-    }
+			renderer.setDocument(doc, null);
+			renderer.layout();
+			renderer.createPDF(os);
+
+			os.close();
+			os = null;
+		} finally {
+			if (os != null) {
+				try {
+					os.close();
+				} catch (IOException e) {
+					// ignore
+				}
+			}
+		}
+	}
    
 	private static class ResourceLoaderUserAgent extends ITextUserAgent {
 		public ResourceLoaderUserAgent(ITextOutputDevice outputDevice) {
@@ -66,9 +70,10 @@ public static void createPDF(InputStream is, OutputStream os)
 			return is;
 		}
 	}
+           
              
 	public static void main(String args[]) throws IOException, com.lowagie.text.DocumentException {
-		PDF pu = new PDF();
+		GeneradorPDF pu = new GeneradorPDF();
 		StringBuilder buf = new StringBuilder();
                 
                 	buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
@@ -209,7 +214,7 @@ public static void createPDF(InputStream is, OutputStream os)
 			OutputStream os = new FileOutputStream("/tmp/examplePie5.pdf");
 			pu.createPDF(bais, os);
 		} catch (DocumentException ex) {
-			Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null,
+			Logger.getLogger(GeneradorPDF.class.getName()).log(Level.SEVERE, null,
 					ex);
 		}
 	}

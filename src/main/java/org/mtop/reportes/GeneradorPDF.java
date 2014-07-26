@@ -1,3 +1,5 @@
+
+package org.mtop.reportes;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -18,7 +20,7 @@ import org.xhtmlrenderer.pdf.ITextUserAgent;
  * @author
  * 
  */
-public class PDF {
+public class GeneradorPDF {
 
 	public static byte[] getValidHtmlDocument(InputStream is) {
 		Tidy t = new Tidy();
@@ -68,7 +70,7 @@ public static void createPDF(InputStream is, OutputStream os)
 	}
              
 	public static void main(String args[]) throws IOException, com.lowagie.text.DocumentException {
-		PDF pu = new PDF();
+		GeneradorPDF pu = new GeneradorPDF();
 		StringBuilder buf = new StringBuilder();
                 
                 	buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
