@@ -26,6 +26,7 @@ import javax.persistence.metamodel.MapAttribute;
 import org.mtop.modelo.EstadoVehiculo;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.Requisicion;
+import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.Vehiculo;
 //import org.mtop.model.EntidadAbstracta_;
 //import org.mtop.model.Persona;
@@ -108,7 +109,6 @@ public class ServicioGenerico {
      * @param at el atributo de la clase
      * @return
      */
-
     public <T> List<T> buscarTodos(final Class<T> objetoTipo, String at) {
         System.out.println("1" + objetoTipo.toString() + "ll" + at.toString());
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -116,7 +116,7 @@ public class ServicioGenerico {
         CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(objetoTipo);
         System.out.println("3");
         Root<T> objeto = query.from(objetoTipo);
-        
+
         query.where(builder.equal(objeto.get(at), objeto.get(at)));
         System.out.println("5");
         return em.createQuery(query).getResultList();
@@ -153,7 +153,7 @@ public class ServicioGenerico {
     }
 
     public <T> List<T> buscarTodoscoincidencia(final Class<T> objetoTipo, String tabla, String nombreatributo, final Object valoratributo) {
-        
+
         TypedQuery<T> query = em.createQuery(
                 "select e from " + tabla + " e where"
                 + " lower(e." + nombreatributo + ") like lower(concat('%',:clave,'%')) ", objetoTipo);
@@ -164,9 +164,8 @@ public class ServicioGenerico {
 
         //builder.equal(objeto.get(at), true)
     }
-    
-    
-    public <T> List<T> find(final Class<T> objetoTipo,String criterio,int maxresults, int firstresult) {
+
+    public <T> List<T> find(final Class<T> objetoTipo, String criterio, int maxresults, int firstresult) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(objetoTipo);
@@ -175,57 +174,71 @@ public class ServicioGenerico {
         query.select(objeto).orderBy(builder.desc(objeto.get(criterio)));
         return getResultList(query, maxresults, firstresult);
     }
-    
-    
+
     protected <T> List<T> getResultList(final CriteriaQuery<T> query,
             int maxresults, int firstresult) {
         return em.createQuery(query).setMaxResults(maxresults)
                 .setFirstResult(firstresult).getResultList();
     }
-    
-    
+
     public List<Requisicion> buscarRequisicionporFecha(String nombreatributo, final Object valoratributo) {
-        List<Requisicion> l= new ArrayList<Requisicion>();
-        String s="";
+        List<Requisicion> l = new ArrayList<Requisicion>();
+        String s = "";
         l.clear();
         for (Requisicion t : buscarTodos(Requisicion.class, nombreatributo)) {
-            
-            s=t.getFechaRequisicion().toString();
-            System.out.println("valor de SSSSSSSSSSSS"+s);
-            System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
-            if(s.contains(valoratributo.toString())){
+
+            s = t.getFechaRequisicion().toString();
+            System.out.println("valor de SSSSSSSSSSSS" + s);
+            System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(valoratributo));
+            if (s.contains(valoratributo.toString())) {
                 l.add(t);
             }
         }
-        
-        
-       
+
         return l;
 
         //builder.equal(objeto.get(at), true)
     }
-       public List<EstadoVehiculo> buscarEstadoVporFecha(String nombreatributo, final Object valoratributo) {
-        List<EstadoVehiculo> l= new ArrayList<EstadoVehiculo>();
-        String s="";
+
+    public List<EstadoVehiculo> buscarEstadoVporFecha(String nombreatributo, final Object valoratributo) {
+        List<EstadoVehiculo> l = new ArrayList<EstadoVehiculo>();
+        String s = "";
         l.clear();
         for (EstadoVehiculo e : buscarTodos(EstadoVehiculo.class, nombreatributo)) {
-            
-            s=e.getFechaEntrada().toString();
-            System.out.println("valor de SSSSSSSSSSSS"+s);
-            System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
-            if(s.contains(valoratributo.toString())){
+
+            s = e.getFechaEntrada().toString();
+            System.out.println("valor de SSSSSSSSSSSS" + s);
+            System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(valoratributo));
+            if (s.contains(valoratributo.toString())) {
                 l.add(e);
             }
         }
-        
-        
-       
+
         return l;
 
         //builder.equal(objeto.get(at), true)
     }
-       
-        public String formato(Date fecha) {
+
+    public List<SolicitudReparacionMantenimiento> buscarSolicitudporFecha(String nombreatributo, final Object valoratributo) {
+        List<SolicitudReparacionMantenimiento> l = new ArrayList<SolicitudReparacionMantenimiento>();
+        String s = "";
+        l.clear();
+        for (SolicitudReparacionMantenimiento e : buscarTodos(SolicitudReparacionMantenimiento.class, nombreatributo)) {
+
+            s = e.getFechaSolicitud().toString();
+            System.out.println("valor de SSSSSSSSSSSS" + s);
+            System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(valoratributo));
+            if (s.contains(valoratributo.toString())) {
+                l.add(e);
+            }
+        }
+
+        return l;
+
+        //builder.equal(objeto.get(at), true)
+    }
+
+    public String formato(Date fecha) {
         String fechaFormato = "";
         if (fecha != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -235,24 +248,21 @@ public class ServicioGenerico {
         return fechaFormato;
 
     }
-  
-       
-     public List<PlanMantenimiento> buscarPlanMporFecha(String nombreatributo, final Object valoratributo) {
-        List<PlanMantenimiento> l= new ArrayList<PlanMantenimiento>();
-        String s="";
+
+    public List<PlanMantenimiento> buscarPlanMporFecha(String nombreatributo, final Object valoratributo) {
+        List<PlanMantenimiento> l = new ArrayList<PlanMantenimiento>();
+        String s = "";
         l.clear();
         for (PlanMantenimiento t : buscarTodos(PlanMantenimiento.class, nombreatributo)) {
-            
-            s=formato(t.getCreatedOn());
-            System.out.println("valor de SSSSSSSSSSSS"+s);
-            System.out.println("valor de aTributooooooooooooooooooooo"+String.class.cast(valoratributo));
-            if(s.contains(valoratributo.toString())){
+
+            s = formato(t.getCreatedOn());
+            System.out.println("valor de SSSSSSSSSSSS" + s);
+            System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(valoratributo));
+            if (s.contains(valoratributo.toString())) {
                 l.add(t);
             }
         }
-        
-        
-       
+
         return l;
 
         //builder.equal(objeto.get(at), true)

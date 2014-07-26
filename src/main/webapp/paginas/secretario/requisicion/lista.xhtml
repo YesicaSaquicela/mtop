@@ -76,7 +76,7 @@
 
 
                                 </h:link>
-                                <br/><br/>
+                                <br/>
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
@@ -103,11 +103,13 @@
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 
 
-                                                    <h:link value="Editar" outcome="crear" type="button" >
+
+                                                    <p:button id="selectButton" 
+                                                              outcome="crear"
+                                                              icon="ui-icon-pencil" title="Editar">  
                                                         <f:param name="requisicionId" value="#{r.id}"></f:param>
-
-
-                                                    </h:link>
+                                                        <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
+                                                    </p:button>
                                                 </p:column>
                                             </p:dataTable></tbody></div></div></div>
 
