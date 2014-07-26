@@ -74,7 +74,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyType;
     @Inject
     private ServicioGenerico servgen;
-
+    private Integer propertyNumberValue;
     public PropertyHome() {
         log.info("mtop --> Inicializo Property Home");
     }
@@ -82,6 +82,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     public Long getPropertyId() {
         return (Long) getId();
     }
+
+    public Integer getPropertyNumberValue() {
+        return propertyNumberValue;
+    }
+
+    public void setPropertyNumberValue(Integer propertyNumberValue) {
+        this.propertyNumberValue = propertyNumberValue;
+    }
+    
 
     public void setPropertyId(Long propertyId) throws ParseException {
         setId(propertyId);
@@ -148,6 +157,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         /// getInstance().setValue(this.propertyStringValue);
     }
 
+   
     @Override
     protected Property createInstance() {
         Property property = new Property();
@@ -258,8 +268,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                                     if (getInstance().getType().equals("EstadoParteMecanica")) {
                                         getInstance().setType("org.mtop.modelo.EstadoParteMecanica");
                                     } else {
+                                        if (getInstance().getType().equals("Fecha")) {
+                                            getInstance().setType("java.util.Date");
+                                        } else {
 
-                                        getInstance().setType("org.mtop.modelo.dinamico.Structure");
+                                        }
 
                                     }
                                 }
