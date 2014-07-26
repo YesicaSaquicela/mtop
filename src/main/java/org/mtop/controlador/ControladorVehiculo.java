@@ -50,7 +50,7 @@ import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.context.RequestContext;
-
+import org.mtop.genreporte.GeneradorPdf;
 /**
  *
  * @author jesica
@@ -859,7 +859,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
     
     public void generaReporte(){
-        
+       GeneradorPdf gpdf= new GeneradorPdf();
+        GeneradorPdf.UbicacionVehiculo();
     }
 
 }
