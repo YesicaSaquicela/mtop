@@ -1,4 +1,4 @@
-import java.io.ByteArrayInputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,13 +7,15 @@ import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.w3c.dom.Document;
-import org.w3c.tidy.Tidy;
+
 import org.xhtmlrenderer.pdf.ITextOutputDevice;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.pdf.ITextUserAgent;
 import org.xhtmlrenderer.resource.XMLResource;
 
 import com.lowagie.text.DocumentException;
+import java.io.ByteArrayInputStream;
+import org.w3c.tidy.Tidy;
 
 /**
  * @author
