@@ -22,56 +22,106 @@
         <h:form id="form">            
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                       <div class="panel panel-primary">
-                           <p:panel>
-                    <!--Opción de mensaje, cuando se realiza una acción-->
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <div class="panel panel-primary">
+                        <p:panel>
+                            <!--Opción de mensaje, cuando se realiza una acción-->
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
-                    <!--Botones de admin-->
+                            <!--Botones de admin-->
 
-                    <div class="row-fluid">
-
-                        <!--ul class="nav nav-tabs">
-                            <li class="active"><a href="#todas" data-toggle="tab">Venta</a></li>
-                            <li><a href="#anuladas" data-toggle="tab">Anuladas</a></li>
-                            <li class="only-admin"><a href="#compra" data-toggle="tab">Compra</a></li>
-                        </ul-->
-                        <br></br><br></br>
-                        <div class="admin-actions">
-                            <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/solicitud/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
-                                <f:param name="solicitudId" ></f:param>
-                            </p:commandButton><br/><br/>
-                         
-                        </div>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="todas">
-                                <div class="table-responsive">
+                            <div class="admin-actions">
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                                    <tbody>
-                                        <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s">
-                                            
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                            <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
-                                                <h:outputText value="#{s.numSolicitud}"></h:outputText>
-                                            </p:column>z
-                                            <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
-                                                <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"></h:outputText>
-                                            </p:column>
-                                            <p:column headerText="Recibidor" sortBy="#{s.recibidor}">
-                                                <h:outputText value="#{s.recibidor}"></h:outputText>
-                                            </p:column>
-                                            <p:column headerText="Observación" sortBy="#{s.observacion}">
-                                                <h:outputText value="#{s.observacion}"></h:outputText>
-                                            </p:column>
-                                            <p:column headerText="Opciones" style="width: 5%"> 
-                                                <h:link value="Editar" outcome="crear" type="button" >
-                                                    <f:param name="solicitudId" value="#{s.id}"></f:param>
-                                                </h:link>
-                                            </p:column>
-                                        </p:dataTable></tbody></div></div>
-                        </div></div>
-                           </p:panel></div>  </div></div>
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrab}"   
+                                                                                    completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletar}"/> 
+                                                                    &nbsp;&nbsp;
+
+
+
+                                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+                                    <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
+                                        <f:param name="requisicionId"></f:param>
+                                    </p:commandButton-->
+                                <div class="admin-actions">
+                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/solicitud/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                        <f:param name="solicitudId" ></f:param>
+                                    </p:commandButton><br/><br/>
+
+                                </div>
+                                <br/><br/>
+                            </div>
+
+                            <div class="row-fluid">
+
+                                <!--ul class="nav nav-tabs">
+                                    <li class="active"><a href="#todas" data-toggle="tab">Venta</a></li>
+                                    <li><a href="#anuladas" data-toggle="tab">Anuladas</a></li>
+                                    <li class="only-admin"><a href="#compra" data-toggle="tab">Compra</a></li>
+                                </ul-->
+                                <br></br><br></br>
+
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="todas">
+                                        <div class="table-responsive">
+
+
+                                            <tbody>
+                                                <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
+                                                             paginator="true" rows="15"                         
+                                                             paginatorPosition="top"
+                                                             rowsPerPageTemplate="5,10,15,20">
+
+
+                                                    <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
+                                                        <h:outputText value="#{s.numSolicitud}"></h:outputText>
+                                                    </p:column>z
+                                                    <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
+                                                        <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Recibidor" sortBy="#{s.recibidor}">
+                                                        <h:outputText value="#{s.recibidor}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Observación" sortBy="#{s.observacion}">
+                                                        <h:outputText value="#{s.observacion}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Opciones" style="width: 5%"> 
+
+                                                        <p:button id="selectButton" 
+                                                                  outcome="crear"
+                                                                  icon="ui-icon-pencil" title="Editar">  
+                                                            <f:param name="solicitudId" value="#{s.id}"></f:param>
+                                                            <f:param name="vehiculoId" value="#{s.vehiculo.id}"></f:param>
+                                                        </p:button>
+                                                    </p:column>
+                                                </p:dataTable></tbody></div></div>
+                                </div></div>
+                        </p:panel></div>  </div></div>
 
         </h:form>
     </ui:define>

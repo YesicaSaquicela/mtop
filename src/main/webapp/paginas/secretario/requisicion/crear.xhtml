@@ -13,8 +13,8 @@
     <ui:param name="titulo" value="Gestionar Requisiciones"/>
     <f:metadata>
         <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
-
-
+        <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
+        <f:viewParam name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -48,7 +48,7 @@
                                     <h:outputLabel value="Fecha de Requisición" /> <br></br> 
                                     <p:calendar locale="es" id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
                                                  styleClass="xLarge" required="true" 
-                                                 >   
+                                                 locale="es">   
                                         <!--p:ajax event="dateSelect" rendered="save" /-->  
                                     </p:calendar>  <br></br> 
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
@@ -384,9 +384,9 @@
                         <p:tab id="items" title="Agregar Items">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Items</center></div>
-                                
+
                                 <p:panel id="bodegas" rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                    
+
                                     <div class="admin-actions">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
@@ -440,13 +440,13 @@
 
 
                                                                  >
-                                                        <p:column headerText="Código">
+                                                        <p:column headerText="Código" sortBy="#{itemp.codigo}">
                                                             <h:outputText value="#{itemp.codigo}" />
                                                         </p:column>
-                                                        <p:column headerText="Descripción">
+                                                        <p:column headerText="Descripción" sortBy="#{itemp.description}">
                                                             <h:outputText value="#{itemp.description}" />
                                                         </p:column>
-                                                        <p:column headerText="Cantidad">
+                                                        <p:column headerText="Cantidad" sortBy="#{itemp.cantidad}">
                                                             <h:outputText value="#{itemp.cantidad}" />
                                                         </p:column>
                                                         <p:column style="width:4%;text-align: center">
@@ -534,16 +534,19 @@
 
                                                 <tbody>
                                                     <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
-                                                    <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2">
+                                                    <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
+                                                                  paginator="true" rows="15"                         
+                                                             paginatorPosition="top"
+                                                             rowsPerPageTemplate="5,10,15,20">
 
-                                                        <p:column headerText="Cantidad">
+                                                        <p:column headerText="Cantidad" sortBy="#{item2.cantidad}">
                                                             <h:outputText value="#{item2.cantidad}"></h:outputText>
                                                         </p:column>
 
-                                                        <p:column headerText="Unidad de Medida">
+                                                        <p:column headerText="Unidad de Medida" sortBy="#{item2.unidadMedida}">
                                                             <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                         </p:column>
-                                                        <p:column headerText="Descripción">
+                                                        <p:column headerText="Descripción" sortBy="#{item2.description}">
                                                             <h:outputText value="#{item2.description}"></h:outputText>
                                                         </p:column>
 
@@ -570,6 +573,43 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de Solicitudes de Reparación y Mantenimiento</center></div>
                                 <p:panel >
+                                    <div class="admin-actions">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+
+
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimples" value="#{controladorRequisicion.palabrabs}"   
+                                                                                    completeMethod="#{controladorRequisicion.autocompletars}"/> 
+
+
+
+
+
+
+                                                                    <p:commandButton value="Buscar" update=":form:basicDT12" action="#{controladorRequisicion.buscars()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                    #{' '} #{' '} 
+                                                                    <p:commandButton value="Limpiar" update=":form:basicDT12 :form:acSimples" action="#{controladorRequisicion.limpiars()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
@@ -578,27 +618,72 @@
                                                 <tbody>
                                                     <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                    <p:dataTable id="basicDT12" var="items" value="#{controladorRequisicion.listaSolicitudes}">
-                                                        <p:column headerText="Número">
+                                                    <p:dataTable id="basicDT12" var="items" value="#{controladorRequisicion.listaSolicitudes}"
+
+                                                                 paginator="true" rows="15"                         
+                                                                 paginatorPosition="top"
+
+                                                                 rowsPerPageTemplate="5,10,15,20"
+                                                                 >
+                                                        <p:column headerText="Número" sortBy="#{items.numSolicitud}">
                                                             <h:outputText value="#{items.numSolicitud}" />
                                                         </p:column>
-                                                        <p:column headerText="Fecha">
+                                                        <p:column headerText="Fecha" sortBy="#{items.fechaSolicitud}" >
                                                             <h:outputText value="#{items.fechaSolicitud}" />
                                                         </p:column>
-                                                        <p:column headerText="Observación">
+                                                        <p:column headerText="Observación" sortBy="#{items.observacion}">
                                                             <h:outputText value="#{items.observacion}" />
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
                                                             <p:commandLink update=":form:sol :form:mensaje" value="Agregar" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.solicitudrep}" />
+                                                                 <f:setPropertyActionListener value="#{items.id}" target="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}" />
                                                             </p:commandLink>
                                                         </p:column>
+                                                          
                                                     </p:dataTable>
                                                     <br/>
-                                                    <h:outputText value="solicitud id: " />
-                                                    <p:inputText immediate="true" id="sol" value="#{controladorRequisicion.solicitudrep.id}" rendered="true"
-                                                                 required="true" readonly="true" /><br/>
+                                                    <p:panel id="solicitudr"  >
+                                                        <div class="panel panel-primary">
+                                                            <div class="panel-heading"  align="center">Datos de Solicitud de Reparación y Mantenimiento seleccionada</div>
+                                                            <p:panel >
+                                                                <div class="container-fluid" align="center">
+                                                                    <div class="row-fluid"  >
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Número de solicitud:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}"/>
+
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Fecha de Solicitud: "/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"/>
+
+                                                                        </div>
+
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Recibidor:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"/>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row-fluid"  >
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Observación:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"/>
+                                                                        </div>
+                                                                       
+                
+                                                                    </div>
+                                                                </div>
+                                                            </p:panel>
+                                                        </div>
+
+                                                    </p:panel>
+                                                    <br/>
+
+
                                                 </tbody></div></div></div>
 
                                 </p:panel>
@@ -662,7 +747,7 @@
                             <div class="admin-actions " align="center"> 
                                 <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" action="#{controladorRequisicion.guardar()}" styleClass="btn  btn-success"  process="@this" ajax="false" />
                                 #{' '} 
-                                <h:button value="Regresar" rendered="#{true}" outcome="/paginas/secretario/requisicion/lista" styleClass="btn  btn-success"/>
+                                <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/requisicion/lista" styleClass="btn  btn-success"/>
                             </div>
 
                         </p:tab>

@@ -105,7 +105,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         String fechaFormato = "";
         System.out.println("lista de vehiculos" + listaVehiculos);
         System.out.println("vehiculooooo"+vehiculo);
-        Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
+        Date fEntrada = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getFechaEntrada();
 
         if (fEntrada != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

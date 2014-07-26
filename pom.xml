@@ -62,11 +62,7 @@
             tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate 
             stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
             from the Hibernate family of projects) -->
-            <dependency>
-            <groupId>org.xhtmlrenderer</groupId>
-            <artifactId>core-renderer</artifactId>
-            <version>R8</version>
-        </dependency>
+       
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
@@ -107,6 +103,11 @@
 
         <!-- Import the CDI API, we use provided scope as the API is included 
         in JBoss AS 7 -->
+             <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>core-renderer</artifactId>
+            <version>R8</version>
+        </dependency>
         
         <dependency>
 	<groupId>org.webjars</groupId>

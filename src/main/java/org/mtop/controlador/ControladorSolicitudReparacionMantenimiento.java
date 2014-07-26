@@ -39,8 +39,10 @@ import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
+import org.mtop.modelo.SolicitudReparacionMantenimiento_;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
 import org.mtop.util.UI;
 import org.primefaces.event.FlowEvent;
@@ -69,7 +71,176 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Requisicion requisicion;
     private boolean skip;
     private List<ItemSolicitudReparacion> listaItemsSolicitud;
+    private String palabrabv="";
+    private String palabrab="";
 
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+    
+
+    public String getPalabrabv() {
+        return palabrabv;
+    }
+
+    public void setPalabrabv(String palabrabv) {
+        this.palabrabv = palabrabv;
+    }
+    
+public void buscar() {
+        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia
+        List<SolicitudReparacionMantenimiento> le = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), palabrab);
+        //buscando por fechas
+        List<SolicitudReparacionMantenimiento> lef = servgen.buscarSolicitudporFecha(SolicitudReparacionMantenimiento_.fechaSolicitud.getName(), palabrab);
+        for (SolicitudReparacionMantenimiento solicitudrm : lef) {
+            if (!le.contains(solicitudrm)) {
+                le.add(solicitudrm);
+            }
+        }
+
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaSolicitud = le;
+            palabrab = "";
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        listaSolicitud.clear();
+        System.out.println("lppp" + ls);
+
+        for (SolicitudReparacionMantenimiento soli : ls) {
+            if (soli.isEstado()) {
+                System.out.println("listatesssa" + listaSolicitud);
+                listaSolicitud.add(soli);
+
+            }
+
+        }
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        List<SolicitudReparacionMantenimiento> le = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), query);
+        //buscando por fechas
+
+        for (SolicitudReparacionMantenimiento soli : le) {
+            System.out.println("econtro uno " + soli.getNumSolicitud());
+            ced.add(soli.getNumSolicitud());
+        }
+        List<SolicitudReparacionMantenimiento> lef = servgen.buscarSolicitudporFecha(SolicitudReparacionMantenimiento_.fechaSolicitud.getName(), query);
+
+        for (SolicitudReparacionMantenimiento soli : lef) {
+            ced.add(soli.getFechaSolicitud().toString());
+        }
+
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
+
+    
+     public ArrayList<String> autocompletarv(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), query);
+
+        for (Vehiculo vehiculo1 : lv) {
+            System.out.println("econtro uno " + vehiculo1.getNumRegistro());
+            ced.add(vehiculo1.getNumRegistro());
+        }
+        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), query);
+        for (Vehiculo vehiculo1 : lc) {
+            System.out.println("econtro uno " + vehiculo1.getPlaca());
+            ced.add(vehiculo1.getPlaca());
+        }
+
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
+     public void buscarv() {
+        if (palabrabv == null || palabrabv.equals("") || palabrabv.contains(" ")) {
+            palabrabv = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia descripciion
+        System.out.println("\n\n\n\n esta buscando" + palabrabv);
+        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), palabrabv);
+        //buscando por codigo
+        System.out.println("\n\n\n\n lv\n\n\n\n" + lv);
+        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), palabrabv);
+//        List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
+
+        for (Vehiculo vehiculo1 : lc) {
+            if (!lv.contains(vehiculo1)) {
+                lv.add(vehiculo1);
+            }
+        }
+
+//        for (Vehiculo vehiculo : lk) {
+//            if (!lv.contains(vehiculo)) {
+//                lv.add(vehiculo);
+//            }
+//        }
+        if (lv.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrabv.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrabv = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabv));
+            }
+
+        } else {
+            listaVehiculos = lv;
+        }
+        System.out.println("\n\n\n busco \n\n" + vehiculo);
+        System.out.println("listaaaaa autocompletar" + listaVehiculos);
+    }
+     
+     public void limpiarv() {
+        palabrabv = "";
+        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
+        listaVehiculos.clear();
+        System.out.println("lppp" + lv);
+
+        for (Vehiculo vehiculo1 : lv) {
+            System.out.println("iddddd" + vehiculo1.getId());
+            System.out.println("entro a for lista>>>>" + vehiculo1.isEstado());
+            if (vehiculo1.isEstado()) {
+                System.out.println("listatesssa" + listaVehiculos);
+                listaVehiculos.add(vehiculo1);
+
+                System.out.println("Entro a remover>>>>");
+                System.out.println("a;iadia" + listaVehiculos);
+
+            }
+
+        }
+    }
     public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
         return listaItemsSolicitud;
     }
@@ -97,6 +268,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         System.out.println("lista antes" + listaRequisiciones);
         System.out.println("id de vehiculo actual" + getVehiculo());
+        List<Requisicion> lr=servgen.buscarTodos(Requisicion.class);
         for (Requisicion req : listaRequisiciones) {
             if (req.getVehiculo().getId() != getVehiculo().getId()) {
                 listaRequisiciones.remove(req);
