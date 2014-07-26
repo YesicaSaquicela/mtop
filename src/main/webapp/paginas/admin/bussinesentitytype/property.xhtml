@@ -29,17 +29,18 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>Panel Básico</center></div>
                             <p:panel id="fnp">
+                                <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
                                 <div class="container-fluid">
                                     <div class="row-fluid"  >
                                         <div class="col-md-6"> 
                                             <p:outputLabel  value="#{messages['common.property.groupName']}"/><br/>
                                             <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
                                                          value="#{propertyHome.instance.groupName}" disabled="true" required="false"  /><br/>
-                                             <span class="help-inline text-muted">Nombre del Grupo</span><br/><br/>
-                                            
-                                             <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
+                                            <span class="help-inline text-muted">Nombre del Grupo</span><br/><br/>
+
+                                            <mtop:input id="name" name="tname" type="text" label="#{messages['common.name']}" 
                                                         value="#{propertyHome.instance.name}" required="true" inlinehelp="#{messages['common.property.name.help']}" execute="@this save" render="name"/><br></br>                   
-                                           
+
                                             <h:panelGroup id="typeP" layout="block" class="clearfix" >
                                                 <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
                                                 <div class="input">
@@ -62,10 +63,24 @@
                                                                  rendered="#{propertyHome.propertyType ne 'Fecha'
                                                                              and propertyHome.propertyType ne 'AreaTexto'
                                                                              and propertyHome.propertyType ne 'EnteroMayor'
+                                                                             and propertyHome.propertyType ne 'Real'
+                                                                             and propertyHome.propertyType ne 'Entero'
                                                      }"
-                                                                 disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica'}">                            
+                                                                 disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica'}"/>  
+
+
+                                                    <p:inputText  id="value" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
+                                                                 required="true" label="#{messages['common.property.value']}"
+                                                                 rendered="#{propertyHome.propertyType eq 'Entero'}"
+
+                                                                 > 
                                                         <f:ajax execute="@this" render="save"  />
-                                                    </p:inputText>     
+
+                                                        <!--p:ajax event="keypress" process="value valueintval" rendered="save"/-->
+                                                    </p:inputText>    
+                                                    <span class="help-inline text-muted"><ocp:message forId="value" /></span><br></br><br></br>
+
+                                                    <!--s:validateForm id="valueintval" validatorId="digitValidator"/-->
                                                     <p:calendar id="valuep2" value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
                                                                 rendered="#{propertyHome.propertyType eq 'Fecha'}" required="true">
 
@@ -80,7 +95,7 @@
                                                     <pe:inputNumber value="#{propertyHome.propertyStringValue}" styleClass="form-control"
                                                                     required="true" label="#{messages['common.property.value']}"
                                                                     rendered="#{propertyHome.propertyType eq 'EnteroMayor'  or propertyHome.propertyType eq 'Real'}"
-                                                                    decimalPlaces="0" >  
+                                                                    >  
                                                         <f:ajax event="blur" execute="@this" render="save"/>
                                                     </pe:inputNumber><br></br>
                                                     <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
