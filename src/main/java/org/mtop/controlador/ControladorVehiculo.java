@@ -74,6 +74,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private EstadoVehiculo estado = new EstadoVehiculo();
     private ControladorEstadoVehiculo cev;
     private Date fechaFinal=Calendar.getInstance().getTime();
+    
+    
 
     public Date getFechaFinal() {
        
@@ -854,6 +856,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public void setEstado(EstadoVehiculo estado) {
         this.estado = estado;
+    }
+    
+    public void generaReporte(){
+        
     }
 
 }

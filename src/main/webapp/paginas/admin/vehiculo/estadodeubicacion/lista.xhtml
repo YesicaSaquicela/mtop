@@ -27,7 +27,9 @@
                     <div class="panel panel-primary">
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <p:commandButton value="Generar Reporte"   action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
 
+                                                                </p:commandButton>
                             <!--Botones de admin-->
                             <div class="admin-actions">
                                 <div class="panel panel-success">
@@ -73,7 +75,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
-
+                                      
 
                                         <tbody>
                                             <p:dataTable id="listae" value="#{controladorVehiculo.listaVehiculos}" var="vehiculo"
