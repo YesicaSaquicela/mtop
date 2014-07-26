@@ -965,7 +965,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setPartidaContabilidad(p);
         getInstance().setPsolicita(psolicita);
         System.out.println("id de ala partidaaaaaaaaaaaaa" + p.getId());
-        if (solicitudrep.getId() != null) {
+        if(solicitudrep!=null){
+            if (solicitudrep.getId() != null) {
             System.out.println("anaidiando la solicitud" + solicitudrep);
             getInstance().setSolicitudReparacionId(solicitudrep);
             solicitudrep.setRequisicionId(getInstance());
@@ -978,6 +979,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             getInstance().setSolicitudReparacionId(solicitudrep);
 
         }
+        }
+        
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
