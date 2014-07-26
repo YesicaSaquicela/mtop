@@ -48,7 +48,7 @@
                                     <h:outputLabel value="Fecha de Requisición" /> <br></br> 
                                     <p:calendar locale="es" id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
                                                  styleClass="xLarge" required="true" 
-                                                 locale="es">   
+                                                 >   
                                         <!--p:ajax event="dateSelect" rendered="save" /-->  
                                     </p:calendar>  <br></br> 
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
@@ -218,7 +218,7 @@
 
 
 
-                        <p:tab id="address" title="Asignar Vehículo">
+                        <p:tab  id="address" title="Asignar Vehículo">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de Vehículos de Reparación y Mantenimiento</center></div>
                                 <br/>
@@ -636,7 +636,7 @@
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandLink update=":form:sol :form:mensaje" value="Agregar" title="Seleccionar">
+                                                            <p:commandLink update=":form:solicitudr :form:mensaje" value="Agregar" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.solicitudrep}" />
                                                                  <f:setPropertyActionListener value="#{items.id}" target="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}" />
                                                             </p:commandLink>

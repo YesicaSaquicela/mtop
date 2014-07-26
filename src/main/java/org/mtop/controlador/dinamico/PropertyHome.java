@@ -42,6 +42,7 @@ import org.mtop.util.UI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.validation.constraints.Pattern;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.modelo.Vehiculo;
@@ -74,7 +75,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyType;
     @Inject
     private ServicioGenerico servgen;
-    private Integer propertyNumberValue;
+     @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
+    private String propertyNumberValue;
     public PropertyHome() {
         log.info("mtop --> Inicializo Property Home");
     }
@@ -83,14 +85,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         return (Long) getId();
     }
 
-    public Integer getPropertyNumberValue() {
+    public String getPropertyNumberValue() {
         return propertyNumberValue;
     }
 
-    public void setPropertyNumberValue(Integer propertyNumberValue) {
+    public void setPropertyNumberValue(String propertyNumberValue) {
         this.propertyNumberValue = propertyNumberValue;
     }
-    
+
+   
 
     public void setPropertyId(Long propertyId) throws ParseException {
         setId(propertyId);
@@ -370,8 +373,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @TransactionAttribute
     public String saveProperty() {
-        ConvertirStringPropiedades();
+        
         getInstance().setType(propertyType);
+        System.out.println("TIpo::"+getInstance().getType());
+        ConvertirStringPropiedades();
         System.out.println("tipo de la propiedaaaaaaaad>>>>>>>>>> " + getInstance().getType());
         System.out.println("valor de la propiedad>>>>>" + this.propertyStringValue);
         log.info("eqaula --> saving " + getInstance().getName());
@@ -380,9 +385,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
             getInstance().setValue(Calendar.getInstance().getTime());
         }
-        if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
-
+       // if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
+         if (getInstance().getType().equals("java.lang.Long")) {
             propertyStringValue = this.propertyStringValue.substring(0, (propertyStringValue.length() - 2));
+        }
+        if(getInstance().getType().equals("java.lang.Integer")){
+            propertyStringValue = this.propertyNumberValue.toString();
         }
         if (getInstance().isPersistent()) {
             System.out.println("PRESENTAR GUERADAR>>>>>");
