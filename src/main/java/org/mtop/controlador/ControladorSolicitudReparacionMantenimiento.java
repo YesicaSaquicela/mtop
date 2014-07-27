@@ -36,13 +36,16 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.ItemSolicitudReparacion;
+import org.mtop.modelo.Producto;
 import org.mtop.modelo.Requisicion;
+import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.SolicitudReparacionMantenimiento_;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
+import org.mtop.modelo.profile.Profile;
 import org.mtop.servicios.ServicioGenerico;
 import org.mtop.util.UI;
 import org.primefaces.event.FlowEvent;
@@ -71,8 +74,35 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Requisicion requisicion;
     private boolean skip;
     private List<ItemSolicitudReparacion> listaItemsSolicitud;
-    private String palabrabv="";
-    private String palabrab="";
+    private String palabrabv = "";
+    private String palabrab = "";
+    private long idPersona = 0l;
+    private String palabrabr = "";
+
+    public String getPalabrabr() {
+        return palabrabr;
+    }
+
+    public void setPalabrabr(String palabrabr) {
+        this.palabrabr = palabrabr;
+    }
+
+    public List<Profile> getListaPersonal() {
+        return listaPersonal;
+    }
+
+    public void setListaPersonal(List<Profile> listaPersonal) {
+        this.listaPersonal = listaPersonal;
+    }
+    List<Profile> listaPersonal;
+
+    public long getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(long idPersona) {
+        this.idPersona = idPersona;
+    }
 
     public String getPalabrab() {
         return palabrab;
@@ -81,7 +111,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setPalabrab(String palabrab) {
         this.palabrab = palabrab;
     }
-    
 
     public String getPalabrabv() {
         return palabrabv;
@@ -90,8 +119,76 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setPalabrabv(String palabrabv) {
         this.palabrabv = palabrabv;
     }
-    
-public void buscar() {
+
+    public void buscarr() {
+        if (palabrabr == null || palabrabr.equals("") || palabrabr.contains(" ")) {
+            palabrabr = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia
+        List<Requisicion> le = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), palabrabr);
+        //buscando por fechas
+        List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), palabrabr);
+        for (Requisicion requisicion : lef) {
+            if (!le.contains(requisicion)) {
+                le.add(requisicion);
+            }
+        }
+
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrabr.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrabr = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabr));
+            }
+
+        } else {
+            listaRequisiciones = le;
+            palabrabr = "";
+        }
+
+    }
+
+    public void limpiarr() {
+        palabrabr = "";
+        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
+        listaRequisiciones.clear();
+        System.out.println("lppp" + lr);
+
+        for (Requisicion r : lr) {
+            if (r.isEstado()) {
+                System.out.println("listatesssa" + listaRequisiciones);
+                listaRequisiciones.add(r);
+
+            }
+
+        }
+    }
+
+    public ArrayList<String> autocompletarr(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), query);
+
+        for (Requisicion requisicion : lr) {
+            System.out.println("econtro uno " + requisicion.getNumRequisicion());
+            ced.add(requisicion.getNumRequisicion());
+        }
+
+        List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), query);
+        for (Requisicion requisicion : lef) {
+            ced.add(requisicion.getFechaRequisicion().toString());
+        }
+
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
+
+    public void buscar() {
         if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
             palabrab = "Ingrese algun valor a buscar";
         }
@@ -160,8 +257,7 @@ public void buscar() {
 
     }
 
-    
-     public ArrayList<String> autocompletarv(String query) {
+    public ArrayList<String> autocompletarv(String query) {
         System.out.println("QUEryyyyy" + query);
 
         ArrayList<String> ced = new ArrayList<String>();
@@ -178,11 +274,18 @@ public void buscar() {
             ced.add(vehiculo1.getPlaca());
         }
 
+//         List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
+//          for (Vehiculo vehiculo : lk) {
+//            System.out.println("econtro uno " + vehiculo.getPlaca());
+//            String cad=vehiculo.getKilometraje().toString();
+//            ced.add(cad);
+//        }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
     }
-     public void buscarv() {
+
+    public void buscarv() {
         if (palabrabv == null || palabrabv.equals("") || palabrabv.contains(" ")) {
             palabrabv = "Ingrese algun valor a buscar";
         }
@@ -220,8 +323,8 @@ public void buscar() {
         System.out.println("\n\n\n busco \n\n" + vehiculo);
         System.out.println("listaaaaa autocompletar" + listaVehiculos);
     }
-     
-     public void limpiarv() {
+
+    public void limpiarv() {
         palabrabv = "";
         List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
         listaVehiculos.clear();
@@ -241,6 +344,7 @@ public void buscar() {
 
         }
     }
+
     public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
         return listaItemsSolicitud;
     }
@@ -268,7 +372,7 @@ public void buscar() {
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         System.out.println("lista antes" + listaRequisiciones);
         System.out.println("id de vehiculo actual" + getVehiculo());
-        List<Requisicion> lr=servgen.buscarTodos(Requisicion.class);
+        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
         for (Requisicion req : listaRequisiciones) {
             if (req.getVehiculo().getId() != getVehiculo().getId()) {
                 listaRequisiciones.remove(req);
@@ -296,21 +400,11 @@ public void buscar() {
         if (getId() == null) {
             System.out.println("numero" + getInstance().getNumSolicitud());
             List<SolicitudReparacionMantenimiento> lista = findAll(SolicitudReparacionMantenimiento.class);
-            int t = lista.size();
+            int t = lista.size() + 8000;
             System.out.println("valor de t :::::::::::" + t);
-            if (t < 9) {
-                setNumeroSolicitud("000".concat(String.valueOf(t + 1)));
-            } else {
-                if (t >= 9 && t < 99) {
-                    setNumeroSolicitud("00".concat(String.valueOf(t + 1)));
-                } else {
-                    if (t >= 99 && t < 999) {
-                        setNumeroSolicitud("0".concat(String.valueOf(t + 1)));
-                    } else {
-                        setNumeroSolicitud(String.valueOf(t + 1));
-                    }
-                }
-            }
+
+            setNumeroSolicitud(String.valueOf(t + 1));
+
         } else {
             setNumeroSolicitud(getInstance().getNumSolicitud());
         }
@@ -396,7 +490,8 @@ public void buscar() {
     }
 
     public List<Vehiculo> getListaVehiculos() {
-        listaVehiculos = findAll(Vehiculo.class);
+//        listaVehiculos = findAll(Vehiculo.class);
+        System.out.println("ENTRO A BUSCAR>vehiculos>>>>>>>>>>");
         return listaVehiculos;
     }
 
@@ -411,9 +506,9 @@ public void buscar() {
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
-       
-            requisicion = getInstance().getRequisicionId();
-       
+
+        requisicion = getInstance().getRequisicionId();
+        idPersona = getInstance().getPsolicita().getId();
 
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         for (ItemSolicitudReparacion itr : findAll(ItemSolicitudReparacion.class)) {
@@ -481,7 +576,7 @@ public void buscar() {
 
     public void agregarItemS() {
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
-
+            System.out.println("ENTRO A PRESENTAR MENSAJE>>>>>>>>>");
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios.");
 
         } else {
@@ -508,6 +603,7 @@ public void buscar() {
         servgen.setEm(em);
         listaSolicitud = findAll(SolicitudReparacionMantenimiento.class);
         listaRequisiciones = findAll(Requisicion.class);
+//        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
         listaRequisiciones.clear();
         listaSolicitud.clear();
         System.out.println("listaaaaa solicituddd" + listaSolicitud);
@@ -521,6 +617,22 @@ public void buscar() {
             }
 
         }
+
+//        System.out.println("lppp" + ls);
+//        for (SolicitudReparacionMantenimiento solicitudr : ls) {
+//            System.out.println("iddddd" + solicitudr.getId());
+//            System.out.println("entro a for lista>>>>" + solicitudr.isEstado());
+//            if (solicitudr.isEstado()) {
+//                System.out.println("listatesssa" + listaSolicitud);
+//                listaSolicitud.add(solicitudr);
+//
+//                System.out.println("Entro a remover>>>>");
+//                System.out.println("a;iadia" + listaSolicitud);
+//
+//            }
+//
+//        }
+
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
@@ -528,6 +640,9 @@ public void buscar() {
         citemsolicitud.setInstance(new ItemSolicitudReparacion());
         requisicion = new Requisicion();
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
+        listaPersonal = findAll(Profile.class);
+        listaVehiculos=findAll(Vehiculo.class);
+
     }
 
     @Override
@@ -554,15 +669,16 @@ public void buscar() {
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-
+        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
+        getInstance().setPsolicita(psolicita);
         getInstance().setVehiculo(vehiculo);
         if (requisicion.getId() != null) {
             requisicion.setSolicitudReparacionId(getInstance());
             requisicion.setLastUpdate(now);
 
             try {
-                if(getInstance().getRequisicionId()!=null){
-                    Requisicion r=getInstance().getRequisicionId();
+                if (getInstance().getRequisicionId() != null) {
+                    Requisicion r = getInstance().getRequisicionId();
                     r.setSolicitudReparacionId(null);
                     servgen.actualizar(r);
                 }
@@ -610,6 +726,21 @@ public void buscar() {
         }
         getInstance().setListaItemSR(listaItemsSolicitud);//fija la lista de actividades al plan de mantenimietno
 
+    }
+
+    @Transactional
+    public String darDeBaja(Long idSolicitud) {
+        System.out.println("Entro a dar de baja>>>>>>" + idSolicitud);
+        setId(idSolicitud);
+        setInstance(servgen.buscarPorId(SolicitudReparacionMantenimiento.class, idSolicitud));
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+        getInstance().setEstado(false);
+
+        save(getInstance());
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
+        return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional

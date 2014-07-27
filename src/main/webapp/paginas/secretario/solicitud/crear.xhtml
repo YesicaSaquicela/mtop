@@ -15,6 +15,7 @@
     <f:metadata>
         <f:viewParam name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
         <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
+         <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -43,15 +44,23 @@
                                                  required="true" label="Número de Solicitud" 
                                                  rendered="true" ></p:inputText>
                                     <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
-
-                                    <h:outputLabel value="Fecha de Solicitud " /> <br></br> 
-                                    <p:calendar  id="fechaSolicitud" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitud"
+                                    <h:outputLabel value="Fecha de Solicitud" /> <br></br> 
+                                    <p:calendar id="fecha" locale="es" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitudn"
                                                  styleClass="xLarge" required="true" 
                                                  >   
-                                        <p:ajax event="dateSelect" rendered="save" />  
+                                        <!--p:ajax event="dateSelect" rendered="save" /-->  
+                                    </p:calendar>  <br></br> 
+                                    <span class="help-inline text-muted">Fecha actual de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
-                                    </p:calendar><br></br> 
-                                    <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaSolicitud" /></span><br></br><br></br>
+                                    <h:outputLabel value="Solicitado por:"/> <br></br>
+                                    <p:selectOneMenu id="personal"  value="#{controladorSolicitudReparacionMantenimiento.idPersona}" effect="fade"
+                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                     requiredMessage="Se requiere elegir una persona que solicite una solicitud ">  
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                        <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
+                                    </p:selectOneMenu> <br></br>
+                                    <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal" /></span><br></br><br></br> 
 
                                     <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
                                                 value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" required="true" 
@@ -220,14 +229,14 @@
 
                                                 <tbody>
                                                     <p:dataTable id="basicDT" var="v" value="#{controladorSolicitudReparacionMantenimiento.listaVehiculos}"
-                                                                  paginator="true" rows="15"                         
-                                                             paginatorPosition="top"
-                                                             rowsPerPageTemplate="5,10,15,20">
+                                                                 paginator="true" rows="15"                         
+                                                                 paginatorPosition="top"
+                                                                 rowsPerPageTemplate="5,10,15,20">
 
                                                         <p:column headerText="Id" sortBy="#{v.id}">
                                                             <h:outputText value="#{v.id}" />
                                                         </p:column>
-                                                          <p:column headerText="Numero de Registro" sortBy="#{v.numRegistro}">
+                                                        <p:column headerText="Numero de Registro" sortBy="#{v.numRegistro}">
                                                             <h:outputText value="#{v.numRegistro}" />
                                                         </p:column>
                                                         <p:column headerText="Placa" sortBy="#{v.placa}">
@@ -236,7 +245,7 @@
                                                         <p:column headerText="Color" sortBy="#{v.color}">
                                                             <h:outputText value="#{v.color}" />
                                                         </p:column>
-                                                      
+
                                                         <p:column style="width:4%;text-align: center">
                                                             <p:commandLink update=":form:vehiculo"  value="Agregar" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{v}" target="#{controladorSolicitudReparacionMantenimiento.vehiculo}" />
@@ -244,7 +253,7 @@
                                                             </p:commandLink>
                                                         </p:column>
                                                     </p:dataTable>
-                                                     <br/>
+                                                    <br/>
                                                     <p:panel id="vehiculo"  >
                                                         <div class="panel panel-primary">
                                                             <div class="panel-heading"  align="center">Datos de Vehículo seleccionado</div>
@@ -353,9 +362,9 @@
                                                 <tbody>
 
                                                     <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
-                                                                  paginator="true" rows="15"                         
-                                                             paginatorPosition="top"
-                                                             rowsPerPageTemplate="5,10,15,20">
+                                                                 paginator="true" rows="15"                         
+                                                                 paginatorPosition="top"
+                                                                 rowsPerPageTemplate="5,10,15,20">
 
                                                         <p:column headerText="Elemento a Revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                             <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
@@ -369,7 +378,15 @@
                                                                            actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
                                                             </p:commandLink>
-
+                                                         <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                     action="# {controladorProducto.darDeBaja(pd.id)}" 
+                                                                     title="Eliminar" update="@form">
+                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja al producto seleccionado?" icon="ui-icon-alert" />
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                    </p:confirmDialog-->
                                                         </p:column>
                                                     </p:dataTable></tbody></div></div></div>
                                     <br></br>
@@ -385,32 +402,109 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de Requisición</center></div>
                                 <p:panel>
+                                    <div class="admin-actions">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
 
 
-                                    <p:dataTable id="basicDT2" var="vr" value="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"
-                                                  paginator="true" rows="15"                         
-                                                             paginatorPosition="top"
-                                                             rowsPerPageTemplate="5,10,15,20">
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                        <p:column headerText="Número" sortBy="#{vr.numRequisicion}">
-                                            <h:outputText value="#{vr.numRequisicion}" />
-                                        </p:column>
-                                        <p:column headerText="Fecha" sortBy="#{vr.fechaRequisicion}">
-                                            <h:outputText value="#{vr.fechaRequisicion}" />
-                                        </p:column>
-                                        <p:column headerText="Observación" sortBy="#{vr.observaciones}">
-                                            <h:outputText value="#{vr.observaciones}" />
-                                        </p:column>
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimples" value="#{controladorSolicitudReparacionMantenimiento.palabrabr}"   
+                                                                                    completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletarr}"/> 
 
-                                        <p:column style="width:4%;text-align: center">
-                                            <p:commandLink update=":form:req"  value="Agregar" title="Seleccionar">
-                                                <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
-                                            </p:commandLink>
-                                        </p:column>
-                                    </p:dataTable>
-                                    <h:outputText value="Requisición id: " />
-                                    <p:inputText immediate="true" id="req" value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" rendered="true"
-                                                 required="true" readonly="true" /><br/>
+
+
+
+
+
+                                                                    <p:commandButton value="Buscar" update=":form:basicDT2" action="#{controladorSolicitudReparacionMantenimiento.buscarr()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                    #{' '} #{' '} 
+                                                                    <p:commandButton value="Limpiar" update=":form:basicDT2 :form:acSimples" action="#{controladorSolicitudReparacionMantenimiento.limpiarr()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="todas">
+                                            <div class="table-responsive">
+
+
+                                                <tbody>
+                                                    <p:dataTable id="basicDT2" var="vr" value="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"
+                                                                 paginator="true" rows="15"                         
+                                                                 paginatorPosition="top"
+                                                                 rowsPerPageTemplate="5,10,15,20">
+
+                                                        <p:column headerText="Número" sortBy="#{vr.numRequisicion}">
+                                                            <h:outputText value="#{vr.numRequisicion}" />
+                                                        </p:column>
+                                                        <p:column headerText="Fecha" sortBy="#{vr.fechaRequisicion}">
+                                                            <h:outputText value="#{controladorRequisicion.formato(vr.fechaRequisicion)}" />
+                                                        </p:column>
+                                                        <p:column headerText="Observación" sortBy="#{vr.observaciones}">
+                                                            <h:outputText value="#{vr.observaciones}" />
+                                                        </p:column>
+
+                                                        <p:column style="width:4%;text-align: center">
+                                                            <p:commandLink update=":form:req"  value="Agregar" title="Seleccionar">
+                                                                <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
+                                                                <f:setPropertyActionListener value="#{vr.id}" target="#{controladorRequisicion.requisicionId}" />
+                                                            </p:commandLink>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </tbody>
+                                            </div> </div></div>
+
+                                    <br/>
+                                    <p:panel id="req"  >
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading"  align="center">Datos de Requisición seleccionada</div>
+                                            <p:panel >
+                                                <div class="container-fluid" align="center">
+                                                    <div class="row-fluid"  >
+                                                        <div class="col-md-4"> 
+                                                            <h:outputLabel class="navbar-text" value=" Número de Requisición:"/>
+                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.numRequisicion}"/>
+
+                                                        </div>
+
+                                                        <div class="col-md-4"> 
+                                                            <h:outputLabel class="navbar-text" value=" Fecha de Requisición: "/>
+                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(s.fechaRequisicion)}"/>
+
+                                                        </div>
+
+                                            
+
+                                                    </div>
+                                                    <div class="row-fluid"  >
+                                                        <div class="col-md-4"> 
+                                                            <h:outputLabel class="navbar-text" value=" Observación:"/>
+                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.observaciones}"/>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </p:panel>
+                                        </div>
+
+                                    </p:panel>
+
                                 </p:panel>
                             </div> 
 

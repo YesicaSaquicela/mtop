@@ -239,7 +239,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void limpiarv() {
-        palabrab = "";
+        palabrabv = "";
         List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
         vehiculos.clear();
         System.out.println("lppp" + lv);
@@ -819,7 +819,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("idde itr" + itr.getRequisicion().getId());
                 if (getInstance().getId().equals(itr.getRequisicion().getId())) {
                     System.out.println("fijo un ide");
-                    System.out.println("get id de productoooo" + itr.getProducto().getId());
+                  System.out.println("get id de productoooo" + itr.getProducto().getId());
                     listaItemsRequisicion.add(itr);
                 }
 
