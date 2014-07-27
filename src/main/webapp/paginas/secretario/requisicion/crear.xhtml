@@ -556,6 +556,10 @@
                                                                             actionListener="#{controladorRequisicion.editarItem(item2)}" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandLink>
+                                                            <p:commandLink  update=":form:listai " value="Dar de baja"
+                                                                            actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Seleccionar">
+                                                                <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
+                                                            </p:commandLink>
 
                                                         </p:column>
                                                     </p:dataTable>

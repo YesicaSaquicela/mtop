@@ -607,20 +607,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (getId() == null) {
             System.out.println("numero" + getInstance().getNumRequisicion());
             List<Requisicion> lista = findAll(Requisicion.class);
-            int t = lista.size();
-            if (t < 9) {
-                setNumeroRequisicion("000".concat(String.valueOf(t + 1)));
+            int t;
+            if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
+                t = lista.size() + 200;
             } else {
-                if (t >= 9 && t < 99) {
-                    setNumeroRequisicion("00".concat(String.valueOf(t + 1)));
-                } else {
-                    if (t >= 99 && t < 999) {
-                        setNumeroRequisicion("0".concat(String.valueOf(t + 1)));
-                    } else {
-                        setNumeroRequisicion(String.valueOf(t + 1));
-                    }
-                }
+                t = lista.size() + 900;
             }
+
+            setNumeroRequisicion(String.valueOf(t + 1));
+
         } else {
             setNumeroRequisicion(getInstance().getNumRequisicion());
         }
@@ -684,6 +679,35 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 cir.setInstance(i);
                 pro = itemReq.getProducto();
 
+                int j = listaProductos.lastIndexOf(pro);
+                System.out.println("pro" + pro.getCantidad());
+                System.out.println("pro de lista" + pro.getCantidad());
+                pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
+                listaProductos.set(j, pro);
+                pro = listaProductos.get(j);
+
+                System.out.println("a fijada" + cir.getInstance().getCantidad());
+                System.out.println("a fijada" + cir.getInstance().getUnidadMedida());
+                break;
+
+            }
+            con++;
+
+        }
+
+    }
+
+    public void eliminarItem(ItemRequisicion itemReq) {
+
+        int con = 0;
+        for (ItemRequisicion i : listaItemsRequisicion) {
+
+            if (i.getCantidad().equals(itemReq.getCantidad())
+                    && i.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
+                listaItemsRequisicion.remove(con);
+                System.out.println("a fijar cant" + i.getCantidad());
+                System.out.println("a fijar unid" + i.getUnidadMedida());
+                pro = itemReq.getProducto();
                 int j = listaProductos.lastIndexOf(pro);
                 System.out.println("pro" + pro.getCantidad());
                 System.out.println("pro de lista" + pro.getCantidad());
@@ -808,7 +832,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         setId(requisicionId);
 
         vehiculo = getInstance().getVehiculo();
-        
+
         solicitudrep = getInstance().getSolicitudReparacionId();
         idPersonal = getInstance().getPsolicita().getId();
         listaItemsRequisicion = new ArrayList<ItemRequisicion>();
@@ -965,22 +989,22 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setPartidaContabilidad(p);
         getInstance().setPsolicita(psolicita);
         System.out.println("id de ala partidaaaaaaaaaaaaa" + p.getId());
-        if(solicitudrep!=null){
+        if (solicitudrep != null) {
             if (solicitudrep.getId() != null) {
-            System.out.println("anaidiando la solicitud" + solicitudrep);
-            getInstance().setSolicitudReparacionId(solicitudrep);
-            solicitudrep.setRequisicionId(getInstance());
-            solicitudrep.setLastUpdate(now);
-            try {
-                servgen.actualizar(solicitudrep);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            getInstance().setSolicitudReparacionId(solicitudrep);
+                System.out.println("anaidiando la solicitud" + solicitudrep);
+                getInstance().setSolicitudReparacionId(solicitudrep);
+                solicitudrep.setRequisicionId(getInstance());
+                solicitudrep.setLastUpdate(now);
+                try {
+                    servgen.actualizar(solicitudrep);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                getInstance().setSolicitudReparacionId(solicitudrep);
 
+            }
         }
-        }
-        
+
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
