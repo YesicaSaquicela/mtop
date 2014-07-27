@@ -41,16 +41,16 @@
 
                                     <p:outputLabel value="Número de Requisición"/>
                                     <p:inputText id="numRequisicion"  value="#{controladorRequisicion.numeroRequisicion}"
-                                                 readonly="false" styleClass="form-control"
+                                                 readonly="true" styleClass="form-control"
                                                  required="true" label="Número de Requisición" 
                                                  rendered="true"  />
                                     <span class="help-inline text-muted">Número de requisición<ocp:message forId="numRequisicion" /></span><br></br><br></br> 
                                     <h:outputLabel value="Fecha de Requisición" /> <br></br> 
-                                    <p:calendar locale="es" id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
-                                                 styleClass="xLarge" required="true" 
-                                                 >   
-                                        <!--p:ajax event="dateSelect" rendered="save" /-->  
-                                    </p:calendar>  <br></br> 
+                                     <p:inputText id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
+                                         readonly="true" styleClass="form-control"
+                                         required="true" 
+                                         rendered="true" />
+                                      <br></br> 
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
                                     <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
                                     <p:selectOneMenu id="partida"  value="#{controladorRequisicion.idPartidaC}" effect="fade"
@@ -554,6 +554,10 @@
 
                                                             <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:listai :form:productosel" value="Editar"
                                                                             actionListener="#{controladorRequisicion.editarItem(item2)}" title="Seleccionar">
+                                                                <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
+                                                            </p:commandLink>
+                                                            <p:commandLink  update=":form:listai " value="Dar de baja"
+                                                                            actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandLink>
 
