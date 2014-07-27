@@ -60,7 +60,7 @@
                                         <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
                                         <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                     </p:selectOneMenu> <br></br>
-                                    <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="psrtida" /></span><br></br><br></br> 
+                                    <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
 
 
 
@@ -552,7 +552,7 @@
 
                                                         <p:column headerText="Opciones" style="width: 5%"> 
 
-                                                            <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:listai :form:productosel" value="Editar"
+                                                            <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:listai :form:productosel :form:mensaje2" value="Editar"
                                                                             actionListener="#{controladorRequisicion.editarItem(item2)}" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandLink>
