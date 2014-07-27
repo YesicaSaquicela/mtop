@@ -504,6 +504,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
+//        if (getInstance().getId() == null) {
+//            Date now = Calendar.getInstance().getTime();
+//            getInstance().setFechaSolicitud(now);
+//        }
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
 
@@ -576,10 +580,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void agregarItemS() {
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
-            System.out.println("ENTRO A PRESENTAR MENSAJE>>>>>>>>>");
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios.");
+            System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
+            System.out.println("\n\nentro a agregar>>>>>>>.");
             listaItemsSolicitud.add(citemsolicitud.getInstance());
             citemsolicitud.setInstance(new ItemSolicitudReparacion());
 
@@ -632,7 +637,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 //            }
 //
 //        }
-
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
@@ -641,7 +645,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         requisicion = new Requisicion();
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         listaPersonal = findAll(Profile.class);
-        listaVehiculos=findAll(Vehiculo.class);
+        listaVehiculos = findAll(Vehiculo.class);
 
     }
 
@@ -672,6 +676,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPsolicita(psolicita);
         getInstance().setVehiculo(vehiculo);
+        if(requisicion!=null){
         if (requisicion.getId() != null) {
             requisicion.setSolicitudReparacionId(getInstance());
             requisicion.setLastUpdate(now);
@@ -687,7 +692,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 e.printStackTrace();
             }
             getInstance().setRequisicionId(requisicion);
-        }
+        }}
 
         try {
             if (getInstance().isPersistent()) {
