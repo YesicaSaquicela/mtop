@@ -195,7 +195,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lv.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabv.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                context.addMessage(null, new FacesMessage("INFORMAdN: Ingrese algun valor a buscar"));
                 palabrabv = " ";
             } else {
                 context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
@@ -239,7 +239,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void limpiarv() {
-        palabrab = "";
+        palabrabv = "";
         List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
         vehiculos.clear();
         System.out.println("lppp" + lv);
@@ -608,8 +608,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("numero" + getInstance().getNumRequisicion());
             List<Requisicion> lista = findAll(Requisicion.class);
             int t;
-            if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
-                t = lista.size() + 200;
+            if (getInstance().getTipoAdquisicion() != null) {
+                if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
+                    t = lista.size() + 200;
+                } else {
+                    t = lista.size() + 900;
+                }
             } else {
                 t = lista.size() + 900;
             }
@@ -828,7 +832,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setRequisicionId(Long requisicionId) {
-
+        if (requisicionId == null) {
+            Date now = Calendar.getInstance().getTime();
+            getInstance().setFechaRequisicion(now);
+        }
+        System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n"+getInstance().getFechaRequisicion());
         setId(requisicionId);
 
         vehiculo = getInstance().getVehiculo();
@@ -842,8 +850,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                 System.out.println("idde itr" + itr.getRequisicion().getId());
                 if (getInstance().getId().equals(itr.getRequisicion().getId())) {
-                    System.out.println("fijo un ide");
-                    System.out.println("get id de productoooo" + itr.getProducto().getId());
                     listaItemsRequisicion.add(itr);
                 }
 
