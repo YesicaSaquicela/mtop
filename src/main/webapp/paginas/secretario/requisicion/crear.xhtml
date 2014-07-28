@@ -430,13 +430,12 @@
                                                 <tbody>
 
 
-                                                    <p:dataTable rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" id="basicoDT3" var="itemp" value="#{controladorRequisicion.listaProductos}"
+                                                    <p:dataTable rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" id="basicoDT3"
+                                                                 var="itemp" value="#{controladorRequisicion.listaProductos}"
                                                                  paginator="true" rows="15"                         
                                                                  paginatorPosition="top"
 
                                                                  rowsPerPageTemplate="5,10,15,20"
-
-
 
                                                                  >
                                                         <p:column headerText="Código" sortBy="#{itemp.codigo}">

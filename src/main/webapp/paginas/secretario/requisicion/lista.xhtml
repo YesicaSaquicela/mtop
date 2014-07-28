@@ -110,21 +110,17 @@
                                                         <f:param name="requisicionId" value="#{r.id}"></f:param>
                                                         <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
                                                     </p:button>
-                                                    <p:commandButton id="selectButton1" actionListener="#{controladorRequisicion.darDeBaja(r)}"
-                                                              
-                                                              icon="ui-icon-trash" title="Dar de baja">  
-                                                       
+                                                    
+                                                   
+                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                     action="#{controladorRequisicion.darDeBaja(r)}" 
+                                                                     title="Eliminar" update=":form:listap">
+                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
                                                     </p:commandButton>
-                                                    <p:commandButton id="selectButton2" action="#{controladorRequisicion.darDeBaja(r)}"
-                                                              
-                                                              icon="ui-icon-trash" title="Dar de baja">  
-                                                       
-                                                    </p:commandButton>
-                                                    <p:commandButton id="selectButton3" onclick="#{controladorRequisicion.darDeBaja(r)}"
-                                                              
-                                                              icon="ui-icon-trash" title="Dar de baja">  
-                                                       
-                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                    </p:confirmDialog>
                                                     
                                                 </p:column>
                                             </p:dataTable></tbody></div></div></div>
