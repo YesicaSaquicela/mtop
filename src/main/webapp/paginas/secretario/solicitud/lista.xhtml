@@ -122,15 +122,15 @@
                                                             <f:param name="vehiculoId" value="#{s.vehiculo.id}"></f:param>
 
                                                         </p:button>
-                                                        <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                        <p:commandButton id="dardebaja" icon="ui-icon-trash"
                                                                          action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 
-                                                                         title="Eliminar" update="@form">
+                                                                         title="Eliminar" update=":form:listap">
                                                             <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja ha la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
                                                         </p:commandButton>
                                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                             <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                             <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                        </p:confirmDialog-->
+                                                        </p:confirmDialog>
                                                     </p:column>
                                                 </p:dataTable></tbody></div></div>
                                 </div></div>
