@@ -171,13 +171,7 @@
                                                                 <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
                                                                     <h:outputText value="#{controladorKardex.formato(s.fechaSolicitud)}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Fecha de Entrada a Taller" sortBy="#{s.fechaEntradaTaller}">
-                                                                    <h:outputText value="#{controladorKardex.formato(s.fechaEntradaTaller)}"></h:outputText>
-                                                                </p:column>
-                                                                <p:column headerText="Fecha de Salida de Taller" sortBy="#{s.fechaSalidaTaller}">
-                                                                    <h:outputText value="#{controladorKardex.formato(s.fechaSalidaTaller)}"></h:outputText>
-                                                                </p:column>
-                                                                <p:column headerText="Opciones" style="width: 5%"> 
+                                                                 <p:column headerText="Opciones" style="width: 5%"> 
                                                                     <h:link value="Dar de Baja" outcome="crear" type="button" >
                                                                         <f:param name="solicitudId" value="#{s.id}"></f:param>
                                                                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
@@ -313,30 +307,6 @@
                                         <f:event listener="#{profileListService.init()}" type="preRenderView"/>
                                         <h:form id="forms" rendered="#{controladorKardex.vista eq 'solicitud'}">            
 
-                                            <!--Opción de mensaje, cuando se realiza una acción-->
-
-
-                                            <!--Botones de admin-->
-                                            <p:outputLabel value="Fecha de Entrada a Taller:*"/>
-                                            <p:calendar id="fechaEntrada" value="#{solicitudListaServicios.fe}" 
-                                                        styleClass="xLarge" required="true" 
-                                                        >   
-                                                <p:ajax event="dateSelect" rendered="save" />  
-                                            </p:calendar><br/><br/> 
-                                            <p:outputLabel value="Fecha de Salida de Taller:*"/>
-                                            <p:calendar  id="fechaSalida" value="#{solicitudListaServicios.fs}"  label="Fecha Salida de Taller "
-                                                         styleClass="xLarge" required="true" 
-                                                         >   
-                                                <p:ajax event="dateSelect" rendered="save" />  
-                                                <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg2" />  
-                                            </p:calendar><br></br> 
-
-                                            <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
-                                            <!--ul class="nav nav-tabs">
-                                                <li class="active"><a href="#todas" data-toggle="tab">Venta</a></li>
-                                                <li><a href="#anuladas" data-toggle="tab">Anuladas</a></li>
-                                                <li class="only-admin"><a href="#compra" data-toggle="tab">Compra</a></li>
-                                            </ul-->
                                             <br></br><br></br>
 
                                             <div class="tab-content">
