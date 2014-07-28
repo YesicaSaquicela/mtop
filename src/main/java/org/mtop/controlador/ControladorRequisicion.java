@@ -832,15 +832,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setRequisicionId(Long requisicionId) {
-        System.out.println("requi>>>>>>>>>>>>."+requisicionId);
         if (requisicionId == null) {
             Date now = Calendar.getInstance().getTime();
             getInstance().setFechaRequisicion(now);
         }
-        System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n" + getInstance().getFechaRequisicion());
+        System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n"+getInstance().getFechaRequisicion());
         setId(requisicionId);
-        
-        System.out.println("id de requisicion>>>>>>>>>>>>>>>>>>>>>>>"+getInstance().getId());
+
         vehiculo = getInstance().getVehiculo();
 
         solicitudrep = getInstance().getSolicitudReparacionId();
