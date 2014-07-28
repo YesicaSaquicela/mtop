@@ -522,19 +522,19 @@
                                         <h:panelGrid >
                                             <h:outputText value="Numero de solicitud: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="fecha de solicitud: " /><br/>
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="fecha de solicitud: " />
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}" styleClass="outputLabel"/><br/>
+                                            
+                                      
                                             <h:outputText value="Recibidor: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="Observación: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" styleClass="outputLabel"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid >
+                                
                                             <h:outputText value="Requisición id: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="vehiculo placa: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.vehiculo.placa}" styleClass="outputLabel"/>
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.vehiculo.placa}" styleClass="outputLabel"/><br/>
                                         </h:panelGrid>
                                         <h:panelGrid>
 
@@ -545,7 +545,7 @@
 
 
                                                         <tbody>
-
+                                                           <h:outputText value="LISTA DE ITEMS" />
                                                             <p:dataTable id="listaaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la">
 
                                                                 <p:column headerText="Elemento a Revisar">
