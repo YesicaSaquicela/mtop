@@ -121,7 +121,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String darDeBaja(Requisicion requisicion) {
-      
+
         Date now = Calendar.getInstance().getTime();
 
         listaProductos.clear();
@@ -130,24 +130,24 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setSolicitudReparacionId(null);
         System.out.println("lista de items" + listaItemsRequisicion);
       //  listaItemsRequisicion=getInstance().getListaItems();
-          
+
         for (ItemRequisicion itemr : listaItemsRequisicion) {
             System.out.println("sdhhfds" + itemr);
             System.out.println("el prodc" + itemr.getProducto());
 
             if (itemr.getProducto() != null) {
-                System.out.println("canti anterior"+itemr.getProducto().getCantidad());
-                Producto p=itemr.getProducto();
-                p.setCantidad(itemr.getCantidad()+itemr.getProducto().getCantidad());
-                System.out.println("cantidad despues "+p.getCantidad());
-                 p.setLastUpdate(now);
+                System.out.println("canti anterior" + itemr.getProducto().getCantidad());
+                Producto p = itemr.getProducto();
+                p.setCantidad(itemr.getCantidad() + itemr.getProducto().getCantidad());
+                System.out.println("cantidad despues " + p.getCantidad());
+                p.setLastUpdate(now);
                 servgen.actualizar(p);
             }
 
         }
-       
+
         getInstance().setEstado(false);
-        System.out.println("\n\n\n\ncambio de estado a "+getInstance().isEstado());
+        System.out.println("\n\n\n\ncambio de estado a " + getInstance().isEstado());
         getInstance().setLastUpdate(now);
         listaRequisicion.remove(requisicion);
 
@@ -610,7 +610,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public List<Producto> getListaProductos() {
         if (listaProductos.isEmpty()) {
             for (Producto p : findAll(Producto.class)) {
-                System.out.println("producto"+p);
+                System.out.println("producto" + p);
                 System.out.println("\n\n\n\n cantidad" + p.getCantidad());
                 if (p.getCantidad() > 0) {
 
@@ -858,33 +858,42 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (getInstance().getId() != null) {
                 this.cir.setListaItemsRequisicion(getInstance().getListaItems());
             }
-            if (event.getOldStep().equals("address")) {
-                System.out.println("id d vechicilooo\n\n\n\n" + this.vehiculo);
-                System.out.println("id tipod e re q escogida" + getInstance().getTipoRequisicion());
-                if (this.vehiculo.getId() == null && getInstance().getTipoRequisicion().equals("requisicionRep")) {
-
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
-
-                    return event.getOldStep();
-                } else {
-                    return event.getNewStep();
-                }
-
+            if (event.getNewStep().equals("req") && event.getOldStep().equals("address")) {
+                return event.getNewStep();
             } else {
-
-                if (event.getOldStep().equals("items") && this.listaItemsRequisicion.isEmpty()) {
-
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la lista"));
-
-                    return event.getOldStep();
+                if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
+                    return event.getNewStep();
                 } else {
+                    if (event.getOldStep().equals("address")) {
+                        System.out.println("id d vechicilooo\n\n\n\n" + this.vehiculo);
+                        System.out.println("id tipod e re q escogida" + getInstance().getTipoRequisicion());
+                        if (this.vehiculo.getId() == null && getInstance().getTipoRequisicion().equals("requisicionRep")) {
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+
+                            return event.getOldStep();
+                        } else {
+                            return event.getNewStep();
+                        }
+
+                    } else {
+
+                        if (event.getOldStep().equals("items") && this.listaItemsRequisicion.isEmpty()) {
+
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la lista"));
+
+                            return event.getOldStep();
+                        } else {
 
 //                    if (event.getNewStep().equals("items") && this.listaItemsRequisicion.isEmpty() ) {
 //                        System.out.println("\n\n\n\n entro a regresar\n\n\n\n");
 //                        return event.getOldStep();
 //                    } else {
-                    return event.getNewStep();
+                            return event.getNewStep();
 //                    }
+                        }
+                    }
+
                 }
             }
 
