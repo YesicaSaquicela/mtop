@@ -121,34 +121,48 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String darDeBaja(Requisicion requisicion) {
+      
         Date now = Calendar.getInstance().getTime();
-        requisicion.setLastUpdate(now);
-        requisicion.setEstado(false);
-        SolicitudReparacionMantenimiento s = requisicion.getSolicitudReparacionId();
-        requisicion.setSolicitudReparacionId(null);
+
         listaProductos.clear();
-        for (ItemRequisicion itemr : requisicion.getListaItems()) {
-            System.out.println("sdhhfds"+itemr);
-            System.out.println("el prodc"+itemr.getProducto());
-                    
-           if(itemr.getProducto()!=null){
+        setRequisicionId(requisicion.getId());
+
+        getInstance().setSolicitudReparacionId(null);
+        System.out.println("lista de items" + listaItemsRequisicion);
+      //  listaItemsRequisicion=getInstance().getListaItems();
+
+        for (ItemRequisicion itemr : listaItemsRequisicion) {
+            System.out.println("sdhhfds" + itemr);
+            System.out.println("el prodc" + itemr.getProducto());
+
+            if (itemr.getProducto() != null) {
                 listaProductos.add(itemr.getProducto());
             }
-            
+
         }
-        System.out.println("pro"+listaProductos);
+        System.out.println("pro" + listaProductos);
         if (!listaProductos.isEmpty()) {
             for (Producto prod : listaProductos) {
-                System.out.println("prod id"+prod);
+                System.out.println("prod id" + prod);
                 pro = servgen.buscarPorId(Producto.class, prod.getId());
                 pro.setCantidad(pro.getCantidad() + prod.getCantidad());
                 pro.setLastUpdate(now);
-                save(pro);
+                servgen.actualizar(pro);
             }
 
         }
+        getInstance().setEstado(false);
+        System.out.println("\n\n\n\ncambio de estado a "+getInstance().isEstado());
+        getInstance().setLastUpdate(now);
+        listaRequisicion.remove(requisicion);
 
-        save(requisicion);
+        servgen.actualizar(getInstance());
+        if (getInstance().getSolicitudReparacionId() != null) {
+            SolicitudReparacionMantenimiento s = getInstance().getSolicitudReparacionId();
+            System.out.println("solo" + s);
+            save(s);
+        }
+
         return "/paginas/secretario/requisicion/lista.xhtml?faces-redirect=true";
 
     }
@@ -601,7 +615,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public List<Producto> getListaProductos() {
         if (listaProductos.isEmpty()) {
             for (Producto p : findAll(Producto.class)) {
-
+                System.out.println("\n\n\n\n cantidad" + p.getCantidad());
                 if (p.getCantidad() > 0) {
 
                     listaProductos.add(p);
@@ -992,7 +1006,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaRequisicion.clear();
         for (Requisicion requisicion : findAll(Requisicion.class)) {
 
-            if (!requisicion.getAprobado()) {
+            if (!requisicion.getAprobado() && requisicion.isEstado()) {
 
                 listaRequisicion.add(requisicion);
             }
@@ -1093,6 +1107,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             } else {
                 System.out.println("ingresa a creaaar>>>>>>>");
                 getInstance().setEstado(true);
+                System.out.println("\n\n\n\ncrea requi con estado" + getInstance().isEstado());
                 //  getInstance().setEstado(true);
                 create(getInstance());
                 guardarItem();
@@ -1113,7 +1128,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     @Transactional
     public String borrarEntidad() {
-        
+
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");
