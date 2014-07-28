@@ -13,9 +13,9 @@
 
     <ui:param name="titulo" value="Gestionar Solicitud de Reparación/Mantenimiento"/>
     <f:metadata>
-        <f:viewParam name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
-        <f:viewParam name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
-         <f:viewParam name="requisicionId" value="#{controladorRequisicion.requisicionId}"/>
+        <f:viewParam id="solicitudIDDD" name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
+        <f:viewParam id="vehiculoIDDD" name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
+
     </f:metadata>
     <ui:define name="header">
 
@@ -45,11 +45,11 @@
                                                  rendered="true" ></p:inputText>
                                     <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
                                     <h:outputLabel value="Fecha de Solicitud" /> <br></br> 
-                                    <p:calendar id="fecha" locale="es" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  label="Fecha de Solicitudn"
-                                                 styleClass="xLarge" required="true" 
-                                                 >   
-                                        <!--p:ajax event="dateSelect" rendered="save" /-->  
-                                    </p:calendar>  <br></br> 
+                                    <p:inputText id="fecha" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"
+                                                 readonly="true" styleClass="form-control"
+                                                 required="true" label="Fecha de Solicitud" 
+                                                 rendered="true" />
+
                                     <span class="help-inline text-muted">Fecha actual de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
                                     <h:outputLabel value="Solicitado por:"/> <br></br>
@@ -361,7 +361,7 @@
 
                                                 <tbody>
 
-                                                    <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
+                                                    <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la"
                                                                  paginator="true" rows="15"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20">
@@ -378,15 +378,16 @@
                                                                            actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
                                                             </p:commandLink>
-                                                         <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                                     action="# {controladorProducto.darDeBaja(pd.id)}" 
-                                                                     title="Eliminar" update="@form">
-                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja al producto seleccionado?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                    </p:confirmDialog-->
+                                                       <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                             action="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
+                                                                             title="Eliminar" update=":form:listaa">
+                                                             
+                                                           <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
+                                                            </p:commandButton>
+                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                            </p:confirmDialog>
                                                         </p:column>
                                                     </p:dataTable></tbody></div></div></div>
                                     <br></br>
@@ -464,6 +465,7 @@
                                                                 <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
                                                                 <f:setPropertyActionListener value="#{vr.id}" target="#{controladorRequisicion.requisicionId}" />
                                                             </p:commandLink>
+                                                           
                                                         </p:column>
                                                     </p:dataTable>
                                                 </tbody>
@@ -488,7 +490,7 @@
 
                                                         </div>
 
-                                            
+
 
                                                     </div>
                                                     <div class="row-fluid"  >
@@ -544,7 +546,7 @@
 
                                                         <tbody>
 
-                                                            <p:dataTable id="listaaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la">
+                                                            <p:dataTable id="listaaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la">
 
                                                                 <p:column headerText="Elemento a Revisar">
                                                                     <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>

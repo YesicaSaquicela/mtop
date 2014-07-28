@@ -832,13 +832,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setRequisicionId(Long requisicionId) {
+        System.out.println("requi>>>>>>>>>>>>."+requisicionId);
         if (requisicionId == null) {
             Date now = Calendar.getInstance().getTime();
             getInstance().setFechaRequisicion(now);
         }
-        System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n"+getInstance().getFechaRequisicion());
+        System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n" + getInstance().getFechaRequisicion());
         setId(requisicionId);
-
+        
+        System.out.println("id de requisicion>>>>>>>>>>>>>>>>>>>>>>>"+getInstance().getId());
         vehiculo = getInstance().getVehiculo();
 
         solicitudrep = getInstance().getSolicitudReparacionId();
@@ -1037,7 +1039,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     @Transactional
     public String borrarEntidad() {
-        //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
+        
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");
