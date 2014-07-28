@@ -429,14 +429,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public String onFlowProcess(FlowEvent event) {
-
+        System.out.println("ENRTRO FLOWPROCESS"+event.getNewStep());
+        System.out.println("Entro getOld"+event.getOldStep());
+        System.out.println("Lista de itemmSSSS"+citemsolicitud.listaItemsSolicitud);
         if (skip) {
             skip = false;   //reset in case user goes back  
 
             return "confirm";
         } else {
             System.out.println("pasoooo");
-            if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
+            if(event.getNewStep().equals("address")&&event.getOldStep().equals("items")){
+             return event.getNewStep();
+            }else{
+                 if (event.getOldStep().equals("address") && this.vehiculo.getId() == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
 
                 return event.getOldStep();
@@ -452,6 +457,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                     return event.getNewStep();
                 }
             }
+            }
+           
 
         }
     }
@@ -513,22 +520,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>."+getInstance().getListaItemSR());
         citemsolicitud.listaItemsSolicitud = getInstance().getListaItemSR();
-
-//        listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
-//        for (ItemSolicitudReparacion itr : findAll(ItemSolicitudReparacion.class)) {
-//
-//            if (getInstance().getId() != null) {
-//                System.out.println("entro a itemsSSSSSSSSSSSSSSSSSSS" + getInstance().getId());
-//
-//                System.out.println("idde itr" + itr.getSolicitudReparacion().getId());
-//                if (getInstance().getId().equals(itr.getSolicitudReparacion().getId())) {
-//                    System.out.println("fijo un ide");
-//                    listaItemsSolicitud.add(itr);
-//                }
-//
-//            }
-//        }
-//        System.out.println("lista de items" + listaItemsSolicitud);
 
     }
 
@@ -618,7 +609,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setListaSolicitud(List<SolicitudReparacionMantenimiento> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
-//        listaItemsSolicitud = getInstance().getListaItemSR();
+
     }
 
     @PostConstruct
@@ -636,12 +627,13 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaRequisiciones.clear();
         listaSolicitud.clear();
         System.out.println("listaaaaa solicituddd" + listaSolicitud);
-        for (SolicitudReparacionMantenimiento sol : findAll(SolicitudReparacionMantenimiento.class)) {
+        for (SolicitudReparacionMantenimiento sol :ls) {
 
             if (sol.getRequisicionId() == null) {
                 listaRequisiciones.add(sol.getRequisicionId());
             }
-            if (!sol.getAprobado()) {
+            if (!sol.getAprobado()&&sol.isEstado()==true) {
+                System.out.println("entro a listar>>>>>>");
                 listaSolicitud.add(sol);
             }
 
@@ -667,8 +659,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         citemsolicitud = new ControladorItemSolicitud();
         citemsolicitud.setInstance(new ItemSolicitudReparacion());
         requisicion = new Requisicion();
-//        listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
-        
         listaPersonal = findAll(Profile.class);
         listaVehiculos = findAll(Vehiculo.class);
 
@@ -730,8 +720,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             } else {
                 getInstance().setEstado(true);
                 create(getInstance());
-                guardarItem();;
-
+                guardarItem();
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
