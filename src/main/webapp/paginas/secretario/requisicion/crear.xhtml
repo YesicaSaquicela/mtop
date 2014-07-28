@@ -46,7 +46,7 @@
                                                  rendered="true"  />
                                     <span class="help-inline text-muted">Número de requisición<ocp:message forId="numRequisicion" /></span><br></br><br></br> 
                                     <h:outputLabel value="Fecha de Requisición" /> <br></br> 
-                                     <p:inputText id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  label="Fecha de Requisicion"
+                                    <p:inputText id="fechaRequisicion" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"  label="Fecha de Requisicion"
                                          readonly="true" styleClass="form-control"
                                          required="true" 
                                          rendered="true" />
@@ -223,7 +223,6 @@
                                 <div class="panel-heading"><center>Lista de Vehículos de Reparación y Mantenimiento</center></div>
                                 <br/>
                                 <p:panel>
-                                    <p:messages/>
                                     <div class="admin-actions">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
