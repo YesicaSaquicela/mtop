@@ -95,6 +95,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private SolicitudReparacionMantenimiento solicitudrep;
     List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
     Producto pro;
+    List<Requisicion> listaRequisicionAprobada = new ArrayList<Requisicion>();
+
+    public List<Requisicion> getListaRequisicionAprobada() {
+        return listaRequisicionAprobada;
+    }
+
+    public void setListaRequisicionAprobada(List<Requisicion> listaRequisicionAprobada) {
+        this.listaRequisicionAprobada = listaRequisicionAprobada;
+    }
 
     public String getPalabrabs() {
         return palabrabs;
@@ -129,7 +138,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         getInstance().setSolicitudReparacionId(null);
         System.out.println("lista de items" + listaItemsRequisicion);
-      //  listaItemsRequisicion=getInstance().getListaItems();
+        //  listaItemsRequisicion=getInstance().getListaItems();
 
         for (ItemRequisicion itemr : listaItemsRequisicion) {
             System.out.println("sdhhfds" + itemr);
@@ -408,7 +417,24 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         } else {
-            listaRequisicion = le;
+            listaRequisicion.clear();
+            listaRequisicionAprobada.clear();
+            for (Requisicion r : le) {
+                if (r.isEstado()) {
+                    if (r.getAprobado()) {
+                        if (!listaRequisicionAprobada.contains(r)) {
+                            listaRequisicionAprobada.add(r);
+                        }
+
+                    } else {
+                        if (!listaRequisicion.contains(r)) {
+                            listaRequisicion.add(r);
+                        }
+
+                    }
+                }
+            }
+
             palabrab = "";
         }
 
@@ -418,12 +444,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         palabrab = "";
         List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
         listaRequisicion.clear();
+        listaRequisicionAprobada.clear();
         System.out.println("lppp" + lr);
 
         for (Requisicion r : lr) {
             if (r.isEstado()) {
-                System.out.println("listatesssa" + listaRequisicion);
-                listaRequisicion.add(r);
+                if (r.getAprobado()) {
+                    listaRequisicionAprobada.add(r);
+                } else {
+                    System.out.println("listatesssa" + listaRequisicion);
+                    listaRequisicion.add(r);
+                }
 
             }
 
@@ -447,12 +478,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         for (Requisicion requisicion : lr) {
             System.out.println("econtro uno " + requisicion.getNumRequisicion());
-            ced.add(requisicion.getNumRequisicion());
+            if (requisicion.isEstado()) {
+                ced.add(requisicion.getNumRequisicion());
+            }
+
         }
 
         List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), query);
         for (Requisicion requisicion : lef) {
-            ced.add(requisicion.getFechaRequisicion().toString());
+            if (requisicion.isEstado()) {
+                ced.add(requisicion.getFechaRequisicion().toString());
+            }
         }
 
 //        Vehiculo v = new Vehiculo();
@@ -1010,11 +1046,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaSolicitudes = findAll(SolicitudReparacionMantenimiento.class);
         listaRequisicion.clear();
         for (Requisicion requisicion : findAll(Requisicion.class)) {
+            if (requisicion.isEstado()) {
+                if (!requisicion.getAprobado()) {
 
-            if (!requisicion.getAprobado() && requisicion.isEstado()) {
-
-                listaRequisicion.add(requisicion);
+                    listaRequisicion.add(requisicion);
+                } else {
+                    listaRequisicionAprobada.add(requisicion);
+                }
             }
+
         }
 
         List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);

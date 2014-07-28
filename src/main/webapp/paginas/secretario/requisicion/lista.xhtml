@@ -53,12 +53,12 @@
 
 
 
-                                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Buscar" update=":form:infoFM:listap form:infoFM:listap1" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Limpiar" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -84,46 +84,91 @@
 
 
                                         <tbody>
-                                            <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
-                                                         paginator="true" rows="15"                         
-                                                         paginatorPosition="top"
-                                                         rowsPerPageTemplate="5,10,15,20"
-                                                         >
-                                                <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
-                                                    <h:outputText value="#{r.numRequisicion}"></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
-                                                    <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
-                                                    <h:outputText value="#{r.vehiculo.numRegistro}"></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="Observación" sortBy="#{r.observaciones}">
-                                                    <h:outputText value="#{r.observaciones}"></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="Opciones" style="width: 5%"> 
 
 
-                                                    <p:button id="selectButton" 
-                                                              outcome="crear"
-                                                              icon="ui-icon-pencil" title="Editar">  
-                                                        <f:param name="requisicionId" value="#{r.id}"></f:param>
-                                                        <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
-                                                    </p:button>
-                                                    
-                                                   
-                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                                     action="#{controladorRequisicion.darDeBaja(r)}" 
-                                                                     title="Eliminar" update=":form:listap">
-                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                    </p:confirmDialog>
-                                                    
-                                                </p:column>
-                                            </p:dataTable></tbody></div></div></div>
+                                            <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
+                                                <div  class="panel panel-primary">
+        
+                                                    <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
+
+                                                        <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
+                                                                     paginator="true" rows="15"                         
+                                                                     paginatorPosition="top"
+                                                                     rowsPerPageTemplate="5,10,15,20"
+                                                                     >
+                                                            <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
+                                                                <h:outputText value="#{r.numRequisicion}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
+                                                                <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
+                                                                <h:outputText value="#{r.vehiculo.numRegistro}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Observación" sortBy="#{r.observaciones}">
+                                                                <h:outputText value="#{r.observaciones}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Opciones" style="width: 5%"> 
+
+
+                                                                <p:button id="selectButton" 
+                                                                          outcome="crear"
+                                                                          icon="ui-icon-pencil" title="Editar">  
+                                                                    <f:param name="requisicionId" value="#{r.id}"></f:param>
+                                                                    <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
+                                                                </p:button>
+
+
+                                                                <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                                 action="#{controladorRequisicion.darDeBaja(r)}" 
+                                                                                 title="Eliminar" update=":form:infoFM:listap">
+                                                                    <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
+                                                                </p:commandButton>
+                                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                    <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                    <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                                </p:confirmDialog>
+
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:tab>
+                                                    <p:tab id="ts1" title="Requisiciones aprobadas" closable="false"  titleStyleClass="clearfix" >
+
+                                                        <p:dataTable id="listap1" value="#{controladorRequisicion.listaRequisicionAprobada}" var="r"
+                                                                     paginator="true" rows="15"                         
+                                                                     paginatorPosition="top"
+                                                                     rowsPerPageTemplate="5,10,15,20"
+                                                                     >
+                                                            <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
+                                                                <h:outputText value="#{r.numRequisicion}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
+                                                                <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
+                                                                <h:outputText value="#{r.vehiculo.numRegistro}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Observación" sortBy="#{r.observaciones}">
+                                                                <h:outputText value="#{r.observaciones}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Opciones" style="width: 5%"> 
+
+
+                                                                <p:button id="selectButton" 
+                                                                          outcome="crear"
+                                                                          icon="ui-icon-pencil" title="Visualizar">  
+                                                                    <f:param name="requisicionId" value="#{r.id}"></f:param>
+                                                                    <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
+                                                                </p:button>
+
+
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:tab>
+                                                </div>
+                                            </p:tabView>
+
+                                        </tbody></div></div></div>
 
                         </p:panel></div> </div></div>
         </h:form>
