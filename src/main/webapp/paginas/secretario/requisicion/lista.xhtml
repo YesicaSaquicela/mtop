@@ -110,6 +110,22 @@
                                                         <f:param name="requisicionId" value="#{r.id}"></f:param>
                                                         <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
                                                     </p:button>
+                                                    <p:commandButton id="selectButton1" actionListener="#{controladorRequisicion.darDeBaja(r)}"
+                                                              
+                                                              icon="ui-icon-trash" title="Dar de baja">  
+                                                       
+                                                    </p:commandButton>
+                                                    <p:commandButton id="selectButton2" action="#{controladorRequisicion.darDeBaja(r)}"
+                                                              
+                                                              icon="ui-icon-trash" title="Dar de baja">  
+                                                       
+                                                    </p:commandButton>
+                                                    <p:commandButton id="selectButton3" onclick="#{controladorRequisicion.darDeBaja(r)}"
+                                                              
+                                                              icon="ui-icon-trash" title="Dar de baja">  
+                                                       
+                                                    </p:commandButton>
+                                                    
                                                 </p:column>
                                             </p:dataTable></tbody></div></div></div>
 
