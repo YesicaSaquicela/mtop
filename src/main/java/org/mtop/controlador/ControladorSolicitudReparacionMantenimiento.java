@@ -79,6 +79,15 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private String palabrab = "";
     private long idPersona = 0l;
     private String palabrabr = "";
+    private List<SolicitudReparacionMantenimiento> listaSolicitudAprobadas = new ArrayList<SolicitudReparacionMantenimiento>();
+
+    public List<SolicitudReparacionMantenimiento> getListaSolicitudAprobadas() {
+        return listaSolicitudAprobadas;
+    }
+
+    public void setListaSolicitudAprobadas(List<SolicitudReparacionMantenimiento> listaSolicitudAprobadas) {
+        this.listaSolicitudAprobadas = listaSolicitudAprobadas;
+    }
 
     public String getPalabrabr() {
         return palabrabr;
@@ -213,7 +222,25 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
         } else {
-            listaSolicitud = le;
+            listaSolicitud.clear();
+            listaSolicitudAprobadas.clear();
+            for (SolicitudReparacionMantenimiento solicitudReparacionMantenimiento : le) {
+                if (solicitudReparacionMantenimiento.isEstado()) {
+                    if (solicitudReparacionMantenimiento.getAprobado()) {
+                        if (!listaSolicitudAprobadas.contains(solicitudReparacionMantenimiento)) {
+                            listaSolicitudAprobadas.add(solicitudReparacionMantenimiento);
+                        }
+
+                    } else {
+                        if (!listaSolicitud.contains(solicitudReparacionMantenimiento)) {
+                            listaSolicitud.add(solicitudReparacionMantenimiento);
+                        }
+
+                    }
+                }
+
+            }
+
             palabrab = "";
         }
 
@@ -223,12 +250,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         palabrab = "";
         List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
         listaSolicitud.clear();
+        listaSolicitudAprobadas.clear();
         System.out.println("lppp" + ls);
 
         for (SolicitudReparacionMantenimiento soli : ls) {
             if (soli.isEstado()) {
-                System.out.println("listatesssa" + listaSolicitud);
-                listaSolicitud.add(soli);
+                if (soli.getAprobado()) {
+                    System.out.println("listatesssa" + listaSolicitud);
+                    listaSolicitudAprobadas.add(soli);
+
+                } else {
+                    listaSolicitud.add(soli);
+                }
 
             }
 
@@ -641,20 +674,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
 
-//        System.out.println("lppp" + ls);
-//        for (SolicitudReparacionMantenimiento solicitudr : ls) {
-//            System.out.println("iddddd" + solicitudr.getId());
-//            System.out.println("entro a for lista>>>>" + solicitudr.isEstado());
-//            if (solicitudr.isEstado()) {
-//                System.out.println("listatesssa" + listaSolicitud);
-//                listaSolicitud.add(solicitudr);
-//
-//                System.out.println("Entro a remover>>>>");
-//                System.out.println("a;iadia" + listaSolicitud);
-//
-//            }
-//
-//        }
+        for (SolicitudReparacionMantenimiento sAprobadas : ls) {
+            if (sAprobadas.getAprobado()) {
+                listaSolicitudAprobadas.add(sAprobadas);
+            }
+        }
+// 
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;
