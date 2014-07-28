@@ -130,27 +130,22 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setSolicitudReparacionId(null);
         System.out.println("lista de items" + listaItemsRequisicion);
       //  listaItemsRequisicion=getInstance().getListaItems();
-
+          
         for (ItemRequisicion itemr : listaItemsRequisicion) {
             System.out.println("sdhhfds" + itemr);
             System.out.println("el prodc" + itemr.getProducto());
 
             if (itemr.getProducto() != null) {
-                listaProductos.add(itemr.getProducto());
+                System.out.println("canti anterior"+itemr.getProducto().getCantidad());
+                Producto p=itemr.getProducto();
+                p.setCantidad(itemr.getCantidad()+itemr.getProducto().getCantidad());
+                System.out.println("cantidad despues "+p.getCantidad());
+                 p.setLastUpdate(now);
+                servgen.actualizar(p);
             }
 
         }
-        System.out.println("pro" + listaProductos);
-        if (!listaProductos.isEmpty()) {
-            for (Producto prod : listaProductos) {
-                System.out.println("prod id" + prod);
-                pro = servgen.buscarPorId(Producto.class, prod.getId());
-                pro.setCantidad(pro.getCantidad() + prod.getCantidad());
-                pro.setLastUpdate(now);
-                servgen.actualizar(pro);
-            }
-
-        }
+       
         getInstance().setEstado(false);
         System.out.println("\n\n\n\ncambio de estado a "+getInstance().isEstado());
         getInstance().setLastUpdate(now);
@@ -615,6 +610,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public List<Producto> getListaProductos() {
         if (listaProductos.isEmpty()) {
             for (Producto p : findAll(Producto.class)) {
+                System.out.println("producto"+p);
                 System.out.println("\n\n\n\n cantidad" + p.getCantidad());
                 if (p.getCantidad() > 0) {
 
