@@ -1113,7 +1113,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     @Transactional
     public String borrarEntidad() {
-        //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
+        
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");
