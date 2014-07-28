@@ -66,26 +66,9 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     private int firstResult = 0;
     private SolicitudReparacionMantenimiento[] solicitudSeleccionadas;
     private SolicitudReparacionMantenimiento solicitudSeleccionada; //Filtro de cuenta schema
-    private Date fe;
-    private Date fs;
 
-    public Date getFe() {
-        return fe;
-    }
 
-    public void setFe(Date fe) {
-        System.out.println("\n\n\nfijoo>>>\n\n\n" + fe);
-        this.fe = fe;
-    }
 
-    public Date getFs() {
-        return fs;
-    }
-
-    public void setFs(Date fs) {
-        System.out.println("\n\n\nfijoo>>>\n\n\n" + fs);
-        this.fs = fs;
-    }
 
     public SolicitudListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -105,18 +88,14 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
         System.out.println("fijando SOlidituuzzxxzzuuud en guardar en lista de solicitud");
 
         if (solicitudSeleccionada != null) {
-            if (fe == null || fs == null) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " Debe ingresar fecha de entrada y fecha de salida");
-                FacesContext.getCurrentInstance().addMessage("", msg);
-            } else {
+      
                 try {
 
                     System.out.println("recupero solicitud" + solicitudSeleccionada);
                     solicitudSeleccionada.setKardex(k);
                     solicitudSeleccionada.setLastUpdate(now);
                     solicitudSeleccionada.setAprobado(true);
-                    solicitudSeleccionada.setFechaEntradaTaller(fe);
-                    solicitudSeleccionada.setFechaSalidaTaller(fs);
+          
                     servgen.actualizar(solicitudSeleccionada);
 
                     System.out.println("guando solicicitud con kardex cooon" + solicitudSeleccionada.getKardex());
@@ -129,7 +108,7 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            
 
         }
 

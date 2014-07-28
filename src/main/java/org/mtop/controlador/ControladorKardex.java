@@ -71,8 +71,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     private List<Requisicion> listaReq;
     private SolicitudReparacionMantenimiento solicitud;
     private Requisicion requisicion;
-    private Date fechaEntrada;
-    private Date fechaSalida;
+  
 
     public String getPalabrabs() {
         return palabrabs;
@@ -98,21 +97,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     
     
     
-    public Date getFechaEntrada() {
-        return fechaEntrada;
-    }
 
-    public void setFechaEntrada(Date fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
-    }
-
-    public Date getFechaSalida() {
-        return fechaSalida;
-    }
-
-    public void setFechaSalida(Date fechaSalida) {
-        this.fechaSalida = fechaSalida;
-    }
 
     public Requisicion getRequisicion() {
         return requisicion;
@@ -345,12 +330,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 solicitud.setKardex(null);
                 solicitud.setLastUpdate(now);
                 solicitud.setAprobado(false);
-                System.out.println("fechaaaa"+fechaEntrada); 
-                System.out.println("fechaaaa"+fechaSalida);
-               solicitud.setFechaEntradaTaller(fechaEntrada);
-                solicitud.setFechaSalidaTaller(fechaSalida);
-                 System.out.println("fechaaaa"+solicitud.getFechaEntradaTaller()); 
-                System.out.println("fechaaaa"+solicitud.getFechaSalidaTaller());
+              
                 save(solicitud);
                 System.out.println("\n\n\n\n\n\n\nguando solicicitud con kardex cooon" + solicitud.getKardex());
                 getInstance().setLastUpdate(now);

@@ -53,10 +53,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     private String numSolicitud;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaSolicitud;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaEntradaTaller;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaSalidaTaller;
+  
     @ManyToOne
     @JoinColumn(name = "personaId")
      private Profile psolicita;
@@ -83,21 +80,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     }
 
    
-    public Date getFechaEntradaTaller() {
-        return fechaEntradaTaller;
-    }
 
-    public void setFechaEntradaTaller(Date fechaEntradaTaller) {
-        this.fechaEntradaTaller = fechaEntradaTaller;
-    }
-
-    public Date getFechaSalidaTaller() {
-        return fechaSalidaTaller;
-    }
-
-    public void setFechaSalidaTaller(Date fechaSalidaTaller) {
-        this.fechaSalidaTaller = fechaSalidaTaller;
-    }
 
     public String getNumSolicitud() {
         return numSolicitud;
