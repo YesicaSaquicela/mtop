@@ -585,9 +585,8 @@
                     </p:wizard>
                 </div></div>
         </h:form>
-<div role="main">
-                    <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                        <p:dialog id="dialrequi" header="Requisición" widgetVar="editDlg" modal="true" resizable="true" dynamic="true" width="1200" height="370" >
+
+        <p:dialog id="dialrequi" appendToBody="true" header="Requisición" widgetVar="editDlg" modal="true" resizable="true" dynamic="true" width="900">
 
 
 
@@ -921,7 +920,7 @@
                                         <span class="help-inline text-muted">Descripción del item <ocp:message forId="unidadMedida"/></span>
                                         <br></br>
                                         <div class="admin-actions">
-                                            <p:commandButton ajax="false"  update=":form1:listai :form1:cantidad :form1:unidadMedida "  styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  action="#{controladorRequisicion.agregarItem()}">
+                                            <p:commandButton ajax="false" process="@this" update=":form1:listai :form1:cantidad :form1:unidadMedida "  styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorRequisicion.agregarItem()}">
 
                                             </p:commandButton>
                                         </div><br/>
@@ -1032,7 +1031,6 @@
 
 
         </p:dialog>
-                        </div></div>
 
 
     </ui:define>

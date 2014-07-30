@@ -775,6 +775,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void agregarItem() {
+        System.out.println("entro a guardar::::: item");
         String des = cir.getInstance().getDescription().trim();
         String uni = cir.getInstance().getUnidadMedida().trim();
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
