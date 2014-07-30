@@ -168,6 +168,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
         } else {
+            listaRequisiciones.clear();
             Requisicion re=new Requisicion();
             for (Long r : lrq) {
                 System.out.println("Entro al for>>>>>>");
