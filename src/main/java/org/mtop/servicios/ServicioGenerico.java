@@ -190,11 +190,12 @@ public class ServicioGenerico {
             s = t.getFechaRequisicion().toString();
             System.out.println("valor de SSSSSSSSSSSS" + s);
             System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(valoratributo));
-            if (s.contains(valoratributo.toString())) {
+            if (s.contains(String.class.cast(valoratributo))) {
+                System.out.println("anado una fecha>>>>"+s);
                 l.add(t);
             }
         }
-
+        System.out.println("retornando>>>>>fechas>>>>"+l);
         return l;
 
         //builder.equal(objeto.get(at), true)
