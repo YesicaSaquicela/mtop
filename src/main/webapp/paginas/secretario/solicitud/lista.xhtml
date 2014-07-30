@@ -90,7 +90,7 @@
                                                             <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
                                                                          paginator="true" rows="15"                         
                                                                          paginatorPosition="top"
-                                                                         rowsPerPageTemplate="5,10,15,20">
+                                                                         rowsPerPageTemplate="5,10,15,20" emptyMessage="No se han encontrado coincidencias">
 
 
                                                                 <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
@@ -105,8 +105,11 @@
                                                                 <p:column headerText="Observación" sortBy="#{s.observacion}">
                                                                     <h:outputText value="#{s.observacion}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Requisción" sortBy="#{s.requisicionId.id}">
-                                                                    <h:outputText value="#{s.requisicionId.id}"></h:outputText>
+                                                                <p:column headerText="Registro Requisción" sortBy="#{s.requisicionId.numRequisicion}">
+                                                                    <h:outputText value="#{s.requisicionId.numRequisicion}"></h:outputText>
+                                                                </p:column>
+                                                                <p:column headerText="Registro Vehículo" sortBy="#{s.vehiculo.numRegistro}">
+                                                                    <h:outputText value="#{s.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Opciones" style="width: 5%"> 
 

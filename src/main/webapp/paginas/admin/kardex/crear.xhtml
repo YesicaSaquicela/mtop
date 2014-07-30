@@ -129,8 +129,8 @@
                                                                 <center>
                                                                     <h:outputLabel value="Buscar:  " />
 
-                                                                      <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrabs}"   
-                                                                                        completeMethod="#{controladorKardex.autocompletars}"/> 
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrabs}"   
+                                                                                    completeMethod="#{controladorKardex.autocompletars}"/> 
 
 
 
@@ -171,7 +171,7 @@
                                                                 <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
                                                                     <h:outputText value="#{controladorKardex.formato(s.fechaSolicitud)}"></h:outputText>
                                                                 </p:column>
-                                                                 <p:column headerText="Opciones" style="width: 5%"> 
+                                                                <p:column headerText="Opciones" style="width: 5%"> 
                                                                     <h:link value="Dar de Baja" outcome="crear" type="button" >
                                                                         <f:param name="solicitudId" value="#{s.id}"></f:param>
                                                                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
@@ -306,6 +306,10 @@
                                         <f:viewParam name="estado" value="#{profileListService.estado}" />
                                         <f:event listener="#{profileListService.init()}" type="preRenderView"/>
                                         <h:form id="forms" rendered="#{controladorKardex.vista eq 'solicitud'}">            
+                                            <!--br/>
+                                            <mtop:input id="des" name="descripcion1" type="textarea" label="Observación" 
+                                                        value="# {controladorKardex.instance.observaciones}"  
+                                                        inlinehelp="Ingrese una observación de esta kardex" execute ="@this save" render="des"/><br></br-->
 
                                             <br></br><br></br>
 
@@ -347,7 +351,7 @@
                                                 </div>
 
                                             </div>
-                                           <br/><br/>
+                                            <br/><br/>
 
                                             <div class="admin-actions " align="center"> 
 
@@ -463,14 +467,14 @@
 
                                                     </h:link>
 
-                                                <!--p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
-                                                                 styleClass="btn  btn-success"  action="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
-                                                    <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
-                                                    <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-
-                                                    <f:param name="valorVista" value="kardex"/>
-
-                                                </p:commandButton-->
+                                                    <!--p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
+                                                                     styleClass="btn  btn-success"  action="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
+                                                        <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                                                        <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
+    
+                                                        <f:param name="valorVista" value="kardex"/>
+    
+                                                    </p:commandButton-->
 
                                                     #{' '} 
                                                     <h:button id="regresar1" value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/crear" styleClass="btn  btn-success">

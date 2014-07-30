@@ -84,7 +84,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void buscar() {
-        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+         palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
             System.out.println("entro a comparar>>>>"+palabrab);
             palabrab = "Ingrese algun valor a buscar";
         }
@@ -112,6 +113,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             }
 
         } else {
+            System.out.println("lista final>>>"+lp);
             listaPlanMantenimiento = lp;
         }
 
