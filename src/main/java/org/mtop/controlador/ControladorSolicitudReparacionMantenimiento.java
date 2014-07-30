@@ -727,7 +727,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaSolicitud.clear();
         System.out.println("listaaaaa solicituddd" + listaSolicitud);
         for (SolicitudReparacionMantenimiento sol : ls) {
-            if (sol.getRequisicionId() == null) {
+          
                 if (sol.isEstado()) {
                     if (!sol.getAprobado()) {
                         System.out.println("entro a listar>>>>>>");
@@ -736,7 +736,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         listaSolicitudAprobadas.add(sol);
                     }
                 }
-            }
+           
 
         }
 
