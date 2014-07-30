@@ -88,7 +88,7 @@
 
                                             <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
                                                 <div  class="panel panel-primary">
-        
+
                                                     <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
 
                                                         <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
@@ -102,6 +102,10 @@
                                                             <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
                                                                 <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
                                                             </p:column>
+                                                            <p:column headerText="Registro Solicitud" sortBy="#{r.solicitudReparacionId.numSolicitud}">
+                                                                    <h:outputText value="#{r.solicitudReparacionId.numSolicitud}"></h:outputText>
+                                                            </p:column>
+                                                                
                                                             <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
                                                                 <h:outputText value="#{r.vehiculo.numRegistro}"></h:outputText>
                                                             </p:column>
