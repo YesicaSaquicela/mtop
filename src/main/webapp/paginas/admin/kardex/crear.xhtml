@@ -334,7 +334,7 @@
                                                                     <h:outputText value="#{items.numSolicitud}" />
                                                                 </p:column>
                                                                 <p:column headerText="Fecha" sortBy="#{items.id}">
-                                                                    <h:outputText value="#{items.fechaSolicitud}" />
+                                                                    <h:outputText value="#{controladorKardex.formato(items.fechaSolicitud)}" />
                                                                 </p:column>
                                                                 <p:column headerText="Observación" sortBy="#{items.id}">
                                                                     <h:outputText value="#{items.observacion}" />
@@ -438,7 +438,7 @@
                                                                     <h:outputText value="#{items.numRequisicion}" />
                                                                 </p:column>
                                                                 <p:column headerText="Fecha">
-                                                                    <h:outputText value="#{items.fechaRequisicion}" />
+                                                                    <h:outputText value="#{controladorKardex.formato(items.fechaRequisicion)}" />
                                                                 </p:column>
                                                                 <p:column headerText="Observación">
                                                                     <h:outputText value="#{items.observaciones}" />

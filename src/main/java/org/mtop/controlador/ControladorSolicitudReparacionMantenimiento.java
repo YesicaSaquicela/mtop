@@ -405,12 +405,21 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         System.out.println("lista antes" + listaRequisiciones);
         System.out.println("id de vehiculo actual" + getVehiculo());
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
-        for (Requisicion req : listaRequisiciones) {
-            if (req.getVehiculo().getId() != getVehiculo().getId()) {
-                listaRequisiciones.remove(req);
+        List<Requisicion> lr = listaRequisiciones;
+        List<Requisicion>lr2=new ArrayList<Requisicion>();
+               
+        for (Requisicion req : lr) {
+            System.out.println("req"+req);
+            
+            System.out.println("id de vehiculo actual" + getVehiculo());
+            System.out.println("vehiculo a comparar"+req.getVehiculo());
+            System.out.println("id de vehiculo"+req.getVehiculo().getId());
+            if (req.getVehiculo().getId().equals(getVehiculo().getId())) {
+                System.out.println("entro agregar");
+                lr2.add(req);
             }
         }
+        listaRequisiciones=lr2;
         System.out.println("lista despues" + listaRequisiciones);
         return listaRequisiciones;
     }

@@ -65,7 +65,7 @@
 
 
                                     <h:outputLabel value="Tipo de requisición "/> <br></br> 
-                                    <p:selectOneMenu id="tipoRequisicion"  value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
+                                    <p:selectOneMenu id="tipoRequisicion" editable="#{controladorRequisicion.instance.id ne null}" value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Requisición de Reparación" itemValue="requisicionRep" />  
                                         <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="requisicionByS" />  
@@ -630,7 +630,7 @@
                                                         <p:column headerText="Número" sortBy="#{items.numSolicitud}">
                                                             <h:outputText value="#{items.numSolicitud}" />
                                                         </p:column>
-                                                        <p:column headerText="Fecha" sortBy="#{items.fechaSolicitud}" >
+                                                        <p:column headerText="Fecha" sortBy="#{controladorRequisicion.formato(items.fechaSolicitud)}" >
                                                             <h:outputText value="#{items.fechaSolicitud}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{items.observacion}">
