@@ -66,7 +66,8 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     }
     
     public void buscar() {
-        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+        palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
             palabrab = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia descripciion

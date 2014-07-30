@@ -131,15 +131,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void buscarr() {
+        System.out.println("\n\n\nENTRO A BUSCAR REQU11111I>>>>>>");
         if (palabrabr == null || palabrabr.equals("") || palabrabr.contains(" ")) {
             palabrabr = "Ingrese algun valor a buscar";
         }
+        System.out.println("\n\nENTRO A BUSCAR REQUI>>>>>>");
+        System.out.println("\n\nPALABRA INGRESADA>>>>" + palabrabr);
         //buscando por coincidencia
         List<Requisicion> le = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), palabrabr);
         //buscando por fechas
         List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), palabrabr);
+        System.out.println("\n\nENTRO A BUSCAR REQUI2222>>>>>>");
         for (Requisicion requisicion : lef) {
-            if (!le.contains(requisicion)) {
+            if (!le.contains(requisicion) && requisicion.getVehiculo() == getInstance().getVehiculo()) {
                 le.add(requisicion);
             }
         }
@@ -154,7 +158,13 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
         } else {
-            listaRequisiciones = le;
+            for (Requisicion requisicion1 : lef) {
+                if (requisicion1.isEstado()) {
+                    listaRequisiciones = le;
+                    System.out.println("\n\nlista final>>>>" + le);
+                }
+            }
+
             palabrabr = "";
         }
 
@@ -167,7 +177,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("lppp" + lr);
 
         for (Requisicion r : lr) {
-            if (r.isEstado()) {
+            if (r.isEstado() && r.getSolicitudReparacionId() == null) {
                 System.out.println("listatesssa" + listaRequisiciones);
                 listaRequisiciones.add(r);
 
@@ -177,23 +187,30 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public ArrayList<String> autocompletarr(String query) {
-        System.out.println("QUEryyyyy" + query);
+        System.out.println("\n\nQUEryyyyy" + query);
 
         ArrayList<String> ced = new ArrayList<String>();
 
         List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), query);
 
         for (Requisicion requisicion : lr) {
-            System.out.println("econtro uno " + requisicion.getNumRequisicion());
-            ced.add(requisicion.getNumRequisicion());
+            if (requisicion.isEstado() && requisicion.getSolicitudReparacionId() == null) {
+                System.out.println("\n\necontro uno " + requisicion.getNumRequisicion());
+                ced.add(requisicion.getNumRequisicion());
+            }
+
         }
 
         List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), query);
         for (Requisicion requisicion : lef) {
-            ced.add(requisicion.getFechaRequisicion().toString());
+            if (requisicion.isEstado() && !ced.contains(requisicion.getFechaRequisicion().toString())
+                    && requisicion.getSolicitudReparacionId() == null) {
+                ced.add(requisicion.getFechaRequisicion().toString());
+            }
+
         }
 
-        System.out.println("listaaaaa autocompletar" + ced);
+        System.out.println("\n\nlistaaaaa autocompletar" + ced);
         return ced;
 
     }
@@ -277,13 +294,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         //buscando por fechas
 
         for (SolicitudReparacionMantenimiento soli : le) {
-            System.out.println("econtro uno " + soli.getNumSolicitud());
-            ced.add(soli.getNumSolicitud());
+            if (soli.isEstado()) {
+                System.out.println("econtro uno " + soli.getNumSolicitud());
+                ced.add(soli.getNumSolicitud());
+            }
+
         }
         List<SolicitudReparacionMantenimiento> lef = servgen.buscarSolicitudporFecha(SolicitudReparacionMantenimiento_.fechaSolicitud.getName(), query);
 
         for (SolicitudReparacionMantenimiento soli : lef) {
-            ced.add(soli.getFechaSolicitud().toString());
+            if (soli.isEstado()) {
+                ced.add(soli.getFechaSolicitud().toString());
+            }
+
         }
 
         System.out.println("listaaaaa autocompletar" + ced);
@@ -320,6 +343,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void buscarv() {
+
         if (palabrabv == null || palabrabv.equals("") || palabrabv.contains(" ")) {
             palabrabv = "Ingrese algun valor a buscar";
         }
@@ -379,13 +403,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
     }
 
-//    public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
-//        return listaItemsSolicitud;
-//    }
-//
-//    public void setListaItemsSolicitud(List<ItemSolicitudReparacion> listaItemsSolicitud) {
-//        this.listaItemsSolicitud = listaItemsSolicitud;
-//    }
     public Requisicion getRequisicion() {
         return requisicion;
     }
@@ -395,23 +412,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public List<Requisicion> getListaRequisiciones() {
-        listaRequisiciones = findAll(Requisicion.class);
-        for (SolicitudReparacionMantenimiento sol : listaSolicitud) {
-            if (sol.getRequisicionId() != null) {
-                listaRequisiciones.remove(sol.getRequisicionId());
-            }
-
-        }
-        System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
-        System.out.println("lista antes" + listaRequisiciones);
-        System.out.println("id de vehiculo actual" + getVehiculo());
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
-        for (Requisicion req : listaRequisiciones) {
-            if (req.getVehiculo().getId() != getVehiculo().getId()) {
-                listaRequisiciones.remove(req);
-            }
-        }
-        System.out.println("lista despues" + listaRequisiciones);
         return listaRequisiciones;
     }
 
@@ -527,14 +527,22 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setVehiculo(Vehiculo vehiculo) {
         System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
-
         this.vehiculo = vehiculo;
+        List<Requisicion> lrs = new ArrayList<Requisicion>();
+        for (Requisicion req : listaRequisiciones) {
+            System.out.println("\n\nEntro a for requis...>>>" + req.getVehiculo().getId());
+            if ((req.getVehiculo().getId() == this.vehiculo.getId()&& req.isEstado()&&req.getSolicitudReparacionId().getId()==null)) {
+                System.out.println("\n\nentro a comparar.....");
+                lrs.add(req);
+            }
+
+        }
+        listaRequisiciones=lrs;
 
     }
 
     public List<Vehiculo> getListaVehiculos() {
-//        listaVehiculos = findAll(Vehiculo.class);
-        System.out.println("ENTRO A BUSCAR>vehiculos>>>>>>>>>>");
+
         return listaVehiculos;
     }
 
@@ -555,7 +563,33 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>." + getInstance().getListaItemSR());
         citemsolicitud.listaItemsSolicitud = getInstance().getListaItemSR();
+        listaRequisiciones = findAll(Requisicion.class);
+        for (SolicitudReparacionMantenimiento sol : listaSolicitud) {
+            System.out.println("id de req en solicituddd" + sol.getRequisicionId());
 
+            if (sol.getRequisicionId() != null) {
+
+                System.out.println("entro");
+                listaRequisiciones.remove(sol.getRequisicionId());
+
+            }
+
+        }
+        System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
+        System.out.println("lista antes" + listaRequisiciones);
+        System.out.println("id de vehiculo actual" + getInstance().getVehiculo());
+        List<Requisicion> lrs = new ArrayList<Requisicion>();
+        for (Requisicion req : listaRequisiciones) {
+            System.out.println("\n\nEntro a for requis...>>>" + req.getVehiculo().getId());
+            System.out.println("req" + req + "estado" + req.isEstado());
+            if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId()) && (req.isEstado())) {
+                System.out.println("\n\nentro a comparar.....");
+                lrs.add(req);
+            }
+
+        }
+        listaRequisiciones = lrs;
+        System.out.println("lista despues" + listaRequisiciones);
     }
 
     public String formato(Date fecha) {
@@ -659,27 +693,23 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaSolicitud = findAll(SolicitudReparacionMantenimiento.class);
         listaRequisiciones = findAll(Requisicion.class);
         List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
-        listaRequisiciones.clear();
+
         listaSolicitud.clear();
         System.out.println("listaaaaa solicituddd" + listaSolicitud);
         for (SolicitudReparacionMantenimiento sol : ls) {
-
             if (sol.getRequisicionId() == null) {
-                listaRequisiciones.add(sol.getRequisicionId());
-            }
-            if (!sol.getAprobado() && sol.isEstado() == true) {
-                System.out.println("entro a listar>>>>>>");
-                listaSolicitud.add(sol);
+                if (sol.isEstado()) {
+                    if (!sol.getAprobado()) {
+                        System.out.println("entro a listar>>>>>>");
+                        listaSolicitud.add(sol);
+                    } else {
+                        listaSolicitudAprobadas.add(sol);
+                    }
+                }
             }
 
         }
 
-        for (SolicitudReparacionMantenimiento sAprobadas : ls) {
-            if (sAprobadas.getAprobado()) {
-                listaSolicitudAprobadas.add(sAprobadas);
-            }
-        }
-// 
         System.out.println("lista requisicionessss sin solicitud" + listaRequisiciones);
         vehiculo = new Vehiculo();
         idVehiculo = 0l;

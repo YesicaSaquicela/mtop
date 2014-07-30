@@ -448,7 +448,7 @@
                                                     <p:dataTable id="basicDT2" var="vr" value="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"
                                                                  paginator="true" rows="15"                         
                                                                  paginatorPosition="top"
-                                                                 rowsPerPageTemplate="5,10,15,20">
+                                                                 rowsPerPageTemplate="5,10,15,20"  emptyMessage="No se han encontrado coincidencias">
 
                                                         <p:column headerText="Número" sortBy="#{vr.numRequisicion}">
                                                             <h:outputText value="#{vr.numRequisicion}" />
@@ -458,6 +458,9 @@
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{vr.observaciones}">
                                                             <h:outputText value="#{vr.observaciones}" />
+                                                        </p:column>
+                                                        <p:column headerText="Registro Vehículo" sortBy="#{vr.vehiculo.numRegistro}">
+                                                            <h:outputText value="#{vr.vehiculo.numRegistro}" />
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
