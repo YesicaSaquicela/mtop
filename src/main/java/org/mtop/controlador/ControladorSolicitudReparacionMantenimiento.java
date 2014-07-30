@@ -440,6 +440,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setRequisicion(Requisicion requisicion) {
         this.requisicion = requisicion;
+        getInstance().setRequisicionId(requisicion);
     }
 
     public List<Requisicion> getListaRequisiciones() {
@@ -562,7 +563,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         List<Requisicion> lrs = new ArrayList<Requisicion>();
         for (Requisicion req : listaRequisiciones) {
             System.out.println("\n\nEntro a for requis...>>>" + req.getVehiculo().getId());
-            if ((req.getVehiculo().getId() == this.vehiculo.getId()&& req.isEstado()&&req.getSolicitudReparacionId().getId()==null)) {
+            if ((req.getVehiculo().getId() == this.vehiculo.getId()&& req.isEstado()&&req.getSolicitudReparacionId()==null)) {
                 System.out.println("\n\nentro a comparar.....");
                 lrs.add(req);
             }
