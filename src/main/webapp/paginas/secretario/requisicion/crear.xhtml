@@ -632,7 +632,7 @@
                                                             <h:outputText value="#{items.numSolicitud}" />
                                                         </p:column>
                                                         <p:column headerText="Fecha" sortBy="#{controladorRequisicion.formato(items.fechaSolicitud)}" >
-                                                            <h:outputText value="#{items.fechaSolicitud}" />
+                                                            <h:outputText value="#{controladorRequisicion.formato(items.fechaSolicitud)}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{items.observacion}">
                                                             <h:outputText value="#{items.observacion}" />
