@@ -47,7 +47,7 @@
                                                                 <center>
                                                                     <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
+                                                                    <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
                                                                                     completeMethod="#{controladorRequisicion.autocompletar}"/> 
                                                                     &nbsp;&nbsp;
 
@@ -98,22 +98,28 @@
                                                                      widgetVar="requisicionTable"
                                                                      filteredValue="#{controladorRequisicion.listaRequisicionfiltrada}"
                                                                      >
+
+                                                           
+
                                                             <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
                                                                 <h:outputText value="#{r.numRequisicion}"></h:outputText>
                                                             </p:column>
 
-                                                            <p:column filterBy="#{r.tipoRequisicion}" headerText="Tipo de Requisición" 
-                                                                      footerText="equals" filterMatchMode="equals">
-                                                                <f:facet name="filter">
-                                                                    <p:selectOneButton onchange="PF('carsTable').filter()">
+                                                            <p:column headerText="Tipo de Requisición" 
+                                                                      >
+                                                                fgvjhknj
+                                                                 <f:facet name="header">
+                                                                
+                                                                    <p:selectOneButton onchange="PF('requisicionTable').filter()">
                                                                         <f:converter converterId="javax.faces.Boolean" />
                                                                         <f:selectItem itemLabel="All" itemValue="" />
-                                                                        <f:selectItem itemLabel="Sold" itemValue="true" />
-                                                                        <f:selectItem itemLabel="Sale" itemValue="false" />
+                                                                        <f:selectItem itemLabel="Repa" itemValue="true" />
+                                                                        <f:selectItem itemLabel="Bien" itemValue="false" />
                                                                     </p:selectOneButton>
-                                                                </f:facet>
-                                                                <h:outputText value="#{r.tipoRequisicion ? 'Sold': 'Sale'}"></h:outputText>
-                                                                <h:outputText value="#{car.sold ? 'Sold': 'Sale'}" />
+                                                            </f:facet>
+                                                             
+                                                                <h:outputText value="#{r.tipoRequisicion ? 'Repa': 'Bien'}"></h:outputText>
+
                                                             </p:column>
 
                                                             <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">

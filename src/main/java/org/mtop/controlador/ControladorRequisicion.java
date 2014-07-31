@@ -97,7 +97,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
     Producto pro;
     List<Requisicion> listaRequisicionAprobada = new ArrayList<Requisicion>();
+    private List<Requisicion> listaRequisicionfiltrada;
 
+    public List<Requisicion> getListaRequisicionfiltrada() {
+        return listaRequisicionfiltrada;
+    }
+
+    public void setListaRequisicionfiltrada(List<Requisicion> listaRequisicionfiltrada) {
+        this.listaRequisicionfiltrada = listaRequisicionfiltrada;
+    }
+
+    
     public List<Requisicion> getListaRequisicionAprobada() {
         return listaRequisicionAprobada;
     }
@@ -998,9 +1008,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         setId(requisicionId);
 
         vehiculo = getInstance().getVehiculo();
-        System.out.println("\n\n\nsolicitud antes en set \n\n\n"+solicitudrep);
+        System.out.println("\n\n\nsolicitud antes en set \n\n\n" + solicitudrep);
         solicitudrep = getInstance().getSolicitudReparacionId();
-        System.out.println("\n\n\nsolicitud depuestes en set\n\n\n"+solicitudrep);
+        System.out.println("\n\n\nsolicitud depuestes en set\n\n\n" + solicitudrep);
         idPersonal = getInstance().getPsolicita().getId();
         listaItemsRequisicion = new ArrayList<ItemRequisicion>();
         for (ItemRequisicion itr : findAll(ItemRequisicion.class)) {
@@ -1178,7 +1188,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
-                System.out.println("solicitudrepapapapapa"+solicitudrep);
+                System.out.println("solicitudrepapapapapa" + solicitudrep);
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {
                         System.out.println("anaidiando la solicitud" + solicitudrep);
