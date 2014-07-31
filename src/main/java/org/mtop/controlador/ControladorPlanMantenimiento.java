@@ -84,26 +84,34 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void buscar() {
-         palabrab.trim();
+
+        palabrab = palabrab.trim();
         if (palabrab == null || palabrab.equals("")) {
-            System.out.println("entro a comparar>>>>"+palabrab);
+            System.out.println("entro vacio");
             palabrab = "Ingrese algun valor a buscar";
         }
-        System.out.println("Palabra ingresada?>>>>>"+palabrab);
-        //buscando por coincidencia descripciion
-        List<PlanMantenimiento> lp = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), palabrab);
-        //buscando por codigo
-        List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PersistentObject_.createdOn.getName(), palabrab);
+        //buscando por coincidencia
+        List<PlanMantenimiento> le = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), palabrab);
+        //buscando por fechas
+        List<PlanMantenimiento> lef = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), palabrab);
+        System.out.println("Todas>>>>>>" + lef);
+        System.out.println("Todascoincidencia>>>>>>" + le);
+        List<Long> lplan = new ArrayList<Long>();
+        for (PlanMantenimiento p : le) {
+            lplan.add(p.getId());
+        }
+        for (PlanMantenimiento planm : lef) {
+            System.out.println("rerere " + planm);
+            System.out.println("lrq>>>> " + lplan);
 
-        for (PlanMantenimiento planMantenimiento : lc) {
-            if (!lp.contains(planMantenimiento)) {
-                System.out.println("entro a if>>>>>> agregar"+planMantenimiento);
-                lp.add(planMantenimiento);
+            if (!lplan.contains(planm.getId())) {
+                lplan.add(planm.getId());
             }
         }
-        System.out.println("Palabra ingresada?>>>>>"+palabrab);
-        System.out.println("lisssssssta lp"+lp);
-        if (lp.isEmpty()) {
+
+        System.out.println("LEeeee" + lplan);
+
+        if (lplan.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
                 context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
@@ -113,10 +121,16 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             }
 
         } else {
-            System.out.println("lista final>>>"+lp);
-            listaPlanMantenimiento = lp;
-        }
+            listaPlanMantenimiento.clear();
 
+            PlanMantenimiento plamMant = new PlanMantenimiento();
+            for (Long p : lplan) {
+                plamMant = findById(PlanMantenimiento.class, p);
+                listaPlanMantenimiento.add(plamMant);
+            }
+
+            palabrab = "";
+        }
     }
 
     public void limpiar() {
@@ -151,10 +165,14 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             System.out.println("econtro uno " + planM.getRegistro());
             ced.add(planM.getRegistro());
         }
-          List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PersistentObject_.createdOn.getName(), query);
+        List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), query);
         for (PlanMantenimiento planM : lc) {
-            System.out.println("econtro uno " + planM.getCreatedOn());
-             ced.add(formato(planM.getCreatedOn()));
+         
+            if (!ced.contains(formato(planM.getCreatedOn()))) {
+                System.out.println("no lo contienes"+formato(planM.getCreatedOn()));
+                ced.add(formato(planM.getCreatedOn()));
+            }
+
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;

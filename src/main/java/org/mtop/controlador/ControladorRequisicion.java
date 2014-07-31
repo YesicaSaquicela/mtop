@@ -792,7 +792,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
             listaItemsRequisicion.add(cir.getInstance());
             cir.setInstance(new ItemRequisicion());
-
         }
 
         pro = new Producto();

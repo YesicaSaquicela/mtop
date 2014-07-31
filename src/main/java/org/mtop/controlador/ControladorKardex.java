@@ -81,12 +81,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.palabrabs = palabrabs;
     }
 
-    
-    
-    
-    
-    
-    
+       
     public String getPalabrabr() {
         return palabrabr;
     }
@@ -95,9 +90,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.palabrabr = palabrabr;
     }
     
-    
-    
-
+      
 
     public Requisicion getRequisicion() {
         return requisicion;
