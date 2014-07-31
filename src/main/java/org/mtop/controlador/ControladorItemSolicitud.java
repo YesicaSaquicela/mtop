@@ -123,9 +123,10 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
-        System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
+        System.out.println("cItem...PRESENTAR persisten>>>>>" + getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
+                System.out.println("Entro a guradar>>>>>>>"+getInstance().isPersistent());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Item deRequisicion" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);

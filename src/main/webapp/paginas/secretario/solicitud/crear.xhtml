@@ -364,7 +364,7 @@
 
                                                 <tbody>
 
-                                                    <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.listaItemsSolicitud}" var="la"
+                                                    <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
                                                                  paginator="true" rows="15"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20">
@@ -544,7 +544,7 @@
                                             <h:outputText value="Requisición id: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="vehiculo placa: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.vehiculo.placa}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo.placa}" styleClass="outputLabel"/><br/>
                                         </h:panelGrid>
                                         <h:panelGrid>
 
