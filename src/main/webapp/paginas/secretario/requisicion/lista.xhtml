@@ -47,7 +47,7 @@
                                                                 <center>
                                                                     <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
+                                                                    <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
                                                                                     completeMethod="#{controladorRequisicion.autocompletar}"/> 
                                                                     &nbsp;&nbsp;
 
@@ -95,17 +95,41 @@
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"
                                                                      rowsPerPageTemplate="5,10,15,20"
+                                                                     widgetVar="requisicionTable"
+                                                                     filteredValue="#{controladorRequisicion.listaRequisicionfiltrada}"
                                                                      >
+
+                                                           
+
                                                             <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
                                                                 <h:outputText value="#{r.numRequisicion}"></h:outputText>
                                                             </p:column>
+
+                                                            <p:column headerText="Tipo de Requisición" 
+                                                                      >
+                                                                fgvjhknj
+                                                                 <f:facet name="header">
+                                                                
+                                                                    <p:selectOneButton onchange="PF('requisicionTable').filter()">
+                                                                        <f:converter converterId="javax.faces.Boolean" />
+                                                                        <f:selectItem itemLabel="All" itemValue="" />
+                                                                        <f:selectItem itemLabel="Repa" itemValue="true" />
+                                                                        <f:selectItem itemLabel="Bien" itemValue="false" />
+                                                                    </p:selectOneButton>
+                                                            </f:facet>
+                                                             
+                                                                <h:outputText value="#{r.tipoRequisicion ? 'Repa': 'Bien'}"></h:outputText>
+
+                                                            </p:column>
+
                                                             <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
                                                                 <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
                                                             </p:column>
+
                                                             <p:column headerText="Registro Solicitud" sortBy="#{r.solicitudReparacionId.numSolicitud}">
-                                                                    <h:outputText value="#{r.solicitudReparacionId.numSolicitud}"></h:outputText>
+                                                                <h:outputText value="#{r.solicitudReparacionId.numSolicitud}"></h:outputText>
                                                             </p:column>
-                                                                
+
                                                             <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
                                                                 <h:outputText value="#{r.vehiculo.numRegistro}"></h:outputText>
                                                             </p:column>
@@ -142,9 +166,13 @@
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"
                                                                      rowsPerPageTemplate="5,10,15,20"
+
                                                                      >
                                                             <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
                                                                 <h:outputText value="#{r.numRequisicion}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Tipo de Requisición" sortBy="#{r.tipoRequisicion}" >
+                                                                <h:outputText value="#{r.tipoRequisicion}"></h:outputText>
                                                             </p:column>
                                                             <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
                                                                 <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
