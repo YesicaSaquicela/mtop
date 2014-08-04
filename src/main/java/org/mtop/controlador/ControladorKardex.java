@@ -550,18 +550,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
-            } else {
-                System.out.println("Guardando kardeXXXXXXXXXXXXXX" + getInstance().getNumero());
-                System.out.println("Guardando kardeXXXXXXXXXXXXXX" + getInstance().getVehiculo());
-                getInstance().setEstado(true);
-                System.out.println("lallalalallalalallalalalla");
-                create(getInstance());
-
-                save(getInstance());
-                System.out.println("se ha creado000000000000000000000000000000000000000000000 " + getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo Kardex" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
-            }
+            } 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ErrorRRRRRRRRRRRRRRRRRRRRRR al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);

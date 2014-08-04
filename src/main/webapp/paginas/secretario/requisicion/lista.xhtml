@@ -7,6 +7,10 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
+    
+    <f:metadata>
+        <f:viewParam name="tipo" value="#{controladorRequisicion.tipo}"/>
+    </f:metadata>
     <ui:param name="titulo" value="Lista de Requisiciones"/>
 
     <ui:define name="header">
@@ -90,7 +94,28 @@
                                                 <div  class="panel panel-primary">
 
                                                     <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
+                                                        <br/>
+                                                        <div class="admin-actions">
 
+                                                             <h:link id="Acct" value="Todas" title="Todos los tipo de requisiciones" 
+                                                                     styleClass="btn success" >  
+                                                                 <p:ajax update=":form:infoFM:listap"/>
+                                                            </h:link>
+                                                            #{' '}
+
+                                                            <h:link id="Acc" value="Requisición de Reparación" title="Requisiciones de tipo Reparación" 
+                                                                    outcome="lista" styleClass="btn success" >                                        
+                                                                <f:param name="tipo" value="repa"/>
+                                                                <p:ajax update=":form:infoFM:listap"/>
+                                                            </h:link>  
+                                                            #{' '}
+                                                            <h:link id="Acc1" value="Requisición de Bienes y Servicios" title="Requisiciones de tipo Requisición de Bienes y Servicios" 
+                                                                    outcome="lista" styleClass="btn success" >                                        
+                                                                <f:param name="tipo" value="bien"/>
+                                                                <p:ajax update=":form:infoFM:listap"/>
+                                                            </h:link>                    
+                                                        </div>
+                                                        <br/>
                                                         <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"
@@ -99,26 +124,16 @@
                                                                      filteredValue="#{controladorRequisicion.listaRequisicionfiltrada}"
                                                                      >
 
-                                                           
+
 
                                                             <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
                                                                 <h:outputText value="#{r.numRequisicion}"></h:outputText>
                                                             </p:column>
 
-                                                            <p:column headerText="Tipo de Requisición" 
-                                                                      >
-                                                                fgvjhknj
-                                                                 <f:facet name="header">
-                                                                
-                                                                    <p:selectOneButton onchange="PF('requisicionTable').filter()">
-                                                                        <f:converter converterId="javax.faces.Boolean" />
-                                                                        <f:selectItem itemLabel="All" itemValue="" />
-                                                                        <f:selectItem itemLabel="Repa" itemValue="true" />
-                                                                        <f:selectItem itemLabel="Bien" itemValue="false" />
-                                                                    </p:selectOneButton>
-                                                            </f:facet>
-                                                             
-                                                                <h:outputText value="#{r.tipoRequisicion ? 'Repa': 'Bien'}"></h:outputText>
+                                                            <p:column  headerText="Tipo de Requisición" >
+
+                                               
+                                                                <h:outputText value="#{r.tipoRequisicion}"></h:outputText>
 
                                                             </p:column>
 
@@ -161,7 +176,23 @@
                                                         </p:dataTable>
                                                     </p:tab>
                                                     <p:tab id="ts1" title="Requisiciones aprobadas" closable="false"  titleStyleClass="clearfix" >
+                                                         <h:link id="Acct2" value="Todas" title="Todos los tipo de requisiciones" 
+                                                                    styleClass="btn success" > 
+                                                             <p:ajax update=":form:infoFM:listap"/>
+                                                            </h:link>
+                                                            #{' '}
 
+                                                            <h:link id="Acc2" value="Requisición de Reparación" title="Requisiciones de tipo Reparación" 
+                                                                     styleClass="btn success" >                                        
+                                                                <f:param name="#{controladorRequisicion.tipo}" value="repa"/>
+                                                                <p:ajax update=":form:infoFM:listap"/>
+                                                            </h:link>  
+                                                            #{' '}
+                                                            <h:link id="Acc12" value="Requisición de Bienes y Servicios" title="Requisiciones de tipo Requisición de Bienes y Servicios" 
+                                                                    styleClass="btn success" >                                        
+                                                                <f:param name="#{controladorRequisicion.tipo}" value="bien"/>
+                                                                <p:ajax update=":form:infoFM:listap"/>
+                                                            </h:link>    
                                                         <p:dataTable id="listap1" value="#{controladorRequisicion.listaRequisicionAprobada}" var="r"
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"
