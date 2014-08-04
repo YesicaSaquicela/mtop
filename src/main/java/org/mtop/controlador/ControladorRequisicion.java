@@ -852,6 +852,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("lista productos" + listaProductos);
         listaProductos.clear();
         System.out.println("lista productos" + listaProductos);
+        List<ItemRequisicion> lir=new ArrayList<ItemRequisicion>();
         for (ItemRequisicion apm : listaItemsRequisicion) {
             if (apm.getProducto() != null) {
                 System.out.println("aniadio producto");
@@ -860,10 +861,32 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("guardando" + apm);
             Date now = Calendar.getInstance().getTime();
             apm.setRequisicion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
-            cir.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
-            cir.getInstance().setLastUpdate(now);
-            cir.guardar();
+          
+            if (apm.isPersistent()) {
+                apm.setLastUpdate(now);
+                System.out.println("antes guardar");
+                save(apm);
+                System.out.println("despues guardar");
+            } else {
+                System.out.println("al crear");
+                BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemRequisicion.class.getName());
+
+                apm.setCreatedOn(now);
+                apm.setLastUpdate(now);
+                apm.setActivationTime(now);
+                apm.setType(_type);
+                apm.buildAttributes(bussinesEntityService);  //
+                if (getInstance().isPersistent()) {
+                    System.out.println("antes guardar");
+                    save(apm);
+                    System.out.println("despues guardar");
+
+                }
+                System.out.println("creo instance" + apm);
+            }
+            lir.add(apm);
         }
+        listaItemsRequisicion=lir;
         if (!listaProductos.isEmpty()) {
             for (Producto pr : listaProductos) {
                 System.out.println("guaradndo" + pr);
