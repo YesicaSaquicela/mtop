@@ -1005,7 +1005,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n" + getInstance().getFechaRequisicion());
         setId(requisicionId);
-
+        System.out.println("instance"+getInstance());
         vehiculo = getInstance().getVehiculo();
         System.out.println("\n\n\nsolicitud antes en set \n\n\n" + solicitudrep);
         solicitudrep = getInstance().getSolicitudReparacionId();
