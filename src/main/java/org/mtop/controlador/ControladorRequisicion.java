@@ -1330,8 +1330,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 getInstance().setEstado(true);
                 System.out.println("\n\n\n\ncrea requi con estado" + getInstance().isEstado());
                 //  getInstance().setEstado(true);
-                create(getInstance());
                 guardarItem();
+                create(getInstance());
+                
                 save(getInstance());
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {
