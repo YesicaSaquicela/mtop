@@ -442,9 +442,20 @@
                                                 </div>
                                             </div> 
                                         </div>
-                                        <!--p:commandButton update="@form" process="@this" value="Crear Requisición"  styleClass="btn btn-success" >
+                                        
+                                <div class="admin-actions">
+                               
+                                    <h:link styleClass="btn btn-success"
+                                              outcome="crear"
+                                              value="Crear"
+                                              type="button">  
+
+                                        <f:param name="valorVista" value="solicitud"/>
+                                    </h:link>
+                                </div>
+                                        <p:commandButton update="@form" process="@this" value="Crear Requisición"  styleClass="btn btn-success" >
                                                       <f:param name="valorVista" value="requisicion"></f:param>
-                                        </p:commandButton><br/><br/-->
+                                        </p:commandButton><br/><br/>
 
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="todas">
