@@ -29,7 +29,7 @@
 
     </ui:define>
     <ui:define name="content">
-        
+
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
@@ -110,7 +110,9 @@
                         <div  class="panel panel-primary">
 
                             <div class="panel-heading" align="center">BUSCAR SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO, Y REQUISICIONES</div>
-                            <p:panel >
+
+
+                            <p:panel id="p1">
 
                                 <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
                                     <div  class="panel panel-primary">
@@ -258,12 +260,17 @@
 
 
                                 </p:tabView>
+                                <br/>
 
+                         <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Observación" 
+                                                    value="#{controladorKardex.instance.observaciones}"
+                                                    inlinehelp="Ingrese una descripción"
+                                                    execute ="@this save" render="descripcion"/><br></br>
 
                                 <div class="admin-actions " align="center">
-                                    <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
-                                                     immediate="true"/>
-                                    &nbsp;&nbsp;
+                                    <p:commandButton id="save" value="Guardar"   styleClass="btn  btn-success" action="#{controladorKardex.guardar}"
+                                                     />
+                                    #{''}
                                     <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success">
 
                                     </h:button>
@@ -272,8 +279,6 @@
                             </p:panel>
                         </div>
                     </p:panel>
-
-
 
 
 
@@ -304,10 +309,7 @@
                                         <f:viewParam name="estado" value="#{profileListService.estado}" />
                                         <f:event listener="#{profileListService.init()}" type="preRenderView"/>
                                         <h:form id="forms" rendered="#{controladorKardex.vista eq 'solicitud'}">            
-                                            <!--br/>
-                                            <mtop:input id="des" name="descripcion1" type="textarea" label="Observación" 
-                                                        value="# {controladorKardex.instance.observaciones}"  
-                                                        inlinehelp="Ingrese una observación de esta kardex" execute ="@this save" render="des"/><br></br-->
+
 
                                             <br></br><br></br>
 

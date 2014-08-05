@@ -71,6 +71,19 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     private List<Requisicion> listaReq;
     private SolicitudReparacionMantenimiento solicitud;
     private Requisicion requisicion;
+    private String observaciones="";
+
+    public String getObservaciones() {
+         System.out.println("recuperando"+observaciones);
+        return observaciones;
+       
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+        System.out.println("fijo observaciones"+observaciones);
+    }
+    
   
 
     public String getPalabrabs() {
@@ -533,14 +546,17 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     @TransactionAttribute
     public String guardar() {
+       
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("entro guardar kardexxxxxxxxxx");
+        System.out.println("\n\n\n\n\nentro guardar kardexxxxxxxxxx");
         this.instance.setVehiculo(getInstance().getVehiculo());
-
+        System.out.println("observacion kardex fuera"+getInstance().getObservaciones()); 
         try {
             if (getInstance().isPersistent()) {
+                System.out.println("observacion kardex"+getInstance().getObservaciones()); 
                 save(getInstance());
+                
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } 
