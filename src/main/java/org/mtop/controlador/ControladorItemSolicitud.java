@@ -108,7 +108,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
         itemSolicitudRm.setLastUpdate(now);
         itemSolicitudRm.setActivationTime(now);
         itemSolicitudRm.setType(_type);
-        itemSolicitudRm.buildAttributes(bussinesEntityService);  //
+        itemSolicitudRm.buildAttributes( bussinesEntityService);  //
         return itemSolicitudRm;
     }
 

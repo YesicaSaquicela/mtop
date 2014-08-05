@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -32,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
+import org.jfree.chart.block.Arrangement;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ActividadPlanMantenimiento;
@@ -64,7 +66,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     @Inject
     @Web
     private EntityManager em;
-    @Inject
+    @EJB
     private ServicioGenerico servgen;
     private List<SolicitudReparacionMantenimiento> listaSolicitud = new ArrayList<SolicitudReparacionMantenimiento>();
     private Long idVehiculo;
@@ -878,8 +880,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 getInstance().setEstado(true);
+                 guardarItem();
                 create(getInstance());
-                guardarItem();
+                System.out.println("ENtro a crear items>>>>>");
+               
+
+                System.out.println("volvio a guardar soli");
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
                 if (requisicion != null) {
@@ -915,24 +921,40 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void guardarItem() {
+        List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
         for (ItemSolicitudReparacion apm : listaItemsSolicitud) {
+
             System.out.println("entrofor" + apm);
             Date now = Calendar.getInstance().getTime();
             apm.setSolicitudReparacion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
-            citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+            //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
             if (apm.isPersistent()) {
-                citemsolicitud.getInstance().setLastUpdate(now);
+              
+               apm.setLastUpdate(now);
+                System.out.println("antes guardar");
+                servgen.actualizar(apm);
+                System.out.println("despues guardar");
             } else {
-                citemsolicitud.getInstance().setCreatedOn(now);
-                citemsolicitud.getInstance().setLastUpdate(now);
-                citemsolicitud.getInstance().setActivationTime(now);
-//                citemsolicitud.getInstance().setType(ControladorItemSolicitud.class._type);
-                citemsolicitud.getInstance().buildAttributes(bussinesEntityService);  //
+                System.out.println("al crear");
+                BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+
+                apm.setCreatedOn(now);
+                apm.setLastUpdate(now);
+                apm.setActivationTime(now);
+                apm.setType(_type);
+                apm.buildAttributes(bussinesEntityService);  //
+                if (getInstance().isPersistent()) {
+                    System.out.println("antes guardar");
+                    save(apm);
+                    System.out.println("despues guardar");
+
+                }
+                System.out.println("creo instance" + apm);
             }
-            
-            save(citemsolicitud.getInstance());
+            lir.add(apm);
+
         }
-        getInstance().setListaItemSR(listaItemsSolicitud);//fija la lista de actividades a la solicitud
+        getInstance().setListaItemSR(lir);//fija la lista de actividades a la solicitud
         System.out.println("termino de gusradar" + getInstance().getListaItemSR());
     }
 
