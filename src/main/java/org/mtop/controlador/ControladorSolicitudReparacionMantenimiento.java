@@ -40,6 +40,7 @@ import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ActividadPlanMantenimiento;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.ItemSolicitudReparacion;
+import org.mtop.modelo.PartidaContabilidad;
 import org.mtop.modelo.Producto;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Requisicion_;
@@ -85,6 +86,27 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<SolicitudReparacionMantenimiento> listaSolicitudAprobadas = new ArrayList<SolicitudReparacionMantenimiento>();
     private String vista;
     private Requisicion reqSolicitud;
+    private Requisicion nuevaRequisicion = new Requisicion();
+//    private long idRequisicion;
+//
+//    public long getIdRequisicion() {
+//        return idRequisicion;
+//    }
+//
+//    public void setIdRequisicion(long idRequisicion) {
+//         System.out.println("llega id>>>>>"+idRequisicion);
+//        this.idRequisicion = idRequisicion;
+//        getInstance().setRequisicionId(findById(Requisicion.class, idRequisicion));
+//        System.out.println("fijado en instance>>>>>"+getInstance().getRequisicionId());
+//    }
+
+    public Requisicion getNuevaRequisicion() {
+        return nuevaRequisicion;
+    }
+
+    public void setNuevaRequisicion(Requisicion nuevaRequisicion) {
+        this.nuevaRequisicion = nuevaRequisicion;
+    }
 
     public Requisicion getReqSolicitud() {
         return reqSolicitud;
@@ -100,6 +122,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setVista(String vista) {
         this.vista = vista;
+        System.out.println("retornando vista>>>>>"+vista);  
     }
 
     public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
@@ -467,9 +490,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setRequisicion(Requisicion requisicion) {
+        System.out.println("llega requisicion>>>>" + requisicion);
         this.requisicion = requisicion;
         getInstance().setRequisicionId(requisicion);
         System.out.println("ide de requisicion>>>>>>" + requisicion);
+        System.out.println("instance requi>>>>" + getInstance().getRequisicionId());
     }
 
     public List<Requisicion> getListaRequisiciones() {
@@ -575,7 +600,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     }
 
-
     public Vehiculo getVehiculo() {
 
         if (getSolicitudReparacionMantenimientoId() != null) {
@@ -587,7 +611,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-        System.out.println("vehiculo  en set"+getInstance().getVehiculo());
+        System.out.println("vehiculo  en set" + getInstance().getVehiculo());
         System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
         this.vehiculo = vehiculo;
         getInstance().setVehiculo(vehiculo);
@@ -605,7 +629,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
 
         System.out.println("requisicion anterior" + requisicion);
-        
+
         System.out.println("id de vehiculo actual" + getInstance().getVehiculo().getId());
         System.out.println("id de vehiculo actual1111" + this.vehiculo.getId());
         List<Requisicion> lrs = new ArrayList<Requisicion>();
@@ -614,8 +638,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         for (Requisicion req : findAll(Requisicion.class)) {
             System.out.println("\n\nEntro a for requis  veh...>>>" + req.getVehiculo().getId());
             System.out.println("req.sol" + req.getSolicitudReparacionId() + "estado" + req.isEstado());
-            if (req.isEstado()&& req.getSolicitudReparacionId()==null) {
-                System.out.println("veh instance>>>"+getInstance().getVehiculo().getId());
+            if (req.isEstado() && req.getSolicitudReparacionId() == null) {
+                System.out.println("veh instance>>>" + getInstance().getVehiculo().getId());
                 if ((req.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
                     System.out.println("\n\nentro a comparar en veh.....");
                     lrs.add(req);
@@ -641,7 +665,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
-        System.out.println("vehiculo  en set soli"+getInstance().getVehiculo());
+        System.out.println("vehiculo  en set soli" + getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
 
@@ -652,18 +676,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             listaItemsSolicitud = getInstance().getListaItemSR();
         }
 
-       System.out.println("asignado lista itemss" + listaItemsSolicitud);
-       
+        System.out.println("asignado lista itemss" + listaItemsSolicitud);
+
         System.out.println("id de vehiculo actual set soli" + getInstance().getVehiculo().getId());
         System.out.println("id de vehiculo actual1111 set soli" + this.vehiculo.getId());
         List<Requisicion> lr = findAll(Requisicion.class);
-        List<Requisicion> lrq= new ArrayList<Requisicion>();
+        List<Requisicion> lrq = new ArrayList<Requisicion>();
         //mosttrar lista de requisiciones con igual vehiculo ,estado true
-        System.out.println("lista toda set soli>>>"+lr);
+        System.out.println("lista toda set soli>>>" + lr);
         for (Requisicion req : lr) {
             System.out.println("\n\nEntro a for requis set soli...>>>" + req.getVehiculo().getId());
             System.out.println("req setsol" + req + "estadosetsoli" + req.isEstado());
-            if (req.isEstado()&& req.getSolicitudReparacionId()==null) {
+            if (req.isEstado() && req.getSolicitudReparacionId() == null) {
                 if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
                     System.out.println("\n\nentro a comparar set soli.....");
                     lrq.add(req);
@@ -855,28 +879,37 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("ENtro a editar>>>>>");
                 guardarItem();
                 System.out.println("volvio a guardar soli");
-                if (reqSolicitud.isPersistent()) {
-                    reqSolicitud.setLastUpdate(now);
-                    save(reqSolicitud);
+                if (reqSolicitud != null) {
+                     System.out.println("diferente de null"+reqSolicitud.isPersistent());
+                    if (reqSolicitud.isPersistent()) {
+                        System.out.println("entro al if resolicitud");
+                        reqSolicitud.setLastUpdate(now);
+                        save(reqSolicitud);
+                        System.out.println("paso save reqsolicitud");
 
+                    }
                 }
+
                 if (requisicion != null) {
                     System.out.println("entri fijar requisicion" + requisicion);
                     if (requisicion.getId() != null) {
+                        getInstance().setRequisicionId(requisicion);
                         requisicion.setSolicitudReparacionId(getInstance());
                         requisicion.setLastUpdate(now);
 
                         try {
-                            if (getInstance().getRequisicionId() != null) {
-                                Requisicion r = getInstance().getRequisicionId();
-                                r.setSolicitudReparacionId(null);
-                                servgen.actualizar(r);
-                            }
+//                            if (getInstance().getRequisicionId() != null) {
+//                                Requisicion r = getInstance().getRequisicionId();
+//                                r.setSolicitudReparacionId(null);
+//                                servgen.actualizar(r);
+//                            }
                             servgen.actualizar(requisicion);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
                         getInstance().setRequisicionId(requisicion);
+                        System.out.println("presentando requi >>>" + requisicion);
                     }
                 }
 
@@ -885,30 +918,38 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 getInstance().setEstado(true);
-                 guardarItem();
+                guardarItem();
                 create(getInstance());
                 System.out.println("ENtro a crear items>>>>>");
-               
 
                 System.out.println("volvio a guardar soli");
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
                 if (requisicion != null) {
+                    System.out.println("entro al 1if crear req");
                     if (requisicion.getId() != null) {
+                        System.out.println("entro al2if reqi crear");
+                        getInstance().setRequisicionId(requisicion);
                         requisicion.setSolicitudReparacionId(getInstance());
                         requisicion.setLastUpdate(now);
 
                         try {
-                            if (getInstance().getRequisicionId() != null) {
-                                Requisicion r = getInstance().getRequisicionId();
-                                r.setSolicitudReparacionId(null);
-                                servgen.actualizar(r);
-                            }
+//                            if (getInstance().getRequisicionId() != null) {
+//                                System.out.println("entro al 3if req crear");
+//                                Requisicion r = getInstance().getRequisicionId();
+//                                r.setSolicitudReparacionId(null);
+//                                 
+//                                servgen.actualizar(r);
+//                                
+//                            }
+                            System.out.println("guaradar solicitud con reqqq" + requisicion);
                             servgen.actualizar(requisicion);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
                         getInstance().setRequisicionId(requisicion);
+                        System.out.println("fijando requ en crear" + requisicion);
                     }
                 }
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
@@ -925,6 +966,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
     }
 
+    public void guardarRequisicion(Requisicion nrequisicion) {
+        nuevaRequisicion = nrequisicion;
+        System.out.println("Nueva requisicion>>>" + nuevaRequisicion.getObservaciones());
+        
+    }
+
     public void guardarItem() {
         List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
         for (ItemSolicitudReparacion apm : listaItemsSolicitud) {
@@ -934,8 +981,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             apm.setSolicitudReparacion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
             //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
             if (apm.isPersistent()) {
-              
-               apm.setLastUpdate(now);
+
+                apm.setLastUpdate(now);
                 System.out.println("antes guardar");
                 servgen.actualizar(apm);
                 System.out.println("despues guardar");
