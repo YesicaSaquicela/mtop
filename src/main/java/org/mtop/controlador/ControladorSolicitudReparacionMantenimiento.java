@@ -929,9 +929,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             apm.setSolicitudReparacion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
             //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
             if (apm.isPersistent()) {
+              
                apm.setLastUpdate(now);
                 System.out.println("antes guardar");
-                save(apm);
+                servgen.actualizar(apm);
                 System.out.println("despues guardar");
             } else {
                 System.out.println("al crear");

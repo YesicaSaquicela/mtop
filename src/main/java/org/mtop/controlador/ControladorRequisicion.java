@@ -108,21 +108,21 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setTipo(String tipo) {
         List<Requisicion> lr = new ArrayList<Requisicion>();
         List<Requisicion> lr2 = new ArrayList<Requisicion>();
-        System.out.println("tipo a fijar"+tipo);
+        System.out.println("tipo a fijar" + tipo);
         if ("repa".equals(tipo)) {
-            System.out.println("lissta requiciiones "+listaRequisicion);
+            System.out.println("lissta requiciiones " + listaRequisicion);
             for (Requisicion requisicion : listaRequisicion) {
                 if (requisicion.getTipoRequisicion().equals("Requisición de Reparación")) {
-                    System.out.println("tipo repa"+requisicion);
+                    System.out.println("tipo repa" + requisicion);
                     lr.add(requisicion);
                 }
             }
             setListaRequisicion(lr);
-           
-            System.out.println("lista requisiciones aprobadas"+listaRequisicionAprobada);
+
+            System.out.println("lista requisiciones aprobadas" + listaRequisicionAprobada);
             for (Requisicion requisicion : listaRequisicionAprobada) {
                 if (requisicion.getTipoRequisicion().equals("Requisición de Reparación")) {
-                    System.out.println("tipo repa"+requisicion);
+                    System.out.println("tipo repa" + requisicion);
                     lr2.add(requisicion);
                 }
             }
@@ -131,15 +131,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         } else {
             if ("bien".equals(tipo)) {
-                
+
                 for (Requisicion requisicion : listaRequisicion) {
                     if (requisicion.getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
                         lr.add(requisicion);
                     }
                 }
                 setListaRequisicion(lr);
-                
-                
+
                 for (Requisicion requisicion : listaRequisicionAprobada) {
                     if (requisicion.getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
                         lr2.add(requisicion);
@@ -852,41 +851,37 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("lista productos" + listaProductos);
         listaProductos.clear();
         System.out.println("lista productos" + listaProductos);
-        List<ItemRequisicion> lir=new ArrayList<ItemRequisicion>();
         for (ItemRequisicion apm : listaItemsRequisicion) {
             if (apm.getProducto() != null) {
                 System.out.println("aniadio producto");
                 listaProductos.add(apm.getProducto());
             }
+
             System.out.println("guardando" + apm);
             Date now = Calendar.getInstance().getTime();
             apm.setRequisicion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
-          
-            if (apm.isPersistent()) {
-                apm.setLastUpdate(now);
-                System.out.println("antes guardar");
-                save(apm);
-                System.out.println("despues guardar");
+            cir.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+
+            if (getInstance().isPersistent()) {
+                cir.getInstance().setLastUpdate(now);
+                cir.guardar();
+
             } else {
                 System.out.println("al crear");
                 BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemRequisicion.class.getName());
-
+       
                 apm.setCreatedOn(now);
                 apm.setLastUpdate(now);
                 apm.setActivationTime(now);
                 apm.setType(_type);
                 apm.buildAttributes(bussinesEntityService);  //
-                if (getInstance().isPersistent()) {
-                    System.out.println("antes guardar");
-                    save(apm);
-                    System.out.println("despues guardar");
-
-                }
-                System.out.println("creo instance" + apm);
+                cir.setInstance(apm);
+                System.out.println("antes guardar");
+                cir.guardar();
+                System.out.println("despues guardar");
             }
-            lir.add(apm);
+
         }
-        listaItemsRequisicion=lir;
         if (!listaProductos.isEmpty()) {
             for (Producto pr : listaProductos) {
                 System.out.println("guaradndo" + pr);
@@ -1130,7 +1125,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         System.out.println("\n\n\n\n\n\n\nfechaa\n\n\n\n\n" + getInstance().getFechaRequisicion());
         setId(requisicionId);
-        System.out.println("instance"+getInstance());
+        System.out.println("instance" + getInstance());
         vehiculo = getInstance().getVehiculo();
         System.out.println("\n\n\nsolicitud antes en set \n\n\n" + solicitudrep);
         solicitudrep = getInstance().getSolicitudReparacionId();
