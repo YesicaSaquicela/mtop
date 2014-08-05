@@ -16,6 +16,7 @@
 package org.mtop.controlador;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -574,12 +575,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     }
 
-    public void asignarIdVehiculo(Long idVehiculo) {
-        this.idVehiculo = idVehiculo;
-        System.out.println("ID del vehiculo>>>>><<<<<<<<<<<<<<<<<<<<<" + idVehiculo);
-        vehiculo = findById(Vehiculo.class, idVehiculo);
-
-    }
 
     public Vehiculo getVehiculo() {
 
@@ -592,6 +587,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
+        System.out.println("vehiculo  en set"+getInstance().getVehiculo());
         System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
         this.vehiculo = vehiculo;
         getInstance().setVehiculo(vehiculo);
@@ -609,24 +605,26 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
 
         System.out.println("requisicion anterior" + requisicion);
-        System.out.println("lista antes" + listaRequisiciones);
+        
         System.out.println("id de vehiculo actual" + getInstance().getVehiculo().getId());
         System.out.println("id de vehiculo actual1111" + this.vehiculo.getId());
         List<Requisicion> lrs = new ArrayList<Requisicion>();
+        System.out.println("lista antes" + findAll(Requisicion.class));
         //mosttrar lista de requisiciones con igual vehiculo ,estado true
-        for (Requisicion req : listaRequisiciones) {
-            System.out.println("\n\nEntro a for requis...>>>" + req.getVehiculo().getId());
-            System.out.println("req" + req + "estado" + req.isEstado());
-            if (req.isEstado()) {
-                if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
-                    System.out.println("\n\nentro a comparar.....");
+        for (Requisicion req : findAll(Requisicion.class)) {
+            System.out.println("\n\nEntro a for requis  veh...>>>" + req.getVehiculo().getId());
+            System.out.println("req.sol" + req.getSolicitudReparacionId() + "estado" + req.isEstado());
+            if (req.isEstado()&& req.getSolicitudReparacionId()==null) {
+                System.out.println("veh instance>>>"+getInstance().getVehiculo().getId());
+                if ((req.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
+                    System.out.println("\n\nentro a comparar en veh.....");
                     lrs.add(req);
                 }
             }
 
         }
         listaRequisiciones = lrs;
-        System.out.println("lista despues" + listaRequisiciones);
+        System.out.println("lista despues en veh" + listaRequisiciones);
     }
 
     public List<Vehiculo> getListaVehiculos() {
@@ -643,7 +641,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
-
+        System.out.println("vehiculo  en set soli"+getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
 
@@ -654,20 +652,27 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             listaItemsSolicitud = getInstance().getListaItemSR();
         }
 
-        //agregar lista de items solicitud
-//        for (ItemSolicitudReparacion itr : findAll(ItemSolicitudReparacion.class)) {
-//            System.out.println("entra al for");
-//            if (getInstance().getId() != null) {
-//
-//                System.out.println("idde itr" + itr.getSolicitudReparacion().getId());
-//                if (getInstance().getId().equals(itr.getSolicitudReparacion().getId())) {
-//                    listaItemsSolicitud.add(itr);
-//                }
-//
-//            }
-//        }
-        System.out.println("asignado lista itemss" + listaItemsSolicitud);
+       System.out.println("asignado lista itemss" + listaItemsSolicitud);
+       
+        System.out.println("id de vehiculo actual set soli" + getInstance().getVehiculo().getId());
+        System.out.println("id de vehiculo actual1111 set soli" + this.vehiculo.getId());
+        List<Requisicion> lr = findAll(Requisicion.class);
+        List<Requisicion> lrq= new ArrayList<Requisicion>();
+        //mosttrar lista de requisiciones con igual vehiculo ,estado true
+        System.out.println("lista toda set soli>>>"+lr);
+        for (Requisicion req : lr) {
+            System.out.println("\n\nEntro a for requis set soli...>>>" + req.getVehiculo().getId());
+            System.out.println("req setsol" + req + "estadosetsoli" + req.isEstado());
+            if (req.isEstado()&& req.getSolicitudReparacionId()==null) {
+                if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
+                    System.out.println("\n\nentro a comparar set soli.....");
+                    lrq.add(req);
+                }
+            }
 
+        }
+        listaRequisiciones = lrq;
+        System.out.println("lista despues set soli" + listaRequisiciones);
     }
 
     public String formato(Date fecha) {
