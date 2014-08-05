@@ -15,7 +15,7 @@
     <f:metadata>
         <f:viewParam id="solicitudIDDD" name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
         <f:viewParam id="vehiculoIDDD" name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
-       <f:viewParam id="vistaaa" name="valorVista" value="#{controladorSolicitudReparacionMantenimiento.vista}"!-->
+       <f:viewParam id="vistaaa" name="valorVista" value="#{controladorSolicitudReparacionMantenimiento.vista}"/>
 
     </f:metadata>
     <ui:define name="header">
@@ -31,7 +31,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-                    <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}">
+                     <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}">
 
                         <p:growl id="growl" sticky="true" showDetail="true"/>
 
@@ -461,7 +461,7 @@
                                                                 <h:outputText value="#{vr.numRequisicion}" />
                                                             </p:column>
                                                             <p:column headerText="Fecha" sortBy="#{vr.fechaRequisicion}">
-                                                                <h:outputText value="#{controladorRequisicion.formato(vr.fechaRequisicion)}" />
+                                                                <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(vr.fechaRequisicion)}" />
                                                             </p:column>
                                                             <p:column headerText="Observación" sortBy="#{vr.observaciones}">
                                                                 <h:outputText value="#{vr.observaciones}" />
@@ -472,8 +472,9 @@
 
                                                             <p:column style="width:4%;text-align: center">
                                                                 <p:commandLink update=":form:req"  value="Agregar" title="Seleccionar">
+                                                                    
                                                                     <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
-                                                                    <f:setPropertyActionListener value="#{vr.id}" target="#{controladorRequisicion.requisicionId}" />
+                                                                    
                                                                 </p:commandLink>
 
                                                             </p:column>
@@ -489,13 +490,14 @@
                                                                         <div class="row-fluid"  >
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Número de Requisición:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.numRequisicion}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.requisicion.numRequisicion}"/>
 
                                                                             </div>
 
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Fecha de Requisición: "/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(s.fechaRequisicion)}"/>
+                                                                                <h:outputText class="navbar-text" 
+                                                                                              value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.requisicion.fechaRequisicion)}"/>
 
                                                                             </div>
 
@@ -505,7 +507,7 @@
                                                                         <div class="row-fluid"  >
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Observación:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.observaciones}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.requisicion.observaciones}"/>
                                                                             </div>
 
 
@@ -587,7 +589,6 @@
                         </p:wizard>
 
                     </p:panel>
-
                     <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}">
 
 
@@ -1021,7 +1022,8 @@
                         </p:wizard>
 
                     </p:panel>
-                </div></div>
+                </div>
+            </div>
 
         </h:form>
 
