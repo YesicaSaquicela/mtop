@@ -100,6 +100,36 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     List<Requisicion> listaRequisicionAprobada = new ArrayList<Requisicion>();
     private List<Requisicion> listaRequisicionfiltrada;
     private String tipo;
+    private String vista;
+
+    private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
+
+    public String getVista() {
+        System.out.println("recueperando vista " + this.vista);
+        return vista;
+
+    }
+
+    public void setVista(String vista) {
+        System.out.println("fijando a vista " + vista);
+
+        this.vista = vista;
+    }
+
+    public SolicitudReparacionMantenimiento getSolicitudReparacionMantenimiento() {
+        return solicitudReparacionMantenimiento;
+    }
+
+    public void setSolicitudReparacionMantenimiento(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
+        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
+    }
+
+    public void guardarSolicicitud(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
+        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
+        System.out.println("solicitud asignada"+this.solicitudReparacionMantenimiento.getNumSolicitud());
+        System.out.println("sus items "+this.solicitudReparacionMantenimiento.getListaItemSR());
+                
+    }
 
     public String getTipo() {
         return tipo;
@@ -869,7 +899,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             } else {
                 System.out.println("al crear");
                 BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemRequisicion.class.getName());
-       
+
                 apm.setCreatedOn(now);
                 apm.setLastUpdate(now);
                 apm.setActivationTime(now);
@@ -1327,7 +1357,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 //  getInstance().setEstado(true);
                 guardarItem();
                 create(getInstance());
-                
+
                 save(getInstance());
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {
