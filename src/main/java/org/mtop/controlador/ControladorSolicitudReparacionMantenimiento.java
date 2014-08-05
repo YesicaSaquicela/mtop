@@ -754,6 +754,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         } else {
             System.out.println("\n\nentro a agregar>>>>>>>.");
             listaItemsSolicitud.add(citemsolicitud.getInstance());
+            getInstance().setListaItemSR(listaItemsSolicitud);
             System.out.println("a;ade a lista>>>>>." + citemsolicitud.getInstance());
             citemsolicitud.setInstance(new ItemSolicitudReparacion());
 
