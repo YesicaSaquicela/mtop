@@ -87,6 +87,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private String vista;
     private Requisicion reqSolicitud;
     private Requisicion nuevaRequisicion = new Requisicion();
+    
+    
+    private ItemSolicitudReparacion itemsr;
 //    private long idRequisicion;
 //
 //    public long getIdRequisicion() {
@@ -99,7 +102,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 //        getInstance().setRequisicionId(findById(Requisicion.class, idRequisicion));
 //        System.out.println("fijado en instance>>>>>"+getInstance().getRequisicionId());
 //    }
-
+    
     public Requisicion getNuevaRequisicion() {
         return nuevaRequisicion;
     }
@@ -787,6 +790,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
 
     }
+
+    public ItemSolicitudReparacion getItemsr() {
+        return itemsr;
+    }
+
+    public void setItemsr(ItemSolicitudReparacion itemsr) {
+        this.itemsr = itemsr;
+        System.out.println("fijando el item "+itemsr.getDescripcionElementoRevisar());
+        citemsolicitud.setInstance(itemsr);
+        agregarItemS();
+    }
+    
 
     public void setListaSolicitud(List<SolicitudReparacionMantenimiento> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
