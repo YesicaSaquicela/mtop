@@ -105,6 +105,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setNuevaRequisicion(Requisicion nuevaRequisicion) {
+        System.out.println("\n\n\n\n\nfija solicituddddd"+ nuevaRequisicion.getObservaciones());
         this.nuevaRequisicion = nuevaRequisicion;
     }
 
@@ -123,6 +124,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setVista(String vista) {
         this.vista = vista;
         System.out.println("retornando vista>>>>>"+vista);  
+        System.out.println("nueva requi en set vista"+nuevaRequisicion.getObservaciones());
     }
 
     public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
@@ -968,6 +970,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void guardarRequisicion(Requisicion nrequisicion) {
         nuevaRequisicion = nrequisicion;
+        System.out.println("instancia"+getInstance().getId());
         System.out.println("Nueva requisicion>>>" + nuevaRequisicion.getObservaciones());
         
     }

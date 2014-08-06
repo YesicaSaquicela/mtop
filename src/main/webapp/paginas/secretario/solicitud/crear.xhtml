@@ -15,7 +15,7 @@
     <f:metadata>
         <f:viewParam id="solicitudIDDD" name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
         <f:viewParam id="vehiculoIDDD" name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
-       <f:viewParam id="vistaaa" name="valorVista" value="#{controladorSolicitudReparacionMantenimiento.vista}"/>
+        <f:viewParam id="vistaaa" name="valorVista" value="#{controladorSolicitudReparacionMantenimiento.vista}"/>
 
     </f:metadata>
     <ui:define name="header">
@@ -31,7 +31,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-                     <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}">
+                    <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}">
 
                         <p:growl id="growl" sticky="true" showDetail="true"/>
 
@@ -442,18 +442,26 @@
                                                 </div>
                                             </div> 
                                         </div>
-                                        
-                                <div class="admin-actions">
-                               
-                                    <h:link styleClass="btn btn-success"
-                                              
-                                              value="Crear Requisición"
-                                              type="button">  
 
-                                        <f:param name="valorVista" value="requisicion"/>
-                                    </h:link>
-                                </div><br/>
-                                        
+                                        <div class="admin-actions">
+
+                                            <h:link styleClass="btn btn-success"
+
+                                                    value="Crear Requisición"
+                                                    type="button">  
+
+
+                                            </h:link>
+                                            <p:commandButton id="save11" value="Guardar" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
+                                                
+                                                <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
+                                            </p:commandButton>
+                                            <p:commandButton id="save111" value="Guardar" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
+                                                
+                                                <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
+                                            </p:commandButton>
+                                        </div><br/>
+
 
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="todas">
@@ -480,10 +488,10 @@
                                                             </p:column>
 
                                                             <p:column style="width:4%;text-align: center">
-                                                              
+
                                                                 <p:commandLink update=":form:req" process="@this" value="Agregar" title="Seleccionar">
                                                                     <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
-                                                                    
+
                                                                 </p:commandLink>
 
                                                             </p:column>
@@ -598,16 +606,16 @@
                         </p:wizard>
 
                     </p:panel>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
+
+
                     <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}">
 
 
@@ -935,9 +943,11 @@
                                         <span class="help-inline text-muted">Descripción del item <ocp:message forId="unidadMedida"/></span>
                                         <br></br>
                                         <div class="admin-actions">
-                                            <p:commandButton ajax="false" process="@this" update=":form:listai :form:cantidad :form:unidadMedida "  styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorRequisicion.agregarItem()}">
+                                            <p:button ajax="false"  update=":form:listai :form:cantidad :form:unidadMedida "  
+                                                             styleClass="btn  btn-success" value="Crear Item" title="Crear Item" 
+                                                             actionListener="#{controladorRequisicion.agregarItem()}" process="@this">
 
-                                            </p:commandButton>
+                                            </p:button>
                                         </div><br/>
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="todas">
@@ -1032,13 +1042,12 @@
                                 </div>
 
                                 <div class="admin-actions " align="center"> 
-                                    <p:commandButton id="save1" value="Guardar" icon="ui-icon-disk" action="#{controladorSolicitudReparacionMantenimiento.guardarRequisicion(controladorRequisicion.instance)}" styleClass="btn  btn-success"  process="@this" ajax="false" >
-                                    <f:param name="valorVista" value="solicitud"/>
-                                      <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
+                                    <p:commandButton id="save1" value="Guardar" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
+                                        
+                                        <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
+                                         <f:setPropertyActionListener value="#{controladorRequisicion.instance}" target="#{controladorSolicitudReparacionMantenimiento.nuevaRequisicion}" />
                                     </p:commandButton>
-                                    <p:button icon="ui-icon-disk" value="Guardar" rendered="#{true}" onclick="#{controladorSolicitudReparacionMantenimiento.guardarRequisicion(controladorRequisicion.instance)}" styleClass="btn  btn-success">
-                                    <f:param name="valorVista" value="solicitud"/>
-                                    </p:button>
+                                    
                                     #{' '} 
                                     <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/solicitud/crear" styleClass="btn  btn-success"/>
                                 </div>
