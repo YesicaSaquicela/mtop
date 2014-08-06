@@ -124,7 +124,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("recueperando vista " + this.vista);
         System.out.println("presentar instance"+getInstance().getId());
         System.out.println("presenta solicitud"+solicitudReparacionMantenimiento);
-                
+                System.out.println("SSSSS"+s);
                 
     
         return vista;
@@ -1110,7 +1110,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
         System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
         System.out.println("maximo" + getMaximo());
-
+        s=s+1;
         if (skip) {
             skip = false;   //reset in case user goes back  
 
