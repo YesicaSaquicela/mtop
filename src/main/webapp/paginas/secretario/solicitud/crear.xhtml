@@ -445,18 +445,7 @@
 
                                         <div class="admin-actions">
 
-                                            <h:link styleClass="btn btn-success"
-
-                                                    value="Crear Requisición"
-                                                    type="button">  
-
-
-                                            </h:link>
-                                            <p:commandButton id="save11" value="Guardar" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
-                                                
-                                                <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
-                                            </p:commandButton>
-                                            <p:commandButton id="save111" value="Guardar" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
+                                           <p:commandButton id="save111" value="Crear Requisicion" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
                                                 
                                                 <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
                                             </p:commandButton>
@@ -543,6 +532,7 @@
                                 </div> 
 
                             </p:tab>
+                        
 
                             <p:tab id="confirm" title="Confirmacion">
 
@@ -804,8 +794,7 @@
                             </p:tab>
 
 
-
-                            <p:tab id="items1" title="Agregar Items">
+    <p:tab id="items1" title="Agregar Items">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><center>Items</center></div>
 
@@ -946,12 +935,12 @@
                                         <span class="help-inline text-muted">Descripción del item <ocp:message forId="unidadMedida"/></span>
                                         <br></br>
                                         <div class="admin-actions">
-                                            <p:commandButton ajax="false"  update=":form:listai :form:cantidad :form:unidadMedida "  
-                                                             styleClass="btn  btn-success" value="Crear Item" title="Crear Item" 
-                                                             actionListener="#{controladorRequisicion.agregarItem()}" process="@this">
-
-                                            </p:commandButton>
-                    
+                                      
+                                            <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel"  
+                                                            process="@form" value="Crear Item" styleClass="btn  btn-success"
+                                                                                >
+                                            <f:setPropertyActionListener value="#{controladorRequisicion.cir.instance}" target="#{controladorRequisicion.itemr}" />
+                                            </p:commandLink>
                                         </div><br/>
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="todas">
@@ -978,14 +967,22 @@
 
                                                             <p:column headerText="Opciones" style="width: 5%"> 
 
-                                                                <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:listai :form:productosel" value="Editar"
-                                                                                actionListener="#{controladorRequisicion.editarItem(item2)}" title="Seleccionar">
+                                                                <p:commandButton process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel"
+                                                                                 icon="ui-icon-pencil" title="Editar"
+                                                                                actionListener="#{controladorRequisicion.editarItem(item2)}" >
                                                                     <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
-                                                                </p:commandLink>
-                                                                <p:commandLink  update=":form:listai " value="Dar de baja"
-                                                                                actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Seleccionar">
-                                                                    <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
-                                                                </p:commandLink>
+                                                                </p:commandButton>
+                                                          
+                                                                <p:commandButton process="@form" id="dardebaja" icon="ui-icon-trash"
+                                                                                 actionListener="#{controladorRequisicion.eliminarItem(item2)}" 
+                                                                                 title="Eliminar" update=":form:listai">
+
+                                                                    <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la requisición seleccionada?" icon="ui-icon-alert" />
+                                                                </p:commandButton>
+                                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                    <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                    <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                                </p:confirmDialog>
 
                                                             </p:column>
                                                         </p:dataTable>
@@ -998,6 +995,7 @@
                                 </div>
 
                             </p:tab>
+                            
 
                             <p:tab id="confirm1" title="Confirmacion">
                                 <div class="panel panel-primary">

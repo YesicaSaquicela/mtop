@@ -92,6 +92,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String palabrabp = "";
     private String palabrabs = "";
     private String valorTipo;
+    private ItemRequisicion itemr;
+    
 
     private List<SolicitudReparacionMantenimiento> listaSolicitudes;
     private SolicitudReparacionMantenimiento solicitudrep;
@@ -105,6 +107,19 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
 
+    public ItemRequisicion getItemr() {
+        return itemr;
+    }
+
+    public void setItemr(ItemRequisicion itemr) {
+        this.itemr = itemr;
+        cir.setInstance(itemr);
+        agregarItem();
+    }
+
+    
+    
+    
     public String getVista() {
         System.out.println("recueperando vista " + this.vista);
         System.out.println("presentar instance"+getInstance().getId());
