@@ -100,6 +100,52 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     List<Requisicion> listaRequisicionAprobada = new ArrayList<Requisicion>();
     private List<Requisicion> listaRequisicionfiltrada;
     private String tipo;
+    private String vista;
+    private SolicitudReparacionMantenimiento solRequisicion;
+
+    private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
+
+    public String getVista() {
+        System.out.println("recueperando vista " + this.vista);
+        System.out.println("presentar instance"+getInstance().getId());
+        System.out.println("presenta solicitud"+solicitudReparacionMantenimiento);
+                
+                
+    
+        return vista;
+
+    }
+
+    public void setVista(String vista) {
+        System.out.println("fijando a vista " + vista);
+
+        this.vista = vista;
+    }
+
+    public SolicitudReparacionMantenimiento getSolRequisicion() {
+        return solRequisicion;
+    }
+
+    public void setSolRequisicion(SolicitudReparacionMantenimiento solRequisicion) {
+        this.solRequisicion = solRequisicion;
+    }
+
+    public SolicitudReparacionMantenimiento getSolicitudReparacionMantenimiento() {
+        return solicitudReparacionMantenimiento;
+    }
+
+    public void setSolicitudReparacionMantenimiento(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
+        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
+        System.out.println("fijo " + solicitudReparacionMantenimiento);
+
+    }
+
+    public void guardarSolicitud(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
+        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
+        System.out.println("\n\n\n\n\nsolicitud asignada\n\n\n\n\n" + this.solicitudReparacionMantenimiento.getNumSolicitud());
+        System.out.println("sus items " + this.solicitudReparacionMantenimiento.getListaItemSR());
+
+    }
 
     public String getTipo() {
         return tipo;
@@ -869,7 +915,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             } else {
                 System.out.println("al crear");
                 BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemRequisicion.class.getName());
-       
+
                 apm.setCreatedOn(now);
                 apm.setLastUpdate(now);
                 apm.setActivationTime(now);
@@ -1128,27 +1174,47 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("instance" + getInstance());
         vehiculo = getInstance().getVehiculo();
         System.out.println("\n\n\nsolicitud antes en set \n\n\n" + solicitudrep);
+
         solicitudrep = getInstance().getSolicitudReparacionId();
         System.out.println("\n\n\nsolicitud depuestes en set\n\n\n" + solicitudrep);
         idPersonal = getInstance().getPsolicita().getId();
 
-        listaItemsRequisicion = getInstance().getListaItems();
-        System.out.println("lista de items de requisicion" + listaItemsRequisicion);
+        if (getInstance().isPersistent()) {
+            listaItemsRequisicion = getInstance().getListaItems();
 
-        List<SolicitudReparacionMantenimiento> lsrm = new ArrayList<SolicitudReparacionMantenimiento>();
-        for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
-            System.out.println("id vehiculo soli" + sol.getVehiculo().getId());
-            System.out.println("id vehiculo req" + getInstance().getVehiculo().getId());
-            if (sol.getVehiculo().getId() == this.vehiculo.getId()) {
-                lsrm.add(sol);
-            }
         }
-        listaSolicitudes = lsrm;
+
+        System.out.println("asignado lista itemss" + listaItemsRequisicion);
+
+        System.out.println("id de vehiculo actual set soli" + getInstance().getVehiculo().getId());
+        System.out.println("id de vehiculo actual1111 set soli" + this.vehiculo.getId());
+        List<SolicitudReparacionMantenimiento> lr = findAll(SolicitudReparacionMantenimiento.class);
+        List<SolicitudReparacionMantenimiento> lrq = new ArrayList<SolicitudReparacionMantenimiento>();
+        //mosttrar lista de requisiciones con igual vehiculo ,estado true
+        System.out.println("lista toda set requis>>>" + lr);
+        for (SolicitudReparacionMantenimiento sol : lr) {
+            System.out.println("\n\nEntro a for solis set req...>>>" + sol.getVehiculo().getId());
+            System.out.println("soli setreq" + sol + "estadosetsoli" + sol.isEstado());
+            if (sol.isEstado() && sol.getRequisicionId() == null) {
+                if ((sol.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
+                    System.out.println("\n\nentro a comparar set req.....");
+                    lrq.add(sol);
+                }
+            }
+
+        }
+        listaSolicitudes = lrq;
+        System.out.println("lista despues set soli" + listaSolicitudes);
 
     }
 
     public Long getIdVehiculo() {
         return idVehiculo;
+    }
+
+    public void fijarSolicitud(SolicitudReparacionMantenimiento sol) {
+        System.out.println("fijando " + sol);
+        setSolicitudrep(sol);
     }
 
     public void setIdVehiculo(Long idVehiculo) {
@@ -1176,6 +1242,43 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.vehiculo = vehiculo;
         getInstance().setVehiculo(vehiculo);
         palabrab = "";
+       
+            // for para poder cambiar el id del vehiculo y las requisiciones
+            System.out.println("solicicitud repa" + solicitudrep);
+        if (solicitudrep != null) {
+            System.out.println("solicitud.vehiculo "+solicitudrep.getVehiculo());
+            if (solicitudrep.getVehiculo() != getInstance().getVehiculo() && getInstance().getSolicitudReparacionId() != null) {
+                System.out.println("entro a fijar>>>>>");
+                solRequisicion = getInstance().getSolicitudReparacionId();
+                getInstance().setSolicitudReparacionId(null);
+                solicitudrep = new SolicitudReparacionMantenimiento();
+                solRequisicion.setRequisicionId(null);
+            }
+        }
+
+            System.out.println("solicitud anterior" + solicitudrep);
+
+            System.out.println("id de vehiculo actual" + getInstance().getVehiculo().getId());
+            System.out.println("id de vehiculo actual1111" + this.vehiculo.getId());
+            List<SolicitudReparacionMantenimiento> lss = new ArrayList<SolicitudReparacionMantenimiento>();
+            System.out.println("lista antes" + findAll(SolicitudReparacionMantenimiento.class));
+            //mosttrar lista de requisiciones con igual vehiculo ,estado true
+            for (SolicitudReparacionMantenimiento sol : findAll(SolicitudReparacionMantenimiento.class)) {
+                System.out.println("\n\nEntro a for solis  veh...>>>" + sol.getVehiculo().getId());
+                System.out.println("sol.req" + sol.getRequisicionId() + "estado" + sol.isEstado());
+                if (sol.isEstado() && sol.getRequisicionId() == null) {
+                    System.out.println("veh instance>>>" + getInstance().getVehiculo().getId());
+                    if ((sol.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
+                        System.out.println("\n\nentro a comparar en veh.....");
+                        lss.add(sol);
+                    }
+                }
+
+            }
+            listaSolicitudes = lss;
+            System.out.println("lista despues en veh" + listaSolicitudes);
+        
+
     }
 
     @TransactionAttribute   //
@@ -1253,6 +1356,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         solicitudrep = new SolicitudReparacionMantenimiento();
         listaPersonal = findAll(Profile.class);
         vehiculos = findAll(Vehiculo.class);
+        listaItemsRequisicion = new ArrayList<ItemRequisicion>();
 
     }
 
@@ -1327,7 +1431,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 //  getInstance().setEstado(true);
                 guardarItem();
                 create(getInstance());
-                
+
                 save(getInstance());
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {

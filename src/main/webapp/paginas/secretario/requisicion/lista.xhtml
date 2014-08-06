@@ -77,8 +77,8 @@
                                     </p:commandButton-->
                                 <h:link styleClass="btn btn-success" value="Crear" outcome="crear" type="button" >
                                     <f:param name="requisicionId" ></f:param>
-
-
+                                    <f:param name="vista" value="requisicion"></f:param>
+                                   
                                 </h:link>
                                 <br/>
                             </div>
@@ -159,6 +159,7 @@
                                                                           icon="ui-icon-pencil" title="Editar">  
                                                                     <f:param name="requisicionId" value="#{r.id}"></f:param>
                                                                     <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
+                                                                     <f:param name="vista" value="requisicion"></f:param>
                                                                 </p:button>
 
 
