@@ -49,6 +49,7 @@ import javax.faces.bean.ViewScoped;
 
 import javax.inject.Named;
 import org.mtop.modelo.ItemRequisicion;
+import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.Producto;
 import org.mtop.modelo.Producto_;
 import org.mtop.modelo.Requisicion_;
@@ -93,7 +94,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String palabrabs = "";
     private String valorTipo;
     private ItemRequisicion itemr;
-    
 
     private List<SolicitudReparacionMantenimiento> listaSolicitudes;
     private SolicitudReparacionMantenimiento solicitudrep;
@@ -106,6 +106,59 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private SolicitudReparacionMantenimiento solRequisicion;
 
     private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
+    private List<SolicitudReparacionMantenimiento> listaAux;
+
+    public List<SolicitudReparacionMantenimiento> getListaAux() {
+        return listaAux;
+    }
+
+    public void setListaAux(List<SolicitudReparacionMantenimiento> listaAux) {
+        this.listaAux = listaAux;
+        this.limpiar();
+    }
+
+    @TransactionAttribute
+    public void guardarSol(SolicitudReparacionMantenimiento solis) {
+        Date now = Calendar.getInstance().getTime();
+        List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
+        for (ItemSolicitudReparacion apm : solis.getListaItemSR()) {
+
+            System.out.println("entrofor" + apm);
+
+            apm.setSolicitudReparacion(solis);//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+            //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+
+            System.out.println("al crear");
+            BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+
+            apm.setCreatedOn(now);
+            apm.setLastUpdate(now);
+            apm.setActivationTime(now);
+            apm.setType(_type);
+            apm.buildAttributes(bussinesEntityService);  //
+
+            System.out.println("creo instance" + apm);
+
+            lir.add(apm);
+
+        }
+        solis.setListaItemSR(lir);//fija la lista de actividades a la solicitud
+        System.out.println("termino de gusradar" + solis.getListaItemSR());
+   
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(SolicitudReparacionMantenimiento.class.getName());
+        System.out.println("entra crear" + solis);
+        solis.setCreatedOn(now);
+        solis.setLastUpdate(now);
+        solis.setActivationTime(now);
+        solis.setType(_type);
+        solis.buildAttributes(bussinesEntityService);  //
+        System.out.println("pasa a crearrr");
+        listaSolicitudes.add(solis);
+        save(solis);
+
+        System.out.println("despues a crearrr" + solis);
+
+    }
 
     public ItemRequisicion getItemr() {
         return itemr;
@@ -117,16 +170,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         agregarItem();
     }
 
-    
-    
-    
     public String getVista() {
         System.out.println("recueperando vista " + this.vista);
-        System.out.println("presentar instance"+getInstance().getId());
-        System.out.println("presenta solicitud"+solicitudReparacionMantenimiento);
-                System.out.println("SSSSS"+s);
-                
-    
+        System.out.println("presentar instance" + getInstance().getId());
+        System.out.println("presenta solicitud" + solicitudReparacionMantenimiento);
+
         return vista;
 
     }
@@ -736,12 +784,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void limpiars() {
         palabrab = "";
-        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+
+        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
+
         listaSolicitudes.clear();
         System.out.println("lppp" + ls);
 
         for (SolicitudReparacionMantenimiento soli : ls) {
-            if (soli.isEstado()) {
+            System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
+            if (soli.isEstado() && soli.getRequisicionId() == null && soli.getVehiculo().getId().equals(getInstance().getVehiculo())) {
                 System.out.println("listatesssa" + listaSolicitudes);
                 listaSolicitudes.add(soli);
 
@@ -1110,7 +1161,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
         System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
         System.out.println("maximo" + getMaximo());
-        s=s+1;
+
         if (skip) {
             skip = false;   //reset in case user goes back  
 
@@ -1257,11 +1308,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.vehiculo = vehiculo;
         getInstance().setVehiculo(vehiculo);
         palabrab = "";
-       
-            // for para poder cambiar el id del vehiculo y las requisiciones
-            System.out.println("solicicitud repa" + solicitudrep);
+
+        // for para poder cambiar el id del vehiculo y las requisiciones
+        System.out.println("solicicitud repa" + solicitudrep);
         if (solicitudrep != null) {
-            System.out.println("solicitud.vehiculo "+solicitudrep.getVehiculo());
+            System.out.println("solicitud.vehiculo " + solicitudrep.getVehiculo());
             if (solicitudrep.getVehiculo() != getInstance().getVehiculo() && getInstance().getSolicitudReparacionId() != null) {
                 System.out.println("entro a fijar>>>>>");
                 solRequisicion = getInstance().getSolicitudReparacionId();
@@ -1271,28 +1322,27 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
         }
 
-            System.out.println("solicitud anterior" + solicitudrep);
+        System.out.println("solicitud anterior" + solicitudrep);
 
-            System.out.println("id de vehiculo actual" + getInstance().getVehiculo().getId());
-            System.out.println("id de vehiculo actual1111" + this.vehiculo.getId());
-            List<SolicitudReparacionMantenimiento> lss = new ArrayList<SolicitudReparacionMantenimiento>();
-            System.out.println("lista antes" + findAll(SolicitudReparacionMantenimiento.class));
-            //mosttrar lista de requisiciones con igual vehiculo ,estado true
-            for (SolicitudReparacionMantenimiento sol : findAll(SolicitudReparacionMantenimiento.class)) {
-                System.out.println("\n\nEntro a for solis  veh...>>>" + sol.getVehiculo().getId());
-                System.out.println("sol.req" + sol.getRequisicionId() + "estado" + sol.isEstado());
-                if (sol.isEstado() && sol.getRequisicionId() == null) {
-                    System.out.println("veh instance>>>" + getInstance().getVehiculo().getId());
-                    if ((sol.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
-                        System.out.println("\n\nentro a comparar en veh.....");
-                        lss.add(sol);
-                    }
+        System.out.println("id de vehiculo actual" + getInstance().getVehiculo().getId());
+        System.out.println("id de vehiculo actual1111" + this.vehiculo.getId());
+        List<SolicitudReparacionMantenimiento> lss = new ArrayList<SolicitudReparacionMantenimiento>();
+        System.out.println("lista antes" + findAll(SolicitudReparacionMantenimiento.class));
+        //mosttrar lista de requisiciones con igual vehiculo ,estado true
+        for (SolicitudReparacionMantenimiento sol : findAll(SolicitudReparacionMantenimiento.class)) {
+            System.out.println("\n\nEntro a for solis  veh...>>>" + sol.getVehiculo().getId());
+            System.out.println("sol.req" + sol.getRequisicionId() + "estado" + sol.isEstado());
+            if (sol.isEstado() && sol.getRequisicionId() == null) {
+                System.out.println("veh instance>>>" + getInstance().getVehiculo().getId());
+                if ((sol.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
+                    System.out.println("\n\nentro a comparar en veh.....");
+                    lss.add(sol);
                 }
-
             }
-            listaSolicitudes = lss;
-            System.out.println("lista despues en veh" + listaSolicitudes);
-        
+
+        }
+        listaSolicitudes = lss;
+        System.out.println("lista despues en veh" + listaSolicitudes);
 
     }
 
