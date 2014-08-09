@@ -526,7 +526,7 @@
                                     <span class="help-inline text-muted">Descripción del item <ocp:message forId="unidadMedida"/></span>
                                     <br></br>
                                     <div class="admin-actions">
-                                        <p:commandButton ajax="false" process="@this" update=":form:listai :form:cantidad :form:unidadMedida " 
+                                        <p:commandButton process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip" 
                                                          styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorRequisicion.agregarItem()}">
 
                                         </p:commandButton>
@@ -658,6 +658,9 @@
                                                         <p:column headerText="Reg Vehiculo" sortBy="#{items1.vehiculo.numRegistro}">
                                                             <h:outputText value="#{items1.vehiculo.numRegistro}" />
                                                         </p:column>
+                                                        <p:column headerText="Id" sortBy="#{items1.id}">
+                                                            <h:outputText value="#{items1.id}" />
+                                                        </p:column>
 
                                                         <p:column style="width:4%;text-align: center" headerText="Acciones" >
 
@@ -770,7 +773,8 @@
                             </div>
 
                             <div class="admin-actions " align="center"> 
-                                <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" action="#{controladorRequisicion.guardar()}" styleClass="btn  btn-success"  process="@this" ajax="false" />
+                                <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" action="#{controladorRequisicion.guardar()}" 
+                                                 styleClass="btn  btn-success"  process="@this" />
                                 #{' '} 
                                 <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/requisicion/lista" styleClass="btn  btn-success"/>
                             </div>
@@ -1148,13 +1152,15 @@
 
                             <div class="admin-actions " align="center"> 
 
-                                <p:commandButton id="save1" value="Guardar" update="@form" 
+                                <p:commandButton id="save1" value="Guardar" update="@form :form:basicDT12" 
                                                  process="@this" icon="ui-icon-disk" 
-                                                 styleClass="btn  btn-success" actionListener="#{controladorRequisicion.guardarSol(controladorSolicitudReparacionMantenimiento.instance)}"
+                                                 styleClass="btn  btn-success" 
+                                                 actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
                                                  >
 
                                     <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}"/>
                                     
+                                     <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" target="#{controladorRequisicion.listaSolicitudes}"/>
                                 </p:commandButton>
 
 

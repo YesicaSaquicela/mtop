@@ -129,33 +129,35 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
 
             System.out.println("al crear");
-            BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
-
-            apm.setCreatedOn(now);
-            apm.setLastUpdate(now);
-            apm.setActivationTime(now);
-            apm.setType(_type);
-            apm.buildAttributes(bussinesEntityService);  //
-
+//            BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+//
+//            apm.setCreatedOn(now);
+//            apm.setLastUpdate(now);
+//            apm.setActivationTime(now);
+//            apm.setType(_type);
+//            apm.buildAttributes(bussinesEntityService);  //
+//           
             System.out.println("creo instance" + apm);
-
+            
             lir.add(apm);
+           servgen.actualizar(apm);
 
         }
+        
         solis.setListaItemSR(lir);//fija la lista de actividades a la solicitud
         System.out.println("termino de gusradar" + solis.getListaItemSR());
-   
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(SolicitudReparacionMantenimiento.class.getName());
+
+        BussinesEntityType _type1 = bussinesEntityService.findBussinesEntityTypeByName(SolicitudReparacionMantenimiento.class.getName());
         System.out.println("entra crear" + solis);
         solis.setCreatedOn(now);
         solis.setLastUpdate(now);
         solis.setActivationTime(now);
-        solis.setType(_type);
+        solis.setType(_type1);
         solis.buildAttributes(bussinesEntityService);  //
         System.out.println("pasa a crearrr");
-        listaSolicitudes.add(solis);
+        create(solis);
         save(solis);
-
+        listaSolicitudes.add(solis);
         System.out.println("despues a crearrr" + solis);
 
     }
@@ -173,7 +175,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String getVista() {
         System.out.println("recueperando vista " + this.vista);
         System.out.println("presentar instance" + getInstance().getId());
-        System.out.println("presenta solicitud" + solicitudReparacionMantenimiento);
+        System.out.println("presenta solicitud" + solicitudrep);
 
         return vista;
 
@@ -200,6 +202,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setSolicitudReparacionMantenimiento(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
         this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
         System.out.println("fijo " + solicitudReparacionMantenimiento);
+        limpiars();
 
     }
 
@@ -551,10 +554,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setListaItemsRequisicion(List<ItemRequisicion> listaItemsRequisicion) {
+        System.out.println("setlista ITEMSSSSS"+listaItemsRequisicion);
         this.listaItemsRequisicion = listaItemsRequisicion;
     }
 
-    public SolicitudReparacionMantenimiento getSolicitudrep() {
+    public SolicitudReparacionMantenimiento getSolicitudrep() { 
+        System.out.println("getlista ITEMSSSSS"+listaItemsRequisicion);
+        
         return solicitudrep;
     }
 
@@ -565,11 +571,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public List<SolicitudReparacionMantenimiento> getListaSolicitudes() {
-
+        System.out.println("getlista solicitude"+listaSolicitudes);
+                
         return listaSolicitudes;
     }
 
     public void setListaSolicitudes(List<SolicitudReparacionMantenimiento> listaSolicitudes) {
+        System.out.println("setlista solicitude"+listaSolicitudes);
         this.listaSolicitudes = listaSolicitudes;
     }
 
@@ -1012,6 +1020,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("entro a guardar::::: item");
         String des = cir.getInstance().getDescription().trim();
         String uni = cir.getInstance().getUnidadMedida().trim();
+        System.out.println("cantidad "+cir.getInstance().getCantidad());
+        System.out.println("des "+des);
+        System.out.println("uni"+uni);
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, cantidad, descripción y unidad de medida"));

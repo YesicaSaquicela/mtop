@@ -1020,12 +1020,34 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
         //  getInstance().setVehiculo(vehiculo);
-        
+
         System.out.println("termino de gusradar" + getInstance().getListaItemSR());
         try {
+            List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
+            for (ItemSolicitudReparacion apm : getInstance().getListaItemSR()) {
 
+                System.out.println("entrofor" + apm);
+
+                apm.setSolicitudReparacion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+                //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+
+                System.out.println("al crear");
+                BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+
+                apm.setCreatedOn(now);
+                apm.setLastUpdate(now);
+                apm.setActivationTime(now);
+                apm.setType(_type);
+                apm.buildAttributes(bussinesEntityService);  //
+
+                System.out.println("creo instance" + apm);
+
+                lir.add(apm);
+
+            }
+            getInstance().setListaItemSR(lir);
             getInstance().setEstado(true);
-            
+
             create(getInstance());
             System.out.println("ENtro a crear items>>>>>");
 
@@ -1043,6 +1065,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("antes de fija solicitud");
 
         System.out.println("despues de fijar solicitud");
+
+        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
+
+        for (SolicitudReparacionMantenimiento soli : ls) {
+            System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
+            if (soli.isEstado() && soli.getRequisicionId() == null && soli.getVehiculo().getId().equals(getInstance().getVehiculo())) {
+                System.out.println("listatesssa" + listaSolicitud);
+                listaSolicitud.add(soli);
+
+            }
+
+        }
+        listaSolicitud.add(getInstance());
 
     }
 
