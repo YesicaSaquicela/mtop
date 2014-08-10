@@ -88,6 +88,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Requisicion reqSolicitud;
     private Requisicion nuevaRequisicion = new Requisicion();
     private ItemSolicitudReparacion itemsr;
+    private List<Requisicion> listaAuxr;
+
+    public List<Requisicion> getListaAuxr() {
+        return listaAuxr;
+    }
+
+    public void setListaAuxr(List<Requisicion> listaAuxr) {
+        this.listaAuxr = listaAuxr;
+        limpiar();
+    }
+    
+    
+    
 //    private long idRequisicion;
 //
 //    public long getIdRequisicion() {
@@ -910,6 +923,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return SolicitudReparacionMantenimiento.class;
     }
 
+   
     @TransactionAttribute
     public String guardar() {
 

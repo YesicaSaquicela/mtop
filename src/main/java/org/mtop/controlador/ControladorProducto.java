@@ -47,7 +47,7 @@ import org.mtop.servicios.ServicioGenerico;
 @Named
 @ViewScoped
 public class ControladorProducto extends BussinesEntityHome<Producto> implements Serializable {
-    
+
     @Inject
     @Web
     private EntityManager em;
@@ -56,15 +56,15 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     private List<Producto> listaProducto;
     private String codigo;
     private String palabrab = "";
-    
+
     public String getPalabrab() {
         return palabrab;
     }
-    
+
     public void setPalabrab(String palabrab) {
         this.palabrab = palabrab;
     }
-    
+
     public void buscar() {
         palabrab.trim();
         if (palabrab == null || palabrab.equals("")) {
@@ -79,7 +79,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
                 lp.add(producto);
             }
         }
-        
+
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
@@ -88,64 +88,76 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             } else {
                 context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
             }
-            
+
         } else {
-            listaProducto = lp;
+            for (Producto productol : lc) {
+                System.out.println("entroa al for lista productos");
+                if (productol.isEstado()) {
+                    System.out.println("entroa a comparar>>>");
+                    listaProducto = lp;
+                    System.out.println("devuelve lista>>>>" + listaProducto);
+                }
+            }
+
         }
-        
+
     }
-    
+
     public void limpiar() {
         palabrab = "";
         List<Producto> lp = servgen.buscarTodos(Producto.class);
         listaProducto.clear();
         System.out.println("lppp" + lp);
-        
+
         for (Producto produ : lp) {
             System.out.println("iddddd" + produ.getId());
             System.out.println("entro a for lista>>>>" + produ.isEstado());
             if (produ.isEstado()) {
                 System.out.println("listatesssa" + listaProducto);
                 listaProducto.add(produ);
-                
+
                 System.out.println("Entro a remover>>>>");
                 System.out.println("a;iadia" + listaProducto);
-                
+
             }
-            
+
         }
     }
-    
+
     public ArrayList<String> autocompletar(String query) {
         System.out.println("QUEryyyyy" + query);
-        
+
         ArrayList<String> ced = new ArrayList<String>();
-        
+
         List<Producto> lp = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), PersistentObject_.description.getName(), query);
-        
+
         for (Producto producto : lp) {
-            System.out.println("econtro uno " + producto.getDescription());
-            ced.add(producto.getDescription());
+            if (producto.isEstado()) {
+                System.out.println("econtro uno " + producto.getDescription());
+                ced.add(producto.getDescription());
+            }
         }
-        List<Producto> lc = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), Producto_.codigo.getName(), palabrab);
+        List<Producto> lc = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), Producto_.codigo.getName(), query);
         for (Producto producto : lc) {
-            System.out.println("econtro uno " + producto.getCodigo());
-            ced.add(producto.getCodigo());
+            if (producto.isEstado()) {
+                System.out.println("econtro uno " + producto.getCodigo());
+                ced.add(producto.getCodigo());
+            }
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
-        
+
     }
-    
+
     public ControladorRequisicion getCrequisicion() {
         return crequisicion;
     }
-    
+
     public void setCrequisicion(ControladorRequisicion crequisicion) {
         this.crequisicion = crequisicion;
     }
     private ControladorRequisicion crequisicion;
-    
+
     public String getCodigo() {
         if (getId() == null) {
             System.out.println("numero" + getInstance().getCodigo());
@@ -168,26 +180,26 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         } else {
             setCodigo(getInstance().getCodigo());
         }
-        
+
         return codigo;
-        
+
     }
-    
+
     public void setCodigo(String numRegistro) {
         this.codigo = numRegistro;
-        
+
         getInstance().setCodigo(this.codigo);
-        
+
     }
-    
+
     public Long getProductoId() {
         return (Long) getId();
     }
-    
+
     public void setProductoId(Long productoId) {
         setId(productoId);
     }
-    
+
     @TransactionAttribute   //
     public Producto load() {
         if (isIdDefined()) {
@@ -195,56 +207,56 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         }
         return getInstance();
     }
-    
+
     @TransactionAttribute
     public void wire() {
         getInstance();
-        
+
     }
-    
+
     public List<Producto> getListaProducto() {
         return listaProducto;
     }
-    
+
     public void setListaProducto(List<Producto> listaProducto) {
         this.listaProducto = listaProducto;
     }
-    
+
     @PostConstruct
     public void init() {
         setEntityManager(em);
         /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
          *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
          */
-        
+
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaProducto = servgen.buscarTodos(Producto.class);
         System.out.println("lisssssstaa...a. de remover." + listaProducto);
         crequisicion = new ControladorRequisicion();
         System.out.println("tama;o listaaaa" + listaProducto.size());
-        
+
         List<Producto> lp = servgen.buscarTodos(Producto.class);
         listaProducto.clear();
         System.out.println("lppp" + lp);
-        
+
         for (Producto produ : lp) {
             System.out.println("iddddd" + produ.getId());
             System.out.println("entro a for lista>>>>" + produ.isEstado());
             if (produ.isEstado()) {
                 System.out.println("listatesssa" + listaProducto);
                 listaProducto.add(produ);
-                
+
                 System.out.println("Entro a remover>>>>");
                 System.out.println("a;iadia" + listaProducto);
-                
+
             }
-            
+
         }
-        
+
         System.out.println("Lista dfinaaaaaaalllll>>>" + listaProducto);
     }
-    
+
     @Override
     protected Producto createInstance() {
         //prellenado estable para cualquier clase 
@@ -260,21 +272,21 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         producto.buildAttributes(bussinesEntityService);  //
         return producto;
     }
-    
+
     @Override
     public Class<Producto> getEntityClass() {
         return Producto.class;
     }
-    
+
     @TransactionAttribute
     public String guardar() {
-        
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        
+
         System.out.println("IIIIDEEEntro>>>>>>" + getProductoId());
         System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance().isPersistent());
-        
+
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a Editar>>>>>>>>");
@@ -295,7 +307,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         }
         return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
-    
+
     @Transactional
     public String darDeBaja(Long idproducto) {
         System.out.println("Entro a dar de baja>>>>>>" + idproducto);
@@ -307,30 +319,9 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         //listaProducto.remove(findById(Producto.class,idproducto));
         save(getInstance());
-        
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
         return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
-    
-    @Transactional
-    public String borrarEntidad() {
-        
-        try {
-            if (getInstance() == null) {
-                throw new NullPointerException("Servicio is null");
-            }
-            if (getInstance().isPersistent()) {
-                delete(getInstance());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
-        }
-        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
-    }
-    
+
 }
