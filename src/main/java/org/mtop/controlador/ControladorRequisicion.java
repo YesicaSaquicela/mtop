@@ -115,7 +115,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setTipor(String tipor) {
         this.tipor = tipor;
+       
     }
+   
+    
+    
 
     public List<SolicitudReparacionMantenimiento> getListaAux() {
         return listaAux;
