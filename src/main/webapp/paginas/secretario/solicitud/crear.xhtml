@@ -593,7 +593,9 @@
 
 
                                 <div class="admin-actions " align="center"> 
-                                    <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorSolicitudReparacionMantenimiento.guardar()}" update="growl" process="@this"/>
+                                    <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" 
+                                                     action="#{controladorSolicitudReparacionMantenimiento.guardar()}" 
+                                                     update="growl" process="@this"/>
                                     #{' '} 
                                     <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/solicitud/lista" styleClass="btn  btn-success"/>
                                 </div>
@@ -1048,11 +1050,11 @@
                                 <div class="admin-actions " align="center"> 
                                     <p:commandButton id="save1" value="Guardar" update="@form :form:listai" icon="ui-icon-disk" 
                                                      styleClass="btn  btn-success" process="@this "
-                                                     actionListener="#{controladorRequisicion.limpiar()}">
+                                                     actionListener="#{controladorRequisicion.guardarRequisicion()}">
                                         
                                         <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"
                                                                       />
-                                                                    
+                                         <f:setPropertyActionListener value="#{controladorRequisicion.listaRequisicion}" target="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"/>                  
                                        
                              
                                     </p:commandButton>
