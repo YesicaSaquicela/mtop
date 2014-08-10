@@ -87,7 +87,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private String vista;
     private Requisicion reqSolicitud;
     private Requisicion nuevaRequisicion = new Requisicion();
-
     private ItemSolicitudReparacion itemsr;
 //    private long idRequisicion;
 //
@@ -918,7 +917,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setLastUpdate(now);
 
         System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
-        //  getInstance().setVehiculo(vehiculo);
+       
 
         try {
             if (getInstance().isPersistent()) {
@@ -926,6 +925,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 guardarItem();
                 System.out.println("volvio a guardar soli");
                 if (reqSolicitud != null) {
+                    System.out.println("entro reSoli.....");
                     System.out.println("diferente de null" + reqSolicitud.isPersistent());
                     if (reqSolicitud.isPersistent()) {
                         System.out.println("entro al if resolicitud");
@@ -935,8 +935,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                     }
                 }
-
+                System.out.println("antes del 2do if");
                 if (requisicion != null) {
+                    System.out.println("entro requisicion.....");
                     System.out.println("entri fijar requisicion" + requisicion);
                     if (requisicion.getId() != null) {
                         getInstance().setRequisicionId(requisicion);
@@ -958,7 +959,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         System.out.println("presentando requi >>>" + requisicion);
                     }
                 }
-
+                System.out.println("antes de l LISTA,,,,");
+                System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -1088,6 +1090,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     }
 
+    protected void createInstanceIS() {
+        //prellenado estable para cualquier clase 
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+        Date now = Calendar.getInstance().getTime();
+        
+        citemsolicitud.getInstance().setCreatedOn(now);
+        citemsolicitud.getInstance().setLastUpdate(now);
+        citemsolicitud.getInstance().setActivationTime(now);
+        citemsolicitud.getInstance().setType(_type);
+        citemsolicitud.getInstance().buildAttributes(bussinesEntityService);  //
+       
+    }
+
     public void guardarItem() {
         List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
         for (ItemSolicitudReparacion apm : getInstance().getListaItemSR()) {
@@ -1104,15 +1119,13 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("despues guardar");
             } else {
                 System.out.println("al crear");
-                BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
-
-                apm.setCreatedOn(now);
-                apm.setLastUpdate(now);
-                apm.setActivationTime(now);
-                apm.setType(_type);
-                apm.buildAttributes(bussinesEntityService);  //
+                citemsolicitud.setInstance(apm);
+                createInstanceIS();
                 if (getInstance().isPersistent()) {
                     System.out.println("antes guardar");
+                    create(citemsolicitud.getInstance());
+                    System.out.println("paso de create>>>>>.");
+                    apm.setLastUpdate(now);
                     save(apm);
                     System.out.println("despues guardar");
 

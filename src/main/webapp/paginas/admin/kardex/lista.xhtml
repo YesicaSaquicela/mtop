@@ -47,17 +47,17 @@
                                                 <center>
                                                     <h:outputLabel value="Buscar:  " />
 
-                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrab}"   
+                                                    <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrab}"   
                                                                     completeMethod="#{controladorKardex.autocompletar}"/> 
 
 
 
-                                                    <p:commandButton value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+                                                    <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
 
                                                     </p:commandButton>
 
 
-                                                    <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
+                                                    <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
 
                                                     </p:commandButton>
                                                 </center>
