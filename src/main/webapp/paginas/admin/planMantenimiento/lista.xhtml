@@ -40,7 +40,7 @@
                                                             <center>
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorPlanMantenimiento.palabrab}"   
+                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPlanMantenimiento.palabrab}"   
                                                                                 completeMethod="#{controladorPlanMantenimiento.autocompletar}"/> 
                                                                 &nbsp;&nbsp;
 
@@ -48,11 +48,11 @@
 
 
 
-                                                                <p:commandButton value="Buscar" update=":form:listap" action="#{controladorPlanMantenimiento.buscar()}" styleClass="btn btn-success" >
+                                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorPlanMantenimiento.buscar()}" styleClass="btn btn-success" >
 
                                                                 </p:commandButton>
 
-                                                                <p:commandButton value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorPlanMantenimiento.limpiar()}" styleClass="btn btn-success" >
+                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorPlanMantenimiento.limpiar()}" styleClass="btn btn-success" >
 
                                                                 </p:commandButton>
                                                             </center>

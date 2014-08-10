@@ -28,8 +28,8 @@
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
+                                <div class="text-primary" >
+                                    <p:panel styleClass="bg-info">
                                         <div class="panel-body">
                                             <div class="container-fluid" align="center">
                                                 <div class="row-fluid">
@@ -37,22 +37,20 @@
 
                                                     <div class="col-lg-6">
                                                         <center>
-                                                            <div class="input-group">
+                                                            <div class="input-group" >
                                                                 <center>
-                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
+                                                                    <h:outputLabel value="Buscar:  " />     #{'    '} 
 
-                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrab}"   
+                                                                    <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrab}"   
                                                                                     completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletar}"/> 
-                                                                    &nbsp;&nbsp;
-
-
-
-                                                                    <p:commandButton value="Buscar" update=":form:infoFM:listap  :form:infoFM:listasa" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="btn btn-success" >
+                                                                    
+  #{' '} 
+                                                                    <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:infoFM:listap  :form:infoFM:listasa" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="#fff" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton value="Limpiar" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="@brand-primary" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -73,6 +71,7 @@
                                               type="button">  
 
                                         <f:param name="valorVista" value="solicitud"/>
+                                         <f:param name="tipo" value="Requisición de Reparación"/>
                                     </h:link>
                                 </div>
                                 <br/><br/>
@@ -91,7 +90,7 @@
 
 
                                                         <tbody>
-                                                            <p:dataTable id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
+                                                            <p:dataTable  id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
                                                                          paginator="true" rows="15"                         
                                                                          paginatorPosition="top"
                                                                          rowsPerPageTemplate="5,10,15,20" emptyMessage="No se han encontrado coincidencias">
@@ -123,6 +122,8 @@
                                                                         <f:param name="solicitudId" value="#{s.id}"></f:param>
                                                                         <f:param name="vehiculoId" value="#{s.vehiculo.id}"></f:param>
                                                                         <f:param name="valorVista" value="solicitud"/>
+                                                                         <f:param name="tipo" value="Requisición de Reparación"/>
+                                                                        
                                                                     </p:button>
                                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash"
                                                                                      action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 

@@ -16,7 +16,7 @@
         <f:viewParam id="solicitudIDDD" name="solicitudId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
         <f:viewParam id="vehiculoIDDD" name="vehiculoId" value="#{controladorVehiculo.vehiculoId}"/>
         <f:viewParam id="vistaaa" name="valorVista" value="#{controladorSolicitudReparacionMantenimiento.vista}"/>
-
+      <f:viewParam id="tiposss" name="tipo" value="#{controladorRequisicion.tipor}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -31,11 +31,10 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-                    <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}">
+           
+                        <p:growl  id="growl" sticky="true" showDetail="true"/>
 
-                        <p:growl id="growl" sticky="true" showDetail="true"/>
-
-                        <p:wizard  id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente">
+                        <p:wizard rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente">
                             <p:tab id="sol"  title="Solicitud">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><center>Datos Generales</center></div>
@@ -201,7 +200,7 @@
                                                                     <center>
                                                                         <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                        <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrabv}"   
+                                                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrabv}"   
                                                                                         completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletarv}"/> 
 
 
@@ -209,11 +208,11 @@
 
 
 
-                                                                        <p:commandButton value="Buscar" update=":form:basicDT" action="#{controladorSolicitudReparacionMantenimiento.buscarv()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:basicDT" action="#{controladorSolicitudReparacionMantenimiento.buscarv()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                         #{' '} #{' '} 
-                                                                        <p:commandButton value="Limpiar" update=":form:basicDT :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiarv()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:basicDT :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiarv()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                     </center>
@@ -250,7 +249,7 @@
                                                             </p:column>
 
                                                             <p:column style="width:4%;text-align: center">
-                                                                <p:commandLink update=":form:vehiculo"  value="Agregar" title="Seleccionar">
+                                                                <p:commandLink update=":form:vehiculo" process="@this" value="Agregar" title="Seleccionar">
                                                                     <f:setPropertyActionListener value="#{v}" target="#{controladorSolicitudReparacionMantenimiento.vehiculo}" />
                                                                     <f:setPropertyActionListener value="#{v.id}" target="#{controladorVehiculo.vehiculoId}" />
                                                                 </p:commandLink>
@@ -352,9 +351,11 @@
                                                      /><br></br>
 
                                         <div class="admin-actions">
-                                            <p:commandButton update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1"  styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorSolicitudReparacionMantenimiento.agregarItemS()}">
+                                            <p:commandLink process="@form" update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1"  
+                                                           styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
+                                                           actionListener="#{controladorSolicitudReparacionMantenimiento.agregarItemS()}">
 
-                                            </p:commandButton>
+                                            </p:commandLink>
                                         </div><br/>
 
                                         <div class="tab-content">
@@ -418,7 +419,7 @@
                                                                     <center>
                                                                         <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                        <p:autoComplete styleClass="xLarge" id="acSimples" value="#{controladorSolicitudReparacionMantenimiento.palabrabr}"   
+                                                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimples" value="#{controladorSolicitudReparacionMantenimiento.palabrabr}"   
                                                                                         completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletarr}"/> 
 
 
@@ -426,11 +427,11 @@
 
 
 
-                                                                        <p:commandButton value="Buscar" update=":form:basicDT2" action="#{controladorSolicitudReparacionMantenimiento.buscarr()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:basicDT2" action="#{controladorSolicitudReparacionMantenimiento.buscarr()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                         #{' '} #{' '} 
-                                                                        <p:commandButton value="Limpiar" update=":form:basicDT2 :form:acSimples" action="#{controladorSolicitudReparacionMantenimiento.limpiarr()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:basicDT2 :form:acSimples" action="#{controladorSolicitudReparacionMantenimiento.limpiarr()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                     </center>
@@ -445,10 +446,14 @@
 
                                         <div class="admin-actions">
 
-                                           <p:commandButton id="save111" value="Crear Requisicion" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
-                                                
-                                                <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
-                                            </p:commandButton>
+                                           <p:commandButton id="save111" value="Crear Requisicion" 
+                                                            icon="ui-icon-disk"  styleClass="btn  btn-success" 
+                                                            process="@this" update="@form" >
+                                             
+                                            <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
+                                            <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo}" target="#{controladorRequisicion.instance.vehiculo}" /> 
+                                            <f:setPropertyActionListener value="Requisición de Reparación" target="#{controladorRequisicion.instance.tipoRequisicion}" /> 
+                                           </p:commandButton>
                                         </div><br/>
 
 
@@ -595,7 +600,7 @@
                             </p:tab>
                         </p:wizard>
 
-                    </p:panel>
+                  
 
 
 
@@ -609,10 +614,9 @@
 
 
 
-                    <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}">
 
 
-                        <p:wizard  id="p1" flowListener="#{controladorRequisicion.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente" >
+                        <p:wizard  rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}" id="p1" flowListener="#{controladorRequisicion.onFlowprocessR}" backLabel="Atrás" nextLabel="Siguiente" >
                             <p:tab id="req1"  title="Requisición">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><center>Datos Generales</center></div>
@@ -641,17 +645,18 @@
                                             <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                         </p:selectOneMenu> <br></br>
                                         <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
+                                        
                                         <h:outputLabel value="Tipo de requisición "/> <br></br> 
                                         <p:selectOneMenu id="tipoRequisicion" disabled="#{controladorRequisicion.instance.id ne null}"
                                                          value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                             <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                            <f:selectItem itemLabel="Requisición de Reparación" itemValue="requisicionRep" />  
-                                            <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="requisicionByS" />  
+                                            <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
+                                            <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
                                             <p:ajax event="change" update=":form:numRequisicion" partialSubmit="true"/>
                                         </p:selectOneMenu> <br></br>
                                         <span class="help-inline text-muted">Elija el tipo de requisición<ocp:message forId="tipoRequisicion" /></span><br></br><br></br> 
 
-
+                                       
                                         <h:outputLabel value="Requerido por:"/> <br></br>
                                         <p:selectOneMenu id="personal1"  value="#{controladorRequisicion.idPersonal}" effect="fade"
                                                          converter="#{omnifaces.GenericEnumConverter}" required="true"
@@ -812,7 +817,7 @@
                                                                     <center >
                                                                         <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                        <p:autoComplete styleClass="xLarge" id="acSimple1" value="#{controladorRequisicion.palabrabp}"   
+                                                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple1" value="#{controladorRequisicion.palabrabp}"   
                                                                                         completeMethod="#{controladorRequisicion.autocompletarp}"/> 
 
 
@@ -820,11 +825,11 @@
 
 
 
-                                                                        <p:commandButton value="Buscar" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
 
-                                                                        <p:commandButton value="Limpiar" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.limpiarp()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.limpiarp()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                     </center>
@@ -911,10 +916,6 @@
 
                                     </p:panel>
                                     <p:panel>
-
-
-
-
 
 
                                         <br/>
@@ -1006,8 +1007,9 @@
                                                 <h:outputText value="Numero de requisicion: " />
                                                 <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/><br/>
                                                 <h:outputText value="fecha de requisicion: " /><br/>
-                                                <h:outputText value="#{controladorRequisicion.instance.fechaRequisicion}" styleClass="outputLabel"/>
-
+                                                <h:outputText value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}" styleClass="outputLabel"/>
+                                                <h:outputText value="vehiculo placa: " />
+                                                <h:outputText value="#{controladorRequisicion.instance.vehiculo.placa}" styleClass="outputLabel"/>
                                             </h:panelGrid>
 
                                             <h:panelGrid>
@@ -1044,20 +1046,26 @@
                                 </div>
 
                                 <div class="admin-actions " align="center"> 
-                                    <p:commandButton id="save1" value="Guardar" icon="ui-icon-disk"  styleClass="btn  btn-success"  process="@this" ajax="false" >
+                                    <p:commandButton id="save1" value="Guardar" update="@form :form:listai" icon="ui-icon-disk" 
+                                                     styleClass="btn  btn-success" process="@this "
+                                                     actionListener="#{controladorRequisicion.limpiar()}">
                                         
-                                        <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
-                                         <f:setPropertyActionListener value="#{controladorRequisicion.instance}" target="#{controladorSolicitudReparacionMantenimiento.nuevaRequisicion}" />
+                                        <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"
+                                                                      />
+                                                                    
+                                       
+                             
                                     </p:commandButton>
                                     
                                     #{' '} 
+                                           
                                     <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/solicitud/crear" styleClass="btn  btn-success"/>
                                 </div>
 
                             </p:tab>
                         </p:wizard>
 
-                    </p:panel>
+                    
                 </div>
             </div>
 
