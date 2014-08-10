@@ -72,9 +72,11 @@
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
                                         <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
-                                        <p:ajax event="change" update=":form:numRequisicion" partialSubmit="true"/>
+                                        <p:ajax event="change" update=":form:numRequisicion :form:save111" partialSubmit="true"/>
                                     </p:selectOneMenu> <br></br>
-                                    <span class="help-inline text-muted">Elija el tipo de requisición<ocp:message forId="tipoRequisicion" /></span><br></br><br></br> 
+                                    <span class="help-inline text-muted">Elija el tipo de requisición
+                                        <ocp:message forId="tipoRequisicion" />
+                                    </span><br></br><br></br> 
 
 
                                     <h:outputLabel value="Requerido por:"/> <br></br>
@@ -579,7 +581,7 @@
 
                         </p:tab>
 
-                        <p:tab id="solicitud" title="Asignar Solicitud">
+                        <p:tab id="solicitud" title="Asignar Solicitud"  rendered="#{controladorRequisicion.instance.vehiculo ne null}">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de Solicitudes de Reparación y Mantenimiento</center></div>
                                 <p:panel id="listaSol">
@@ -597,10 +599,6 @@
 
                                                                     <p:autoComplete styleClass="xLarge" id="acSimples" value="#{controladorRequisicion.palabrabs}"   
                                                                                     completeMethod="#{controladorRequisicion.autocompletars}"/> 
-
-
-
-
 
 
                                                                     <p:commandButton value="Buscar" update=":form:basicDT12" action="#{controladorRequisicion.buscars()}" styleClass="btn btn-success" >
@@ -622,7 +620,8 @@
                                     </div>
 
                                     <p:commandButton id="save111" value="Crear solicitud" icon="ui-icon-disk" 
-                                                     styleClass="btn  btn-success" update="@form" process="@this">
+                                                     styleClass="btn  btn-success" update="@form" process="@this"
+                                                    >
 
                                         <f:setPropertyActionListener value="solicitud" target="#{controladorRequisicion.vista}" />
                                         <f:setPropertyActionListener value="#{controladorRequisicion.instance.vehiculo}" 
