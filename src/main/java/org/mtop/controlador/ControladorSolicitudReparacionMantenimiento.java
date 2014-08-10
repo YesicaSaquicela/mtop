@@ -167,6 +167,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setIdPersona(long idPersona) {
         this.idPersona = idPersona;
+        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
+        getInstance().setPsolicita(psolicita);
     }
 
     public String getPalabrab() {
@@ -593,6 +595,35 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
     }
 
+    public String onFlowProcess1(FlowEvent event) {
+
+        System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
+        System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
+
+        if (skip) {
+            skip = false;   //reset in case user goes back  
+
+            return "confirm";
+        } else {
+            System.out.println("pasoooo");
+            if (event.getNewStep().equals("sol") && event.getOldStep().equals("items1")) {
+                return event.getNewStep();
+            } else {
+                if (event.getOldStep().equals("items1") && this.listaItemsSolicitud.isEmpty()) {
+                    System.out.println("estas vaciaaaaaa");
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
+
+                    return event.getOldStep();
+                } else {
+
+                    return event.getNewStep();
+                }
+
+            }
+
+        }
+    }
+
     public Long getIdVehiculo() {
         return idVehiculo;
     }
@@ -884,8 +915,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
-        getInstance().setPsolicita(psolicita);
+
         System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
        
 
@@ -984,6 +1014,75 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
     }
 
+    @TransactionAttribute
+    public void guardarSol() {
+
+        Date now = Calendar.getInstance().getTime();
+        getInstance().setLastUpdate(now);
+
+        System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
+        //  getInstance().setVehiculo(vehiculo);
+
+        System.out.println("termino de gusradar" + getInstance().getListaItemSR());
+        try {
+            List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
+            for (ItemSolicitudReparacion apm : getInstance().getListaItemSR()) {
+
+                System.out.println("entrofor" + apm);
+
+                apm.setSolicitudReparacion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+                //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+
+                System.out.println("al crear");
+                BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+
+                apm.setCreatedOn(now);
+                apm.setLastUpdate(now);
+                apm.setActivationTime(now);
+                apm.setType(_type);
+                apm.buildAttributes(bussinesEntityService);  //
+
+                System.out.println("creo instance" + apm);
+
+                lir.add(apm);
+
+            }
+            getInstance().setListaItemSR(lir);
+            getInstance().setEstado(true);
+
+            create(getInstance());
+            System.out.println("ENtro a crear items>>>>>");
+
+            System.out.println("volvio a guardar soli");
+            System.out.println("lista items" + getInstance().getListaItemSR());
+            save(getInstance());
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getId() + " con éxito", " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("Error al crear solicitud");
+        }
+        System.out.println("antes de fija solicitud");
+
+        System.out.println("despues de fijar solicitud");
+
+        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
+
+        for (SolicitudReparacionMantenimiento soli : ls) {
+            System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
+            if (soli.isEstado() && soli.getRequisicionId() == null && soli.getVehiculo().getId().equals(getInstance().getVehiculo())) {
+                System.out.println("listatesssa" + listaSolicitud);
+                listaSolicitud.add(soli);
+
+            }
+
+        }
+        listaSolicitud.add(getInstance());
+
+    }
+
     public void guardarRequisicion(Requisicion nrequisicion) {
         nuevaRequisicion = nrequisicion;
         System.out.println("instancia" + getInstance().getId());
@@ -1006,7 +1105,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void guardarItem() {
         List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
-        for (ItemSolicitudReparacion apm : listaItemsSolicitud) {
+        for (ItemSolicitudReparacion apm : getInstance().getListaItemSR()) {
 
             System.out.println("entrofor" + apm);
             Date now = Calendar.getInstance().getTime();

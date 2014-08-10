@@ -49,6 +49,7 @@ import javax.faces.bean.ViewScoped;
 
 import javax.inject.Named;
 import org.mtop.modelo.ItemRequisicion;
+import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.Producto;
 import org.mtop.modelo.Producto_;
 import org.mtop.modelo.Requisicion_;
@@ -106,15 +107,60 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private SolicitudReparacionMantenimiento solRequisicion;
 
     private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
+    private List<SolicitudReparacionMantenimiento> listaAux;
 
-    public String getTipor() {
-        return tipor;
+    public List<SolicitudReparacionMantenimiento> getListaAux() {
+        return listaAux;
     }
 
-    public void setTipor(String tipor) {
-        System.out.println("fija tipo" + tipor);
-        this.tipor = tipor;
-        getInstance().setTipoRequisicion(tipor);
+    public void setListaAux(List<SolicitudReparacionMantenimiento> listaAux) {
+        this.listaAux = listaAux;
+        this.limpiar();
+    }
+
+    @TransactionAttribute
+    public void guardarSol(SolicitudReparacionMantenimiento solis) {
+        Date now = Calendar.getInstance().getTime();
+        List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
+        for (ItemSolicitudReparacion apm : solis.getListaItemSR()) {
+
+            System.out.println("entrofor" + apm);
+
+            apm.setSolicitudReparacion(solis);//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+            //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
+
+            System.out.println("al crear");
+//            BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
+//
+//            apm.setCreatedOn(now);
+//            apm.setLastUpdate(now);
+//            apm.setActivationTime(now);
+//            apm.setType(_type);
+//            apm.buildAttributes(bussinesEntityService);  //
+//           
+            System.out.println("creo instance" + apm);
+            
+            lir.add(apm);
+           servgen.actualizar(apm);
+
+        }
+        
+        solis.setListaItemSR(lir);//fija la lista de actividades a la solicitud
+        System.out.println("termino de gusradar" + solis.getListaItemSR());
+
+        BussinesEntityType _type1 = bussinesEntityService.findBussinesEntityTypeByName(SolicitudReparacionMantenimiento.class.getName());
+        System.out.println("entra crear" + solis);
+        solis.setCreatedOn(now);
+        solis.setLastUpdate(now);
+        solis.setActivationTime(now);
+        solis.setType(_type1);
+        solis.buildAttributes(bussinesEntityService);  //
+        System.out.println("pasa a crearrr");
+        create(solis);
+        save(solis);
+        listaSolicitudes.add(solis);
+        System.out.println("despues a crearrr" + solis);
+
     }
 
     public ItemRequisicion getItemr() {
@@ -157,6 +203,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setSolicitudReparacionMantenimiento(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
         this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
         System.out.println("fijo " + solicitudReparacionMantenimiento);
+        limpiars();
 
     }
 
@@ -508,10 +555,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setListaItemsRequisicion(List<ItemRequisicion> listaItemsRequisicion) {
+        System.out.println("setlista ITEMSSSSS"+listaItemsRequisicion);
         this.listaItemsRequisicion = listaItemsRequisicion;
     }
 
-    public SolicitudReparacionMantenimiento getSolicitudrep() {
+    public SolicitudReparacionMantenimiento getSolicitudrep() { 
+        System.out.println("getlista ITEMSSSSS"+listaItemsRequisicion);
+        
         return solicitudrep;
     }
 
@@ -522,11 +572,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public List<SolicitudReparacionMantenimiento> getListaSolicitudes() {
-
+        System.out.println("getlista solicitude"+listaSolicitudes);
+                
         return listaSolicitudes;
     }
 
     public void setListaSolicitudes(List<SolicitudReparacionMantenimiento> listaSolicitudes) {
+        System.out.println("setlista solicitude"+listaSolicitudes);
         this.listaSolicitudes = listaSolicitudes;
     }
 
@@ -742,12 +794,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void limpiars() {
         palabrab = "";
-        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+
+        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
+
         listaSolicitudes.clear();
         System.out.println("lppp" + ls);
 
         for (SolicitudReparacionMantenimiento soli : ls) {
-            if (soli.isEstado()) {
+            System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
+            if (soli.isEstado() && soli.getRequisicionId() == null && soli.getVehiculo().getId().equals(getInstance().getVehiculo())) {
                 System.out.println("listatesssa" + listaSolicitudes);
                 listaSolicitudes.add(soli);
 
@@ -967,6 +1022,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("entro a guardar::::: item");
         String des = cir.getInstance().getDescription().trim();
         String uni = cir.getInstance().getUnidadMedida().trim();
+        System.out.println("cantidad "+cir.getInstance().getCantidad());
+        System.out.println("des "+des);
+        System.out.println("uni"+uni);
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, cantidad, descripción y unidad de medida"));
