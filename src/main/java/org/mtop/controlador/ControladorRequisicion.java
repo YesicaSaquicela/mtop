@@ -109,6 +109,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
     private List<SolicitudReparacionMantenimiento> listaAux;
 
+    public String getTipor() {
+        return tipor;
+    }
+
+    public void setTipor(String tipor) {
+        this.tipor = tipor;
+        getInstance().setTipoRequisicion(tipor);
+    }
+   
+    
+    
+
     public List<SolicitudReparacionMantenimiento> getListaAux() {
         return listaAux;
     }

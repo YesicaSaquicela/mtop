@@ -915,7 +915,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-
+        
         System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
        
 
@@ -1126,7 +1126,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                     create(citemsolicitud.getInstance());
                     System.out.println("paso de create>>>>>.");
                     apm.setLastUpdate(now);
-                    save(apm);
+//                    save(apm);
                     System.out.println("despues guardar");
 
                 }
