@@ -7,7 +7,7 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    
+
     <f:metadata>
         <f:viewParam name="tipo" value="#{controladorRequisicion.tipo}"/>
     </f:metadata>
@@ -78,7 +78,7 @@
                                 <h:link styleClass="btn btn-success" value="Crear" outcome="crear" type="button" >
                                     <f:param name="requisicionId" ></f:param>
                                     <f:param name="vista" value="requisicion"></f:param>
-                                   
+
                                 </h:link>
                                 <br/>
                             </div>
@@ -86,20 +86,21 @@
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
 
-
+                                        <br/>
                                         <tbody>
-
+                                           
 
                                             <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
+                                                
                                                 <div  class="panel panel-primary">
-
+                                                    
                                                     <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
-                                                        <br/>
+                                                      
                                                         <div class="admin-actions">
-
-                                                             <h:link id="Acct" value="Todas" title="Todos los tipo de requisiciones" 
-                                                                     styleClass="btn success" >  
-                                                                 <p:ajax update=":form:infoFM:listap"/>
+                                                            <br/><br/>
+                                                            <h:link id="Acct" value="Todas" title="Todos los tipo de requisiciones" 
+                                                                    styleClass="btn success" >  
+                                                                <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>
                                                             #{' '}
 
@@ -132,7 +133,7 @@
 
                                                             <p:column  headerText="Tipo de Requisición" >
 
-                                               
+
                                                                 <h:outputText value="#{r.tipoRequisicion}"></h:outputText>
 
                                                             </p:column>
@@ -159,7 +160,7 @@
                                                                           icon="ui-icon-pencil" title="Editar">  
                                                                     <f:param name="requisicionId" value="#{r.id}"></f:param>
                                                                     <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
-                                                                     <f:param name="vista" value="requisicion"></f:param>
+                                                                    <f:param name="vista" value="requisicion"></f:param>
                                                                 </p:button>
 
 
@@ -177,23 +178,23 @@
                                                         </p:dataTable>
                                                     </p:tab>
                                                     <p:tab id="ts1" title="Requisiciones aprobadas" closable="false"  titleStyleClass="clearfix" >
-                                                         <h:link id="Acct2" value="Todas" title="Todos los tipo de requisiciones" 
-                                                                    styleClass="btn success" > 
-                                                             <p:ajax update=":form:infoFM:listap"/>
-                                                            </h:link>
-                                                            #{' '}
+                                                        <h:link id="Acct2" value="Todas" title="Todos los tipo de requisiciones" 
+                                                                styleClass="btn success" > 
+                                                            <p:ajax update=":form:infoFM:listap"/>
+                                                        </h:link>
+                                                        #{' '}
 
-                                                            <h:link id="Acc2" value="Requisición de Reparación" title="Requisiciones de tipo Reparación" 
-                                                                     styleClass="btn success" >                                        
-                                                                <f:param name="#{controladorRequisicion.tipo}" value="repa"/>
-                                                                <p:ajax update=":form:infoFM:listap"/>
-                                                            </h:link>  
-                                                            #{' '}
-                                                            <h:link id="Acc12" value="Requisición de Bienes y Servicios" title="Requisiciones de tipo Requisición de Bienes y Servicios" 
-                                                                    styleClass="btn success" >                                        
-                                                                <f:param name="#{controladorRequisicion.tipo}" value="bien"/>
-                                                                <p:ajax update=":form:infoFM:listap"/>
-                                                            </h:link>    
+                                                        <h:link id="Acc2" value="Requisición de Reparación" title="Requisiciones de tipo Reparación" 
+                                                                styleClass="btn success" >                                        
+                                                            <f:param name="#{controladorRequisicion.tipo}" value="repa"/>
+                                                            <p:ajax update=":form:infoFM:listap"/>
+                                                        </h:link>  
+                                                        #{' '}
+                                                        <h:link id="Acc12" value="Requisición de Bienes y Servicios" title="Requisiciones de tipo Requisición de Bienes y Servicios" 
+                                                                styleClass="btn success" >                                        
+                                                            <f:param name="#{controladorRequisicion.tipo}" value="bien"/>
+                                                            <p:ajax update=":form:infoFM:listap"/>
+                                                        </h:link>    
                                                         <p:dataTable id="listap1" value="#{controladorRequisicion.listaRequisicionAprobada}" var="r"
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"

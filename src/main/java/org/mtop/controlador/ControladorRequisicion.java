@@ -806,6 +806,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void buscars() {
+        palabrabs = palabrabs.trim();
         if (palabrabs == null || palabrabs.equals("")) {
             palabrabs = "Ingrese algun valor a buscar";
         }
@@ -842,7 +843,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void limpiars() {
-        palabrab = "";
+        palabrabs = "";
 
         List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
 
@@ -1080,24 +1081,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("\n\n\n\n no entro guardarrrrr\n\n\n\n");
         } else {
             if (pro != null) {
-                
+
                 if (!pro.getCodigo().equals("")) {
                     System.out.println("lista prooo1111" + listaProductos);
-                    Producto p=new Producto();
-                    List<Producto> lp=new ArrayList<Producto>();
+                    Producto p = new Producto();
+                    List<Producto> lp = new ArrayList<Producto>();
                     for (Producto prod : listaProductos) {
-                        System.out.println("id"+prod.getId());
-                        System.out.println("2ide"+pro.getId());
-                        if(!prod.getId().equals(pro.getId())){
-                              System.out.println("a aniadir"+prod);
+                        System.out.println("id" + prod.getId());
+                        System.out.println("2ide" + pro.getId());
+                        if (!prod.getId().equals(pro.getId())) {
+                            System.out.println("a aniadir" + prod);
                             lp.add(prod);
-                            
+
                         }
                     }
-                    listaProductos=lp;
-                  
-                   
-                    System.out.println("proididididiid"+pro.getId());
+                    listaProductos = lp;
+
+                    System.out.println("proididididiid" + pro.getId());
                     System.out.println("lista remonvidaaa" + listaProductos);
                     pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
                     listaProductos.add(pro);
