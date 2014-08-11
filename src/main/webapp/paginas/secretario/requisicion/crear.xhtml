@@ -39,7 +39,7 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos Generales</center></div>
                                 <p:panel >
-                                    <p:messages/>
+                                  
 
                                     <p:outputLabel value="Número de Requisición"/>
                                     <p:inputText id="numRequisicion"  value="#{controladorRequisicion.numeroRequisicion}"
@@ -248,11 +248,15 @@
 
 
 
-                                                                    <p:commandButton value="Buscar" update=":form:basicDT10" action="#{controladorRequisicion.buscarv()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Buscar" update=":form:basicDT10" 
+                                                                                     action="#{controladorRequisicion.buscarv()}" 
+                                                                                     process="@form" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                     #{' '} #{' '} 
-                                                                    <p:commandButton value="Limpiar" update=":form:basicDT10 :form:acSimple" action="#{controladorRequisicion.limpiarv()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Limpiar" update=":form:basicDT10 :form:acSimple" 
+                                                                                     action="#{controladorRequisicion.limpiarv()}" 
+                                                                                     process="@form" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -293,7 +297,8 @@
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandLink update=":form:vehiculo :form:mensaje6 :form:vehiculo"  process="@this" value="Agregar" title="Seleccionar">
+                                                            <p:commandLink update=":form:vehiculo :form:mensaje6 :form:vehiculo"  
+                                                                           process="@this" value="Agregar" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.vehiculo}" />
                                                                 <f:setPropertyActionListener value="#{items.id}" target="#{controladorVehiculo.vehiculoId}" />
                                                             </p:commandLink>
@@ -403,7 +408,8 @@
                                                                 <center >
                                                                     <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    <p:autoComplete styleClass="xLarge" id="acSimple1" value="#{controladorRequisicion.palabrabp}"   
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimple1" 
+                                                                                    value="#{controladorRequisicion.palabrabp}"   
                                                                                     completeMethod="#{controladorRequisicion.autocompletarp}"/> 
 
 
@@ -411,11 +417,16 @@
 
 
 
-                                                                    rendered="#{controladorRequisicion.vista eq 'solicitud'}"                           <p:commandButton value="Buscar" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
+                                                                    rendered="#{controladorRequisicion.vista eq 'solicitud'}"                          
+                                                                    <p:commandButton value="Buscar" 
+                                                                                     update=":form:basicoDT3 :form:acSimple1" 
+                                                                                     process="@form" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
-                                                                    <p:commandButton value="Limpiar" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.limpiarp()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Limpiar" update=":form:basicoDT3 :form:acSimple1" 
+                                                                                     action="#{controladorRequisicion.limpiarp()}" styleClass="btn btn-success" 
+                                                                                     process="@form">
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -453,7 +464,8 @@
                                                             <h:outputText value="#{itemp.cantidad}" />
                                                         </p:column>
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandLink update=":form:productosel :form:cantidad :form:descrip" value="Agregar" title="Seleccionar" immediate="true" >
+                                                            <p:commandLink update=":form:productosel :form:cantidad :form:descrip" 
+                                                                           value="Agregar" title="Seleccionar" immediate="true" process="@form">
                                                                 <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
                                                             </p:commandLink>
                                                         </p:column>
@@ -528,8 +540,9 @@
                                     <span class="help-inline text-muted">Descripción del item <ocp:message forId="unidadMedida"/></span>
                                     <br></br>
                                     <div class="admin-actions">
-                                        <p:commandButton process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip" 
-                                                         styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  actionListener="#{controladorRequisicion.agregarItem()}">
+                                        <p:commandButton process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:basicoDT3" 
+                                                         styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
+                                                         actionListener="#{controladorRequisicion.agregarItem()}">
 
                                         </p:commandButton>
                                     </div><br/>
@@ -560,12 +573,14 @@
 
                                                             <p:commandButton  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:listai :form:productosel" 
                                                                               icon="ui-icon-pencil"
-                                                                              actionListener="#{controladorRequisicion.editarItem(item2)}" title="Editar">
+                                                                              actionListener="#{controladorRequisicion.editarItem(item2)}" title="Editar"
+                                                                              process="@form">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandButton>
                                                             <br/>
                                                             <p:commandButton  update=":form:listai "  icon="ui-icon-trash"
-                                                                              actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja">
+                                                                              actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
+                                                                              process="@form">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandButton>
 
@@ -601,11 +616,15 @@
                                                                                     completeMethod="#{controladorRequisicion.autocompletars}"/> 
 
 
-                                                                    <p:commandButton value="Buscar" update=":form:basicDT12" action="#{controladorRequisicion.buscars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Buscar" process="@form"
+                                                                                     update=":form:basicDT12" 
+                                                                                     action="#{controladorRequisicion.buscars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                     #{' '} #{' '} 
-                                                                    <p:commandButton value="Limpiar" update=":form:basicDT12 :form:acSimples" action="#{controladorRequisicion.limpiars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton value="Limpiar" update=":form:basicDT12 :form:acSimples" process="@form"
+                                                                                     action="#{controladorRequisicion.limpiars()}" 
+                                                                                     styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
