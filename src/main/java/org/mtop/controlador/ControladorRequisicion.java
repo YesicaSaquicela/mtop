@@ -115,7 +115,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setTipor(String tipor) {
         this.tipor = tipor;
-       
+
     }
      
     
@@ -493,9 +493,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void buscarp() {
-        
-        palabrabp=palabrabp.trim();
-        System.out.println("Entroa a buscar al producto antes>>>>>>>>>"+palabrabp);
+        System.out.println("Entroa a buscar al producto>>>>>>>>>" + palabrabp);
+        palabrabp = palabrabp.trim();
         if (palabrabp == null || palabrabp.equals("")) {
             palabrabp = "Ingrese algun valor a buscar";
         }
@@ -526,7 +525,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (productol.isEstado() && !productol.getCantidad().equals(0)) {
                     System.out.println("entroa a comparar>>>");
                     listaProductos = lp;
-                    System.out.println("devuelve lista>>>>"+listaProductos);
+                    System.out.println("devuelve lista>>>>" + listaProductos);
                 }
             }
 
@@ -586,19 +585,22 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public List<ItemRequisicion> getListaItemsRequisicion() {
         System.out.println("getInstance().getTipoAdquisicion()" + getInstance().getTipoAdquisicion());
-        if (getInstance().getTipoAdquisicion().equals("bodega")) {
-            System.out.println("lista de items requ1>>>>" + listaItemsRequisicion);
-            List<ItemRequisicion> lirq = listaItemsRequisicion;
-            System.out.println("lista de items lirq>>>>" + lirq);
-            for (ItemRequisicion itemRequisicion : lirq) {
-                System.out.println("entro for con producto" + itemRequisicion.getProducto());
-                if (itemRequisicion.getProducto() == null) {
-                    listaItemsRequisicion.clear();
-                    break;
+        if (getInstance().getTipoAdquisicion() != null) {
+            if (getInstance().getTipoAdquisicion().equals("bodega")) {
+                System.out.println("lista de items requ1>>>>" + listaItemsRequisicion);
+                List<ItemRequisicion> lirq = listaItemsRequisicion;
+                System.out.println("lista de items lirq>>>>" + lirq);
+                for (ItemRequisicion itemRequisicion : lirq) {
+                    System.out.println("entro for con producto" + itemRequisicion.getProducto());
+                    if (itemRequisicion.getProducto() == null) {
+                        listaItemsRequisicion.clear();
+                        break;
+                    }
                 }
-            }
 
+            }
         }
+
         System.out.println("lista de items" + listaItemsRequisicion);
         return listaItemsRequisicion;
     }
@@ -806,6 +808,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void buscars() {
+        palabrabs = palabrabs.trim();
         if (palabrabs == null || palabrabs.equals("")) {
             palabrabs = "Ingrese algun valor a buscar";
         }
@@ -842,7 +845,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void limpiars() {
-        palabrab = "";
+        palabrabs = "";
 
         List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
 
@@ -1080,11 +1083,27 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("\n\n\n\n no entro guardarrrrr\n\n\n\n");
         } else {
             if (pro != null) {
-                if (!pro.getCodigo().equals("")) {
 
-                    int i = listaProductos.lastIndexOf(pro);
+                if (!pro.getCodigo().equals("")) {
+                    System.out.println("lista prooo1111" + listaProductos);
+                    Producto p = new Producto();
+                    List<Producto> lp = new ArrayList<Producto>();
+                    for (Producto prod : listaProductos) {
+                        System.out.println("id" + prod.getId());
+                        System.out.println("2ide" + pro.getId());
+                        if (!prod.getId().equals(pro.getId())) {
+                            System.out.println("a aniadir" + prod);
+                            lp.add(prod);
+
+                        }
+                    }
+                    listaProductos = lp;
+
+                    System.out.println("proididididiid" + pro.getId());
+                    System.out.println("lista remonvidaaa" + listaProductos);
                     pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
-                    listaProductos.set(i, pro);
+                    listaProductos.add(pro);
+                    System.out.println("lista prooo" + listaProductos);
                 }
                 System.out.println("\n\nanadioooo\n\n\n" + cir.getInstance());
             }
