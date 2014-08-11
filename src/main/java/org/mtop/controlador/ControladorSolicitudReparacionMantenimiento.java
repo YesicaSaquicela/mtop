@@ -235,15 +235,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         } else {
             listaRequisiciones.clear();
             Requisicion re = new Requisicion();
+            System.out.println("lista que esta recorriendo>>>>>"+lrq);
             for (Long r : lrq) {
                 System.out.println("Entro al for>>>>>>");
                 re = findById(Requisicion.class, r);
                 System.out.println("estado>>>>" + re.isEstado());
                 System.out.println("vehiculo>>>>>>>>>" + getInstance().getVehiculo().getId());
                 System.out.println("vehiculo>>>>>>>>>" + re.getVehiculo().getId());
-                if (re.isEstado() && re.getVehiculo().getId() == getInstance().getVehiculo().getId()) {
+                System.out.println("numero de requisicion>>>>"+re.getNumRequisicion());
+                if (re.getSolicitudReparacionId()==null&& re.isEstado() && re.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
+                    System.out.println("entro a comparacion>>>>>");
                     listaRequisiciones.add(re);
                     System.out.println("\n\nlista final>>>>" + listaRequisiciones);
+                                       
                 }
             }
 
@@ -259,7 +263,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("lppp" + lr);
 
         for (Requisicion r : lr) {
-            if (r.isEstado() && r.getSolicitudReparacionId() == null) {
+            if (r.isEstado() && r.getSolicitudReparacionId() == null&& r.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
                 System.out.println("listatesssa" + listaRequisiciones);
                 listaRequisiciones.add(r);
 
@@ -276,7 +280,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), query);
 
         for (Requisicion requisicion : lr) {
-            if (requisicion.isEstado() && !ced.contains(requisicion.getNumRequisicion())) {
+            if (requisicion.getVehiculo().getId().equals(getInstance().getVehiculo().getId())&&requisicion.isEstado() && !ced.contains(requisicion.getNumRequisicion()) && requisicion.getSolicitudReparacionId()==null) {
                 System.out.println("\n\necontro uno " + requisicion.getNumRequisicion());
                 ced.add(requisicion.getNumRequisicion());
             }
@@ -285,7 +289,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), query);
         for (Requisicion requisicion : lef) {
-            if (requisicion.isEstado() && !ced.contains(requisicion.getFechaRequisicion().toString())
+            if (requisicion.getVehiculo().getId().equals(getInstance().getVehiculo().getId())&&requisicion.isEstado() && !ced.contains(requisicion.getFechaRequisicion().toString())
                     && requisicion.getSolicitudReparacionId() == null) {
                 ced.add(requisicion.getFechaRequisicion().toString());
             }
@@ -457,11 +461,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
         }
 
-//        for (Vehiculo vehiculo : lk) {
-//            if (!lv.contains(vehiculo)) {
-//                lv.add(vehiculo);
-//            }
-//        }
+//
         if (lv.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabv.equals("Ingrese algun valor a buscar")) {

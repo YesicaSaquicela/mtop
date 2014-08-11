@@ -32,7 +32,7 @@
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
            
-                        <p:growl  id="growl" sticky="true" showDetail="true"/>
+                        
 
                         <p:wizard rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente">
                             <p:tab id="sol"  title="Solicitud">
@@ -183,7 +183,7 @@
 
                                 </p:tabView><br></br>
                             </p:tab>
-                            <p:tab id="address" title="Asignar Vehiculo">
+                            <p:tab id="address" title="Asignar Vehículo">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><center>Lista de Vehículo</center></div>
                                     <p:panel>
@@ -206,13 +206,14 @@
 
 
 
-
-
-                                                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:basicDT" action="#{controladorSolicitudReparacionMantenimiento.buscarv()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton process="@form" value="Buscar" 
+                                                                                         icon="ui-icon-search" update=":form:basicDT" 
+                                                                                         action="#{controladorSolicitudReparacionMantenimiento.buscarv()}" 
+                                                                                         styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                         #{' '} #{' '} 
-                                                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:basicDT :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiarv()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton process="@this" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:basicDT :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiarv()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                     </center>
@@ -238,7 +239,7 @@
                                                             <p:column headerText="Id" sortBy="#{v.id}">
                                                                 <h:outputText value="#{v.id}" />
                                                             </p:column>
-                                                            <p:column headerText="Numero de Registro" sortBy="#{v.numRegistro}">
+                                                            <p:column headerText="Número de Registro" sortBy="#{v.numRegistro}">
                                                                 <h:outputText value="#{v.numRegistro}" />
                                                             </p:column>
                                                             <p:column headerText="Placa" sortBy="#{v.placa}">
@@ -427,11 +428,11 @@
 
 
 
-                                                                        <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:basicDT2" action="#{controladorSolicitudReparacionMantenimiento.buscarr()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton process="@form" icon="ui-icon-search" value="Buscar" update=":form:basicDT2" action="#{controladorSolicitudReparacionMantenimiento.buscarr()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                         #{' '} #{' '} 
-                                                                        <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:basicDT2 :form:acSimples" action="#{controladorSolicitudReparacionMantenimiento.limpiarr()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton process="@this" value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:basicDT2 :form:acSimples" action="#{controladorSolicitudReparacionMantenimiento.limpiarr()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
                                                                     </center>
@@ -539,7 +540,7 @@
                             </p:tab>
                         
 
-                            <p:tab id="confirm" title="Confirmacion">
+                            <p:tab id="confirm" title="Confirmación">
 
 
                                 <div class="panel panel-primary">
@@ -547,9 +548,9 @@
                                     <p:panel>
                                         <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
                                             <h:panelGrid >
-                                                <h:outputText value="Numero de solicitud: " />
+                                                <h:outputText value="Número de solicitud: " />
                                                 <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}" styleClass="outputLabel"/><br/>
-                                                <h:outputText value="fecha de solicitud: " />
+                                                <h:outputText value="Fecha de solicitud: " />
                                                 <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}" styleClass="outputLabel"/><br/>
                                                 <h:outputText value="Persona que solicita: " />
                                                 <h:outputText value="#{controladorSolicitudReparacionMantenimiento.idPersona}" styleClass="outputLabel"/><br/>
@@ -561,7 +562,7 @@
 
                                                 <h:outputText value="Número de Requisición: " />
                                                 <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" styleClass="outputLabel"/><br/>
-                                                <h:outputText value="Placa del vehiculo: " />
+                                                <h:outputText value="Placa del vehículo: " />
                                                 <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo.placa}" styleClass="outputLabel"/><br/>
                                             </h:panelGrid>
                                             <h:panelGrid>
@@ -596,7 +597,7 @@
                                 <div class="admin-actions " align="center"> 
                                     <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" 
                                                      action="#{controladorSolicitudReparacionMantenimiento.guardar()}" 
-                                                     update="growl" process="@this"/>
+                                                     process="@this"/>
                                     #{' '} 
                                     <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/solicitud/lista" styleClass="btn  btn-success"/>
                                 </div>
@@ -608,13 +609,28 @@
 
 
 
-
-
-
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
 
+
+
+                    <div class="admin-actions " align="right">
+                         <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}" process="@form" ajax="true" icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                              styleClass="btn  btn-success">
+                                    <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"/>
+                                     <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.instance}"/>
+                                    </p:commandButton>
+                    </div>
+                    
+                    
+             
 
 
 
@@ -828,7 +844,7 @@
 
 
 
-                                                                        <p:commandButton process="@this" value="Buscar" icon="ui-icon-search" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
+                                                                        <p:commandButton process="@form" value="Buscar" icon="ui-icon-search" update=":form:basicoDT3 :form:acSimple1" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
 
                                                                         </p:commandButton>
 
@@ -1001,7 +1017,7 @@
                             </p:tab>
                             
 
-                            <p:tab id="confirm1" title="Confirmacion">
+                            <p:tab id="confirm1" title="Confirmación">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><center>Confirmación</center></div>
                                     <p:panel >
@@ -1059,13 +1075,8 @@
                                        
                              
                                     </p:commandButton>
+                               
                                     
-                                    #{' '} 
-                                           
-                                    <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
-                                              styleClass="btn  btn-success">
-                                    <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"/>
-                                    </p:commandButton>
                                 </div>
 
                             </p:tab>
