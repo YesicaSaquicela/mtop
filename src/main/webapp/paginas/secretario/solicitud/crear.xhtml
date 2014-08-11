@@ -622,8 +622,9 @@
 
 
                     <div class="admin-actions " align="right">
-                         <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}" process="@form" ajax="true" icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
-                                              styleClass="btn  btn-success">
+                         <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion'}" 
+                                          update="@form" process="@this" icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                          styleClass="btn  btn-success">
                                     <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"/>
                                      <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.instance}"/>
                                     </p:commandButton>
