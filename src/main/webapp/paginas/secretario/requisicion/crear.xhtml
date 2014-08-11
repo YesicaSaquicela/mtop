@@ -33,8 +33,9 @@
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <div align="right">
 
-                        <p:button rendered="#{controladorRequisicion.vista eq 'requisicion'}" icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
-                                  rendered="#{true}" outcome="/paginas/secretario/requisicion/lista" 
+                        <p:button rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
+                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                   outcome="/paginas/secretario/requisicion/lista" 
                                   styleClass="btn  btn-success"/>
                     </div>
 
@@ -818,8 +819,8 @@
 
 
                         <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud'}"
-                                         id="regresar1" value="Regresar" icon="ui-icon-disk" 
-                                         styleClass="btn  btn-success"  process="@form" 
+                                         id="regresar1" value="Regresar" icon="ui-icon-arrowreturnthick-1-w" 
+                                         styleClass="btn  btn-success"  process="@this" update="@form"
                                          >
                             <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}"/>
                             <f:setPropertyActionListener value="#{null}" 
