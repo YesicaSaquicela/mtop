@@ -117,8 +117,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.tipor = tipor;
        
     }
-   
-    
+     
     
 
     public List<SolicitudReparacionMantenimiento> getListaAux() {
@@ -494,11 +493,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void buscarp() {
-        palabrabp.trim();
+        
+        palabrabp=palabrabp.trim();
+        System.out.println("Entroa a buscar al producto antes>>>>>>>>>"+palabrabp);
         if (palabrabp == null || palabrabp.equals("")) {
             palabrabp = "Ingrese algun valor a buscar";
         }
-        System.out.println("Entroa a buscar al producto>>>>>>>>>"+palabrabp);
+        System.out.println("Entroa a buscar al producto despues>>>>>>>>>"+palabrabp);
         //buscando por coincidencia descripciion
         List<Producto> lp = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), PersistentObject_.description.getName(), palabrabp);
         //buscando por codigo
@@ -520,7 +521,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         } else {
 
-            for (Producto productol : lc) {
+            for (Producto productol : lp) {
                 System.out.println("entroa al for lista productos");
                 if (productol.isEstado() && !productol.getCantidad().equals(0)) {
                     System.out.println("entroa a comparar>>>");
