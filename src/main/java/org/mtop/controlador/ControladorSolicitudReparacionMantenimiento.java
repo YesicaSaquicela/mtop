@@ -606,8 +606,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public String onFlowProcess1(FlowEvent event) {
 
-        System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
-        System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
+        
+        System.out.println("evento>>>>>" + event);
 
         if (skip) {
             skip = false;   //reset in case user goes back  

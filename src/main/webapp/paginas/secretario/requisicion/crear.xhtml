@@ -821,7 +821,9 @@
                         <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud'}"
                                          id="regresar1" value="Regresar" icon="ui-icon-arrowreturnthick-1-w" 
                                          styleClass="btn  btn-success"  process="@this" update="@form"
+                                         actionListener="#{controladorSolicitudReparacionMantenimiento.init()}"
                                          >
+                            
                             <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}"/>
                             <f:setPropertyActionListener value="#{null}" 
                                                          target="#{controladorSolicitudReparacionMantenimiento.instance}"/>
@@ -832,7 +834,7 @@
 
 
                     <p:wizard  rendered="#{controladorRequisicion.vista eq 'solicitud'}" id="p2" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess1}" backLabel="Atrás" nextLabel="Siguiente">
-                        <p:tab id="sol"  title="Solicitud">
+                        <p:tab  id="sol"  title="Solicitud">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos Generales</center></div>
                                 <p:panel >
