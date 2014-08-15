@@ -1538,6 +1538,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         idPartidaC=0l;
         idPersonal=0l;
         getInstance().setTipoAdquisicion("");
+        getInstance().setObservaciones("");
         
     }
     
@@ -1702,7 +1703,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 create(getInstance());
                 save(getInstance());
                 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion  " + getInstance().getNumRequisicion()+ "  con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 
             } catch (Exception e) {
@@ -1717,10 +1718,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             List<Requisicion> lr = findAll(Requisicion.class);
             System.out.println("antes del for>>>>>>>");
             for (Requisicion req : lr) {
-                System.out.println("num sel la soli en lipiar " + req.getNumRequisicion());
-                System.out.println("estado sel la soli en lipiar " + req.isEstado());
-                System.out.println("req sel la soli en lipiar " + req.getNumRequisicion());
+        
                 if (req.isEstado() && req.getSolicitudReparacionId() == null && req.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
+                    System.out.println("entro a comparar>>>>>");
                     System.out.println("listatesssa" + listaRequisicion);
                     listaRequisicion.add(req);
                     
@@ -1729,8 +1729,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
             listaRequisicion.add(getInstance());
             System.out.println("lista de requisiciones>>>>>" + listaRequisicion);
-            listaItemsRequisicion = null;
-            init();
+                 idPartidaC=0l;
+        idPersonal=0l;
+        getInstance().setTipoAdquisicion("");
+        getInstance().setObservaciones("");
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
             FacesContext.getCurrentInstance().addMessage("", msg);

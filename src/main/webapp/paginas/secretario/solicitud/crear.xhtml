@@ -965,7 +965,7 @@
                                 <br></br>
                                 <div class="admin-actions">
 
-                                    <p:commandLink  update=":form:listai :form:basicoDT3 :form:cantidad :form:unidadMedida :form:descrip :form:productosel"  
+                                    <p:commandLink  update=":form:listai :form:basicoDT3 :form:cantidad :form:unidadMedida :form:descrip :form:productosel :form:save2 :form:save1  :form:pp2"  
                                                     process="@form" immediate="false" value="Crear Item" styleClass="btn  btn-success"
                                                     >
                                         <f:setPropertyActionListener value="#{controladorRequisicion.cir.instance}" target="#{controladorRequisicion.itemr}" />
@@ -1022,24 +1022,44 @@
                             </p:panel>
 
                         </div>
+   <p:panel id="pp2">
 
+                                <div class="admin-actions " align="center"> 
+                                  
+                                    <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() eq 0}" id="save1" value="Guardar" 
+                                                     update="@form :form:basicDT2" 
+                                                     process="@form" icon="ui-icon-disk" 
+                                                     styleClass="btn  btn-success" 
+                                                     actionListener="#{controladorRequisicion.guardarRequisicion()}"
+                                                     
+                                                     >
+
+
+                                    </p:commandButton>
+
+                                    <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() ne 0}" id="save2" value="Guardar" 
+                                                     update="@form :form:basicDT2" 
+                                                     process="@form" icon="ui-icon-disk" 
+                                                     styleClass="btn  btn-success" 
+                                                     actionListener="#{controladorRequisicion.guardarRequisicion()}"
+                                                     ajax="false" immediate="false"
+                                                     >
+
+                                        <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"
+                                                         />
+                                        <f:setPropertyActionListener value="#{controladorRequisicion.listaRequisicion}" target="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"/>    
+                                    </p:commandButton>
+
+
+
+
+                                </div>
+                            </p:panel>
                     </p:panel>
 
+                 
 
-
-                    <div class="admin-actions " align="center"> 
-                        <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2'}" id="save1" value="Guardar" update="@form" icon="ui-icon-disk" 
-                                         styleClass="btn  btn-success" process="@this "
-                                         actionListener="#{controladorRequisicion.guardarRequisicion()}">
-
-                            <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"
-                                                         />
-                            <f:setPropertyActionListener value="#{controladorRequisicion.listaRequisicion}" target="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"/>                  
-
-
-                   </p:commandButton>
-
-                    </div>
+                 
                 </div>
 </div>
         </h:form>

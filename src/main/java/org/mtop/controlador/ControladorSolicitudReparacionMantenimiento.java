@@ -810,7 +810,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
             System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
-            bandera=true;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
