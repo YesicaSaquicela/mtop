@@ -90,16 +90,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private ItemSolicitudReparacion itemsr;
     private List<ItemSolicitudReparacion> itemsEliminar;
     private String wiz = "";
-    private boolean bandera = false;
-
-    public boolean isBandera() {
-        return bandera;
-
-    }
-
-    public void setBandera(boolean bandera) {
-        this.bandera = bandera;
-    }
 
     public String getWiz() {
         return wiz;
@@ -584,42 +574,48 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("Entro getOld" + event.getOldStep());
         System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
         System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
-
-        if (skip) {
-            skip = false;   //reset in case user goes back  
-
-            return "confirm";
+        if (wiz.equals("sol")) {
+            wiz="";
+            System.out.println("retornando sol");
+            return "sol";
         } else {
-            System.out.println("pasoooo");
-            if (getInstance().getId() != null) {
-                this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
-            }
-            if (event.getNewStep().equals("sol") && event.getOldStep().equals("address")) {
-                return event.getNewStep();
+            System.out.println("otro retorna");
+            if (skip) {
+                skip = false;   //reset in case user goes back  
+
+                return "confirm";
             } else {
-                if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
+                System.out.println("pasoooo");
+                if (getInstance().getId() != null) {
+                    this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
+                }
+                if (event.getNewStep().equals("sol") && event.getOldStep().equals("address")) {
                     return event.getNewStep();
                 } else {
-                    if (event.getOldStep().equals("address") && getInstance().getVehiculo() == null) {
-                        System.out.println("entro al mensaje vehiculo");
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
-
-                        return event.getOldStep();
+                    if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
+                        return event.getNewStep();
                     } else {
-
-                        if (event.getOldStep().equals("items") && this.listaItemsSolicitud.isEmpty()) {
-                            System.out.println("estas vaciaaaaaa");
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
+                        if (event.getOldStep().equals("address") && getInstance().getVehiculo() == null) {
+                            System.out.println("entro al mensaje vehiculo");
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
 
                             return event.getOldStep();
                         } else {
 
-                            return event.getNewStep();
+                            if (event.getOldStep().equals("items") && this.listaItemsSolicitud.isEmpty()) {
+                                System.out.println("estas vaciaaaaaa");
+                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
+
+                                return event.getOldStep();
+                            } else {
+
+                                return event.getNewStep();
+                            }
                         }
                     }
                 }
-            }
 
+            }
         }
 
     }
@@ -814,7 +810,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
             System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
-            bandera = true;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
@@ -921,6 +916,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public Class<SolicitudReparacionMantenimiento> getEntityClass() {
         return SolicitudReparacionMantenimiento.class;
     }
+
 
     @TransactionAttribute
     public String guardar() {
