@@ -379,6 +379,21 @@
                                                                 </div>
                                                             </p:panel>
                                                         </div>
+                                                        <br></br>
+                                                        <div align="right" class="admin-actions">
+
+                                                            <p:commandButton value="Quitar" update="@form" 
+
+                                                                             process="@this" styleClass="btn btn-success" 
+                                                                             actionListener="#{controladorVehiculo.fijarNullVehiculo()}">
+
+                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.vehiculo}"  />
+                                                                
+                                                            </p:commandButton>
+
+                                                        </div><br/>
+
+
 
                                                     </p:panel>
                                                     <br/>
@@ -733,7 +748,19 @@
                                                                 </div>
                                                             </p:panel>
                                                         </div>
+                                                        <br></br>
+                                                        <div align="right" class="admin-actions">
 
+                                                            <p:commandButton value="Quitar" update="@form" 
+
+                                                                             process="@this" styleClass="btn btn-success" 
+                                                                             >
+
+                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.solicitudrep}"  />
+                                                                
+                                                            </p:commandButton>
+
+                                                        </div><br/>
                                                     </p:panel>
                                                     <br/>
 
@@ -1082,41 +1109,41 @@
 
 
                             </p:panel>
-                            
+
                         </div>
                         <p:panel id="pp2">
 
-                                <div class="admin-actions " align="center"> 
-                                  
-                                    <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" id="save1" value="Guardar" 
-                                                     update="@form :form:basicDT12" 
-                                                     process="@form" icon="ui-icon-disk" 
-                                                     styleClass="btn  btn-success" 
-                                                     actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
-                                                     
-                                                     >
+                            <div class="admin-actions " align="center"> 
+
+                                <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" id="save1" value="Guardar" 
+                                                 update="@form :form:basicDT12" 
+                                                 process="@form" icon="ui-icon-disk" 
+                                                 styleClass="btn  btn-success" 
+                                                 actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
+
+                                                 >
 
 
-                                    </p:commandButton>
+                                </p:commandButton>
 
-                                    <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() ne 0}" id="save134" value="Guardar" 
-                                                     update="@form :form:basicDT12" 
-                                                     process="@form" icon="ui-icon-disk" 
-                                                     styleClass="btn  btn-success" 
-                                                     actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
-                                                     ajax="false" immediate="false"
-                                                     >
+                                <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() ne 0}" id="save134" value="Guardar" 
+                                                 update="@form :form:basicDT12" 
+                                                 process="@form" icon="ui-icon-disk" 
+                                                 styleClass="btn  btn-success" 
+                                                 actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
+                                                 ajax="false" immediate="false"
+                                                 >
 
-                                        <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}" />
+                                    <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}" />
 
-                                        <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" target="#{controladorRequisicion.listaSolicitudes}"/>
-                                    </p:commandButton>
-
-
+                                    <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" target="#{controladorRequisicion.listaSolicitudes}"/>
+                                </p:commandButton>
 
 
-                                </div>
-                            </p:panel>
+
+
+                            </div>
+                        </p:panel>
 
 
                     </p:panel>

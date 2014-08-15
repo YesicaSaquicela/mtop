@@ -90,17 +90,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private ItemSolicitudReparacion itemsr;
     private List<ItemSolicitudReparacion> itemsEliminar;
     private String wiz = "";
-    private boolean bandera=false;
+    private boolean bandera = false;
 
     public boolean isBandera() {
         return bandera;
-        
+
     }
 
     public void setBandera(boolean bandera) {
         this.bandera = bandera;
     }
-    
 
     public String getWiz() {
         return wiz;
@@ -810,12 +809,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void agregarItemS() {
-        System.out.println("sada"+citemsolicitud.getInstance().getDescripcionElementoRevisar());
-        System.out.println("dsas"+citemsolicitud.getInstance().getDescripcionFalla());
-            
+        System.out.println("sada" + citemsolicitud.getInstance().getDescripcionElementoRevisar());
+        System.out.println("dsas" + citemsolicitud.getInstance().getDescripcionFalla());
+
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
             System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
-            bandera=true;
+            bandera = true;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
@@ -900,9 +899,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         System.out.println("valor de vista en inittttt" + vista);
         itemsEliminar = new ArrayList<ItemSolicitudReparacion>();
-        idPersona= 0l;
-        getInstance().setRecibidor("");
-        getInstance().setObservacion("");
+
     }
 
     @Override
@@ -1091,10 +1088,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
             listaSolicitud.clear();
             for (SolicitudReparacionMantenimiento soli : ls) {
-                System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
-                System.out.println("estado sel la soli en lipiar " + soli.isEstado());
-                System.out.println("req sel la soli en lipiar " + soli.getRequisicionId());
-                System.out.println("vehiculo sel la soli en lipiar " + soli.getVehiculo());
+//                System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
+//                System.out.println("estado sel la soli en lipiar " + soli.isEstado());
+//                System.out.println("req sel la soli en lipiar " + soli.getRequisicionId());
+//                System.out.println("vehiculo sel la soli en lipiar " + soli.getVehiculo());
                 if (soli.isEstado() && soli.getRequisicionId() == null && soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
                     System.out.println("listatesssa" + soli);
                     listaSolicitud.add(soli);
@@ -1104,7 +1101,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
             System.out.println("listaSolicitudes" + listaSolicitud);
-            init();
+            idPersona = 0l;
+            getInstance().setRecibidor("");
+            getInstance().setObservacion("");
         }
 
     }
