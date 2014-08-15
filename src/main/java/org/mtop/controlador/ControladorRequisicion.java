@@ -477,9 +477,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lv.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabv.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algún valor a buscar"));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:"," Ingrese algún valor a buscar"));
                 palabrabv = " ";
             } else {
+               
                 
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrab));
             }
@@ -514,7 +515,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 context.addMessage(null, new FacesMessage("INFORMACIÓN: Ingrese algún valor a buscar"));
                 palabrabp = " ";
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrabp));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " +  palabrabp));
             }
             
         } else {
@@ -690,7 +691,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lrq.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algún valor a buscar"));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:"," Ingrese algún valor a buscar"));
                 palabrab = " ";
             } else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrab));
@@ -824,7 +825,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (le.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabs.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "Ingrese algún valor a buscar"));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:","Ingrese algún valor a buscar"));
                 palabrabs = " ";
             } else {
                 
@@ -876,7 +877,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         for (SolicitudReparacionMantenimiento soli : le) {
             System.out.println("econtro uno " + soli.getNumSolicitud());
-            if (soli.isEstado() && soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId()) && soli.getRequisicionId() == null) {
+            if (soli.isEstado()&& soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId())&&soli.getRequisicionId()==null) {
                 ced.add(soli.getNumSolicitud());
             }
             
@@ -886,7 +887,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         for (SolicitudReparacionMantenimiento soli : lef) {
             if (soli.isEstado()
                     && soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId())
-                    && soli.getRequisicionId() == null) {
+                    && soli.getRequisicionId()==null) {
                 ced.add(soli.getFechaSolicitud().toString());
             }
             
@@ -1084,11 +1085,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         
         String des = cir.getInstance().getDescription().trim();
         String uni = cir.getInstance().getUnidadMedida().trim();
-        System.out.println("cantidad>>>>" + cir.getInstance().getCantidad());
-        System.out.println("descripcio>>>>n" + des);
-        System.out.println("unidad>>>>>>" + uni);
+       
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
-            
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "campos abligatorios, cantidad, descripción y unidad de medida"));
             System.out.println("\n\n\n\n no entro guardarrrrr\n\n\n\n");
         } else {
@@ -1106,7 +1105,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         }
                     }
                     listaProductos = lp;
-                    
+
                     pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
                     listaProductos.add(pro);
                 }
