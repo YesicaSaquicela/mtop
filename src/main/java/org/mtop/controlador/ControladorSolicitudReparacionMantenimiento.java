@@ -575,7 +575,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
         System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
         if (wiz.equals("sol")) {
-            wiz="";
+            wiz = "";
             System.out.println("retornando sol");
             return "sol";
         } else {
@@ -650,11 +650,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         // for para poder cambiar el id del vehiculo y las requisiciones
         if (requisicion != null) {
             if (requisicion.getVehiculo() != getInstance().getVehiculo() && getInstance().getRequisicionId() != null) {
-                System.out.println("entro a fijar>>>>>");
-                reqSolicitud = getInstance().getRequisicionId();
+                
                 getInstance().setRequisicionId(null);
                 requisicion = new Requisicion();
-                reqSolicitud.setSolicitudReparacionId(null);
+                
             }
         }
 
@@ -700,6 +699,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         vehiculo = getInstance().getVehiculo();
 
         requisicion = getInstance().getRequisicionId();
+        reqSolicitud=requisicion;
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>." + getInstance().getListaItemSR());
         if (getInstance().isPersistent()) {
@@ -917,7 +917,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return SolicitudReparacionMantenimiento.class;
     }
 
-
     @TransactionAttribute
     public String guardar() {
 
@@ -930,19 +929,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             if (getInstance().isPersistent()) {
                 System.out.println("ENtro a editar>>>>>");
                 guardarItem();
-                System.out.println("volvio a guardar soli");
-                if (reqSolicitud != null) {
-                    System.out.println("entro reSoli.....");
-                    System.out.println("diferente de null" + reqSolicitud.isPersistent());
-                    if (reqSolicitud.isPersistent()) {
-                        System.out.println("entro al if resolicitud");
-                        reqSolicitud.setLastUpdate(now);
-                        save(reqSolicitud);
-                        System.out.println("paso save reqsolicitud");
-
-                    }
-                }
-                System.out.println("antes del 2do if");
                 if (requisicion != null) {
                     System.out.println("entro requisicion.....");
                     System.out.println("entri fijar requisicion" + requisicion);
@@ -952,11 +938,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         requisicion.setLastUpdate(now);
 
                         try {
-//                            if (getInstance().getRequisicionId() != null) {
-//                                Requisicion r = getInstance().getRequisicionId();
-//                                r.setSolicitudReparacionId(null);
-//                                servgen.actualizar(r);
-//                            }
+//                            
                             servgen.actualizar(requisicion);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -966,6 +948,22 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         System.out.println("presentando requi >>>" + requisicion);
                     }
                 }
+                System.out.println("antes del 2do if");
+                System.out.println("volvio a guardar soli"+reqSolicitud);
+                if (reqSolicitud != null) {
+                    if (reqSolicitud.getId() != null) {
+                        System.out.println("entro reSoli.....");
+                        System.out.println("diferente de null" + reqSolicitud.isPersistent());
+                        if (!reqSolicitud.getId().equals(reqSolicitud.getId())) {
+                            System.out.println("entro al if resolicitud");
+                            reqSolicitud.setLastUpdate(now);
+                            save(reqSolicitud);
+                            System.out.println("paso save reqsolicitud");
+
+                        }
+                    }
+                }
+
                 System.out.println("antes de l LISTA,,,,");
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
