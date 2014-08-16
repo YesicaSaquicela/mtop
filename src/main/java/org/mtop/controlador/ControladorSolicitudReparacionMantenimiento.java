@@ -932,10 +932,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return SolicitudReparacionMantenimiento.class;
     }
     
-    public void requisicionNula(Requisicion reqSeleccionada){
-        reqSeleccionada=null;
-        getInstance().setRequisicionId(reqSeleccionada);
-    }
+  
 
     @TransactionAttribute
     public String guardar() {
@@ -984,6 +981,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         System.out.println("presentando requi >>>" + requisicion);
                     }
                 }
+
                 System.out.println("antes de l LISTA,,,,");
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
