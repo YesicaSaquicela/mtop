@@ -187,6 +187,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.idPersona = idPersona;
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPsolicita(psolicita);
+        
     }
 
     public String getPalabrab() {
@@ -1104,12 +1105,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     }
 
-    public void guardarRequisicion(Requisicion nrequisicion) {
-        nuevaRequisicion = nrequisicion;
-        System.out.println("instancia" + getInstance().getId());
-        System.out.println("Nueva requisicion>>>" + nuevaRequisicion.getObservaciones());
-
-    }
+//    public void guardarRequisicion(Requisicion nrequisicion) {
+//        nuevaRequisicion = nrequisicion;
+//        System.out.println("instancia" + getInstance().getId());
+//        System.out.println("Nueva requisicion>>>" + nuevaRequisicion.getObservaciones());
+//
+//    }
 
     protected void createInstanceIS() {
         //prellenado estable para cualquier clase 
