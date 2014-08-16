@@ -511,14 +511,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public Long getVehiculoId() {
         System.out.println("IIIIDEE" + getId());
-        System.out.println("obtiene objeto::::::::::::: " + getInstance().getColor());
+        
         return (Long) getId();
     }
 
     public void setVehiculoId(Long vehiculoId) {
-        System.out.println("obtiene objeto::::::::::::: " + getInstance().getColor());
+       
         setId(vehiculoId);
 
+    }
+    public void fijarNullVehiculo(){
+        setInstance(new Vehiculo());
+         System.out.println("fijando::::::::::::: " + getInstance());
     }
 
     @TransactionAttribute
