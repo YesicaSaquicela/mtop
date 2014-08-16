@@ -700,6 +700,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         requisicion = getInstance().getRequisicionId();
         reqSolicitud=requisicion;
+        reqSolicitud.setSolicitudReparacionId(null);
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>." + getInstance().getListaItemSR());
         if (getInstance().isPersistent()) {
@@ -954,7 +955,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                     if (reqSolicitud.getId() != null) {
                         System.out.println("entro reSoli.....");
                         System.out.println("diferente de null" + reqSolicitud.isPersistent());
-                        if (!reqSolicitud.getId().equals(reqSolicitud.getId())) {
+                        if (reqSolicitud !=requisicion) {
                             System.out.println("entro al if resolicitud");
                             reqSolicitud.setLastUpdate(now);
                             save(reqSolicitud);
