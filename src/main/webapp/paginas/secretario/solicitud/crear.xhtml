@@ -497,6 +497,15 @@
 
 
                                                     <br/>
+                                        <div class="admin-actions" align="right">
+                                        <p:commandButton id="save3" value="Quitar Requisición" 
+                                                         icon="ui-icon-closethick"  styleClass="btn  btn-success" 
+                                                         process="@this" update="@form" >
+                                             <f:setPropertyActionListener value="#{null}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
+                                       </p:commandButton>
+                                                        </div>
+                                                    <br/>
+                                        
                                                     <p:panel id="req"  >
                                                         <div class="panel panel-primary">
                                                             <div class="panel-heading"  align="center">Datos de Requisición seleccionada</div>
@@ -556,7 +565,7 @@
                                             <h:outputText value="Fecha de solicitud: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="Persona que solicita: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.idPersona}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.}" styleClass="outputLabel"/><br/>
 
                                             <h:outputText value="Persona que recibe: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" styleClass="outputLabel"/><br/>
@@ -564,7 +573,7 @@
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Número de Requisición: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.id}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.numRequisicion}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="Placa del vehículo: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo.placa}" styleClass="outputLabel"/><br/>
                                         </h:panelGrid>

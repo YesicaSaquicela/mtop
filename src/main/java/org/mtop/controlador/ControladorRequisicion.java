@@ -1734,7 +1734,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("EROOR en al cera requisicion");
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " +  getInstance().getNumRequisicion(), " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
             
