@@ -675,14 +675,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                     System.out.println("\n\nentro a comparar en veh.....");
                     lrs.add(req);
                 }
-            }         
-            
+            }
+
         }
         listaRequisiciones = lrs;
-            System.out.println("lista despues en veh" + listaRequisiciones);
+        System.out.println("lista despues en veh" + listaRequisiciones);
     }
-
-    
 
     public List<Vehiculo> getListaVehiculos() {
 
@@ -701,10 +699,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("vehiculo  en set soli" + getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
+        if (getInstance().getRequisicionId()!=null) {
+            requisicion = getInstance().getRequisicionId();
+            reqSolicitud = requisicion;
+            reqSolicitud.setSolicitudReparacionId(null);
+        }
 
-        requisicion = getInstance().getRequisicionId();
-        reqSolicitud = requisicion;
-        reqSolicitud.setSolicitudReparacionId(null);
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>." + getInstance().getListaItemSR());
         if (getInstance().isPersistent()) {
@@ -897,6 +897,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         System.out.println("valor de vista en inittttt" + vista);
         itemsEliminar = new ArrayList<ItemSolicitudReparacion>();
+        idPersona = 0l;
+        getInstance().setRecibidor("");
+        getInstance().setObservacion("");
 
     }
 

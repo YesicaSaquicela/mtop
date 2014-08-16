@@ -313,6 +313,20 @@
                                                     </p:dataTable>
                                                     <br/>
                                                     <p:panel id="vehiculo"  >
+                                                        <br></br>
+                                                        <div align="right" class="admin-actions">
+
+                                                            <p:commandButton value="Quitar Solicitud" update="@form" 
+
+                                                                             process="@this" styleClass="btn btn-success" 
+                                                                             actionListener="#{controladorVehiculo.fijarNullVehiculo()}"
+                                                                             >
+
+                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.vehiculo}"  />
+
+                                                            </p:commandButton>
+
+                                                        </div><br/>
                                                         <div class="panel panel-primary">
                                                             <div class="panel-heading"  align="center">Datos de Vehículo seleccionado</div>
                                                             <p:panel >
@@ -379,19 +393,7 @@
                                                                 </div>
                                                             </p:panel>
                                                         </div>
-                                                        <br></br>
-                                                        <div align="right" class="admin-actions">
 
-                                                            <p:commandButton value="Quitar" update="@form" 
-
-                                                                             process="@this" styleClass="btn btn-success" 
-                                                                             actionListener="#{controladorVehiculo.fijarNullVehiculo()}">
-
-                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.vehiculo}"  />
-                                                                
-                                                            </p:commandButton>
-
-                                                        </div><br/>
 
 
 
@@ -714,6 +716,19 @@
                                                     </p:dataTable>
                                                     <br/>
                                                     <p:panel id="solicitudr"  >
+                                                        <br></br>
+                                                        <div align="right" class="admin-actions">
+
+                                                            <p:commandButton value="Quitar Solicitud" update="@form" 
+
+                                                                             process="@this" styleClass="btn btn-success" 
+                                                                             >
+
+                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.solicitudrep}"  />
+
+                                                            </p:commandButton>
+
+                                                        </div><br/>
                                                         <div class="panel panel-primary">
                                                             <div class="panel-heading"  align="center">Datos de Solicitud de Reparación y Mantenimiento seleccionada</div>
                                                             <p:panel >
@@ -748,19 +763,7 @@
                                                                 </div>
                                                             </p:panel>
                                                         </div>
-                                                        <br></br>
-                                                        <div align="right" class="admin-actions">
 
-                                                            <p:commandButton value="Quitar" update="@form" 
-
-                                                                             process="@this" styleClass="btn btn-success" 
-                                                                             >
-
-                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.solicitudrep}"  />
-                                                                
-                                                            </p:commandButton>
-
-                                                        </div><br/>
                                                     </p:panel>
                                                     <br/>
 
