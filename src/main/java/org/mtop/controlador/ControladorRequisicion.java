@@ -109,6 +109,48 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private SolicitudReparacionMantenimiento solicitudReparacionMantenimiento;
     private List<SolicitudReparacionMantenimiento> listaAux;
     
+    private List<ItemRequisicion> itemsEliminar;
+
+    public List<ItemRequisicion> getItemsEliminar() {
+        return itemsEliminar;
+    }
+
+    public void setItemsEliminar(List<ItemRequisicion> itemsEliminar) {
+        this.itemsEliminar = itemsEliminar;
+    }
+    
+    
+    
+     public void eliminarItemS(ItemRequisicion itemreq) {
+
+        List<ItemRequisicion> li = new ArrayList<ItemRequisicion>();
+        System.out.println("lista items" + listaItemsRequisicion);
+        for (ItemRequisicion items : listaItemsRequisicion) {
+            System.out.println("entro al for>>>>>>>");
+            if (!items.getCantidad().equals(itemreq.getCantidad())
+                    && !items.getDescription().equals(itemreq.getDescription())
+                    && !items.getUnidadMedida().equals(itemreq.getUnidadMedida())) {
+                System.out.println("entro a remover>>>>>");
+                li.add(items);
+
+            } else {
+                if (items.isPersistent()) {
+                    itemsEliminar.add(items);
+
+                }
+
+            }
+
+        }
+        listaItemsRequisicion = li;
+        System.out.println("lista nueva " + listaItemsRequisicion);
+        getInstance().setListaItems(li);
+
+    }
+     
+     
+     
+     
     public String getTipor() {
         return tipor;
     }
@@ -621,14 +663,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             this.solicitudrep = solicitudrep;
             getInstance().setSolicitudReparacionId(solicitudrep);
         } else {
-
+            this.solicitudrep=new SolicitudReparacionMantenimiento();
         }
 
     }
     
     public List<SolicitudReparacionMantenimiento> getListaSolicitudes() {
         System.out.println("getlista solicitude" + listaSolicitudes);
-        
+        if(solRequisicion!=solicitudrep){
+            listaSolicitudes.add(solRequisicion);
+        }
         return listaSolicitudes;
     }
     
@@ -1083,6 +1127,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         getInstance().setListaItems(listaItemsRequisicion);//fija la lista de actividades al plan de mantenimietno
         System.out.println("termino de gusradar" + getInstance().getListaItems());
+         System.out.println("lsiat de items a eliminar " + itemsEliminar);
+        for (ItemRequisicion isr : itemsEliminar) {
+            delete(isr);
+        }
+        System.out.println("termino de gusradar" + getInstance().getListaItems());
     }
     
     public void agregarItem() {
@@ -1357,10 +1406,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("instance" + getInstance());
         vehiculo = getInstance().getVehiculo();
         System.out.println("\n\n\nsolicitud antes en set \n\n\n" + solicitudrep);
-        
-        solicitudrep = getInstance().getSolicitudReparacionId();
-        solRequisicion = solicitudrep;
+        if(getInstance().getSolicitudReparacionId()!=null){
+             solicitudrep = getInstance().getSolicitudReparacionId();
+        solRequisicion =getInstance().getSolicitudReparacionId();
+        System.out.println("solrequisicion"+solRequisicion);
+        System.out.println("solrequisicion"+solRequisicion.getRequisicionId());
         solRequisicion.setRequisicionId(null);
+        }
+       
         System.out.println("\n\n\nsolicitud depuestes en set\n\n\n" + solicitudrep);
         idPersonal = getInstance().getPsolicita().getId();
         
@@ -1551,7 +1604,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         idPersonal=0l;
         getInstance().setTipoAdquisicion("");
         getInstance().setObservaciones("");
-        
+        itemsEliminar = new ArrayList<ItemRequisicion>();
+        solRequisicion=new SolicitudReparacionMantenimiento();
     }
     
     @Override
