@@ -144,6 +144,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.vista = vista;
         System.out.println("retornando vista>>>>>" + vista);
         System.out.println("nueva requi en set vista" + nuevaRequisicion.getObservaciones());
+        System.out.println("lista de solicitudes>>>>"+listaSolicitud);
+        System.out.println("lista pasadas por parametros>>>"+listaRequisiciones);
     }
 
     public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
@@ -879,10 +881,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             if (req.getSolicitudReparacionId() == null && req.isEstado()) {
                 System.out.println("entro" + req);
                 listaRequisiciones.add(req);
-
             }
 
         }
+        System.out.println("lista de requisisicones en el inti>>>>>"+listaRequisiciones);
 
         System.out.println("lista solicitudes sin requisicion" + listaSolicitud);
         vehiculo = new Vehiculo();
@@ -1101,9 +1103,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
             System.out.println("listaSolicitudes" + listaSolicitud);
-            idPersona = 0l;
-            getInstance().setRecibidor("");
-            getInstance().setObservacion("");
+//            idPersona = 0l;
+//            getInstance().setRecibidor("");
+//            getInstance().setObservacion("");
         }
 
     }

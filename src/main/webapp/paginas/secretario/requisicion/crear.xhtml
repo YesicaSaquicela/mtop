@@ -665,7 +665,7 @@
 
                                     <p:commandButton id="save111" value="Crear solicitud" icon="ui-icon-disk" 
                                                      styleClass="btn  btn-success" update="@form" process="@this"
-                                                     >
+                                                     actionListener="#{controladorSolicitudReparacionMantenimiento.init()}">
 
                                         <f:setPropertyActionListener value="solicitud1" target="#{controladorRequisicion.vista}" />
                                         <f:setPropertyActionListener value="#{controladorRequisicion.instance.vehiculo}" 
@@ -682,11 +682,8 @@
                                                     <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
                                                     <p:dataTable id="basicDT12" var="items1" value="#{controladorRequisicion.listaSolicitudes}"
-
-                                                                 paginator="true" rows="5"                         
-                                                                 paginatorPosition="top"
-
-                                                                 rowsPerPageTemplate="5,10,15,20"
+                                                                 paginator="true" rows="15"   paginatorPosition="top"
+                                                                 rowsPerPageTemplate="5,10,15,20"  emptyMessage="No se han encontrado coincidencias"
                                                                  >
                                                         <p:column headerText="Número" sortBy="#{items1.numSolicitud}">
                                                             <h:outputText value="#{items1.numSolicitud}" />

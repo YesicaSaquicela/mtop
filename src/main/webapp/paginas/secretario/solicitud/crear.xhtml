@@ -468,7 +468,7 @@
                                                     <br/> <br/>
                                                     <p:messages id="mensajess" showDetail="true" autoUpdate="true" closable="true" />
                                                     <p:dataTable id="basicDT2" var="vr" value="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"
-                                                                 paginator="true" rows="15"                         
+                                                                 paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20"  emptyMessage="No se han encontrado coincidencias">
 
@@ -477,6 +477,9 @@
                                                         </p:column>
                                                         <p:column headerText="Fecha" sortBy="#{vr.fechaRequisicion}">
                                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(vr.fechaRequisicion)}" />
+                                                        </p:column>
+                                                          <p:column headerText="Tipo de Adquisición" sortBy="#{vr.tipoAquisicion}">
+                                                            <h:outputText value="#{vr.tipoAdquisicion}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{vr.observaciones}">
                                                             <h:outputText value="#{vr.observaciones}" />

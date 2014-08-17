@@ -228,7 +228,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("recueperando vista " + this.vista);
         System.out.println("presentar instance" + getInstance().getId());
         System.out.println("presenta solicitud" + solicitudReparacionMantenimiento);
-        
+        System.out.println("lista de requisisicones>>>>>"+listaRequisicion);
+        System.out.println("lista de solicitudes de la requisisicon"+listaSolicitudes);
         return vista;
         
     }
@@ -670,15 +671,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     
     public List<SolicitudReparacionMantenimiento> getListaSolicitudes() {
         System.out.println("getlista solicitude" + listaSolicitudes);
-        if(solRequisicion!=solicitudrep){
+        System.out.println("solRequisicion id"+solRequisicion.getId());
+         System.out.println("ssolRequisisicon id"+solRequisicion.getId());
+        if(solRequisicion.getId()!=solicitudrep.getId()){
+            System.out.println("entro al if>>>>>>> getListaSoli");
             listaSolicitudes.add(solRequisicion);
         }
+        System.out.println("Lista de solicitudes en getListaS>>>"+listaSolicitudes);     
         return listaSolicitudes;
     }
     
     public void setListaSolicitudes(List<SolicitudReparacionMantenimiento> listaSolicitudes) {
         System.out.println("setlista solicitude" + listaSolicitudes);
         this.listaSolicitudes = listaSolicitudes;
+        System.out.println("Lista de solicitudes en setListaS>>>"+listaSolicitudes);     
     }
     
     public void buscar() {
@@ -1736,7 +1742,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             Profile psolicita = servgen.buscarPorId(Profile.class, idPersonal);
             getInstance().setPartidaContabilidad(p);
             getInstance().setPsolicita(psolicita);
+            String observacion=getInstance().getObservaciones();
+            getInstance().setObservaciones(observacion);
             System.out.println("id de ala partidaaaaaaaaaaaaa" + p);
+            System.out.println("fijo observacion>>>>"+getInstance().getObservaciones());
             
             try {
                 listaProductos.clear();
@@ -1809,10 +1818,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaRequisicion.add(getInstance());
         System.out.println("lista de requisiciones>>>>>" + listaRequisicion);
         listaItemsRequisicion=null;
-        idPartidaC=0l;
-        idPersonal=0l;
-        getInstance().setTipoAdquisicion(" ");
-        getInstance().setObservaciones(" ");
+//        idPartidaC=0l;
+//        idPersonal=0l;
+//        getInstance().setTipoAdquisicion(" ");
+////        getInstance().setObservaciones(" ");
         
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
