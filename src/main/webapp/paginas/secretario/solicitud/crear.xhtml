@@ -31,7 +31,12 @@
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
-
+              <div align="right">
+                        <p:button rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
+                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                  outcome="/paginas/secretario/solicitud/lista" 
+                                  styleClass="btn  btn-success"/>
+                    </div>
 
 
                     <p:wizard rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente">
@@ -60,7 +65,7 @@
                                                      requiredMessage="Se requiere elegir una persona que solicite una solicitud ">  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
-                                        <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
+                                   
                                     </p:selectOneMenu> <br></br>
                                     <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal" /></span><br></br><br></br> 
 
@@ -232,13 +237,11 @@
 
                                                 <tbody>
                                                     <p:dataTable id="basicDT" var="v" value="#{controladorSolicitudReparacionMantenimiento.listaVehiculos}"
-                                                                 paginator="true" rows="15"                         
+                                                                 paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20">
 
-                                                        <p:column headerText="Id" sortBy="#{v.id}">
-                                                            <h:outputText value="#{v.id}" />
-                                                        </p:column>
+                                                      
                                                         <p:column headerText="Número de Registro" sortBy="#{v.numRegistro}">
                                                             <h:outputText value="#{v.numRegistro}" />
                                                         </p:column>
@@ -367,7 +370,7 @@
                                                 <tbody>
 
                                                     <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
-                                                                 paginator="true" rows="15"                         
+                                                                 paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20">
 
@@ -449,7 +452,8 @@
 
                                         <p:commandButton id="save111" value="Crear Requisicion" 
                                                          icon="ui-icon-disk"  styleClass="btn  btn-success" 
-                                                         process="@this" update="@form" >
+                                                         process="@this" update="@form" 
+                                                         actionListener="#{controladorRequisicion.init()}">
 
                                             <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
                                             <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo}" target="#{controladorRequisicion.instance.vehiculo}" /> 
@@ -475,7 +479,7 @@
                                                         <p:column headerText="Número de Registro" sortBy="#{vr.numRequisicion}">
                                                             <h:outputText value="#{vr.numRequisicion}" />
                                                         </p:column>
-                                                        <p:column headerText="Fecha" sortBy="#{vr.fechaRequisicion}">
+                                                        <p:column headerText="Fecha de Requisición" sortBy="#{vr.fechaRequisicion}">
                                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(vr.fechaRequisicion)}" />
                                                         </p:column>
                                                           <p:column headerText="Tipo de Adquisición" sortBy="#{vr.tipoAquisicion}">
@@ -568,7 +572,7 @@
                                             <h:outputText value="Fecha de solicitud: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="Persona que solicita: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.idPersona}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.firstname}" styleClass="outputLabel"/><br/>
 
                                             <h:outputText value="Persona que recibe: " />
                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" styleClass="outputLabel"/><br/>
@@ -613,8 +617,8 @@
                                 <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" 
                                                  action="#{controladorSolicitudReparacionMantenimiento.guardar()}" 
                                                  process="@this"/>
-                                #{' '} 
-                                <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/solicitud/lista" styleClass="btn  btn-success"/>
+                             
+                                
                             </div>
                         </p:tab>
                     </p:wizard>
@@ -892,7 +896,7 @@
 
                                                 <p:dataTable rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" id="basicoDT3"
                                                              var="itemp" value="#{controladorRequisicion.listaProductos}"
-                                                             paginator="true" rows="15"                         
+                                                             paginator="true" rows="5"                         
                                                              paginatorPosition="top"
 
                                                              rowsPerPageTemplate="5,10,15,20"
@@ -992,7 +996,7 @@
                                             <tbody>
                                                 <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
                                                 <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
-                                                             paginator="true" rows="15"                         
+                                                             paginator="true" rows="5"                         
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20">
 

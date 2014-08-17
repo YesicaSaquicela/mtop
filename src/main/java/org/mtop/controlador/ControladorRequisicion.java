@@ -1818,11 +1818,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaRequisicion.add(getInstance());
         System.out.println("lista de requisiciones>>>>>" + listaRequisicion);
         listaItemsRequisicion=null;
-//        idPartidaC=0l;
-//        idPersonal=0l;
-//        getInstance().setTipoAdquisicion(" ");
-////        getInstance().setObservaciones(" ");
-        
+
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
             FacesContext.getCurrentInstance().addMessage("", msg);

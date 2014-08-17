@@ -189,6 +189,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.idPersona = idPersona;
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPsolicita(psolicita);
+        System.out.println("nombre de la persona que solicita>>>>"+getInstance().getPsolicita().getFirstname());   
         
     }
 
@@ -1103,9 +1104,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
             System.out.println("listaSolicitudes" + listaSolicitud);
-//            idPersona = 0l;
-//            getInstance().setRecibidor("");
-//            getInstance().setObservacion("");
+
         }
 
     }

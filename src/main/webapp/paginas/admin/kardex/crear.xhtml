@@ -109,7 +109,7 @@
                     <p:panel id="kar" rendered="#{controladorKardex.vista eq 'kardex' }" >
                         <div  class="panel panel-primary">
 
-                            <div class="panel-heading" align="center">BUSCAR SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO, Y REQUISICIONES</div>
+                            <div class="panel-heading" align="center">BUSCAR REQUISICIONES Y SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO </div>
 
 
                             <p:panel id="p1">
@@ -119,6 +119,7 @@
                                         <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
 
                                         <p:tab id="ts" title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
+                                            <p:panel>
                                             <div class="container-fluid" align="center">
                                                 <div class="row-fluid">
 
@@ -134,12 +135,12 @@
 
 
 
-                                                                    <p:commandButton  id="buscar" value="Buscar" update=":form:infoFM:ts" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:infoFM:ts" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -148,8 +149,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                                </p:panel>
                                             <br/><br/>
-                                            <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}" styleClass="btn btn-success" >
+                                            <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}"  >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="solicitud"></f:param>
                                             </p:commandButton>
@@ -162,14 +164,20 @@
 
                                                         <tbody>
                                                             <p:dataTable id="listap1" value="#{controladorKardex.listaSol}" var="s"
-
-                                                                         >
+     paginator="true" rows="5"                         
+                                                                     paginatorPosition="top"
+                                                                     rowsPerPageTemplate="5,10,15,20"
+                                                                     widgetVar="requisicionTable"
+                                                                        emptyMessage="No se han encontrado coincidencias" >
 
                                                                 <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
                                                                     <h:outputText value="#{s.numSolicitud}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
                                                                     <h:outputText value="#{controladorKardex.formato(s.fechaSolicitud)}"></h:outputText>
+                                                                </p:column>
+                                                                 <p:column headerText="Registro del vehículo" sortBy="#{s.vehiculo.numRegistro}">
+                                                                    <h:outputText value="#{s.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Opciones" style="width: 5%"> 
                                                                     <h:link value="Dar de Baja" outcome="crear" type="button" >
@@ -190,6 +198,7 @@
 
                                         </p:tab>
                                         <p:tab title="Requisiciones" closable="false"  titleStyleClass="clearfix" >
+                                            <p:panel>
                                             <div class="container-fluid" align="center">
                                                 <div class="row-fluid">
 
@@ -205,12 +214,12 @@
 
 
 
-                                                                    <p:commandButton  id="buscar2" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar2" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple2" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar2" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple2" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -219,6 +228,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </p:panel>
                                             <br/><br/>
                                             <p:commandButton update="@form" process="@this" value="Aprobar Requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
@@ -233,7 +243,10 @@
                                                         <tbody>
                                                             <p:dataTable id="listap" value="#{controladorKardex.listaReq}" var="item"
 
-                                                                         >
+                                                                     paginator="true" rows="5"                         
+                                                                     paginatorPosition="top"
+                                                                     rowsPerPageTemplate="5,10,15,20"
+                                                                     widgetVar="requisicionTable"   emptyMessage="No se han encontrado coincidencias">
                                                                 <p:column headerText="Número de Requisición" sortBy="#{item.numRequisicion}" >
                                                                     <h:outputText value="#{item.numRequisicion}"></h:outputText>
                                                                 </p:column>
@@ -242,6 +255,9 @@
                                                                 </p:column>
                                                                 <p:column headerText="Observación" sortBy="#{item.observaciones}">
                                                                     <h:outputText value="#{item.observaciones}"></h:outputText>
+                                                                </p:column>
+                                                                <p:column headerText="Registro del vehículo" sortBy="#{item.vehiculo.numRegistro}">
+                                                                    <h:outputText value="#{item.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Opciones" style="width: 5%"> 
                                                                     <h:link value="Dar de Baja" outcome="crear" type="button" >
@@ -304,12 +320,43 @@
 
                             <div class="panel-heading" align="center">APROBAR SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO</div>
                             <p:panel rendered="#{controladorKardex.vista eq 'solicitud'}" >
+                                
                                 <div class="container-fluid" align="center">
                                     <div class="row-fluid"  >
                                         <f:viewParam name="estado" value="#{profileListService.estado}" />
                                         <f:event listener="#{profileListService.init()}" type="preRenderView"/>
                                         <h:form id="forms" rendered="#{controladorKardex.vista eq 'solicitud'}">            
+<p:panel>
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
+
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />
+
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrabs}"   
+                                                                                    completeMethod="#{controladorKardex.autocompletars}"/> 
+
+
+
+                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:infoFM:ts" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                </p:panel>
 
                                             <br></br><br></br>
 
@@ -323,27 +370,29 @@
 
                                                             <p:dataTable rendered="#{controladorKardex.vista eq 'solicitud'}" id="basicDT12" var="items" value="#{solicitudListaServicios}"
                                                                          lazy="true"   
-                                                                         paginator="true" rows="15"                         
+                                                                         paginator="true" rows="5"                         
                                                                          paginatorPosition="top"
                                                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
                                                                          rowsPerPageTemplate="5,10,15,20"
                                                                          selection="#{solicitudListaServicios.solicitudSeleccionada}"
 
-                                                                         selectionMode="single">
+                                                                         selectionMode="single" emptyMessage="No se han encontrado coincidencias">
                                                                 <p:ajax event="rowSelect" listener="#{solicitudListaServicios.onRowSelect}"   
                                                                         update=":form:forms:mensaje :form:forms:button-edit :form:forms:regresar"/>  
                                                                 <p:ajax event="rowUnselect" listener="#{solicitudListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
 
-                                                                <p:column headerText="Número" sortBy="#{items.id}">
+                                                                <p:column headerText="Número de solicitud" sortBy="#{items.numSolicitud}">
                                                                     <h:outputText value="#{items.numSolicitud}" />
                                                                 </p:column>
-                                                                <p:column headerText="Fecha" sortBy="#{items.id}">
+                                                                <p:column headerText="Fecha de solicitud" sortBy="#{items.fechaSolicitud}">
                                                                     <h:outputText value="#{controladorKardex.formato(items.fechaSolicitud)}" />
                                                                 </p:column>
-                                                                <p:column headerText="Observación" sortBy="#{items.id}">
+                                                                <p:column headerText="Observación" sortBy="#{items.observacion}">
                                                                     <h:outputText value="#{items.observacion}" />
                                                                 </p:column>
-
+                                                                <p:column headerText="Registro del Vehículo" sortBy="#{items.vehiculo.numRegistro}">
+                                                                    <h:outputText value="#{items.vehiculo.numRegistro}" />
+                                                                </p:column>
                                                             </p:dataTable>
                                                             <br/>
                                                         </tbody>
@@ -412,7 +461,37 @@
                                         <h:form id="formr" rendered="#{controladorKardex.vista eq 'requisicion'}">            
 
                                             <!--Opción de mensaje, cuando se realiza una acción-->
+  <p:panel>
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
+
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />
+
+                                                                    "   <p:autoComplete styleClass="xLarge" id="acSimple2" value="#{controladorKardex.palabrabr}"   
+                                                                                        completeMethod="#{controladorKardex.autocompletarr}"/> 
+
+
+
+                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton id="limpiar2" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple2" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </p:panel>
                                             <br></br><br></br>
 
                                             <div class="tab-content">
@@ -432,23 +511,25 @@
                                                                          rowsPerPageTemplate="5,10,15,20"
                                                                          selection="#{requisicionListaServicios.requisicionSeleccionada}"
 
-                                                                         selectionMode="single">
+                                                                         selectionMode="single" emptyMessage="No se han encontrado coincidencias">
 
                                                                 <p:ajax event="rowSelect" listener="#{requisicionListaServicios.onRowSelect}"   
                                                                         update=":form:forms:mensaje :form:formr:button-edit2 :form:formr:regresar1"/>  
                                                                 <p:ajax event="rowUnselect" listener="#{requisicionListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
 
-                                                                <p:column headerText="Número">
+                                                                <p:column headerText="Número" sortBy="#{items.numRequisicion}">
                                                                     <h:outputText value="#{items.numRequisicion}" />
                                                                 </p:column>
-                                                                <p:column headerText="Fecha">
+                                                                <p:column headerText="Fecha" sortBy="#{items.fechaRequisicion}">
                                                                     <h:outputText value="#{controladorKardex.formato(items.fechaRequisicion)}" />
                                                                 </p:column>
-                                                                <p:column headerText="Observación">
+                                                                <p:column headerText="Observación" sortBy="#{items.observaciones}">
                                                                     <h:outputText value="#{items.observaciones}" />
                                                                 </p:column>
 
-
+                                                                <p:column headerText="Registro del Vehículo" sortBy="#{items.vehiculo.numRegistro}">
+                                                                    <h:outputText value="#{items.vehiculo.numRegistro}" />
+                                                                </p:column>
                                                             </p:dataTable>
                                                             <br/>
 
