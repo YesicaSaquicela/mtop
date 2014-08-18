@@ -40,6 +40,7 @@ import org.mtop.controlador.ControladorSolicitudReparacionMantenimiento;
 import org.mtop.modelo.Kardex;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.SolicitudReparacionMantenimiento_;
+import org.mtop.modelo.Vehiculo;
 
 import org.mtop.servicios.ServicioGenerico;
 import org.mtop.util.QueryData;
@@ -66,9 +67,16 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     private int firstResult = 0;
     private SolicitudReparacionMantenimiento[] solicitudSeleccionadas;
     private SolicitudReparacionMantenimiento solicitudSeleccionada; //Filtro de cuenta schema
+    private Vehiculo vehiculo;
 
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
 
-
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+    
 
     public SolicitudListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -220,7 +228,7 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
 
             for (SolicitudReparacionMantenimiento qd : qData.getResult()) {
                 System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
-                if (qd.getAprobado() == false) {
+                if (qd.getAprobado() == false&&qd.isEstado()&& qd.getVehiculo().getId().equals(vehiculo.getId())) {
                     System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
                     lr.add(qd);
                 }

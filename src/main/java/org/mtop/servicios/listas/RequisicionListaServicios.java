@@ -35,6 +35,7 @@ import org.mtop.controlador.ControladorRequisicion;
 import org.mtop.modelo.Kardex;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Requisicion_;
+import org.mtop.modelo.Vehiculo;
 
 import org.mtop.servicios.ServicioGenerico;
 import org.mtop.util.QueryData;
@@ -65,7 +66,17 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
     private Requisicion[] requisicionSeleccionadas;
     private Requisicion requisicionSeleccionada; //Filtro de cuenta schema
     private String estado;
+    private Vehiculo vehiculo;
 
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    
     public RequisicionListaServicios() {
         setPageSize(MAX_RESULTS);
         resultList = new ArrayList<Requisicion>();
@@ -239,7 +250,10 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
 
             for (Requisicion qd : qData.getResult()) {
                 System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
-                if (qd.getAprobado() == false) {
+                System.out.println("vehiculo en kardex>>>>>"+vehiculo.getId());
+                System.out.println("vehiculo requisicion>>>>>>"+qd.getVehiculo().getId());
+                System.out.println("estado requisiscion>>>>>>"+qd.isEstado());
+                if (qd.getAprobado() == false&& qd.isEstado()&& qd.getVehiculo().getId().equals(vehiculo.getId())) {
                     System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
                     lr.add(qd);
                 }

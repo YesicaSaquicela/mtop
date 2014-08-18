@@ -33,7 +33,13 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-                    <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+                   <div align="right">    
+             
+                        <p:button rendered="#{controladorKardex.vista eq 'kardex'}"
+                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                 outcome="/paginas/admin/kardex/lista"
+                                  styleClass="btn  btn-success"/>
+                    </div><br/>
                     <p:panel id="infovehiculo" rendered="#{controladorKardex.vista eq 'kardex'}">
 
                         <div class="panel panel-primary">
@@ -119,7 +125,7 @@
                                         <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
 
                                         <p:tab id="ts" title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
-                                            <p:panel>
+                                            <p:panel id="sr">
                                             <div class="container-fluid" align="center">
                                                 <div class="row-fluid">
 
@@ -135,12 +141,12 @@
 
 
 
-                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:infoFM:ts" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM:listap1 :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -154,6 +160,7 @@
                                             <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}"  >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="solicitud"></f:param>
+                                                 <f:setPropertyActionListener value="#{controladorKardex.instance.vehiculo}" target="#{solicitudListaServicios.vehiculo}"/>
                                             </p:commandButton>
 
 
@@ -198,7 +205,7 @@
 
                                         </p:tab>
                                         <p:tab title="Requisiciones" closable="false"  titleStyleClass="clearfix" >
-                                            <p:panel>
+                                            <p:panel id="rs">
                                             <div class="container-fluid" align="center">
                                                 <div class="row-fluid">
 
@@ -214,7 +221,7 @@
 
 
 
-                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" process="@form" update="rs" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
@@ -233,6 +240,7 @@
                                             <p:commandButton update="@form" process="@this" value="Aprobar Requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="requisicion"></f:param>
+                                                <f:setPropertyActionListener value="#{controladorKardex.instance.vehiculo}" target="#{requisicionListaServicios.vehiculo}"/>
                                             </p:commandButton><br/><br/>
 
                                             <div class="tab-content">
@@ -286,10 +294,7 @@
                                 <div class="admin-actions " align="center">
                                     <p:commandButton id="save" value="Guardar"   styleClass="btn  btn-success" action="#{controladorKardex.guardar}"
                                                      />
-                                    #{''}
-                                    <h:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/lista" styleClass="btn  btn-success">
-
-                                    </h:button>
+                          
                                 </div>
 
                             </p:panel>
@@ -305,12 +310,19 @@
 
 
 
+<div align="right">
+            <h:button id="regresar" value="Regresar" 
+                        rendered="#{controladorKardex.vista eq 'solicitud'}" outcome="/paginas/admin/kardex/crear"
+                        styleClass="btn  btn-success"
+                       >
+                                <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                               <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
+                                <f:param name="valorVista" value="kardex"/>
 
 
 
-
-
-
+                </h:button>
+</div><br/>
 
 
 
@@ -342,12 +354,12 @@
 
 
 
-                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:infoFM:ts" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:forms:basicDT12" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:forms:basicDT12 :form:forms:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -378,7 +390,7 @@
 
                                                                          selectionMode="single" emptyMessage="No se han encontrado coincidencias">
                                                                 <p:ajax event="rowSelect" listener="#{solicitudListaServicios.onRowSelect}"   
-                                                                        update=":form:forms:mensaje :form:forms:button-edit :form:forms:regresar"/>  
+                                                                        update=":form:forms:mensaje :form:forms:button-edit :form:regresar"/>  
                                                                 <p:ajax event="rowUnselect" listener="#{solicitudListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
 
                                                                 <p:column headerText="Número de solicitud" sortBy="#{items.numSolicitud}">
@@ -412,26 +424,9 @@
                                                     <f:param name="valorVista" value="kardex"/>
 
                                                 </h:link>
-
-                                                <!--p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="#{solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
-                                                                 styleClass="btn  btn-success"  action="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
-                                                    <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
-                                                    <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-
-                                                    <f:param name="valorVista" value="kardex"/>
-
-                                                </p:commandButton-->
-
-                                                #{' '} 
-                                                <h:button id="regresar" value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/crear" styleClass="btn  btn-success">
-                                                    <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
-                                                    <f:param name="solicitudId" value="#{solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-
-                                                    <f:param name="valorVista" value="kardex"/>
-
-
-
-                                                </h:button>
+                                      
+   
+                                  
                                             </div>
                                         </h:form>
                                     </div>
@@ -443,12 +438,16 @@
 
                     </p:panel>
 
+   <div align="right">
+        <h:button id="regresar1" value="Regresar" rendered="#{controladorKardex.vista eq 'requisicion'}"
+                  outcome="/paginas/admin/kardex/crear" styleClass="btn  btn-success"
+                   >
+                                                        <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                                                        <f:param name="requisicionId" value="#{requisicionListaServicios.requisicionSeleccionada.id}"></f:param>
 
-
-
-
-
-
+                                                        <f:param name="valorVista" value="kardex"/>
+        </h:button>
+   </div><br/>
                     <p:panel rendered="#{controladorKardex.vista eq 'requisicion'}">
 
                         <div  class="panel panel-primary">
@@ -477,12 +476,12 @@
 
 
 
-                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" update=":form:formr:basicDT13" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar2" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple2" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar2" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:formr:basicDT13 :form:formr:basicDT13" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -514,7 +513,7 @@
                                                                          selectionMode="single" emptyMessage="No se han encontrado coincidencias">
 
                                                                 <p:ajax event="rowSelect" listener="#{requisicionListaServicios.onRowSelect}"   
-                                                                        update=":form:forms:mensaje :form:formr:button-edit2 :form:formr:regresar1"/>  
+                                                                        update=":form:forms:mensaje :form:formr:button-edit2 :form:regresar1"/>  
                                                                 <p:ajax event="rowUnselect" listener="#{requisicionListaServicios.onRowUnselect}" update=":form:forms:mensaje   :form:forms:button-edit "/>
 
                                                                 <p:column headerText="Número" sortBy="#{items.numRequisicion}">
@@ -547,26 +546,7 @@
                                                         <f:param name="valorVista" value="kardex"/>
 
                                                     </h:link>
-
-                                                    <!--p:commandButton rendered="true" id="button-edit" update=":form:soli :form:kar" ajax="true" immediate="true"  disabled="# {solicitudListaServicios.solicitudSeleccionada == null}"  value="GuardarSol"
-                                                                     styleClass="btn  btn-success"  action="# {controladorKardex.guardarSolicitud(solicitudListaServicios.solicitudSeleccionada)}" >
-                                                        <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
-                                                        <f:param name="solicitudId" value="# {solicitudListaServicios.solicitudSeleccionada.id}"></f:param>
-    
-                                                        <f:param name="valorVista" value="kardex"/>
-    
-                                                    </p:commandButton-->
-
-                                                    #{' '} 
-                                                    <h:button id="regresar1" value="Regresar" rendered="#{true}" outcome="/paginas/admin/kardex/crear" styleClass="btn  btn-success">
-                                                        <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
-                                                        <f:param name="requisicionId" value="#{requisicionListaServicios.requisicionSeleccionada.id}"></f:param>
-
-                                                        <f:param name="valorVista" value="kardex"/>
-
-
-
-                                                    </h:button>
+                                                   
 
 
                                                 </div>
