@@ -237,7 +237,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                     && soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId())&& !ced.contains(solicitud.getFechaSolicitud().toString())) {
                 ced.add(soli.getFechaSolicitud().toString());
             }
-
         }
 
         System.out.println("listaaaaa autocompletar" + ced);

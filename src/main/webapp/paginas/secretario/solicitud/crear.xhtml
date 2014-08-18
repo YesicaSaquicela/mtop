@@ -50,13 +50,14 @@
                                                  readonly="true" styleClass="form-control"
                                                  required="true" label="Número de Solicitud" 
                                                  rendered="true" ></p:inputText>
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
                                     <h:outputLabel value="Fecha de Solicitud" /> <br></br> 
                                     <p:inputText id="fecha" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"
                                                  readonly="true" styleClass="form-control"
                                                  required="true" label="Fecha de Solicitud" 
                                                  rendered="true" />
-
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Fecha actual de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
                                     <h:outputLabel value="Solicitado por:"/> <br></br>
@@ -67,6 +68,7 @@
                                         <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
                                    
                                     </p:selectOneMenu> <br></br>
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal" /></span><br></br><br></br> 
 
                                     <mtop:input id="recibidor" name="recibidor1" type="text" label="Recibe" 
@@ -77,6 +79,7 @@
                                     <p:outputLabel value="Observación"/><br></br>
                                     <p:inputTextarea maxlength="150" id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
                                                      required="true" />
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>
 
                                 </p:panel>
@@ -345,15 +348,19 @@
                                 <p:panel>
 
 
-                                    <p:messages id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
+                                 
 
                                     <p:outputLabel value="Elemento a Revisar"/><br></br>
                                     <p:inputTextarea id="elementoRevisar"  styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}"
-                                                     /><br></br>
+                                                     />
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
+                                    <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar" /></span><br></br><br/>
                                     <p:outputLabel value="Descripción de Falla"/><br></br>
                                     <p:inputText id="descripcionFalla"   styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
-                                                 /><br></br>
-
+                                                 />
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
+                                    <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla" /></span><br></br><br/>
+<br/>
                                     <div class="admin-actions">
                                         <p:commandLink process="@form" update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1"  
                                                        styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
@@ -361,7 +368,7 @@
 
                                         </p:commandLink>
                                     </div><br/>
-
+                                     <p:messages id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
@@ -377,15 +384,16 @@
                                                         <p:column headerText="Elemento a Revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                             <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
                                                         </p:column>
+                                                        
 
                                                         <p:column headerText="Descripción de la falla" sortBy="#{la.descripcionFalla}">
                                                             <h:outputText value="#{la.descripcionFalla}"></h:outputText>
                                                         </p:column>
                                                         <p:column headerText="Opciones" style="width: 5%"> 
-                                                            <p:commandLink update=":form:listaa :form:elementoRevisar :form:descripcionFalla" value="Editar"
-                                                                           actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" process="@form" title="Seleccionar">
+                                                            <p:commandButton icon="ui-icon-pencil" update=":form:listaa :form:elementoRevisar :form:descripcionFalla" title="Editar"
+                                                                           actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" process="@form">
                                                                 <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
-                                                            </p:commandLink>
+                                                            </p:commandButton>
                                                             <p:commandButton id="dardebaja" icon="ui-icon-trash" process="@form"
                                                                              action="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
                                                                              title="Eliminar" update=":form:listaa">

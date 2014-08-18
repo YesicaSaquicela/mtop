@@ -51,13 +51,14 @@
                                                  readonly="true" styleClass="form-control"
                                                  required="true" label="Número de Requisición" 
                                                  rendered="true"  />
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Número de requisición<ocp:message forId="numRequisicion" /></span><br></br><br></br> 
                                     <h:outputLabel value="Fecha de Requisición" /> <br></br> 
                                     <p:inputText id="fechaRequisicion" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"  label="Fecha de Requisicion"
                                                  readonly="true" styleClass="form-control"
                                                  required="true" 
                                                  rendered="true" />
-                                    <br></br> 
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
                                     <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
                                     <p:selectOneMenu id="partida"  value="#{controladorRequisicion.idPartidaC}" effect="fade"
@@ -67,6 +68,7 @@
                                         <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
                                         <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                     </p:selectOneMenu> <br></br>
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
 
 
@@ -79,6 +81,7 @@
                                         <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
                                         <p:ajax event="change" update=":form:numRequisicion :form:save111" partialSubmit="true"/>
                                     </p:selectOneMenu> <br></br>
+                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija el tipo de requisición
                                         <ocp:message forId="tipoRequisicion" />
                                     </span><br></br><br></br> 
@@ -93,6 +96,7 @@
                                         <f:selectItems value="#{controladorRequisicion.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
                                         <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                     </p:selectOneMenu> <br></br>
+                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal1" /></span><br></br><br></br> 
 
                                     <h:outputLabel value="Tipo de adquisición "/><br></br>
@@ -104,12 +108,14 @@
                                         <f:selectItem itemLabel="Credito" itemValue="credito" />  
 
                                     </p:selectOneMenu> <br></br>
+                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija el tipo de adquisición<ocp:message forId="adquisicion" /></span><br></br><br></br>
 
                                     <p:outputLabel value="Observación"/><br></br>
                                     <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                      value="#{controladorRequisicion.instance.observaciones}"
                                                      required="true" label="observación" />
+                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion1" /></span>                                   
 
 
@@ -488,10 +494,10 @@
                                                             <h:outputText value="#{itemp.cantidad}" />
                                                         </p:column>
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandLink update=":form:productosel :form:cantidad :form:descrip :form:unidadMedida" 
-                                                                           value="Agregar" title="Seleccionar" immediate="true" process="@form">
+                                                            <p:commandButton icon="ui-icon-pencil" update=":form:productosel :form:cantidad :form:descrip :form:unidadMedida" 
+                                                                           value="Agregar" title="Editar" immediate="true" process="@form">
                                                                 <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
-                                                            </p:commandLink>
+                                                            </p:commandButton>
                                                         </p:column>
                                                     </p:dataTable>
                                                     <br/>
@@ -551,24 +557,24 @@
                                     <p:outputLabel value="Cantidad"/><br></br>
                                     <p:spinner  id="cantidad" required="true"  value="#{controladorRequisicion.cir.instance.cantidad}" min="1" max="#{controladorRequisicion.maximo}" /><br/>
                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad"/></span>
-                                    <br></br>
+                                    <br></br><br/>
 
                                     <p:outputLabel value="Descripción"/><br></br>
                                     <p:inputText id="descrip" value="#{controladorRequisicion.cir.instance.description}" required="true" readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" ></p:inputText>
                                     <br/>
                                     <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
-                                    <br></br>
+                                    <br></br><br/>
                                     <p:outputLabel value="Unidad de Medida"/><br></br>
                                     <p:inputText id="unidadMedida" value="#{controladorRequisicion.cir.instance.unidadMedida}" required="true"  ></p:inputText>
                                     <br/>
-                                    <span class="help-inline text-muted">Descripción del item <ocp:message forId="unidadMedida"/></span>
-                                    <br></br>
+                                    <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida"/></span>
+                                    <br></br><br/>
                                     <div class="admin-actions">
-                                        <p:commandButton process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:basicoDT3" 
+                                        <p:commandLink process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:basicoDT3" 
                                                          styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
                                                          actionListener="#{controladorRequisicion.agregarItem()}">
 
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </div><br/>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
@@ -785,9 +791,9 @@
                                         </h:panelGrid>
 
                                         <h:panelGrid >
-                                            <h:outputText value="Solicitud id: " />
+                                            <h:outputText value="Número de Solicitud: " />
                                             <h:outputText value="#{controladorRequisicion.solicitudrep.numSolicitud}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="vehiculo placa: " />
+                                            <h:outputText value="Placa del vehículo : " />
                                             <h:outputText value="#{controladorRequisicion.vehiculo.placa}" styleClass="outputLabel"/>
                                         </h:panelGrid>
                                         <h:panelGrid>
@@ -1044,11 +1050,13 @@
                                 <p:outputLabel value="Elemento a Revisar"/><br></br>
                                 <p:inputTextarea id="elementoRevisar"  styleClass="form-control" 
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}"
-                                                 /><br></br>
+                                                 />
+                                 <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar" /></span><br></br>
                                 <p:outputLabel value="Descripción de Falla"/><br></br>
                                 <p:inputText id="descripcionFalla"   styleClass="form-control" 
                                              value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
-                                             /><br></br>
+                                             />
+                                <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla" /></span><br></br>
 
                                 <div class="admin-actions">
                                     <p:commandLink update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1 :form:save134 :form:save1  :form:pp2" 

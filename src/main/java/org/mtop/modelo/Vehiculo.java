@@ -35,17 +35,12 @@ import org.mtop.modelo.profile.Profile;
 @DiscriminatorValue(value = "vk")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Vehiculo extends BussinesEntity implements Serializable {
-    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "No se admiten letras")
     private String anioFabricacion;
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
     private String cabina;
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
     private String color;
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
     private String clase;
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
     private String marca;
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
     private String modelo;
     @Column(unique = true)
     private String placa;
@@ -57,11 +52,11 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     @OneToOne
     private Profile persona;
     //registro hace referencia al codigo heredado
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
+    
     private String tipo;
     private String cilindraje;
     private Integer kilometraje;
-    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Error: solo puede ingresar letras")
+    
     private String tipoCombustible;
 
     @ManyToOne

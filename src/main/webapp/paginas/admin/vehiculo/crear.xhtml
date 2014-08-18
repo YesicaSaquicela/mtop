@@ -41,25 +41,36 @@
                                         </p:inputText>
                                         <span class="help-inline text-muted">Número de registro<ocp:message forId="valuep" /></span><br></br><br></br>
 
+                                                        <h:outputLabel value="Conductor:"/> <br></br>
+                                    <p:selectOneMenu id="personal"  value="#{controladorSolicitudReparacionMantenimiento.idPersona}" effect="fade"
+                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                     requiredMessage="Se requiere elegir una persona que solicite una solicitud ">  
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                   
+                                    </p:selectOneMenu> <br></br>
+                                    <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
+                                    <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal" /></span><br></br><br></br> 
 
+                                    
                                         <mtop:input id="marca" name="marca" type="text" label="Marca" 
                                                     value="#{controladorVehiculo.instance.marca}" required="true" 
                                                     inlinehelp=" ingrese la marca Vehículo Ej(Chevrolet)" 
-                                                    execute ="@this save" render="marca"/><br></br>
+                                                    execute ="@this save" render="marca" /><br></br>
                                         <mtop:input id="color" name="color" type="text" label="Color" 
                                                     value="#{controladorVehiculo.instance.color}" required="true" 
                                                     inlinehelp="Ingrese el color del vehículo Ej(Azul)" 
-                                                    execute ="@this save" render="color"/><br></br>
+                                                    execute ="@this save" render="color" validator="stringValidator"/><br></br>
 
-                                        <mtop:input id="clase" name="clase" type="text" label="Clase" 
+                                        <mtop:input id="clase" name="clase" type="text" label="Clase de auto" 
                                                     value="#{controladorVehiculo.instance.clase}" required="true" 
                                                     inlinehelp="Ingrese la clase del vehículo Ej(todo terreno)" 
-                                                    execute ="@this save" render="clase"/><br></br>
+                                                    execute ="@this save" render="clase" validator="stringValidator"/><br></br>
 
                                         <mtop:input id="modelo" name="modelo" type="text" label="Modelo" 
                                                     value="#{controladorVehiculo.instance.modelo}" required="true" 
                                                     inlinehelp="Ingrese el modelo del vehículo Ej(Luv)" 
-                                                    execute ="@this save" render="modelo"/><br></br>
+                                                    execute ="@this save" render="modelo" /><br></br>
 
                                         <mtop:input id="placa" name="placa" type="text" label="Placa" 
                                                     value="#{controladorVehiculo.instance.placa}" required="true" 
@@ -69,7 +80,7 @@
                                         <mtop:input id="numPasajeros" name="numPasajeros" type="text" label="Número de Pasajeros" 
                                                     value="#{controladorVehiculo.instance.numPasajeros}" required="true" 
                                                     inlinehelp="Ingrese el número de pasajeros del vehículo Ej(2)" 
-                                                    execute ="@this save" render="numPasajeros"/><br></br>
+                                                    execute ="@this save" render="numPasajeros" validator="digitValidator"/><br></br>
 
 
                                     </div>
@@ -90,12 +101,12 @@
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo Ej(34)" 
-                                                    execute ="@this save" render="peso"/><br></br>
+                                                    execute ="@this save" render="peso" validator="digitValidator"/><br></br>
 
-                                        <mtop:input id="tipo" name="tipo" type="text" label="Tipo" 
+                                        <mtop:input id="tipo" name="tipo" type="text" label="Tipo de auto" 
                                                     value="#{controladorVehiculo.instance.tipo}" required="true" 
                                                     inlinehelp="Ingrese el tipo del vehículo Ej(Camioneta)" 
-                                                    execute ="@this save" render="tipo"/><br></br>
+                                                    execute ="@this save" render="tipo" validator="stringValidator"/><br></br>
 
                                         <mtop:input id="cilindraje" name="cilindraje" type="text" label="Cilindraje" 
                                                     value="#{controladorVehiculo.instance.cilindraje}" required="true" 
@@ -106,12 +117,12 @@
                                         <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
                                                     value="#{controladorVehiculo.instance.kilometraje}" required="true" 
                                                     inlinehelp="Ingrese el kilometraje del vehículo Ej(5000)" 
-                                                    execute ="@this save" render="kilometraje"/><br></br>
+                                                    execute ="@this save" render="kilometraje" validator="digitValidator"/><br></br>
 
                                         <mtop:input id="tipoCombustible" name="tipoCombustible" type="text" label="Tipo de Combustible" 
                                                     value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
                                                     inlinehelp="Ingrese el tipo de combustible del vehículo Ej(Gasolina)" 
-                                                    execute ="@this save" render="tipoCombustible"/><br></br>
+                                                    execute ="@this save" render="tipoCombustible" validator="stringValidator"/><br></br>
                                     </div>
                                 </div>
                             </div>
