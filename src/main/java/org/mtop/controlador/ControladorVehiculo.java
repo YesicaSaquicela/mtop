@@ -516,7 +516,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setVehiculoId(Long vehiculoId) {
-       
+        System.out.println("id a fijar"+vehiculoId);
+      
         setId(vehiculoId);
 
     }
