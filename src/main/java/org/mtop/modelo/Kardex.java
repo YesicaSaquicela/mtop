@@ -43,12 +43,8 @@ public class Kardex extends BussinesEntity implements Serializable {
     @OneToMany(mappedBy = "kardex",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Requisicion> listaRequisicion=new ArrayList<Requisicion>();
     private String numero;
-    
-   
-    
-  
 
-      @JoinColumn(name = "vehiculoId")
+    @JoinColumn(name = "vehiculoId")
     @OneToOne
     private Vehiculo vehiculo;
 

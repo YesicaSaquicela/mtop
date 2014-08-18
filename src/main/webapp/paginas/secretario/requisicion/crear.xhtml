@@ -688,19 +688,17 @@
                                                         <p:column headerText="Número" sortBy="#{items1.numSolicitud}">
                                                             <h:outputText value="#{items1.numSolicitud}" />
                                                         </p:column>
-                                                        <p:column headerText="Fecha" sortBy="#{controladorRequisicion.formato(items1.fechaSolicitud)}" >
+                                                        <p:column headerText="Fecha de Requisición" sortBy="#{controladorRequisicion.formato(items1.fechaSolicitud)}" >
                                                             <h:outputText value="#{controladorRequisicion.formato(items1.fechaSolicitud)}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{items1.observacion}">
                                                             <h:outputText value="#{items1.observacion}" />
                                                         </p:column>
 
-                                                        <p:column headerText="Reg Vehiculo" sortBy="#{items1.vehiculo.numRegistro}">
+                                                        <p:column headerText="Registro Vehículo" sortBy="#{items1.vehiculo.numRegistro}">
                                                             <h:outputText value="#{items1.vehiculo.numRegistro}" />
                                                         </p:column>
-                                                        <p:column headerText="Id" sortBy="#{items1.id}">
-                                                            <h:outputText value="#{items1.id}" />
-                                                        </p:column>
+                                             
 
                                                         <p:column style="width:4%;text-align: center" headerText="Acciones" >
 
@@ -773,7 +771,7 @@
                         </p:tab>
 
 
-                        <p:tab id="confirm" title="Confirmacion">
+                        <p:tab id="confirm" title="Confirmación">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Confirmación</center></div>
                                 <p:panel >
@@ -782,13 +780,13 @@
                                             <h:outputText value="Numero de requisicion: " />
                                             <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="fecha de requisicion: " /><br/>
-                                            <h:outputText value="#{controladorRequisicion.instance.fechaRequisicion}" styleClass="outputLabel"/>
+                                            <h:outputText value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}" styleClass="outputLabel"/>
 
                                         </h:panelGrid>
 
                                         <h:panelGrid >
                                             <h:outputText value="Solicitud id: " />
-                                            <h:outputText value="#{controladorRequisicion.solicitudrep.id}" styleClass="outputLabel"/><br/>
+                                            <h:outputText value="#{controladorRequisicion.solicitudrep.numSolicitud}" styleClass="outputLabel"/><br/>
                                             <h:outputText value="vehiculo placa: " />
                                             <h:outputText value="#{controladorRequisicion.vehiculo.placa}" styleClass="outputLabel"/>
                                         </h:panelGrid>
