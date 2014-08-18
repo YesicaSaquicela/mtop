@@ -874,31 +874,44 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         List<SolicitudReparacionMantenimiento> le = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), palabrabs);
         //buscando por fechas
         List<SolicitudReparacionMantenimiento> lef = servgen.buscarSolicitudporFecha(SolicitudReparacionMantenimiento_.fechaSolicitud.getName(), palabrabs);
-        for (SolicitudReparacionMantenimiento solicitudrm : lef) {
-            if (!le.contains(solicitudrm)) {
-                le.add(solicitudrm);
+        List<Long> lsoli = new ArrayList<Long>();
+        for (SolicitudReparacionMantenimiento srm : le) {
+            lsoli.add(srm.getId());
+        }
+        for (SolicitudReparacionMantenimiento solicitudesRM : lef) {
+            System.out.println("rerere " + solicitudesRM);
+            System.out.println("lrq>>>> " + lsoli);
+
+            if (!lsoli.contains(solicitudesRM.getId())) {
+                lsoli.add(solicitudesRM.getId());
             }
         }
 
-        if (le.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            if (palabrabs.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "Ingrese algún valor a buscar"));
-                palabrabs = " ";
-            } else {
+        System.out.println("LEeeee" + lsoli);
 
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrabs));
+        if (lsoli.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
             }
 
         } else {
             listaSolicitudes.clear();
-            for (SolicitudReparacionMantenimiento s : le) {
-                if (s.isEstado()) {
-                    listaSolicitudes.add(s);
+            SolicitudReparacionMantenimiento solRM = new SolicitudReparacionMantenimiento();
+            for (Long s : lsoli) {
+                solRM = findById(SolicitudReparacionMantenimiento.class, s);
+                if (solRM.getRequisicionId()== null && solRM.isEstado() && solRM.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
+                    System.out.println("entro a comparacion>>>>>");
+                    listaSolicitudes.add(solRM);
+                    System.out.println("\n\nlista final>>>>" + listaSolicitudes);
+
                 }
             }
 
-            palabrabs = "";
+            palabrab = "";
         }
 
     }
@@ -961,8 +974,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (getInstance().getTipoAdquisicion() != null) {
             if (getInstance().getTipoAdquisicion().equals("bodega")) {
                 if (pro.getId() != null) {
-                    System.out.println("enrra a obtener cantidaaaaa>>>>>>>>>>>>>>>>>>>>>>>");
-                    setMaximo(pro.getCantidad());
+                    boolean ban = true;
+                    System.out.println("cir" + cir.getInstance().getCantidad());
+                    System.out.println("prod" + pro);
+                    for (Producto p : listaProductos) {
+                        System.out.println("ppp" + p);
+                        if (p.getCantidad() == 0) {
+                            setMaximo(cir.getInstance().getCantidad());
+                            ban = false;
+                            break;
+                        }
+                    }
+                    if (ban) {
+
+                        System.out.println("enrra a obtener >>>>>>>>>>>>>>>>>>>>>>>");
+                        setMaximo(pro.getCantidad());
+                    }
+
                 } else {
                     setMaximo(100);
                 }
@@ -996,7 +1024,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("fijandooooooooooooooooooooooooooooo" + pro);
         this.pro = pro;
         cir.getInstance().setDescription(pro.getDescription());
-        cir.getInstance().setCantidad(1);
+        cir.getInstance().setCantidad(0);
         cir.getInstance().setUnidadMedida(" ");
         cir.getInstance().setDescription(pro.getDescription());
         cir.getInstance().setProducto(pro);
@@ -1019,17 +1047,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public List<Producto> getListaProductos() {
         if (listaProductos.isEmpty()) {
-            for (Producto p : findAll(Producto.class)) {
-                System.out.println("producto" + p);
-                System.out.println("\n\n\n\n cantidad" + p.getCantidad());
-                if (p.getCantidad() > 0) {
 
-                    listaProductos.add(p);
-
-                }
-            }
+            listaProductos = findAll(Producto.class);
         }
-
+        System.out.println("lista de productos" + listaProductos);
         return listaProductos;
     }
 
@@ -1160,7 +1181,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     Producto p = new Producto();
                     List<Producto> lp = new ArrayList<Producto>();
+                    System.out.println("proooooo+" + pro);
+                    System.out.println("lista productos" + listaProductos);
                     for (Producto prod : listaProductos) {
+                        System.out.println("prod+prod" + prod);
                         if (!prod.getId().equals(pro.getId())) {
                             System.out.println("a aniadir" + prod);
                             lp.add(prod);
@@ -1168,9 +1192,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         }
                     }
                     listaProductos = lp;
-
+                    System.out.println("lista productos" + listaProductos);
                     pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
                     listaProductos.add(pro);
+                    System.out.println("lista productosdespus" + listaProductos);
                 }
             }
             if (it != null) {
@@ -1180,8 +1205,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         && !it.getUnidadMedida().equals(cir.getInstance().getUnidadMedida())) {
                     listaItemsRequisicion.remove(it);
                     listaItemsRequisicion.add(cir.getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se actualizó Item " + cir.getInstance().getDescription() + " con éxito ");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                } else {
+                    it = null;
                 }
             } else {
+
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se creó Item " + cir.getInstance().getDescription() + " con éxito ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 listaItemsRequisicion.add(cir.getInstance());
             }
 
@@ -1200,9 +1232,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void editarItem(ItemRequisicion itemReq) {
-        System.out.println("itemllega" + itemReq);
-        System.out.println("intem para cont" + cir.getInstance());
-        int con = 0;
         List<ItemRequisicion> lir = listaItemsRequisicion;
         for (ItemRequisicion i : lir) {
 
@@ -1217,26 +1246,26 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (itemReq != null) {
                     if (itemReq.getProducto() != null) {
                         pro = itemReq.getProducto();
-
-                        int j = listaProductos.lastIndexOf(pro);
-                        System.out.println("pro" + pro.getCantidad());
-                        System.out.println("pro de lista" + pro.getCantidad());
+                        int j = 0;
+                        for (Producto p : listaProductos) {
+                            if (p.getId().equals(pro.getId())) {
+                                j++;
+                                break;
+                            }
+                        }
                         pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
                         listaProductos.set(j, pro);
+
                         pro = listaProductos.get(j);
                         maximo = pro.getCantidad() + it.getCantidad();
-                        System.out.println("a fijada" + cir.getInstance().getCantidad());
-                        System.out.println("a fijada" + cir.getInstance().getUnidadMedida());
                     }
 
                 }
                 break;
 
             }
-            con++;
 
         }
-        System.out.println("lista de items al salir " + listaItemsRequisicion);
         getInstance().setListaItems(listaItemsRequisicion);
 
     }
@@ -1373,11 +1402,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     if (event.getOldStep().equals("address")) {
                         System.out.println("id d vechicilooo\n\n\n\n" + this.vehiculo);
                         System.out.println("id tipod e re q escogida" + getInstance().getTipoRequisicion());
-                        if (this.vehiculo.getId() == null && getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
+                        if (this.vehiculo != null) {
+                            if (this.vehiculo.getId() == null && getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
 
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
 
-                            return event.getOldStep();
+                                return event.getOldStep();
+                            } else {
+                                return event.getNewStep();
+                            }
                         } else {
                             return event.getNewStep();
                         }
@@ -1446,13 +1479,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         if (getInstance().isPersistent()) {
             listaItemsRequisicion = getInstance().getListaItems();
-
+            System.out.println("entro a obtener lisra" + listaItemsRequisicion);
         }
 
-        System.out.println("asignado lista itemss" + listaItemsRequisicion);
-
-        System.out.println("id de vehiculo actual set soli" + getInstance().getVehiculo().getId());
-        System.out.println("id de vehiculo actual1111 set soli" + this.vehiculo.getId());
         List<SolicitudReparacionMantenimiento> lr = findAll(SolicitudReparacionMantenimiento.class);
         List<SolicitudReparacionMantenimiento> lrq = new ArrayList<SolicitudReparacionMantenimiento>();
         //mosttrar lista de requisiciones con igual vehiculo ,estado true
@@ -1461,10 +1490,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("\n\nEntro a for solis set req...>>>" + sol.getVehiculo().getId());
             System.out.println("soli setreq" + sol + "estadosetsoli" + sol.isEstado());
             if (sol.isEstado() && sol.getRequisicionId() == null) {
-                if ((sol.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
-                    System.out.println("\n\nentro a comparar set req.....");
-                    lrq.add(sol);
+                if (getInstance().getVehiculo() != null) {
+                    if ((sol.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
+                        System.out.println("\n\nentro a comparar set req.....");
+                        lrq.add(sol);
+                    }
                 }
+
             }
 
         }
@@ -1496,9 +1528,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public Vehiculo getVehiculo() {
+        vehiculo = getInstance().getVehiculo();
         System.out.println("jsjsjsjsjsjsjjsjsjsjjsjsjjs" + vehiculo);
-
-        return vehiculo;
+        System.out.println("getinstancevehiculo" + getInstance().getVehiculo());
+        return getInstance().getVehiculo();
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
@@ -1535,7 +1568,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         } else {
             vehiculo = new Vehiculo();
+            getInstance().setVehiculo(vehiculo);
             System.out.println("vevevevev" + vehiculo);
+            System.out.println("getinstancevehiculo" + getInstance().getVehiculo());
             if (solicitudrep != null) {
                 System.out.println("solicitud.vehiculo " + solicitudrep.getVehiculo());
                 if (getInstance().getSolicitudReparacionId() != null) {
@@ -1661,10 +1696,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("vehiculosss" + getInstance().getVehiculo());
         if (getInstance().getVehiculo() != null) {
-            System.out.println("entro a fijar vehciulo\n\n\n\n\n" + getInstance().getVehiculo());
-            System.out.println("vehiculo" + vehiculo);
-            getInstance().setVehiculo(vehiculo);
+            if (getInstance().getVehiculo().getId() != null) {
+                System.out.println("entro a fijar vehciulo\n\n\n\n\n" + getInstance().getVehiculo());
+                System.out.println("vehiculo" + vehiculo);
+                getInstance().setVehiculo(vehiculo);
+            } else {
+                getInstance().setVehiculo(null);
+            }
+
+        } else {
+            getInstance().setVehiculo(null);
         }
 
         System.out.println("PRESENTADNOIDE requisicion>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...>" + vehiculo);
