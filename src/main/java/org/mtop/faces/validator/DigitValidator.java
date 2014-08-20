@@ -39,20 +39,9 @@ System.out.println("\n\n\n\n entro al validador del digitos\n\n\n\n" + value);
         System.out.println("\n\n\n\n entro al validador del digitos\n\n\n\n" + field);
         if (!field.matches("[0-9]*")) {
             System.out.println("\n\n\n si valida\n\n\n\n");
-            FacesMessage msg = new FacesMessage(UI.getMessages("validation.containsString"));
+            FacesMessage msg = new FacesMessage(UI.getMessages("No se admiten letras"));
             throw new ValidatorException(msg);
         }
-//        if (!StringValidations.isPunctuatedTextUTF8(field)) {
-//            FacesMessage msg = new FacesMessage(UI.getMessages("validation.badUTF8Input"), UI.getMessages("validation.badUTF8Input.detail"));
-//            throw new ValidatorException(msg);
-//        } else if (StringValidations.containsCaracteres(field)) {
-//            if (field.length() < 7) {
-//                FacesMessage msg = new FacesMessage(UI.getMessages("validation.lengthDigit"));
-//                throw new ValidatorException(msg);
-//            } else {
-//                FacesMessage msg = new FacesMessage(UI.getMessages("validation.containsString"));
-//                throw new ValidatorException(msg);
-//            }
-//        } 
+
     }
 }

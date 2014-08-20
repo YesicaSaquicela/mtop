@@ -89,14 +89,15 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private Requisicion nuevaRequisicion = new Requisicion();
     private ItemSolicitudReparacion itemsr;
     private List<ItemSolicitudReparacion> itemsEliminar;
-    private String wiz = "";
-
-    public String getWiz() {
-        return wiz;
+    private ItemSolicitudReparacion it;
+   
+    
+    public ItemSolicitudReparacion getIt() {
+        return it;
     }
 
-    public void setWiz(String wiz) {
-        this.wiz = wiz;
+    public void setIt(ItemSolicitudReparacion it) {
+        this.it = it;
     }
 
     public List<ItemSolicitudReparacion> getItemsEliminar() {
@@ -107,18 +108,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.itemsEliminar = itemsEliminar;
     }
 
-//    private long idRequisicion;
-//
-//    public long getIdRequisicion() {
-//        return idRequisicion;
-//    }
-//
-//    public void setIdRequisicion(long idRequisicion) {
-//         System.out.println("llega id>>>>>"+idRequisicion);
-//        this.idRequisicion = idRequisicion;
-//        getInstance().setRequisicionId(findById(Requisicion.class, idRequisicion));
-//        System.out.println("fijado en instance>>>>>"+getInstance().getRequisicionId());
-//    }
     public Requisicion getNuevaRequisicion() {
         return nuevaRequisicion;
     }
@@ -144,8 +133,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.vista = vista;
         System.out.println("retornando vista>>>>>" + vista);
         System.out.println("nueva requi en set vista" + nuevaRequisicion.getObservaciones());
-        System.out.println("lista de solicitudes>>>>"+listaSolicitud);
-        System.out.println("lista pasadas por parametros>>>"+listaRequisiciones);
+        System.out.println("lista de solicitudes>>>>" + listaSolicitud);
+        System.out.println("lista pasadas por parametros>>>" + listaRequisiciones);
     }
 
     public List<ItemSolicitudReparacion> getListaItemsSolicitud() {
@@ -189,8 +178,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.idPersona = idPersona;
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPsolicita(psolicita);
-        System.out.println("nombre de la persona que solicita>>>>"+getInstance().getPsolicita().getFirstname());   
-        
+        System.out.println("nombre de la persona que solicita>>>>" + getInstance().getPsolicita().getFirstname());
+
     }
 
     public String getPalabrab() {
@@ -578,48 +567,43 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("Entro getOld" + event.getOldStep());
         System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
         System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
-        if (wiz.equals("sol")) {
-            wiz = "";
-            System.out.println("retornando sol");
-            return "sol";
-        } else {
-            System.out.println("otro retorna");
-            if (skip) {
-                skip = false;   //reset in case user goes back  
 
-                return "confirm";
+        System.out.println("otro retorna");
+        if (skip) {
+            skip = false;   //reset in case user goes back  
+
+            return "confirm";
+        } else {
+            System.out.println("pasoooo");
+            if (getInstance().getId() != null) {
+                this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
+            }
+            if (event.getNewStep().equals("sol") && event.getOldStep().equals("address")) {
+                return event.getNewStep();
             } else {
-                System.out.println("pasoooo");
-                if (getInstance().getId() != null) {
-                    this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
-                }
-                if (event.getNewStep().equals("sol") && event.getOldStep().equals("address")) {
+                if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
                     return event.getNewStep();
                 } else {
-                    if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
-                        return event.getNewStep();
+                    if (event.getOldStep().equals("address") && getInstance().getVehiculo() == null) {
+                        System.out.println("entro al mensaje vehiculo");
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+
+                        return event.getOldStep();
                     } else {
-                        if (event.getOldStep().equals("address") && getInstance().getVehiculo() == null) {
-                            System.out.println("entro al mensaje vehiculo");
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+
+                        if (event.getOldStep().equals("items") && this.listaItemsSolicitud.isEmpty()) {
+                            System.out.println("estas vaciaaaaaa");
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
 
                             return event.getOldStep();
                         } else {
 
-                            if (event.getOldStep().equals("items") && this.listaItemsSolicitud.isEmpty()) {
-                                System.out.println("estas vaciaaaaaa");
-                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
-
-                                return event.getOldStep();
-                            } else {
-
-                                return event.getNewStep();
-                            }
+                            return event.getNewStep();
                         }
                     }
                 }
-
             }
+
         }
 
     }
@@ -702,7 +686,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("vehiculo  en set soli" + getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
-        if (getInstance().getRequisicionId()!=null) {
+        if (getInstance().getRequisicionId() != null) {
             requisicion = getInstance().getRequisicionId();
             reqSolicitud = requisicion;
             reqSolicitud.setSolicitudReparacionId(null);
@@ -766,21 +750,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void editarItemS(ItemSolicitudReparacion itemsol) {
 
-        int con = 0;
         List<ItemSolicitudReparacion> li = listaItemsSolicitud;
         for (ItemSolicitudReparacion items : li) {
             System.out.println("entro al for>>>>>>>");
             if (items.getDescripcionElementoRevisar().equals(itemsol.getDescripcionElementoRevisar())
                     && items.getDescripcionFalla().equals(itemsol.getDescripcionFalla())) {
-                System.out.println("entro a remover>>>>>");
-                listaItemsSolicitud.remove(con);
+                System.out.println("entro a remover>>>>>");             
                 citemsolicitud.setInstance(items);
+                it = items;
                 break;
-
             }
-            con++;
-
         }
+        //ojo aumente..
+        getInstance().setListaItemSR(listaItemsSolicitud);
 
     }
 
@@ -819,12 +801,29 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
-            System.out.println("\n\nentro a agregar>>>>>>>.");
-            listaItemsSolicitud.add(citemsolicitud.getInstance());
-            getInstance().setListaItemSR(listaItemsSolicitud);
-            System.out.println("a;ade a lista>>>>>." + citemsolicitud.getInstance());
-            citemsolicitud.setInstance(new ItemSolicitudReparacion());
+            if (it != null) {
+                System.out.println("entro a it");
+                if (!it.getDescripcionElementoRevisar().equals(citemsolicitud.getInstance().getDescripcionElementoRevisar())
+                        && !it.getDescripcionFalla().equals(citemsolicitud.getInstance().getDescripcionFalla())) {
+                    listaItemsSolicitud.remove(it);
+                    listaItemsSolicitud.add(citemsolicitud.getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se actualizó Item " + citemsolicitud.getInstance().getDescripcionElementoRevisar() + " con éxito ");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                } else {
+                    it = null;
+                }
+            } else {
 
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se creó Item " + citemsolicitud.getInstance().getDescripcionFalla() + " con éxito ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+                listaItemsSolicitud.add(citemsolicitud.getInstance());
+            }
+//            System.out.println("\n\nentro a agregar>>>>>>>.");
+//            listaItemsSolicitud.add(citemsolicitud.getInstance());
+//            getInstance().setListaItemSR(listaItemsSolicitud);
+//            System.out.println("a;ade a lista>>>>>." + citemsolicitud.getInstance());
+//            citemsolicitud.setInstance(new ItemSolicitudReparacion());
+            citemsolicitud.setInstance(new ItemSolicitudReparacion());
         }
 
     }
@@ -885,7 +884,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             }
 
         }
-        System.out.println("lista de requisisicones en el inti>>>>>"+listaRequisiciones);
+        System.out.println("lista de requisisicones en el inti>>>>>" + listaRequisiciones);
 
         System.out.println("lista solicitudes sin requisicion" + listaSolicitud);
         vehiculo = new Vehiculo();
@@ -1115,7 +1114,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 //        System.out.println("Nueva requisicion>>>" + nuevaRequisicion.getObservaciones());
 //
 //    }
-
     protected void createInstanceIS() {
         //prellenado estable para cualquier clase 
         BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());

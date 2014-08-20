@@ -21,10 +21,10 @@ public class StringValidator implements Validator {
             throws ValidatorException {
         String field = value.toString();        
         if (!StringValidations.isPunctuatedTextUTF8(field) ) {
-            FacesMessage msg = new FacesMessage(UI.getMessages("validation.badUTF8Input"), UI.getMessages("validation.badUTF8Input.detail"));
+            FacesMessage msg = new FacesMessage(UI.getMessages("Este texto no anda bien"), UI.getMessages("Evite usar caráteres extraños en nombres y otra información corta"));
             throw new ValidatorException(msg);
         }else if(StringValidations.containsDecimal(field)){
-            FacesMessage msg = new FacesMessage(UI.getMessages("validation.containsDigit"));
+            FacesMessage msg = new FacesMessage(UI.getMessages("No se admiten números"));
             throw new ValidatorException(msg);
         }
     }

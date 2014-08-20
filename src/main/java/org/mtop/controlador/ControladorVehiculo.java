@@ -59,6 +59,7 @@ import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.context.RequestContext;
 import org.mtop.genreporte.GeneradorPdf;
+import org.mtop.modelo.profile.Profile;
 /**
  *
  * @author jesica
@@ -82,9 +83,23 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private EstadoVehiculo estado = new EstadoVehiculo();
     private ControladorEstadoVehiculo cev;
     private Date fechaFinal=Calendar.getInstance().getTime();
-    
-    
+    private long idPersona;
 
+    public long getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(long idPersona) {
+        for (Profile persona : findAll(Profile.class)) {
+            if(persona.getTipo().equals("Conductor")){
+                getInstance().setPersona(persona);
+            }
+        }
+        this.idPersona = idPersona;
+    }
+    
+    
+    
     public Date getFechaFinal() {
        
         fechaFinal = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
@@ -708,7 +723,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         try {
             if (getInstance().isPersistent()) {
 
-                System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
