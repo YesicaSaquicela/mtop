@@ -171,6 +171,9 @@ limitations under the License.
 
                     </div>
                     <c:forEach items="#{bussinesEntityTypeHome.instance.structures}" var="e" id="forEach">
+                        <c:if test="#{bussinesEntityTypeHome.listaPropiedades == null}">
+                            <c:set target="#{bussinesEntityTypeHome}" property="listaPropiedades" value="#{e.properties}"/>
+                        </c:if>
                         <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
 
                             <h2><h:outputLabel value="lista de propiedades para la entidad "/>
@@ -180,6 +183,46 @@ limitations under the License.
                             </f:facet>-->
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                             <div class="admin-actions">
+
+
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
+
+
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                    <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeHome.palabrab}"   
+                                                                                    completeMethod="#{bussinesEntityTypeHome.autocompletar}"/> 
+                                                                    #{'  '}
+
+
+
+                                                                    <p:commandButton value="Buscar" update=":form:properties" id="buscar" 
+                                                                                     action="#{bussinesEntityTypeHome.buscar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton value="Limpiar" update=":form:properties" 
+                                                                                     action="#{bussinesEntityTypeHome.limpiar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </p:panel>
+                                </div>
                                 <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="property" styleClass="btn primary">
                                     <f:param name="propertyId"></f:param>
                                     <f:param name="structureId" value ="#{e.id}"></f:param>
@@ -187,28 +230,17 @@ limitations under the License.
                                     <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                                     <f:param name="backView" value="bussinesentitytype"></f:param>
                                 </h:link>
-                                #{' '}
-                                <h:link id="button-edit" value="#{messages['common.edit']}" rendered="true" outcome="property" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
-                                    <f:param name="propertyId" value="#{propertyHome.instance.id}"></f:param>
-                                    <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
-                                    <f:param name="structureId" value ="#{e.id}"></f:param>                             
-                                    <f:param name="backView" value="bussinesentitytype"></f:param>
-                                </h:link> 
+
                                 #{' '}
                                 <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                         value="#{messages['common.cancel']}" styleClass="btn  btn-success"/>   
 
                             </div><br/>
 
-                            <p:dataTable var="property" value="#{e.properties}" 
+                            <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
                                          editable="false" resizableColumns="true" liveResize="true" 
                                          id="properties"
-                                         rowKey="#{property.id}"
-                                         selection="#{propertyHome.instance}" 
-                                         selectionMode="single" > 
-                                <p:ajax event="rowSelect" listener="#{propertyHome.onRowSelect}"   
-                                        update=":form:button-edit :form:messages"/>  
-                                <p:ajax event="rowUnselect" listener="#{propertyHome.onRowUnselect}" update=":form:button-edit :form:messages"/>
+                                         > 
 
                                 <p:column headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
                                     <h:outputText value="#{property.name}" />
@@ -237,6 +269,21 @@ limitations under the License.
                                         <f:param name="bussinesentitytypeId" ></f:param>
                                         <f:param name="backView" value="list"></f:param>
                                     </h:link>
+                                    #{' '}
+                                    <h:link id="button-edit" value="#{messages['common.edit']}" rendered="true" outcome="property" styleClass="btn" >
+                                        <f:param name="propertyId" value="#{property.id}"></f:param>
+                                        <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
+                                        <f:param name="structureId" value ="#{e.id}"></f:param>                             
+                                        <f:param name="backView" value="bussinesentitytype"></f:param>
+                                    </h:link> 
+
+
+                                    #{' '}                     
+                                    <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="deletedDlg.show();"  immediate="true"
+                                                     update=":cancel-dialog1 :alerts-dialog:" >
+                                        <f:setPropertyActionListener target="#{propertyHome.instance.id}" value="#{property.id}"/>
+                                    </p:commandButton>
+                                    #{' '}
                                 </p:column>
                             </p:dataTable>
                         </p:panel><br/>
@@ -259,5 +306,31 @@ limitations under the License.
                                  style="margin-top:10px;"/>  
             </h:form>
         </p:dialog> 
+        
+        
+        
+        <p:dialog id="cancel-dialog1" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
+                <h:form id="form-dialog-confirm-delete1">
+                    <h:panelGroup layout="block" style="padding:5px;">  
+                        <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
+                    </h:panelGroup>  
+                    <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"                                           
+                                     action="#{propertyHome.deleteProperty()}"                                          
+                                     ajax="true" process="@this"  
+                                     style="margin-top:10px;">  
+                    </p:commandButton>  
+                    <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
+                                     style="margin-top:10px;"/>  
+                </h:form>
+            </p:dialog>
+            <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+                <h:form id="form-alerts-dialog">
+                    <h:panelGroup layout="block" style="padding:5px;">  
+                        <h:outputText value="#{messages['common.property.hasValues']}"/>  
+                    </h:panelGroup>                          
+                    <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
+                                     styleClass="btn  btn-success"/>  
+                </h:form>
+            </p:dialog>
     </ui:define>    
 </ui:composition>

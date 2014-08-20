@@ -64,6 +64,86 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     @Inject
     private BussinesEntityService bussinesEntityService;
     private String name;
+    private String palabrab;
+    List<Property> listaPropiedades;
+    List<Property> listaPropiedades2;
+
+    public List<Property> getListaPropiedades() {
+        return listaPropiedades;
+    }
+
+    public void setListaPropiedades(List<Property> listaPropiedades) {
+        System.out.println("fijando las propiedades"+listaPropiedades);
+        this.listaPropiedades2=listaPropiedades;
+        this.listaPropiedades = listaPropiedades;
+    }
+    
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+    
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+        ArrayList<String> ced=new ArrayList<String>();
+        ced = new ArrayList<String>();
+        
+        for (Property bet : listaPropiedades) {
+            System.out.println("nombre" + bet.getName());
+            if (bet.getName().toLowerCase().contains(query.toLowerCase())) {
+                ced.add(bet.getName());
+            }
+
+        }
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+    }
+    
+    
+    
+     public void buscar() {
+
+        List<Property> le = new ArrayList<Property>();
+        le.clear();
+        System.out.println("palabra b" + palabrab);
+        palabrab = palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        System.out.println("lista de entidades a buscar" + listaPropiedades);
+        for (Property property : listaPropiedades2) {
+
+            if (property.getName().toLowerCase().contains(palabrab.toLowerCase())) {
+                le.add(property);
+            }
+        }
+        System.out.println("encontradas" + le);
+
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaPropiedades = le;
+            System.out.println("presentando\n\n\n" +listaPropiedades);
+
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        System.out.println("lista de entidades a devolver" + listaPropiedades2);
+        listaPropiedades = listaPropiedades2;
+    }
 
     public BussinesEntityTypeHome() {
         log.info("mtop --> Inicializo BussinesEntityTypeHome");

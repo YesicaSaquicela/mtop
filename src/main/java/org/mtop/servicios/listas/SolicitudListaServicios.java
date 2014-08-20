@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.servicios.listas;
 
 /**
  *
  * @author yesica
  */
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,7 +74,6 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
 
     public SolicitudListaServicios() {
         setPageSize(MAX_RESULTS);
@@ -96,31 +93,30 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
         System.out.println("fijando SOlidituuzzxxzzuuud en guardar en lista de solicitud");
 
         if (solicitudSeleccionada != null) {
-      
-                try {
 
-                    System.out.println("recupero solicitud" + solicitudSeleccionada);
-                    solicitudSeleccionada.setKardex(k);
-                    solicitudSeleccionada.setLastUpdate(now);
-                    solicitudSeleccionada.setAprobado(true);
-          
-                    servgen.actualizar(solicitudSeleccionada);
+            try {
 
-                    System.out.println("guando solicicitud con kardex cooon" + solicitudSeleccionada.getKardex());
-                    k.setLastUpdate(now);
-                    k.getListaSolicitudReparacion().add(solicitudSeleccionada);
+                System.out.println("recupero solicitud" + solicitudSeleccionada);
+                solicitudSeleccionada.setKardex(k);
+                solicitudSeleccionada.setLastUpdate(now);
+                solicitudSeleccionada.setAprobado(true);
 
-                    servgen.actualizar(k);
-                    System.out.println("guardo kardex con solicitudes" + k.getListaSolicitudReparacion());
+                servgen.actualizar(solicitudSeleccionada);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            
+                System.out.println("guando solicicitud con kardex cooon" + solicitudSeleccionada.getKardex());
+                k.setLastUpdate(now);
+                k.getListaSolicitudReparacion().add(solicitudSeleccionada);
+
+                servgen.actualizar(k);
+                System.out.println("guardo kardex con solicitudes" + k.getListaSolicitudReparacion());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
 
-        System.out.println("fijanddsasadasdadassssssssssss");
+        System.out.println("fijanddsasadasdadassssssssssss" + resultList);
         return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
     }
 
@@ -225,21 +221,35 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
             qData = csr.find(first, end, sortField, order, _filters);
 
             List<SolicitudReparacionMantenimiento> lr = new ArrayList<SolicitudReparacionMantenimiento>();
-
+            System.out.println("skjdsjdshb"+qData.getResult());
             for (SolicitudReparacionMantenimiento qd : qData.getResult()) {
-                System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
-                if (qd.getAprobado() == false&&qd.isEstado()&& qd.getVehiculo().getId().equals(vehiculo.getId())) {
-                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
-                    lr.add(qd);
+                System.out.println("id de req"+qd);
+                System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n"+vehiculo);
+                System.out.println("qd.getVehiculo()"+qd.getVehiculo());
+                System.out.println("qd.isEstado()"+qd.isEstado());
+                System.out.println("");
+                if (qd.getVehiculo() != null && vehiculo!=null) {
+                    if (qd.getAprobado() == false && qd.isEstado() && qd.getVehiculo().getId().equals(vehiculo.getId())) {
+                        System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
+                        lr.add(qd);
+                    }
                 }
 
             }
-            qData.setResult(lr);
-            this.setRowCount(qData.getTotalResultCount().intValue());
+            if (lr.isEmpty()) {
+                
+                System.out.println("entro empty");
+            } else {
+                System.out.println("no entra empty");
+                qData.setResult(lr);
+                this.setRowCount(qData.getTotalResultCount().intValue());
+            }
 
         } catch (Exception e) {
+            System.out.println("EROOOR");
             e.printStackTrace();
         }
+        System.out.println("listatattatata"+qData.getResult());
         return qData.getResult();
 
     }
@@ -270,4 +280,3 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     }
 
 }
-

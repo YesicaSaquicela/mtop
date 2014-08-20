@@ -437,6 +437,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @Transactional
     public String deleteProperty() {
+        System.out.println("entro elimianrrrr");
+                
+        System.out.println("entro e eliminar"+getInstance().getName());
         String outcome = null;
         try {
             if (getInstance() == null) {
