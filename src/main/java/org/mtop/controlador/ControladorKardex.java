@@ -65,16 +65,16 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     private List<Kardex> listakardex = new ArrayList<Kardex>();
     private List<SolicitudReparacionMantenimiento> listaSol;
     private List<Requisicion> listaReq;
-    
+
     private List<Kardex> listakardex2 = new ArrayList<Kardex>();
     private List<SolicitudReparacionMantenimiento> listaSol2;
     private List<Requisicion> listaReq2;
-    
+
     private String palabrab;
     private String palabrabr;
     private String palabrabs;
     private String vista;
-    
+
     private SolicitudReparacionMantenimiento solicitud;
     private Requisicion requisicion;
     private String observaciones = "";
@@ -102,12 +102,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setListaReq2(List<Requisicion> listaReq2) {
         this.listaReq2 = listaReq2;
     }
-    
-    
-    
-    
-    
-    
+
     public String getObservaciones() {
         System.out.println("recuperando" + observaciones);
         return observaciones;
@@ -215,15 +210,14 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("QUEryyyyy" + query);
 
         ArrayList<String> ced = new ArrayList<String>();
-        System.out.println("lista kardex2"+listakardex2);
-       
+        System.out.println("lista kardex2" + listakardex2);
+
         for (Kardex kar : listakardex2) {
-            if(kar.getNumero().contains(query)){
+            if (kar.getNumero().contains(query)) {
                 ced.add(kar.getNumero());
-                  System.out.println("econtro uno " + kar.getNumero());
+                System.out.println("econtro uno " + kar.getNumero());
             }
-          
-            
+
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
@@ -235,21 +229,19 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         ArrayList<String> ced = new ArrayList<String>();
         String s;
         for (Requisicion requisicion : listaReq2) {
-            if (requisicion.getNumRequisicion().contains(query) ) {
-                
-                    ced.add(requisicion.getNumRequisicion());
+            if (requisicion.getNumRequisicion().contains(query)) {
+
+                ced.add(requisicion.getNumRequisicion());
             }
             s = requisicion.getFechaRequisicion().toString();
             System.out.println("valor de SSSSSSSSSSSS" + s);
             System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(query));
             if (s.contains(String.class.cast(query))) {
-                System.out.println("anado una fecha>>>>"+s);
+                System.out.println("anado una fecha>>>>" + s);
                 ced.add(s);
             }
 
         }
-
-      
 
         System.out.println("\n\nlistaaaaa autocompletar" + ced);
         return ced;
@@ -261,26 +253,24 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
         ArrayList<String> ced = new ArrayList<String>();
 
-       
         String s;
         for (SolicitudReparacionMantenimiento soli : listaSol2) {
             System.out.println("econtro uno " + soli.getNumSolicitud());
             //buscar por nuemro
             if (soli.getNumSolicitud().contains(query)) {
-                    ced.add(soli.getNumSolicitud());
-               
+                ced.add(soli.getNumSolicitud());
+
             }
             //buscar por fechas
             s = soli.getFechaSolicitud().toString();
             System.out.println("valor de SSSSSSSSSSSS" + s);
             System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(query));
             if (s.contains(String.class.cast(query))) {
-                System.out.println("anado una fecha>>>>"+s);
+                System.out.println("anado una fecha>>>>" + s);
                 ced.add(s);
             }
 
         }
-        
 
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
@@ -291,8 +281,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
         List<Kardex> le = new ArrayList<Kardex>();
         le.clear();
-        palabrab=palabrab.trim();
-        if (palabrab == null || palabrab.equals("") ) {
+        palabrab = palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
             palabrab = "Ingrese algun valor a buscar";
         }
         le = servgen.buscarTodoscoincidencia(Kardex.class, Kardex.class.getSimpleName(), Kardex_.numero.getName(), palabrab);
@@ -318,24 +308,23 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
         System.out.println("ingreso la palabra>>>>" + palabrabs);
         //buscando por coincidencia
-        List<SolicitudReparacionMantenimiento> le = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), palabrabs);
-        //buscando por fechas
-        List<SolicitudReparacionMantenimiento> lef = servgen.buscarSolicitudporFecha(SolicitudReparacionMantenimiento_.fechaSolicitud.getName(), palabrabs);
-        System.out.println("Todas>>>>>>" + lef);
-        System.out.println("Todascoincidencia>>>>>>" + le);
-        List<Long> lsoli = new ArrayList<Long>();
-        for (SolicitudReparacionMantenimiento srm : le) {
-            lsoli.add(srm.getId());
-        }
-        for (SolicitudReparacionMantenimiento solicitudesRM : lef) {
-            System.out.println("rerere " + solicitudesRM);
-            System.out.println("lrq>>>> " + lsoli);
-
-            if (!lsoli.contains(solicitudesRM.getId())) {
-                lsoli.add(solicitudesRM.getId());
+       String s;
+        List<SolicitudReparacionMantenimiento> lsoli = new ArrayList<SolicitudReparacionMantenimiento>();
+        for (SolicitudReparacionMantenimiento srm : listaSol2) {
+            if(srm.getNumSolicitud().contains(palabrabs)){
+                lsoli.add(srm);
+            }else{
+                 s = srm.getFechaSolicitud().toString();
+                System.out.println("valor de SSSSSSSSSSSS" + s);
+                System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(palabrabs));
+                if (s.contains(palabrabs)) {
+                    System.out.println("anado una fecha>>>>" + s);
+                    lsoli.add(srm);
+                }
             }
+            
         }
-
+        
         System.out.println("LEeeee" + lsoli);
 
         if (lsoli.isEmpty()) {
@@ -348,22 +337,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             }
 
         } else {
-            listaSol.clear();
-            SolicitudReparacionMantenimiento sol = new SolicitudReparacionMantenimiento();
-            for (Long r : lsoli) {
-                System.out.println("Entro al for>>>>>>");
-                sol = findById(SolicitudReparacionMantenimiento.class, r);
-                System.out.println("estado>>>>" + sol.isEstado());
-                System.out.println("vehiculo>>>>>>>>>" + getInstance().getVehiculo().getId());
-                System.out.println("vehiculo>>>>>>>>>" + sol.getVehiculo().getId());
-                System.out.println("numero de requisicion>>>>" + sol.getNumSolicitud());
-                if (sol.isEstado() && sol.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
-                    System.out.println("entro a comparacion>>>>>");
-                    listaSol.add(sol);
-                    System.out.println("\n\nlista final>>>>" + listaSol);
-
-                }
-            }
+            listaSol=lsoli;
             palabrabs = "";
         }
 
@@ -371,27 +345,27 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     public void buscarr() {
         System.out.println("\n\n\nENTRO A BUSCAR REQU11111I>>>>>>");
-        if (palabrabr == null || palabrabr.equals("") || palabrabr.contains(" ")) {
+        palabrabr = palabrabr.trim();
+        if (palabrabr == null || palabrabr.equals("")) {
             palabrabr = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia
-        List<Requisicion> le = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), palabrabr);
-        //buscando por fechas
-        List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), palabrabr);
-        System.out.println("Todas>>>>>>" + lef);
-        System.out.println("Todascoincidencia>>>>>>" + le);
-        List<Long> lrq = new ArrayList<Long>();
-        for (Requisicion r : le) {
-            lrq.add(r.getId());
-        }
-        for (Requisicion requis : lef) {
-            System.out.println("rerere " + requis);
-            System.out.println("lrq>>>> " + lrq);
-
-            if (!lrq.contains(requis.getId())) {
-                System.out.println("entro al if>>>>>>>");
-                lrq.add(requis.getId());
+       
+        List<Requisicion> lrq = new ArrayList<Requisicion>();
+        String s;
+        for (Requisicion r : listaReq2) {
+            if (r.getNumRequisicion().contains(palabrabr)) {
+                lrq.add(r);
+            } else {
+                s = r.getFechaRequisicion().toString();
+                System.out.println("valor de SSSSSSSSSSSS" + s);
+                System.out.println("valor de aTributooooooooooooooooooooo" + String.class.cast(palabrabr));
+                if (s.contains(palabrabr)) {
+                    System.out.println("anado una fecha>>>>" + s);
+                    lrq.add(r);
+                }
             }
+
         }
 
         System.out.println("LEeeee" + lrq);
@@ -406,74 +380,29 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             }
 
         } else {
-            listaReq.clear();
-            Requisicion re = new Requisicion();
-            System.out.println("lista que esta recorriendo>>>>>" + lrq);
-            for (Long r : lrq) {
-                System.out.println("Entro al for>>>>>>");
-                re = findById(Requisicion.class, r);
-                System.out.println("estado>>>>" + re.isEstado());
-                System.out.println("vehiculo>>>>>>>>>" + getInstance().getVehiculo().getId());
-                System.out.println("vehiculo>>>>>>>>>" + re.getVehiculo().getId());
-                System.out.println("numero de requisicion>>>>" + re.getNumRequisicion());
-                if (re.isEstado() && re.getVehiculo().getId() == getInstance().getVehiculo().getId()) {
-                    System.out.println("entro a comparacion>>>>>");
-                    listaReq.add(re);
-                    System.out.println("\n\nlista final>>>>" + listaReq);
-
-                }
-            }
-
-            palabrabr = "";
+            listaReq = lrq;
         }
+
+        palabrabr = "";
 
     }
 
     public void limpiar() {
         palabrab = "";
-        listakardex = findAll(Kardex.class);
+        listakardex
+                = findAll(Kardex.class
+                );
     }
 
     public void limpiarr() {
         palabrabr = "";
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
-        listaReq.clear();
-        System.out.println("lppp" + lr);
-
-        for (Requisicion r : lr) {
-            if (r.getKardex() != null) {
-                if (r.getKardex().getId().equals(getInstance().getId())) {
-                    System.out.println("listatesssa" + listaReq);
-                    listaReq.add(r);
-
-                }
-            }
-
-        }
+        
+        listaReq=listaReq2;
     }
 
     public void limpiars() {
         palabrabs = "";
-
-        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
-
-        listaSol.clear();
-        System.out.println("lppp" + ls);
-        System.out.println("vehisuclo " + getInstance().getVehiculo());
-        for (SolicitudReparacionMantenimiento soli : ls) {
-            System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
-            System.out.println("estado sel la soli en lipiar " + soli.isEstado());
-            System.out.println("req sel la soli en lipiar " + soli.getRequisicionId());
-            System.out.println("vehiculo sel la soli en lipiar " + soli.getVehiculo());
-            if (soli.getKardex() != null) {
-                if (soli.getKardex().getId().equals(getInstance().getId())) {
-                    System.out.println("listatesssa" + listaSol);
-                    listaSol.add(soli);
-                }
-
-            }
-
-        }
+        listaSol = listaSol2;
     }
 
     public Long getKardexId() {
@@ -498,10 +427,12 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setSolicitudId(Long id) {
 
         System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
-        solicitud = findById(SolicitudReparacionMantenimiento.class, id);
+        solicitud
+                = findById(SolicitudReparacionMantenimiento.class, id);
         Date now = Calendar.getInstance().getTime();
 
-        if (solicitud != null) {
+        if (solicitud
+                != null) {
 
             try {
 
@@ -519,7 +450,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 servgen.actualizar(getInstance());
                 System.out.println("\n\n\n\nguardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
                 listaSol = getInstance().getListaSolicitudReparacion();
-                listaSol2=listaSol;
+                listaSol2 = listaSol;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -527,7 +458,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             solicitud.setNumSolicitud("");
         }
 
-        System.out.println("fijanddsasadasdadassssssssssss");
+        System.out.println(
+                "fijanddsasadasdadassssssssssss");
     }
 
     public Long getRequisicionId() {
@@ -539,12 +471,16 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     }
 
-    public void setRequisicionId(Long id) {
+    public
+            void setRequisicionId(Long id) {
         requisicion = findById(Requisicion.class, id);
         Date now = Calendar.getInstance().getTime();
-        System.out.println("fijando REquisicion en guardar");
 
-        if (solicitud != null) {
+        System.out.println(
+                "fijando REquisicion en guardar");
+
+        if (solicitud
+                != null) {
 
             try {
 
@@ -559,7 +495,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 servgen.actualizar(getInstance());
                 System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
                 listaReq = getInstance().getListaRequisicion();
-                listaReq2=listaReq;
+                listaReq2 = listaReq;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -567,7 +503,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             solicitud.setNumSolicitud("");
         }
 
-        System.out.println("fijanddsasadasdadassssssssssss");
+        System.out.println(
+                "fijanddsasadasdadassssssssssss");
     }
 
     public void guardarSolicitud(SolicitudReparacionMantenimiento sol) {
@@ -670,46 +607,62 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         bussinesEntityService.setEntityManager(em);
         System.out.println("despues de fija em en kardex");
         servgen.setEm(em);
-        listakardex = servgen.buscarTodos(Kardex.class);
-        listakardex2=listakardex;
+        listakardex
+                = servgen.buscarTodos(Kardex.class
+                );
+        listakardex2 = listakardex;
         solicitud = new SolicitudReparacionMantenimiento();
-        System.out.println("lista Sol" + listaSol);
-        if (listaSol == null) {
+
+        System.out.println(
+                "lista Sol" + listaSol);
+        if (listaSol
+                == null) {
 
             for (Kardex kardex : listakardex) {
                 if (kardex.getId().equals(getInstance().getId())) {
                     listaSol = kardex.getListaSolicitudReparacion();
-                    listaSol2=listaSol;
+                    listaSol2 = listaSol;
 
                 }
             }
         }
-        if (listaReq == null) {
+        if (listaReq
+                == null) {
 
             for (Kardex kardex : listakardex) {
                 if (kardex.getId().equals(getInstance().getId())) {
 
                     listaReq = kardex.getListaRequisicion();
-                    listaReq2=listaReq;
+                    listaReq2 = listaReq;
                 }
             }
         }
-        System.out.println("lista Soliss" + listaSol);
-         System.out.println("lista requiss" + listaReq);
+
+        System.out.println(
+                "lista Soliss" + listaSol);
+        System.out.println(
+                "lista requiss" + listaReq);
 
 //      
     }
 
     @Override
-    protected Kardex createInstance() {
+    protected Kardex
+            createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Kardex.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Kardex.class
+                .getName());
         Date now = Calendar.getInstance().getTime();
         Kardex kardex = new Kardex();
+
         kardex.setCreatedOn(now);
+
         kardex.setLastUpdate(now);
+
         kardex.setActivationTime(now);
+
         kardex.setType(_type);
+
         kardex.buildAttributes(bussinesEntityService);  //
         return kardex;
     }

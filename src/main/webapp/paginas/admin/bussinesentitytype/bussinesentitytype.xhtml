@@ -278,10 +278,21 @@ limitations under the License.
                                     </h:link> 
 
 
-                                    #{' '}                     
-                                    <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="deletedDlg.show();"  immediate="true"
-                                                     update=":cancel-dialog1 :alerts-dialog:" >
-                                        <f:setPropertyActionListener target="#{propertyHome.instance.id}" value="#{property.id}"/>
+                                    #{' '}          
+
+                                    <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                     action="# {controladorRequisicion.darDeBaja(r)}" 
+                                                     title="Eliminar" update=":form:properties">
+                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                    </p:confirmDialog-->
+
+
+                                    <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
+                                                     update=":cancel-dialog1 :alerts-dialog:" >                        
                                     </p:commandButton>
                                     #{' '}
                                 </p:column>
@@ -306,31 +317,31 @@ limitations under the License.
                                  style="margin-top:10px;"/>  
             </h:form>
         </p:dialog> 
-        
-        
-        
+
+
+
         <p:dialog id="cancel-dialog1" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
-                <h:form id="form-dialog-confirm-delete1">
-                    <h:panelGroup layout="block" style="padding:5px;">  
-                        <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
-                    </h:panelGroup>  
-                    <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"                                           
-                                     action="#{propertyHome.deleteProperty()}"                                          
-                                     ajax="true" process="@this"  
-                                     style="margin-top:10px;">  
-                    </p:commandButton>  
-                    <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                     style="margin-top:10px;"/>  
-                </h:form>
-            </p:dialog>
-            <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
-                <h:form id="form-alerts-dialog">
-                    <h:panelGroup layout="block" style="padding:5px;">  
-                        <h:outputText value="#{messages['common.property.hasValues']}"/>  
-                    </h:panelGroup>                          
-                    <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
-                                     styleClass="btn  btn-success"/>  
-                </h:form>
-            </p:dialog>
+            <h:form id="form-dialog-confirm-delete1">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
+                </h:panelGroup>  
+                <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"                                           
+                                 action="#{propertyHome.deleteProperty()}"                                          
+                                 ajax="true" process="@this"  
+                                 style="margin-top:10px;">  
+                </p:commandButton>  
+                <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
+                                 style="margin-top:10px;"/>  
+            </h:form>
+        </p:dialog>
+        <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+            <h:form id="form-alerts-dialog">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="#{messages['common.property.hasValues']}"/>  
+                </h:panelGroup>                          
+                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
+                                 styleClass="btn  btn-success"/>  
+            </h:form>
+        </p:dialog>
     </ui:define>    
 </ui:composition>

@@ -96,6 +96,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
    
 
     public void setPropertyId(Long propertyId) throws ParseException {
+        System.out.println("fijando"+propertyId);
         setId(propertyId);
         if (getInstance().getType() != null) {
             propertyType = getInstance().getType();
@@ -519,10 +520,17 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         System.out.println("valor de la propuiedad a convertir" + o);
         return (Serializable) o;
     }
-
+    
     public boolean hasValuesBussinesEntity() {
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
+        return ban;
+    }
+    public boolean hasValuesBussinesEntity(Property p) {
+        boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
+        //log.info("eqaula --> property tiene valores : " + ban);
+        System.out.println("fijando p.name a intance"+p.getName());
+        setInstance(p);
         return ban;
     }
 
