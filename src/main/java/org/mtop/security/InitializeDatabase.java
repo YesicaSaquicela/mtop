@@ -260,6 +260,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(Profile.class.getName());
+            bussinesEntityType.setLabel("Personal");
 
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
@@ -341,6 +342,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(Vehiculo.class.getName());
+            bussinesEntityType.setLabel("Vehículo");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -384,6 +386,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel(name);
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -424,6 +427,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel("Chasís");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -459,6 +463,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel(name);
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -507,6 +512,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel("Neumáticos");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -542,6 +548,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel(name);
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -578,6 +585,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel("Sistema Eléctrico");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -613,6 +621,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(SolicitudReparacionMantenimiento.class.getName());
+            bussinesEntityType.setLabel("Solicitud Reparación y Mantenimiento");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -647,6 +656,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(Requisicion.class.getName());
+            bussinesEntityType.setLabel("Requisición");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -681,6 +691,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(Kardex.class.getName());
+            bussinesEntityType.setLabel("Kardex");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -715,6 +726,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(Producto.class.getName());
+            bussinesEntityType.setLabel("Producto");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -749,6 +761,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(PartidaContabilidad.class.getName());
+            bussinesEntityType.setLabel("Partida de Contabilidad");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -783,6 +796,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(PlanMantenimiento.class.getName());
+            bussinesEntityType.setLabel("Plan de Mantenimiento");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();
@@ -817,6 +831,7 @@ public class InitializeDatabase {
         } catch (NoResultException e) {
             bussinesEntityType = new BussinesEntityType();
             bussinesEntityType.setName(EstadoVehiculo.class.getName());
+            bussinesEntityType.setLabel("Estado del Vehículo");
             //Agrupaciones de propiedades
             Date now = Calendar.getInstance().getTime();
             Calendar ago = Calendar.getInstance();

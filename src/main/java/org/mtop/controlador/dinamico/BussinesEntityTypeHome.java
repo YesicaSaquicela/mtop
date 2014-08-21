@@ -155,6 +155,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     public void setBussinesEntityTypeId(Long bussinesEntityTypeId) {
         setId(bussinesEntityTypeId);
+        
     }
 
     public String getName() {
@@ -212,6 +213,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         setEntityManager(em);
         bussinesEntityTypeService.setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
+        
     }
 
     @Override
@@ -322,11 +324,14 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         return false;
     }
     public boolean esTipoEntidad(String nombrePropiedad){
+  
         for(BussinesEntityType bet : bussinesEntityTypeService.findAll()){
             if(bet.getName().equals(nombrePropiedad)){
+                System.out.println("retornando true");
                 return true;
             }
         }
+        System.out.println("retornando false");
         return false;
     }
     

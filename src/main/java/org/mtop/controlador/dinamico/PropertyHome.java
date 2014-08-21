@@ -75,8 +75,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyType;
     @Inject
     private ServicioGenerico servgen;
-     @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
+    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
+
     public PropertyHome() {
         log.info("mtop --> Inicializo Property Home");
     }
@@ -93,10 +94,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         this.propertyNumberValue = propertyNumberValue;
     }
 
-   
-
     public void setPropertyId(Long propertyId) throws ParseException {
-        System.out.println("fijando"+propertyId);
+        System.out.println("fijando" + propertyId);
         setId(propertyId);
         if (getInstance().getType() != null) {
             propertyType = getInstance().getType();
@@ -161,7 +160,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         /// getInstance().setValue(this.propertyStringValue);
     }
 
-   
     @Override
     protected Property createInstance() {
         Property property = new Property();
@@ -374,9 +372,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @TransactionAttribute
     public String saveProperty() {
-        
+
         getInstance().setType(propertyType);
-        System.out.println("TIpo::"+getInstance().getType());
+        System.out.println("TIpo::" + getInstance().getType());
         ConvertirStringPropiedades();
         System.out.println("tipo de la propiedaaaaaaaad>>>>>>>>>> " + getInstance().getType());
         System.out.println("valor de la propiedad>>>>>" + this.propertyStringValue);
@@ -386,11 +384,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
             getInstance().setValue(Calendar.getInstance().getTime());
         }
-       // if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
-         if (getInstance().getType().equals("java.lang.Long")) {
+        // if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
+        if (getInstance().getType().equals("java.lang.Long")) {
             propertyStringValue = this.propertyStringValue.substring(0, (propertyStringValue.length() - 2));
         }
-        if(getInstance().getType().equals("java.lang.Integer")){
+        if (getInstance().getType().equals("java.lang.Integer")) {
             propertyStringValue = this.propertyNumberValue.toString();
         }
         if (getInstance().isPersistent()) {
@@ -437,10 +435,18 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     @Transactional
+    public String deleteProperty(Property p) {
+        setStructureId(p.getStructure().getId());
+        setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
+        setInstance(p);
+        return deleteProperty();
+    }
+
+    @Transactional
     public String deleteProperty() {
         System.out.println("entro elimianrrrr");
-                
-        System.out.println("entro e eliminar"+getInstance().getName());
+
+        System.out.println("entro e eliminar" + getInstance().getName());
         String outcome = null;
         try {
             if (getInstance() == null) {
@@ -520,17 +526,22 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         System.out.println("valor de la propuiedad a convertir" + o);
         return (Serializable) o;
     }
-    
+
     public boolean hasValuesBussinesEntity() {
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
+        System.out.println("borrando " + getInstance().getName());
         return ban;
     }
+
     public boolean hasValuesBussinesEntity(Property p) {
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
-        System.out.println("fijando p.name a intance"+p.getName());
+        System.out.println("fijando p.name a intance" + p.getName());
+        setStructureId(p.getStructure().getId());
+        setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
         setInstance(p);
+
         return ban;
     }
 

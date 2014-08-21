@@ -115,12 +115,16 @@ limitations under the License.
                                         <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
                                             <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
                                         </p:column> 
-                                        <p:column>
-                                            <h:link id="button-edit" value="#{messages['common.edit']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn">
+                                        <p:column headerText="Opciones">
+                                            <p:button icon="ui-icon-pencil"  
+                                                     id="button-edit"  rendered="true" 
+                                                     title="Editar"
+                                                     styleClass="btn"
+                                                     outcome="bussinesentitytype" >
                                                     
                                                 <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
                                                 <f:param name="backView" value="list"></f:param>
-                                            </h:link>
+                                            </p:button>
                                         </p:column>
 
                                         <f:facet name="footer">

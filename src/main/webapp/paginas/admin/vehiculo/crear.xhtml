@@ -91,8 +91,8 @@
                                                     execute ="@this save" render="cabina"/><br></br>
                                          
                                         <p:outputLabel value="Año de Fabricación*"/><br></br>
-                                        <p:inputText id="aniofabricacion" maxlength="4" value="#{controladorVehiculo.instance.anioFabricacion}"  styleClass="form-control" >
-                                            <f:validateLength minimum="4"/>
+                                        <p:inputText id="aniofabricacion" label="añp de fabricación" maxlength="4" value="#{controladorVehiculo.instance.anioFabricacion}"  styleClass="form-control" >
+                                            <f:validateLength minimum="3"/>
 
                                         </p:inputText>
                                         <span class="help-inline text-muted">Ingrese el año de fabricación Ej(2014)<ocp:message forId="aniofabricacion"/></span>
@@ -101,7 +101,7 @@
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo Ej(34)" 
-                                                    execute ="@this save" render="peso" validator="digitValidator"/><br></br>
+                                                    execute ="@this save" render="peso" validator="realValidator"/><br></br>
 
                                         <mtop:input id="tipo" name="tipo" type="text" label="Tipo de auto" 
                                                     value="#{controladorVehiculo.instance.tipo}" required="true" 
