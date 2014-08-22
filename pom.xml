@@ -637,7 +637,35 @@
                 </exclusion>  
             </exclusions>  
         </dependency>
-        -->            
+        -->    
+        
+                <dependency>
+            <groupId>org.jboss.seam.reports</groupId>
+            <artifactId>seam-reports-api</artifactId>
+            <version>${seam-reports-version}</version>
+            <scope>compile</scope>
+        </dependency>      
+                
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.5.0</version>            
+            <!--<exclusions>
+                <exclusion>
+                    <artifactId>dom4j</artifactId>
+                    <groupId>dom4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bcmail-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bcprov-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+            </exclusions>-->
+        </dependency>
+                
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
