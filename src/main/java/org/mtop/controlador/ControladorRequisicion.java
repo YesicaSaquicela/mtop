@@ -977,19 +977,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     boolean ban = true;
                     System.out.println("cir" + cir.getInstance().getCantidad());
                     System.out.println("prod" + pro);
-                    for (Producto p : listaProductos) {
-                        System.out.println("ppp" + p);
-                        if (p.getCantidad() == 0) {
-                            setMaximo(cir.getInstance().getCantidad());
-                            ban = false;
-                            break;
-                        }
-                    }
-                    if (ban) {
-
-                        System.out.println("enrra a obtener >>>>>>>>>>>>>>>>>>>>>>>");
-                        setMaximo(pro.getCantidad());
-                    }
+                    maximo=pro.getCantidad();
+//                    for (Producto p : listaProductos) {
+//                        System.out.println("ppp" + p);
+//                        if (p.getCantidad() == 0) {
+//                            setMaximo(cir.getInstance().getCantidad());
+//                            ban = false;
+//                            break;
+//                        }
+//                    }
+//                    if (ban) {
+//
+//                        System.out.println("enrra a obtener >>>>>>>>>>>>>>>>>>>>>>>");
+//                        setMaximo(pro.getCantidad());
+//                    }
 
                 } else {
                     setMaximo(100);
@@ -1028,6 +1029,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cir.getInstance().setUnidadMedida(" ");
         cir.getInstance().setDescription(pro.getDescription());
         cir.getInstance().setProducto(pro);
+        maximo=pro.getCantidad();
         palabrab = "";
 
     }

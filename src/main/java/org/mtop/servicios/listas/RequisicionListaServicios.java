@@ -47,8 +47,6 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.mtop.modelo.config.Setting;
 
-
-
 @Named
 @RequestScoped
 public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
@@ -76,7 +74,6 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
         this.vehiculo = vehiculo;
     }
 
-    
     public RequisicionListaServicios() {
         setPageSize(MAX_RESULTS);
         resultList = new ArrayList<Requisicion>();
@@ -104,11 +101,11 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
                 requisicionSeleccionada.setLastUpdate(now);
                 requisicionSeleccionada.setAprobado(true);
                 servgen.actualizar(requisicionSeleccionada);
-
+                Date now1 = Calendar.getInstance().getTime();
                 System.out.println("guando Requisicion con kardex cooon" + requisicionSeleccionada.getKardex());
-                k.setLastUpdate(now);
+                k.setLastUpdate(now1);
                 k.getListaRequisicion().add(requisicionSeleccionada);
-
+               
                 servgen.actualizar(k);
                 System.out.println("guardo kardex con Requisicion" + k.getListaRequisicion());
 
@@ -250,21 +247,31 @@ public class RequisicionListaServicios extends LazyDataModel<Requisicion> {
 
             for (Requisicion qd : qData.getResult()) {
                 System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n");
-                System.out.println("vehiculo en kardex>>>>>"+vehiculo.getId());
-                System.out.println("vehiculo requisicion>>>>>>"+qd.getVehiculo().getId());
-                System.out.println("estado requisiscion>>>>>>"+qd.isEstado());
-                if (qd.getAprobado() == false&& qd.isEstado()&& qd.getVehiculo().getId().equals(vehiculo.getId())) {
-                    System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
-                    lr.add(qd);
+                if (qd.getVehiculo() != null && vehiculo != null) {
+
+                    System.out.println("vehiculo en kardex>>>>>" + vehiculo.getId());
+                    System.out.println("vehiculo requisicion>>>>>>" + qd.getVehiculo().getId());
+                    System.out.println("estado requisiscion>>>>>>" + qd.isEstado());
+                    if (qd.getAprobado() == false && qd.isEstado() && qd.getVehiculo().getId().equals(vehiculo.getId())) {
+                        System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
+                        lr.add(qd);
+                    }
                 }
 
             }
-            qData.setResult(lr);
-            this.setRowCount(qData.getTotalResultCount().intValue());
+            if (lr.isEmpty()) {
+                System.out.println("entro empty");
+            } else {
+                System.out.println("no entra empty");
+                qData.setResult(lr);
+                this.setRowCount(qData.getTotalResultCount().intValue());
+            }
 
         } catch (Exception e) {
+            System.out.println("eROOOOR");
             e.printStackTrace();
         }
+        System.out.println("listatattatata" + qData.getResult());
         return qData.getResult();
 
     }

@@ -171,44 +171,82 @@ limitations under the License.
 
                     </div>
                     <c:forEach items="#{bussinesEntityTypeHome.instance.structures}" var="e" id="forEach">
+                        <c:if test="#{bussinesEntityTypeHome.listaPropiedades == null}">
+                            <c:set target="#{bussinesEntityTypeHome}" property="listaPropiedades" value="#{e.properties}"/>
+                        </c:if>
+                        <div align="right">
+
+                            <p:button rendered="#{bussinesEntityTypeHome.instance.id != null}"
+                                      icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                      outcome="/paginas/admin/bussinesentitytype/list" 
+                                      styleClass="btn  btn-success"/>
+                        </div>
+                        <br/>
                         <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
 
-                            <h2><h:outputLabel value="lista de propiedades para la entidad "/>
-                                <h:outputLabel value="#{bussinesEntityTypeHome.instance.name}"/> </h2>
+                            <h2><h:outputLabel value="lista de propiedades para la entidad "/> #{" "}
+                                <h:outputLabel value="#{bussinesEntityTypeHome.instance.label}"/> </h2>
                             <!--<f:facet name="header">
                                 <strong>#{e.name}</strong>#{' '}                            
                             </f:facet>-->
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                             <div class="admin-actions">
-                                <h:link value="#{messages['common.add']}" rendered="#{true}" outcome="property" styleClass="btn primary">
+
+
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
+
+
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                    <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeHome.palabrab}"   
+                                                                                    completeMethod="#{bussinesEntityTypeHome.autocompletar}"/> 
+                                                                    #{'  '}
+
+
+
+                                                                    <p:commandButton value="Buscar" update=":form:properties" id="buscar" 
+                                                                                     action="#{bussinesEntityTypeHome.buscar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton value="Limpiar" update=":form:properties" 
+                                                                                     action="#{bussinesEntityTypeHome.limpiar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </p:panel>
+                                </div>
+                                <h:link styleClass="btn btn-success"  value="Crear Propiedad" type="button" rendered="#{true}" outcome="property" >
                                     <f:param name="propertyId"></f:param>
                                     <f:param name="structureId" value ="#{e.id}"></f:param>
                                     <f:param name="nombreGrupo" value ="#{bussinesEntityTypeHome.instance.name}"></f:param>
                                     <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                                     <f:param name="backView" value="bussinesentitytype"></f:param>
                                 </h:link>
+
                                 #{' '}
-                                <h:link id="button-edit" value="#{messages['common.edit']}" rendered="true" outcome="property" styleClass="btn" disabled="#{propertyHome.instance.id!=null? 'false' : 'true'}">
-                                    <f:param name="propertyId" value="#{propertyHome.instance.id}"></f:param>
-                                    <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
-                                    <f:param name="structureId" value ="#{e.id}"></f:param>                             
-                                    <f:param name="backView" value="bussinesentitytype"></f:param>
-                                </h:link> 
-                                #{' '}
-                                <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
-                                        value="#{messages['common.cancel']}" styleClass="btn  btn-success"/>   
 
                             </div><br/>
 
-                            <p:dataTable var="property" value="#{e.properties}" 
+                            <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
                                          editable="false" resizableColumns="true" liveResize="true" 
                                          id="properties"
-                                         rowKey="#{property.id}"
-                                         selection="#{propertyHome.instance}" 
-                                         selectionMode="single" > 
-                                <p:ajax event="rowSelect" listener="#{propertyHome.onRowSelect}"   
-                                        update=":form:button-edit :form:messages"/>  
-                                <p:ajax event="rowUnselect" listener="#{propertyHome.onRowUnselect}" update=":form:button-edit :form:messages"/>
+                                         > 
 
                                 <p:column headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
                                     <h:outputText value="#{property.name}" />
@@ -230,13 +268,71 @@ limitations under the License.
                                 <p:column headerText="Posición" sortBy="#{property.sequence}" style="width: 5%">
                                     <h:outputText value="#{property.sequence}" />
                                 </p:column>  
-                                <p:column>
-                                    <h:link value="Crear Entidad" rendered="#{property.type == 'org.mtop.modelo.Structure'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" outcome="bussinesentitytype">
+                                <p:column headerText="Opciones">
+
+                                    <p:button icon="ui-icon-circle-check" 
+                                              rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
+                                              title="Crear Entidad"
+                                              outcome="bussinesentitytype"
+                                              >
                                         <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
                                         <f:param name="bussinesentitytypeLabel" value="#{property.name}"></f:param>
                                         <f:param name="bussinesentitytypeId" ></f:param>
                                         <f:param name="backView" value="list"></f:param>
-                                    </h:link>
+                                    </p:button>
+                                    <p:commandButton type="button" icon="ui-icon-circle-check" 
+                                                     rendered="#{propertyHome.ConvertirPropiedadesString(property) ne 'Estructura'  or bussinesEntityTypeHome.esTipoEntidad(property.name) ne false}" 
+                                                     title="Crear Entidad"
+                                                     onclick="alertDlg.show()"
+                                                     update=":alerts-dialog1"  >
+
+                                    </p:commandButton>
+                                    #{' '}
+                                    <p:button  icon="ui-icon-pencil
+                                               "  
+                                               id="button-edit"  rendered="true" 
+                                               title="Editar"
+                                               styleClass="btn"
+                                               outcome="property">
+                                        <f:param name="propertyId" value="#{property.id}"></f:param>
+                                        <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
+                                        <f:param name="structureId" value ="#{e.id}"></f:param>                             
+                                        <f:param name="backView" value="bussinesentitytype"></f:param>
+                                    </p:button > 
+
+
+                                    #{' '}          
+
+                                    <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                     action="# {controladorRequisicion.darDeBaja(r)}" 
+                                                     title="Eliminar" update=":form:properties">
+                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                    </p:confirmDialog-->
+                                    <p:commandButton type="button" icon="ui-icon-trash"
+                                                     onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
+                                                     update=":alerts-dialog:" 
+                                                     title="Desactivar"
+                                                     rendered="#{propertyHome.hasValuesBussinesEntity(property) eq false}">                        
+                                    </p:commandButton>
+                                    <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                     action="#{propertyHome.deleteProperty(property)}" 
+                                                     title="Desactivar" update=":form:properties"
+                                                     rendered="#{propertyHome.hasValuesBussinesEntity(property)}">       
+                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
+
+                                    </p:commandButton>
+
+
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                    </p:confirmDialog>
+                                    #{' '}
                                 </p:column>
                             </p:dataTable>
                         </p:panel><br/>
@@ -259,5 +355,40 @@ limitations under the License.
                                  style="margin-top:10px;"/>  
             </h:form>
         </p:dialog> 
+
+
+
+        <p:dialog id="cancel-dialog1" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
+            <h:form id="form-dialog-confirm-delete1">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
+                </h:panelGroup>  
+                <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"                                           
+                                 action="#{propertyHome.deleteProperty()}"                                          
+                                 ajax="true" process="@this"  
+                                 style="margin-top:10px;">  
+                </p:commandButton>  
+                <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
+                                 style="margin-top:10px;"/>  
+            </h:form>
+        </p:dialog>
+        <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+            <h:form id="form-alerts-dialog">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="#{messages['common.property.hasValues']}"/>  
+                </h:panelGroup>                          
+                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
+                                 styleClass="btn  btn-success"/>  
+            </h:form>
+        </p:dialog>
+        <p:dialog id="alerts-dialog1" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+            <h:form id="form-alerts-dialog1">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="Solamente se pueden crear como entidades entidades a las propiedades tipo Estructura "/>  
+                </h:panelGroup>                          
+                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
+                                 styleClass="btn  btn-success"/>  
+            </h:form>
+        </p:dialog>
     </ui:define>    
 </ui:composition>

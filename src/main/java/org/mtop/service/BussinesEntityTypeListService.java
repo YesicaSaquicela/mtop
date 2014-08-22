@@ -28,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import net.sf.jasperreports.engine.util.JRStyleResolver;
 import org.mtop.cdi.Web;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;
@@ -57,6 +58,46 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     private int firstResult = 0;
     private BussinesEntityType[] selectedBussinesEntitiesType;
     private BussinesEntityType selectedBussinesEntityType; //Filtro de cuenta schema
+    private String palabrab;
+    private List<BussinesEntityType> listaEntiidades;
+    private List<BussinesEntityType> entidadesFiltradas;
+    private ArrayList<String> ced;
+
+    public List<BussinesEntityType> getEntidadesFiltradas() {
+        System.out.println("\n\n\n\nonteniendo"+entidadesFiltradas);
+        return entidadesFiltradas;
+    }
+
+    public void setEntidadesFiltradas(List<BussinesEntityType> entidadesFiltradas) {
+        this.entidadesFiltradas = entidadesFiltradas;
+    }
+    
+    
+    
+    
+    public ArrayList<String> getCed() {
+        return ced;
+    }
+
+    public void setCed(ArrayList<String> ced) {
+        this.ced = ced;
+    }
+
+    public List<BussinesEntityType> getListaEntiidades() {
+        return listaEntiidades;
+    }
+
+    public void setListaEntiidades(List<BussinesEntityType> listaEntiidades) {
+        this.listaEntiidades = listaEntiidades;
+    }
+
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
 
     public BussinesEntityTypeListService() {
         setPageSize(MAX_RESULTS);
@@ -67,7 +108,6 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
         if (resultList.isEmpty() /*&& getSelectedBussinesEntityType() != null*/) {
             resultList = bussinesEntityTypeService.find(this.getPageSize(), firstResult);
         }
-
         return resultList;
     }
 
@@ -88,7 +128,71 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
          }
          */
         this.getResultList();
+        System.out.println("\n\n\n\nentrando a find\n\n\n\n" + getResultList());
         return "/paginas/admin/bussinesentitytype/list";
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ced = new ArrayList<String>();
+        System.out.println("pa;abra b" + palabrab);
+        System.out.println("resullist" + getResultList());
+        System.out.println("result lis" + resultList);
+        System.out.println("listaentidades" + listaEntiidades);
+
+        for (BussinesEntityType bet : listaEntiidades) {
+            System.out.println("nombre" + bet.getName());
+            if (bet.getName().toLowerCase().contains(query.toLowerCase())) {
+                ced.add(bet.getName());
+            }
+
+        }
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+    }
+
+    public void buscar() {
+
+        List<BussinesEntityType> le = new ArrayList<BussinesEntityType>();
+        le.clear();
+        System.out.println("palabra b" + palabrab);
+        palabrab = palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        System.out.println("lista de entidades a buscar" + listaEntiidades);
+        for (BussinesEntityType bussinesEntityType : listaEntiidades) {
+
+            if (bussinesEntityType.getName().toLowerCase().contains(palabrab.toLowerCase())) {
+                le.add(bussinesEntityType);
+            }
+        }
+        System.out.println("encontradas" + le);
+
+        if (le.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            resultList = le;
+            setResultList(le);
+            this.setResultList(le);
+            System.out.println("presentando\n\n\n" +getResultList());
+
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        System.out.println("lista de entidades a devolver" + listaEntiidades);
+        resultList = listaEntiidades;
     }
 
     public int getNextFirstResult() {
@@ -100,6 +204,7 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     }
 
     public int getFirstResult() {
+        System.out.println("lista entidads en firstresullist" + listaEntiidades);
         return firstResult;
     }
 
@@ -117,6 +222,11 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     public void init() {
         log.info("Setup entityManager into bussinesEntityTypeService...");
         bussinesEntityTypeService.setEntityManager(entityManager);
+        listaEntiidades = bussinesEntityTypeService.findAll();
+        resultList=listaEntiidades;
+        System.out.println("lista entidades en init" + listaEntiidades);
+        System.out.println("palabre b" + palabrab);
+
     }
 
     @Override
@@ -130,8 +240,6 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
         return entity.getName();
     }
 
-    
-
     public BussinesEntityType[] getSelectedBussinesEntitiesType() {
         return selectedBussinesEntitiesType;
     }
@@ -142,7 +250,7 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
 
     public BussinesEntityType getSelectedBussinesEntityType() {
         return selectedBussinesEntityType;
-       
+
     }
 
     public void setSelectedBussinesEntityType(BussinesEntityType selectedBussinesEntityType) {
@@ -153,8 +261,10 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     public List<BussinesEntityType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
 
         log.info("load results for ..." + first + ", " + pageSize);
-        
-        
+        System.out.println("\n\n\n\npalabra buscando en load" + palabrab);
+        System.out.println("resillist en load"+resultList);
+        System.out.println("lista de entidades en load"+listaEntiidades);
+
         int end = first + pageSize;
 
         QuerySortOrder order = QuerySortOrder.ASC;
@@ -165,10 +275,26 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
         /*_filters.put(BussinesEntityType_.name, getSelectedBussinesEntityType()); //Filtro por defecto
          _filters.putAll(filters);*/
 
-        QueryData<BussinesEntityType> qData = bussinesEntityTypeService.find(first, end, sortField, order, _filters);
-        this.setRowCount(qData.getTotalResultCount().intValue());
+        QueryData<BussinesEntityType> qData = new QueryData<BussinesEntityType>();
+
+        if (palabrab != null) {
+            System.out.println("entro a bsucar");
+            buscar();
+            System.out.println("vuelve resullist"+resultList);
+            qData.setResult(resultList);
+        } else {
+            System.out.println("no entro a bsucar");
+            qData = bussinesEntityTypeService.find(first, end, sortField, order, _filters);
+            this.setRowCount(qData.getTotalResultCount().intValue());
+            listaEntiidades = qData.getResult();
+            
+            System.out.println("lista de entidades " + listaEntiidades);
+        }
+        System.out.println("devuel;ve+"+qData.getResult());
+        
         return qData.getResult();
     }
+
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage(UI.getMessages("module.BussinesEntityType") + " " + UI.getMessages("common.selected"), ((BussinesEntityType) event.getObject()).getName());
 

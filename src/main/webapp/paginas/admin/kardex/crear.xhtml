@@ -115,7 +115,9 @@
                     <p:panel id="kar" rendered="#{controladorKardex.vista eq 'kardex' }" >
                         <div  class="panel panel-primary">
 
-                            <div class="panel-heading" align="center">BUSCAR REQUISICIONES Y SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO </div>
+                            <div class="panel-heading" align="center">
+                                BUSCAR REQUISICIONES Y SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO 
+                            </div>
 
 
                             <p:panel id="p1">
@@ -141,12 +143,16 @@
 
 
 
-                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" update=":form:infoFM" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar" icon="ui-icon-search" value="Buscar" 
+                                                                                      process="@form"
+                                                                                      update=":form:infoFM:listap1" action="#{controladorKardex.buscars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM:listap1 :form:infoFM:acSimple" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar" icon="ui-icon-arrowrefresh-1-s" value="Limpiar"
+                                                                                     process="@this"
+                                                                                     update="@form" action="#{controladorKardex.limpiars()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -157,7 +163,7 @@
                                             </div>
                                                 </p:panel>
                                             <br/><br/>
-                                            <p:commandButton update="@form"  process="@this" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}"  >
+                                            <p:commandButton update="@form"  process="@form" value="Aprobar Solicitud"  action="#{controladorKardex.irASolicitud()}"  >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="solicitud"></f:param>
                                                  <f:setPropertyActionListener value="#{controladorKardex.instance.vehiculo}" target="#{solicitudListaServicios.vehiculo}"/>
@@ -221,12 +227,16 @@
 
 
 
-                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" process="@form" update="rs" action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton  id="buscar2" icon="ui-icon-search" value="Buscar" process="@form" 
+                                                                                      update="@form" 
+                                                                                      action="#{controladorKardex.buscarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
 
 
-                                                                    <p:commandButton id="limpiar2" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:infoFM :form:infoFM:acSimple2" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton id="limpiar2" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" 
+                                                                                     process="@form" 
+                                                                                      update="@form" action="#{controladorKardex.limpiarr()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -380,7 +390,8 @@
                                                         <tbody>
                                                             <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                            <p:dataTable rendered="#{controladorKardex.vista eq 'solicitud'}" id="basicDT12" var="items" value="#{solicitudListaServicios}"
+                                                            <p:dataTable rendered="#{controladorKardex.vista eq 'solicitud'}" id="basicDT12" var="items" 
+                                                                         value="#{solicitudListaServicios}"
                                                                          lazy="true"   
                                                                          paginator="true" rows="5"                         
                                                                          paginatorPosition="top"
