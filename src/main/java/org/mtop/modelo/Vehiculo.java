@@ -7,6 +7,7 @@ package org.mtop.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.Pattern;
 import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.profile.Profile;
@@ -35,6 +37,7 @@ import org.mtop.modelo.profile.Profile;
 @DiscriminatorValue(value = "vk")//valor que se discrimina por cada clase
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Vehiculo extends BussinesEntity implements Serializable {
+
     @Pattern(regexp = "[0-9]+", message = "No se admiten letras")
     private String anioFabricacion;
     private String cabina;
@@ -53,12 +56,16 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     @OneToOne
     private Profile persona;
     //registro hace referencia al codigo heredado
-    
+
     private String tipo;
     private String cilindraje;
     private Integer kilometraje;
-    
+
     private String tipoCombustible;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechainiciosoat;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechafinsoat;
 
     @ManyToOne
     @JoinColumn(name = "planMantenimientoId")
@@ -160,7 +167,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setCabina(String cabina) {
         this.cabina = cabina;
     }
-
 
     public String getColor() {
         return color;

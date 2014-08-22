@@ -10,6 +10,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
                 xmlns:mtop="http://mtop.org/jsf/facelets"
+                xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
     <ui:param name="titulo" value="Gestionar Vehiculos"/>
@@ -153,6 +154,29 @@
                                                     value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
                                                     inlinehelp="Ingrese el tipo de combustible del vehículo Ej(Gasolina)" 
                                                     execute ="@this save" render="tipoCombustible" validator="stringValidator"/><br></br>
+                                   <h:panelGroup id="unm2" layout="block" class="clearfix">
+                                       <div class="input">
+                                    <p:outputLabel value="Fecha Inicio del Soat:"/>
+                                    <p:calendar  id="fechaEntrada" value="#{controladorVehiculo}" 
+                                                 styleClass="xLarge" 
+                                                 >   
+                                        <p:ajax event="dateSelect" rendered="save" /> 
+                                        <f:ajax execute="@this" render="unm2" />
+                                    </p:calendar><br/>
+                                    <span class="help-inline text-muted">Fecha de inicio soat del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
+                                  </div>
+                                   </h:panelGroup>
+                                    <p:outputLabel value="Fecha Fin del Soat:"/>
+                                    <p:calendar  id="fechaSalida" value="#{controladorVehiculo}"  label="Fecha entrada de Taller "
+                                                 styleClass="xLarge" 
+                                                 >   
+                                        <p:ajax event="dateSelect" rendered="save" />  
+                                        <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg2" />  
+                                    </p:calendar><br/>
+                                    <span class="help-inline text-muted">Fecha de fin soat del vehículo<ocp:message id="msg2" forId="fechaSalida" /></span><br></br><br></br> 
+                                    <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
+
+                                    
                                     </div>
                                 </div>
                             </div>

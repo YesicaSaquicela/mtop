@@ -401,12 +401,11 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 1L));
             attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantía", "Tiempo de garantía del vehículo", false, 2L));
-            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehículo", "Fecha de alta del vehículo", false, 3L));
-            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehículo", "Fecha de baja del vehículo", false, 4L));
+//            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehículo", "Fecha de alta del vehículo", false, 3L));
+//            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehículo", "Fecha de baja del vehículo", false, 4L));
             attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 5L));
             attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "Seleccione una opción", false, 6L));
-            attributes.add(buildProperty("Historial", "inicioVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Inicio de Vigencia de Soat", "Ingrese el inicio de vigencia del soat", false, 7L));
-            attributes.add(buildProperty("Historial", "finVigenciaSoat", Date.class.getName(), ago.getTime(), false, "Fín de Vigencia de Soat", "Ingrese el fín de vigencia del soat", false, 8L));
+            
 
 //Agregar atributos
             structure.setProperties(attributes);
