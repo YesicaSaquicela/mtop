@@ -166,7 +166,7 @@ limitations under the License.
                         #{' '}                                  
                         <h:commandButton id="cancel" action="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                          value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
-                                         rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"/>
+                                         rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}" />
 
 
                     </div>
@@ -283,7 +283,7 @@ limitations under the License.
                                     <p:commandButton type="button" icon="ui-icon-circle-check" 
                                                      rendered="#{propertyHome.ConvertirPropiedadesString(property) ne 'Estructura'  or bussinesEntityTypeHome.esTipoEntidad(property.name) ne false}" 
                                                      title="Crear Entidad"
-                                                     onclick="alertDlg.show()"
+                                                     onclick="alertDlg1.show()"
                                                      update=":alerts-dialog1"  >
 
                                     </p:commandButton>
@@ -332,7 +332,7 @@ limitations under the License.
                                         <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                     </p:confirmDialog>
-                                    #{' '}
+                                    
                                 </p:column>
                             </p:dataTable>
                         </p:panel><br/>
@@ -375,18 +375,20 @@ limitations under the License.
         <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog">
                 <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="#{messages['common.property.hasValues']}"/>  
+                    <h:outputText value="#{propertyHome.mensaje}"/>  
                 </h:panelGroup>                          
                 <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
                                  styleClass="btn  btn-success"/>  
             </h:form>
         </p:dialog>
-        <p:dialog id="alerts-dialog1" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+        <p:dialog id="alerts-dialog1" header="#{messages['common.alert']}" widgetVar="alertDlg1" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog1">
                 <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="Solamente se pueden crear como entidades entidades a las propiedades tipo Estructura "/>  
+                    <h:outputText value="Solamente se pueden crear como entidades entidades a las propiedades tipo Estructura "/>
+                    <br/>
+                    <h:outputText value="O esta propiedad ya ha sido creada como Entidad "/>  
                 </h:panelGroup>                          
-                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
+                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg1.hide();"                                           
                                  styleClass="btn  btn-success"/>  
             </h:form>
         </p:dialog>

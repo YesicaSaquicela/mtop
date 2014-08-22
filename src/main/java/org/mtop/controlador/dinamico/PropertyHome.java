@@ -46,6 +46,7 @@ import javax.validation.constraints.Pattern;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.modelo.Vehiculo;
+import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -77,6 +78,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private ServicioGenerico servgen;
     @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
+    private String mensaje;
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
     public PropertyHome() {
         log.info("mtop --> Inicializo Property Home");
@@ -193,6 +203,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         setEntityManager(em);
         bussinesEntityTypeService.setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
+        mensaje = "mensaje";
     }
 
     @Override
@@ -273,7 +284,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                                         if (getInstance().getType().equals("Fecha")) {
                                             getInstance().setType("java.util.Date");
                                         } else {
-
+                                            getInstance().setType("org.mtop.modelo.dinamico.Structure");
                                         }
 
                                     }
@@ -535,15 +546,72 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public boolean hasValuesBussinesEntity(Property p) {
+        
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
         System.out.println("fijando p.name a intance" + p.getName());
-        setStructureId(p.getStructure().getId());
-        setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
-        setInstance(p);
+        System.out.println("valor de bandera" + ban);
+        if (ban == false) {
+            setStructureId(p.getStructure().getId());
+            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
+            setInstance(p);
+            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
+            System.out.println("retornando la evaluciaon");
+            return ban;
+        } else {
+            if (p.getType().equals("org.mtop.modelo.dinamico.Structure")) {
+                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(p.getName());
+                System.out.println("\n\n\nbet" + bet);
+                if (bet != null) {
+                    Structure s = p.getStructure();
+                    for (Structure object : bet.getStructures()) {
+                        System.out.println("nombre de estructura" + object.getName());
+                        System.out.println("nombre de la propiedad" + p.getName());
+                        if (object.getName().equals(p.getName())) {
+                            s = object;
+                        }
+                    }
 
-        return ban;
+                    System.out.println("valor de la structura" + s.getName());
+                    if (!s.getProperties().isEmpty()) {
+                        System.out.println("presento propiedades");
+                        boolean b = false;
+                        for (Property p1 : s.getProperties()) {
+                            if (bussinesEntityService.findBussinesEntityForProperty(p1).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p1).isEmpty()) {
+                                b = true;
+                                System.out.println("encontro entidad llenba" + p1);
+                                break;
+                            }
+
+                        }
+                        if (b) {
+                            setStructureId(p.getStructure().getId());
+                            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
+                            setInstance(p);
+                            System.out.println("Esta propiedad no es una Entidad con propiedades \n que tiene registros de una Entidad de Negocio");
+                            return b;
+                        } else {
+                            System.out.println("retornando false de nooo");
+                            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
+
+                            return b;
+                        }
+                    } else {
+                        System.out.println("no tiene propiedades");
+                        return true;
+                    }
+                } else {
+
+                    return true;
+                }
+
+            }else{
+                return ban;
+            }
+
+        }
     }
+    
 
     public String cargarValidador() {
         //log.info("ingreso a validador value");
