@@ -69,12 +69,17 @@
                                         </div> </p:panel></div><br/>
 
                                 <div class="admin-actions">
-                                   <h:link styleClass="btn btn-success"
+                                    <h:link styleClass="btn btn-success"
                                             outcome="crear"
                                             value="Crear"
                                             type="button">  
                                         <f:param name="vehiculoId" ></f:param>
                                     </h:link>
+
+                                    <h:commandLink id="print" title="Imprimir Pedido" styleClass="btn" action="#{reporteListas.renderPedido()}" >  
+                                        <p:graphicImage value="/resources/print.gif" width="12" height="12"/>
+                                        <f:setPropertyActionListener value="#{pedidosExam_}" target="#{reporteListas.pedido}"/>
+                                    </h:commandLink>
                                 </div><br/><br/>
                             </div>
 
