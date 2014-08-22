@@ -44,6 +44,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String modelo;
     @Column(unique = true)
     private String placa;
+    @Column(unique = true)
     private String numRegistro;
     private Integer numPasajeros;
     private Double peso;
