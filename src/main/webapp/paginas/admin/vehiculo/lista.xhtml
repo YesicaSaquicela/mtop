@@ -45,8 +45,8 @@
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
                                                                 <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                completeMethod="#{controladorVehiculo.autocompletar}"/> 
-                                                                &nbsp;&nbsp;
+                                                                                 completeMethod="#{controladorVehiculo.autocompletar}"/> 
+
 
 
 
@@ -66,12 +66,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> </p:panel></div>
+                                        </div> </p:panel></div><br/>
 
                                 <div class="admin-actions">
-                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/admin/vehiculo/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+                                   <h:link styleClass="btn btn-success"
+                                            outcome="crear"
+                                            value="Crear"
+                                            type="button">  
                                         <f:param name="vehiculoId" ></f:param>
-                                    </p:commandButton><br/><br/>
+                                    </h:link>
                                 </div><br/><br/>
                             </div>
 
@@ -87,8 +90,8 @@
                                             <tbody>
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v"
                                                              paginator="true" rows="15"                         
-                                         paginatorPosition="top"
-                                         rowsPerPageTemplate="5,10,15,20">
+                                                             paginatorPosition="top"
+                                                             rowsPerPageTemplate="5,10,15,20">
                                                     <p:column headerText="Nro Registro" sortBy="#{v.numRegistro}">
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
                                                     </p:column>

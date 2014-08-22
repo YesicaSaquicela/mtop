@@ -43,16 +43,16 @@
                                     <h:panelGroup id="unm" layout="block" class="clearfix">
                                         <label for="username">#{messages['common.username']}</label>
                                         <div class="input">
-                                            <h:inputText id="username" value="#{profileHome.instance.username}" styleClass="xLarge" required="true" label="#{messages['common.username']}">
+                                            <h:inputText id="username" value="#{profileHome.instance.username}" styleClass="form-control" required="true" label="#{messages['common.username']}">
                                                 <f:ajax execute="@this" render="unm" />
                                                 <f:validator validatorId="usernameValidator" />
                                                 <f:validator validatorId="signupUsernameAvailabilityValidator" />
                                             </h:inputText>
                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.username != null}"
                                                             styleClass="validation-status" />
-                                            <span class="help-inline"><br/>Su nombre de usuario. Ej.:<b>jlgranda, juan, carlos21</b>. (Lo necesitará más adelante.) <ocp:message forId="username" /></span>
+                                            <span class="help-inline text-muted"><br/>Su nombre de usuario. Ej.:<b>juan, carlos21</b>. (Lo necesitará más adelante.) <ocp:message forId="username" /></span>
                                         </div>
-                                    </h:panelGroup>
+                                    </h:panelGroup><br/>
 
                                     <div class="clearfix">
                                         <label for="password">#{messages['common.password']}</label>
