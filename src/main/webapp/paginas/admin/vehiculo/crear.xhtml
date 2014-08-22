@@ -157,7 +157,7 @@
                                    <h:panelGroup id="unm2" layout="block" class="clearfix">
                                        <div class="input">
                                     <p:outputLabel value="Fecha Inicio del Soat:"/>
-                                    <p:calendar  id="fechaEntrada" value="#{controladorVehiculo}" 
+                                    <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.instance.fechainiciosoat}" 
                                                  styleClass="xLarge" 
                                                  >   
                                         <p:ajax event="dateSelect" rendered="save" /> 
@@ -167,7 +167,7 @@
                                   </div>
                                    </h:panelGroup>
                                     <p:outputLabel value="Fecha Fin del Soat:"/>
-                                    <p:calendar  id="fechaSalida" value="#{controladorVehiculo}"  label="Fecha entrada de Taller "
+                                    <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  label="Fecha entrada de Taller "
                                                  styleClass="xLarge" 
                                                  >   
                                         <p:ajax event="dateSelect" rendered="save" />  
