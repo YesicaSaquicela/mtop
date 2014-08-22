@@ -100,6 +100,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public Vehiculo obtenerPlacaVehiculo(final String placa) throws NoResultException {
+        
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.placa = :placa", Vehiculo.class);
         query.setParameter("placa", placa);
         Vehiculo result = query.getSingleResult();
@@ -116,7 +117,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public Vehiculo obtenerNumRegistro(final String numregistro) throws NoResultException {
+        System.out.println("obtener numregisto");
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numregistro = :numregistro", Vehiculo.class);
+        System.out.println("");
         query.setParameter("numregistro", numregistro);
         Vehiculo result = query.getSingleResult();
         System.out.println("resultdo"+result);
@@ -125,6 +128,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public boolean numRegistroUnico(String numregistro) {
         try {
+            System.out.println("entro a verificar registro");
             obtenerNumRegistro(numregistro);
             return false;
         } catch (NoResultException e) {
