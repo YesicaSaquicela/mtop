@@ -78,7 +78,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @EJB
     private ServicioGenerico servgen;
     List<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
-    private String numeroRegistro;
+
     private ActividadPlanMantenimiento actividadplan;
     private ControladorKardex ck;
     private String mensaje = "";
@@ -89,9 +89,40 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private Date fechaFinal = Calendar.getInstance().getTime();
     private long idPersona;
     private List<Profile> listaPersonas;
+
     private String[] tipoSeleccionados;   
     private List<String> tipos;
     
+
+    private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
+
+    public String obtenerAlerta(Integer kma) {
+        Integer kmt = kma + 1000;
+        System.out.println("kilometraje actual +1000" + kmt);
+        Integer proKmj = obtenerKilometraje(kma);
+        System.out.println("prokilometra" + proKmj);
+        if (kmt.equals(proKmj)) {
+            System.out.println("entro a 1if");
+            return "Atencion..! Necesita acercarse a realizar el mantenimiento";
+        } else {
+            if (kmt > proKmj) {
+                System.out.println("entro a obtener 2oif");
+                return "Urgente necesita hacer mantenimiento del vehículo";
+            } else {
+                System.out.println("3 if");
+                return "";
+            }
+        }
+    }
+
+    public List<Vehiculo> getListVehiculos2() {
+        return listVehiculos2;
+    }
+
+    public void setListVehiculos2(List<Vehiculo> listVehiculos2) {
+        this.listVehiculos2 = listVehiculos2;
+    }
+
     public List<Profile> getListaPersonas() {
         return listaPersonas;
     }
@@ -102,6 +133,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public Vehiculo obtenerPlacaVehiculo(final String placa) throws NoResultException {
+
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.placa = :placa", Vehiculo.class);
         query.setParameter("placa", placa);
         Vehiculo result = query.getSingleResult();
@@ -109,29 +141,91 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public boolean placaUnica(String placa) {
-        try {
-            obtenerPlacaVehiculo(placa);
-            return false;
-        } catch (NoResultException e) {
+        List<Vehiculo> listav = findAll(Vehiculo.class);
+        if (getInstance().getId() == null) {
+            System.out.println("entro>>>>>>>>v null");
+            try {
+                obtenerPlacaVehiculo(placa);
+                return false;
+            } catch (NoResultException e) {
+                return true;
+            }
+        } else {
+            System.out.println("cual envia a elim" + getInstance().getId());
+            System.out.println("lista v antes" + listav);
+
+            List<Vehiculo> lv = new ArrayList<Vehiculo>();
+            for (Vehiculo v : listav) {
+                if (!v.getPlaca().equals(findById(Vehiculo.class, getInstance().getId()).getPlaca())) {
+                    lv.add(v);
+                }
+            }
+            listav = lv;
+            System.out.println("lista v" + listav);
+            System.out.println("ide instance" + getInstance().getId());
+            for (Vehiculo v : listav) {
+                System.out.println("entro al for" + v.getId());
+
+                if (v.getPlaca().equals(getInstance().getPlaca())) {
+                    System.out.println("entro al if>>>");
+                    obtenerPlacaVehiculo(placa);
+                    return false;
+                }
+            }
+            System.out.println("nunca entro al for");
             return true;
         }
+
     }
 
     public Vehiculo obtenerNumRegistro(final String numregistro) throws NoResultException {
-        TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numregistro = :numregistro", Vehiculo.class);
+        System.out.println("obtener numregisto");
+        TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numRegistro = :numregistro", Vehiculo.class);
+        System.out.println("query" + query);
         query.setParameter("numregistro", numregistro);
+        System.out.println("query.getSingleResult()" + query.getSingleResult());
         Vehiculo result = query.getSingleResult();
         System.out.println("resultdo" + result);
         return result;
     }
 
     public boolean numRegistroUnico(String numregistro) {
-        try {
-            obtenerNumRegistro(numregistro);
-            return false;
-        } catch (NoResultException e) {
+        System.out.println("entro al validador");
+        List<Vehiculo> listavs = findAll(Vehiculo.class);
+        if (getInstance().getId() == null) {
+            System.out.println("entro>>>>>>>>>>");
+            try {
+                obtenerNumRegistro(numregistro);
+                return false;
+            } catch (NoResultException e) {
+                return true;
+            }
+        } else {
+            System.out.println("cual envia a elim" + getInstance().getId());
+            System.out.println("lista v antes" + listavs);
+
+            List<Vehiculo> lv = new ArrayList<Vehiculo>();
+            for (Vehiculo v : listavs) {
+                if (!v.getNumRegistro().equals(findById(Vehiculo.class, getInstance().getId()).getNumRegistro())) {
+                    lv.add(v);
+                }
+            }
+            listavs = lv;
+            System.out.println("lista v" + listavs);
+            System.out.println("ide instance" + getInstance().getId());
+            for (Vehiculo v : listavs) {
+                System.out.println("entro al for" + v.getId());
+
+                if (v.getNumRegistro().equals(getInstance().getNumRegistro())) {
+                    System.out.println("entro al if>>>");
+                    obtenerNumRegistro(numregistro);
+                    return false;
+                }
+            }
+            System.out.println("nunca entro al if");
             return true;
         }
+
     }
 
     public boolean verificarPlaca(String placa) {
@@ -141,6 +235,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         String l3 = "ABCDEFGHIFKLMNOPQRSTUWXYZ";
         String n = "1234567890";
         String t = "CDOIAT";
+        System.out.println("placa ingersa fuera>>>" + placa);
+
         if (placa.length() >= 7) {
 
             if (placa.length() == 8) {
@@ -154,33 +250,34 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
 
             } else {
+                System.out.println("entro al no");
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                     System.out.println("placa ingresada" + placa);
                     return true;
                 } else {
                     if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
-                            && placa.charAt(3) + "" == "-" && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
+                            && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
                         System.out.println("placa ingresada" + placa);
                         return true;
                     } else {
-                        if (placa.substring(0, 1).equals("CC") && placa.charAt(2) + "" == "-" && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                        if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                             System.out.println("placa ingresada" + placa);
                             return true;
                         } else {
-                            if (placa.substring(0, 1).equals("CD") && placa.charAt(2) + "" == "-" && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                            if (placa.substring(0, 2).equals("CD") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                                 System.out.println("placa ingresada" + placa);
                                 return true;
                             } else {
-                                if (placa.substring(0, 1).equals("OI") && placa.charAt(2) + "" == "-" && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                                     System.out.println("placa ingresada" + placa);
                                     return true;
                                 } else {
-                                    if (placa.substring(0, 1).equals("AT") && placa.charAt(2) + "" == "-" && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                    if (placa.substring(0, 2).equals("AT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                                         System.out.println("placa ingresada" + placa);
                                         return true;
                                     } else {
-                                        if (placa.substring(0, 1).equals("IT") && placa.charAt(2) + "" == "-" && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                        if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                                             System.out.println("placa ingresada" + placa);
                                             return true;
                                         } else {
@@ -195,6 +292,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
         } else {
+            System.out.println("entra 3 false");
             return false;
         }
 
@@ -228,6 +326,27 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public void setCev(ControladorEstadoVehiculo cev) {
         this.cev = cev;
+    }
+
+    public boolean obtenerAñoV(String fanio) {
+       
+        String fechaFormato = "";
+        Date fEntrada = new Date();
+        DateFormat formatter = new SimpleDateFormat("yyyy");
+        fechaFormato = formatter.format(fEntrada);
+        System.out.println("fecha antes>>>"+fechaFormato);
+        Integer fa = Integer.parseInt(fechaFormato);
+        Integer fv=Integer.parseInt(fanio);
+        System.out.println("fecha k llega"+fv);
+        System.out.println("fecha formato"+fa);
+        if(fv <=fa && fv >=1980){
+            System.out.println("entro a true");
+            return true ;
+        }else{
+            System.out.println("entro a false");
+            return false;
+        }
+               
     }
 
     public String obtenerUltimoEstadoV(Vehiculo vehiculo) {
@@ -275,23 +394,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             palabrab = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia descripciion
-        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), palabrab);
-        //buscando por codigo
-        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), palabrab);
-//        List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
-
-        for (Vehiculo vehiculo : lc) {
-            if (!lv.contains(vehiculo)) {
-                lv.add(vehiculo);
+        List<Vehiculo> lvs = new ArrayList<Vehiculo>();
+        for (Vehiculo veh1 : listVehiculos2) {
+            if (veh1.getNumRegistro().contains(palabrab)) {
+                lvs.add(veh1);
+            } else {
+                if (veh1.getPlaca().contains(palabrab)) {
+                    lvs.add(veh1);
+                }
             }
         }
 
-//        for (Vehiculo vehiculo : lk) {
-//            if (!lv.contains(vehiculo)) {
-//                lv.add(vehiculo);
-//            }
-//        }
-        if (lv.isEmpty()) {
+        if (lvs.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
                 context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
@@ -301,30 +415,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         } else {
-            listaVehiculos = lv;
+            listaVehiculos = lvs;
         }
 
     }
 
     public void limpiar() {
         palabrab = "";
-        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
-        listaVehiculos.clear();
-        System.out.println("lppp" + lv);
+        listaVehiculos = listVehiculos2;
 
-        for (Vehiculo vehiculo : lv) {
-            System.out.println("iddddd" + vehiculo.getId());
-            System.out.println("entro a for lista>>>>" + vehiculo.isEstado());
-            if (vehiculo.isEstado()) {
-                System.out.println("listatesssa" + listaVehiculos);
-                listaVehiculos.add(vehiculo);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaVehiculos);
-
-            }
-
-        }
     }
 
     public ArrayList<String> autocompletar(String query) {
@@ -332,24 +431,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), query);
-
-        for (Vehiculo vehiculo : lv) {
-            System.out.println("econtro uno " + vehiculo.getNumRegistro());
-            ced.add(vehiculo.getNumRegistro());
+        for (Vehiculo vh : listVehiculos2) {
+            if (vh.getNumRegistro().contains(query)) {
+                ced.add(vh.getNumRegistro());
+            }
+            if (vh.getPlaca().contains(query)) {
+                ced.add(vh.getPlaca());
+            }
         }
-        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), query);
-        for (Vehiculo vehiculo : lc) {
-            System.out.println("econtro uno " + vehiculo.getPlaca());
-            ced.add(vehiculo.getPlaca());
-        }
-
-//         List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
-//          for (Vehiculo vehiculo : lk) {
-//            System.out.println("econtro uno " + vehiculo.getPlaca());
-//            String cad=vehiculo.getKilometraje().toString();
-//            ced.add(cad);
-//        }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
@@ -598,40 +687,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
-    public String getNumeroRegistro() {
-        if (getId() == null) {
-            System.out.println("numero" + getInstance().getNumRegistro());
-            List<Vehiculo> lista = findAll(Vehiculo.class
-            );
-            int t = lista.size();
-            if (t
-                    < 9) {
-                setNumeroRegistro("000".concat(String.valueOf(t + 1)));
-            } else {
-                if (t >= 9 && t < 99) {
-                    setNumeroRegistro("00".concat(String.valueOf(t + 1)));
-                } else {
-                    if (t >= 99 && t < 999) {
-                        setNumeroRegistro("0".concat(String.valueOf(t + 1)));
-                    } else {
-                        setNumeroRegistro(String.valueOf(t + 1));
-                    }
-                }
-            }
-        } else {
-            setNumeroRegistro(getInstance().getNumRegistro());
-        }
-
-        return numeroRegistro;
-
-    }
-
-    public void setNumeroRegistro(String numRegistro) {
-        this.numeroRegistro = numRegistro;
-        getInstance().setNumRegistro(this.numeroRegistro);
-
-    }
-
     public Long getVehiculoId() {
         System.out.println("IIIIDEE" + getId());
 
@@ -639,10 +694,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setVehiculoId(Long vehiculoId) {
+
         System.out.println("id a fijar" + vehiculoId);
 
         setId(vehiculoId);
-
+        idPersona = getInstance().getPersona().getId();
     }
 
     public void fijarNullVehiculo() {
@@ -680,15 +736,19 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
         ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
         System.out.println("lista vehiculos" + listaVehiculos);
+        listVehiculos2 = listaVehiculos;
         idPersona = 0l;
         listaPersonas = findAll(Profile.class);
         List<Profile> lp = new ArrayList<Profile>();
         for (Profile persona : findAll(Profile.class)) {
             System.out.println("personas>>>>" + persona.getTipo());
-            if (persona.getTipo().equals("Conductor")) {
-                getInstance().setPersona(persona);
-                lp.add(persona);
+            if (persona.getTipo() != null) {
+                if (persona.getTipo().equals("Conductor")) {
+                    getInstance().setPersona(persona);
+                    lp.add(persona);
+                }
             }
+
         }
         listaPersonas = lp;
         System.out.println("lista de personas>>>>" + listaPersonas);
@@ -838,10 +898,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
-
+        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
+        getInstance().setPersona(psolicita);
+        System.out.println("persona conductor" + getInstance().getPersona());
+//        if (!getInstance().getPlaca().equals("")) {
+//            System.out.println("entro>>>>>" + getInstance().getPlaca());
+//            listaVehiculos.remove(getInstance().getPlaca());
+//        }
         try {
             if (getInstance().isPersistent()) {
 
@@ -921,7 +988,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String editarEstado() {
-        getInstance().findBussinesEntityAttribute(numeroRegistro).size();
+//        getInstance().findBussinesEntityAttribute(numeroRegistro).size();
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());

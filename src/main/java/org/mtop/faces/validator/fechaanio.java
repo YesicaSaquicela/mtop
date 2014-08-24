@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.mtop.faces.validator;
 
 import javax.enterprise.context.RequestScoped;
@@ -27,40 +28,38 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.faces.validation.InputElement;
 import org.mtop.controlador.ControladorVehiculo;
 import org.mtop.modelo.Vehiculo;
-import org.mtop.util.UI;
 
 /**
  *
  * @author carlis
  */
-@RequestScoped
-@FacesValidator("validadorNumRegistro")
-public class ValidadorNumRegistroVehiculo implements Validator {
 
-    @Inject
-    private EntityManager em;
-
-    @Inject
-    private ControladorVehiculo cv;
-
-    @Inject
-    private Vehiculo vehiculo;
-
-    private InputElement<Integer> value;
     
-    @Override
-    public void validate(final FacesContext context, final UIComponent comp, final Object value)
-            throws ValidatorException {
-        System.out.println("validador numregistro");
-       //
-        String field = value.toString();
-        System.out.println("field>>>"+field.matches("[0-9-]*"));
-        if (value instanceof String && !value.equals(vehiculo.getNumRegistro()) && field.matches("[0-9-]*") ) {
-            cv.setEntityManager(em);
-            System.out.println("entro>> validador");
-            if (!cv.numRegistroUnico((String) value)) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El número de registro ingresado no esta disponible. ¡Pertenece a otro vehículo!", null));
-            }
-        } 
-    }
+@RequestScoped
+@FacesValidator("fechanio")
+public class fechaanio implements Validator
+{
+   @Inject
+   private EntityManager em;
+
+   @Inject
+   private ControladorVehiculo cv;
+
+   @Inject
+   private Vehiculo vehiculo;
+   private InputElement<Integer> value;
+
+   @Override
+   public void validate(final FacesContext context, final UIComponent comp, final Object value)
+            throws ValidatorException
+   {
+       System.out.println(" entro validadorfa");
+       String field = value.toString();
+       System.out.println("field.matches(\"[0-9-]*\")"+field.matches("[0-9]*"));
+      if (value instanceof String && !value.equals(vehiculo.getAnioFabricacion())&& field.matches("[0-9]*")) {
+         cv.setEntityManager(em);
+         if (!cv.obtenerAñoV((String) value))
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añioActual).", null));
+      }
+   }
 }
