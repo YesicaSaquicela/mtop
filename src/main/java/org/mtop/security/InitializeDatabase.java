@@ -215,7 +215,7 @@ public class InitializeDatabase {
             p.setName("Administrador");
             p.setFirstname("Mtop");
             p.setSurname("Software de Vehiculos");
-            p.setTipo("Conductor");
+            p.setTipo("administrador");
             p.setCreatedOn(now);
             p.setLastUpdate(now);
             p.setActivationTime(now);
