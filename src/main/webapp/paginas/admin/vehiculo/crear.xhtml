@@ -144,7 +144,10 @@
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo Ej(34)" 
-                                                    execute ="@this save" render="peso" validador="realValidator"/><br></br>
+
+                                                    execute ="@this save" render="peso" /><br></br>
+
+                                                    <!--execute ="@this save" render="peso" validator="realValidator"/><br></br-->
 
 
                                         <mtop:input id="tipo" name="tipo" type="text" label="Tipo de auto" 

@@ -11,7 +11,7 @@
         <f:viewParam name="result" value="#{profileListService.firstResult}" />
         <f:viewParam name="estado" value="#{profileListService.estado}" />
         <f:event listener="#{profileListService.init()}" type="preRenderView"/>
-        
+
     </f:metadata>
     <ui:param name="title" value="#{messages['module.profils']}" />
     <ui:define name="header-replace">
@@ -54,7 +54,10 @@
                                             <h:link id="Acc1" value="Inactivos" title="Cuentas de usuarios inactivas" 
                                                     outcome="listaUsuario" styleClass="btn success" >                                        
                                                 <f:param name="estado" value="inactivo"/>
-                                            </h:link>                    
+                                            </h:link>    
+
+
+
                                         </div>
                                         <tbody>
                                             <p:dataTable id="profileDataTable"  var="profile_" value="#{profileListService.resultList}" 
@@ -89,14 +92,27 @@
 
                                                     <h:commandButton id="active" action="#{profileHome.activarCuenta()}" value="Activar cuenta" styleClass="btn primary"
                                                                      rendered="#{profileHome.instance.persistent and profileHome.instance.deleted and account.tienePermiso('ADMIN')}"/>
+                                                    
                                                 </p:column>
-                                            </p:dataTable></tbody>  </div> </div> </div> 
+                                            </p:dataTable>
+                                        </tbody> 
+                                    </div> </div> </div> 
 
 
                         </p:panel>
                     </div>
                 </div>
             </div>
+            <h:panelGrid id="export" class="columns" >
+                <p:panel>
+                    <h:outputText value="Exportar Datos" />  
+                    <br/>
+                    <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn">                    
+                        <p:graphicImage value="/resources/pdf.png" width="50" height="40 "/>                          
+                        <f:setPropertyActionListener target="#{reporteListas.estado}" value="#{profileListService.estado eq 'inactivo'? true: false}" />
+                    </h:commandLink>                    
+                </p:panel>
+            </h:panelGrid>
         </h:form>
         <p:dialog id="cancel-dialog" header="Deshabilitar Cuenta de Usuario" widgetVar="deletedDlg" resizable="false" modal="true">  
             <h:form id="form-dialog-confirm-delete1">
