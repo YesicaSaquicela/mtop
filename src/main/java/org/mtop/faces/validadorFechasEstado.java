@@ -40,20 +40,18 @@ public class validadorFechasEstado implements Validator {
 
     private static org.jboss.solder.logging.Logger log = org.jboss.solder.logging.Logger.getLogger(validadorFechasEstado.class);
     @Inject
-    private InputElement<Date> fechainicio;
+    private InputElement<Date> fechaEntrada;
     @Inject
-    private InputElement<Date> fechasalida;
+    private InputElement<Date> fechaSalida;
 
     
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         log.info("Ingreso a validar fechas");
         
-        Date fInicio = fechainicio.getValue();
+        Date fInicio = fechaEntrada.getValue();
               
-        log.info("fechaInicio:"+fInicio+"fecha salidasinnn "+fechasalida
-        );
-        Date fFinal = fechasalida.getValue();
+        Date fFinal = fechaSalida.getValue();
             
         log.info("fechaInicio:"+fInicio+" fechaFinal:"+fFinal);
         if (fInicio != null && fFinal!= null) {

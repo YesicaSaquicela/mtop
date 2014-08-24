@@ -27,7 +27,7 @@ import org.mtop.util.UI;
 @FacesValidator("digitValidator")
 @RequestScoped
 public class DigitValidator implements Validator {
-
+    
     private InputElement<Integer> value;
     
 
@@ -37,7 +37,7 @@ public class DigitValidator implements Validator {
 System.out.println("\n\n\n\n entro al validador del digitos\n\n\n\n" + value);
         String field = value.toString();
         System.out.println("\n\n\n\n entro al validador del digitos\n\n\n\n" + field);
-        if (!field.matches("[0-9]*")) {
+        if (!field.matches("[0-9-]*")) {
             System.out.println("\n\n\n si valida\n\n\n\n");
             FacesMessage msg = new FacesMessage(UI.getMessages("No se admiten letras"));
             throw new ValidatorException(msg);

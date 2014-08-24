@@ -91,6 +91,25 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<Profile> listaPersonas;
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
 
+    public String obtenerAlerta(Integer kma) {
+        Integer kmt = kma + 1000;
+        System.out.println("kilometraje actual +1000" + kmt);
+        Integer proKmj = obtenerKilometraje(kma);
+        System.out.println("prokilometra" + proKmj);
+        if (kmt.equals(proKmj)) {
+            System.out.println("entro a 1if");
+            return "Atencion..! Necesita acercarse a realizar el mantenimiento";
+        } else {
+            if (kmt > proKmj) {
+                System.out.println("entro a obtener 2oif");
+                return "Urgente necesita hacer mantenimiento del vehículo";
+            } else {
+                System.out.println("3 if");
+                return "";
+            }
+        }
+    }
+
     public List<Vehiculo> getListVehiculos2() {
         return listVehiculos2;
     }
@@ -119,6 +138,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public boolean placaUnica(String placa) {
         List<Vehiculo> listav = findAll(Vehiculo.class);
         if (getInstance().getId() == null) {
+            System.out.println("entro>>>>>>>>v null");
             try {
                 obtenerPlacaVehiculo(placa);
                 return false;
@@ -126,8 +146,22 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 return true;
             }
         } else {
+            System.out.println("cual envia a elim" + getInstance().getId());
+            System.out.println("lista v antes" + listav);
+
+            List<Vehiculo> lv = new ArrayList<Vehiculo>();
             for (Vehiculo v : listav) {
-                 if (v.getPlaca().equals(getInstance().getPlaca())) {
+                if (!v.getPlaca().equals(findById(Vehiculo.class, getInstance().getId()).getPlaca())) {
+                    lv.add(v);
+                }
+            }
+            listav = lv;
+            System.out.println("lista v" + listav);
+            System.out.println("ide instance" + getInstance().getId());
+            for (Vehiculo v : listav) {
+                System.out.println("entro al for" + v.getId());
+
+                if (v.getPlaca().equals(getInstance().getPlaca())) {
                     System.out.println("entro al if>>>");
                     obtenerPlacaVehiculo(placa);
                     return false;
@@ -144,23 +178,46 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numRegistro = :numregistro", Vehiculo.class);
         System.out.println("query" + query);
         query.setParameter("numregistro", numregistro);
+        System.out.println("query.getSingleResult()" + query.getSingleResult());
         Vehiculo result = query.getSingleResult();
         System.out.println("resultdo" + result);
         return result;
     }
 
     public boolean numRegistroUnico(String numregistro) {
+        System.out.println("entro al validador");
         List<Vehiculo> listavs = findAll(Vehiculo.class);
         if (getInstance().getId() == null) {
-            obtenerNumRegistro(numregistro);
-            return false;
+            System.out.println("entro>>>>>>>>>>");
+            try {
+                obtenerNumRegistro(numregistro);
+                return false;
+            } catch (NoResultException e) {
+                return true;
+            }
         } else {
-            for (Vehiculo v1 : listavs) {
-                if (v1.getNumRegistro().equals(getInstance().getNumRegistro())) {
+            System.out.println("cual envia a elim" + getInstance().getId());
+            System.out.println("lista v antes" + listavs);
+
+            List<Vehiculo> lv = new ArrayList<Vehiculo>();
+            for (Vehiculo v : listavs) {
+                if (!v.getNumRegistro().equals(findById(Vehiculo.class, getInstance().getId()).getNumRegistro())) {
+                    lv.add(v);
+                }
+            }
+            listavs = lv;
+            System.out.println("lista v" + listavs);
+            System.out.println("ide instance" + getInstance().getId());
+            for (Vehiculo v : listavs) {
+                System.out.println("entro al for" + v.getId());
+
+                if (v.getNumRegistro().equals(getInstance().getNumRegistro())) {
+                    System.out.println("entro al if>>>");
                     obtenerNumRegistro(numregistro);
                     return false;
                 }
             }
+            System.out.println("nunca entro al if");
             return true;
         }
 
@@ -173,13 +230,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         String l3 = "ABCDEFGHIFKLMNOPQRSTUWXYZ";
         String n = "1234567890";
         String t = "CDOIAT";
-        System.out.println("placa ingersa fuera>>>"+placa);
-        System.out.println("subString1"+placa.substring(0, 2).equals("CD"));
-        System.out.println("guion3>>"+ placa.charAt(2));
-        System.out.println("2da>>"+n.contains(placa.charAt(3)+""));
-        System.out.println("verificar4>>>"+n.contains(placa.charAt(4)+ ""));
-        System.out.println("v5"+n.contains(placa.charAt(5) + ""));
-        System.out.println("v6"+n.contains(placa.charAt(6) + ""));
+        System.out.println("placa ingersa fuera>>>" + placa);
+
         if (placa.length() >= 7) {
 
             if (placa.length() == 8) {
@@ -200,11 +252,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     return true;
                 } else {
                     if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
-                            && placa.charAt(3) == '-'  && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
+                            && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
                         System.out.println("placa ingresada" + placa);
                         return true;
                     } else {
-                        if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-'  && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                        if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                             System.out.println("placa ingresada" + placa);
                             return true;
                         } else {
@@ -212,7 +264,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                                 System.out.println("placa ingresada" + placa);
                                 return true;
                             } else {
-                                if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-'  && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                                     System.out.println("placa ingresada" + placa);
                                     return true;
                                 } else {
@@ -220,7 +272,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                                         System.out.println("placa ingresada" + placa);
                                         return true;
                                     } else {
-                                        if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-'  && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                        if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
                                             System.out.println("placa ingresada" + placa);
                                             return true;
                                         } else {
@@ -235,6 +287,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
         } else {
+            System.out.println("entra 3 false");
             return false;
         }
 
@@ -268,6 +321,27 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public void setCev(ControladorEstadoVehiculo cev) {
         this.cev = cev;
+    }
+
+    public boolean obtenerAñoV(String fanio) {
+       
+        String fechaFormato = "";
+        Date fEntrada = new Date();
+        DateFormat formatter = new SimpleDateFormat("yyyy");
+        fechaFormato = formatter.format(fEntrada);
+        System.out.println("fecha antes>>>"+fechaFormato);
+        Integer fa = Integer.parseInt(fechaFormato);
+        Integer fv=Integer.parseInt(fanio);
+        System.out.println("fecha k llega"+fv);
+        System.out.println("fecha formato"+fa);
+        if(fv <=fa && fv >=1980){
+            System.out.println("entro a true");
+            return true ;
+        }else{
+            System.out.println("entro a false");
+            return false;
+        }
+               
     }
 
     public String obtenerUltimoEstadoV(Vehiculo vehiculo) {
@@ -615,11 +689,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setVehiculoId(Long vehiculoId) {
-        
+
         System.out.println("id a fijar" + vehiculoId);
 
         setId(vehiculoId);
-       idPersona=getInstance().getPersona().getId();
+        idPersona = getInstance().getPersona().getId();
     }
 
     public void fijarNullVehiculo() {
@@ -663,10 +737,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         List<Profile> lp = new ArrayList<Profile>();
         for (Profile persona : findAll(Profile.class)) {
             System.out.println("personas>>>>" + persona.getTipo());
-            if (persona.getTipo().equals("Conductor")) {
-                getInstance().setPersona(persona);
-                lp.add(persona);
+            if (persona.getTipo() != null) {
+                if (persona.getTipo().equals("Conductor")) {
+                    getInstance().setPersona(persona);
+                    lp.add(persona);
+                }
             }
+
         }
         listaPersonas = lp;
         System.out.println("lista de personas>>>>" + listaPersonas);
@@ -811,19 +888,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
-  
-
     @TransactionAttribute
     public String guardar() {
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPersona(psolicita);
-        System.out.println("persona conductor"+getInstance().getPersona());
+        System.out.println("persona conductor" + getInstance().getPersona());
 //        if (!getInstance().getPlaca().equals("")) {
 //            System.out.println("entro>>>>>" + getInstance().getPlaca());
 //            listaVehiculos.remove(getInstance().getPlaca());

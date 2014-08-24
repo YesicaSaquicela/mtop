@@ -24,6 +24,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.profile.Profile;
@@ -38,7 +39,7 @@ import org.mtop.modelo.profile.Profile;
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Vehiculo extends BussinesEntity implements Serializable {
 
-    @Pattern(regexp = "[0-9]+", message = "No se admiten letras")
+//    @Pattern(regexp = "[0-9]+", message = "No se admiten letras")
     private String anioFabricacion;
     private String cabina;
     private String color;
@@ -47,33 +48,59 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private String modelo;
     @Column(unique = true)
     private String placa;
+//    @Pattern(regexp = "[0-9-]+", message = "No se admiten letras.")
     @Column(unique = true)
     private String numRegistro;
     private Integer numPasajeros;
     private Double peso;
-//    @OneToOne
-//    private Persona conductor;
     @OneToOne
     private Profile persona;
     //registro hace referencia al codigo heredado
-
     private String tipo;
     private String cilindraje;
     private Integer kilometraje;
-
     private String tipoCombustible;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechainiciosoat;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechafinsoat;
-
     @ManyToOne
     @JoinColumn(name = "planMantenimientoId")
     private PlanMantenimiento planM;
-
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EstadoVehiculo> listaEstados = new ArrayList<EstadoVehiculo>();
+   
+//    @Transient
+//    private String alerta;
+//
+//    public String getAlerta() {
+//        
+//        return alerta;
+//    }
+//
+//    public void setAlerta(String alerta) {
+//        this.alerta = alerta;
+//    }
+//    
+    
+    
+    public Date getFechainiciosoat() {
+        return fechainiciosoat;
+    }
 
+    public void setFechainiciosoat(Date fechainiciosoat) {
+        this.fechainiciosoat = fechainiciosoat;
+    }
+
+    public Date getFechafinsoat() {
+        return fechafinsoat;
+    }
+
+    public void setFechafinsoat(Date fechafinsoat) {
+        this.fechafinsoat = fechafinsoat;
+    }
+
+   
     public PlanMantenimiento getPlanM() {
         return planM;
     }
@@ -153,6 +180,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
 //        this.listaPlanMantenimiento = listaPlanMantenimiento;
 //    }
     public String getAnioFabricacion() {
+        
         return anioFabricacion;
     }
 

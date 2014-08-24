@@ -51,6 +51,8 @@
                                                              required="true" label="Número de Registro" 
                                                              >
                                                     <f:ajax execute="@this" render="num" />
+
+                                                    <f:validator validatorId="digitValidator" />
                                                     <f:validator validatorId="validadorNumRegistro" />
                                                 </h:inputText>
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.numRegistro != null}"
@@ -120,13 +122,24 @@
                                                     inlinehelp="Ingrese que cabina tiene el vehículo Ej(Doble)" 
                                                     execute ="@this save" render="cabina"/><br></br>
 
-                                        <p:outputLabel value="Año de Fabricación*"/><br></br>
-                                        <p:inputText id="aniofabricacion" label="añp de fabricación" maxlength="4" value="#{controladorVehiculo.instance.anioFabricacion}"  styleClass="form-control" >
-                                            <f:validateLength minimum="3"/>
+                                        <h:panelGroup id="pm1" layout="block" class="clearfix">
 
-                                        </p:inputText>
-                                        <span class="help-inline text-muted">Ingrese el año de fabricación Ej(2014)<ocp:message forId="aniofabricacion"/></span>
+                                            <div class="input">
+                                                <p:outputLabel value="Año de Fabricación*"/><br></br>
+                                                <p:inputText id="aniofabricacion" label="añp de fabricación" maxlength="4" value="#{controladorVehiculo.instance.anioFabricacion}"  styleClass="form-control" >
+                                                    <f:validateLength minimum="3"/>
+                                                    <f:ajax execute="@this" render="pm1" />
+                                                    <f:validator validatorId="fechanio" />
+                                                    <f:validator validatorId="digitValidator" />
+                                                    
+                                                </p:inputText>
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.anioFabricacion != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Ingrese el año de fabricación Ej(2014)<ocp:message forId="aniofabricacion"/></span>
+                                            </div>
+                                        </h:panelGroup>
                                         <br></br><br></br>
+
 
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
@@ -154,29 +167,42 @@
                                                     value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
                                                     inlinehelp="Ingrese el tipo de combustible del vehículo Ej(Gasolina)" 
                                                     execute ="@this save" render="tipoCombustible" validator="stringValidator"/><br></br>
-                                   <h:panelGroup id="unm2" layout="block" class="clearfix">
-                                       <div class="input">
-                                    <p:outputLabel value="Fecha Inicio del Soat:"/>
-                                    <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.instance.fechainiciosoat}" 
-                                                 styleClass="xLarge" 
-                                                 >   
-                                        <p:ajax event="dateSelect" rendered="save" /> 
-                                        <f:ajax execute="@this" render="unm2" />
-                                    </p:calendar><br/>
-                                    <span class="help-inline text-muted">Fecha de inicio soat del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
-                                  </div>
-                                   </h:panelGroup>
-                                    <p:outputLabel value="Fecha Fin del Soat:"/>
-                                    <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  label="Fecha entrada de Taller "
-                                                 styleClass="xLarge" 
-                                                 >   
-                                        <p:ajax event="dateSelect" rendered="save" />  
-                                        <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg2" />  
-                                    </p:calendar><br/>
-                                    <span class="help-inline text-muted">Fecha de fin soat del vehículo<ocp:message id="msg2" forId="fechaSalida" /></span><br></br><br></br> 
-                                    <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
+                                        <h:panelGroup id="unm2" layout="block" class="clearfix">
+                                            <div class="input">
+                                                <p:outputLabel value="Fecha Inicio del Soat:  "/>
+                                                <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.instance.fechainiciosoat}" 
+                                                             styleClass="xLarge" 
+                                                             >   
+                                                    <p:ajax immediate="true" event="dateSelect" rendered="save unm2" /> 
 
-                                    
+                                                </p:calendar><br/>
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.fechainiciosoat != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Ingrese la fecha de inicio soat del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
+                                            </div>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="pm" layout="block" class="clearfix">
+
+                                            <div class="input">
+                                                <p:outputLabel value="Fecha Fin del Soat:  "/>
+                                                <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  label="Fecha entrada de Taller "
+                                                             styleClass="xLarge" 
+                                                             >   
+                                                    <p:ajax immediate="true" event="dateSelect" rendered="save pm" />  
+                                                    <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg" />  
+                                                </p:calendar><br/>
+                                                <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.fechafinsoat != null}"
+                                                                styleClass="validation-status" />
+                                            </div>
+
+                                            <span class="help-inline text-muted">Ingrese la fecha fin de soat del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
+                                            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" /> 
+                                        </h:panelGroup>
+
+
+
                                     </div>
                                 </div>
                             </div>

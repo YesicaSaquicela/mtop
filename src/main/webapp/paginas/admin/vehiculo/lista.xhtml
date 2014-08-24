@@ -109,6 +109,9 @@
                                                     <p:column headerText="Placa" sortBy="#{v.placa}">
                                                         <h:outputText value="#{v.placa}"></h:outputText>
                                                     </p:column>
+                                                    <p:column headerText="Conductor" sortBy="#{v.persona.fullName}">
+                                                        <h:outputText value="#{v.persona.fullName}"></h:outputText>
+                                                    </p:column>
                                                     <p:column headerText="Opciones" style="width: 5%"> 
 
                                                         <p:button id="selectButton" 
