@@ -76,10 +76,16 @@
                                         <f:param name="vehiculoId" ></f:param>
                                     </h:link>
 
-                                    <h:commandLink id="print" title="Imprimir Pedido" styleClass="btn" action="#{reporteListas.renderPedido()}" >  
-                                        <p:graphicImage value="/resources/print.gif" width="12" height="12"/>
-                                        <f:setPropertyActionListener value="#{pedidosExam_}" target="#{reporteListas.pedido}"/>
-                                    </h:commandLink>
+                                    <h:panelGrid id="export" class="columns" >
+                                        <p:panel>
+                                            <h:outputText value="Exportar Datos" />  
+                                            <br/>
+                                            <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" styleClass="btn">                    
+                                                <p:graphicImage value="/resources/pdf.png" width="50" height="40" />                          
+                                                
+                                            </h:commandLink>                    
+                                        </p:panel>
+                                    </h:panelGrid>
                                 </div><br/><br/>
                             </div>
 
@@ -97,6 +103,7 @@
                                                              paginator="true" rows="15"                         
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20">
+
                                                     <p:column headerText="Nro Registro" sortBy="#{v.numRegistro}">
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
                                                     </p:column>

@@ -27,9 +27,17 @@
                     <div class="panel panel-primary">
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                            <p:commandButton value="Generar Reporte"   action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputLabel for="menu" value="Location:" />
+                                <p:selectCheckboxMenu id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Cities"
+                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                    <f:selectItems value="#{controladorVehiculo.tipos}" />
+                                </p:selectCheckboxMenu>
+                                <p:commandButton value="Generar Reporte"   action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
+                            </h:panelGrid>
+                            
+                            </p:commandButton>
                             <!--Botones de admin-->
                             <div class="admin-actions">
                                 <div class="panel panel-success">
@@ -46,7 +54,7 @@
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
                                                                 <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                completeMethod="#{controladorVehiculo.autocompletarEstadoV}"/> 
+                                                                                 completeMethod="#{controladorVehiculo.autocompletarEstadoV}"/> 
                                                                 &nbsp;&nbsp;
 
 
@@ -75,18 +83,18 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
-                                      
+
 
                                         <tbody>
                                             <p:dataTable id="listae" value="#{controladorVehiculo.listaVehiculos}" var="vehiculo"
-                                                          paginator="true" rows="15"                         
-                                         paginatorPosition="top"
-                                         rowsPerPageTemplate="5,10,15,20">
+                                                         paginator="true" rows="15"                         
+                                                         paginatorPosition="top"
+                                                         rowsPerPageTemplate="5,10,15,20">
                                                 <!--f:setPropertyActionListener target="# {controladorVehiculo.instance}" value="vehiculo"/-->
                                                 <p:column headerText="Registro del Vehículo" sortBy="#{vehiculo.numRegistro}">
                                                     <h:outputText value="#{vehiculo.numRegistro}"></h:outputText>
                                                 </p:column>
-                                                                                              
+
                                                 <p:column headerText="Fecha de Inicio actual"   >
                                                     <h:outputText value="#{controladorVehiculo.obtenerUltimaFechaV(vehiculo)}"></h:outputText>
                                                 </p:column>

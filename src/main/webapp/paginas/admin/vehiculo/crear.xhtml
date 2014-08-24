@@ -50,7 +50,7 @@
                                                              required="true" label="Número de Registro" 
                                                              >
                                                     <f:ajax execute="@this" render="num" />
-                                                    <f:validator validatorId="validadorNumRegistro" />
+                                                    <!--f:validator validatorId="validadorNumRegistro" /-->
                                                 </h:inputText>
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.numRegistro != null}"
                                                                 styleClass="validation-status" />
@@ -130,11 +130,11 @@
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo Ej(34)" 
-<<<<<<< HEAD
+
                                                     execute ="@this save" render="peso" /><br></br>
-=======
-                                                    execute ="@this save" render="peso" validator="realValidator"/><br></br>
->>>>>>> origin/master
+
+                                                    <!--execute ="@this save" render="peso" validator="realValidator"/><br></br-->
+
 
                                         <mtop:input id="tipo" name="tipo" type="text" label="Tipo de auto" 
                                                     value="#{controladorVehiculo.instance.tipo}" required="true" 

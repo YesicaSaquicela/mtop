@@ -89,7 +89,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private Date fechaFinal = Calendar.getInstance().getTime();
     private long idPersona;
     private List<Profile> listaPersonas;
-
+    private String[] tipoSeleccionados;   
+    private List<String> tipos;
+    
     public List<Profile> getListaPersonas() {
         return listaPersonas;
     }
@@ -119,7 +121,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numregistro = :numregistro", Vehiculo.class);
         query.setParameter("numregistro", numregistro);
         Vehiculo result = query.getSingleResult();
-        System.out.println("resultdo"+result);
+        System.out.println("resultdo" + result);
         return result;
     }
 
@@ -1005,6 +1007,25 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.estado = estado;
     }
 
+    public String[] getTipoSeleccionados() {
+        return tipoSeleccionados;
+    }
+
+    public void setTipoSeleccionados(String[] tipoSeleccionados) {
+        this.tipoSeleccionados = tipoSeleccionados;
+    }
+
+    public List<String> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<String> tipos) {
+        this.tipos = tipos;
+    }
+    
+    
+    
+
     public void generaReporte() {
         GeneradorPdf pu = new GeneradorPdf();
         StringBuilder buf = new StringBuilder();
@@ -1019,58 +1040,76 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         // + "src='" + parameters.get("templateHeader") + "'/>" + "</div>");
         buf.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
         buf.append("<title>Ppless PDF Document</title> ");
-        buf.append("<style type='text/css' media='print'>  ");
+        buf.append("<style type='text/css' media='print'> ");
         buf.append("* {font-family: Arial, 'sans-serif'  !important; font-size:12pt !important; }");
         // buf.append("@page { size:8.5in 11in; margin: 0.25in; padding:1em; @bottom-left { content: element(footer); } } ");
 
-        buf.append("@page { size:"
-                + "A4"
-                + "; margin: cm; padding:1em"
+        buf.append("@page { size: landscape;"
+                + "	margin: 0.5cm;"
+                + "; padding:0.5em"
                 + "; margin-top:"
-                + "144"
+                + "5000"
                 + "px;margin-bottom:"
-                + "108"
+                + "500"
                 + "px;@bottom-left{ content: element(footer); };background-image: url('"
                 + ""
-                + "');background-repeat: no-repeat;background-position: 0px 0px;}");
+                + "');background-repeat: no-repeat;background-position: 0px 0px; }");
         // buf.append("#footer { font-size: 80%; font-style: italic;  position: running(footer); top: 0; left: 0;  background-image: url(http://localhost:8080/assets/img/fondo.jpg); background-repeat: no-repeat; left bottom;}");
         buf.append("#footer { font-size: 70%; font-style: italic;  padding:0em;position: running(footer); top: 0; right:0;background-image: url('"
                 + "" + "')}");
-        buf.append("#header { font-size: 80%; font-style: italic;  margin:0px;padding:0em;position: running(page-header); top: 0; right:0;}");
+        buf.append("#header { font-size: 70%; font-style: italic;  margin:0px;padding:0em;position: running(page-header); top: 0; right:0;}");
         buf.append("#pagenumber:before { content: counter(page); } ");
         buf.append("#pagecount:before { content: counter(pages); } ");
         buf.append("</style></head>");
-        buf.append("<body>");
+        buf.append("<body><div style=\"text-align:center;\">"
+                + "<table style=\"text-align:center;\" width=\"9800\">"
+                + "<tr>"
+                + "  <td >Hoja</td>\n"
+                + "</tr>"
+                + "<tr>"
+                + "  <td rowspan=\"2\"><IMG SRC=\"/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg\" WIDTH=120 HEIGHT=70 ALT=\"Obra de K. Haring\"></td>"
+                + " <td height=30 width=500 ><h3 align=\"center\">MINISTERIO DE TRANSPORTE Y OBRAS P&Uacute;BLICAS: DIRECCI&Oacute;N PROVINCIAL DE LOJA</h3></td>"
+                + "</tr>"
+               
+                + "<tr><td height=30 width=500><h3 align=\"center\">CONTROL DE ESTADO DE EQUIPO CAMINERO</h3></td></tr></table>"
+                + "<table style=\"text-align:center;\"  ><tr><td height=10 width=150 ><h6>CLAVE DE N&Uacute;MERO Y COLOR -></h6>"
+                + "</td><td style=\"background-color:#3333FF\" height=10 width=20 ><h4>1</h4></td>"
+                + "<td height=10 width=150 ><h6>EQUIPO BUENO INACTIVO</h6></td><td style=\"background-color:#669900\"><h4>2</h4></td>"
+                + "<td height=10 width=150 ><h6>EQUIPO TRABAJANDO NORMAL</h6></td><td style=\"background-color:#FFFF00\"> <h4>3</h4></td>"
+                + "<td height=10 width=150 ><h6>EQUIPO TRABAJANDO CON FALLAS</h6></td><td  style=\"background-color:red\"><h4>4</h4></td>"
+                + "<td height=10 width=150><h6>EQUIPO EN REPARACI&Oacute;N</h6></td><td style=\"background-color:#993300\"><h4>5</h4></td>"
+                + "<td height=30 width=150><h6>EQUIPO PARA BAJA O REMATE</h6></td></tr>"
+                + "</table></div>");
 
-        buf.append("<table width=\"100%\"  border=\"0\" cellspacing=\"0\"  cellpadding=\"3\">");
+        buf.append("<table width=\"3000\"  border=\"0\" cellspacing=\"0\"  cellpadding=\"3\">");
 
         for (Vehiculo v : getListaVehiculos()) {
             buf.append("<tr>");
             //1
-            buf.append("<td align='left'>");
+            buf.append("<td align='left'  height=30 width=200 >");
             buf.append("<p>");
             buf.append(v.getNumRegistro());
             buf.append("</p>");
             buf.append("</td>");
-            buf.append("<td align='left'>");
+            buf.append("<td align='left' height=30 width=200 >");
             buf.append("<p>");
             buf.append("Clase");
             buf.append("</p>");
             buf.append("</td>");
             //2
-            buf.append("<td align='left'>");
+            buf.append("<td align='left' height=30 width=200 >");
             buf.append("<p>");
             buf.append(v.getMarca());
             buf.append("</p>");
             buf.append("</td>");
             //3
-            buf.append("<td align='left'>");
+            buf.append("<td align='left' height=30 width=100 >");
             buf.append("<p>");
             buf.append(v.getModelo());
             buf.append("</p>");
             buf.append("</td>");
             //4
-            buf.append("<td align='left'>");
+            buf.append("<td align='left' height=30 width=200 >");
             buf.append("<p>");
             buf.append(obtenerUltimaUbicacionV(v));
             buf.append("</p>");
@@ -1137,7 +1176,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 + "<p>&nbsp;&nbsp;<strong>&nbsp;</strong><span>&nbsp;</span></p>\n"
                 + "<p><strong> <span>Se expone el tema directamente, conciso y         claro.</span> </strong></p>\n"
                 + "<p><span>&nbsp;</span></p>\n"
-                + "<p><span>Solicito que todas las unidades utilicen las siglas de       identificaci&oacute;n aprobadas, a partir del d&iacute;a lunes 13       de mayo de 2013, con car&aacute;cter obligatorio en los       memorandos y oficios, de las unidades administrativas del       Consejo de la Judicatura.</span></p>\n"
+                + "<p><span>Solicito que todas las unidades utilicen las siglas de      "
+                + " identificaci&oacute;n aprobadas, a partir del d&iacute;a lunes 13       "
+                + "de mayo de 2013, con car&aacute;cter obligatorio en los       "
+                + "memorandos y oficios, de las unidades administrativas del     "
+                + "  Consejo de la Judicatura.</span></p>\n"
                 + "<p><span>&nbsp;</span></p>\n"
                 + "<p><span>&nbsp;</span></p>\n"
                 + "<p><span>Atentamente,</span></p>\n"
@@ -1169,7 +1212,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         ByteArrayInputStream bais = new ByteArrayInputStream(buf.toString()
                 .getBytes());
         try {
-            OutputStream os = new FileOutputStream("/tmp/examplePie5.pdf");
+            OutputStream os = new FileOutputStream("/tmp/controlEstado.pdf");
+
             GeneradorPdf.createPDF(bais, os);
         } catch (DocumentException ex) {
             Logger.getLogger(GeneradorPdf.class.getName()).log(Level.SEVERE, null,
@@ -1180,5 +1224,4 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             Logger.getLogger(GeneradorPdf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

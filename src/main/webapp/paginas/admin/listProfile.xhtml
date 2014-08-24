@@ -50,7 +50,10 @@ limitations under the License.
                                     <f:param name="profileId"></f:param>
 
                                 </h:link>
-
+                                <h:commandLink id="print" title="Imprimir Pedido" styleClass="btn" action="#{reporteListas.renderPedido()}" >  
+                                    <p:graphicImage value="/resources/print.gif" width="12" height="12"/>
+                                    <f:setPropertyActionListener value="#{pedidosExam_}" target="#{reporteListas.pedido}"/>
+                                </h:commandLink>
                             </div>
 
 

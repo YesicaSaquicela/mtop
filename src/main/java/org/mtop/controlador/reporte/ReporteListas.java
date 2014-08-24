@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mtop.reporte;
+package org.mtop.controlador.reporte;
 
-//import com.smartics.common.action.report.JasperReportAction;
+import com.smartics.common.action.report.JasperReportAction;
 //import edu.sgssalud.cdi.Web;
 //import edu.sgssalud.model.farmacia.Medicamento;
 //import edu.sgssalud.model.farmacia.Receta;
@@ -58,6 +58,7 @@ import org.mtop.cdi.Web;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
+import org.mtop.servicios.ServicioGenerico;
 
 
 @RequestScoped
@@ -66,8 +67,8 @@ public class ReporteListas {
 
     private static org.jboss.solder.logging.Logger log = org.jboss.solder.logging.Logger.getLogger(ReporteListas.class);
 
-    private static final String REPORTE_USUARIOS = "Usuarios";  //nombre del reporte .jasper   
-    private static final String REPORTE_PACIENTES = "pacientes";
+    private static final String REPORTE_USUARIOS = "reporteUsuario";  //nombre del reporte .jasper   
+    private static final String REPORTE_VEHICULOS = "reporteVehiculo";
     private static final String REPORTE_FICHASMEDICAS = "listaFichasMedicas";
     private static final String REPORTE_CONSULTASMEDICAS = "listaConsultasMed";
     private static final String REPORTE_CONSULTAS_ODONT = "listaConsultasOdont";
@@ -97,8 +98,8 @@ public class ReporteListas {
 //    private MedicamentoService medService;
 //    @Inject
 //    private ExamenLabService examenesService;
-//    @Inject
-//    private ResultadoExamenLCService resultadoEService;
+    @Inject
+    private ServicioGenerico servgen;
     @Inject
     private Identity identity;
 
@@ -240,12 +241,12 @@ public class ReporteListas {
         final String attachFileName = "usuarios.pdf";
         List<Profile> p = profileService.findAllA(estado);
         Map<String, Object> _values = new HashMap<String, Object>();
-        _values.put("numeroP", p.size());
+//        _values.put("numeroP", p.size());
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String logo = context.getRealPath("/reportes/unl.png");
-        _values.put("logo", logo);
-        _values.put("usuarioResponsable", pLoggeado.getFullName());
-        _values.put("usd", "$");
+//        _values.put("logo", logo);
+//        _values.put("usuarioResponsable", pLoggeado.getFullName());
+//        _values.put("usd", "$");
         //Exportar a pdf 
         JasperReportAction.exportToPdf(REPORTE_USUARIOS, p, _values, attachFileName);
 
@@ -254,30 +255,50 @@ public class ReporteListas {
         }
     }
 
-    public void renderPacientes() {
+    
+    public void renderVehiculo(List<Vehiculo> p) {
 
-        final String attachFileName = "pacientes.pdf";
-        List<Vehiculo> pacientes = pacienteServicio.getPacientes();
-        if (parametroBusqued != null) {
-            pacientes = pacienteServicio.getPacientesPorParametros(parametroBusqued);
-        }
-        //parametros 
+        final String attachFileName = "vehiculos.pdf";
+        
         Map<String, Object> _values = new HashMap<String, Object>();
-        _values.put("numeroPacientes", pacientes.size());
-        //_values.put("numeroPacientes", pacientes.size());
+//        _values.put("numeroP", p.size());
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String logo = context.getRealPath("/reportes/unl.png");
-        _values.put("usuarioResponsable", pLoggeado.getFullName());
-        _values.put("logo", logo);
-        _values.put("usd", "$");
-
+//        _values.put("logo", logo);
+//        _values.put("usuarioResponsable", pLoggeado.getFullName());
+//        _values.put("usd", "$");
         //Exportar a pdf 
-        JasperReportAction.exportToPdf(REPORTE_PACIENTES, pacientes, _values, attachFileName);
+        JasperReportAction.exportToPdf(REPORTE_VEHICULOS, p, _values, attachFileName);
 
         if (log.isDebugEnabled()) {
             log.debug("export as pdf");
         }
     }
+//    public void renderPedido() {
+//
+//        final String attachFileName = "pacientes.pdf";
+//        List<Vehiculo> pacientes = servgen.buscarTodos(Vehiculo.class);
+////        if (parametroBusqued != null) {
+////            pacientes = pacienteServicio.getPacientesPorParametros(parametroBusqued);
+////        }
+//        //parametros 
+//        Map<String, Object> _values = new HashMap<String, Object>();
+//        _values.put("numeroPacientes", pacientes.size());
+//        //_values.put("numeroPacientes", pacientes.size());
+//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+//        String logo = context.getRealPath("/reportes/unl.png");
+//        System.out.println("context"+context.getServerInfo());
+//        _values.put("usuarioResponsable", pLoggeado.getFullName());
+//        _values.put("logo", logo);
+//        _values.put("usd", "$");
+//
+//        //Exportar a pdf 
+//        JasperReportAction.exportToPdf(REPORTE_PACIENTES, pacientes, _values, attachFileName);
+//
+//        if (log.isDebugEnabled()) {
+//            log.debug("export as pdf");
+//        }
+//    }
 
 //    public void renderFichasMedicas() {
 //

@@ -639,13 +639,13 @@
         </dependency>
         -->    
         
-                <dependency>
+        <dependency>
             <groupId>org.jboss.seam.reports</groupId>
             <artifactId>seam-reports-api</artifactId>
             <version>${seam-reports-version}</version>
             <scope>compile</scope>
         </dependency>      
-                
+                    
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
@@ -670,6 +670,9 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
         </dependency>
+        
+        
+        
         <dependency>
             <groupId>org.jboss.seam.reports</groupId>
             <artifactId>seam-reports-api</artifactId>
