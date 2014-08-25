@@ -285,8 +285,15 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (palabrab == null || palabrab.equals("")) {
             palabrab = "Ingrese algun valor a buscar";
         }
-        le = servgen.buscarTodoscoincidencia(Kardex.class, Kardex.class.getSimpleName(), Kardex_.numero.getName(), palabrab);
-        if (le.isEmpty()) {
+        
+        List<Kardex> lk = new ArrayList<Kardex>();
+        for (Kardex kd : listakardex2) {
+            if (kd.getNumero().contains(palabrab)){
+                lk.add(kd);
+            } 
+        }
+        
+        if (lk.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
                 context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
@@ -296,7 +303,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             }
 
         } else {
-            listakardex = le;
+            listakardex = lk;
         }
 
     }
@@ -617,9 +624,11 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 "lista Sol" + listaSol);
         if (listaSol
                 == null) {
-
+            System.out.println("entro a listaSol");
             for (Kardex kardex : listakardex) {
+                System.out.println("entro al for sol");
                 if (kardex.getId().equals(getInstance().getId())) {
+                    System.out.println("entro al if... sol");
                     listaSol = kardex.getListaSolicitudReparacion();
                     listaSol2 = listaSol;
 
@@ -628,10 +637,10 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
         if (listaReq
                 == null) {
-
+  System.out.println("entro a listaSol");
             for (Kardex kardex : listakardex) {
                 if (kardex.getId().equals(getInstance().getId())) {
-
+System.out.println("entro al if... req");
                     listaReq = kardex.getListaRequisicion();
                     listaReq2 = listaReq;
                 }

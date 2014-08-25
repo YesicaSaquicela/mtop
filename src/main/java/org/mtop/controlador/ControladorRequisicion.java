@@ -263,12 +263,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
-    public void guardarSolicitud(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
-        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
-        System.out.println("\n\n\n\n\nsolicitud asignada\n\n\n\n\n" + this.solicitudReparacionMantenimiento.getNumSolicitud());
-        System.out.println("sus items " + this.solicitudReparacionMantenimiento.getListaItemSR());
-
-    }
+//    public void guardarSolicitud(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
+//        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
+//        System.out.println("\n\n\n\n\nsolicitud asignada\n\n\n\n\n" + this.solicitudReparacionMantenimiento.getNumSolicitud());
+//        System.out.println("sus items " + this.solicitudReparacionMantenimiento.getListaItemSR());
+//
+//    }
 
     public String getTipo() {
         return tipo;
