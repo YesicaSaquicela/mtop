@@ -90,9 +90,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private long idPersona;
     private List<Profile> listaPersonas;
 
-    private String[] tipoSeleccionados;   
+    private String[] tipoSeleccionados;
     private List<String> tipos;
-    
 
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
 
@@ -329,24 +328,24 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public boolean obtenerAñoV(String fanio) {
-       
+
         String fechaFormato = "";
         Date fEntrada = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy");
         fechaFormato = formatter.format(fEntrada);
-        System.out.println("fecha antes>>>"+fechaFormato);
+        System.out.println("fecha antes>>>" + fechaFormato);
         Integer fa = Integer.parseInt(fechaFormato);
-        Integer fv=Integer.parseInt(fanio);
-        System.out.println("fecha k llega"+fv);
-        System.out.println("fecha formato"+fa);
-        if(fv <=fa && fv >=1980){
+        Integer fv = Integer.parseInt(fanio);
+        System.out.println("fecha k llega" + fv);
+        System.out.println("fecha formato" + fa);
+        if (fv <= fa && fv >= 1980) {
             System.out.println("entro a true");
-            return true ;
-        }else{
+            return true;
+        } else {
             System.out.println("entro a false");
             return false;
         }
-               
+
     }
 
     public String obtenerUltimoEstadoV(Vehiculo vehiculo) {
@@ -895,10 +894,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String guardar() {
+        Kardex k = new Kardex();
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        
+
         System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
         System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
@@ -912,6 +912,20 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         try {
             if (getInstance().isPersistent()) {
 
+                
+                for (Kardex kd : findAll(Kardex.class)) {
+                    System.out.println("entro al for");
+                    if (kd.getVehiculo().getId().equals(getInstance().getId())) {
+                        System.out.println("entro a fijar kardex");
+                        k=kd;
+                        break;
+                    }
+                }
+                System.out.println("salio for>>>");
+                k.setLastUpdate(now);
+                k.setNumero(getInstance().getNumRegistro());
+                System.out.println("antes de actualizar");
+                save(k);
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
@@ -1089,9 +1103,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setTipos(List<String> tipos) {
         this.tipos = tipos;
     }
-    
-    
-    
 
     public void generaReporte() {
         GeneradorPdf pu = new GeneradorPdf();
@@ -1137,7 +1148,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 + "  <td rowspan=\"2\"><IMG SRC=\"/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg\" WIDTH=120 HEIGHT=70 ALT=\"Obra de K. Haring\"></td>"
                 + " <td height=30 width=500 ><h3 align=\"center\">MINISTERIO DE TRANSPORTE Y OBRAS P&Uacute;BLICAS: DIRECCI&Oacute;N PROVINCIAL DE LOJA</h3></td>"
                 + "</tr>"
-               
                 + "<tr><td height=30 width=500><h3 align=\"center\">CONTROL DE ESTADO DE EQUIPO CAMINERO</h3></td></tr></table>"
                 + "<table style=\"text-align:center;\"  ><tr><td height=10 width=150 ><h6>CLAVE DE N&Uacute;MERO Y COLOR -></h6>"
                 + "</td><td style=\"background-color:#3333FF\" height=10 width=20 ><h4>1</h4></td>"

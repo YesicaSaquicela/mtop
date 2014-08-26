@@ -125,17 +125,7 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     }
 
     public String find() {
-        /*
-         try {
-         init();
-         resultList = bussinesEntityTypeService.findAll();
-         String summary = "Encontrados! ";             
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
-         System.out.println("lista "+resultList.get(0));
-         } catch (Exception e) {
-            
-         }
-         */
+        
         this.getResultList();
         return "/paginas/kardex/crear";
     }
@@ -257,19 +247,10 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
     }
 
     public void onRowSelect(SelectEvent event) {
-//        if (fe == null) {
-//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " Debe ingresar fecha de entrada");
-//            
-//            FacesContext.getCurrentInstance().addMessage("", msg);
-//        } else {
-//            if (fs == null) {
-//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " Debe ingresar fecha de salida");
-//                FacesContext.getCurrentInstance().addMessage("", msg);
-//            } else {
+
         FacesMessage msg = new FacesMessage(UI.getMessages("Se ha seleccionado una solicitud con id "), ((SolicitudReparacionMantenimiento) event.getObject()).getNumSolicitud());
         FacesContext.getCurrentInstance().addMessage("", msg);
-//            }
-//        }
+
 
     }
 

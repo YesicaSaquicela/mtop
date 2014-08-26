@@ -310,7 +310,7 @@
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandLink update="@form :form:vehiculo :form:mensaje6 :form:vehiculo"  
+                                                            <p:commandLink update="admin :form:mensaje6 :form:vehiculo"  
                                                                            process="@this" value="Agregar" title="Seleccionar">
                                                                 <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.vehiculo}"  />
                                                                 <f:setPropertyActionListener value="#{items.id}" target="#{controladorVehiculo.vehiculoId}" />
