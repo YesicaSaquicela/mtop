@@ -28,16 +28,26 @@
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <h:panelGrid columns="3" cellpadding="5">
-                                <h:outputLabel for="menu" value="Location:" />
-                                <p:selectCheckboxMenu id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Cities"
+                                <h:outputLabel for="menu" value="Seleccione para generar el formato  " />
+                               
+                                <p:selectCheckboxMenu id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Tipo de Vehículo  "
                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                     <f:selectItems value="#{controladorVehiculo.tipos}" />
                                 </p:selectCheckboxMenu>
-                                <p:commandButton value="Generar Reporte"   action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
-</p:commandButton>
+                               
+                                <p:selectCheckboxMenu id="menu2" value="#{controladorVehiculo.mesyanioSeleccionados}" label="Mes y Año "
+                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                    <f:selectItems value="#{controladorVehiculo.mesyanio}" />
+                                </p:selectCheckboxMenu>
+                                
+                                <p:commandButton value="Generar Reporte"  
+                                                 disabled="#{controladorVehiculo.mesyanioSeleccionados ne null and controladorVehiculo.tipoSeleccionados ne null}" 
+                                                 action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
+                                </p:commandButton>
                             </h:panelGrid>
-                            
-                            
+                         
+
+
                             <!--Botones de admin-->
                             <div class="admin-actions">
                                 <div class="panel panel-success">

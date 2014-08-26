@@ -44,13 +44,14 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import org.exolab.castor.types.DateTime;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.genreporte.GeneradorPdf;
 import org.mtop.modelo.ActividadPlanMantenimiento;
-import org.mtop.modelo.ActividadPlanMantenimiento_;
+
 import org.mtop.modelo.EstadoVehiculo;
-import static org.mtop.modelo.EstadoVehiculo_.vehiculo;
 import org.mtop.modelo.Kardex;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
@@ -60,7 +61,7 @@ import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
 import org.mtop.servicios.ServicioGenerico;
 import org.primefaces.context.RequestContext;
-import org.mtop.genreporte.GeneradorPdf;
+
 import org.mtop.modelo.profile.Profile;
 import static org.mtop.modelo.profile.Profile_.username;
 
@@ -91,7 +92,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<Profile> listaPersonas;
 
     private String[] tipoSeleccionados;
+    private String[] mesyanioSeleccionados;
     private List<String> tipos;
+    private List<String> mesyanio;
+    private List<EstadoVehiculo> listaEstados;
 
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
 
@@ -360,13 +364,34 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Date fEntrada = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getFechaEntrada();
 
         if (fEntrada != null) {
+            System.out.println("entro a fecha");
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             fechaFormato = formatter.format(fEntrada);
         }
+        System.out.println("fecha a reotornanr" + fechaFormato);
         return fechaFormato;
     }
 
     public String obtenerUltimaUbicacionV(Vehiculo vehiculo) {
+        System.out.println("lista estadoooos\n\n\n" + listaEstados);
+        for (EstadoVehiculo ev : listaEstados) {
+            System.out.println("ev" + ev.getVehiculo().getListaEstados());
+
+        }
+        System.out.println("vehiculo" + vehiculo);
+        System.out.println("vehiculoestados" + vehiculo.getListaEstados().get(0));
+        String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
+        return ubicacion;
+    }
+
+    public String obtenerUltimaUbicacionV2(Vehiculo vehiculo, List<EstadoVehiculo> list) {
+        System.out.println("lista estadoooos\n\n\n" + list);
+        for (EstadoVehiculo ev : list) {
+            System.out.println("ev" + ev.getVehiculo().getListaEstados());
+
+        }
+        System.out.println("vehiculo" + vehiculo);
+        System.out.println("vehiculoestados" + vehiculo.getListaEstados().get(0));
         String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
         return ubicacion;
     }
@@ -751,7 +776,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         }
         listaPersonas = lp;
         System.out.println("lista de personas>>>>" + listaPersonas);
-
+        listaEstados = findAll(EstadoVehiculo.class);
 //        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
 //        listaVehiculos.clear();
 //
@@ -1089,6 +1114,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String[] getTipoSeleccionados() {
+        System.out.println("tipos seleccionados en vehiculo"+tipoSeleccionados);
         return tipoSeleccionados;
     }
 
@@ -1097,6 +1123,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public List<String> getTipos() {
+        tipos = new ArrayList<String>();
+        tipos.add("tanquero");
+        tipos.add("volquete");
         return tipos;
     }
 
@@ -1104,201 +1133,88 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.tipos = tipos;
     }
 
-    public void generaReporte() {
+    public void generaReporte() throws IOException, DocumentException {
         GeneradorPdf pu = new GeneradorPdf();
-        StringBuilder buf = new StringBuilder();
-
-        buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-        buf.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
-        buf.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-        buf.append("<head>");
-        // buf.append("<div id='page-header' class='header'>" + "<img  "
-        // + "height='" + parameters.get("templateHeaderHeight")
-        // + "' width='" + parameters.get("templateHeaderWidth") + "' "
-        // + "src='" + parameters.get("templateHeader") + "'/>" + "</div>");
-        buf.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
-        buf.append("<title>Ppless PDF Document</title> ");
-        buf.append("<style type='text/css' media='print'> ");
-        buf.append("* {font-family: Arial, 'sans-serif'  !important; font-size:12pt !important; }");
-        // buf.append("@page { size:8.5in 11in; margin: 0.25in; padding:1em; @bottom-left { content: element(footer); } } ");
-
-        buf.append("@page { size: landscape;"
-                + "	margin: 0.5cm;"
-                + "; padding:0.5em"
-                + "; margin-top:"
-                + "5000"
-                + "px;margin-bottom:"
-                + "500"
-                + "px;@bottom-left{ content: element(footer); };background-image: url('"
-                + ""
-                + "');background-repeat: no-repeat;background-position: 0px 0px; }");
-        // buf.append("#footer { font-size: 80%; font-style: italic;  position: running(footer); top: 0; left: 0;  background-image: url(http://localhost:8080/assets/img/fondo.jpg); background-repeat: no-repeat; left bottom;}");
-        buf.append("#footer { font-size: 70%; font-style: italic;  padding:0em;position: running(footer); top: 0; right:0;background-image: url('"
-                + "" + "')}");
-        buf.append("#header { font-size: 70%; font-style: italic;  margin:0px;padding:0em;position: running(page-header); top: 0; right:0;}");
-        buf.append("#pagenumber:before { content: counter(page); } ");
-        buf.append("#pagecount:before { content: counter(pages); } ");
-        buf.append("</style></head>");
-        buf.append("<body><div style=\"text-align:center;\">"
-                + "<table style=\"text-align:center;\" width=\"9800\">"
-                + "<tr>"
-                + "  <td >Hoja</td>\n"
-                + "</tr>"
-                + "<tr>"
-                + "  <td rowspan=\"2\"><IMG SRC=\"/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg\" WIDTH=120 HEIGHT=70 ALT=\"Obra de K. Haring\"></td>"
-                + " <td height=30 width=500 ><h3 align=\"center\">MINISTERIO DE TRANSPORTE Y OBRAS P&Uacute;BLICAS: DIRECCI&Oacute;N PROVINCIAL DE LOJA</h3></td>"
-                + "</tr>"
-                + "<tr><td height=30 width=500><h3 align=\"center\">CONTROL DE ESTADO DE EQUIPO CAMINERO</h3></td></tr></table>"
-                + "<table style=\"text-align:center;\"  ><tr><td height=10 width=150 ><h6>CLAVE DE N&Uacute;MERO Y COLOR -></h6>"
-                + "</td><td style=\"background-color:#3333FF\" height=10 width=20 ><h4>1</h4></td>"
-                + "<td height=10 width=150 ><h6>EQUIPO BUENO INACTIVO</h6></td><td style=\"background-color:#669900\"><h4>2</h4></td>"
-                + "<td height=10 width=150 ><h6>EQUIPO TRABAJANDO NORMAL</h6></td><td style=\"background-color:#FFFF00\"> <h4>3</h4></td>"
-                + "<td height=10 width=150 ><h6>EQUIPO TRABAJANDO CON FALLAS</h6></td><td  style=\"background-color:red\"><h4>4</h4></td>"
-                + "<td height=10 width=150><h6>EQUIPO EN REPARACI&Oacute;N</h6></td><td style=\"background-color:#993300\"><h4>5</h4></td>"
-                + "<td height=30 width=150><h6>EQUIPO PARA BAJA O REMATE</h6></td></tr>"
-                + "</table></div>");
-
-        buf.append("<table width=\"3000\"  border=\"0\" cellspacing=\"0\"  cellpadding=\"3\">");
-
-        for (Vehiculo v : getListaVehiculos()) {
-            buf.append("<tr>");
-            //1
-            buf.append("<td align='left'  height=30 width=200 >");
-            buf.append("<p>");
-            buf.append(v.getNumRegistro());
-            buf.append("</p>");
-            buf.append("</td>");
-            buf.append("<td align='left' height=30 width=200 >");
-            buf.append("<p>");
-            buf.append("Clase");
-            buf.append("</p>");
-            buf.append("</td>");
-            //2
-            buf.append("<td align='left' height=30 width=200 >");
-            buf.append("<p>");
-            buf.append(v.getMarca());
-            buf.append("</p>");
-            buf.append("</td>");
-            //3
-            buf.append("<td align='left' height=30 width=100 >");
-            buf.append("<p>");
-            buf.append(v.getModelo());
-            buf.append("</p>");
-            buf.append("</td>");
-            //4
-            buf.append("<td align='left' height=30 width=200 >");
-            buf.append("<p>");
-            buf.append(obtenerUltimaUbicacionV(v));
-            buf.append("</p>");
-            buf.append("</td>");
-
-            buf.append("<td align='right'>");
-            buf.append("<span style='font-size:10pt !important; font-style: \"italic\"; float:right'>");
-            buf.append("TR: ");
-            buf.append("CJ");
-            buf.append("</span>");
-            buf.append("</td>");
-            buf.append("</tr>");
-
-        }
-        buf.append("<tr>");
-        buf.append("<td align='left'>");
-        buf.append("<p>");
-        buf.append("2014");
-        buf.append("</p>");
-        buf.append("</td>");
-        buf.append("<td></td>");
-        buf.append("</tr>");
-        buf.append("</table>");
-
-        buf.append("<p>&nbsp;</p>\n"
-                + "<table border=\"0\" cellspacing=\"0\"  cellpadding=\"3\">\n"
-                + "<tr>\n"
-                + "<td><strong> <span>PARA:                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </strong></td>\n"
-                + "<td>\n"
-                + "<p><span>Dr. Gustavo Jalkh               <span>(respetar orden jer&aacute;rquico seg&uacute;n               organigrama)</span></span></p>\n"
-                + "</td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td>&nbsp;</td>\n"
-                + "<td>\n"
-                + "<p><strong> <span>PRESIDENTE</span> </strong></p>\n"
-                + "</td>\n"
-                + "</tr>\n"
-                + "</table>\n"
-                + "<table border=\"0\" cellspacing=\"0\" cellpadding=\"3\">\n"
-                + "<tr>\n"
-                + "<td>\n"
-                + "<p><strong> <span>DE:                  <span>&nbsp;&nbsp;&nbsp;</span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </strong></p>\n"
-                + "</td>\n"
-                + "<td><span> Karina Paola Logro&ntilde;o Santill&aacute;n</span></td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td>&nbsp;</td>\n"
-                + "<td>\n"
-                + "<p><strong> <span>Secretario</span> </strong></p>\n"
-                + "</td>\n"
-                + "</tr>\n"
-                + "</table>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n"
-                + "<tbody>\n"
-                + "<tr>\n"
-                + "<td><strong> <span>ASUNTO:               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </strong></td>\n"
-                + "<td><span>PRUEBA 3</span></td>\n"
-                + "<td>&nbsp;</td>\n"
-                + "</tr>\n"
-                + "</tbody>\n"
-                + "</table>\n"
-                + "<p>&nbsp;&nbsp;<strong>&nbsp;</strong><span>&nbsp;</span></p>\n"
-                + "<p><strong> <span>Se expone el tema directamente, conciso y         claro.</span> </strong></p>\n"
-                + "<p><span>&nbsp;</span></p>\n"
-                + "<p><span>Solicito que todas las unidades utilicen las siglas de      "
-                + " identificaci&oacute;n aprobadas, a partir del d&iacute;a lunes 13       "
-                + "de mayo de 2013, con car&aacute;cter obligatorio en los       "
-                + "memorandos y oficios, de las unidades administrativas del     "
-                + "  Consejo de la Judicatura.</span></p>\n"
-                + "<p><span>&nbsp;</span></p>\n"
-                + "<p><span>&nbsp;</span></p>\n"
-                + "<p><span>Atentamente,</span></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n"
-                + "<tbody>\n"
-                + "<tr>\n"
-                + "<td><span> Karina Paola Logro&ntilde;o Santill&aacute;n</span></td>\n"
-                + "</tr>\n"
-                + "<tr>\n"
-                + "<td><strong> <span>Secretario</span> </strong></td>\n"
-                + "</tr>\n"
-                + "</tbody>\n"
-                + "</table>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-                + "<p><strong> <span>C.C.:</span> </strong> <strong> <span>Si se requiere que m&aacute;s unidades reciban el         documento detallar el nombre y cargo</span> </strong></p>");
-
-        buf.append("</body>");
-        buf.append("</html>");
-
-        ByteArrayInputStream bais = new ByteArrayInputStream(buf.toString()
-                .getBytes());
-        try {
-            OutputStream os = new FileOutputStream("/tmp/controlEstado.pdf");
-
-            GeneradorPdf.createPDF(bais, os);
-        } catch (DocumentException ex) {
-            Logger.getLogger(GeneradorPdf.class.getName()).log(Level.SEVERE, null,
-                    ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(GeneradorPdf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GeneradorPdf.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        System.out.println("entro a generar reporte");
+        pu.createPDF(tipoSeleccionados, getListaVehiculos(), findAll(EstadoVehiculo.class), mesyanioSeleccionados);
     }
+
+    public List<EstadoVehiculo> getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(List<EstadoVehiculo> listaEstados) {
+        this.listaEstados = listaEstados;
+    }
+
+    public String[] getMesyanioSeleccionados() {
+        System.out.println("mes i anio"+mesyanioSeleccionados);
+        return mesyanioSeleccionados;
+    }
+
+    public void setMesyanioSeleccionados(String[] mesyanioSeleccionados) {
+        this.mesyanioSeleccionados = mesyanioSeleccionados;
+    }
+
+    public List<String> getMesyanio() {
+
+        Calendar fechamayor = Calendar.getInstance();
+        Calendar fechamenor = Calendar.getInstance();
+        System.out.println("fecha ahora geyt time>>>" + fechamayor.getTime());
+
+        for (EstadoVehiculo ev : listaEstados) {
+            if (ev.getFechaEntrada().compareTo(fechamayor.getTime()) > 0) {
+                fechamayor.setTime(ev.getFechaEntrada());
+            }
+            if (ev.getFechaEntrada().compareTo(fechamenor.getTime()) <= 0) {
+                fechamenor.setTime(ev.getFechaEntrada());
+            }
+
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMMM/yyyy");
+        List<String> listaFechas = new ArrayList<String>();
+        listaFechas.add(sdf.format(fechamenor.getTime()));
+        Integer mesMenor = fechamenor.get(Calendar.MONTH) + 1;
+        Integer mesMayor = fechamayor.get(Calendar.MONTH) + 1;
+        Integer anioMenor = fechamenor.get(Calendar.YEAR) + 1;
+        Integer anioMayor = fechamayor.get(Calendar.YEAR) + 1;
+        Integer cantMeses = 0;
+        Integer aux = 0;
+        if (anioMenor < anioMayor) {
+
+            cantMeses = 12 - mesMenor;
+            System.out.println("entro a menor anio presentando cant meses antes for" + cantMeses);
+            for (int i = anioMenor; i < anioMayor; i++) {
+
+                aux = aux + 12;
+                System.out.println("aumento dose presentando aux" + aux);
+            }
+            aux = aux - (12 - mesMayor);
+            System.out.println("restando aux desde mes uno sigueinte total meses" + aux);
+            cantMeses = cantMeses + aux;
+
+        } else {
+            System.out.println("NOOOO entro a anio menor");
+            cantMeses = mesMayor - mesMenor;
+        }
+        System.out.println("total meses a presentar" + cantMeses);
+        for (int i = 1; i <= cantMeses; i++) {
+            fechamenor.add(Calendar.MONTH, 1);
+            mesMenor = fechamenor.get(Calendar.MONTH) + 1;
+            System.out.println("siginete fecha menor" + sdf.format(fechamenor.getTime()));
+            listaFechas.add(sdf.format(fechamenor.getTime()));
+        }
+
+//        while (mesMenor < mesMayor) {
+//// Haces lo que tu quieres, para ese dia;
+//// Incrementas una semana (86400000 es un dia en milisegundos)
+//           
+//        }
+        return listaFechas;
+    }
+
+    public void setMesyanio(List<String> mesyanio) {
+        this.mesyanio = mesyanio;
+    }
+
 }
