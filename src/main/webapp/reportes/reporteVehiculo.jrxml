@@ -25,7 +25,7 @@
 		<band height="128">
 			<image>
 				<reportElement x="1" y="0" width="554" height="128" uuid="bef661ba-85ff-42c0-9d5a-9eeaa461a4cf"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/reportes/10622135_812461662106296_1757181527_n.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/home/carlis/NetBeansProjects/mtop/src/main/webapp/reportes/10622135_812461662106296_1757181527_n.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

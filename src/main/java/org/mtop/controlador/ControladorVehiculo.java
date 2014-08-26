@@ -106,11 +106,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("prokilometra" + proKmj);
         if (kmt.equals(proKmj)) {
             System.out.println("entro a 1if");
-            return "Atencion..! Necesita acercarse a realizar el mantenimiento";
+            return "Atencion..! Necesita acercarse a realizar el mantenimiento del vehículo";
         } else {
             if (kmt > proKmj) {
                 System.out.println("entro a obtener 2oif");
-                return "Urgente necesita hacer mantenimiento del vehículo";
+                return "Urgente...! Necesita realizar el mantenimiento del vehículo";
             } else {
                 System.out.println("3 if");
                 return "";

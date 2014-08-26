@@ -73,7 +73,7 @@ FROM vehiculo]]>
 			</staticText>
 			<image>
 				<reportElement x="0" y="3" width="174" height="118" uuid="74e5d94b-54b3-40ee-9ee8-9a4ac47bacf7"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/home/carlis/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

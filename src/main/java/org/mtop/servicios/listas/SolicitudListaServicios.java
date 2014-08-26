@@ -224,11 +224,13 @@ public class SolicitudListaServicios extends LazyDataModel<SolicitudReparacionMa
             System.out.println("skjdsjdshb"+qData.getResult());
             for (SolicitudReparacionMantenimiento qd : qData.getResult()) {
                 System.out.println("id de req"+qd);
-                System.out.println("\n\n\n\n\n\nentro recorrido\n\n\n\n\n\n"+vehiculo);
+                System.out.println("\n\n\n\n\n\nentro recorrido"+vehiculo.getId());
                 System.out.println("qd.getVehiculo()"+qd.getVehiculo());
-                System.out.println("qd.isEstado()"+qd.isEstado());
-                System.out.println("");
+                
+                
+                System.out.println("estado aprobado>>>"+ qd.getAprobado());
                 if (qd.getVehiculo() != null && vehiculo!=null) {
+                    System.out.println("entro>>>>>>>1if");
                     if (qd.getAprobado() == false && qd.isEstado() && qd.getVehiculo().getId().equals(vehiculo.getId())) {
                         System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + qd);
                         lr.add(qd);
