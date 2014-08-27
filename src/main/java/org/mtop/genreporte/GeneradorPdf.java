@@ -33,6 +33,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -373,332 +377,566 @@ public class GeneradorPdf {
 //            XMLWorkerHelper.getInstance().parseXHtml(writer, document, bais);
             //Creamos una cantidad significativa de paginas para probar el encabezado
             int val = 15;
-            for(String s:mesyanioSeleccionados){
-                System.out.println("ssss"+s);
-            }
-            for (String s : tipoSeleccionados) {
-                System.out.println("ssssssss" + s);
-                document.newPage();
-                PdfPTable table = new PdfPTable(4);
-                table.setWidths(new int[]{1, 3, 3, 3});
-                table.setWidthPercentage(10F);
-                PdfPCell cell;
-                PdfPCell cell1;
-//             row 1, cell 1
-                cell = new PdfPCell(new Phrase(" "));
-                cell.setBorder(Rectangle.NO_BORDER);
-                cell.setFixedHeight(72f);
-                table.addCell(cell);
-                table.addCell(cell);
-                table.addCell(cell);
-                table.addCell(cell);
-                document.add(table);
+            String mes = "";
+            String anio = "";
+            Boolean bandera = false;
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMMM/yyyy");
+            Calendar f = Calendar.getInstance().getInstance();
+            Calendar cal = Calendar.getInstance();
+            for (String mesSeleccionado : mesyanioSeleccionados) {
 
-                // row 1, cell 1
-                cell1 = new PdfPCell(new Phrase("CLAVE DE NÚMERO Y COLOR ->", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                PdfPTable table1 = new PdfPTable(11);
-                table1.setWidths(new int[]{100, 30, 100, 30, 100, 30, 100, 30, 100, 30, 100});
-                table1.setWidthPercentage(100F);
-                table1.addCell(cell1);
-                // row 1, cell 2
-                cell1 = new PdfPCell(new Phrase("1"));
-
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-                cell1.setBackgroundColor(BaseColor.BLUE);
-                table1.addCell(cell1);
-                // row 1, cell 3
-                cell1 = new PdfPCell(new Phrase("EQUIPO BUENO INACTIVO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                // row 1, cell 4
-                cell1 = new PdfPCell(new Phrase("2"));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell1.setBackgroundColor(new BaseColor(98, 156, 16));
-                table1.addCell(cell1);
-                // row 1, cell 5
-                cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO NORMAL", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                // row 1, cell 6
-                cell1 = new PdfPCell(new Phrase("3"));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell1.setBackgroundColor(BaseColor.YELLOW);
-                table1.addCell(cell1);
-                // row 1, cell 7
-                cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO CON FALLAS", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                // row 1, cell 8
-                cell1 = new PdfPCell(new Phrase("4"));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell1.setBackgroundColor(BaseColor.RED);
-                table1.addCell(cell1);
-                // row 1, cell 9
-                cell1 = new PdfPCell(new Phrase("EQUIPO EN REPARACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                // row 1, cell 10
-                cell1 = new PdfPCell(new Phrase("5"));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell1.setBackgroundColor(new BaseColor(122, 45, 5));
-                table1.addCell(cell1);
-                // row 1, cell 11
-                cell1 = new PdfPCell(new Phrase("EQUIPO PARA BAJA O REMATE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-
-                document.add(table1);
-
-                table1 = new PdfPTable(5);
-                table1.setWidths(new int[]{200, 100, 100, 50, 200});
-                table1.setWidthPercentage(100F);
-                cell1 = new PdfPCell(new Phrase("EQUIPO: " + s, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("MES: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("AÑO: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-
-                document.add(table1);
-
-                table1 = new PdfPTable(38);
-                table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
-                table1.setWidthPercentage(100F);
-                cell1 = new PdfPCell(new Phrase("Nº", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("REGISTRO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("MARCA", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("MODELO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("OPERADOR", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("LOCALIZACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-                cell1 = new PdfPCell(new Phrase("CLAVE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table1.addCell(cell1);
-
-                for (int j = 1; j <= 31; j++) {
-                    cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                    table1.addCell(cell1);
+                mes = "";
+                anio = "";
+                for (int j = 0; j < mesSeleccionado.length(); j++) {
+                    if (Character.isDigit(mesSeleccionado.charAt(j))) {
+                        anio = anio + mesSeleccionado.substring(j, mesSeleccionado.length());
+                        break;
+                    } else {
+                        mes = mes + mesSeleccionado.charAt(j);
+                    }
                 }
-                document.add(table1);
-                Integer c = 0;
-                String s1 = "";
-                for (Vehiculo v : listaVehiculos) {
+                mes = mes.substring(0, mes.length() - 1);
+                System.out.println("mes" + mes);
+                System.out.println("anio" + anio);
+                val = 15;
 
-                    if (v.getTipo().equals(s)) {
-                        c++;
+                for (String s : tipoSeleccionados) {
+                    bandera = false;
+                    for (Vehiculo v : listaVehiculos) {
+                        if (v.getTipo().equals(s)) {
+                            f = Calendar.getInstance().getInstance();
+                            cal = Calendar.getInstance().getInstance();
+                            for (EstadoVehiculo ev : v.getListaEstados()) {
+                                f.setTime(ev.getFechaEntrada());
+                                cal = Calendar.getInstance();
+                                cal.add(Calendar.MONTH, 1);
 
-                        System.out.println("ccccc" + c);
-                        if (c == val) {
-                            document.add(table1);
-                            val = val + 15;
-                            System.out.println("entro a new page");
-                            document.newPage();
-                            table = new PdfPTable(4);
-                            table.setWidths(new int[]{1, 3, 3, 3});
-                            table.setWidthPercentage(10F);
+                                System.out.println("ffff" + sdf.format(f.getTime()));
+                                System.out.println("cal" + sdf.format(cal.getTime()));
 
-//             row 1, cell 1
-                            cell = new PdfPCell(new Phrase(" "));
-                            cell.setBorder(Rectangle.NO_BORDER);
-                            cell.setFixedHeight(72f);
-                            table.addCell(cell);
-                            table.addCell(cell);
-                            table.addCell(cell);
-                            table.addCell(cell);
-                            document.add(table);
+                                System.out.println("del vehiculo" + v + " fechas a aniadir" + sdf.format(ev.getFechaEntrada().getTime()));
+                                if (mesSeleccionado.equals(sdf.format(ev.getFechaEntrada().getTime())) || f.compareTo(cal) > 0) {
+                                    bandera = true;
+                                }
 
-                            // row 1, cell 1
-                            cell1 = new PdfPCell(new Phrase("CLAVE DE NÚMERO Y COLOR ->", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1 = new PdfPTable(11);
-                            table1.setWidths(new int[]{100, 30, 100, 30, 100, 30, 100, 30, 100, 30, 100});
-                            table1.setWidthPercentage(100F);
-                            table1.addCell(cell1);
-                            // row 1, cell 2
-                            cell1 = new PdfPCell(new Phrase("1"));
-
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-                            cell1.setBackgroundColor(BaseColor.BLUE);
-                            table1.addCell(cell1);
-                            // row 1, cell 3
-                            cell1 = new PdfPCell(new Phrase("EQUIPO BUENO INACTIVO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            // row 1, cell 4
-                            cell1 = new PdfPCell(new Phrase("2"));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            cell1.setBackgroundColor(new BaseColor(98, 156, 16));
-                            table1.addCell(cell1);
-                            // row 1, cell 5
-                            cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO NORMAL", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            // row 1, cell 6
-                            cell1 = new PdfPCell(new Phrase("3"));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            cell1.setBackgroundColor(BaseColor.YELLOW);
-                            table1.addCell(cell1);
-                            // row 1, cell 7
-                            cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO CON FALLAS", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            // row 1, cell 8
-                            cell1 = new PdfPCell(new Phrase("4"));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            cell1.setBackgroundColor(BaseColor.RED);
-                            table1.addCell(cell1);
-                            // row 1, cell 9
-                            cell1 = new PdfPCell(new Phrase("EQUIPO EN REPARACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            // row 1, cell 10
-                            cell1 = new PdfPCell(new Phrase("5"));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            cell1.setBackgroundColor(new BaseColor(122, 45, 5));
-                            table1.addCell(cell1);
-                            // row 1, cell 11
-                            cell1 = new PdfPCell(new Phrase("EQUIPO PARA BAJA O REMATE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-
-                            document.add(table1);
-
-                            table1 = new PdfPTable(5);
-                            table1.setWidths(new int[]{200, 100, 100, 50, 200});
-                            table1.setWidthPercentage(100F);
-                            cell1 = new PdfPCell(new Phrase("EQUIPO: " + s, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("MES: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("AÑO: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            document.add(table1);
-
-                            table1 = new PdfPTable(38);
-                            table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
-                            table1.setWidthPercentage(100F);
-                            cell1 = new PdfPCell(new Phrase("Nº", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("REGISTRO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("MARCA", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("MODELO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("OPERADOR", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("LOCALIZACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                            cell1 = new PdfPCell(new Phrase("CLAVE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-                            table1.addCell(cell1);
-
-                            for (int j = 1; j <= 31; j++) {
-                                cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                                table1.addCell(cell1);
                             }
 
                         }
+                    }
+                    if (bandera == true) {
+                        System.out.println("ssssssss" + s);
+//                    document.newPage();
+                        PdfPTable table = new PdfPTable(4);
+                        table.setWidths(new int[]{1, 3, 3, 3});
+                        table.setWidthPercentage(10F);
+                        PdfPCell cell;
+                        PdfPCell cell1;
+                        //             row 1, cell 1
+                        cell = new PdfPCell(new Phrase(" "));
+                        cell.setBorder(Rectangle.NO_BORDER);
+                        cell.setFixedHeight(72f);
+                        table.addCell(cell);
+                        table.addCell(cell);
+                        table.addCell(cell);
+                        table.addCell(cell);
+                        document.add(table);
+
+                        // row 1, cell 1
+                        cell1 = new PdfPCell(new Phrase("CLAVE DE NÚMERO Y COLOR ->", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        PdfPTable table1 = new PdfPTable(11);
+                        table1.setWidths(new int[]{100, 30, 100, 30, 100, 30, 100, 30, 100, 30, 100});
+                        table1.setWidthPercentage(100F);
+                        table1.addCell(cell1);
+                        // row 1, cell 2
+                        cell1 = new PdfPCell(new Phrase("1"));
+
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                        cell1.setBackgroundColor(BaseColor.BLUE);
+                        table1.addCell(cell1);
+                        // row 1, cell 3
+                        cell1 = new PdfPCell(new Phrase("EQUIPO BUENO INACTIVO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        // row 1, cell 4
+                        cell1 = new PdfPCell(new Phrase("2"));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell1.setBackgroundColor(new BaseColor(98, 156, 16));
+                        table1.addCell(cell1);
+                        // row 1, cell 5
+                        cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO NORMAL", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        // row 1, cell 6
+                        cell1 = new PdfPCell(new Phrase("3"));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell1.setBackgroundColor(BaseColor.YELLOW);
+                        table1.addCell(cell1);
+                        // row 1, cell 7
+                        cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO CON FALLAS", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        // row 1, cell 8
+                        cell1 = new PdfPCell(new Phrase("4"));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell1.setBackgroundColor(BaseColor.RED);
+                        table1.addCell(cell1);
+                        // row 1, cell 9
+                        cell1 = new PdfPCell(new Phrase("EQUIPO EN REPARACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        // row 1, cell 10
+                        cell1 = new PdfPCell(new Phrase("5"));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell1.setBackgroundColor(new BaseColor(122, 45, 5));
+                        table1.addCell(cell1);
+                        // row 1, cell 11
+                        cell1 = new PdfPCell(new Phrase("EQUIPO PARA BAJA O REMATE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+
+                        document.add(table1);
+
+                        table1 = new PdfPTable(5);
+                        table1.setWidths(new int[]{200, 100, 100, 50, 200});
+                        table1.setWidthPercentage(100F);
+                        cell1 = new PdfPCell(new Phrase("EQUIPO: " + s, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("MES111: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase(mes, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("AÑO: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase(anio, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+
+                        document.add(table1);
+
+                        table1 = new PdfPTable(38);
+                        table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                        table1.setWidthPercentage(100F);
+                        cell1 = new PdfPCell(new Phrase("Nº", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("REGISTRO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("MARCA", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("MODELO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("OPERADOR", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("LOCALIZACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("CLAVE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table1.addCell(cell1);
+
+                        for (int j = 1; j <= 31; j++) {
+                            cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                            table1.addCell(cell1);
+                        }
+//                document.add(table1);
+                        Integer c = 0;
+                        String s1 = "";
+
+                        for (Vehiculo v : listaVehiculos) {
+
+                            if (v.getTipo().equals(s)) {
+
+                                List<EstadoVehiculo> listaFechasyEstados = new ArrayList<EstadoVehiculo>();
+                                f = Calendar.getInstance();
+
+                                for (EstadoVehiculo ev : v.getListaEstados()) {
+                                    f.setTime(ev.getFechaEntrada());
+                                    cal = Calendar.getInstance();
+                                    cal.add(Calendar.MONTH, 1);
+
+                                    Integer mes1 = f.get(Calendar.MONTH) + 1;
+                                    System.out.println("ffff" + sdf.format(f.getTime()));
+                                    System.out.println("cal" + sdf.format(cal.getTime()));
+
+                                    System.out.println("del vehiculo" + v + " fechas a aniadir" + sdf.format(ev.getFechaEntrada().getTime()));
+                                    if (mesSeleccionado.equals(sdf.format(ev.getFechaEntrada().getTime())) || f.compareTo(cal) > 0) {
+                                        listaFechasyEstados.add(ev);
+                                        System.out.println("del vehiculo" + v + "lista de fechas aniadiendo" + sdf.format(ev.getFechaEntrada().getTime()));
+
+                                    }
+                                }
+                                System.out.println("mes seleccionado" + mesSeleccionado);
+                                System.out.println("del vehiculo " + v);
+                                System.out.println("lista de estado"+listaFechasyEstados);
+                                if (!listaFechasyEstados.isEmpty()) {
+                                    c++;
+
+                                    System.out.println("ccccc" + c);
+                                    if (c == val) {
+                                        document.add(table1);
+                                        c = 0;
+                                        val = 15;
+                                        System.out.println("entro a new page");
+                                        document.newPage();
+                                        table = new PdfPTable(4);
+                                        table.setWidths(new int[]{1, 3, 3, 3});
+                                        table.setWidthPercentage(10F);
+
+//             row 1, cell 1
+                                        cell = new PdfPCell(new Phrase(" "));
+                                        cell.setBorder(Rectangle.NO_BORDER);
+                                        cell.setFixedHeight(72f);
+                                        table.addCell(cell);
+                                        table.addCell(cell);
+                                        table.addCell(cell);
+                                        table.addCell(cell);
+                                        document.add(table);
+
+                                        // row 1, cell 1
+                                        cell1 = new PdfPCell(new Phrase("CLAVE DE NÚMERO Y COLOR ->", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1 = new PdfPTable(11);
+                                        table1.setWidths(new int[]{100, 30, 100, 30, 100, 30, 100, 30, 100, 30, 100});
+                                        table1.setWidthPercentage(100F);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 2
+                                        cell1 = new PdfPCell(new Phrase("1"));
+
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                                        cell1.setBackgroundColor(BaseColor.BLUE);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 3
+                                        cell1 = new PdfPCell(new Phrase("EQUIPO BUENO INACTIVO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 4
+                                        cell1 = new PdfPCell(new Phrase("2"));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        cell1.setBackgroundColor(new BaseColor(98, 156, 16));
+                                        table1.addCell(cell1);
+                                        // row 1, cell 5
+                                        cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO NORMAL", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 6
+                                        cell1 = new PdfPCell(new Phrase("3"));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        cell1.setBackgroundColor(BaseColor.YELLOW);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 7
+                                        cell1 = new PdfPCell(new Phrase("EQUIPO TRABAJANDO CON FALLAS", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 8
+                                        cell1 = new PdfPCell(new Phrase("4"));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        cell1.setBackgroundColor(BaseColor.RED);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 9
+                                        cell1 = new PdfPCell(new Phrase("EQUIPO EN REPARACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        // row 1, cell 10
+                                        cell1 = new PdfPCell(new Phrase("5"));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        cell1.setBackgroundColor(new BaseColor(122, 45, 5));
+                                        table1.addCell(cell1);
+                                        // row 1, cell 11
+                                        cell1 = new PdfPCell(new Phrase("EQUIPO PARA BAJA O REMATE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+
+                                        document.add(table1);
+
+                                        table1 = new PdfPTable(5);
+                                        table1.setWidths(new int[]{200, 100, 100, 50, 200});
+                                        table1.setWidthPercentage(100F);
+                                        cell1 = new PdfPCell(new Phrase("EQUIPO: " + s, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("MES22: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase(mes, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("AÑO: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase(anio, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        document.add(table1);
+
+                                        table1 = new PdfPTable(38);
+                                        table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                                        table1.setWidthPercentage(100F);
+                                        cell1 = new PdfPCell(new Phrase("Nº", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("REGISTRO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("MARCA", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("MODELO", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("OPERADOR", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("LOCALIZACIÓN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                        table1.addCell(cell1);
+                                        cell1 = new PdfPCell(new Phrase("CLAVE", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                                        table1.addCell(cell1);
+
+                                        for (int j = 1; j <= 31; j++) {
+                                            cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                            table1.addCell(cell1);
+                                        }
+
+                                    }
 //                        table1.setWidths(new int[]{100, 30, 100, 30, 100, 30, 100, 30, 100, 30, 100});
 //                            table1.setWidthPercentage(100F);
-                        s1 = v.getNumRegistro();
-                        System.out.println("vs1." + v.getListaEstados());
 
-                        cell1 = new PdfPCell(new Phrase(String.valueOf(c).toString() + " ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                        cell1.setRowspan(2);
-                        table1.addCell(cell1);
+                                    s1 = v.getNumRegistro();
+                                    if (s1.length() > 20) {
+                                        s1 = s1.substring(0, 20);
+                                    }
 
-                        cell1 = new PdfPCell(new Phrase(s1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                        cell1.setRowspan(2);
-                        table1.addCell(cell1);
+                                    System.out.println("vs1." + v.getListaEstados());
 
-                        cell1 = new PdfPCell(new Phrase(v.getMarca(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                        cell1.setRowspan(2);
-                        table1.addCell(cell1);
-                        cell1 = new PdfPCell(new Phrase(v.getModelo(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                        cell1.setRowspan(2);
-                        table1.addCell(cell1);
-                        cell1 = new PdfPCell(new Phrase(v.getPersona().concatenarNombre(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                        cell1.setRowspan(2);
-                        table1.addCell(cell1);
-                        cell1 = new PdfPCell(new Phrase(cv.obtenerUltimaUbicacionV2(v, listaEstados), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                        cell1.setRowspan(2);
-                        table1.addCell(cell1);
-                        cell1 = new PdfPCell(new Phrase("número", FontFactory.getFont(FontFactory.TIMES_ROMAN, 5, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1 = new PdfPCell(new Phrase(String.valueOf(c).toString() + " ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1.setRowspan(2);
+                                    table1.addCell(cell1);
 
-                        table1.addCell(cell1);
-                        List<EstadoVehiculo> estados = v.getListaEstados();
-                        System.out.println("estados" + estados);
-                        for (int j = 1; j <= 31; j++) {
+                                    cell1 = new PdfPCell(new Phrase(s1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1.setRowspan(2);
+                                    table1.addCell(cell1);
 
-                            cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
+                                    s1 = v.getMarca();
+                                    if (s1.length() > 20) {
+                                        s1 = s1.substring(0, 20);
+                                    }
+                                    cell1 = new PdfPCell(new Phrase(s1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1.setRowspan(2);
+                                    table1.addCell(cell1);
+
+                                    s1 = v.getModelo();
+                                    if (s1.length() > 20) {
+                                        s1 = s1.substring(0, 20);
+                                    }
+                                    cell1 = new PdfPCell(new Phrase(s1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1.setRowspan(2);
+                                    table1.addCell(cell1);
+
+                                    s1 = v.getPersona().concatenarNombre();
+                                    if (s1.length() > 30) {
+                                        s1 = s1.substring(0, 30);
+                                    }
+                                    cell1 = new PdfPCell(new Phrase(s1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1.setRowspan(2);
+                                    table1.addCell(cell1);
+
+                                    s1 = cv.obtenerUltimaUbicacionV2(v, listaEstados);
+                                    if (s1.length() > 30) {
+                                        s1 = s1.substring(0, 30);
+                                    }
+                                    cell1 = new PdfPCell(new Phrase(s1, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                    cell1.setRowspan(2);
+                                    table1.addCell(cell1);
+                                    cell1 = new PdfPCell(new Phrase("número", FontFactory.getFont(FontFactory.TIMES_ROMAN, 5, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                                    table1.addCell(cell1);
+                                   
+                                    System.out.println("estados" + listaEstados);
+                                    Calendar fechamayor = Calendar.getInstance();
+                                    Integer aux = 0;
+
+                                    if (sdf.format(fechamayor.getTime()).equals(mesSeleccionado)) {
+
+                                        fechamayor.setTime(listaFechasyEstados.get(aux).getFechaEntrada());
+                                        System.out.println("fecha mayor noooo 31" + fechamayor);
+                                    } else {
+                                        fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                        System.out.println("fecha mayor 31" + fechamayor);
+                                    }
+                                    for (int j = 1; j <= 31; j++) {
+                                        System.out.println("jjjjjj" + j);
+                                        System.out.println("dia del mes de cambio sumar 1" + fechamayor.get(Calendar.DAY_OF_MONTH));
+                                        if (j <= fechamayor.get(Calendar.DAY_OF_MONTH)) {
+                                            System.out.println("vehiculo de id" + v + "nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                            if (listaFechasyEstados.get(aux).getNombre().equals("Equipo bueno inactivo")) {
+                                                System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+
+                                                cell1 = new PdfPCell(new Phrase("1", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                table1.addCell(cell1);
+                                            } else {
+                                                if (listaFechasyEstados.get(aux).getNombre().equals("Equipo trabajando normal")) {
+                                                    System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                    cell1 = new PdfPCell(new Phrase("2", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                    table1.addCell(cell1);
+                                                } else {
+                                                    if (listaFechasyEstados.get(aux).getNombre().equals("Equipo trabajando con fallas")) {
+                                                        System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                        cell1 = new PdfPCell(new Phrase("3", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                        table1.addCell(cell1);
+                                                    } else {
+                                                        if (listaFechasyEstados.get(aux).getNombre().equals("Equipo en reparación")) {
+                                                            System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                            cell1 = new PdfPCell(new Phrase("4", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                            table1.addCell(cell1);
+                                                        } else {
+                                                            //Equipo para baja o remate
+                                                            System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                            cell1 = new PdfPCell(new Phrase("5", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                            table1.addCell(cell1);
+
+                                                        }
+
+                                                    }
+
+                                                }
+
+                                            }
+                                        } else {
+                                            aux++;
+                                            j--;
+                                            System.out.println("auxxxxx" + aux);
+                                            System.out.println("listade de estados " + listaFechasyEstados.size());
+                                            if (aux < listaFechasyEstados.size()) {
+                                                System.out.println("entro a siguiente estado");
+
+                                                System.out.println("fecha mayor del antigup estado" + fechamayor);
+                                                fechamayor.setTime(listaFechasyEstados.get(aux).getFechaEntrada());
+                                                System.out.println("fecha mayor del siguiente estado" + fechamayor);
+                                            } else {
+                                                System.out.println("");
+                                                aux--;
+                                                System.out.println("fecha mayor del antigup estado" + fechamayor);
+                                                fechamayor = Calendar.getInstance();
+                                                fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+//                                                fechamayor.add(Calendar.DAY_OF_MONTH, 30 - Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                                                System.out.println("fecha mayor del siguiente estado" + fechamayor);
+                                            }
+                                        }
+
+                                    }
+                                    cell1 = new PdfPCell(new Phrase("color", FontFactory.getFont(FontFactory.TIMES_ROMAN, 5, Font.BOLD)));
+                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                                    table1.addCell(cell1);
+
+                                    fechamayor = Calendar.getInstance();
+                                    aux = 0;
+
+                                    if (sdf.format(fechamayor.getTime()).equals(mesSeleccionado)) {
+                                        fechamayor.setTime(listaFechasyEstados.get(aux).getFechaEntrada());
+                                    } else {
+                                        fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                    }
+                                    for (int j = 1; j <= 31; j++) {
+                                        if (j <= fechamayor.get(Calendar.DAY_OF_MONTH) ) {
+                                            System.out.println("vehiculo de id" + v + "nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                            if (listaFechasyEstados.get(aux).getNombre().equals("Equipo bueno inactivo")) {
+                                                System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+
+                                                cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                cell1.setBackgroundColor(BaseColor.BLUE);
+                                                table1.addCell(cell1);
+                                            } else {
+                                                if (listaFechasyEstados.get(aux).getNombre().equals("Equipo trabajando normal")) {
+                                                    System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                    cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                    cell1.setBackgroundColor(new BaseColor(98, 156, 16));
+                                                    table1.addCell(cell1);
+                                                } else {
+                                                    if (listaFechasyEstados.get(aux).getNombre().equals("Equipo trabajando con fallas")) {
+                                                        System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                        cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                        cell1.setBackgroundColor(BaseColor.YELLOW);
+                                                        table1.addCell(cell1);
+                                                    } else {
+                                                        if (listaFechasyEstados.get(aux).getNombre().equals("Equipo en reparación")) {
+                                                            System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                            cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                            cell1.setBackgroundColor(BaseColor.RED);
+                                                            table1.addCell(cell1);
+                                                        } else {
+                                                            //Equipo para baja o remate
+                                                            System.out.println("nombreeee" + listaFechasyEstados.get(aux).getNombre());
+                                                            cell1 = new PdfPCell(new Phrase(" ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
+                                                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                                            cell1.setBackgroundColor(new BaseColor(122, 45, 5));
+                                                            table1.addCell(cell1);
+
+                                                        }
+
+                                                    }
+
+                                                }
+
+                                            }
+                                        } else {
+                                            aux++;
+                                            j--;
+                                            System.out.println("auxxxxx2" + aux);
+                                            System.out.println("listade de estados2 " + listaFechasyEstados.size());
+                                            if (aux < listaFechasyEstados.size()) {
+                                                fechamayor.setTime(listaFechasyEstados.get(aux).getFechaEntrada());
+                                            } else {
+                                                aux--;
+                                                fechamayor = Calendar.getInstance();
+//                                                fechamayor.add(Calendar.DAY_OF_MONTH, 30 - Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                                                fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
                         }
-                        cell1 = new PdfPCell(new Phrase("color", FontFactory.getFont(FontFactory.TIMES_ROMAN, 5, Font.BOLD)));
-                        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-                        table1.addCell(cell1);
-                        for (int j = 1; j <= 31; j++) {
-                            cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
-                            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                            table1.addCell(cell1);
-                        }
+                        document.add(table1);
+                        document.newPage();
                     }
 
                 }
-                document.add(table1);
-                document.newPage();
-
             }
+
 //            table = new PdfPTable(4);
 //            table.setWidths(new int[]{1, 3, 3, 3});
 //            table.setWidthPercentage(100);

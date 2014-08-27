@@ -774,6 +774,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         }
+
         listaPersonas = lp;
         System.out.println("lista de personas>>>>" + listaPersonas);
         listaEstados = findAll(EstadoVehiculo.class);
@@ -867,7 +868,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         EstadoVehiculo estadoU = new EstadoVehiculo();
         System.out.println("\n\n\n entro crear nuevo\n\n\n\n");
         estadoU.setFechaEntrada(now);
-        estadoU.setNombre("Equipo Trabajando Normalmente");
+        estadoU.setNombre("Equipo trabajando normal");
         estadoU.setUbicacion("Taller Mtop Loja");
 
         estadoU.setCreatedOn(now);
@@ -1099,11 +1100,29 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String[] getTipoSeleccionados() {
-        System.out.println("tipos seleccionados en vehiculo"+tipoSeleccionados);
+        System.out.println("tipos seleccionados en vehiculo" + tipoSeleccionados);
+
+        if (tipoSeleccionados != null) {
+            System.out.println("entro for en get"+tipoSeleccionados.length);
+            
+            for (String s : tipoSeleccionados) {
+                System.out.println("valor de s " + s);
+            }
+            if(tipoSeleccionados.length==0){
+                System.out.println("fijando null en forr");
+                        
+                tipoSeleccionados=null;
+                System.out.println("tipos seleccionados despues de fijar null"+tipoSeleccionados);
+            }
+        }
+
         return tipoSeleccionados;
+
     }
 
+
     public void setTipoSeleccionados(String[] tipoSeleccionados) {
+
         this.tipoSeleccionados = tipoSeleccionados;
     }
 
@@ -1133,7 +1152,23 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String[] getMesyanioSeleccionados() {
-        System.out.println("mes i anio"+mesyanioSeleccionados);
+       System.out.println("mesyanioSeleccionados seleccionados en vehiculo" + mesyanioSeleccionados);
+
+        if (mesyanioSeleccionados != null) {
+            System.out.println("entro for en get"+mesyanioSeleccionados.length);
+            
+            for (String s : mesyanioSeleccionados) {
+                System.out.println("valor de s " + s);
+            }
+            if(mesyanioSeleccionados.length==0){
+                System.out.println("fijando null en forr");
+                        
+                mesyanioSeleccionados=null;
+                System.out.println("tipos seleccionados despues de fijar null"+mesyanioSeleccionados);
+            }
+        }
+
+
         return mesyanioSeleccionados;
     }
 
