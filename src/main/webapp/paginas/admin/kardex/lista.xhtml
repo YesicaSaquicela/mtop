@@ -85,12 +85,9 @@
                                                 <p:column headerText="Observación" sortBy="#{item.observaciones}">
                                                     <h:outputText value="#{item.observaciones}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Registro del Vehículo" sortBy="#{item.vehiculo.numRegistro}">
-                                                    <h:outputText value="#{item.vehiculo.numRegistro}"></h:outputText>
-                                                </p:column>
+                                              
                                                 <p:column headerText="Opciones" style="width: 5%"> 
-
-                                                   
+                                                  
                                                     <p:button id="selectButton" 
                                                               outcome="crear"
                                                               icon="ui-icon-pencil" title="Editar">  

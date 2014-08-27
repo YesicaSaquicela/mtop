@@ -59,7 +59,7 @@ public class fechaanio implements Validator
       if (value instanceof String && !value.equals(vehiculo.getAnioFabricacion())&& field.matches("[0-9]*")) {
          cv.setEntityManager(em);
          if (!cv.obtenerAñoV((String) value))
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añioActual).", null));
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añoActual).", null));
       }
    }
 }

@@ -920,6 +920,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String guardar() {
+        Kardex k = new Kardex();
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
@@ -937,6 +938,20 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         try {
             if (getInstance().isPersistent()) {
 
+                
+                for (Kardex kd : findAll(Kardex.class)) {
+                    System.out.println("entro al for");
+                    if (kd.getVehiculo().getId().equals(getInstance().getId())) {
+                        System.out.println("entro a fijar kardex");
+                        k=kd;
+                        break;
+                    }
+                }
+                System.out.println("salio for>>>");
+                k.setLastUpdate(now);
+                k.setNumero(getInstance().getNumRegistro());
+                System.out.println("antes de actualizar");
+                save(k);
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
