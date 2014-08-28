@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <h:panelGroup layout="block" style="padding:5px;">  
+                <h:outputText value="Desea realmente dar de baja a la Requisición "/>
+                <h:outputText value="#{controladorKardex.requisicion.id}"/>  
+
+            </h:panelGroup>  
+            <!--p:commandButton value="#{messages['common.yes']}" action="#{pedidoExamenListaServicio.borrar()}" 
+                             oncomplete="#{'deletedDlg2.hide();'}" update="@form" immediate="true" ajax="true"
+                             style="margin-top:10px;" >                          
+            </p:commandButton--> 
+
+            <p:button id="dardebaja3" icon="ui-icon-trash"
+                      title="Dar de baja"  value="SI"
+                      outcome="/paginas/admin/kardex/crear"  
+
+                      >
+                <f:param name="estado" value="false"/>
+                <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
+                <f:param name="valorVista" value="kardex"/>
+            </p:button>
+           <p:button id="dardebaja3" icon="ui-icon-trash"
+                     title="Dar de baja"  value="NO"
+                      outcome="/paginas/admin/kardex/crear"  
+
+                      >
+                <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                <f:param name="valorVista" value="kardex"/>
+            </p:button>
+
+        </h:form>
+    </h:body>
+</html>
+
