@@ -40,6 +40,7 @@ import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -76,6 +77,24 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     private List<Requisicion> listareqNoAp2;
     private String palabrasna;
     private List<SolicitudReparacionMantenimiento> listasolNoAp2;
+    private String estado;
+    private Integer cont = 0;
+
+    public Integer getCont() {
+        return cont;
+    }
+
+    public void setCont(Integer cont) {
+        this.cont = cont;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
     public List<SolicitudReparacionMantenimiento> getListasolNoAp2() {
         return listasolNoAp2;
@@ -84,8 +103,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setListasolNoAp2(List<SolicitudReparacionMantenimiento> listasolNoAp2) {
         this.listasolNoAp2 = listasolNoAp2;
     }
-    
-    
 
     public String getPalabrasna() {
         return palabrasna;
@@ -94,8 +111,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setPalabrasna(String palabrasna) {
         this.palabrasna = palabrasna;
     }
-    
-    
 
     public List<Requisicion> getListareqNoAp2() {
         return listareqNoAp2;
@@ -104,8 +119,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void setListareqNoAp2(List<Requisicion> listareqNoAp2) {
         this.listareqNoAp2 = listareqNoAp2;
     }
-    
-    
 
     public List<SolicitudReparacionMantenimiento> getListasolNoAp() {
         return listasolNoAp;
@@ -126,7 +139,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public String getPalabrarna() {
-        System.out.println("obtiene palabra"+palabrarna);
+        System.out.println("obtiene palabra" + palabrarna);
         return palabrarna;
     }
 
@@ -143,43 +156,67 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.listareqNoAp = listareqNoAp;
     }
 
-//   
-//    public void darDeBajaS(Long idSol) {
-//        System.out.println("entro");
-//        List<SolicitudReparacionMantenimiento> lsm = new ArrayList<SolicitudReparacionMantenimiento>();
-//        Date now = Calendar.getInstance().getTime();
-//        SolicitudReparacionMantenimiento sr = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, idSol);
-//        for (SolicitudReparacionMantenimiento sol : listaSol) {
-//            System.out.println("entro al for>>>");
-//            if (!sol.getId().equals(sr.getId())) {
-//                System.out.println("entro al if ad");
-//                lsm.add(sol);
-//
-//            }
-//        }
-//        listaSol = lsm;
-//        getInstance().setLastUpdate(now);
-//        getInstance().setListaSolicitudReparacion(listaSol);
-//        save(getInstance());
-//        System.out.println("rq" + sr);
-//        System.out.println("num" + sr.getNumSolicitud());
-//        sr.setLastUpdate(now);
-//        sr.setAprobado(false);
-//        System.out.println("cambio de estado aprobado" + sr.getAprobado());
-//        sr.setKardex(null);
-//        save(sr);
-//        System.out.println("lista de requ no el" + listaSol);
-//        listasolNoAp.add(sr);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La SOLICITUD seleccionada seleccionada " + sr.getNumSolicitud() + " ha pasado al estado  ", "NO APROBADA"));
-//
-//    }
+    public void darDeBajaS(Long idSol) {
+        System.out.println("entro");
+        List<SolicitudReparacionMantenimiento> lsm = new ArrayList<SolicitudReparacionMantenimiento>();
+        Date now = Calendar.getInstance().getTime();
+        SolicitudReparacionMantenimiento sr = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, idSol);
+        for (SolicitudReparacionMantenimiento sol : listaSol) {
+            System.out.println("entro al for>>>");
+            if (!sol.getId().equals(sr.getId())) {
+                System.out.println("entro al if ad");
+                lsm.add(sol);
 
-//    @Transactional
-//    public void darDeBajaR(Long idReq) {
-//        
-//           
+            }
+        }
+        listaSol = lsm;
+        getInstance().setLastUpdate(now);
+        getInstance().setListaSolicitudReparacion(listaSol);
+        save(getInstance());
+        System.out.println("rq" + sr);
+        System.out.println("num" + sr.getNumSolicitud());
+        sr.setLastUpdate(now);
+        sr.setAprobado(false);
+        System.out.println("cambio de estado aprobado" + sr.getAprobado());
+        sr.setKardex(null);
+        save(sr);
+        System.out.println("lista de requ no el" + listaSol);
+        listasolNoAp.add(sr);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La SOLICITUD seleccionada seleccionada " + sr.getNumSolicitud() + " ha pasado al estado  ", "NO APROBADA"));
+
+    }
+
+    @Transactional
+    public String darDeBajaR(Long idReq) {
+
+        return "/admin/kardex/crear.xhtml&valorVista=kardex&kardexId=" + getInstance().getId() + "&requisicionId=" + String.valueOf(idReq);
+
+//        Date now = Calendar.getInstance().getTime();
 //        System.out.println("entro");
 //        System.out.println("llega el id>>>" + idReq);
+//        Requisicion requisicion = servgen.buscarPorId(Requisicion.class, idReq);
+//        try {
+//
+//            System.out.println("recupero requisicion " + requisicion);
+//            requisicion.setKardex(null);
+//            requisicion.setLastUpdate(now);
+//            requisicion.setAprobado(false);
+//            save(requisicion);
+//            getInstance().setLastUpdate(now);
+//            getInstance().getListaRequisicion().remove(requisicion);
+//
+//            servgen.actualizar(getInstance());
+//            System.out.println("guardo kardex con solicitudes" + getInstance().getListaSolicitudReparacion());
+//            listaReq = getInstance().getListaRequisicion();
+//            listaReq2 = listaReq;
+//            System.out.println("anadiendo a la lista de req no a" + listareqNoAp);
+//            listareqNoAp.add(requisicion);
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La REQUISICIÓN seleccionada seleccionada " + requisicion.getNumRequisicion() + " ha pasado al estado  ", "NO APROBADA"));
+//            init();
+////            return "/paginas/admin/kardex/lista.xhtml?faces-redirect=true";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 //        List<Requisicion> lre = new ArrayList<Requisicion>();
 //        Date now = Calendar.getInstance().getTime();
 //        Requisicion rq = servgen.buscarPorId(Requisicion.class, idReq);
@@ -206,12 +243,9 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 //        save(getInstance());
 //        System.out.println("lista de requ no el" + listaReq);
 //        listakardex=findAll(Kardex.class);
-//        em.close();
+//    
 //        listareqNoAp.add(rq);
-//        System.out.println("anadiendo a la lista de req no a" + listareqNoAp);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La REQUISICIÓN seleccionada seleccionada " + rq.getNumRequisicion() + " ha pasado al estado  ", "NO APROBADA"));
-//
-//    }
+    }
 
     public List<Kardex> getListakardex2() {
         return listakardex2;
@@ -269,6 +303,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void setRequisicion(Requisicion requisicion) {
+        System.out.println("fiajn do en set" + requisicion);
+
         this.requisicion = requisicion;
     }
 
@@ -307,18 +343,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.vista = "kardex";
         System.out.println("fijando a >>>>" + this.vista);
         return "/paginas/admin/kardex/crear.xhtml?faces-redirect=true";
-    }
-
-    public String getVista() {
-        System.out.println("retornando vistaaaaa" + vista);
-        System.out.println("lista reqs" + listaReq);
-        System.out.println("lista sols" + listaSol);
-        return vista;
-    }
-
-    public void setVista(String vista) {
-        System.out.println("VISta>>>>" + vista);
-        this.vista = vista;
     }
 
     public String formato(Date fecha) {
@@ -436,7 +460,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         return ced;
 
     }
-    
+
     public ArrayList<String> autocompletarsna(String query) {
         System.out.println("QUEryyyyy" + query);
 
@@ -539,8 +563,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     }
 
-     
-     
     public void buscarrna() {
         System.out.println("\n\n\nENTRO A BUSCAR REQU11111I>>>>>>" + palabrarna);
         palabrarna = palabrarna.trim();
@@ -584,7 +606,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         palabrabr = "";
 
     }
-    
+
     public void buscarsna() {
         palabrasna = palabrasna.trim();
         if (palabrasna == null || palabrasna.equals("")) {
@@ -684,15 +706,15 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     public void limpiarna() {
         palabrarna = "";
-       listareqNoAp=listareqNoAp2;
-        System.out.println("lista de req2"+listareqNoAp);
+        listareqNoAp = listareqNoAp2;
+        System.out.println("lista de req2" + listareqNoAp);
     }
 
     public void limpiars() {
         palabrabs = "";
         listaSol = listaSol2;
     }
-    
+
     public void limpiarsna() {
         palabrasna = "";
         listasolNoAp = listasolNoAp2;
@@ -744,7 +766,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 if (rnp.getAprobado() == false && rnp.isEstado() && rnp.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
                     System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + rnp);
                     listareqNoAp.add(rnp);
-                    listareqNoAp2=listareqNoAp;
+                    listareqNoAp2 = listareqNoAp;
                 }
             }
         }
@@ -761,7 +783,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 if (srna.getAprobado() == false && srna.isEstado() && srna.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
                     System.out.println("\n\n\n\n\n\nagregooooo\n\n\n\n\n\n" + srna);
                     listasolNoAp.add(srna);
-                    listasolNoAp2=listasolNoAp;
+                    listasolNoAp2 = listasolNoAp;
                 }
             }
         }
@@ -772,6 +794,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     public void guardarSolicitud() {
         Date now = Calendar.getInstance().getTime();
         System.out.println("fijando SOlidituuzzxxzzuuud en guardar");
+        System.out.println("valor de estado en el set" + estado);
 
         if (solicitud != null) {
 
@@ -813,6 +836,10 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (requisicion != null) {
 
             try {
+                System.out.println("lista requ" + listareqNoAp);
+                System.out.println("requisisicon a remover" + requisicion);
+                listareqNoAp.remove(requisicion);
+                System.out.println("lista reuququ despues " + listareqNoAp);
 
                 System.out.println("recupero requisicion" + requisicion);
                 requisicion.setKardex(getInstance());
@@ -825,8 +852,9 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 getInstance().getListaRequisicion().add(requisicion);
                 servgen.actualizar(getInstance());
                 System.out.println("guardo kardex con solicitudes" + getInstance().getListaRequisicion());
-                listareqNoAp.remove(requisicion);
-                // listaReq.add(requisicion);
+
+                listaReq.add(requisicion);
+                requisicion = null;
             } catch (Exception e) {
                 System.out.println("erooooooooooorrrrrrrrr");
                 e.printStackTrace();
@@ -956,4 +984,180 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
         return "/paginas/admin/kardex/lista.xhtml?faces-redirect=true";
     }
+
+    public Long getSolicitudId() {
+        if (solicitud != null) {
+            return solicitud.getId();
+        } else {
+            SolicitudReparacionMantenimiento s = new SolicitudReparacionMantenimiento();
+            return s.getId();
+        }
+
+    }
+
+    public void setSolicitudId(Long id) {
+          List<SolicitudReparacionMantenimiento> lre = new ArrayList<SolicitudReparacionMantenimiento>();
+        Date now = Calendar.getInstance().getTime();
+
+        System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
+        SolicitudReparacionMantenimiento sl = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, id);
+
+        if (estado.equals("false")) {
+            for (SolicitudReparacionMantenimiento solicit : listaSol) {
+                System.out.println("entro al for>>>");
+                if (!solicit.getId().equals(sl.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(solicit);
+
+                }
+            }
+            listaSol = lre;
+
+            System.out.println("rq" + sl);
+            System.out.println("num" + sl.getNumSolicitud());
+            sl.setLastUpdate(now);
+            sl.setAprobado(false);
+            System.out.println("cambio de estado aprobado" + sl.getAprobado());
+            sl.setKardex(null);
+            listasolNoAp.add(sl);
+
+        } else {
+            for (SolicitudReparacionMantenimiento solicit : listasolNoAp) {
+                System.out.println("entro al for>>>");
+                if (!solicit.getId().equals(sl.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(solicit);
+
+                }
+            }
+            listasolNoAp = lre;
+
+            System.out.println("lista reuququ despues " + listasolNoAp);
+
+            System.out.println("recupero solicitud" + sl);
+            sl.setLastUpdate(now);
+            sl.setKardex(getInstance());
+
+            sl.setAprobado(true);
+            sl.setKardex(getInstance());
+
+            listaSol.add(sl);
+
+        }
+
+        save(sl);
+
+        getInstance().setLastUpdate(now);
+        getInstance().setListaSolicitudReparacion(listaSol);
+        save(getInstance());
+        System.out.println("lista de sol no el" + listaSol);
+        listakardex = findAll(Kardex.class);
+    }
+
+    public String getVista() {
+        System.out.println("retornando vistaaaaa" + vista);
+        System.out.println("lista reqs" + listaReq);
+        System.out.println("lista reqs no apr" + listareqNoAp);
+        System.out.println("lista sols" + listaSol);
+        System.out.println("lista sol no apr" + listasolNoAp);
+        System.out.println("requisicion actual" + requisicion);
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        System.out.println("VISta>>>>" + vista);
+        this.vista = vista;
+    }
+
+    public Long getRequisicionId() {
+
+        if (requisicion != null) {
+            return requisicion.getId();
+        } else {
+            Requisicion requis = new Requisicion();
+            return requis.getId();
+        }
+
+    }
+
+    public void setRequisicionId(Long id) {
+        List<Requisicion> lre = new ArrayList<Requisicion>();
+        Date now = Calendar.getInstance().getTime();
+        Requisicion rq = servgen.buscarPorId(Requisicion.class, id);
+
+        if (estado.equals("false")) {
+            for (Requisicion requisicio : listaReq) {
+                System.out.println("entro al for>>>");
+                if (!requisicio.getId().equals(rq.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(requisicio);
+
+                }
+            }
+            listaReq = lre;
+
+            System.out.println("rq" + rq);
+            System.out.println("num" + rq.getNumRequisicion());
+            rq.setLastUpdate(now);
+            rq.setAprobado(false);
+            System.out.println("cambio de estado aprobado" + rq.getAprobado());
+            rq.setKardex(null);
+            listareqNoAp.add(rq);
+
+        } else {
+            for (Requisicion requisicio : listareqNoAp) {
+                System.out.println("entro al for>>>");
+                if (!requisicio.getId().equals(rq.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(requisicio);
+
+                }
+            }
+            listareqNoAp = lre;
+
+            System.out.println("lista reuququ despues " + listareqNoAp);
+
+            System.out.println("recupero requisicion" + requisicion);
+            rq.setLastUpdate(now);
+            rq.setKardex(getInstance());
+
+            rq.setAprobado(true);
+            rq.setKardex(getInstance());
+
+            listaReq.add(rq);
+
+        }
+
+        save(rq);
+
+        getInstance().setLastUpdate(now);
+        getInstance().setListaRequisicion(listaReq);
+        save(getInstance());
+        System.out.println("lista de requ no el" + listaReq);
+        listakardex = findAll(Kardex.class);
+
+    }
+
+    public void fijarRequi(Requisicion req) {
+
+        System.out.println("fijando en fijar" + req);
+        this.requisicion = req;
+
+        //        return "dlg1.show();";
+    }
+
+    public void viewCars() {
+        RequestContext.getCurrentInstance().openDialog("viewCars");
+    }
+
+    public void chooseCar() {
+        RequestContext.getCurrentInstance().openDialog("selectCar");
+    }
+
+    public void fijarSoli(SolicitudReparacionMantenimiento sol) {
+        System.out.println("fijando en fijar" + sol);
+        this.solicitud = sol;
+        // return "deletedDlg1.show();";
+    }
+
 }

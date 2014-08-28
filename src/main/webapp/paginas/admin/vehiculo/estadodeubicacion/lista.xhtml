@@ -50,7 +50,7 @@
                                   
                                 </p:selectCheckboxMenu>
 
-                                <p:commandButton value="Generar Reporte"  
+                                <p:commandButton value="Generar Reporte"  oncomplete="alert('Informe generado correctamente');"
                                                  disabled="#{controladorVehiculo.mesyanioSeleccionados == null or controladorVehiculo.tipoSeleccionados == null}" 
                                                  action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
                                 </p:commandButton>

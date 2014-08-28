@@ -15,8 +15,11 @@
 
     <ui:param name="titulo" value="Kardex"/>
     <f:metadata>
+        <f:viewParam id="stadossss" name="estado" value="#{controladorKardex.estado}"/>
         <f:viewParam id="kardexx" name="kardexId" value="#{controladorKardex.kardexId}"/>
         <f:viewParam id="vistaaa" name="valorVista" value="#{controladorKardex.vista}"/>
+        <f:viewParam id="requisicioniddd" name="requisicionId" value="#{controladorKardex.requisicionId}"/>
+        <f:viewParam id="solicituddd" name="solicitudId" value="#{controladorKardex.solicitudId}"/>
 
     </f:metadata>
     <ui:define name="header">
@@ -34,6 +37,7 @@
                         <p:button rendered="#{controladorKardex.vista eq 'kardex'}"
                                   icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
                                   outcome="/paginas/admin/kardex/lista"
+
                                   styleClass="btn  btn-success"/>
                     </div><br/>
                     <p:panel id="infovehiculo" rendered="#{controladorKardex.vista eq 'kardex'}">
@@ -170,7 +174,7 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="todas">
                                                     <div class="table-responsive">
-                                                           <p:messages  id="mensajess" showDetail="true" autoUpdate="true" closable="true" />
+                                                        <p:messages  id="mensajess" showDetail="true" autoUpdate="true" closable="true" />
                                                         <tbody>
                                                             <p:dataTable id="listap1" value="#{controladorKardex.listaSol}" var="s"
                                                                          paginator="true" rows="5"                         
@@ -189,24 +193,20 @@
                                                                     <h:outputText value="#{s.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Opciones" style="width: 5%"> 
+                                                                    <p:commandButton icon="ui-icon-trash" title="Dar de baja"  
+                                                                        actionListener="#{controladorKardex.fijarSoli(s)}" 
+                                                                                     oncomplete="dlg2.show();" update=":dia2" process="@this"
+                                                                                     style="margin-top:10px;" >                          
+                                                                    </p:commandButton> 
 
-                                                                    <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                                                     title="Dar de baja"  
-                                                                                     action="#{controladorKardex.darDeBajaS(s.id)}"  
-                                                                                     update="@form">
-
-                                                                        <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
-
-                                                                        <f:param name="valorVista" value="kardex"/>
-                                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la solicitud seleccionada?" icon="ui-icon-alert" />
-                                                                    </p:commandButton>
-                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                                    </p:confirmDialog-->
                                                                 </p:column>
 
-                                                            </p:dataTable></tbody></div></div>
+                                                            </p:dataTable>
+
+
+
+
+                                                        </tbody></div></div>
                                             </div>
 
                                         </p:tab>
@@ -252,13 +252,13 @@
                                                 <f:param name="valorVista" value="requisicion"></f:param>
                                                 <f:setPropertyActionListener value="#{null}" target="#{controladorKardex.requisicion}"/>
                                             </p:commandButton><br/><br/>
-
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="todas">
                                                     <div class="table-responsive">
                                                         <p:messages  id="mensajer" showDetail="true" autoUpdate="true" closable="true" />
 
                                                         <tbody>
+
                                                             <p:dataTable id="listap" value="#{controladorKardex.listaReq}" var="item"
 
                                                                          paginator="true" rows="5"                         
@@ -279,21 +279,95 @@
                                                                 </p:column>
                                                                 <p:column headerText="Opciones" style="width: 5%"> 
 
-                                                                    <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                                                     title="Dar de baja"  
-                                                                                     action="#{controladorKardex.darDeBajaR(item.id)}"  
-                                                                                     update="@form :form:infoFM:listap">
+                                                                    <p:commandButton icon="ui-icon-trash" title="Dar de baja"   
+                                                                                     actionListener="#{controladorKardex.fijarRequi(item)}" 
+                                                                                     oncomplete="dlg1.show();" update=":dia" process="@this"
+                                                                                     style="margin-top:10px;" >                          
+                                                                    </p:commandButton> 
+                                                                    <!--p:commandButton update="@form" id="dardebaja8" icon="ui-icon-trash"
+                                                                              title="Dar de baja3"  
+                                                                              
+                                                                              >
+                                                                        <f:setPropertyActionListener value="# {item}" target="# {controladorKardex.requisicion}" />
 
-                                                                        <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                                                                        
+
+                                                                      <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
+                                                                    </p:commandButton-->
+
+                                                                    <!--p:button id="dardebaja3" icon="ui-icon-trash"
+                                                                              title="Dar de baja3"  
+                                                                              outcome="/paginas/admin/kardex/crear"  
+                                                                              onclick="dlg1.show();" 
+
+                                                                              >
+
+                                                                        <f:param name="estado" value="false"/>
+                                                                        <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                                                                        <f:param name="requisicionId" value="# s{item.id}"/>
                                                                         <f:param name="valorVista" value="kardex"/>
-                                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la solicitud seleccionada?" icon="ui-icon-alert" />
+                                                                    </p:button>
+                                                                     <p:commandButton value="View" icon="ui-icon-extlink" actionListener="# {controladorKardex.viewCars}" />
+                                                                    <p:commandButton  value="Dar de baja" icon="ui-icon-extlink" onclick="# {controladorKardex.fijarRequi(item)}"  >
+                                                                        <f:setPropertyActionListener value="# {item}" target="# {controladorKardex.requisicion}" />
+
                                                                     </p:commandButton>
-                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+
+<p:commandButton value="Select Car" icon="ui-icon-extlink" actionListener="# {controladorKardex.chooseCar}">
+    <f:setPropertyActionListener value="# {item}" target="# {controladorKardex.requisicion}" />
+    <p:ajax event="dialogReturn"  update="@form" process="@this" />
+</p:commandButton-->
+
+
+                                                                    <!--p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                        <p:button id="dardebaja13" icon="ui-icon-trash"
+                                                                                  title="Dar de baja"  value="SI"
+                                                                                  outcome="/paginas/admin/kardex/crear"  
+
+                                                                                  >
+                                                                            <f:param name="estado" value="false"/>
+                                                                            <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                                                                            <f:param name="requisicionId" value="# {controladorKardex.requisicion.id}"/>
+                                                                            <f:param name="valorVista" value="kardex"/>
+                                                                        </p:button>
                                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                                     </p:confirmDialog-->
+                                                                    <!--p:dialog id="cancel-dialog2" header="# {messages['common.delete.confirm']}" widgetVar="deletedDlg2" resizable="false" modal="true">  
+                                                                        <h:form id="form-dialog-confirm-delete2">
+
+                                                                            <h:panelGroup layout="block" style="padding:5px;">  
+                                                                                <h:outputText value="Desea realmente dar de baja a la Requisición "/>
+                                                                                <h:outputText value="# {controladorKardex.requisicion.numRequisicion}"/>  
+
+                                                                            </h:panelGroup>  
+                                                                            <p:commandButton value="# {messages['common.yes']}" action="# {pedidoExamenListaServicio.borrar()}" 
+                                                                                             oncomplete="# {'deletedDlg2.hide();'}" update="@form" immediate="true" ajax="true"
+                                                                                             style="margin-top:10px;" >                          
+                                                                            </p:commandButton> 
+
+                                                                            <p:button id="dardebaja3" icon="ui-icon-trash"
+                                                                                      title="Dar de baja"  
+                                                                                      outcome="/paginas/admin/kardex/crear"  
+
+                                                                                      >
+                                                                                <f:param name="estado" value="false"/>
+                                                                                <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                                                                                <f:param name="requisicionId" value="# {controladorKardex.requisicion.id}"/>
+                                                                                <f:param name="valorVista" value="kardex"/>
+                                                                            </p:button>
+                                                                            <p:commandButton value="# {messages['common.no']}" type="button" onclick="deletedDlg2.hide();"  
+                                                                                             style="margin-top:10px;"/>  
+
+                                                                        </h:form>
+                                                                    </p:dialog-->
+
+
+
                                                                 </p:column>
-                                                            </p:dataTable></tbody></div></div>
+                                                            </p:dataTable>
+
+
+                                                        </tbody></div></div>
                                             </div>
                                         </p:tab>
                                     </div>
@@ -471,48 +545,37 @@
 
                                                     <div class="admin-actions " align="center"> 
 
-                                                   
+
 
                                                         <p:commandButton rendered="#{controladorKardex.solicitud == null}" id="savesm" value="Guardar" 
-                                                                          update=":form:forms:msg" 
-                                                                          process="@form" icon="ui-icon-disk" 
-                                                                          styleClass="btn  btn-success" 
-                                                                          actionListener="#{controladorKardex.guardarSolicitud()}"
+                                                                         update=":form:forms:msg" 
+                                                                         process="@form" icon="ui-icon-disk" 
+                                                                         styleClass="btn  btn-success" 
+                                                                         actionListener="#{controladorKardex.guardarSolicitud()}"
 
-                                                                          >
+                                                                         >
 
 
                                                         </p:commandButton>
-
-                                                        <p:commandButton rendered="#{controladorKardex.solicitud ne null}" id="saves"  value="Guardar" process="@form" update="@form"
-                                                                         styleClass="btn  btn-success"   
-                                                                         ajax="false" action="#{controladorKardex.guardarSolicitud()}" >
+                                                        <p:button rendered="#{controladorKardex.solicitud ne null}" id="saves"  value="Guardar" 
+                                                                  styleClass="btn  btn-success" icon="ui-icon-disk" 
+                                                                  outcome="/paginas/admin/kardex/crear" >
+                                                            <f:param name="estado" value="true"/>
                                                             <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                                                            <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
                                                             <f:param name="valorVista" value="kardex"/>
-                                                      
 
 
-                                                        </p:commandButton>
+
+                                                        </p:button>
+
+
 
 
                                                     </div>
                                                 </p:panel>
 
 
-                                                <div align="right">
-                                                   
-
-                                                    <p:commandButton id="sa" value="Guardar1" 
-                                                                   
-                                                                     process="@form" icon="ui-icon-disk" 
-                                                                     styleClass="btn  btn-success" 
-                                                                     actionListener="#{controladorKardex.guardarSolicitud()}"
-
-                                                                     >
-
-
-                                                    </p:commandButton>
-                                                </div><br/>
 
 
 
@@ -672,14 +735,18 @@
 
                                                         </p:commandButton>
 
-                                                        <p:commandButton rendered="#{controladorKardex.requisicion ne null}" id="saveg2"  value="Guardar" process="@form" update="@form"
-                                                                         styleClass="btn  btn-success" icon="ui-icon-disk" 
-                                                                         ajax="false" action="#{controladorKardex.guardarRequisicion()}" >
+                                                        <p:button rendered="#{controladorKardex.requisicion ne null}" id="saveg2"  value="Guardar" 
+                                                                  styleClass="btn  btn-success" icon="ui-icon-disk" 
+                                                                  outcome="/paginas/admin/kardex/crear" >
+                                                            <f:param name="estado" value="true"/>
                                                             <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                                                            <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
                                                             <f:param name="valorVista" value="kardex"/>
 
 
-                                                        </p:commandButton>
+
+                                                        </p:button>
+
 
 
                                                     </div>
@@ -698,5 +765,81 @@
             </div>
         </h:form>
 
+
+        <!--p:dialog id="cancel-dialog1" header="# {messages['common.delete.confirm']}" widgetVar="deletedDlg1" resizable="false" modal="true">  
+            <h:form id="form-dialog-confirm-delete1">
+
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="Sesea realmente dar de baja a la solicitud"/>
+                    <h:outputText value="# {controladorKardex.solicitud.numSolicitud}"/>  
+                </h:panelGroup>  
+
+                <p:button id="dardebaja2" icon="ui-icon-trash"
+                          title="Dar de baja"  
+                          outcome="/paginas/admin/kardex/crear"  
+                          >
+
+                    <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
+                    <f:param name="solicitudId" value="# {controladorKardex.solicitud.id}"/>
+                    <f:param name="valorVista" value="kardex"/>
+                </p:button>
+                <p:commandButton value="# {messages['common.no']}" type="button" onclick="deletedDlg1.hide();"  
+                                 style="margin-top:10px;"/>  
+
+            </h:form>
+        </p:dialog-->
+
+        <p:dialog id="dia" header="Dar de baja" widgetVar="dlg1"  resizable="false" modal="true">
+            <h:form id="form-dialog-confirm-delete5">
+
+                <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                    <h:outputText value="Desea realmente dar de baja a la Requisición "/>
+                    <h:outputText value="#{controladorKardex.requisicion.numRequisicion}"/>  
+
+                </h:panelGroup> 
+
+                <p:button id="dardebaja3" value="SI"  
+                          outcome="/paginas/admin/kardex/crear"  
+
+                          >
+                    <f:param name="estado" value="false"/>
+                    <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                    <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
+                    <f:param name="valorVista" value="kardex"/>
+                </p:button>
+                <p:commandButton value="NO" type="button" onclick="dlg1.hide();"  
+                                 style="margin-top:10px;"/>  
+
+
+            </h:form>
+
+
+        </p:dialog>
+        <p:dialog id="dia2" header="Dar de Baja" widgetVar="dlg2"  resizable="false" modal="true">
+            <h:form id="form-dialog-confirm-delete1" >
+
+                <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                    <h:outputText value="Desea realmente dar de baja a la Solicitud "/>
+                    <h:outputText value="#{controladorKardex.solicitud.numSolicitud}"/>  
+
+                </h:panelGroup> 
+
+                <p:button id="dardebaja1" value="SI"
+                          outcome="/paginas/admin/kardex/crear"  
+
+                          >
+                    <f:param name="estado" value="false"/>
+                    <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
+                    <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
+                    <f:param name="valorVista" value="kardex"/>
+                </p:button>
+                <p:commandButton value="NO" type="button" onclick="dlg2.hide();"  
+                                 style="margin-top:10px;"/>  
+
+
+            </h:form>
+
+
+        </p:dialog>
     </ui:define>
 </ui:composition>
