@@ -143,75 +143,75 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         this.listareqNoAp = listareqNoAp;
     }
 
-//   
-//    public void darDeBajaS(Long idSol) {
-//        System.out.println("entro");
-//        List<SolicitudReparacionMantenimiento> lsm = new ArrayList<SolicitudReparacionMantenimiento>();
-//        Date now = Calendar.getInstance().getTime();
-//        SolicitudReparacionMantenimiento sr = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, idSol);
-//        for (SolicitudReparacionMantenimiento sol : listaSol) {
-//            System.out.println("entro al for>>>");
-//            if (!sol.getId().equals(sr.getId())) {
-//                System.out.println("entro al if ad");
-//                lsm.add(sol);
-//
-//            }
-//        }
-//        listaSol = lsm;
-//        getInstance().setLastUpdate(now);
-//        getInstance().setListaSolicitudReparacion(listaSol);
-//        save(getInstance());
-//        System.out.println("rq" + sr);
-//        System.out.println("num" + sr.getNumSolicitud());
-//        sr.setLastUpdate(now);
-//        sr.setAprobado(false);
-//        System.out.println("cambio de estado aprobado" + sr.getAprobado());
-//        sr.setKardex(null);
-//        save(sr);
-//        System.out.println("lista de requ no el" + listaSol);
-//        listasolNoAp.add(sr);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La SOLICITUD seleccionada seleccionada " + sr.getNumSolicitud() + " ha pasado al estado  ", "NO APROBADA"));
-//
-//    }
+   
+    public void darDeBajaS(Long idSol) {
+        System.out.println("entro");
+        List<SolicitudReparacionMantenimiento> lsm = new ArrayList<SolicitudReparacionMantenimiento>();
+        Date now = Calendar.getInstance().getTime();
+        SolicitudReparacionMantenimiento sr = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, idSol);
+        for (SolicitudReparacionMantenimiento sol : listaSol) {
+            System.out.println("entro al for>>>");
+            if (!sol.getId().equals(sr.getId())) {
+                System.out.println("entro al if ad");
+                lsm.add(sol);
 
-//    @Transactional
-//    public void darDeBajaR(Long idReq) {
-//        
-//           
-//        System.out.println("entro");
-//        System.out.println("llega el id>>>" + idReq);
-//        List<Requisicion> lre = new ArrayList<Requisicion>();
-//        Date now = Calendar.getInstance().getTime();
-//        Requisicion rq = servgen.buscarPorId(Requisicion.class, idReq);
-//        for (Requisicion requisicion : listaReq) {
-//            System.out.println("entro al for>>>");
-//            if (!requisicion.getId().equals(rq.getId())) {
-//                System.out.println("entro al if ad");
-//                lre.add(requisicion);
-//
-//            }
-//        }
-//        listaReq = lre;
-//
-//        System.out.println("rq" + rq);
-//        System.out.println("num" + rq.getNumRequisicion());
-//        rq.setLastUpdate(now);
-//        rq.setAprobado(false);
-//        System.out.println("cambio de estado aprobado" + rq.getAprobado());
-//        rq.setKardex(null);
-//        save(rq);
-//        
-//        getInstance().setLastUpdate(now);
-//        getInstance().setListaRequisicion(listaReq);
-//        save(getInstance());
-//        System.out.println("lista de requ no el" + listaReq);
-//        listakardex=findAll(Kardex.class);
-//        em.close();
-//        listareqNoAp.add(rq);
-//        System.out.println("anadiendo a la lista de req no a" + listareqNoAp);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La REQUISICIÓN seleccionada seleccionada " + rq.getNumRequisicion() + " ha pasado al estado  ", "NO APROBADA"));
-//
-//    }
+            }
+        }
+        listaSol = lsm;
+        getInstance().setLastUpdate(now);
+        getInstance().setListaSolicitudReparacion(listaSol);
+        save(getInstance());
+        System.out.println("rq" + sr);
+        System.out.println("num" + sr.getNumSolicitud());
+        sr.setLastUpdate(now);
+        sr.setAprobado(false);
+        System.out.println("cambio de estado aprobado" + sr.getAprobado());
+        sr.setKardex(null);
+        save(sr);
+        System.out.println("lista de requ no el" + listaSol);
+        listasolNoAp.add(sr);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La SOLICITUD seleccionada seleccionada " + sr.getNumSolicitud() + " ha pasado al estado  ", "NO APROBADA"));
+
+    }
+
+    @Transactional
+    public void darDeBajaR(Long idReq) {
+        
+           
+        System.out.println("entro");
+        System.out.println("llega el id>>>" + idReq);
+        List<Requisicion> lre = new ArrayList<Requisicion>();
+        Date now = Calendar.getInstance().getTime();
+        Requisicion rq = servgen.buscarPorId(Requisicion.class, idReq);
+        for (Requisicion requisicion : listaReq) {
+            System.out.println("entro al for>>>");
+            if (!requisicion.getId().equals(rq.getId())) {
+                System.out.println("entro al if ad");
+                lre.add(requisicion);
+
+            }
+        }
+        listaReq = lre;
+
+        System.out.println("rq" + rq);
+        System.out.println("num" + rq.getNumRequisicion());
+        rq.setLastUpdate(now);
+        rq.setAprobado(false);
+        System.out.println("cambio de estado aprobado" + rq.getAprobado());
+        rq.setKardex(null);
+        save(rq);
+        
+        getInstance().setLastUpdate(now);
+        getInstance().setListaRequisicion(listaReq);
+        save(getInstance());
+        System.out.println("lista de requ no el" + listaReq);
+        listakardex=findAll(Kardex.class);
+        
+        listareqNoAp.add(rq);
+        System.out.println("anadiendo a la lista de req no a" + listareqNoAp);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La REQUISICIÓN seleccionada seleccionada " + rq.getNumRequisicion() + " ha pasado al estado  ", "NO APROBADA"));
+
+    }
 
     public List<Kardex> getListakardex2() {
         return listakardex2;

@@ -60,19 +60,21 @@
                                                 <span class="help-inline text-muted"><br/>Ingrese el número de registro<ocp:message forId="registro" /></span>
                                             </div>
                                         </h:panelGroup><br></br>
-
+ <h:panelGroup id="p" layout="block" class="clearfix">
+     <div class="input">
                                         <h:outputLabel value="Conductor:"/> <br></br>
                                         <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
                                                          converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                          requiredMessage="Se requiere elegir un conductor para el vehículo">  
+                                            <f:ajax execute="@this" render="p" />
                                             <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                             <f:selectItems value="#{controladorVehiculo.listaPersonas}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
 
                                         </p:selectOneMenu> <br></br>
                                         <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.idPersona != null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Elija el conductor del vehículo<ocp:message forId="personal" /></span><br></br><br></br> 
-
-
+</div>
+     </h:panelGroup >
                                         <mtop:input id="marca" name="marca" type="text" label="Marca" 
                                                     value="#{controladorVehiculo.instance.marca}" required="true" 
                                                     inlinehelp=" ingrese la marca Vehículo Ej(Chevrolet)" 
@@ -131,7 +133,7 @@
                                                     <f:ajax execute="@this" render="pm1" />
                                                     <f:validator validatorId="fechanio" />
                                                     <f:validator validatorId="digitValidator" />
-                                                    
+
                                                 </p:inputText>
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.anioFabricacion != null}"
                                                                 styleClass="validation-status" />
@@ -147,13 +149,24 @@
 
                                                     execute ="@this save" render="peso" /><br></br>
 
-                                                    <!--execute ="@this save" render="peso" validator="realValidator"/><br></br-->
+                                      
+                                        <h:panelGroup id="t" layout="block" class="clearfix">
 
+                                            <div class="input">
+                                                <h:outputLabel value="Tipo de equipo* "/> <br></br> 
+                                                <p:selectOneMenu id="tipo" 
+                                                                 value="#{controladorVehiculo.instance.tipo}" effect="fade" required="true" >
+                                                    <f:ajax execute="@this" render="t" />
+                                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                                    <f:selectItems value="#{controladorVehiculo.tipos}" />
 
-                                        <mtop:input id="tipo" name="tipo" type="text" label="Tipo de auto" 
-                                                    value="#{controladorVehiculo.instance.tipo}" required="true" 
-                                                    inlinehelp="Ingrese el tipo del vehículo Ej(Camioneta)" 
-                                                    execute ="@this save" render="tipo" validator="stringValidator"/><br></br>
+                                                </p:selectOneMenu> <br></br>
+                                                <h:graphicImage rendered="#{controladorVehiculo.instance.tipo != null}" value="#{resource['success.gif']}" styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Elija el tipo de vehículo
+                                                    <ocp:message forId="tipo" />
+                                                </span><br></br><br></br>
+                                            </div>
+                                        </h:panelGroup>
 
                                         <mtop:input id="cilindraje" name="cilindraje" type="text" label="Cilindraje" 
                                                     value="#{controladorVehiculo.instance.cilindraje}" required="true" 
@@ -196,7 +209,7 @@
                                                     <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg" />  
                                                 </p:calendar><br/>
                                                 <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.fechafinsoat != null}"
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.fechafinsoat != null}"
                                                                 styleClass="validation-status" />
                                             </div>
 
