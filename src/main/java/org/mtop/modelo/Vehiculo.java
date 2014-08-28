@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -69,21 +71,65 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private PlanMantenimiento planM;
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EstadoVehiculo> listaEstados = new ArrayList<EstadoVehiculo>();
-   
-//    @Transient
-//    private String alerta;
-//
-//    public String getAlerta() {
-//        
-//        return alerta;
-//    }
-//
-//    public void setAlerta(String alerta) {
-//        this.alerta = alerta;
-//    }
+//    private List<String> listaTipos;
+    private listaTipos listatipos;
+ 
+    public Vehiculo() {
+        listatipos=listaTipos.vehiculo;
+        
+    }
+    
+    public enum listaTipos{
+        vehiculo(""),
+        vehiculo1("");
+        
+        private final String tipos;
+
+         private listaTipos(String tipos) {
+            this.tipos = tipos;
+        }
+         
+        public String getTipos() {
+            return tipos;
+        }
+        
+        
+    }
+    
+    
+//    @Enumerated(EnumType.STRING)//anotacion de tipos de datos
+//    private Vehiculo.datosEnumerador listaTipose;
+//    private List<String> listaTipos= new ArrayList<String>(){{
+//    add("Bachadora");  add("Buses"); add("Camión");add("Cargadora");add("Carro Taller");add("Distribuidor de asfalto");
+//    add("Distribuidor de aridos"); add("Escoba mecánica"); add("Excabadora");add("Fresadora");add("Gabarra");
+//    add("Grua"); add("Retroexcavadora");add("Rodillo estático");add("Rodillo neumático");add("Rodillo vibratorio");add("Rodillo mixto");add("Seleccionadora");
+//    add("Minicargadora"); add("Tanqueros");add("Trackdrill");add("Tractor segador");add("Tractor");
+//    add("Mononiveladora");add("Trailer");add("Trituradora 1era");add("Trituradora 2da");add("Vehículo");add("Volquetes");
+//    add("Planta asfaltica");add("Plataformas");
 //    
-    
-    
+//    
+//    }};
+//
+//    
+//        public enum datosEnumerador {
+//
+//        CHOFER1(0),
+//        CHOCHE2(1),
+//        CHOFER3(2);
+//
+//        private int tipo;//para recorre datos 
+//        //constructor para inicializar y llamar
+//
+//        private datosEnumerador(int tipo) {
+//            this.tipo = tipo;
+//        }
+//
+//        //devolver la llave del tipo
+//        public int getTipo() {
+//            return tipo;
+//        }
+//    }
+        
     public Date getFechainiciosoat() {
         return fechainiciosoat;
     }
@@ -109,8 +155,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.planM = planM;
     }
 
-//    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<PlanMantenimiento> listaPlanMantenimiento= new ArrayList<PlanMantenimiento>();
+
     public Profile getPersona() {
         return persona;
     }
@@ -162,23 +207,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.listaEstados = listaEstados;
     }
 
-//    //agregar una sola propiedad
-//    public void agregarEstado(EstadoVehiculo estadoVehiculo){
-//        if(!listaEstados.contains(estadoVehiculo)){
-//            listaEstados.add(estadoVehiculo);
-//        }
-//    }
-//    public List<PlanMantenimiento> getListaPlanMantenimiento() {
-//        return listaPlanMantenimiento;
-//    }
-//
-//    public void setListaPlanMantenimiento(List<PlanMantenimiento> listaPlanMantenimiento) {
-//        for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
-//            planMantenimiento.setVehiculo(this);
-//            
-//        }
-//        this.listaPlanMantenimiento = listaPlanMantenimiento;
-//    }
+
     public String getAnioFabricacion() {
         
         return anioFabricacion;

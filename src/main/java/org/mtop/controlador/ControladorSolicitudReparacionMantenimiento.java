@@ -30,6 +30,7 @@ import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -681,9 +682,27 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return (Long) getId();
     }
 
+
+
+//    public SelectItem[] getGenderValues() {
+//        System.out.println(" entroa aitems");
+//        
+//        SelectItem[] items = new SelectItem[SolicitudReparacionMantenimiento.datosEnumerador.values().length];
+//        int i = 0;
+//        for (SolicitudReparacionMantenimiento.datosEnumerador g : SolicitudReparacionMantenimiento.datosEnumerador.values()) {
+//            items[i++] = new SelectItem(g, String.valueOf(g.getTipo()));
+//            System.out.println("iems dentro"+g.getTipo());
+//        }
+//        System.out.println("itesssssss"+items.length);
+//        return items;
+//    }
+
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         System.out.println("vehiculo  en set soli" + getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
+        System.out.println("id solllllllllll" + getInstance().getId());
+   
+       
         vehiculo = getInstance().getVehiculo();
         if (getInstance().getRequisicionId() != null) {
             requisicion = getInstance().getRequisicionId();
@@ -930,7 +949,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-
+     
         System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
 
         try {
@@ -981,6 +1000,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 getInstance().setEstado(true);
                 guardarItem();
                 create(getInstance());
+                System.out.println("solucitud id" + getInstance().getId());
                 System.out.println("ENtro a crear items>>>>>");
 
                 System.out.println("volvio a guardar soli");
@@ -1134,7 +1154,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             System.out.println("entrofor" + apm);
             Date now = Calendar.getInstance().getTime();
             apm.setSolicitudReparacion(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
-           //kite lo comentado
+            //kite lo comentado
             citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
             if (apm.isPersistent()) {
 
@@ -1163,7 +1183,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
         getInstance().setListaItemSR(lir);//fija la lista de actividades a la solicitudout
-        System.out.println("lista de items>> guardando>>"+lir);
+        System.out.println("lista de items>> guardando>>" + lir);
         System.out.println("lsiat de items a eliminar " + itemsEliminar);
         for (ItemSolicitudReparacion isr : itemsEliminar) {
             delete(isr);

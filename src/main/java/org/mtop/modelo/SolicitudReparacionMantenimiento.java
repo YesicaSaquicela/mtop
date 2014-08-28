@@ -70,6 +70,14 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     @OneToOne(fetch = FetchType.LAZY,mappedBy = "solicitudReparacionId")
     private Requisicion requisicionId;
 
+    public SolicitudReparacionMantenimiento() {
+    
+    
+    }
+    
+        
+ 
+
     public Requisicion getRequisicionId() {
         return requisicionId;
     }
@@ -173,22 +181,30 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 
     //enum tclase k representa tipos de datos enumerados
     public enum datosEnumerador {
-
-        CHOFER1(0),
-        CHOCHE2(1),
-        CHOFER3(2);
-
-        private int tipo;//para recorre datos 
+        
+//        vehiculo1,vehiculo2;
+      
+        VEHICULO1("Hola"),
+        VEHICULO("Hola2");
+        
+//
+        private final String tipo;//para recorre datos 
         //constructor para inicializar y llamar
 
-        private datosEnumerador(int tipo) {
+        private datosEnumerador(String tipo) {
             this.tipo = tipo;
         }
 
         //devolver la llave del tipo
-        public int getTipo() {
+        public String getTipo() {
             return tipo;
         }
+        
+        public String metodo(String nombre){
+            return null;
+        
+        }
+      
     }
 
 }

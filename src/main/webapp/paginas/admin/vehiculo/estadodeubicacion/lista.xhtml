@@ -27,36 +27,6 @@
                     <div class="panel panel-primary">
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                            <h:panelGrid columns="3" cellpadding="5">
-                                <h:outputLabel for="menu" value="Seleccione para generar el formato  " />
-
-                                <p:selectCheckboxMenu  id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Tipo de Vehículo  "
-                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                    <f:selectItems value="#{controladorVehiculo.tipos}" />
-                                    <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true" /> 
-                                   
-                                    <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
-                                    
-                                
-
-                                </p:selectCheckboxMenu>
-
-                                <p:selectCheckboxMenu onchange="" id="menu2" value="#{controladorVehiculo.mesyanioSeleccionados}" label="Mes y Año "
-                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                    <f:selectItems value="#{controladorVehiculo.mesyanio}" />
-                                    <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true"/> 
-                                    
-                                    <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
-                                  
-                                </p:selectCheckboxMenu>
-
-                                <p:commandButton value="Generar Reporte"  oncomplete="alert('Informe generado correctamente');"
-                                                 disabled="#{controladorVehiculo.mesyanioSeleccionados == null or controladorVehiculo.tipoSeleccionados == null}" 
-                                                 action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
-                                </p:commandButton>
-                            </h:panelGrid>
-
-
 
                             <!--Botones de admin-->
                             <div class="admin-actions">
@@ -130,8 +100,53 @@
                                                     </p:button>
                                                 </p:column>
                                             </p:dataTable>
-                                        </tbody></div></div></div>
-                        </p:panel></div></div></div>
+                                        </tbody></div></div></div> <br/>
+
+                           
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><center>CONTROL DE ESTADO DE LOS VEHÍCULOS</center></div>
+                                    <p:panel >
+                                        <h:panelGrid columns="3" cellpadding="5">
+                                            <div class="input">
+                                                <h:outputLabel for="menu" value="Seleccione :  " /> 
+
+                                                <p:selectCheckboxMenu  id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Tipo de Vehículo  "
+                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{controladorVehiculo.tipos}" />
+                                                    <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true" /> 
+
+                                                    <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
+
+
+
+                                                </p:selectCheckboxMenu> 
+                                            </div>
+                                            <br/><br/>
+                                            <div class="input">
+                                                <h:outputLabel for="menu2" value="Seleccione:  " /> 
+
+                                                <p:selectCheckboxMenu  onchange="" id="menu2" value="#{controladorVehiculo.mesyanioSeleccionados}" label="Mes y Año "
+                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{controladorVehiculo.mesyanio}" />
+                                                    <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true"/> 
+
+                                                    <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
+
+                                                </p:selectCheckboxMenu> 
+                                            </div>
+
+                                            <center><div class="admin-actions " align="center"> 
+                                                <p:commandButton value="Generar Reporte"  
+                                                                 disabled="#{controladorVehiculo.mesyanioSeleccionados == null or controladorVehiculo.tipoSeleccionados == null}" 
+                                                                 action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
+                                                </p:commandButton>
+                                            </div></center>
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </div>
+                                    </p:panel>
+
+                    </div></div></div>
         </h:form>
     </ui:define>
 </ui:composition>
