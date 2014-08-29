@@ -491,11 +491,18 @@
                                                             <h:outputText value="#{itemp.description}" />
                                                         </p:column>
                                                         <p:column headerText="Cantidad" sortBy="#{itemp.cantidad}">
+                                                             <div class="input" align="right">
                                                             <h:outputText value="#{itemp.cantidad}" />
+                                                             </div>
                                                         </p:column>
-                                                        <p:column style="width:4%;text-align: center">
-                                                            <p:commandButton icon="ui-icon-pencil" update=":form:productosel :form:cantidad :form:descrip :form:unidadMedida" 
-                                                                           value="Agregar" title="Editar" immediate="true" process="@form">
+                                                        <p:column headerText="Costo" sortBy="#{itemp.costo}">
+                                                            <div class="input" align="right">
+                                                            <h:outputText value="#{itemp.costo}" />
+                                                            </div>
+                                                        </p:column>
+                                                        <p:column style="width:4%;text-align: center" headerText="Agregar">
+                                                            <p:commandButton icon="ui-icon-check" update=":form:productosel :form:cantidad :form:descrip :form:unidadMedida" 
+                                                                            title="Agregar" immediate="true" process="@form">
                                                                 <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
                                                             </p:commandButton>
                                                         </p:column>
@@ -586,10 +593,13 @@
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="15"                         
                                                                  paginatorPosition="top"
-                                                                 rowsPerPageTemplate="5,10,15,20">
-
+                                                                 rowsPerPageTemplate="5,10,15,20"
+                                                                  emptyMessage="No se han encontrado items" >
+                                                       
                                                         <p:column headerText="Cantidad" sortBy="#{item2.cantidad}">
+                                                            <div class="input" align="right">
                                                             <h:outputText value="#{item2.cantidad}"></h:outputText>
+                                                            </div>
                                                         </p:column>
 
                                                         <p:column headerText="Unidad de Medida" sortBy="#{item2.unidadMedida}">
@@ -597,6 +607,20 @@
                                                         </p:column>
                                                         <p:column headerText="Descripción" sortBy="#{item2.description}">
                                                             <h:outputText value="#{item2.description}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Valor Unitario" sortBy="#{item2.producto.costo}" footerText="TOTAL = "  >
+                                                           <div class="input" align="right">
+                                                            <h:outputText value="#{item2.producto.costo}">
+                                                                <f:convertNumber type="currency" currencySymbol="$ " />
+                                                            </h:outputText>
+                                                           </div>
+                                                        </p:column>
+                                                        <p:column  headerText="Valor Final" sortBy="#{item2.producto.costo * item2.cantidad}" footerText="#{controladorRequisicion.total}" style="width:17%;text-align: right" >
+                                                            <div class="input" align="right">
+                                                                <h:outputText value="#{item2.producto.costo * item2.cantidad}">
+                                                                    <f:convertNumber type="currency" currencySymbol="$ " />
+                                                                </h:outputText>
+                                                            </div>
                                                         </p:column>
 
                                                         <p:column headerText="Opciones" style="width: 5%"> 
@@ -615,6 +639,7 @@
                                                             </p:commandButton>
 
                                                         </p:column>
+                                                        
                                                     </p:dataTable>
                                                 </tbody></div></div></div>
                                     <br></br>

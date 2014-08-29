@@ -31,7 +31,7 @@
 
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>Asignar Actividades</center></div>
-                        <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
+
                         <p:panel id="p1">
 
                             <p:outputLabel value="Número de Registro"/><br></br>
@@ -49,13 +49,19 @@
                             <span class="help-inline text-muted">Ingrese la fecha de creación<ocp:message forId="fecha" /></span><br></br><br></br> 
 
                             <p:outputLabel value="Actividad"/><br></br>
-                            <p:inputTextarea maxlength="50" id="actividad" required="true" styleClass="form-control" value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
-                                             />
+                            <p:inputTextarea maxlength="50" label="actividad" requiredMessage="Se necesita un actividad" 
+                                             id="actividad" required="true" styleClass="form-control"
+                                             value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
+                                             >
+                            
+                            </p:inputTextarea>
                             <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
-
+                            
+                            
+                          
 
                             <h:outputLabel value="Kilometraje"/> <br></br> 
-                            <p:selectOneMenu maxlength="50" required="true" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
+                            <p:selectOneMenu maxlength="50" required="true" label="kilometraje" requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
                                 <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                 <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
 
@@ -64,12 +70,14 @@
 
 
                             <div class="admin-actions">
-                                <p:commandButton ajax="false" update=":form:listaa :form:actividad :form:kilometraje"  styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
+                                <p:commandButton  process="@form" update=":form:listaa :form:actividad :form:kilometraje"  
+                                                  styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  
+                                                  actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
 
                                 </p:commandButton>
                             </div><br/>
 
-
+                            <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
                             <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}" var="la">
 
@@ -81,11 +89,11 @@
                                     <h:outputText value="#{la.kilometraje}"></h:outputText>
                                 </p:column>
                                 <p:column headerText="Opciones" style="width: 5%"> 
-                                    <p:commandLink immediate="true" ajax="true" process="@this"
-                                                   update=":form:listaa :form:actividad :form:kilometraje" value="Editar"
-                                                   actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" title="Seleccionar">
+                                    <p:commandButton immediate="true" ajax="true" process="@this" icon="ui-icon-pencil"
+                                                     update=":form:listaa :form:actividad :form:kilometraje" title="Editar"
+                                                     actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" >
                                         <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.instance}" />
-                                    </p:commandLink>
+                                    </p:commandButton>
 
                                 </p:column>
                             </p:dataTable><br></br>
