@@ -29,7 +29,12 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
+       <div class="admin-actions " align="right" > 
 
+                                <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                    <p:printer target=":form" />  
+                                </p:commandButton>
+                            </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">ESPECIFICACIÓNES TÉCNICAS</div>
                         <p:panel>
@@ -147,7 +152,7 @@
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
                                          immediate="true"/>
                         &nbsp;&nbsp;
-                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/estadoVehiculo/lista" styleClass="btn  btn-success">
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/lista" styleClass="btn  btn-success">
 
                         </p:button>
                     </div>

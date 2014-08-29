@@ -10,7 +10,9 @@
                 xmlns:mtop="http://mtop.org/jsf/facelets">
 
     <ui:param name="titulo" value="Mantenimiento de los vehiculos"/>
-
+    <f:metadata>
+        <f:viewParam name="vista" value="#{controladorVehiculo.vista}"/>
+    </f:metadata>
     <ui:define name="header">
 
         #{titulo} 
@@ -22,150 +24,245 @@
         <!--Formulario dentro de un contenedor-->
         <h:form id="form">            
             <div role="main">
-                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <!--Opción de mensaje, cuando se realiza una acción-->
-                    <div class="panel panel-primary">
-                        <p:panel>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <p:panel rendered="#{controladorVehiculo.vista ne 'actividades'}" >
+                        <div class="panel panel-primary">
+                            <p:panel rendered="#{controladorVehiculo.vista ne 'actividades'}" >
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
 
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="todas">
-                                        <div class="table-responsive">
-                                            <div class="admin-actions">
-                                                <div class="panel panel-success">
-                                                    <p:panel>
-                                                        <div class="panel-body">
-                                                            <div class="container-fluid" align="center">
-                                                                <div class="row-fluid">
-
-
-                                                                    <div class="col-lg-6">
-
-                                                                        <div class="input-group">
-                                                                            <center>
-                                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
-
-                                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                                 completeMethod="#{controladorVehiculo.autocompletar}"/> 
-                                                                                &nbsp;&nbsp;
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="todas">
+                                            <div class="table-responsive">
+                                                <div class="admin-actions">
+                                                    <div class="panel panel-success">
+                                                        <p:panel>
+                                                            <div class="panel-body">
+                                                                <div class="container-fluid" align="center">
+                                                                    <div class="row-fluid">
 
 
+                                                                        <div class="col-lg-6">
+
+                                                                            <div class="input-group">
+                                                                                <center>
+                                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                                    <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                                     completeMethod="#{controladorVehiculo.autocompletar}"/> 
+                                                                                    &nbsp;&nbsp;
 
 
 
-                                                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}" styleClass="btn btn-success" >
 
-                                                                                </p:commandButton>
 
-                                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
+                                                                                    <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}" styleClass="btn btn-success" >
 
-                                                                                </p:commandButton>
-                                                                            </center>
+                                                                                    </p:commandButton>
+
+                                                                                    <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
+
+                                                                                    </p:commandButton>
+                                                                                </center>
+                                                                            </div>
+
+
                                                                         </div>
-
-
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div> </p:panel></div>
+                                                            </div> </p:panel></div>
 
+
+                                                </div>
+
+
+                                                <tbody>
+                                                    <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v" paginator="true" rows="15"                         
+                                                                 paginatorPosition="top"
+                                                                 rowsPerPageTemplate="5,10,15,20">
+                                                        <p:column headerText="Registro" sortBy="#{v.numRegistro}">
+                                                            <h:outputText value="#{v.numRegistro}"></h:outputText>
+
+                                                        </p:column>
+                                                        <p:column headerText="Kilometraje Actual" sortBy="#{v.kilometraje}">
+                                                            <h:outputText value="#{v.kilometraje}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Próximo Kilometraje" sortBy="#{controladorVehiculo.actividadplan.kilometraje }">
+                                                            <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Observación" sortBy="#{v.description}">
+                                                            <h:outputText value="#{v.description}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column style="width: 10%; text-align: center;">
+                                                            <f:facet name="header">                               
+                                                                <h:outputText value="ALERTAS" />  
+                                                            </f:facet> 
+                                                            <h:outputText value="#{controladorVehiculo.obtenerAlerta(v.kilometraje)}" rendered="#{not empty controladorVehiculo.obtenerAlerta(v.kilometraje)}" style="color: red;"/><br/>
+
+                                                        </p:column>
+                                                        <p:column headerText="Cambiar Kilometraje" style="width: 5%"> 
+                                                            <center>
+                                                                <p:button  icon="ui-icon-pencil" outcome="cambiarKilometraje" title="Cambiar Kilometraje">
+                                                                    <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                                </p:button>
+                                                                <div class="admin-actions " align="center" > 
+
+
+
+
+
+                                                                </div>
+                                                            </center>
+
+
+                                                        </p:column>
+                                                        <p:column headerText="Visualizar actividades" >
+                                                            <center>
+                                                                <!--p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar1" icon="ui-icon-search" 
+                                                                                 oncomplete="#{'carDialog.show();'}" immediate="true" 
+                                                                                 actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
+                                                                                 title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
+                                                                    <p:ajax process="@this" update=":form-dialog "/> 
+                                                                </p:commandButton-->
+
+                                                                <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar12" icon="ui-icon-search" 
+                                                                                 process="@this" update="@form" 
+                                                                                 actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
+                                                                                 title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
+
+                                                                    <f:setPropertyActionListener value="actividades" target="#{controladorVehiculo.vista}" />
+                                                                </p:commandButton>
+
+
+
+                                                                <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq false}" id="visualizar2" icon="ui-icon-search" 
+                                                                                 oncomplete="#{'carDialog1.show();'}" immediate="true" 
+                                                                                 actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
+                                                                                 title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
+                                                                    <p:ajax process="@this" update=":form-dialog1 "/> 
+                                                                </p:commandButton> <br/>
+
+
+                                                            </center>
+
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </tbody>
 
                                             </div>
-
-
-                                            <tbody>
-                                                <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v" paginator="true" rows="15"                         
-                                                             paginatorPosition="top"
-                                                             rowsPerPageTemplate="5,10,15,20">
-                                                    <p:column headerText="Registro" sortBy="#{v.numRegistro}">
-                                                        <h:outputText value="#{v.numRegistro}"></h:outputText>
-
-                                                    </p:column>
-                                                    <p:column headerText="Kilometraje Actual" sortBy="#{v.kilometraje}">
-                                                        <h:outputText value="#{v.kilometraje}"></h:outputText>
-                                                    </p:column>
-                                                    <p:column headerText="Próximo Kilometraje" >
-                                                        <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
-                                                    </p:column>
-                                                    <p:column headerText="Observación" sortBy="#{v.description}">
-                                                        <h:outputText value="#{v.description}"></h:outputText>
-                                                    </p:column>
-                                                    <p:column style="width: 10%; text-align: center;">
-                                                        <f:facet name="header">                               
-                                                            <h:outputText value="ALERTAS" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{controladorVehiculo.obtenerAlerta(v.kilometraje)}" rendered="#{not empty controladorVehiculo.obtenerAlerta(v.kilometraje)}" style="color: red;"/><br/>
-                                                        <!--h:outputText value="DE HACER MANTENIMIENTO" rendered="# {medicamento_.unidades eq 0}" style="color: red;"/-->
-                                                    </p:column>
-                                                    <p:column headerText="Opciones" style="width: 5%"> 
-                                                        <h:link value="Cambiar Kilometraje" outcome="cambiarKilometraje" type="button" >
-                                                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                        </h:link>
-                                                        &nbsp;&nbsp;
-
-                                                        <p:commandButton id="visualizar1" icon="ui-icon-search" oncomplete="#{'carDialog.show();'}" immediate="true" actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
-                                                            <p:ajax process="@this" update=":form-dialog :form:messages"/> 
-                                                        </p:commandButton>
-                                                    </p:column>
-                                                </p:dataTable>
-                                            </tbody>
-
                                         </div>
                                     </div>
                                 </div>
+
+                            </p:panel>  </div></p:panel>
+
+                    <div align="right" >
+                        <p:button rendered="#{controladorVehiculo.vista eq 'actividades'}"
+                                  value="Regresar"  
+                                  outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista" 
+                                  styleClass="btn  btn-success" icon="ui-icon-arrowreturnthick-1-w">
+
+                        </p:button>
+
+                    </div><br/>
+
+
+                    <div class="panel panel-primary">
+                        <p:panel id="imp" rendered="#{controladorVehiculo.vista eq 'actividades'}">
+
+                                                      
+                            <div class="admin-actions " align="right" > 
+
+                                <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                    <p:printer target=":form:imp" />  
+                                </p:commandButton>
                             </div>
+                            
+                            <table color="#fff" align="center" border="1" width="600">
+                                <th align="center" colspan="2" bgcolor="#6D8FFF"> LISTA DE ACTIVIDADES POR KILOMETRAJE</th>
+                                <tr>
+                                    <td><h:outputLabel for="k1" value="Kilometraje: "/></td>   
+                                    <td><h:outputText id="k1" value="#{controladorVehiculo.actividadplan.kilometraje}"  style="font-weight:bold" /></td>   
+                                </tr>
+                                <tr>
+                                    <td> <h:outputLabel for="a1" value="Actividades: " /></td>   
+                                    <td>  <h:inputTextarea id="a1"  value="#{controladorVehiculo.actividadplan.actividad}" style="font-weight:bold" disabled="true"/></td>   
+                                </tr>
+                            </table>
 
-                        </p:panel>  </div></div></div>
+
+                        </p:panel>
+                    </div>
+
+                </div></div>
 
 
-            <p:dialog id="dialog" header="Detalles del Vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
-
-                <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty controladorVehiculo.instance}">
-                    <h:outputLabel for="name" value="Numero de Registro: " />
-                    <h:outputText id="name" value="#{controladorVehiculo.instance.numRegistro}" style="font-weight:bold" />
-
-                    <h:outputLabel for="marca" value="Marca: " />
-                    <h:outputText id="marca" value="#{controladorVehiculo.instance.marca}" style="font-weight:bold" />
 
 
-                </p:panelGrid>
-                <p:commandButton title="Imprimir" icon="ui-ribbonicon-print" type="button" >  
-                    <p:printer target=":form-dialog" />  
-                </p:commandButton>
-            </p:dialog>
 
         </h:form>
 
 
-        <p:dialog id="form-dialog" header="Actividades por kilometraje " widgetVar="carDialog"  modal="true" resizable="true" dynamic="true" width="550">
+
+
+
+
+
+
+
+
+        <p:dialog id="form-dialog" style="position: fixed; top: 20%; left: 10%"   header="Actividades por kilometraje " widgetVar="carDialog"  modal="true" draggable="false" resizable="false"  width="550">
             <h:form id="v"  >
-                <div class="container-fluid">
-                    <div class="row-fluid"  >
-                        <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />  
 
-                        <h:outputLabel for="k" value="Kilometraje: " />
-                        <h:outputText id="k" value="#{controladorVehiculo.actividadplan.kilometraje}"  style="font-weight:bold" /><br/>
-                        <h:outputLabel id="act" value="Actividades: " /><br/>
-                        <h:inputTextarea  value="#{controladorVehiculo.actividadplan.actividad}" style="font-weight:bold" disabled="true"/>
 
-                    </div></div>
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <h:outputLabel  value="LISTA DE ACTIVIDADES POR KILOMETRAJE " />
+                    <p:panelGrid  columns="1" columnClasses="label,value">
+
+                        <h:outputLabel for="k" value="Kilometraje: " style="font-weight:bold" />
+                        <h:outputText id="k" value="#{controladorVehiculo.actividadplan.kilometraje}"  style="font-weight:bold" />
+
+                        <h:outputLabel for="a" value="Actividades: " style="font-weight:bold"  />
+                        <h:inputTextarea id="a"  value="#{controladorVehiculo.actividadplan.actividad}" style="font-weight:bold" disabled="true"/>
+
+
+                    </p:panelGrid>
+                </p:outputPanel>
+
+
+
                 <div class="admin-actions " align="center" > 
-                    <!--p:commandButton title="Imprimir" icon="ui-ribbonicon-print" type="button" >  
-                        <p:printer target=":form-dialog" />  
-                    </p:commandButton-->
-                    <h:commandLink value="Imprimir" type="link" >  
-                        <p:printer target=":form-dialog" />  
-                    </h:commandLink>
 
-                    &nbsp;&nbsp;
-                    <p:button value="Regresar" icon="ui-icon-arrowreturnthick-1-w"  rendered="#{true}" outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
+                    <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                        <p:printer target=":form-dialog" />  
+                    </p:commandButton>
 
-                    </p:button>
+
                 </div>
+
+
+
             </h:form>
         </p:dialog>
+
+
+
+        <p:dialog id="form-dialog1" header="Actividades por kilometraje " widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
+            <h:form id="v1"  >
+                <div class="container-fluid">
+                    <div class="row-fluid"  >
+                        <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                            <h:outputText value="No existen actividades para el kilometraje  "/>
+                            <h:outputText value="#{controladorVehiculo.actividadplan.kilometraje}"/>  
+                        </h:panelGroup>
+                    </div></div>
+
+            </h:form>
+        </p:dialog>
+
+
 
     </ui:define>
 </ui:composition>

@@ -1,25 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:param name="titulo" value="Lista de Vehiculos"/>
     <f:metadata>
         <f:viewParam name="mensaje" value="#{controladorVehiculo.mensaje}"/>
-
     </f:metadata>
-    <ui:param name="titulo" value="Lista de Vehiculos"/>
-    <ui:define name="header-replace">
-        #{titulo}           
+    <ui:define name="header">
+
+        #{titulo} 
+
     </ui:define>
     <ui:define name="content">
-        <h:form id="form">
+        <!--Metadato que se realiza antes de renderizarse la vista-->
 
+        <!--Formulario dentro de un contenedor-->
+        <h:form id="form">            
             <div role="main">
-                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <!--Opción de mensaje, cuando se realiza una acción-->
                     <div class="panel panel-primary">
                         <p:panel>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
@@ -71,26 +76,20 @@
                                         <f:param name="vehiculoId" ></f:param>
                                     </h:link>
 
-
-                                </div>
-                                <div class="admin-actions" align="right">
-                                  <h:panelGrid id="export" class="columns" >
-                                                <p:panel>
-                                                    <h:outputText value="Generar Reporte" />  
-                                                    <br/>
-                                                    <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" styleClass="btn">                    
-                                                        <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
-
-                                                    </h:commandLink>                    
-                                                </p:panel>
-                                            </h:panelGrid>
-                                    
+                                    <h:panelGrid id="export" class="columns" >
+                                        <p:panel>
+                                            <h:outputText value="Exportar Datos" />  
+                                            <br/>
+                                            <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" styleClass="btn">                    
+                                                <p:graphicImage value="/resources/pdf.png" width="50" height="40" />                          
+                                                
+                                            </h:commandLink>                    
+                                        </p:panel>
+                                    </h:panelGrid>
                                 </div><br/><br/>
                             </div>
 
-    
-                                          
-                                               
+
                             <div class="row">
 
 
@@ -106,9 +105,7 @@
                                                              rowsPerPageTemplate="5,10,15,20">
 
                                                     <p:column headerText="Nro Registro" sortBy="#{v.numRegistro}">
-                                                        
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
-                                                    
                                                     </p:column>
                                                     <p:column headerText="Color" sortBy="#{v.color}">
                                                         <h:outputText value="#{v.color}"></h:outputText>
@@ -122,42 +119,35 @@
                                                     <p:column headerText="Conductor" sortBy="#{v.persona.fullName}">
                                                         <h:outputText value="#{v.persona.fullName}"></h:outputText>
                                                     </p:column>
+                                                    <p:column headerText="Opciones" style="width: 5%"> 
 
-                                                    <p:column headerText="Editar" style="width: 5%"> 
-                                                        <center>
                                                         <p:button id="selectButton" 
                                                                   outcome="crear"
                                                                   icon="ui-icon-pencil" title="Editar">  
                                                             <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                        </p:button> 
-
-                                                        </center>
-
-                                                    </p:column>
-                                                                 <p:column headerText="Estado Mecánico" style="width: 5%"> 
-                                                        <center>
-                                                      
-
-                                                        <p:button id="selectButton1" icon="ui-icon-wrench" 
-                                                                  outcome="estadoMecanico" 
-                                                                  title="Editar Estado Mecánico">  
+                                                        </p:button>
+                                                        
+                                                        <p:button id="selectButton1" 
+                                                                 outcome="estadoMecanico" 
+                                                                 value="Estado Mecánico">  
                                                             <f:param name="vehiculoId" value="#{v.id}"></f:param>
                                                         </p:button>
-                                                        </center>
 
                                                     </p:column>
                                                 </p:dataTable>
-                                            </tbody><br/>
-                                        
+                                            </tbody>
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                        </p:panel>
-                    </div>
-                </div>
+                        </p:panel> </div></div>
             </div>
+
+
+
+
 
             <p:dialog id="dialog" header="Detalles del Vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                 <p:outputPanel id="documentPanel">
@@ -172,9 +162,10 @@
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
-        </h:form>
 
+        </h:form>
     </ui:define>
 </ui:composition>
+
 
 

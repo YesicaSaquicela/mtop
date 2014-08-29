@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -64,6 +65,9 @@ import org.primefaces.context.RequestContext;
 
 import org.mtop.modelo.profile.Profile;
 import static org.mtop.modelo.profile.Profile_.username;
+import java.util.HashMap;
+
+import java.util.Map;
 
 /**
  *
@@ -98,6 +102,16 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<EstadoVehiculo> listaEstados;
 
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
+    private String vista;
+
+    public String getVista() {
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        System.out.println("redirecciono vista>>>" + vista);
+        this.vista = vista;
+    }
 
     public String obtenerAlerta(Integer kma) {
         Integer kmt = kma + 1000;
@@ -106,7 +120,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("prokilometra" + proKmj);
         if (kmt.equals(proKmj)) {
             System.out.println("entro a 1if");
-            return "Atencion..! Necesita acercarse a realizar el mantenimiento del vehículo";
+            return "Atención..! Necesita acercarse a realizar el mantenimiento del vehículo";
         } else {
             if (kmt > proKmj) {
                 System.out.println("entro a obtener 2oif");
@@ -554,45 +568,58 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         boolean ban = false;
         for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
             if (pm.getActivado()) {
+                System.out.println("entro1111111111" + ban);
+
                 ban = true;
             } else {
+                System.out.println("entro2222222222" + ban);
                 ban = false;
             }
         }
         return ban;
     }
 
-    public void vizualizarActividades(Long vehiculoid) {
+    public boolean vizualizarActividades(Long vehiculoid) {
+        System.out.println("antes de los view");
+        // viewCarsCustomized();
         System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
         Vehiculo v = findById(Vehiculo.class, vehiculoid);
         Integer proKilometraje = obtenerKilometraje(v.getKilometraje());
         System.out.println("prokilooooooooo" + proKilometraje);
         actividadplan = new ActividadPlanMantenimiento();
+        System.out.println("plan de mantenimiento del vehiculo" + v.getPlanM());
 
         System.out.println("vehiculo iddddddd" + v.getId());
 
         actividadplan.setKilometraje(proKilometraje);
-        PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
-        List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
-        //encontrar listas del plan
-        for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
-            if (actividadPlanMantenimiento.getPlanMantenimiento().getId() == pMantenimiento.getId()) {
-                la.add(actividadPlanMantenimiento);
-            }
-        }
-        System.out.println("lsiat de actividades" + la);
-        //encontrar kilometraje de cada lista del plan
-        for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
-            System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
 
-            System.out.println("proximo kilometraje>>>>>>" + actividadplan.getKilometraje());
-            if (actividadPlanMantenimiento.getKilometraje().equals(actividadplan.getKilometraje())) {
-                System.out.println("entro..... a comparar");
-                actividadplan.setActividad(actividadPlanMantenimiento.getActividad());
-                System.out.println("fijo la actividad" + actividadplan.getActividad());
+        if (v.getPlanM() != null) {
+            PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
+            List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
+            //encontrar listas del plan
+            for (ActividadPlanMantenimiento actividadPlanMantenimiento : findAll(ActividadPlanMantenimiento.class)) {
+                if (actividadPlanMantenimiento.getPlanMantenimiento().getId() == pMantenimiento.getId()) {
+                    la.add(actividadPlanMantenimiento);
+                }
+            }
+            System.out.println("lsiat de actividades" + la);
+            //encontrar kilometraje de cada lista del plan
+            for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
+                System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
+
+                System.out.println("proximo kilometraje>>>>>>" + actividadplan.getKilometraje());
+                if (actividadPlanMantenimiento.getKilometraje().equals(actividadplan.getKilometraje())) {
+                    System.out.println("entro..... a comparar");
+                    actividadplan.setActividad(actividadPlanMantenimiento.getActividad());
+                    System.out.println("fijo la actividad" + actividadplan.getActividad());
+                    return true;
+
+                }
                 break;
             }
         }
+
+        return false;
 
     }
 
@@ -950,6 +977,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPersona(psolicita);
         System.out.println("persona conductor" + getInstance().getPersona());
+
 //        if (!getInstance().getPlaca().equals("")) {
 //            System.out.println("entro>>>>>" + getInstance().getPlaca());
 //            listaVehiculos.remove(getInstance().getPlaca());
@@ -975,6 +1003,16 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
 
             } else {
+
+                List<PlanMantenimiento> lp = findAll(PlanMantenimiento.class);
+                for (PlanMantenimiento planMant : lp) {
+                    if (planMant.getActivado()) {
+                        getInstance().setPlanM(planMant);
+                        System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
+                        break;
+                    }
+                }
+
                 System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
                 getInstance().setDescription("Kilometraje inicial");
