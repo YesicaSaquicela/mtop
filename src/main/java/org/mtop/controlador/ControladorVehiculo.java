@@ -231,6 +231,23 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     }
 
+    public boolean verificarFechaSolicitud(Date fFinal) {
+        Boolean ban = true;
+        System.out.println("vehiculooooo a buscar" + getInstance());
+
+        Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
+
+        System.out.println("fecha a entrada" + fEntrada);
+        System.out.println("fecha a final" + fFinal);
+        if (!fEntrada.before(fFinal)) {  //metodo que compara si una fecha es anterior a la otra
+//                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("La Fecha Final debe ser mayor a la Fecha de Inicio"), ""));
+            System.out.println("entro a if");
+            ban = false;
+        }
+        System.out.println("bandera devuelve" + ban);
+        return ban;
+    }
+
     public boolean verificarPlaca(String placa) {
         System.out.println("placa ingresada" + placa);
         String l1 = "ABUCXHOEWGILRMVNSPQYJKTZ";
@@ -723,7 +740,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         setId(vehiculoId);
         idPersona = getInstance().getPersona().getId();
-        
+
     }
 
     public void fijarNullVehiculo() {
@@ -1006,17 +1023,22 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         try {
             if (getInstance().isPersistent()) {
-                System.out.println("entro a editar estado:::::: ");
-                System.out.println("ante");
-                crearEstadoUbicacion2();
-                System.out.println("finalizo");
-                System.out.println("\n\n\n\n estado\n\n\n\n " + estado);
+                if (verificarFechaSolicitud(fechaFinal)) {
+                    System.out.println("entro a editar estado:::::: ");
+                    System.out.println("ante");
+                    crearEstadoUbicacion2();
+                    System.out.println("finalizo");
+                    System.out.println("\n\n\n\n estado\n\n\n\n " + estado);
 
-                getInstance().getListaEstados().add(estado);
-                System.out.println("lista de estado de l vehiculo" + getInstance().getListaEstados());
-                save(getInstance());
+                    getInstance().getListaEstados().add(estado);
+                    System.out.println("lista de estado de l vehiculo" + getInstance().getListaEstados());
+                    save(getInstance());
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
+                } else {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "la fecha de inicio es incorrecta");
+                    FacesContext.getCurrentInstance().addMessage("", msg);
+                }
 
             }
 

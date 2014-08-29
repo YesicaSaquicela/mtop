@@ -111,9 +111,21 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     private List<ItemRequisicion> itemsEliminar;
     private ItemRequisicion it;
+    private Double total = 0.0;
 
-    public ItemRequisicion getIt() {
-        return it;
+    public Double getTotal() {
+        System.out.println("obteniendo total"+total);
+                
+
+        for (ItemRequisicion ir : listaItemsRequisicion) {
+            total = total + (ir.getCantidad() * ir.getProducto().getCosto());
+        }
+        System.out.println("total a retornar");
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public void setIt(ItemRequisicion it) {
@@ -133,6 +145,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         List<ItemRequisicion> li = new ArrayList<ItemRequisicion>();
         System.out.println("lista items" + listaItemsRequisicion);
         for (ItemRequisicion items : listaItemsRequisicion) {
+
             System.out.println("entro al for>>>>>>>");
             if (!items.getCantidad().equals(itemreq.getCantidad())
                     && !items.getDescription().equals(itemreq.getDescription())
@@ -269,7 +282,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //        System.out.println("sus items " + this.solicitudReparacionMantenimiento.getListaItemSR());
 //
 //    }
-
     public String getTipo() {
         return tipo;
     }
@@ -903,7 +915,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             SolicitudReparacionMantenimiento solRM = new SolicitudReparacionMantenimiento();
             for (Long s : lsoli) {
                 solRM = findById(SolicitudReparacionMantenimiento.class, s);
-                if (solRM.getRequisicionId()== null && solRM.isEstado() && solRM.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
+                if (solRM.getRequisicionId() == null && solRM.isEstado() && solRM.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
                     System.out.println("entro a comparacion>>>>>");
                     listaSolicitudes.add(solRM);
                     System.out.println("\n\nlista final>>>>" + listaSolicitudes);
@@ -977,7 +989,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     boolean ban = true;
                     System.out.println("cir" + cir.getInstance().getCantidad());
                     System.out.println("prod" + pro);
-                    maximo=pro.getCantidad();
+                    maximo = pro.getCantidad();
 //                    for (Producto p : listaProductos) {
 //                        System.out.println("ppp" + p);
 //                        if (p.getCantidad() == 0) {
@@ -1029,7 +1041,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cir.getInstance().setUnidadMedida(" ");
         cir.getInstance().setDescription(pro.getDescription());
         cir.getInstance().setProducto(pro);
-        maximo=pro.getCantidad();
+        maximo = pro.getCantidad();
         palabrab = "";
 
     }
@@ -1881,9 +1893,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
 
             }
-        listaRequisicion.add(getInstance());
-        System.out.println("lista de requisiciones>>>>>" + listaRequisicion);
-        listaItemsRequisicion=null;
+            listaRequisicion.add(getInstance());
+            System.out.println("lista de requisiciones>>>>>" + listaRequisicion);
+            listaItemsRequisicion = null;
 
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");

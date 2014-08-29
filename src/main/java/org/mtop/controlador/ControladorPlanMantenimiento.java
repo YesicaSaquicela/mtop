@@ -41,7 +41,9 @@ import org.mtop.modelo.PlanMantenimiento_;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.dinamico.PersistentObject_;
 import org.mtop.servicios.ServicioGenerico;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -63,6 +65,28 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private String numeroPlanMantenimiento;
     private List<Integer> listaKilometraje = new ArrayList();
     private String palabrab = "";
+    private ActividadPlanMantenimiento it;
+    private List<String> listaActividades;
+   
+
+  
+
+    public List<String> getListaActividades() {
+
+        return listaActividades;
+    }
+
+    public void setListaActividades(List<String> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
+
+    public ActividadPlanMantenimiento getIt() {
+        return it;
+    }
+
+    public void setIt(ActividadPlanMantenimiento it) {
+        this.it = it;
+    }
 
     public String getPalabrab() {
         return palabrab;
@@ -167,9 +191,9 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
         List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), query);
         for (PlanMantenimiento planM : lc) {
-         
+
             if (!ced.contains(formato(planM.getCreatedOn()))) {
-                System.out.println("no lo contienes"+formato(planM.getCreatedOn()));
+                System.out.println("no lo contienes" + formato(planM.getCreatedOn()));
                 ced.add(formato(planM.getCreatedOn()));
             }
 
@@ -298,14 +322,42 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public void editarActividad(ActividadPlanMantenimiento actividad) {
         System.out.println("ACTIVIDAD>>>>>" + cactividadpm.getInstance().getActividad());;
         System.out.println("REMOVE>>>>>>>>>>>." + actividad);
+//      
 
         int con = 0;
         for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
 
             if (apm.getKilometraje().equals(actividad.getKilometraje())
                     && apm.getActividad().equals(actividad.getActividad())) {
-                cactividadpm.listaActividades.remove(con);
+//                cactividadpm.listaActividades.remove(con);
                 cactividadpm.setInstance(apm);
+                String s = cactividadpm.getInstance().getActividad();
+                System.out.println("lista antes de editar" + listaActividades);
+                if (!s.equals("")) {
+                    int empieza = 0;
+                    int termina = s.indexOf(",");
+                    Boolean ban = true;
+
+                    while (ban) {
+                        System.out.println("a aniadir " + s.substring(empieza, termina - 1));
+                        listaActividades.add(s.substring(empieza, termina - 1).trim());
+                        System.out.println("termina " + termina);
+                        System.out.println("length  " + s.length());
+                        if (termina + 1 == s.length()) {
+                            ban = false;
+                            break;
+                        } else {
+                            System.out.println("nuevo substring " + s.substring(termina + 1));
+                            s = s.substring(termina + 1);
+                            termina = s.indexOf(",");
+
+                        }
+
+                    }
+                    
+                }
+                System.out.println("lista despues de editar" + listaActividades);
+                it = apm;
                 System.out.println("OBJETO LISTA>>>>>>>>>>>>>" + apm.getKilometraje());
                 System.out.println("FIJAR>>>>>>" + cactividadpm.getInstance().getKilometraje());
                 break;
@@ -330,26 +382,76 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public void agregarActividad() {
         boolean ban = true;
 
+        System.out.println("entra guardar");
         for (ActividadPlanMantenimiento apm : cactividadpm.listaActividades) {
             System.out.println("ENTRO>>>>>>>" + apm.getKilometraje());
             if (apm.getKilometraje().equals(cactividadpm.getInstance().getKilometraje())) {
-                System.out.println("Entro al if>>>>>>" + cactividadpm.getInstance().getKilometraje());
-
                 ban = false;
                 break;
 
             }
         }
         if (ban == true) {
-            cactividadpm.listaActividades.add(cactividadpm.getInstance());
-            cactividadpm.setInstance(new ActividadPlanMantenimiento());
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "EL kilometraje escojido ya se encuentra agregado en la lista"));
-        }
+            System.out.println("entro a bandera true con it" + it);
+            if (it != null) {
 
-//                }
-//            }
-//        }
+                if (!it.getActividad().equals(cactividadpm.getInstance().getActividad())
+                        && !it.getKilometraje().equals(cactividadpm.getInstance().getKilometraje())) {
+                    System.out.println("actualizo 1");
+                    cactividadpm.listaActividades.remove(it);
+                    cactividadpm.listaActividades.add(cactividadpm.getInstance());
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó la actividad " + cactividadpm.getInstance().getActividad() + " con éxito "));
+
+                } else {
+                    it = null;
+                }
+            } else {
+                System.out.println("creo");
+                cactividadpm.listaActividades.add(cactividadpm.getInstance());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó la actividad " + cactividadpm.getInstance().getActividad() + " con éxito "));
+
+            }
+            cactividadpm.setInstance(new ActividadPlanMantenimiento());
+
+        } else {
+            if (it != null) {
+                System.out.println("entro it dif de null");
+                if (it.getKilometraje().equals(cactividadpm.getInstance().getKilometraje())) {
+                    System.out.println("actualizo 2 antes");
+                    System.out.println("lista de actividades" + cactividadpm.getListaActividades());
+                    if (!it.getActividad().equals(cactividadpm.getInstance().getActividad())) {
+                        System.out.println("actualizo 2");
+                        cactividadpm.listaActividades.remove(it);
+                        cactividadpm.listaActividades.add(cactividadpm.getInstance());
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó la actividad " + cactividadpm.getInstance().getActividad() + " con éxito "));
+
+                    }
+                    System.out.println("lista de actividades antes poner null" + cactividadpm.getListaActividades());
+                    cactividadpm.setInstance(new ActividadPlanMantenimiento());
+                    System.out.println("lista de actividades despues poner null" + cactividadpm.getListaActividades());
+
+                } else {
+                    System.out.println("it" + it);
+                    System.out.println("instance" + cactividadpm.getInstance().getKilometraje());
+                    System.out.println("entro a kilometraje escojido");
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "EL kilometraje que ha escojido ya se encuentra agregado en la lista"));
+
+                }
+
+            } else {
+                System.out.println("it" + it);
+                System.out.println("instance" + cactividadpm.getInstance().getKilometraje());
+                System.out.println("entro a kilometraje escojido");
+
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "EL kilometraje que ha escojido ya se encuentra agregado en la lista"));
+            }
+
+        }
+        it = null;
+   
+        System.out.println("lista de actividades al final" + cactividadpm.getListaActividades());
+
     }
 
     public void guardarActividad() {
@@ -372,7 +474,9 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         setId(planMantenimientoId);
         //se fija la lista actividades que hay en el plan mantenimiento a la lista actividades.
+
         cactividadpm.listaActividades = getInstance().getListaActividadpm();
+        String s = cactividadpm.getInstance().getActividad();
 
     }
 
@@ -439,24 +543,38 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaPlanMantenimiento = servgen.buscarTodos(PlanMantenimiento.class);
+        listaPlanMantenimiento
+                = servgen.buscarTodos(PlanMantenimiento.class
+                );
         cv.setEntityManager(em);
         cactividadpm = new ControladorActividadPlanMantenimiento();
-        cactividadpm.setInstance(new ActividadPlanMantenimiento());
+
+        cactividadpm.setInstance(
+                new ActividadPlanMantenimiento());
         listak();
+        listaActividades = new ArrayList<String>();
+        cactividadpm.getInstance().setActividad("");
+        System.out.println("lista de actividades en init" + listaActividades);
 
     }
 
     @Override
-    protected PlanMantenimiento createInstance() {
+    protected PlanMantenimiento
+            createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(PlanMantenimiento.class.getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(PlanMantenimiento.class
+                .getName());
         Date now = Calendar.getInstance().getTime();
         PlanMantenimiento planM = new PlanMantenimiento();
+
         planM.setCreatedOn(now);
+
         planM.setLastUpdate(now);
+
         planM.setActivationTime(now);
+
         planM.setType(_type);
+
         planM.buildAttributes(bussinesEntityService);  //
         return planM;
     }
@@ -498,10 +616,14 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ErRor al guardarrwe: ".concat(e.toString()) + getInstance().getId(), " " + e);
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 System.out.println("errrrrrrrrrorrrrr");
+
             }
             PlanMantenimiento oo = findById(PlanMantenimiento.class, getInstance().getId());
-            System.out.println("entrontro" + oo.getId());
-            System.out.println("entrontro" + oo.getActivado());
+            System.out.println(
+                    "entrontro" + oo.getId());
+            System.out.println(
+                    "entrontro" + oo.getActivado());
+
             return "/paginas/admin/planMantenimiento/lista.xhtml?faces-redirect=true";
         }
 
@@ -527,5 +649,51 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
         return "/paginas/admin/planMantenimient/lista.xhtml?faces-redirect=true";
     }
+/**
+    public void onRowEdit(RowEditEvent event) {
+        System.out.println("event" + event.getObject());
+        FacesMessage msg = new FacesMessage("Actividad Editada", ((String) event.getObject()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edicion cancelada", ((String) event.getObject()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void nuevo(String nuevo) {
+        System.out.println("fijando nuevo" + nuevo);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        System.out.println("otro valor" + event.getOldValue());
+        System.out.println("antiguo valor" + oldValue);
+
+        Object newValue = event.getNewValue();
+
+        System.out.println("nuevo valor" + newValue);
+
+        listaActividades.add((String) newValue);
+        listaActividades.remove((String) oldValue);
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Antiguo: " + oldValue + ", Nuevo:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void aniadirLista() {
+        System.out.println("entro a anidir lista con act selec " + actividadSeleccionada);
+        if (actividadSeleccionada != null) {
+            cactividadpm.getInstance().setActividad(actividadSeleccionada + " ," + cactividadpm.getInstance().getActividad());
+            System.out.println("instance despues de aniadir " + cactividadpm.getInstance());
+            System.out.println("lista antes" + listaActividades);
+            listaActividades.add(actividadSeleccionada);
+            System.out.println("lista depues " + listaActividades);
+            actividadSeleccionada = null;
+        }
+
+    }**/
 
 }
