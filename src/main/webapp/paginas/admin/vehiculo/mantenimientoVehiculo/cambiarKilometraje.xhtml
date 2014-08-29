@@ -27,6 +27,13 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    
+              <div align="right">
+                          <p:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success" icon="ui-icon-arrowreturnthick-1-w">
+
+                        </p:button>
+                  
+              </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>Datos Generales</center></div>
                         <p:panel id="pv">
@@ -58,10 +65,8 @@
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.guardarMantenimiento()}"
                                          ajax="false" update="pv"/>
-                        &nbsp;&nbsp;
-                        <p:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success" icon="ui-icon-arrowreturnthick-1-w">
-
-                        </p:button>
+                      
+                  
                     </center>
                 </div></div>
         </h:form>

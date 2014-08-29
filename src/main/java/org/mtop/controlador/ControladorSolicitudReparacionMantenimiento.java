@@ -91,7 +91,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private ItemSolicitudReparacion itemsr;
     private List<ItemSolicitudReparacion> itemsEliminar;
     private ItemSolicitudReparacion it;
-
+ 
+    
     public ItemSolicitudReparacion getIt() {
         return it;
     }

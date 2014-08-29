@@ -22,7 +22,7 @@
         <h:form id="form">            
             <!--Opción de mensaje, cuando se realiza una acción-->
             <div role="main">
-                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
                     <div class="panel panel-primary">
                         <p:panel>
                             <p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />  
@@ -41,7 +41,7 @@
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
                                                                 <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPlanMantenimiento.palabrab}"   
-                                                                                 completeMethod="#{controladorPlanMantenimiento.autocompletar}"/> 
+                                                                                completeMethod="#{controladorPlanMantenimiento.autocompletar}"/> 
                                                                 &nbsp;&nbsp;
 
 
@@ -81,24 +81,26 @@
                                         <tbody>
                                             <p:dataTable id="listap" value="#{controladorPlanMantenimiento.listaPlanMantenimiento}" var="pm"
                                                          paginator="true" rows="15"                         
-                                                         paginatorPosition="top"
-                                                         rowsPerPageTemplate="5,10,15,20">
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20">
                                                 <p:column headerText="Número de Registro" sortBy="#{pm.registro}">
                                                     <h:outputText value="#{pm.registro}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Fecha de creación" >
                                                     <h:outputText value="#{controladorPlanMantenimiento.formato(pm.createdOn)}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Editar" style="width: 5%"> 
-
+                                                <p:column headerText="Opciones" style="width: 5%"> 
+                                                    
                                                     <p:button id="selectButton" 
                                                               outcome="crear"
                                                               icon="ui-icon-pencil" title="Editar">  
                                                         <f:param name="planMantenimientoId" value="#{pm.id}"></f:param>
                                                     </p:button>
-                                                 
-                                                </p:column>
-                                                <p:column headerText="Vizualizar actividades del próximo kilometraje" >
+                                                    &nbsp;&nbsp;
+                                                    <!--p:commandButton rendered="# {pm.activado eq false}" id="confirmacion"  value="Activar Plan" actionListener="# {controladorPlanMantenimiento.activarPlan(pm.id)}" update=":form:message">
+                                                        <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
+                                                    </p:commandButton-->
+
                                                     <p:commandButton rendered="#{pm.activado eq false}" id="confirmacion"  value="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}" update="@form">
                                                         <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
 
@@ -108,6 +110,10 @@
                                                         <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                     </p:confirmDialog>
+
+
+
+
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div></div>
