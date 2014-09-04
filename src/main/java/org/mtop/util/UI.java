@@ -76,17 +76,21 @@ public class UI {
     }
 
     public List<Property> getProperties(BussinesEntity entity) {
-        if (entity == null) {
+        System.out.println("entro a get properties con "+entity); 
+       if (entity == null) {
             return new ArrayList<Property>();
         }
-
+        System.out.println("tipo"+entity.getType());
         if (entity.getType() == null) {
             return new ArrayList<Property>();
         }
 
         Query q = em.createNamedQuery("Property.findByBussinesEntityTypeName");
+        System.out.println("qqq"+q);
         q.setParameter("bussinesEntityTypeName", entity.getType().getName());
+         System.out.println("collections"+q);
         Collections.sort(q.getResultList());
+        System.out.println("collections"+q.getResultList());
         return q.getResultList();
     }
 

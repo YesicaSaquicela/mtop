@@ -152,6 +152,15 @@ public class ServicioGenerico {
         //builder.equal(objeto.get(at), true)
     }
 
+    /**
+     *
+     * @param <T>
+     * @param objetoTipo NombreClase.class
+     * @param tabla NombreClase.class.getSimpleName()
+     * @param nombreatributo
+     * @param valoratributo
+     * @return
+     */
     public <T> List<T> buscarTodoscoincidencia(final Class<T> objetoTipo, String tabla, String nombreatributo, final Object valoratributo) {
 
         TypedQuery<T> query = em.createQuery(

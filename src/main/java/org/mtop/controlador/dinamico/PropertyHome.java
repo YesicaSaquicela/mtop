@@ -298,6 +298,44 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyType() {
+        if (getInstance().getType().equals("java.lang.MultiLineString")) {
+            propertyType="AreaTexto";
+        } else {
+            if (getInstance().getType().equals("java.lang.String[]")) {
+                propertyType="Lista";
+            } else {
+                if (getInstance().getType().equals("java.lang.Boolean")) {
+                    propertyType="Booleano";
+                } else {
+                    if (getInstance().getType().equals("java.lang.Long")) {
+                        propertyType="EnteroMayor";
+                    } else {
+                        if (getInstance().getType().equals("java.lang.Integer")) {
+                            propertyType="Entero";
+                        } else {
+                            if (getInstance().getType().equals("java.lang.Double")) {
+                                propertyType="Real";
+                            } else {
+                                if (getInstance().getType().equals("java.lang.String")) {
+                                    propertyType="Texto";
+                                } else {
+                                    if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
+                                        propertyType="EstadoParteMecanica";
+                                    } else {
+                                        if (getInstance().getType().equals("java.util.Date")) {
+                                            propertyType="Fecha";
+                                        } else {
+                                            propertyType="EstadoParteMecanica";
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return propertyType;
     }
 

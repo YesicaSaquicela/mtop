@@ -34,7 +34,7 @@
                                     <div class="row-fluid"  >
                                         <div class="col-md-6"> 
                                             <h:outputLabel value="otro valor"></h:outputLabel>
-                                           
+
                                             <p:outputLabel  value="#{messages['common.property.groupName']}"/><br/>
                                             <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
                                                          value="#{propertyHome.instance.groupName}" disabled="true" required="false"  /><br/>
@@ -70,13 +70,14 @@
                                                      }"
                                                                  disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica'}"/>  
 
-                                                    
+
                                                     <p:inputText id="in2" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
                                                                  required="true" label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Entero'}"
-                                                                 
+
                                                                  > 
                                                         <f:ajax execute="@this" render="save"  />
+
 
                                                         <!--p:ajax event="keypress" process="value valueintval" rendered="save"/-->
                                                     </p:inputText>    
@@ -103,9 +104,23 @@
                                                     <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyStringValue != null}"
                                                                     styleClass="validation-status" />
                                                     <span class="help-inline text-muted">#{messages['common.property.value.help']}</span>
+
                                                 </div>
 
+                                                <h:panelGrid columns="1" rendered="#{propertyHome.propertyType eq 'EstadoParteMecanica'}" style="margin-bottom:10px" cellpadding="5"  >
+
+                                                    <br></br>
+                                                    <div class="input">
+                                                        <p:outputLabel for="evaluacion" value="Porcentaje de Evaluación  " />#{" "}
+                                                        <p:selectOneRadio id="evaluacion" value="#{propertyHome.instance.evaluacionParte}"   >
+                                                            <f:selectItem itemLabel="Muy importante   " itemValue="100" /><br/>
+                                                            <f:selectItem itemLabel="Importante" itemValue="80" />
+                                                        </p:selectOneRadio>
+                                                    </div>
+                                                </h:panelGrid>
+
                                             </h:panelGroup><br></br>                   
+
 
                                             <!--mtop:input id="validator" name="validator" type="text" label="# {messages['common.property.validator']}" 
                                                         value="# {propertyHome.instance.validator}" required="false" inlinehelp="# {messages['common.property.validator.help']}" execute="@this save" /><br></br-->
