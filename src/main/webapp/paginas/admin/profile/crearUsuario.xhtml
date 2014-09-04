@@ -31,8 +31,12 @@
 
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div class="admin-actions " align="right">  
 
-                    <!-- Example row of columns -->
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" 
+                                  outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true"
+                                  value="Regresar" styleClass="btn  btn-success" rendered="#{true}"/>
+                    </div><br/>
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales del Usuario</div>
 
@@ -50,7 +54,7 @@
                                             </h:inputText>
                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.username != null}"
                                                             styleClass="validation-status" />
-                                            <span class="help-inline text-muted"><br/>Su nombre de usuario. Ej.:<b>juan, carlos21</b>. (Lo necesitará más adelante.) <ocp:message forId="username" /></span>
+                                            <span class="help-inline text-muted">Su nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
                                         </div>
                                     </h:panelGroup><br/>
 
@@ -58,61 +62,50 @@
                                         <label for="password">#{messages['common.password']}</label>
                                         <div class="input">
                                             <h:inputSecret id="password" value="#{profileHome.password}" redisplay="true" 
-                                                           styleClass="xLarge" style="text-transform: uppercase;" required="true" requiredMessage="Required" label="#{messages['common.password']}">
+                                                           styleClass="form-control" style="text-transform: uppercase;" required="true" requiredMessage="Required" label="#{messages['common.password']}">
                                                 <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
                                             <h:panelGroup id="pwg">
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.password != null}"
                                                                 styleClass="validation-status"/>
-                                                <span class="help-inline"><ocp:message id="pm"  forId="password" /></span>
+                                                <span class="help-inline text-muted">Ingrese una contraseña<ocp:message id="pm"  forId="password" /></span>
                                             </h:panelGroup>
                                         </div>
-                                    </div>
+                                    </div><br/>
 
                                     <div class="clearfix">
                                         <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
                                         <div class="input">
                                             <h:inputSecret id="passwordConfirm" value="#{profileHome.passwordConfirm}"
-                                                           redisplay="true" styleClass="xLarge" style="text-transform: uppercase;" label="#{messages['common.confirmPassword']}">
+                                                           redisplay="true" styleClass="form-control" style="text-transform: uppercase;" label="#{messages['common.confirmPassword']}">
                                                 <f:ajax execute="password passwordConfirm passwordValidator signupValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
                                             <h:panelGroup id="pwcg">
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.passwordConfirm != null}"
                                                                 styleClass="validation-status"/>
-                                                <span class="help-inline"><ocp:message forId="passwordConfirm" /></span>
+                                                <span class="help-inline text-muted">Vuelva a ingresar la contraseña<ocp:message forId="passwordConfirm" /></span>
                                             </h:panelGroup>
                                         </div>
                                     </div>
-
-
                                     <s:validateForm id="passwordValidator" validatorId="passwordConfirm" />
                                     <s:validateForm id="signupValidator" validatorId="signupValidator" />
 
-
-
-
                                 </div>
-
                             </div>
 
+                        </p:panel></div> 
 
+                    <div class="admin-actions " align="center">  
+                        <p:commandButton id="save" action="#{profileHome.saveUsuario()}"
+                                         value="#{messages['common.save']}"
+                                         styleClass="btn  btn-success" 
+                                         icon="ui-icon-disk"/>
 
+                    </div>
 
-                        </p:panel></div> </div></div>
-
-
-
-
-            <div class="admin-actions " align="center">  
-                <h:commandButton id="save" action="#{profileHome.saveUsuario()}" value="#{messages['common.save']}" styleClass="btn primary"/>
-                &nbsp;
-                <p:button icon="ui-icon-arrowreturnthick-1-w" outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true"
-                          value="Regresar" styleClass="btn primary" rendered="#{true}"/>
-            </div>
-
-
+                </div></div>
         </h:form>
 
     </ui:define>

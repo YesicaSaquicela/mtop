@@ -75,7 +75,8 @@
                                     <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
                                         <f:param name="requisicionId"></f:param>
                                     </p:commandButton-->
-                                <h:link styleClass="btn btn-success" value="Crear" outcome="crear" type="button" >
+                                <h:link styleClass="btn btn-success" value="Crear"
+                                        outcome="crear" type="button" >
                                     <f:param name="requisicionId" ></f:param>
                                     <f:param name="vista" value="requisicion"></f:param>
 
@@ -88,30 +89,32 @@
 
                                         <br/>
                                         <tbody>
-                                           
+
 
                                             <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
-                                                
+
                                                 <div  class="panel panel-primary">
-                                                    
+
                                                     <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
-                                                      
+
                                                         <div class="admin-actions">
                                                             <br/><br/>
                                                             <h:link id="Acct" value="Todas" title="Todos los tipo de requisiciones" 
-                                                                    styleClass="btn success" >  
+                                                                    styleClass="btn  btn-success" >  
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>
                                                             #{' '}
 
-                                                            <h:link id="Acc" value="Requisición de Reparación" title="Requisiciones de tipo Reparación" 
-                                                                    outcome="lista" styleClass="btn success" >                                        
+                                                            <h:link id="Acc" value="Requisición de Reparación" 
+                                                                    title="Requisiciones de tipo Reparación" 
+                                                                    outcome="lista" styleClass="btn  btn-success">                                        
                                                                 <f:param name="tipo" value="repa"/>
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>  
                                                             #{' '}
-                                                            <h:link id="Acc1" value="Requisición de Bienes y Servicios" title="Requisiciones de tipo Requisición de Bienes y Servicios" 
-                                                                    outcome="lista" styleClass="btn success" >                                        
+                                                            <h:link id="Acc1" value="Requisición de Bienes y Servicios" 
+                                                                    title="Requisiciones de tipo Requisición de Bienes y Servicios" 
+                                                                    outcome="lista" styleClass="btn  btn-success" >                                        
                                                                 <f:param name="tipo" value="bien"/>
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>                    
@@ -153,44 +156,50 @@
                                                                 <h:outputText value="#{r.observaciones}"></h:outputText>
                                                             </p:column>
                                                             <p:column headerText="Opciones" style="width: 5%"> 
+                                                                <center>
+
+                                                                    <p:button id="selectButton" 
+                                                                              rendered="#{r.vehiculo.id ne null and r.id ne null}"
+                                                                              outcome="crear" styleClass="btn  btn-success"
+                                                                              icon="ui-icon-pencil" title="Editar">  
+                                                                        <f:param name="requisicionId" value="#{r.id}"></f:param>
+                                                                        <f:param  name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
+                                                                        <f:param name="vista" value="requisicion"></f:param>
+                                                                    </p:button>
+                                                                    <p:button rendered="#{r.vehiculo.id ne null and r.id eq null}" 
+                                                                              id="selectButton1" styleClass="btn  btn-success"
+                                                                              outcome="crear"
+                                                                              icon="ui-icon-pencil" title="Editar">  
+
+                                                                        <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
+                                                                        <f:param name="vista" value="requisicion"></f:param>
+                                                                    </p:button>
+                                                                    <p:button rendered="#{r.vehiculo.id eq null and r.id ne null}" 
+                                                                              id="selectButton2" 
+                                                                              outcome="crear" styleClass="btn  btn-success"
+                                                                              icon="ui-icon-pencil" title="Editar">  
+                                                                        <f:param name="requisicionId" value="#{r.id}"></f:param>
+
+                                                                        <f:param name="vista" value="requisicion"></f:param>
+                                                                    </p:button>
+                                                                    <p:button rendered="#{r.vehiculo.id eq null and r.id eq null}" 
+                                                                              id="selectButton3" styleClass="btn  btn-success"
+                                                                              outcome="crear"
+                                                                              icon="ui-icon-pencil" title="Editar">  
 
 
-                                                                <p:button id="selectButton"  rendered="#{r.vehiculo.id ne null and r.id ne null}"
-                                                                          outcome="crear"
-                                                                          icon="ui-icon-pencil" title="Editar">  
-                                                                    <f:param name="requisicionId" value="#{r.id}"></f:param>
-                                                                    <f:param  name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
-                                                                    <f:param name="vista" value="requisicion"></f:param>
-                                                                </p:button>
-                                                                <p:button rendered="#{r.vehiculo.id ne null and r.id eq null}" id="selectButton1" 
-                                                                          outcome="crear"
-                                                                          icon="ui-icon-pencil" title="Editar">  
-                                                                   
-                                                                    <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
-                                                                    <f:param name="vista" value="requisicion"></f:param>
-                                                                </p:button>
-                                                                <p:button rendered="#{r.vehiculo.id eq null and r.id ne null}" id="selectButton2" 
-                                                                          outcome="crear"
-                                                                          icon="ui-icon-pencil" title="Editar">  
-                                                                    <f:param name="requisicionId" value="#{r.id}"></f:param>
-                                                                    
-                                                                    <f:param name="vista" value="requisicion"></f:param>
-                                                                </p:button>
-                                                                <p:button rendered="#{r.vehiculo.id eq null and r.id eq null}" id="selectButton3" 
-                                                                          outcome="crear"
-                                                                          icon="ui-icon-pencil" title="Editar">  
-                                                                    
-                                                                    
-                                                                    <f:param name="vista" value="requisicion"></f:param>
-                                                                </p:button>
-                                                                
+                                                                        <f:param name="vista" value="requisicion"></f:param>
+                                                                    </p:button>
+                                                                </center>
+                                                            </p:column>
+                                                            <p:column>
+                                                                <center>
 
-
-                                                                <p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                                                 action="#{controladorRequisicion.darDeBaja(r)}" 
-                                                                                 title="Eliminar" update=":form:infoFM:listap">
-                                                                    <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
-                                                                </p:commandButton>
+                                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                                     action="#{controladorRequisicion.darDeBaja(r)}" 
+                                                                                     title="Eliminar" update=":form:infoFM:listap">
+                                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
+                                                                    </p:commandButton></center>
                                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                                     <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                                     <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />

@@ -35,39 +35,42 @@
 
 
                                                     <div class="col-lg-6">
-                                                     
-                                                            <div class="input-group">
-                                                                <center>
-                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPartidaContabilidad.palabrab}"   
-                                                                                    completeMethod="#{controladorPartidaContabilidad.autocompletar}"/> 
-                                                                    &nbsp;&nbsp;
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
 
-
+                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPartidaContabilidad.palabrab}"   
+                                                                                 completeMethod="#{controladorPartidaContabilidad.autocompletar}"/> 
+                                                                &nbsp;&nbsp;
 
 
 
-                                                                    <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listapc" action="#{controladorPartidaContabilidad.buscar()}" styleClass="btn btn-success" >
-
-                                                                    </p:commandButton>
 
 
-                                                                    <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listapc :form:acSimple" action="#{controladorPartidaContabilidad.limpiar()}" styleClass="btn btn-success" >
+                                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listapc" action="#{controladorPartidaContabilidad.buscar()}" styleClass="btn btn-success" >
 
-                                                                    </p:commandButton>
-                                                                </center>
-                                                            </div>
-                                                   
-                                                       
+                                                                </p:commandButton>
+
+
+                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listapc :form:acSimple" action="#{controladorPartidaContabilidad.limpiar()}" styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div> </p:panel></div>
                                 <div class="admin-actions">
-                                    <p:commandButton value="Crear" rendered="#{true}" action="/paginas/secretario/partidaContabilidad/crear.xhtml?faces-redirect=true" styleClass="btn  btn-success">
+
+                                    <h:link styleClass="btn btn-success" value="Crear" 
+                                            outcome="crear" type="button" >
                                         <f:param name="partidaId" ></f:param>
-                                    </p:commandButton><br/><br/>
+
+                                    </h:link>
                                 </div><br/><br/>
                             </div>
                             <!--Botones de admin-->
@@ -80,8 +83,8 @@
                                         <tbody>
                                             <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc" 
                                                          paginator="true" rows="15"                         
-                                         paginatorPosition="top"
-                                         rowsPerPageTemplate="5,10,15,20">
+                                                         paginatorPosition="top"
+                                                         rowsPerPageTemplate="5,10,15,20">
                                                 <p:column headerText="Número de provincia" sortBy="#{pc.numeroProvincia}">
                                                     <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
                                                 </p:column>
@@ -101,18 +104,24 @@
                                                     <h:outputText value="#{pc.descripcion}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 
-                                                    
-                                                    <p:button id="selectButton" 
-                                                              outcome="crear"
-                                                              icon="ui-icon-pencil" title="Editar">  
-                                                        <f:param name="partidaId" value="#{pc.id}"></f:param>
-                                                    </p:button>
-                                                    <p:commandButton rendered="#{pc.estado eq false}" id="confirmacion" value="Activar" action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" update="@form">
-                                                        <p:confirm header="Confirmación" message="¿Desea Realmente Activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
-                                                    <p:commandButton rendered="#{pc.estado eq true}" id="confirmacion1" value="Inactivar" action="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" update="@form">
-                                                        <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
+                                                    <center>
+                                                        <p:button id="selectButton" styleClass="btn  btn-success"
+                                                                  outcome="crear"
+                                                                  icon="ui-icon-pencil" title="Editar">  
+                                                            <f:param name="partidaId" value="#{pc.id}"></f:param>
+                                                        </p:button></center>
+                                                </p:column>
+                                                <p:column headerText="Opciones" style="width: 5%"> <center>
+                                                        <p:commandButton rendered="#{pc.estado eq false}" styleClass="btn  btn-success"
+                                                                         id="confirmacion" value="Activar" 
+                                                                         action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" update="@form">
+                                                            <p:confirm header="Confirmación" message="¿Desea Realmente Activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
+                                                        </p:commandButton>
+                                                        <p:commandButton rendered="#{pc.estado eq true}" styleClass="btn  btn-success"
+                                                                         id="confirmacion1" value="Inactivar"
+                                                                         action="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" update="@form">
+                                                            <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
+                                                        </p:commandButton></center>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                         <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check">

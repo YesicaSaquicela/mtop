@@ -107,19 +107,15 @@
                                                     <p:column headerText="#{messages['security.group.name']}" sortBy="#{group1.name}">
                                                         <h:outputText value="#{group1.name}" />
                                                     </p:column>             
-                                                    <p:column headerText="#{messages['common.actions']}" style="width:30%">                            
- <h:outputText value="#{group1.groupType}" />
-                                                        <p:commandButton styleClass="btn  btn-success"
-                                                                         id="button-delete" 
-                                                                         value="#{messages['security.rolAsignado']}" type="button" 
+                                                    <!--p:column headerText="#{messages['common.actions']}" style="width:30%">                            
 
-                                                                         onclick="deletedDlg.show();" rendered="true"
-                                                                         ajax="true">  
-                                                            <f:setPropertyActionListener value="#{group1.name}" target="#{securityHome.group.name}"/>
-                                                            <f:setPropertyActionListener value="#{group1.groupType}" target="#{securityHome.groupSelected}"/>
-                                                            
-                                                        </p:commandButton>     
-                                                    </p:column>
+                                                        <h:outputText value="#{group1.groupType}" />
+
+                                                        <p:commandButton id="button-delete" title="Dar de Baja"  icon="ui-icon-trash" styleClass="btn"
+                                                                        onclick="deletedDlg.show();" rendered="true" disabled="#{empty securityHome.groupSelected}" 
+                                                                        ajax="true">                                                                
+                                                       </p:commandButton> 
+                                                    </p:column-->
 
                                                 </p:dataTable>     
                                             </tbody> </div></div></div>   

@@ -121,52 +121,74 @@ limitations under the License.
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
 
                     <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
+
+                        <div class="actions" align="right">                                                                                                                                          
+
+                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w"  id="cancel" action="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+                                             value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
+                                             rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}" />
+
+
+                        </div><br/>
+
                         <div class="panel panel-primary">
+
                             <div class="panel-heading"><center>Datos Generales</center></div>
-                            <div class="container-fluid">
-                                <!--TODO: revisar <ui:include >-->
-                                <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
-                                <div class="input">
-                                    <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span10" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
-                                                  rendered="true" disabled="true">
-                                        <p:ajax event="keyup" rendered="savenew" update="savenew" />  
-                                    </p:inputText><br/>
-                                    <span class="help-inline text-muted">Nombre de la entidad</span>
-                                </div>
+                            <p:panel>
+                                <div class="container-fluid">
+                                    <!--TODO: revisar <ui:include >-->
+                                    <h:outputLabel value="#{messages['module.BussinesEntityType.typeName']}" />
+                                    <div class="input">
+                                        <p:inputText  value="#{bussinesEntityTypeHome.instance.name}" styleClass="xLarge span10" required="true" label="#{messages['module.BussinesEntityType.typeName']}" 
+                                                      rendered="true" disabled="true">
+                                            <p:ajax event="keyup" rendered="savenew" update="savenew" />  
+                                        </p:inputText><br/>
+                                        <h:graphicImage value="#{resource['success.gif']}" 
+                                                        styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Nombre de la entidad</span>
+                                    </div>
 
-                                <br/> 
-                                <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
-                                <div class="input">
-                                    <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
-                                                  rendered="true" disabled="true">
-                                        <p:ajax event="keyup" rendered="savenew" update="savenew" />  
-                                    </p:inputText><br/>
-                                    <span class="help-inline text-muted">Nombre de etiqueta de vista</span>
-                                </div>
+                                    <br/> 
+                                    <h:outputLabel value="#{messages['module.BussinesEntityType.label']}" />
+                                    <div class="input">
+                                        <p:inputText  value="#{bussinesEntityTypeHome.instance.label}" styleClass="xLarge span4" required="true" label="#{messages['module.BussinesEntityType.label']}" 
+                                                      rendered="true" disabled="true">
+                                            <p:ajax event="keyup" rendered="savenew" update="savenew" />  
+                                        </p:inputText><br/>
+                                        <h:graphicImage value="#{resource['success.gif']}" 
+                                                        styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Nombre de etiqueta de vista</span>
+                                    </div>
 
 
-                                <br/> 
-                                <h:outputLabel value="#{messages['common.description']}" />
-                                <div class="input">
-                                    <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
-                                                      rendered="true" >
-                                        <p:ajax event="keyup" rendered="savenew" update="savenew" />  
-                                    </p:inputTextarea><br/>
-                                    <span class="help-inline text-muted">Ingrese una descripción</span>
+                                    <br/> 
+                                    <h:panelGroup id="fn" layout="block" class="clearfix">
+                                        <h:outputLabel value="#{messages['common.description']}" />
+                                        <div class="input">
+                                            <p:inputTextarea  value="#{bussinesEntityTypeHome.instance.description}" styleClass="xLarge span4" required="true" label="#{messages['common.description']}" 
+                                                              rendered="true" >
+                                                <p:ajax event="keyup" rendered="savenew" update="savenew fn" />  
+                                            </p:inputTextarea><br/>
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{bussinesEntityTypeHome.instance.description !=null}"
+                                                            styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Ingrese una descripción</span>
+                                        </div>
+                                    </h:panelGroup><br/>
                                 </div> 
-                            </div>     
+                            </p:panel>
                         </div>
+
                     </h:panelGroup>
 
 
                     <div class="actions" align="center">                                                                                                                                          
-                        <p:commandButton id="savenew" value="#{messages['common.save']}" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"
+                        <p:commandButton id="savenew" value="Guardar1" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}"
                                          action="#{bussinesEntityTypeHome.saveBussinesEntityType()}" immediate="true"                                  
                                          styleClass="btn  btn-success" icon="ui-icon-disk"/> 
-                        #{' '}                                  
-                        <h:commandButton id="cancel" action="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
+
+                        <!--h:commandButton id="cancel" action="/paginas/admin/bussinesentitytype/list.xhtml?faces-redirect=true"                                                                                                                                                        
                                          value="#{messages['common.cancel']}" styleClass="btn  btn-success" immediate="true" onclick="editDlg.hide();"
-                                         rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}" />
+                                         rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}" /-->
 
 
                     </div>
@@ -246,6 +268,9 @@ limitations under the License.
                             <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
                                          editable="false" resizableColumns="true" liveResize="true" 
                                          id="properties"
+                                         paginator="true" rows="5"                         
+                                         paginatorPosition="top"
+                                         rowsPerPageTemplate="5,10,15,20"
                                          > 
 
                                 <p:column headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
@@ -270,7 +295,7 @@ limitations under the License.
                                 </p:column>  
                                 <p:column headerText="Opciones">
 
-                                    <p:button icon="ui-icon-circle-check" 
+                                    <p:button icon="ui-icon-circle-check" styleClass="btn  btn-success"
                                               rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
                                               title="Crear Entidad"
                                               outcome="bussinesentitytype"
@@ -280,7 +305,7 @@ limitations under the License.
                                         <f:param name="bussinesentitytypeId" ></f:param>
                                         <f:param name="backView" value="list"></f:param>
                                     </p:button>
-                                    <p:commandButton type="button" icon="ui-icon-circle-check" 
+                                    <p:commandButton type="button" icon="ui-icon-circle-check" styleClass="btn  btn-success"
                                                      rendered="#{propertyHome.ConvertirPropiedadesString(property) ne 'Estructura'  or bussinesEntityTypeHome.esTipoEntidad(property.name) ne false}" 
                                                      title="Crear Entidad"
                                                      onclick="alertDlg1.show()"
@@ -292,7 +317,7 @@ limitations under the License.
                                                "  
                                                id="button-edit"  rendered="true" 
                                                title="Editar"
-                                               styleClass="btn"
+                                               styleClass="btn  btn-success"
                                                outcome="property">
                                         <f:param name="propertyId" value="#{property.id}"></f:param>
                                         <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
@@ -312,13 +337,13 @@ limitations under the License.
                                         <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                     </p:confirmDialog-->
-                                    <p:commandButton type="button" icon="ui-icon-trash"
+                                    <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                      onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
                                                      update=":alerts-dialog:" 
                                                      title="Desactivar"
                                                      rendered="#{propertyHome.hasValuesBussinesEntity(property) eq false}">                        
                                     </p:commandButton>
-                                    <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                      action="#{propertyHome.deleteProperty(property)}" 
                                                      title="Desactivar" update=":form:properties"
                                                      rendered="#{propertyHome.hasValuesBussinesEntity(property)}">       
@@ -332,7 +357,7 @@ limitations under the License.
                                         <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                     </p:confirmDialog>
-                                    
+
                                 </p:column>
                             </p:dataTable>
                         </p:panel><br/>

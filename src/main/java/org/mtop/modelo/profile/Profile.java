@@ -35,6 +35,7 @@ import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.dinamico.Group;
 import com.google.common.base.Strings;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -101,6 +102,17 @@ public class Profile extends BussinesEntity implements Serializable {
     @Column
     private String bio;
     private String tipo;
+    private Date fechanacimiento;
+
+    public Date getFechanacimiento() {
+        return fechanacimiento;
+    }
+
+    public void setFechanacimiento(Date fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
+    }
+    
+        
 
     public String getTipo() {
         return tipo;
