@@ -108,7 +108,7 @@
                                                         <h:outputText value="#{group1.name}" />
                                                     </p:column>             
                                                     <p:column headerText="#{messages['common.actions']}" style="width:30%">                            
-
+ <h:outputText value="#{group1.groupType}" />
                                                         <p:commandButton styleClass="btn  btn-success"
                                                                          id="button-delete" 
                                                                          value="#{messages['security.rolAsignado']}" type="button" 
@@ -116,7 +116,7 @@
                                                                          onclick="deletedDlg.show();" rendered="true"
                                                                          ajax="true">  
                                                             <f:setPropertyActionListener value="#{group1.name}" target="#{securityHome.group.name}"/>
-                                                            <f:setPropertyActionListener value="#{group1.groupType}" target="#{securityHome.group}"/>
+                                                            <f:setPropertyActionListener value="#{group1.groupType}" target="#{securityHome.groupSelected}"/>
                                                             
                                                         </p:commandButton>     
                                                     </p:column>

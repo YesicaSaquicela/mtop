@@ -105,9 +105,26 @@
 
                                                         </p:commandButton>
                                                         <p:commandButton id="active1" action="#{profileHome.activarCuenta()}" styleClass="btn  btn-success"
-                                                                         title="Activar cuenta" icon="ui-icon-circle-check"
-                                                                         rendered="#{profileHome.instance.persistent and profileHome.instance.deleted and account.tienePermiso('ADMIN')}"/>
+                                                                         title="Activar cuenta" icon="ui-icon-circle-check" update="@form"
+                                                                         rendered="#{profileHome.instance.persistent and 
+                                                                                     profileHome.instance.deleted and 
+                                                                                     account.tienePermiso('ADMIN')}"/>
                                                     </center>
+                                                    <center>
+                                                    <p:commandButton title="Desactivar Cuenta1111" icon="ui-icon-closethick" 
+                                                                      styleClass="btn  btn-success" id="confirmacion" 
+                                                                      action="#{profileHome.inavilitarCuenta(profile_)}"
+                                                                     update="@form" rendered="#{profile_.username ne null}">
+                                                        <p:confirm header="Confirmación"
+                                                                   message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
+
+                                                    </p:commandButton>
+                                                        </center>
+
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                    </p:confirmDialog>
 
                                                     <p:commandLink id="delete" type="button" 
                                                                    value="Desactivar Cuenta" title="#{messages['common.delete']}" 
@@ -135,7 +152,7 @@
             <h:form id="form-dialog-confirm-delete1">
 
                 <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="Esta seguro que quiere deshabilitar esta cuenta de usuario de #{profileListService.selectedProfile.fullName}"/>  
+                    <h:outputText value="Esta seguro que quiere deshabilitar esta cuenta de usuario "/>  
                 </h:panelGroup>  
                 <p:commandButton value="#{messages['common.yes']}" action="#{profileListService.inavilitarCuenta()}" 
                                  oncomplete="#{'deletedDlg.hide();'}" update=":form:profileDataTable" immediate="true" ajax="true"
@@ -145,7 +162,7 @@
                                  style="margin-top:10px;"/>  
 
             </h:form>
-        </p:dialog>
+        </p:dialog> 
 
     </ui:define>
 </ui:composition>

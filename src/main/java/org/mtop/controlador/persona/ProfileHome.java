@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.mtop.service.ProfileListService;
 
 /**
  *
@@ -99,6 +100,32 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private IdentitySessionFactory identitySessionFactory;
     private Map<String, String> tipos = new HashMap<String, String>();
     private List<Profile> listausuarios;
+    
+    
+    @TransactionAttribute
+    public void inavilitarCuenta(Profile selectedProfile) {
+        System.out.println("PROFILE_________init");
+
+        try {
+            //PersistenceManager identityManager = security.getPersistenceManager();
+            //AttributesManager attributesManager = security.getAttributesManager();
+            //User user = identityManager.findUser(selectedProfile.getUsername());            
+            IdentityObjectAttribute ida = ps.getAttributos(selectedProfile.getUsername(), "estado").get(0);
+            //securityRol.disassociate(selectedProfile.getUsername());
+            System.out.println("PROFILE_________0");
+            ida.setValue("INACTIVO");
+            em.merge(ida);
+            em.flush();
+            FacesMessage msg = new FacesMessage("EL Usuario: " + selectedProfile.getFullName(), "ha sido deshabilitado");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+            System.out.println("PROFILE_________2");
+        } catch (IdentityException ex) {
+            ex.printStackTrace();
+            System.out.println("PROFILE_________3");
+            java.util.logging.Logger.getLogger(ProfileListService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     public List<Profile> getListausuarios() {
         return listausuarios;

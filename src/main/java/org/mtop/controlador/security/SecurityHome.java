@@ -164,6 +164,8 @@ public class SecurityHome implements Serializable {
         Group g = groupSelected;
             System.out.println("entro>>>>>");
             System.out.println("leego grupo"+group);
+              System.out.println("leego grupo222"+groupname);
+              System.out.println("leego grupo333"+groupSelected);
             System.out.println("llego user"+username);
              System.out.println("llego user1"+user);
         try {
