@@ -21,9 +21,7 @@ limitations under the License.
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/plantilla.xhtml">
-    <f:metadata>
 
-    </f:metadata>
     <ui:param name="title" value="#{messages['module.profils']}" />
     <ui:define name="header-replace">
         <div class="header-replace">
@@ -42,21 +40,73 @@ limitations under the License.
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
                         <p:panel>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            
+                            <div class="admin-actions">
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                            <div class="admin-messagesactions">
-                                <h:link value="Crear" rendered="#{true}" outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true" styleClass="btn primary">
-                                    <f:param name="profileId"></f:param>
+                                                    <div class="col-lg-6">
 
-                                </h:link>
-                                <h:commandLink id="print" title="Imprimir Pedido" styleClass="btn" action="#{reporteListas.renderPedido()}" >  
-                                    <p:graphicImage value="/resources/print.gif" width="12" height="12"/>
-                                    <f:setPropertyActionListener value="#{pedidosExam_}" target="#{reporteListas.pedido}"/>
-                                </h:commandLink>
+                                                        <div class="input-group">
+                                                            <center>
+                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge"
+                                                                                 id="acSimple" value="#{controladorPersona.palabrab}"   
+                                                                                 completeMethod="#{controladorPersona.autocompletar}"/> 
+
+
+
+                                                                <p:commandButton icon="ui-icon-search" value="Buscar" 
+                                                                                 update=":form:profileDataTable1"
+                                                                                 action="#{controladorPersona.buscar()}" 
+                                                                                 styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+
+                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" 
+                                                                                 value="Limpiar" update=":form:profileDataTable1 :form:acSimple" 
+                                                                                 action="#{controladorPersona.limpiar()}"
+                                                                                 styleClass="btn btn-success" >
+
+                                                                </p:commandButton>
+                                                            </center>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> </p:panel></div>
+                                <div class="admin-actions" align="right">
+
+                                    <h:commandLink id="print" title="Imprimir Pedido" styleClass="btn" action="#{reporteListas.renderPedido()}" >  
+                                        <p:graphicImage value="/resources/print.gif" width="12" height="12"/>
+                                        <f:setPropertyActionListener value="#{pedidosExam_}" target="#{reporteListas.pedido}"/>
+                                    </h:commandLink>
+
+                                </div>
+
+
+                                <div class="admin-actions">
+
+                                    <h:link styleClass="btn btn-success"
+                                            outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true"
+                                            value="Crear"
+                                            type="button">  
+                                        <f:param name="profileId"></f:param>
+                                    </h:link>
+
+                                </div><br/><br/>
+
                             </div>
 
 
+<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -64,16 +114,11 @@ limitations under the License.
 
                                         <tbody>
                                             <p:dataTable id="profileDataTable1"  var="profile_" value="#{controladorPersona.listaPersona}" 
-                                                         paginator="true" rows="15"                         
+                                                         paginator="true" rows="5"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20">
 
-                                                <p:column sortBy="#{profile_.id}">
-                                                    <f:facet name="header">  
-                                                        <h:outputText value="Id" />  
-                                                    </f:facet> 
-                                                    <h:outputText value="#{profile_.id}" />
-                                                </p:column>
+
                                                 <p:column sortBy="#{profile_.firstname}">
                                                     <f:facet name="header">  
                                                         <h:outputText value="#{messages['common.firstname']}" />  
@@ -104,16 +149,28 @@ limitations under the License.
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.tipo}" />
                                                 </p:column>
-                                                <p:column headerText="Opcion" >                                        
-                                                    <p:button title="Editar" icon="ui-icon-pencil" rendered="#{true}" outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true" styleClass="btn" >                          
-                                                        <f:param name="profileId" value="#{profile_.id}"></f:param>
+                                                <p:column headerText="Editar" >     
+                                                    <center>
+                                                        <p:button styleClass="btn  btn-success" title="Editar" icon="ui-icon-pencil" rendered="#{true}" 
+                                                                  outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true" 
+                                                                  >                          
+                                                            <f:param name="profileId" value="#{profile_.id}"></f:param>
 
-                                                    </p:button>
-                                                    <h:link value="Crear Usuario" rendered="#{profile_.username eq null}" outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" styleClass="btn primary">
-                                                        <f:param name="profileId" value="#{profile_.id}"></f:param>
-                                                        <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
-                                                    </h:link>
+                                                        </p:button>
+                                                    </center>
 
+                                                </p:column>
+                                                <p:column headerText="Crear Usuario">
+                                                    <center>
+                                                        <p:button icon="ui-icon-person" 
+                                                                  title="Crear Usuario" styleClass="btn  btn-success"
+                                                                  rendered="#{profile_.username eq null}" 
+                                                                  outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" 
+                                                                  >
+                                                            <f:param name="profileId" value="#{profile_.id}"></f:param>
+                                                            <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
+                                                        </p:button>
+                                                    </center>
                                                 </p:column>
                                             </p:dataTable></tbody>  </div> </div> </div> 
 

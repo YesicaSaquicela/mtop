@@ -28,7 +28,13 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <div class="admin-actions " align="right"> 
 
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" 
+                                  value="Regresar" rendered="#{true}" 
+                                  outcome="/paginas/admin/planMantenimiento/lista" 
+                                  styleClass="btn  btn-success"/>
+                    </div><br/>
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>Asignar Actividades</center></div>
 
@@ -53,12 +59,12 @@
                                              id="actividad" required="true" styleClass="form-control"
                                              value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
                                              >
-                            
+
                             </p:inputTextarea>
                             <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
-                            
-                            
-                          
+
+
+
 
                             <h:outputLabel value="Kilometraje"/> <br></br> 
                             <p:selectOneMenu maxlength="50" required="true" label="kilometraje" requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
@@ -212,8 +218,7 @@
                     <div class="admin-actions " align="center"> 
                         <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" 
                                          update="p1" process="@this"/>
-                        #{' '}
-                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/planMantenimiento/lista" styleClass="btn  btn-success"/>
+
                     </div>
 
 

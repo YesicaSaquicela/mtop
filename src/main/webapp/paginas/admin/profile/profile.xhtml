@@ -11,24 +11,26 @@
       xmlns:mtop="http://mtop.org/jsf/facelets"
       xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon">
     <ui:composition  template="/WEB-INF/templates/plantilla.xhtml">
+          <ui:param name="titulo" value="Gestionar Personal"/>
         <f:metadata>
             <f:viewParam name="profileId" value="#{profileHome.profileId}" />
             <f:viewParam name="backView" value="#{profileHome.backView}" />
         </f:metadata>
         <ui:define name="header-replace">
-            <div class="header-replace">
-                <div class="container-header">
-                    <div class="row lf" style="margin-top: 0.05%; margin-left: 2%" >
-                        <h2>#{profileHome.managed ? messages['common.edit'] : messages['common.add']} #{profileHome.instance.fullName}</h2>   
-                    </div>
-                </div>
-            </div>             
+        <h2>#{titulo}</h2>           
         </ui:define>
         <ui:define name="content">            
             <h:form id="profile">
                 <div role="main">
-                    <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                        <div class="actions" align="right">
 
+                            <p:button styleClass="btn  btn-success" 
+                                      icon="ui-icon-arrowreturnthick-1-w" 
+                                      outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true"
+                                      value="Regresar" rendered="#{true}"/>
+
+                        </div><br/>
                         <!-- Example row of columns -->
                         <div class="panel panel-primary">
                             <div class="panel-heading" align="center">Datos Generales</div>
@@ -37,13 +39,33 @@
                                 <div class="row">
                                     <div class="col-md-6"> 
 
+                                        <mtop:input id="fstn" name="firstname" type="text" 
+                                                    label="#{messages['common.firstname']}"
+                                                    value="#{profileHome.instance.firstname}" 
+                                                    required="true" inlinehelp="Ingrese el nombre" 
+                                                    execute="@this save" render="fstn" validator="stringValidator"/><br/>
+                                        
+                                        <mtop:input id="srn" name="surname" type="text" 
+                                                    label="#{messages['common.surname']}"
+                                                    value="#{profileHome.instance.surname}"
+                                                    required="true" inlinehelp="Ingrese apellidos"
+                                                    execute="@this save" validator="stringValidator"/><br/>
+                                       
+                                        <h:panelGroup id="fn" layout="block" class="clearfix">
+                                            <h:outputLabel value="Fecha de Nacimiento*" /> <br></br> 
+                                            <p:calendar  id="fechan" value="#{profileHome.instance.fechanacimiento}" 
+                                                         styleClass="xLarge"  navigator="true" required="true"
+                                                         >   
+                                                <p:ajax immediate="true" event="dateSelect" rendered="save fn" /> 
 
-                                        <!-- Attributos para usuario -->
-                                        <mtop:input id="fstn" name="firstname" type="text" label="#{messages['common.firstname']}" value="#{profileHome.instance.firstname}" required="true" inlinehelp="#{messages['common.firstname.inlinehelp']}" execute="@this save" render="fstn" validator="stringValidator"/>
-                                        <mtop:input id="srn" name="surname" type="text" label="#{messages['common.surname']}" value="#{profileHome.instance.surname}" required="true" inlinehelp="#{messages['common.surname.inlinehelp']}" execute="@this save" validator="stringValidator"/>
-                                        <!--<glue:input id="cod" name="code" type="text" label="#{messages['profile.dni']}" value="#{profileHome.instance.code}" required="false" inlinehelp="#{messages['profile.dni.inlinehelp']}" execute="@this save" validator="ciValidator" />-->
+                                            </p:calendar> <br/>                                 
+
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.fechanacimiento !=null}" styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
+                                        </h:panelGroup><br/>
+                                        
                                         <h:panelGroup id="cod" layout="block" class="clearfix" rendered="true">
-                                            <label for="dni">#{messages['profile.dni']}</label>
+                                            <label for="dni">Cédula de identidad*</label>
                                             <div class="input">
                                                 <h:inputText class="form-control" id="dni" value="#{profileHome.instance.code}" styleClass="xLarge" required="true" label="#{messages['profile.dni']}">
                                                     <f:validator validatorId="ciValidator" />
@@ -52,17 +74,27 @@
                                                 </h:inputText>
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.code != null}"
                                                                 styleClass="validation-status" />
-                                                <span class="help-inline"><br/>"#{messages['profile.dni.inlinehelp']}"<ocp:message forId="dni" /></span>
+                                                <span class="help-inline text-muted">Ingrese cédula de identidad válida<ocp:message forId="dni" /></span>
                                             </div>
-                                        </h:panelGroup>
-                                        <!--
-                                        <glue:input id="scrn" name="screename" type="text" label="#{messages['common.screenname']}" value="#{profileHome.instance.screenName}" required="false" inlinehelp="#{messages['common.screenname.inlinehelp']}" execute="@this save"/>
-                                        -->
+                                        </h:panelGroup><br/>
 
-                                        <mtop:input id="tipo" name="bio" type="text" label="Tipo de Persona:" value="#{profileHome.instance.tipo}" required="false" inlinehelp="Ingrese un tipo de persona" execute="@this save"/>
+                                        <h:panelGroup id="em1" layout="block" class="clearfix">
+                                              <div class="input">
+                                            <p:outputLabel for="tipop" value="Tipo de Persona* " /><br/>
+                                            <p:selectOneMenu id="tipop" value="#{profileHome.instance.tipo}" effect="fold" editable="true">
+                                                <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                                                <f:selectItems value="#{profileHome.tipos}" />
+                                           <f:ajax execute="@this" render="em1"  />
+                                            </p:selectOneMenu>
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.tipo != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted"><br/>Ingrese el tipo de persona<ocp:message forId="tipop" /></span>
+                                              </div>
+                                        </h:panelGroup><br/>
+
 
                                         <h:panelGroup id="eml" layout="block" class="clearfix">
-                                            <label for="email">#{messages['common.email']}</label>
+                                            <label for="email">#{messages['common.email']}*</label>
                                             <div class="input">
                                                 <h:inputText class="form-control" id="email" value="#{profileHome.instance.email}" styleClass="xLarge" required="true" label="#{messages['common.email']}">
                                                     <f:validator validatorId="emailValidator" />
@@ -71,25 +103,21 @@
                                                 </h:inputText>
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.email != null}"
                                                                 styleClass="validation-status" />
-                                                <span class="help-inline"><br/>Prometemos <b>nunca</b> compartir su dirección de correo. <ocp:message forId="email" /></span>
+                                                <span class="help-inline text-muted">Ingrese el correo electrónico<ocp:message forId="email" /></span>
                                             </div>
                                         </h:panelGroup>
-
-
-                                        <!--<glue:input id="showBootcamp" name="showBootcamp" type="checkbox" value="# {profileHome.instance.showBootcamp}" required="true" inlinehelp="# {messages['common.bootcamp.inlinehelp']}" execute="@this save"/>-->
-
-
                                     </div>
                                 </div>
                             </p:panel>
                         </div>
-                  
+
                         <div class="actions" align="center">
-                            <h:commandButton id="save" action="#{profileHome.saveProfile()}" value="#{messages['common.save']}" styleClass="btn primary"/>
-                            &nbsp;
-                            <p:button icon="ui-icon-arrowreturnthick-1-w" outcome="/paginas/admin/listProfile.xhtml?faces-redirect=true"
-                                      value="Regresar" styleClass="btn primary" rendered="#{true}"/>
-                           
+                            <p:commandButton styleClass="btn  btn-success" id="save" 
+                                             action="#{profileHome.saveProfile()}" 
+                                             value="Guardar" icon="ui-icon-disk" 
+                                             />
+
+
                         </div>
                     </div>
                 </div>

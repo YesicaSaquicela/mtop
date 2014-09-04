@@ -26,6 +26,13 @@
             <h:form id="form" acceptcharset="UTF-8">
                 <div role="main">
                     <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                           <div class="actions" align="right">
+                                 <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/paginas/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn  btn-success" >                        
+                                <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
+                            </h:link>           
+                           
+                           
+                        </div><br/> 
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>Panel Básico</center></div>
                             <p:panel id="fnp">
@@ -187,14 +194,10 @@
                         <div class="actions" align="center">
                             <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 
                                              value="#{messages['common.save']}" styleClass="btn  btn-success" icon="ui-icon-disk"/>
-                            #{' '}                     
-                            <p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="#{propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
+                      
+                             <!--p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="#{propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
                                              update=":cancel-dialog :alerts-dialog:" rendered="#{not empty propertyHome.instance.id}">                        
-                            </p:commandButton>
-                            #{' '}
-                            <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/paginas/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn  btn-success" >                        
-                                <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
-                            </h:link>
+                            </p:commandButton-->
                         </div>    
                     </div></div>
             </h:form>

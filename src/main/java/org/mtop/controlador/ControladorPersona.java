@@ -75,6 +75,81 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
     //@Inject
     //private ProfileService pservicio;
     List<Profile> listaPersona = new ArrayList<Profile>();
+    List<Profile> listaPersona1;
+    private String palabrab;
+
+    public String getPalabrab() {
+        return palabrab;
+    }
+
+    public void setPalabrab(String palabrab) {
+        this.palabrab = palabrab;
+    }
+
+    public void buscar() {
+        palabrab = palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
+            palabrab = "Ingrese algun valor a buscar";
+        }
+        System.out.println("ingreso la palabra" + palabrab);
+        //buscando por coincidencia descripciion
+        List<Profile> lp = new ArrayList<Profile>();
+        for (Profile p : listaPersona1) {
+            if (p.getFullName().contains(palabrab)) {
+                lp.add(p);
+            } else {
+                if (p.getTipo().contains(palabrab)) {
+                    lp.add(p);
+//                } else {
+//                    if (p.getCode().contains(palabrab)) {
+//                        lp.add(p);
+//                    }
+                }
+            }
+        }
+
+        if (lp.isEmpty()) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (palabrab.equals("Ingrese algun valor a buscar")) {
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                palabrab = " ";
+            } else {
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+            }
+
+        } else {
+            listaPersona = lp;
+        }
+
+    }
+
+    public void limpiar() {
+        palabrab = "";
+        listaPersona = listaPersona1;
+
+    }
+
+    public ArrayList<String> autocompletar(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+
+        for (Profile p : listaPersona1) {
+            if (p.getFullName().contains(query)) {
+                ced.add(p.getFullName());
+            }
+            if (p.getTipo().contains(query) && !ced.contains(p.getTipo())) {
+                ced.add(p.getTipo());
+            }
+//            System.out.println("p.getcode"+p.getCode());
+//                if (p.getCode().contains(query)) {
+//                    ced.add(p.getCode());
+//                } 
+        }
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
 
     public Long getPersonaId() {
 
@@ -135,6 +210,7 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         // pservicio.setEntityManager(em);
         servgen.setEm(em);
         listaPersona = servgen.buscarTodos(Profile.class);
+        listaPersona1 = listaPersona;
     }
 
     @Override

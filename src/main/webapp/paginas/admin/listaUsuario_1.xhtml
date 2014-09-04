@@ -30,7 +30,7 @@
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
                         <p:panel>
-
+                           
                             <div class="admin-actions" align="right">
                                 <h:panelGrid id="export" class="columns" >
                                     <p:panel>
@@ -45,7 +45,15 @@
                             </div>
                             <div class="admin-actions">
 
-
+                                <h:link id="button-authorize" value="Asignar Roles" 
+                                        rendered="#{true}" 
+                                        outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" 
+                                        styleClass="btn  btn-success"
+                                        disabled="#{empty  profileListService.selectedProfile}">
+                                    <f:param name="username" value="#{profileListService.selectedProfile.username}"></f:param>
+                                    <f:param name="backView" value="listProfile"></f:param>
+                                </h:link> 
+                                #{' '}
 
                                 <h:link id="Acc" value="Activos" title="Cuentas de usuarios activas" 
                                         outcome="listaUsuario" styleClass="btn  btn-success" >                                        
@@ -59,18 +67,26 @@
 
 
                             </div><br/>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+ <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
 
 
                                         <tbody>
-                                            <p:dataTable id="profileDataTable"  var="profile_" value="#{profileHome.listausuarios}" 
+                                            <p:dataTable id="profileDataTable"  var="profile_" value="#{profileListService.resultList}" 
                                                          paginator="true" rows="5"                         
                                                          paginatorPosition="top"
-                                                         rowsPerPageTemplate="5,10,15,20"
-                                                         >
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
+                                                         rowsPerPageTemplate="5,10,20,50,100"
+                                                         lazy="true" rowKey="#{profile_.id}" 
+                                                         selection="#{profileListService.selectedProfile}"                         
+                                                         selectionMode="single">
+
+                                                <p:ajax event="rowSelect" listener="#{profileListService.onRowSelect}"   
+                                                        update=":form:messages   :cancel-dialog :form:button-authorize"/>   
+                                                <p:ajax event="rowUnselect" listener="#{profileListService.onRowUnselect}" 
+                                                        update=":form:messages  :cancel-dialog :form:button-authorize"/>
 
 
                                                 <p:column sortBy="#{profile_.username}">
@@ -79,32 +95,19 @@
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.username}" />
                                                 </p:column>
-                                                <p:column headerText="Asignar Roles" style="width: 5%">
 
-                                                    <center>
-                                                        <p:button title="Asignar Roles" icon="ui-icon-check" rendered="#{true}" styleClass="btn  btn-success"
-                                                                  outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" 
-                                                                  >                          
-                                                            <f:param name="username" value="#{profile_.username}"></f:param>
-                                                            <f:param name="backView" value="listProfile"></f:param>
-
-                                                        </p:button>
-
-                                                    </center>
-                                                </p:column>
-
-                                                <p:column headerText="Desactivar Cuenta" style="width: 5%">   
+                                                <p:column headerText="Opcion" >   
 
 
                                                     <center>
-                                                        <p:commandButton title="Desactivar Cuenta" icon="ui-icon-closethick" 
-                                                                         oncomplete="#{'deletedDlg.show();'}" styleClass="btn  btn-success"
+                                                        <p:commandButton title="Desactivar Cuenta" icon="ui-icon-circle-minus" 
+                                                                         oncomplete="#{'deletedDlg.show();'}" 
                                                                          rendered="#{profile_.username ne null}"> 
-
+                                                                                      
                                                             <p:ajax process="@this" update=":cancel-dialog"/>
 
                                                         </p:commandButton>
-                                                        <p:commandButton id="active1" action="#{profileHome.activarCuenta()}" styleClass="btn  btn-success"
+                                                        <p:commandButton id="active1" action="#{profileHome.activarCuenta()}"
                                                                          title="Activar cuenta" icon="ui-icon-circle-check"
                                                                          rendered="#{profileHome.instance.persistent and profileHome.instance.deleted and account.tienePermiso('ADMIN')}"/>
                                                     </center>

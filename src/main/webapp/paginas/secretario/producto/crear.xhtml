@@ -28,7 +28,13 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                  
+                       <div class="admin-actions " align="right" > 
+                     
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" 
+                                  value="Regresar" rendered="#{true}" 
+                                  outcome="/paginas/secretario/producto/lista" 
+                                  styleClass="btn  btn-success"/>
+                    </div><br/>
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
                         <p:panel id="p1" >
@@ -177,8 +183,7 @@
                         <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorProducto.guardar()}"
                                          icon="ui-icon-disk" update="p1" ajax="false" process="@this"/>
 
-                        &nbsp;&nbsp;
-                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/producto/lista" styleClass="btn  btn-success"/>
+                       
                     </div>
                 </div>
             </div>

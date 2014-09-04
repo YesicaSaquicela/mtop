@@ -139,16 +139,19 @@ public class SecurityHome implements Serializable {
     
     @Transactional
     public void associateTo() {
+        System.out.println("entro a associate");
+        System.out.println("grup"+group);
+        System.out.println("user"+user);
         try {
             if (getGroup() != null && getUser() != null) {                
                 if (!securityGroupService.isAssociated(group, user)) {                 
                     security.getRelationshipManager().associateUser(group, user);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización realizada con exito! ", "Se añadio " + getUser().getKey() + " en " + getGroup().getName() ));
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Authorization exists!", "User " + getUser().getKey() + " was assig into " + getGroup().getName() ));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización exitosa!", "usuario " + getUser().getKey() + " fue asignado en " + getGroup().getName() ));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cann't assign authorization for ", getGroup().getName() + " and " + getUser().getKey()));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede realizar la autorización para el", getGroup().getName() + " y " + getUser().getKey()));
             }
 
         } catch (IdentityException ex) {
@@ -159,19 +162,22 @@ public class SecurityHome implements Serializable {
     @Transactional
     public void disassociate() {
         Group g = groupSelected;
-        
+            System.out.println("entro>>>>>");
+            System.out.println("leego grupo"+group);
+            System.out.println("llego user"+username);
+             System.out.println("llego user1"+user);
         try {
             log.info("Usuario: "+user+" Grupo: "+g);
             if (g != null && getUser() != null) {
                 if (securityGroupService.isAssociated(g, user)) {
                     securityGroupService.disassociate(g, getUser());
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disassociated was established succesfully!",   "" + getUser().getKey() + " removed from " + g.getName()));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disassociated se establecio con éxito!",   "" + getUser().getKey() + " se ha retirado de " + g.getName()));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide();");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Disassociated incorrect! ",  "Association " + g.getName() + ", " + getUser().getKey() + " not exists"));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Disassociated incorrecto!",  "Asociaci " + g.getName() + ", " + getUser().getKey() + " not exists"));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cann't unassign authorization!", "Please provide a group and user"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No puede cancelar la asignación de la autorización!", "Por favor ingrese el grupo y el usuario"));
             }
 
         } catch (IdentityException ex) {
