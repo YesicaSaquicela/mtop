@@ -29,6 +29,11 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="right">
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/lista" styleClass="btn  btn-success">
+
+                        </p:button>
+                    </div>
                     <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
                     <div class="admin-actions " align="right" > 
 
@@ -108,6 +113,7 @@
                         <div class="panel-heading" align="center">ESTADO MECÁNICO</div>
 
                         <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+
                             <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
 
                                 <div  class="panel panel-primary">
@@ -199,18 +205,26 @@
                                          ajax="true" icon="ui-icon-disk" 
                                          styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
                                          immediate="true" update="@this"/>
+
+
+                        <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                  outcome="verestadoMecanico" value="Ver Estado Mecánico"
+                                  title="Visualizar">  
+                            <p:ajax event="click" partialSubmit="true" update="@this"/>
+                            <f:param name="vehiculoId" value="#{controladorVehiculo.instance.id}"></f:param>
+                            <f:param name="evaluacion" value="#{controladorVehiculo.obtenerEvaluacion()}"></f:param>
+                            
+                        </p:button>
                         <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
                         <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
                             <div class="input" align="center">
-                            <h:outputText value="Por favor espere, Cargando..."/><br/>
+                                <h:outputText value="Por favor espere, Cargando..."/><br/>
                             </div>
                             <p:graphicImage value="/resources/ajax-loader.gif" /> 
                         </p:dialog>
-          
-                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/lista" styleClass="btn  btn-success">
 
-                        </p:button>
+
                     </div>
                 </div></div>
         </h:form>

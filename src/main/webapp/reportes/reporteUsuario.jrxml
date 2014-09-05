@@ -28,7 +28,7 @@
 		<band height="128">
 			<image>
 				<reportElement x="4" y="0" width="551" height="128" uuid="3af0b683-51f0-4033-8d2c-57ad323af16a"/>
-				<imageExpression><![CDATA["/home/carlis/NetBeansProjects/mtop/src/main/webapp/reportes/10617287_812462588772870_1932920118_n.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["../../../reportes/10617287_812462588772870_1932920118_n.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

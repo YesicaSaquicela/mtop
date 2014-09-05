@@ -251,6 +251,7 @@ public class InitializeDatabase {
         validarEstructuraParaSuspensionV();
         validarEstructuraParaDireccionV();
         validarEstructuraParaFrenosV();
+        validarEstructuraParaCarroceriaV();
        
 
         //validarEstructuraParaPerfilDeUsuario();
@@ -375,8 +376,7 @@ public class InitializeDatabase {
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los Neumáticos", "/paginas/vehiculo/crear", 3L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Transmision", "Transmisión", "Información de la transmisión", "/paginas/vehiculo/crear", 9L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Suspension", "Suspensión", "Información de la suspensión", "/paginas/vehiculo/crear", 10L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroseria", "Carrosería", "Información de la carrosería", "/paginas/vehiculo/crear", 11L));
-
+           
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -647,6 +647,39 @@ public class InitializeDatabase {
             attributes.add(buildPropertyParteMecanica("Frenos", "cilindroSecundario", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindros secundarios", " Ingrese valor para cilindros secundarios", false, 2L,100));
             attributes.add(buildPropertyParteMecanica("Frenos", "forros", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forros de freno", "Ingrese valor para forros de freno", false, 3L,80));
             
+            //Agregar atributos
+            structure.setProperties(attributes);
+            bussinesEntityType.addStructure(structure);
+            entityManager.persist(bussinesEntityType);
+            entityManager.flush();
+        }
+    }
+    private void validarEstructuraParaCarroceriaV() {
+        BussinesEntityType bussinesEntityType = null;
+        String name = "Carroceria";
+        try {
+            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
+                    BussinesEntityType.class);
+            query.setParameter("name", name);
+            bussinesEntityType = query.getSingleResult();
+        } catch (NoResultException e) {
+            bussinesEntityType = new BussinesEntityType();
+            bussinesEntityType.setName(name);
+            bussinesEntityType.setLabel(name);
+            //Agrupaciones de propiedades
+            Date now = Calendar.getInstance().getTime();
+            Calendar ago = Calendar.getInstance();
+            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
+            Structure structure = null;
+            structure = new Structure();
+            structure.setName(name);
+            structure.setCreatedOn(now);
+            structure.setLastUpdate(now);
+            //Lista de atributos de entidad de negocios
+            List<Property> attributes = new ArrayList<Property>();
+            //Para inicializar estructuras llamar [buildProperty()]
+            attributes.add(buildPropertyParteMecanica("Carroceria", "forma", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forma", "Ingrese valor para forma de la carrocería", false, 1L,100));
+          
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);

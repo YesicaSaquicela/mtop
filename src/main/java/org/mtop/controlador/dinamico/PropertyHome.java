@@ -298,36 +298,38 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyType() {
-        if (getInstance().getType().equals("java.lang.MultiLineString")) {
-            propertyType="AreaTexto";
-        } else {
-            if (getInstance().getType().equals("java.lang.String[]")) {
-                propertyType="Lista";
+        if (getInstance() != null) {
+            if (getInstance().getType().equals("java.lang.MultiLineString")) {
+                propertyType = "AreaTexto";
             } else {
-                if (getInstance().getType().equals("java.lang.Boolean")) {
-                    propertyType="Booleano";
+                if (getInstance().getType().equals("java.lang.String[]")) {
+                    propertyType = "Lista";
                 } else {
-                    if (getInstance().getType().equals("java.lang.Long")) {
-                        propertyType="EnteroMayor";
+                    if (getInstance().getType().equals("java.lang.Boolean")) {
+                        propertyType = "Booleano";
                     } else {
-                        if (getInstance().getType().equals("java.lang.Integer")) {
-                            propertyType="Entero";
+                        if (getInstance().getType().equals("java.lang.Long")) {
+                            propertyType = "EnteroMayor";
                         } else {
-                            if (getInstance().getType().equals("java.lang.Double")) {
-                                propertyType="Real";
+                            if (getInstance().getType().equals("java.lang.Integer")) {
+                                propertyType = "Entero";
                             } else {
-                                if (getInstance().getType().equals("java.lang.String")) {
-                                    propertyType="Texto";
+                                if (getInstance().getType().equals("java.lang.Double")) {
+                                    propertyType = "Real";
                                 } else {
-                                    if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-                                        propertyType="EstadoParteMecanica";
+                                    if (getInstance().getType().equals("java.lang.String")) {
+                                        propertyType = "Texto";
                                     } else {
-                                        if (getInstance().getType().equals("java.util.Date")) {
-                                            propertyType="Fecha";
+                                        if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
+                                            propertyType = "EstadoParteMecanica";
                                         } else {
-                                            propertyType="EstadoParteMecanica";
-                                        }
+                                            if (getInstance().getType().equals("java.util.Date")) {
+                                                propertyType = "Fecha";
+                                            } else {
+                                                propertyType = "EstadoParteMecanica";
+                                            }
 
+                                        }
                                     }
                                 }
                             }
@@ -336,6 +338,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 }
             }
         }
+
+        System.out.println("tipo a retornar " + propertyType);
         return propertyType;
     }
 
@@ -368,6 +372,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                             System.out.println(fecha);
                             setPropertyStringValue(fecha);
                             setPropertyDateValue(date);
+                        } else {
+                            if (this.propertyType.equals("Estructura")) {
+                                System.out.println("entro a estrusctura");
+                                        
+                            }
                         }
 
                     }
@@ -375,6 +384,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
             }
         }
+        System.out.println("valor de tipo fijado " + propertyType);
 
     }
 
@@ -584,7 +594,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public boolean hasValuesBussinesEntity(Property p) {
-        
+
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
         System.out.println("fijando p.name a intance" + p.getName());
@@ -643,13 +653,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     return true;
                 }
 
-            }else{
+            } else {
                 return ban;
             }
 
         }
     }
-    
 
     public String cargarValidador() {
         //log.info("ingreso a validador value");

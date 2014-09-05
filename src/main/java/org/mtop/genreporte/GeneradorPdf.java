@@ -1122,7 +1122,7 @@ public class GeneradorPdf {
 
             Image logo = null;
             try {
-                logo = Image.getInstance("mtop1.jpg");
+                logo = Image.getInstance("../../../resources/mtop1.jpg");
                 logo.setAlignment(Image.ALIGN_LEFT);
                 logo.scaleAbsoluteHeight(20);
                 logo.scaleAbsoluteWidth(20);

@@ -365,6 +365,15 @@ limitations under the License.
 
                     </c:forEach> 
                 </div></div>
+            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+            <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                <div class="input" align="center">
+                    <h:outputText value="Por favor espere, Cargando..."/><br/>
+                </div>
+                <p:graphicImage value="/resources/ajax-loader.gif" /> 
+            </p:dialog>
+
         </h:form>
         <p:dialog id="cancel-dialog" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
             <h:form id="form-dialog-confirm-delete">
@@ -404,6 +413,7 @@ limitations under the License.
                 </h:panelGroup>                          
                 <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
                                  styleClass="btn  btn-success"/>  
+
             </h:form>
         </p:dialog>
         <p:dialog id="alerts-dialog1" header="#{messages['common.alert']}" widgetVar="alertDlg1" resizable="false" modal="true">  

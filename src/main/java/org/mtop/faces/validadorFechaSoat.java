@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -33,9 +34,6 @@ import org.mtop.util.UI;
  *
  * @author yesica
  */
-
-
-
 @RequestScoped
 @FacesValidator("validadorFechasSoat")
 public class validadorFechaSoat implements Validator {
@@ -46,22 +44,21 @@ public class validadorFechaSoat implements Validator {
     private InputElement<Date> fechaSalida;
     @Inject
     private InputElement<Date> fechaEntrada;
-   
-  
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         log.info("Ingreso a validar fechas");
-     
+
         Date fFinal = fechaSalida.getValue();
         Date fEntrada = fechaEntrada.getValue();
+        if (fFinal != null || fEntrada != null) {
+            log.info(" fechaFinal:" + fFinal
+                    + "fecha entrada : " + fEntrada);
+            if (!fEntrada.before(fFinal)) {
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("ADVERTENCIA: "), "La Fecha Final debe ser mayor a la Fecha de Inicio "));
 
-        log.info(" fechaFinal:" + fFinal+
-                "fecha entrada : "+fEntrada);
-        if (!fEntrada.before(fFinal)) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("ADVERTENCIA: "), "La Fecha Final debe ser mayor a la Fecha de Inicio "));
-
+            }
         }
 
     }
 }
-

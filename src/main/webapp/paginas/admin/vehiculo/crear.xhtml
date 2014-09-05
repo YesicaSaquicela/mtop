@@ -62,21 +62,21 @@
                                                 <span class="help-inline text-muted"><br/>Ingrese el número de registro<ocp:message forId="registro" /></span>
                                             </div>
                                         </h:panelGroup><br></br>
- <h:panelGroup id="p" layout="block" class="clearfix">
-     <div class="input">
-                                        <h:outputLabel value="Conductor:"/> <br></br>
-                                        <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
-                                                         converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                         requiredMessage="Se requiere elegir un conductor para el vehículo">  
-                                            <f:ajax execute="@this" render="p" />
-                                            <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                            <f:selectItems value="#{controladorVehiculo.listaPersonas}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                        <h:panelGroup id="p" layout="block" class="clearfix">
+                                            <div class="input">
+                                                <h:outputLabel value="Conductor:"/> <br></br>
+                                                <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
+                                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                                 requiredMessage="Se requiere elegir un conductor para el vehículo">  
+                                                    <f:ajax execute="@this" render="p" />
+                                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                                    <f:selectItems value="#{controladorVehiculo.listaPersonas}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
 
-                                        </p:selectOneMenu> <br></br>
-                                        <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.idPersona != null}" styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Elija el conductor del vehículo<ocp:message forId="personal" /></span><br></br><br></br> 
-</div>
-     </h:panelGroup >
+                                                </p:selectOneMenu> <br></br>
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.idPersona != null}" styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Elija el conductor del vehículo<ocp:message forId="personal" /></span><br></br><br></br> 
+                                            </div>
+                                        </h:panelGroup >
                                         <mtop:input id="marca" name="marca" type="text" label="Marca" 
                                                     value="#{controladorVehiculo.instance.marca}" required="true" 
                                                     inlinehelp=" ingrese la marca Vehículo Ej(Chevrolet)" 
@@ -117,10 +117,36 @@
                                                     value="#{controladorVehiculo.instance.numPasajeros}" required="true" 
                                                     inlinehelp="Ingrese el número de pasajeros del vehículo Ej(2)" 
                                                     execute ="@this save" render="numPasajeros" validator="digitValidator"/><br></br>
+                                        <h:panelGroup id="p1" layout="block" class="clearfix">
+                                            <div class="input">
+                                                <h:outputLabel value="Tracción"/> <br></br>
+                                                <p:selectOneMenu id="traccion"  value="#{controladorVehiculo.instance.traccion}" effect="fade"
+                                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                                 requiredMessage="Se requiere la traccion para el vehículo">  
+                                                    <f:ajax execute="@this" render="p" />
+                                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                                    <f:selectItem itemLabel="4x4" itemValue="4x4" />  
+                                                    <f:selectItem itemLabel="4x2" itemValue="4x2" /> 
+                                                    <f:selectItem itemLabel="4x1" itemValue="4x1" />
+                                                </p:selectOneMenu> <br></br>
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.idPersona != null}" styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Elija la tracción del vehículo<ocp:message forId="traccion" /></span><br></br><br></br> 
+                                            </div>
+                                        </h:panelGroup >
+                                        <mtop:input id="numCilindros" name="numCilindros" type="text" label="Número de Cilindros" 
+                                                    value="#{controladorVehiculo.instance.numCilindros}" required="true" 
+                                                    inlinehelp="Ingrese el número cilindros del vehículo Ej(2)" 
+                                                    execute ="@this save" render="numCilindros"/><br></br>
+                                        
+                                        <br></br>
 
 
                                     </div>
                                     <div class="col-md-6"> 
+                                         <mtop:input id="avaluo" name="avaluo" type="text" label="Avalúo" 
+                                                    value="#{controladorVehiculo.instance.avaluo}" required="true" 
+                                                    inlinehelp="Ingrese el avalúo del vehículo Ej(12000)" 
+                                                    execute ="@this save" render="avaluo" /><br></br>
                                         <mtop:input id="cabina" name="cabina" type="text" label="Cabina" 
                                                     value="#{controladorVehiculo.instance.cabina}" required="true" 
                                                     inlinehelp="Ingrese que cabina tiene el vehículo Ej(Doble)" 
@@ -151,7 +177,7 @@
 
                                                     execute ="@this save" render="peso" /><br></br>
 
-                                      
+
                                         <h:panelGroup id="t" layout="block" class="clearfix">
 
                                             <div class="input">
@@ -219,8 +245,6 @@
                                             <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" /> 
                                         </h:panelGroup>
 
-
-
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +283,7 @@
                                                                     <h:panelGroup rendered="#{a.property.type ne 'org.mtop.modelo.EstadoParteMecanica'}"  layout="block" class="clearfix">
                                                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                                         <div class="input">
-                                                                            <p:inputText validator="stringValidator" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                            <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                                                          rendered="#{a.property.type eq 'java.lang.String'}">
                                                                                 <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
@@ -361,15 +385,15 @@
                                          ajax="false" update="pv">
                             <f:param name="mensaje" value="#{controladorVehiculo.mensaje}"></f:param>
                         </p:commandButton>
-                          <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+                        <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
                         <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
                             <div class="input" align="center">
-                            <h:outputText value="Por favor espere, Cargando..."/><br/>
+                                <h:outputText value="Por favor espere, Cargando..."/><br/>
                             </div>
                             <p:graphicImage value="/resources/ajax-loader.gif" /> 
                         </p:dialog>
-                          
+
 
                     </center>
                 </div></div>
