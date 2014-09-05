@@ -110,8 +110,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setDesabilitar(boolean desabilitar) {
         this.desabilitar = desabilitar;
     }
-    
-    
 
     public String getVista() {
         return vista;
@@ -838,7 +836,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         listaPersonas = lp;
         System.out.println("lista de personas>>>>" + listaPersonas);
         listaEstados = findAll(EstadoVehiculo.class);
-        desabilitar=false;
+        desabilitar = false;
 //        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
 //        listaVehiculos.clear();
 //
@@ -982,7 +980,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @TransactionAttribute
     public String guardar() {
         Kardex k = new Kardex();
-        desabilitar=true;
+        desabilitar = true;
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
@@ -1119,7 +1117,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/admin/vehiculo/estadoVehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @Transactional
@@ -1364,11 +1362,16 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.evaluacion = evaluacion;
     }
 
-    public void obtenerEvaluacion() {
-        System.out.println("eval");
-        
-//        List<Property> propiedades=ui.getProperties(getInstance());
+    public String obtenerEvaluacion1() {
+        obtenerEvaluacion();
+        return "/paginas/admin/vehiculo/verestadoMecanico.xhtml?faces-redirect=true";
 
+    }
+
+    public String obtenerEvaluacion() {
+        System.out.println("eval");
+
+//        List<Property> propiedades=ui.getProperties(getInstance());
         List<Property> propiedades = servgen.buscarTodoscoincidencia(Property.class, Property.class.getSimpleName(), Property_.type.getName(), "org.mtop.modelo.dinamico.Structure");
         List<BussinesEntityAttribute> bea;
         Integer suma = 0;
@@ -1380,9 +1383,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             bea = getInstance().findBussinesEntityAttribute(p.getName());
             for (BussinesEntityAttribute a : bea) {
                 if (a.getProperty().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-                    System.out.println("nombre propiedad "+p.getName());
-                    System.out.println("nombre de la propiedad de la propiedad "+a.getName());
-                    System.out.println("valor"+a.getValue());
+                    System.out.println("nombre propiedad " + p.getName());
+                    System.out.println("nombre de la propiedad de la propiedad " + a.getName());
+                    System.out.println("valor" + a.getValue());
                     if (p.getName().equals("Motor") && a.getValue().equals("Malo")) {
                         evaluacion = "Malo";
                         break fuera;
@@ -1452,10 +1455,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             } else {
                 evaluacion = "Malo";
             }
-          
 
         }
-        System.out.println("valor a retornar"+evaluacion);
+        System.out.println("valor a retornar" + evaluacion);
+        return evaluacion;
 
     }
+
 }

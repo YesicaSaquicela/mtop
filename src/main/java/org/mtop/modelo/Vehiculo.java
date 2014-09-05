@@ -60,6 +60,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     //registro hace referencia al codigo heredado
     private String tipo;
     private String cilindraje;
+
     private Integer kilometraje;
     private String tipoCombustible;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -73,30 +74,60 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private List<EstadoVehiculo> listaEstados = new ArrayList<EstadoVehiculo>();
 //    private List<String> listaTipos;
     private listaTipos listatipos;
- 
-    public Vehiculo() {
-        listatipos=listaTipos.vehiculo;
-        
+    private String traccion;
+    private String numCilindros;
+    private Double avaluo;
+
+    public Double getAvaluo() {
+        return avaluo;
+    }
+
+    public void setAvaluo(Double avaluo) {
+        this.avaluo = avaluo;
     }
     
-    public enum listaTipos{
+    
+
+    public String getTraccion() {
+        return traccion;
+    }
+
+    public void setTraccion(String traccion) {
+        this.traccion = traccion;
+    }
+
+    public String getNumCilindros() {
+        return numCilindros;
+    }
+
+    public void setNumCilindros(String numCilindros) {
+        this.numCilindros = numCilindros;
+    }
+
+   
+
+    public Vehiculo() {
+        listatipos = listaTipos.vehiculo;
+
+    }
+
+    public enum listaTipos {
+
         vehiculo(""),
         vehiculo1("");
-        
+
         private final String tipos;
 
-         private listaTipos(String tipos) {
+        private listaTipos(String tipos) {
             this.tipos = tipos;
         }
-         
+
         public String getTipos() {
             return tipos;
         }
-        
-        
+
     }
-    
-    
+
 //    @Enumerated(EnumType.STRING)//anotacion de tipos de datos
 //    private Vehiculo.datosEnumerador listaTipose;
 //    private List<String> listaTipos= new ArrayList<String>(){{
@@ -129,7 +160,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
 //            return tipo;
 //        }
 //    }
-        
     public Date getFechainiciosoat() {
         return fechainiciosoat;
     }
@@ -146,7 +176,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.fechafinsoat = fechafinsoat;
     }
 
-   
     public PlanMantenimiento getPlanM() {
         return planM;
     }
@@ -154,7 +183,6 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     public void setPlanM(PlanMantenimiento planM) {
         this.planM = planM;
     }
-
 
     public Profile getPersona() {
         return persona;
@@ -207,9 +235,8 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.listaEstados = listaEstados;
     }
 
-
     public String getAnioFabricacion() {
-        
+
         return anioFabricacion;
     }
 

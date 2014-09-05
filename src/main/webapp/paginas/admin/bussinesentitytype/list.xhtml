@@ -38,106 +38,115 @@ limitations under the License.
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
                         <p:panel>
-                        <h3><h:outputLabel value="Lista de entidades"/></h3>
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                        <div class="admin-actions">
+                            <h3><h:outputLabel value="Lista de entidades"/></h3>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <div class="admin-actions">
 
 
-                            <div class="panel panel-success">
-                                <p:panel>
-                                    <div class="panel-body">
-                                        <div class="container-fluid" align="center">
-                                            <div class="row-fluid">
+                                <div class="panel panel-success">
+                                    <p:panel>
+                                        <div class="panel-body">
+                                            <div class="container-fluid" align="center">
+                                                <div class="row-fluid">
 
 
-                                                <div class="col-lg-6">
-                                                    <center>
-                                                        <div class="input-group">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{" "} 
+                                                    <div class="col-lg-6">
+                                                        <center>
+                                                            <div class="input-group">
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{" "} 
 
-                                                                <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeListService.palabrab}"   
-                                                                                completeMethod="#{bussinesEntityTypeListService.autocompletar}"/> 
-                                                                 #{" "} 
-
-
-
-                                                                <p:commandButton value="Buscar" update=":form:bussinesEntityTypeTable" process="@form" id="buscar" 
-                                                                                 action="#{bussinesEntityTypeListService.buscar()}" styleClass="btn btn-success" >
-
-                                                                </p:commandButton>
+                                                                    <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeListService.palabrab}"   
+                                                                                    completeMethod="#{bussinesEntityTypeListService.autocompletar}"/> 
+                                                                    #{" "} 
 
 
-                                                                <p:commandButton value="Limpiar" process="@this" update="@form"  
-                                                                                 action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
-                                                    </center>
+                                                                    <p:commandButton value="Buscar" update=":form:bussinesEntityTypeTable" process="@form" id="buscar" 
+                                                                                     action="#{bussinesEntityTypeListService.buscar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+
+
+                                                                    <p:commandButton value="Limpiar" process="@this" update="@form"  
+                                                                                     action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
+
+                                                                    </p:commandButton>
+                                                                </center>
+                                                            </div>
+                                                        </center>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div> 
-                                </p:panel>
-                            </div>
-                            <!-- <h:link value="# {messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
-                            <f:param name="bussinesEntityTypeId"></f:param>
-                            <f:param name="backView" value="list"></f:param>
-                            </h:link>-->
-                            #{' '}
+                                        </div> 
+                                    </p:panel>
+                                </div>
+                                <!-- <h:link value="# {messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
+                                <f:param name="bussinesEntityTypeId"></f:param>
+                                <f:param name="backView" value="list"></f:param>
+                                </h:link>-->
+                                #{' '}
 
-                        </div>    
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="todas">
-                                <div class="table-responsive">
+                            </div>    
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="todas">
+                                    <div class="table-responsive">
 
 
-                                    <tbody>
-                                        <p:dataTable var="bussinesEntityType" value="#{bussinesEntityTypeListService.resultList}"
-                                                     paginator="true" rows="15"                         
-                                                     paginatorPosition="top"
-                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
-                                                     rowsPerPageTemplate="5,10,15,20"
-                                                     id="bussinesEntityTypeTable"                           
-                                                     rendered="true"
-                                                     >
+                                        <tbody>
+                                            <p:dataTable var="bussinesEntityType" value="#{bussinesEntityTypeListService.resultList}"
+                                                         paginator="true" rows="15"                         
+                                                         paginatorPosition="top"
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
+                                                         rowsPerPageTemplate="5,10,15,20"
+                                                         id="bussinesEntityTypeTable"                           
+                                                         rendered="true"
+                                                         >
 
-                                            <p:column headerText="#{messages['module.BussinesEntityType.name']}" 
-                                                      sortBy="#{bussinesEntityType.name}"  >
-                                                <h:outputText value="#{bussinesEntityType.name}"></h:outputText>
-                                            </p:column>
+                                                <p:column headerText="#{messages['module.BussinesEntityType.name']}" 
+                                                          sortBy="#{bussinesEntityType.name}"  >
+                                                    <h:outputText value="#{bussinesEntityType.name}"></h:outputText>
+                                                </p:column>
 
-                                            <p:column headerText="#{messages['module.BussinesEntityType.label']}" sortBy="#{bussinesEntityType.name}">
-                                                <h:outputText value="#{bussinesEntityType.label}"></h:outputText>
-                                            </p:column>
+                                                <p:column headerText="#{messages['module.BussinesEntityType.label']}" sortBy="#{bussinesEntityType.name}">
+                                                    <h:outputText value="#{bussinesEntityType.label}"></h:outputText>
+                                                </p:column>
 
-                                            <p:column headerText="#{messages['module.BussinesEntityType.structureAccount']}" sortBy="#{bussinesEntityType.name}">
-                                                <h:outputText value="#{bussinesEntityType.structures.size()}"></h:outputText>
-                                            </p:column> 
+                                                <p:column headerText="#{messages['module.BussinesEntityType.structureAccount']}" sortBy="#{bussinesEntityType.name}">
+                                                    <h:outputText value="#{bussinesEntityType.structures.size()}"></h:outputText>
+                                                </p:column> 
 
-                                            <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
-                                                <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
-                                            </p:column> 
-                                            <p:column headerText="Editar">
-                                                <p:button icon="ui-icon-pencil"  
-                                                          id="button-edit"  rendered="true" 
-                                                          title="Editar"
-                                                         styleClass="btn  btn-success"
-                                                          outcome="bussinesentitytype" >
+                                                <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
+                                                    <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
+                                                </p:column> 
+                                                <p:column headerText="Editar">
+                                                    <p:button icon="ui-icon-pencil"  
+                                                              id="button-edit"  rendered="true" 
+                                                              title="Editar"
+                                                              styleClass="btn  btn-success"
+                                                              outcome="bussinesentitytype" >
 
-                                                    <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
-                                                    <f:param name="backView" value="list"></f:param>
-                                                </p:button>
-                                            </p:column>
+                                                        <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
+                                                        <f:param name="backView" value="list"></f:param>
+                                                    </p:button>
+                                                </p:column>
 
-                                            <f:facet name="footer">
-                                                  <!-- <p:commandButton id="multiViewButton" value="#{messages['common.view']}" icon="ui-icon-search"  
-                                                                    update=":form:displayMulti" oncomplete="multiBussinesEntityDialog.show()"/>  -->
-                                            </f:facet>
-                                        </p:dataTable>     
-                                    </tbody></div></div></div>
-                    </p:panel></div></div> </div>
+                                                <f:facet name="footer">
+                                                      <!-- <p:commandButton id="multiViewButton" value="#{messages['common.view']}" icon="ui-icon-search"  
+                                                                        update=":form:displayMulti" oncomplete="multiBussinesEntityDialog.show()"/>  -->
+                                                </f:facet>
+                                            </p:dataTable>     
+                                        </tbody></div></div></div>
+                        </p:panel></div></div> </div>
+            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+            <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                <div class="input" align="center">
+                    <h:outputText value="Por favor espere, Cargando..."/><br/>
+                </div>
+                <p:graphicImage value="/resources/ajax-loader.gif" /> 
+            </p:dialog>
+
         </h:form>
 
     </ui:define>

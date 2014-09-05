@@ -215,6 +215,15 @@
                             </p:commandButton-->
                         </div>    
                     </div></div>
+                <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                        <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                            <div class="input" align="center">
+                            <h:outputText value="Por favor espere, Cargando..."/><br/>
+                            </div>
+                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                        </p:dialog>
+          
             </h:form>
             <p:dialog id="cancel-dialog" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
                 <h:form id="form-dialog-confirm-delete">
