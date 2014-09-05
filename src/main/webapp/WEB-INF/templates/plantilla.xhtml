@@ -82,7 +82,7 @@
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav">
                             <!--li><a href="#">Dashboard</a></li>
                             <li><a href="#">Settings</a></li>
                             <li><a href="#">Profile</a></li>
@@ -106,11 +106,14 @@
 
                                         <h:panelGroup  rendered="#{account.tienePermiso('ADMIN')}" >
                                             <li> <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml" value="  Configuraciones" /></li>
-
-                                            <li class="dropdown">
-                                                <a href="/paginas/admin/listProfile.xhtml" class="dropdown-toggle" data-toggle="dropdown">
+                                            <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" value="Kardex" /></li>
+                                            <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" value="Plan Mantenimiento"/></li>
+           <li class="dropdown">
+                                                 <a href="paginas/admin/listProfile.xhtml" class="dropdown-toggle" data-toggle="dropdown">
                                                     Personal <b class="caret"></b>
                                                 </a>
+                                                
+
                                                 <ul class="dropdown-menu">
                                                     <li><h:link  outcome="/paginas/admin/listProfile.xhtml" value="Personal" /></li>        
                                                     <li><h:link  outcome="/paginas/admin/listaUsuario.xhtml" value=" Usuarios "/> 
@@ -120,9 +123,6 @@
 
                                                 </ul>
                                             </li>
-
-                                            <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" value="Kardex" /></li>
-                                            <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" value="Plan Mantenimiento"/></li>
                                             <li class="dropdown">
                                                 <a href="paginas/admin/vehiculo/lista.xhtml" class="dropdown-toggle" data-toggle="dropdown">
                                                     Vehículos <b class="caret"></b>
@@ -135,6 +135,7 @@
 
                                                 </ul>
                                             </li>
+                                 
                                         </h:panelGroup>
 
 

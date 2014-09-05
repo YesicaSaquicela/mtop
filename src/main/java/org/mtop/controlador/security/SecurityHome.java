@@ -114,6 +114,7 @@ public class SecurityHome implements Serializable {
     }
 
     public void setGroupSelected(Group groupSelected) {
+        System.out.println("legaaaa grupo selecc"+groupSelected);
         this.groupSelected = groupSelected;
     } 
 
@@ -146,7 +147,7 @@ public class SecurityHome implements Serializable {
             if (getGroup() != null && getUser() != null) {                
                 if (!securityGroupService.isAssociated(group, user)) {                 
                     security.getRelationshipManager().associateUser(group, user);
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización realizada con exito! ", "Se añadio " + getUser().getKey() + " en " + getGroup().getName() ));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización realizada  ","con exito!"));
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización exitosa!", "usuario " + getUser().getKey() + " fue asignado en " + getGroup().getName() ));
                 }
@@ -159,11 +160,18 @@ public class SecurityHome implements Serializable {
         }
     }
     
+    
+    public void asignargrupo(Group gs){
+        System.out.println("entrooooooooooooooooooooooooooooo");
+        System.out.println("gssss"+gs);
+        this.groupSelected=gs;
+               System.out.println("fijndo grupo>>>>>>"+groupSelected);
+    }
     @Transactional
     public void disassociate() {
         Group g = groupSelected;
             System.out.println("entro>>>>>");
-            System.out.println("leego grupo"+group);
+          
               System.out.println("leego grupo222"+groupname);
               System.out.println("leego grupo333"+groupSelected);
             System.out.println("llego user"+username);
@@ -173,10 +181,10 @@ public class SecurityHome implements Serializable {
             if (g != null && getUser() != null) {
                 if (securityGroupService.isAssociated(g, user)) {
                     securityGroupService.disassociate(g, getUser());
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disassociated se establecio con éxito!",   "" + getUser().getKey() + " se ha retirado de " + g.getName()));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ya no pertene al grupo!",   "" + getUser().getKey() + " se ha retirado de " + g.getName()));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide();");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Disassociated incorrecto!",  "Asociaci " + g.getName() + ", " + getUser().getKey() + " not exists"));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No puede retirarse  !",  "la acción realiza es incorrecta " + g.getName() + ", " + getUser().getKey() + " no existe"));
                 }
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No puede cancelar la asignación de la autorización!", "Por favor ingrese el grupo y el usuario"));

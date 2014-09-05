@@ -11,13 +11,13 @@
       xmlns:mtop="http://mtop.org/jsf/facelets"
       xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon">
     <ui:composition  template="/WEB-INF/templates/plantilla.xhtml">
-          <ui:param name="titulo" value="Gestionar Personal"/>
+        <ui:param name="titulo" value="Gestionar Personal"/>
         <f:metadata>
             <f:viewParam name="profileId" value="#{profileHome.profileId}" />
             <f:viewParam name="backView" value="#{profileHome.backView}" />
         </f:metadata>
         <ui:define name="header-replace">
-        <h2>#{titulo}</h2>           
+            <h2>#{titulo}</h2>           
         </ui:define>
         <ui:define name="content">            
             <h:form id="profile">
@@ -44,17 +44,20 @@
                                                     value="#{profileHome.instance.firstname}" 
                                                     required="true" inlinehelp="Ingrese el nombre" 
                                                     execute="@this save" render="fstn" validator="stringValidator"/><br/>
-                                        
+
                                         <mtop:input id="srn" name="surname" type="text" 
                                                     label="#{messages['common.surname']}"
                                                     value="#{profileHome.instance.surname}"
                                                     required="true" inlinehelp="Ingrese apellidos"
                                                     execute="@this save" validator="stringValidator"/><br/>
-                                       
+
                                         <h:panelGroup id="fn" layout="block" class="clearfix">
                                             <h:outputLabel value="Fecha de Nacimiento*" /> <br></br> 
+                                            <!--h:outputText id="fechan" value="#{profileHome.instance.fechanacimiento}">
+                                                <f:convertDateTime pattern="dd-MMM-yyyy" />
+                                            </h:outputText-->
                                             <p:calendar  id="fechan" value="#{profileHome.instance.fechanacimiento}" 
-                                                         styleClass="xLarge"  navigator="true" required="true"
+                                                         styleClass="xLarge"  navigator="true" required="true" 
                                                          >   
                                                 <p:ajax immediate="true" event="dateSelect" rendered="save fn" /> 
 
@@ -63,7 +66,7 @@
                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.fechanacimiento !=null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
                                         </h:panelGroup><br/>
-                                        
+
                                         <h:panelGroup id="cod" layout="block" class="clearfix" rendered="true">
                                             <label for="dni">Cédula de identidad*</label>
                                             <div class="input">
@@ -79,17 +82,17 @@
                                         </h:panelGroup><br/>
 
                                         <h:panelGroup id="em1" layout="block" class="clearfix">
-                                              <div class="input">
-                                            <p:outputLabel for="tipop" value="Tipo de Persona* " /><br/>
-                                            <p:selectOneMenu id="tipop" value="#{profileHome.instance.tipo}" effect="fold" editable="true">
-                                                <f:selectItem itemLabel="Seleccione uno" itemValue="" />
-                                                <f:selectItems value="#{profileHome.tipos}" />
-                                           <f:ajax execute="@this" render="em1"  />
-                                            </p:selectOneMenu>
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.tipo != null}"
+                                            <div class="input">
+                                                <p:outputLabel for="tipop" value="Tipo de Persona* " /><br/>
+                                                <p:selectOneMenu id="tipop" value="#{profileHome.instance.tipo}" effect="fold" editable="true">
+                                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                                                    <f:selectItems value="#{profileHome.tipos}" />
+                                                    <f:ajax execute="@this" render="em1"  />
+                                                </p:selectOneMenu>
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.tipo != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted"><br/>Ingrese el tipo de persona<ocp:message forId="tipop" /></span>
-                                              </div>
+                                            </div>
                                         </h:panelGroup><br/>
 
 
