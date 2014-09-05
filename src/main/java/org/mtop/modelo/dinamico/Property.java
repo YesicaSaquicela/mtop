@@ -69,7 +69,7 @@ public class Property implements Comparable<Property>, Serializable {
     private String render;
     private String converter;
     private String validator;
-    
+    private Integer evaluacionParte;
    
     
     /**
@@ -130,6 +130,17 @@ public class Property implements Comparable<Property>, Serializable {
         return name;
     }
 
+    public Integer getEvaluacionParte() {
+        return evaluacionParte;
+    }
+
+    public void setEvaluacionParte(Integer evaluacionParte) {
+        this.evaluacionParte = evaluacionParte;
+    }
+
+  
+    
+    
     public void setName(String name) {
         this.name = name;
     }

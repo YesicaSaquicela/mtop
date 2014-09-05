@@ -210,7 +210,7 @@
                                                     <p:ajax immediate="true" event="dateSelect" rendered="save pm" />  
                                                     <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg" />  
                                                 </p:calendar><br/>
-                                                <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
+                                                <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasSoat" />
                                                 <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorVehiculo.instance.fechafinsoat != null}"
                                                                 styleClass="validation-status" />
                                             </div>
@@ -361,7 +361,15 @@
                                          ajax="false" update="pv">
                             <f:param name="mensaje" value="#{controladorVehiculo.mensaje}"></f:param>
                         </p:commandButton>
+                          <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
+                        <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                            <div class="input" align="center">
+                            <h:outputText value="Por favor espere, Cargando..."/><br/>
+                            </div>
+                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                        </p:dialog>
+                          
 
                     </center>
                 </div></div>

@@ -59,15 +59,12 @@ import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.dinamico.Property;
 import org.mtop.modelo.Vehiculo;
-import org.mtop.modelo.Vehiculo_;
+import org.mtop.modelo.dinamico.Property_;
+
 import org.mtop.servicios.ServicioGenerico;
-import org.primefaces.context.RequestContext;
 
 import org.mtop.modelo.profile.Profile;
-import static org.mtop.modelo.profile.Profile_.username;
-import java.util.HashMap;
-
-import java.util.Map;
+import org.mtop.util.UI;
 
 /**
  *
@@ -100,9 +97,21 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<String> tipos;
     private List<String> mesyanio;
     private List<EstadoVehiculo> listaEstados;
+    private String evaluacion;
 
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
     private String vista;
+    private boolean desabilitar;
+
+    public boolean isDesabilitar() {
+        return desabilitar;
+    }
+
+    public void setDesabilitar(boolean desabilitar) {
+        this.desabilitar = desabilitar;
+    }
+    
+    
 
     public String getVista() {
         return vista;
@@ -130,6 +139,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 return "";
             }
         }
+    }
+
+    public String evaluacionGeneral() {
+
+        return "";
     }
 
     public List<Vehiculo> getListVehiculos2() {
@@ -824,6 +838,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         listaPersonas = lp;
         System.out.println("lista de personas>>>>" + listaPersonas);
         listaEstados = findAll(EstadoVehiculo.class);
+        desabilitar=false;
 //        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
 //        listaVehiculos.clear();
 //
@@ -967,7 +982,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @TransactionAttribute
     public String guardar() {
         Kardex k = new Kardex();
-
+        desabilitar=true;
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
@@ -1147,10 +1162,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
-    public
-            boolean tieneEstadosEstructura(Property propiedad) {
-        for (Property p : servgen.buscarTodos(Property.class
-        )) {
+    public boolean tieneEstadosEstructura(Property propiedad) {
+        for (Property p : servgen.buscarTodos(Property.class)) {
             if (p.getGroupName()
                     != null) {
                 if (p.getGroupName().equals(propiedad.getName())) {
@@ -1343,4 +1356,106 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.mesyanio = mesyanio;
     }
 
+    public String getEvaluacion() {
+        return evaluacion;
+    }
+
+    public void setEvaluacion(String evaluacion) {
+        this.evaluacion = evaluacion;
+    }
+
+    public void obtenerEvaluacion() {
+        System.out.println("eval");
+        
+//        List<Property> propiedades=ui.getProperties(getInstance());
+
+        List<Property> propiedades = servgen.buscarTodoscoincidencia(Property.class, Property.class.getSimpleName(), Property_.type.getName(), "org.mtop.modelo.dinamico.Structure");
+        List<BussinesEntityAttribute> bea;
+        Integer suma = 0;
+        Integer contador = 0;
+        evaluacion = "Bueno";
+        fuera:
+        for (Property p : propiedades) {
+            System.out.println("propiedadesss " + p.getName());
+            bea = getInstance().findBussinesEntityAttribute(p.getName());
+            for (BussinesEntityAttribute a : bea) {
+                if (a.getProperty().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
+                    System.out.println("nombre propiedad "+p.getName());
+                    System.out.println("nombre de la propiedad de la propiedad "+a.getName());
+                    System.out.println("valor"+a.getValue());
+                    if (p.getName().equals("Motor") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("SistemaElectrico") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("Transmision") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("Direccion") && a.getName().equals("articulacionesTerminales") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("Direccion") && a.getName().equals("pinesBocines") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("Direccion") && a.getName().equals("bombaDireccion") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    //cajaDireccion 80
+                    if (p.getName().equals("Frenos") && a.getName().equals("cilindroPrincipal") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("Frenos") && a.getName().equals("cilindroSecundario") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    //forros 80
+                    if (p.getName().equals("Suspension") && a.getName().equals("ejeDelantero") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+                    if (p.getName().equals("Suspension") && a.getName().equals("ejePosterior") && a.getValue().equals("Malo")) {
+                        evaluacion = "Malo";
+                        break fuera;
+                    }
+
+                    //muelles-amortiguador 80
+                    System.out.println("nombre " + a.getName() + "valor: " + a.getValue());
+                    if (a.getValue().equals("Bueno")) {
+                        suma += 100;
+                        contador++;
+                    }
+                    if (a.getValue().equals("Malo")) {
+                        suma += 80;
+                        contador++;
+                    }
+
+                }
+            }
+
+        }
+        if (!evaluacion.equals("Malo")) {
+
+            System.out.println("suma" + suma);
+            System.out.println("contador" + contador);
+            suma = suma / contador;
+            System.out.println("suma fdfespues" + suma);
+            if (suma >= 90) {
+                evaluacion = "Bueno";
+            } else {
+                evaluacion = "Malo";
+            }
+          
+
+        }
+        System.out.println("valor a retornar"+evaluacion);
+
+    }
 }
