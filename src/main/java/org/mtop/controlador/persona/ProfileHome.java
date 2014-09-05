@@ -505,6 +505,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     public String saveUsuario() {
+         System.out.println("entro a guardaranrtes");
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         String salida = "/paginas/admin/listProfile.xhtml?faces-redirect=true";
