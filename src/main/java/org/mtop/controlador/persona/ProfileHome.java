@@ -100,25 +100,90 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private IdentitySessionFactory identitySessionFactory;
     private Map<String, String> tipos = new HashMap<String, String>();
     private List<Profile> listausuarios;
-    
-    
+    private String estado;
+    private List<Profile> listausuariosInactivos;
+
+    public List<Profile> getListausuariosInactivos() {
+        return listausuariosInactivos;
+        
+    }
+
+    public void setListausuariosInactivos(List<Profile> listausuariosInactivos) {
+        this.listausuariosInactivos = listausuariosInactivos;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        System.out.println("lista de usuarios estado antes>>>" + findAll(Profile.class));
+        List<Profile> lp = new ArrayList<Profile>();
+        if ("INACTIVO".equals(estado)) {
+
+            for (Profile profile : findAll(Profile.class)) {
+                System.out.println("entro for111111");
+
+                System.out.println(" etro inf11111111");
+                if (!profile.isEstado() && profile.getUsername() != null ) {
+                    lp.add(profile);
+                }
+
+                
+            }
+            listausuariosInactivos=lp;
+        }else{
+            for (Profile profile : findAll(Profile.class)) {
+                System.out.println("entro for");
+
+                System.out.println(" etro inf");
+                if (profile.isEstado()&& profile.getUsername() != null ) {
+                    lp.add(profile);
+                }
+
+                //   listausuarios = ps.findAllA(true);
+            }
+        }
+        System.out.println("lista despues estado" + lp);
+        listausuarios = lp;
+        
+
+        this.estado = estado;
+    }
+
+    public void inavilitarC(Profile inavilitar) {
+        inavilitar.setEstado(false);
+    }
+
     @TransactionAttribute
     public void inavilitarCuenta(Profile selectedProfile) {
         System.out.println("PROFILE_________init");
-
+        Date now = Calendar.getInstance().getTime();
         try {
-            //PersistenceManager identityManager = security.getPersistenceManager();
-            //AttributesManager attributesManager = security.getAttributesManager();
-            //User user = identityManager.findUser(selectedProfile.getUsername());            
+                     
             IdentityObjectAttribute ida = ps.getAttributos(selectedProfile.getUsername(), "estado").get(0);
-            //securityRol.disassociate(selectedProfile.getUsername());
-            System.out.println("PROFILE_________0");
+            System.out.println("PROFILE_________0lista antes" + listausuarios);
+
             ida.setValue("INACTIVO");
+            selectedProfile.setEstado(false);
+            selectedProfile.getLastUpdate();
+            save(selectedProfile);
             em.merge(ida);
             em.flush();
+            System.out.println("paso a remover de la lista");
+            List<Profile> lui = new ArrayList<Profile>();
+            for (Profile profile : listausuarios) {
+                if (!selectedProfile.getId().equals(profile.getId())) {
+                    lui.add(profile);
+                }
+            }
+            listausuarios = lui;
+            System.out.println("lista despues" + listausuarios);
+            System.out.println("obtienes estado" + ida.getValue());
+            System.out.println("obtiene is estado" + selectedProfile.isEstado());
             FacesMessage msg = new FacesMessage("EL Usuario: " + selectedProfile.getFullName(), "ha sido deshabilitado");
             FacesContext.getCurrentInstance().addMessage("", msg);
-            System.out.println("PROFILE_________2");
+
         } catch (IdentityException ex) {
             ex.printStackTrace();
             System.out.println("PROFILE_________3");
@@ -144,13 +209,16 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     }
 
     public Long getProfileId() {
-        System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
+        System.out.println("obtiene objetoget::::::::::::: " + getInstance().getFirstname());
         return (Long) getId();
 
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
+        password=getInstance().getPassword();
+        passwordConfirm=getInstance().getPassword();
+        System.out.println("recupero pasworddddd"+password+passwordConfirm);
         System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
     }
 
@@ -238,12 +306,13 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         for (Profile profile : findAll(Profile.class)) {
 
             System.out.println("ento all for>>>>>>>>>>.>>>>>>>>");
-            if (profile.getUsername() != null) {
+            if (profile.getUsername() != null && profile.isEstado()) {
                 System.out.println("ento all if>>>>>>>>>>.>>>>>>>>");
                 lu.add(profile);
             }
         }
-        listausuarios=lu;
+        listausuarios = lu;
+
     }
 
     @Override
@@ -438,7 +507,9 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     public String saveUsuario() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String salida = "/paginas/admin/listaUsuario.xhtml?faces-redirect=true";
+        String salida = "/paginas/admin/listProfile.xhtml?faces-redirect=true";
+        System.out.println("entro a guardar");
+        getInstance().setEstado(true);
         if (getInstance().isPersistent()) {
             try {
                 System.out.println("\n\n\n\nentra registroo\n\n\n");
@@ -460,7 +531,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             }
         }
         if ("/admin/listProfile".equalsIgnoreCase(getBackView())) {
-            return "/paginas/admin/security/authorization.xhtml?faces-redirect=true&username=" + getInstance().getUsername() + "&backView=" + getBackView();
+            return "/paginas/admin/listProfile.xhtml?faces-redirect=true&username=" + getInstance().getUsername() + "&backView=" + getBackView();
         } else {
             return salida;
         }
@@ -577,54 +648,33 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     }
 
     @TransactionAttribute
-    public String inavilitarCuenta() {
-        String salida = null;
+    public void activarCuenta(Profile habilitar) {
         try {
-            PersistenceManager identityManager = security.getPersistenceManager();
-            AttributesManager attributesManager = security.getAttributesManager();
-            User user = identityManager.findUser(getInstance().getUsername());
-            //System.out.println("PROFILE_________" + getSelectedProfile().getName());
-            //SecurityRules s = new SecurityRules();
-            System.out.println("USUARIO ");
-            if (!identity.getUser().getKey().equals(user.getKey())) {
-                IdentityObjectAttribute ida = ps.getAttributos(getInstance().getUsername(), "estado").get(0);
-                //securityRol.disassociate(getInstance().getUsername());
-                ida.setValue("INACTIVO");
-                em.merge(ida);
-                em.flush();
-                getInstance().setDeleted(true);
-                save(getInstance());
-                FacesMessage msg = new FacesMessage("EL Usuario: " + getInstance().getFullName(), "ha sido deshabilitado");
-                FacesContext.getCurrentInstance().addMessage("", msg);
-                salida = "/paginas" + getBackView() + "?faces-redirect=true";
-            } else {
-                FacesMessage msg = new FacesMessage("No se puede deshabilitar este usuario", "el usuario esta logeado");
-                FacesContext.getCurrentInstance().addMessage("", msg);
-            }
-
-        } catch (IdentityException ex) {
-
-        }
-        return salida;
-    }
-
-    @TransactionAttribute
-    public String activarCuenta() {
-        try {
-
-            IdentityObjectAttribute ida = ps.getAttributos(getInstance().getUsername(), "estado").get(0);
+            System.out.println("antes de ida>>>>>>>>>>>>>");
+            IdentityObjectAttribute ida = ps.getAttributos(habilitar.getUsername(), "estado").get(0);
             //securityRol.disassociate(getInstance().getUsername());
+            System.out.println("despues de ida");
             ida.setValue("ACTIVO");
+             habilitar.setEstado(true);
+            habilitar.getLastUpdate();
+            save(habilitar);
             em.merge(ida);
             em.flush();
-            getInstance().setDeleted(false);
-            save(getInstance());
-            FacesMessage msg = new FacesMessage("EL Usuario: " + getInstance().getFullName(), "ha sido deshabilitado");
+            System.out.println("paso a remover de la lista");
+            List<Profile> lui = new ArrayList<Profile>();
+            for (Profile profile : listausuariosInactivos) {
+                if (!habilitar.getId().equals(profile.getId())) {
+                    lui.add(profile);
+                }
+            }
+            listausuarios = lui;
+            System.out.println("lista despues" + listausuarios);
+            FacesMessage msg = new FacesMessage("EL Usuario: " + habilitar.getFullName(), "ha sido habilitado");
             FacesContext.getCurrentInstance().addMessage("", msg);
             System.out.println("PROFILE_________2");
         } catch (IdentityException ex) {
 
         }
-        return "/paginas" + getBackView() + "?faces-redirect=true";
+        
     }
 }

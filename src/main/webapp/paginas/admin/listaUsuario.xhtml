@@ -9,7 +9,7 @@
                 template="/WEB-INF/templates/plantilla.xhtml">
     <f:metadata>
         <f:viewParam name="result" value="#{profileListService.firstResult}" />
-        <f:viewParam name="estado" value="#{profileListService.estado}" />
+        <f:viewParam name="estado" value="#{profileHome.estado}" />
         <f:event listener="#{profileListService.init()}" type="preRenderView"/>
 
     </f:metadata>
@@ -48,12 +48,14 @@
 
 
                                 <h:link id="Acc" value="Activos" title="Cuentas de usuarios activas" 
-                                        outcome="listaUsuario" styleClass="btn  btn-success" >                                        
+                                        outcome="listaUsuario" styleClass="btn  btn-success" > 
+                                    <p:ajax update=":form:profileDataTable"/>
                                 </h:link>
                                 #{' '}
                                 <h:link id="Acc1" value="Inactivos" title="Cuentas de usuarios inactivas" 
-                                        outcome="listaUsuario" styleClass="btn  btn-success" >                                        
-                                    <f:param name="estado" value="inactivo"/>
+                                        outcome="listaUsuario" styleClass="btn  btn-success"  >                                        
+                                    <f:param name="estado" value="INACTIVO"/>
+                                    <p:ajax update=":form:profileDataTable"/>
                                 </h:link>    
 
 
@@ -79,62 +81,43 @@
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.username}" />
                                                 </p:column>
-                                                <p:column headerText="Asignar Roles" style="width: 5%">
+                                                <p:column headerText="Opciones" style="width: 10%">
 
-                                                    <center>
-                                                        <p:button title="Asignar Roles" icon="ui-icon-check" rendered="#{true}" styleClass="btn  btn-success"
+                                                        <p:button title="Asignar Roles" icon="ui-icon-key"
+                                                                  rendered="#{profile_.estado eq true}" style="margin-top:10px;"
                                                                   outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" 
                                                                   >                          
                                                             <f:param name="username" value="#{profile_.username}"></f:param>
-                                                            <f:param name="backView" value="listProfile"></f:param>
 
-                                                        </p:button>
-
-                                                    </center>
-                                                </p:column>
-
-                                                <p:column headerText="Desactivar Cuenta" style="width: 5%">   
-
-
-                                                    <center>
+                                                        </p:button> #{" "}
+                                                   
+                                                       
                                                         <p:commandButton title="Desactivar Cuenta" icon="ui-icon-closethick" 
-                                                                         oncomplete="#{'deletedDlg.show();'}" styleClass="btn  btn-success"
-                                                                         rendered="#{profile_.username ne null}"> 
+                                                                         style="margin-top:10px;" id="confirmacion" 
+                                                                         action="#{profileHome.inavilitarCuenta(profile_)}"
+                                                                         update="@form" rendered="#{profile_.username ne null and profile_.estado eq true}">
+                                                            <p:confirm header="Confirmación"
+                                                                       message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
-                                                            <p:ajax process="@this" update=":cancel-dialog"/>
+                                                        </p:commandButton>   #{" "}
+
+                                                        <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
+                                                                         title="Activar cuenta" icon="ui-icon-check"
+                                                                         rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.estado eq false }"
+                                                                         update="@form" style="margin-top:10px;"
+                                                                         >
+                                                            <p:confirm header="Confirmación"
+                                                                       message="¿Desea Realmente habilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                         </p:commandButton>
-                                                        <p:commandButton id="active1" action="#{profileHome.activarCuenta()}" styleClass="btn  btn-success"
-                                                                         title="Activar cuenta" icon="ui-icon-circle-check" update="@form"
-                                                                         rendered="#{profileHome.instance.persistent and 
-                                                                                     profileHome.instance.deleted and 
-                                                                                     account.tienePermiso('ADMIN')}"/>
-                                                    </center>
-                                                    <center>
-                                                    <p:commandButton title="Desactivar Cuenta1111" icon="ui-icon-closethick" 
-                                                                      styleClass="btn  btn-success" id="confirmacion" 
-                                                                      action="#{profileHome.inavilitarCuenta(profile_)}"
-                                                                     update="@form" rendered="#{profile_.username ne null}">
-                                                        <p:confirm header="Confirmación"
-                                                                   message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
-                                                    </p:commandButton>
-                                                        </center>
-
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                    
+                                                    <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" update="profileDataTable" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                     </p:confirmDialog>
 
-                                                    <p:commandLink id="delete" type="button" 
-                                                                   value="Desactivar Cuenta" title="#{messages['common.delete']}" 
-                                                                   oncomplete="#{'deletedDlg.show();'}"  styleClass="btn success" 
-                                                                   rendered="#{profile_.username ne null}"> 
-                                                        <p:ajax process="@this" update=":cancel-dialog"/>
-                                                    </p:commandLink>
 
-                                                    <h:commandButton id="active" action="#{profileHome.activarCuenta()}" value="Activar cuenta" styleClass="btn primary"
-                                                                     rendered="#{profileHome.instance.persistent and profileHome.instance.deleted and account.tienePermiso('ADMIN')}"/>
 
                                                 </p:column>
                                             </p:dataTable>
@@ -148,13 +131,13 @@
             </div>
 
         </h:form>
-        <p:dialog id="cancel-dialog" header="Deshabilitar Cuenta de Usuario" widgetVar="deletedDlg" resizable="false" modal="true">  
+        <p:dialog id="cancel-dialog" header="Habilitar Cuenta de Usuario" widgetVar="deletedDlg" resizable="false" modal="true">  
             <h:form id="form-dialog-confirm-delete1">
 
                 <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="Esta seguro que quiere deshabilitar esta cuenta de usuario "/>  
+                    <h:outputText value="Esta seguro que quiere habilitar esta cuenta de usuario "/>  
                 </h:panelGroup>  
-                <p:commandButton value="#{messages['common.yes']}" action="#{profileListService.inavilitarCuenta()}" 
+                <p:commandButton value="Si" action="#{profileListService.inavilitarCuenta()}" 
                                  oncomplete="#{'deletedDlg.hide();'}" update=":form:profileDataTable" immediate="true" ajax="true"
                                  style="margin-top:10px;" process="@this"> 
                 </p:commandButton>  #{' '}

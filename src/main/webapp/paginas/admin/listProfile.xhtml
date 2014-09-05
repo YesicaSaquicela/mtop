@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright 2012 jlgranda.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -22,15 +7,9 @@ limitations under the License.
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    <ui:param name="title" value="#{messages['module.profils']}" />
+    <ui:param name="titulo" value="Lista del Personal" />
     <ui:define name="header-replace">
-        <div class="header-replace">
-            <div class="container-header" >
-                <div class="row lf row-title" >
-                    <h2>#{titulo}</h2>                      
-                </div> 
-            </div>
-        </div>            
+       #{titulo}         
     </ui:define>
     <ui:define name="content">
         <h:form id="form">
@@ -149,9 +128,9 @@ limitations under the License.
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.tipo}" />
                                                 </p:column>
-                                                <p:column headerText="Editar" >     
+                                                <p:column headerText="Editar" style="width: 10%">     
                                                     <center>
-                                                        <p:button styleClass="btn  btn-success" title="Editar" icon="ui-icon-pencil" rendered="#{true}" 
+                                                        <p:button styleClass="btn  btn-success" title="Editar" icon="ui-icon-pencil"  
                                                                   outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true" 
                                                                   >                          
                                                             <f:param name="profileId" value="#{profile_.id}"></f:param>
@@ -160,11 +139,11 @@ limitations under the License.
                                                     </center>
 
                                                 </p:column>
-                                                <p:column headerText="Crear Usuario">
+                                                <p:column headerText="Crear/Editar Usuario" style="width: 10%">
                                                     <center>
                                                         <p:button icon="ui-icon-person" 
                                                                   title="Crear Usuario" styleClass="btn  btn-success"
-                                                                  rendered="#{profile_.username eq null}" 
+                                                                  
                                                                   outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" 
                                                                   >
                                                             <f:param name="profileId" value="#{profile_.id}"></f:param>

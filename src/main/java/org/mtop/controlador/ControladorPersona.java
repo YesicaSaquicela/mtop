@@ -97,13 +97,14 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         for (Profile p : listaPersona1) {
             if (p.getFullName().contains(palabrab)) {
                 lp.add(p);
+               
             } else {
                 if (p.getTipo().contains(palabrab)) {
                     lp.add(p);
-//                } else {
-//                    if (p.getCode().contains(palabrab)) {
-//                        lp.add(p);
-//                    }
+                } else {
+                    if (p.getCode().contains(palabrab)) {
+                        lp.add(p);
+                    }
                 }
             }
         }
@@ -141,10 +142,10 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
             if (p.getTipo().contains(query) && !ced.contains(p.getTipo())) {
                 ced.add(p.getTipo());
             }
-//            System.out.println("p.getcode"+p.getCode());
-//                if (p.getCode().contains(query)) {
-//                    ced.add(p.getCode());
-//                } 
+            System.out.println("p.getcode"+p.getCode());
+                if (p.getCode().contains(query)) {
+                    ced.add(p.getCode());
+                } 
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
