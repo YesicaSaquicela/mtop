@@ -157,6 +157,7 @@ public class ProfileService extends PersistenceUtil<Profile> implements Serializ
     }
 
     public boolean isUsernameAvailable(String username) {
+       
         try {
             getProfileByUsername(username);
             return false;

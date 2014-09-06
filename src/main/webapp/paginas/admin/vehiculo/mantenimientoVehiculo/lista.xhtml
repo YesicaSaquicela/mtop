@@ -167,35 +167,56 @@
                         </p:button>
 
                     </div><br/>
+                 
+                    <div align="center">
+                        <p:panelGrid  id="imp"  style="margin-top:20px" columns="2" rendered="#{controladorVehiculo.vista eq 'actividades'}" >
 
-                    <p:panelGrid rendered="#{controladorVehiculo.vista eq 'actividades'}">
-                    <div class="panel panel-primary">
-                        <p:panel id="imp" rendered="#{controladorVehiculo.vista eq 'actividades'}">
+                            <f:facet   name="header" class="panel-heading" >
+                                <p:row>    #{"     "}  <p:column>     #{"     "}   </p:column> </p:row>
+                                <p:row >
+                                    <p:column>   </p:column>
+                                    <p:column width="10" rowspan="30" colspan="10"> 
 
-                                                      
-                            <div class="admin-actions " align="right" > 
+                                        <p:graphicImage   value="../../../../resources/mtop1.jpg" width="82" height="50" alt="mtop1" /> 
 
-                                <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+
+
+
+                                    </p:column>
+
+                                    <p:column colspan="20"  rowspan="40"> 
+
+                                        #{"     "}  ACTIVIDADES POR KILOMETRAJE
+
+
+
+                                    </p:column>
+
+                                </p:row>
+
+                            </f:facet>
+
+
+                            <h:outputLabel class="navbar-text" value=" kILOMETRAJE"/>
+
+                            <h:outputLabel class="navbar-text" value="ACTIVIDADES"/>
+
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.actividadplan.kilometraje}"/>
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.actividadplan.actividad}"/>
+
+                            <f:facet name="footer">
+                                <div class="admin-actions " align="right" >
+                                <p:commandButton rendered="#{controladorVehiculo.vista eq 'actividades'}" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
                                     <p:printer target=":form:imp" />  
                                 </p:commandButton>
-                            </div>
-                            LISTA DE ACTIVIDADES POR KILOMETRAJE
-                            <table color="#fff" align="center" border="1" width="600">
-                                <th align="center" colspan="2" bgcolor="#6D8FFF"> LISTA DE ACTIVIDADES POR KILOMETRAJE</th>
-                                <tr>
-                                    <td><h:outputLabel for="k1" value="Kilometraje: "/></td>   
-                                    <td><h:outputText id="k1" value="#{controladorVehiculo.actividadplan.kilometraje}"  style="font-weight:bold" /></td>   
-                                </tr>
-                                <tr>
-                                    <td> <h:outputLabel for="a1" value="Actividades: " /></td>   
-                                    <td>  <h:inputTextarea id="a1"  value="#{controladorVehiculo.actividadplan.actividad}" style="font-weight:bold" disabled="true"/></td>   
-                                </tr>
-                            </table>
-
-
-                        </p:panel>
-                    </div>
+                                    </div> 
+                            </f:facet>
                         </p:panelGrid>
+                    </div>
+
+
 
                 </div></div>
 
@@ -205,48 +226,6 @@
 
         </h:form>
 
-
-
-
-
-
-
-
-
-
-        <p:dialog id="form-dialog" style="position: fixed; top: 20%; left: 10%"   header="Actividades por kilometraje " widgetVar="carDialog"  modal="true" draggable="false" resizable="false"  width="550">
-            <h:form id="v"  >
-
-
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <h:outputLabel  value="LISTA DE ACTIVIDADES POR KILOMETRAJE " />
-                    <p:panelGrid  columns="1" columnClasses="label,value">
-
-                        <h:outputLabel for="k" value="Kilometraje: " style="font-weight:bold" />
-                        <h:outputText id="k" value="#{controladorVehiculo.actividadplan.kilometraje}"  style="font-weight:bold" />
-
-                        <h:outputLabel for="a" value="Actividades: " style="font-weight:bold"  />
-                        <h:inputTextarea id="a"  value="#{controladorVehiculo.actividadplan.actividad}" style="font-weight:bold" disabled="true"/>
-
-
-                    </p:panelGrid>
-                </p:outputPanel>
-
-
-
-                <div class="admin-actions " align="center" > 
-
-                    <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                        <p:printer target=":form-dialog" />  
-                    </p:commandButton>
-
-
-                </div>
-
-
-
-            </h:form>
-        </p:dialog>
 
 
 

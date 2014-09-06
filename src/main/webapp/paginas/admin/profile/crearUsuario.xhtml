@@ -24,9 +24,7 @@
 
     </ui:define>
     <ui:define name="content">
-        <!--Metadato que se realiza antes de renderizarse la vista-->
-
-        <!--Formulario dentro de un contenedor-->
+ 
         <h:form id="form">
 
             <div role="main">
@@ -45,10 +43,12 @@
                                 <div class="col-md-6"> 
 
                                     <h:panelGroup id="unm" layout="block" class="clearfix">
-                                        <label for="username">#{messages['common.username']}</label>
+                                        <label for="username">Usuario</label>
                                         <div class="input">
-                                            <h:inputText id="username" value="#{profileHome.instance.username}" styleClass="form-control" required="true" label="#{messages['common.username']}">
-                                                <f:ajax execute="@this" render="unm" />
+                                            <h:inputText id="username" value="#{profileHome.instance.username}" 
+                                                         styleClass="form-control" required="true" 
+                                                         requiredMessage="Usuario requerido, necesita un valor" label="#{messages['common.username']}">
+                                                <f:ajax execute="@this"  render="unm" />
                                                 <f:validator validatorId="usernameValidator" />
                                                 <f:validator validatorId="signupUsernameAvailabilityValidator" />
                                             </h:inputText>
@@ -57,28 +57,30 @@
                                             <span class="help-inline text-muted">Su nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
                                         </div>
                                     </h:panelGroup><br/>
-                                    <h:panelGrid >
-                                        
-                                            <label for="password">#{messages['common.password']}</label>
-                                            <div class="input">
-                                                <h:inputSecret id="password" value="#{profileHome.password}" redisplay="true" 
-                                                               styleClass="form-control" style="text-transform: uppercase;" required="true" requiredMessage="Required" label="#{messages['common.password']}">
-                                                    <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
-                                                    <f:validator validatorId="passwordValidator" />
-                                                </h:inputSecret>
-                                                <h:panelGroup id="pwg" >
-                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.password != null}"
-                                                                    styleClass="validation-status"/>
-                                                    <span class="help-inline text-muted">Ingrese una contraseña<ocp:message id="pm"  forId="password" /></span>
-                                                </h:panelGroup>
-                                            </div>
+                                    <h:panelGrid rendered="#{profileHome.instance.username == null}">
+
+                                        <label for="password">#{messages['common.password']}</label>
+                                        <div class="input">
+                                            <h:inputSecret id="password" value="#{profileHome.password}" redisplay="true" 
+                                                           styleClass="form-control" style="text-transform: uppercase;"
+                                                           required="true" requiredMessage="Constraseña requerida, necesita un valor" label="#{messages['common.password']}">
+                                                <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
+                                                <f:validator validatorId="passwordValidator" />
+                                            </h:inputSecret>
+                                            <h:panelGroup id="pwg" >
+                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.password != null}"
+                                                                styleClass="validation-status"/>
+                                                <span class="help-inline text-muted">Ingrese una contraseña<ocp:message id="pm"  forId="password" /></span>
+                                            </h:panelGroup>
+                                        </div>
                                         <br/>
                                     </h:panelGrid>
-                                    <h:panelGrid >
+                                    <h:panelGrid rendered="#{profileHome.instance.username == null}">
                                         <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
                                         <div class="input">
                                             <h:inputSecret  id="passwordConfirm" value="#{profileHome.passwordConfirm}"
-                                                           redisplay="true" styleClass="form-control" style="text-transform: uppercase;" label="#{messages['common.confirmPassword']}">
+                                                            redisplay="true" styleClass="form-control" style="text-transform: uppercase;" 
+                                                            required="true" requiredMessage="Constraseña requerida, necesita un valor" label="#{messages['common.confirmPassword']}">
                                                 <f:ajax execute="password passwordConfirm passwordValidator signupValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
@@ -99,11 +101,21 @@
 
                     <div class="admin-actions " align="center">  
                         <p:commandButton id="save" action="#{profileHome.saveUsuario()}"
-                                         value="#{messages['common.save']}"
+                                         value="#{messages['common.save']}" 
                                          styleClass="btn  btn-success" 
-                                         icon="ui-icon-disk"/>
+                                         icon="ui-icon-disk" update="p1" ajax="true"/>
+
 
                     </div>
+                    <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                    <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                        <div class="input" align="center">
+                            <h:outputText value="Por favor espere, Cargando..."/><br/>
+                        </div>
+                        <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                    </p:dialog>
+
 
                 </div></div>
         </h:form>
