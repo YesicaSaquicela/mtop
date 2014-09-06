@@ -67,50 +67,93 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     List<Property> listaPropiedades;
     List<Property> listaPropiedades2;
     private String valorIniSolicitud;
+    Property propiedad;
 
     public String getValorIniSolicitud() {
-        System.out.println("obteniendo "+valorIniSolicitud);
+        System.out.println("obteniendo " + valorIniSolicitud);
         return valorIniSolicitud;
     }
 
     public void setValorIniSolicitud(String valorIniSolicitud) {
-        System.out.println("fijando valir ini "+valorIniSolicitud);
+        System.out.println("fijando valir ini " + valorIniSolicitud);
         this.valorIniSolicitud = valorIniSolicitud;
     }
-    
+
     @TransactionAttribute
     public void fijarValorSolicitud() {
 
-        for (Property p : listaPropiedades) {
-            System.out.println("nombre d ela propiedad" + p.getName());
+        System.out.println("nombre d ela propiedad" + propiedad.getName());
 
-            if (p.getName().equals("viNumSolicitud")) {
-                
-                p.setValidator("sdf");
-                Object o = new Object();
-                System.out.println("valor ini"+valorIniSolicitud);
-                 o = valorIniSolicitud;
-                 
-                 p.setValue((Serializable) o);
-                save(p);
-                System.out.println("paso guardar");
-                System.out.println("guardada p.value"+p.getValue());
-                System.out.println("id"+p.getId());
-     
-                break;
+        propiedad.setValidator("sdf");
+        Object o = new Object();
+        System.out.println("valor ini" + valorIniSolicitud);
+        o = valorIniSolicitud;
 
-            }
-
-        }
-        
+        propiedad.setValue((Serializable) o);
+        save(propiedad);
+        System.out.println("paso guardar");
+        System.out.println("guardada p.value" + propiedad.getValue());
+        System.out.println("id" + propiedad.getId());
 
     }
 
     public List<Property> getListaPropiedades() {
+
+        System.out.println("lista propiedades" + listaPropiedades);
         return listaPropiedades;
     }
 
     public void setListaPropiedades(List<Property> listaPropiedades) {
+        try {
+            System.out.println("getinnstance .get label" + getInstance().getLabel());
+            if (getInstance().getLabel() != null) {
+                if (getInstance().getLabel().equals("Solicitud Reparación y Mantenimiento")) {
+                    System.out.println("entro a soli");
+                    List<Property> lp = new ArrayList<Property>();
+                    if (listaPropiedades != null) {
+                        for (Property p : listaPropiedades) {
+                            if (p.getName().equals("viNumSolicitud")) {
+                                valorIniSolicitud = p.getValue().toString();
+                                propiedad = p;
+                            } else {
+                                lp.add(p);
+                            }
+                        }
+                        if (valorIniSolicitud != null) {
+                            System.out.println("entro a fijar propiedades para soli");
+                            listaPropiedades = lp;
+                            listaPropiedades2 = listaPropiedades;
+                        }
+                    }
+
+                }
+                System.out.println("getinnstance .get label" + getInstance().getLabel());
+                if (getInstance().getLabel().equals("Solicitud Reparación y Mantenimiento")) {
+                    System.out.println("entro a soli");
+                    List<Property> lp = new ArrayList<Property>();
+                    if (listaPropiedades != null) {
+                        for (Property p : listaPropiedades) {
+                            if (p.getName().equals("viNumSolicitud")) {
+                                valorIniSolicitud = p.getValue().toString();
+                                propiedad = p;
+                            } else {
+                                lp.add(p);
+                            }
+                        }
+                        if (valorIniSolicitud != null) {
+                            System.out.println("entro a fijar propiedades para soli");
+                            listaPropiedades = lp;
+                            listaPropiedades2 = listaPropiedades;
+                        }
+                    }
+
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("e" + e);
+            e.printStackTrace();
+        }
         System.out.println("" + listaPropiedades);
         this.listaPropiedades2 = listaPropiedades;
         this.listaPropiedades = listaPropiedades;
