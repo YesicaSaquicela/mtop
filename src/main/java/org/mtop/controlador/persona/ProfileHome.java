@@ -105,7 +105,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     public List<Profile> getListausuariosInactivos() {
         return listausuariosInactivos;
-        
+
     }
 
     public void setListausuariosInactivos(List<Profile> listausuariosInactivos) {
@@ -125,19 +125,18 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
                 System.out.println("entro for111111");
 
                 System.out.println(" etro inf11111111");
-                if (!profile.isEstado() && profile.getUsername() != null ) {
+                if (!profile.isEstado() && profile.getUsername() != null) {
                     lp.add(profile);
                 }
 
-                
             }
-            listausuariosInactivos=lp;
-        }else{
+            listausuariosInactivos = lp;
+        } else {
             for (Profile profile : findAll(Profile.class)) {
                 System.out.println("entro for");
 
                 System.out.println(" etro inf");
-                if (profile.isEstado()&& profile.getUsername() != null ) {
+                if (profile.isEstado() && profile.getUsername() != null) {
                     lp.add(profile);
                 }
 
@@ -146,7 +145,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         }
         System.out.println("lista despues estado" + lp);
         listausuarios = lp;
-        
 
         this.estado = estado;
     }
@@ -160,7 +158,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         System.out.println("PROFILE_________init");
         Date now = Calendar.getInstance().getTime();
         try {
-                     
+
             IdentityObjectAttribute ida = ps.getAttributos(selectedProfile.getUsername(), "estado").get(0);
             System.out.println("PROFILE_________0lista antes" + listausuarios);
 
@@ -210,15 +208,16 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     public Long getProfileId() {
         System.out.println("obtiene objetoget::::::::::::: " + getInstance().getFirstname());
+        System.out.println("usuario>>>>>" + getInstance().getUsername());
         return (Long) getId();
 
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
-        password=getInstance().getPassword();
-        passwordConfirm=getInstance().getPassword();
-        System.out.println("recupero pasworddddd"+password+passwordConfirm);
+        password = getInstance().getPassword();
+        passwordConfirm = getInstance().getPassword();
+        System.out.println("recupero pasworddddd" + password + passwordConfirm);
         System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
     }
 
@@ -322,24 +321,44 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     public String register() throws IdentityException {
-        createUser();
-        //BasicPasswordEncryptor().encryptPassword(password)
-        credentials.setUsername(getInstance().getUsername());
-        //credentials.getCredential().
-        credentials.setCredential(new PasswordCredential(getPassword()));
-        oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
-        identity.setAuthenticatorClass(IdmAuthenticator.class);
+        if (getInstance().isPersistent()) {
+            System.out.println("entro a 1");
+            credentials.setUsername(getInstance().getUsername());
+            //credentials.getCredential().
+            credentials.setCredential(new PasswordCredential(getPassword()));
+            oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
+            identity.setAuthenticatorClass(IdmAuthenticator.class);
 
-        /*
-         * Try twice to work around some state bug in Seam Security
-         * TODO file issue in seam security
-         */
-        String result = identity.login();
-        if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
-            result = identity.login();
+            /*
+             * Try twice to work around some state bug in Seam Security
+             * TODO file issue in seam security
+             */
+            String result = identity.login();
+            if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
+                result = identity.login();
+            }
+            return result;
+        } else {
+            System.out.println("entro 2");
+            createUser();
+            //BasicPasswordEncryptor().encryptPassword(password)
+            credentials.setUsername(getInstance().getUsername());
+            //credentials.getCredential().
+            credentials.setCredential(new PasswordCredential(getPassword()));
+            oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
+            identity.setAuthenticatorClass(IdmAuthenticator.class);
+
+            /*
+             * Try twice to work around some state bug in Seam Security
+             * TODO file issue in seam security
+             */
+            String result = identity.login();
+            if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
+                result = identity.login();
+            }
+            return result;
         }
 
-        return result;
     }
 
     //Enviar mensajes al correo
@@ -462,6 +481,8 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         System.out.println("\n\\n\ncreando el usuerrrr\n\n\n" + getInstance().getUsername());
         AttributesManager attributesManager = security.getAttributesManager();
         PasswordCredential p = new PasswordCredential(getPassword());
+        System.out.println("usuario crear" + user);
+        System.out.println("contrase;a crearu>>>>>>>>" + p);
         attributesManager.updatePassword(user, p.getValue());
 
         attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario 
@@ -505,12 +526,14 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     public String saveUsuario() {
-         System.out.println("entro a guardaranrtes");
+        System.out.println("entro a guardaranrtes");
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         String salida = "/paginas/admin/listProfile.xhtml?faces-redirect=true";
         System.out.println("entro a guardar");
+    
         getInstance().setEstado(true);
+        
         if (getInstance().isPersistent()) {
             try {
                 System.out.println("\n\n\n\nentra registroo\n\n\n");
@@ -546,12 +569,12 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
         try {
             if (getInstance().isPersistent()) {
-                try {
-                    changeEmail();
-                } catch (IdentityException ex) {
-                    Logger.getLogger(ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
-                    ex.printStackTrace();
-                }
+//                try {
+//                    changeEmail();
+//                } catch (IdentityException ex) {
+//                    Logger.getLogger(ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
+//                    ex.printStackTrace();
+//                }
                 save(getInstance());
             } else {
 
@@ -656,7 +679,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             //securityRol.disassociate(getInstance().getUsername());
             System.out.println("despues de ida");
             ida.setValue("ACTIVO");
-             habilitar.setEstado(true);
+            habilitar.setEstado(true);
             habilitar.getLastUpdate();
             save(habilitar);
             em.merge(ida);
@@ -676,6 +699,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         } catch (IdentityException ex) {
 
         }
-        
+
     }
 }

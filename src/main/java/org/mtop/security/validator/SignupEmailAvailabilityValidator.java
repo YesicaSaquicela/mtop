@@ -66,6 +66,8 @@ public class SignupEmailAvailabilityValidator implements Validator {
         if (profile.isPersistent()) {
             currentEmail = ps.find(profile.getId()).getEmail();
         }
+        System.out.println("currente"+currentEmail);
+        System.out.println("value"+value);
         if (!currentEmail.equals(value)) {
             if (value instanceof String) {
                 if (!ps.isEmailAddressAvailable((String) value) && !(value.equals(profile.getEmail()))) {
