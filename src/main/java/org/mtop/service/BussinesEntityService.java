@@ -190,6 +190,7 @@ public class BussinesEntityService extends PersistenceUtil<BussinesEntity> {
     }
 
     public List<BussinesEntity> findBussinesEntityForProperty(Property property) {
+        System.out.println("llega propiedad"+property);
         CriteriaBuilder builder = getCriteriaBuilder();
         CriteriaQuery<BussinesEntity> query = builder.createQuery(BussinesEntity.class);
         Root<BussinesEntity> bussinesEntity = query.from(BussinesEntity.class);

@@ -129,8 +129,8 @@
                                             </h:panelGroup><br></br>                   
 
 
-                                            <!--mtop:input id="validator" name="validator" type="text" label="# {messages['common.property.validator']}" 
-                                                        value="# {propertyHome.instance.validator}" required="false" inlinehelp="# {messages['common.property.validator.help']}" execute="@this save" /><br></br-->
+                                            <mtop:input id="validator" name="validator" type="text" label="#{messages['common.property.validator']}" 
+                                                        value="#{propertyHome.instance.validator}" required="false" inlinehelp="#{messages['common.property.validator.help']}" execute="@this save" /><br></br>
                                         </div>
                                         <div class="col-md-6"> 
 
@@ -210,8 +210,8 @@
                             <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 
                                              value="#{messages['common.save']}" styleClass="btn  btn-success" icon="ui-icon-disk"/>
                       
-                             <!--p:commandButton type="button" value="#{messages['common.delete']}" styleClass="btn  btn-success" onclick="#{propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
-                                             update=":cancel-dialog :alerts-dialog:" rendered="#{not empty propertyHome.instance.id}">                        
+                             <!--p:commandButton type="button" value="# {messages['common.delete']}" styleClass="btn  btn-success" onclick="# {propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
+                                             update=":cancel-dialog :alerts-dialog:" rendered="# {not empty propertyHome.instance.id}">                        
                             </p:commandButton-->
                         </div>    
                     </div></div>
