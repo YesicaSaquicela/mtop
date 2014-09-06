@@ -184,6 +184,7 @@ public class Authentication {
     public void login1() throws InterruptedException, IdentityException {
         identity.setAuthenticatorClass(IdmAuthenticator.class);
         PersistenceManager identityManager = security.getPersistenceManager();
+        
         User user = identityManager.findUser(credencials.getUsername());
         if (user != null) {
             IdentityObjectAttribute ida = profileService.getAttributos(user.getKey(), "estado").get(0);

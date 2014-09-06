@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.mtop.faces.validator;
 
 import javax.enterprise.context.RequestScoped;
@@ -33,33 +32,36 @@ import org.mtop.modelo.Vehiculo;
  *
  * @author carlis
  */
-
-    
 @RequestScoped
 @FacesValidator("fechanio")
-public class fechaanio implements Validator
-{
-   @Inject
-   private EntityManager em;
+public class fechaanio implements Validator {
 
-   @Inject
-   private ControladorVehiculo cv;
+    @Inject
+    private EntityManager em;
 
-   @Inject
-   private Vehiculo vehiculo;
-   private InputElement<Integer> value;
+    @Inject
+    private ControladorVehiculo cv;
 
-   @Override
-   public void validate(final FacesContext context, final UIComponent comp, final Object value)
-            throws ValidatorException
-   {
-       System.out.println(" entro validadorfa");
-       String field = value.toString();
-       System.out.println("field.matches(\"[0-9-]*\")"+field.matches("[0-9]*"));
-      if (value instanceof String && !value.equals(vehiculo.getAnioFabricacion())&& field.matches("[0-9]*")) {
-         cv.setEntityManager(em);
-         if (!cv.obtenerAñoV((String) value))
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añoActual).", null));
-      }
-   }
+    @Inject
+    private Vehiculo vehiculo;
+    private InputElement<Integer> value;
+
+    @Override
+    public void validate(final FacesContext context, final UIComponent comp, final Object value)
+            throws ValidatorException {
+        System.out.println(" entro validadorfa");
+        String field = value.toString();
+        System.out.println("field.matches(\"[0-9-]*\")" + field.matches("[0-9]*"));
+        System.out.println("value"+(String)value);
+        if (!value.equals("")) {
+            if (value instanceof String && !value.equals(vehiculo.getAnioFabricacion()) && field.matches("[0-9]*")) {
+                cv.setEntityManager(em);
+                if (!cv.obtenerAñoV((String) value)) {
+                    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añoActual).", null));
+                }
+            }
+
+        }
+
+    }
 }

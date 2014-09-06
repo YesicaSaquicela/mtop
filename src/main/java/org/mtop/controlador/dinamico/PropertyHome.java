@@ -79,7 +79,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
     private String mensaje;
-
+   
+    
     public String getMensaje() {
         return mensaje;
     }
@@ -226,10 +227,14 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
 
         }
-        if (p.getGroupName() != null) {
-            if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
+        System.out.println("p.name"+getInstance().getName());
+        System.out.println("p.getGroupName "+getInstance().getGroupName());
+        if (getInstance().getGroupName() != null) {
+            System.out.println("get group name"+p.getGroupName());
+            if (getInstance().getGroupName().equals("org.mtop.modelo.Vehiculo")) {
                 //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
                 tipos.add("EstadoParteMecanica");
+                System.out.println("si entro a grupo");
                 // setPropertyStringValue("Bueno,Malo");
             }
 
@@ -298,7 +303,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyType() {
-        if (getInstance() != null) {
+        System.out.println("get instance"+getInstance());
+        if (getInstance().getId() != null) {
+            System.out.println("entro");
+            System.out.println("tipo"+getInstance().getType());
             if (getInstance().getType().equals("java.lang.MultiLineString")) {
                 propertyType = "AreaTexto";
             } else {

@@ -361,18 +361,31 @@ limitations under the License.
                                 </p:column>
                             </p:dataTable>
                         </p:panel><br/>
+                        <c:when test="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}">
+                            <h:panelGroup id="fn1" layout="block" class="clearfix">
+                                <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" value="Valor inicial para numero de solicitud" />
+                                <div class="input">
+                                    <p:inputText  rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" id="vi" styleClass="xLarge span4" label="valor inicial"
+                                                  value="#{bussinesEntityTypeHome.valorIniSolicitud}">
+                                        <f:ajax execute="@this" render="save"  />
+                                    </p:inputText>
+                                </div>
+                                <div class="actions" align="center">
+                                     <p:commandButton styleClass="btn  btn-success" id="save" 
+                                                      action="#{bussinesEntityTypeHome.fijarValorSolicitud()}"
+                                                      value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
+                                              rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
+                                             />
+                                                    
+                                </div>
 
+                            </h:panelGroup>
+
+                        </c:when>
 
                     </c:forEach> 
                 </div></div>
-            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
-
-            <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
-                <div class="input" align="center">
-                    <h:outputText value="Por favor espere, Cargando..."/><br/>
-                </div>
-                <p:graphicImage value="/resources/ajax-loader.gif" /> 
-            </p:dialog>
+           
 
         </h:form>
         <p:dialog id="cancel-dialog" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
@@ -427,5 +440,14 @@ limitations under the License.
                                  styleClass="btn  btn-success"/>  
             </h:form>
         </p:dialog>
+         <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+            <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                <div class="input" align="center">
+                    <h:outputText value="Por favor espere, Cargando..."/><br/>
+                </div>
+                <p:graphicImage value="/resources/ajax-loader.gif" /> 
+            </p:dialog>
     </ui:define>    
+    
 </ui:composition>

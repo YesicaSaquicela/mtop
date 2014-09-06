@@ -15,7 +15,6 @@
  */
 package org.mtop.controlador.dinamico;
 
-
 import org.mtop.modelo.dinamico.BussinesEntity;
 import org.mtop.modelo.dinamico.Structure;
 import org.mtop.modelo.dinamico.Property;
@@ -46,7 +45,7 @@ import org.jboss.seam.transaction.Transactional;
 
 /**
  *
- * @author 
+ * @author
  */
 @Named
 @ViewScoped
@@ -67,17 +66,56 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     private String palabrab;
     List<Property> listaPropiedades;
     List<Property> listaPropiedades2;
+    private String valorIniSolicitud;
+
+    public String getValorIniSolicitud() {
+        System.out.println("obteniendo "+valorIniSolicitud);
+        return valorIniSolicitud;
+    }
+
+    public void setValorIniSolicitud(String valorIniSolicitud) {
+        System.out.println("fijando valir ini "+valorIniSolicitud);
+        this.valorIniSolicitud = valorIniSolicitud;
+    }
+    
+    @TransactionAttribute
+    public void fijarValorSolicitud() {
+
+        for (Property p : listaPropiedades) {
+            System.out.println("nombre d ela propiedad" + p.getName());
+
+            if (p.getName().equals("viNumSolicitud")) {
+                
+                p.setValidator("sdf");
+                Object o = new Object();
+                System.out.println("valor ini"+valorIniSolicitud);
+                 o = valorIniSolicitud;
+                 
+                 p.setValue((Serializable) o);
+                save(p);
+                System.out.println("paso guardar");
+                System.out.println("guardada p.value"+p.getValue());
+                System.out.println("id"+p.getId());
+     
+                break;
+
+            }
+
+        }
+        
+
+    }
 
     public List<Property> getListaPropiedades() {
         return listaPropiedades;
     }
 
     public void setListaPropiedades(List<Property> listaPropiedades) {
-        System.out.println("fijando las propiedades"+listaPropiedades);
-        this.listaPropiedades2=listaPropiedades;
+        System.out.println("" + listaPropiedades);
+        this.listaPropiedades2 = listaPropiedades;
         this.listaPropiedades = listaPropiedades;
     }
-    
+
     public String getPalabrab() {
         return palabrab;
     }
@@ -85,12 +123,12 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     public void setPalabrab(String palabrab) {
         this.palabrab = palabrab;
     }
-    
+
     public ArrayList<String> autocompletar(String query) {
         System.out.println("QUEryyyyy" + query);
-        ArrayList<String> ced=new ArrayList<String>();
+        ArrayList<String> ced = new ArrayList<String>();
         ced = new ArrayList<String>();
-        
+
         for (Property bet : listaPropiedades) {
             System.out.println("nombre" + bet.getName());
             if (bet.getName().toLowerCase().contains(query.toLowerCase())) {
@@ -101,10 +139,8 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
     }
-    
-    
-    
-     public void buscar() {
+
+    public void buscar() {
 
         List<Property> le = new ArrayList<Property>();
         le.clear();
@@ -133,7 +169,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
         } else {
             listaPropiedades = le;
-            System.out.println("presentando\n\n\n" +listaPropiedades);
+            System.out.println("presentando\n\n\n" + listaPropiedades);
 
         }
 
@@ -155,7 +191,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     public void setBussinesEntityTypeId(Long bussinesEntityTypeId) {
         setId(bussinesEntityTypeId);
-        
+
     }
 
     public String getName() {
@@ -213,7 +249,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         setEntityManager(em);
         bussinesEntityTypeService.setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
-        
+
     }
 
     @Override
@@ -304,29 +340,29 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         if (!isIdDefined()) {
             return false;
         }
-        boolean b = false;        
+        boolean b = false;
         List<BussinesEntity> bussinesEntityList = bussinesEntityService.findBussinesEntityForType(getInstance());
         b = (!bussinesEntityList.isEmpty() || isPropertyAssociatedBussinesEntityAttributes());
         log.info("mtop --> Ingreso a verificar entidadGeneral: " + b);  //true si esta asociado 
         return b;
     }
-    
-      
-    public boolean isPropertyAssociatedBussinesEntityAttributes(){
+
+    public boolean isPropertyAssociatedBussinesEntityAttributes() {
         if (!isIdDefined()) {
             return false;
         }
         for (Property p : getInstance().getStructures().get(0).getProperties()) {
-            if(!bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty()){
+            if (!bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty()) {
                 return true;   //retorna true si esta relacionado con Atributos
-            }            
-        }        
+            }
+        }
         return false;
     }
-    public boolean esTipoEntidad(String nombrePropiedad){
-  
-        for(BussinesEntityType bet : bussinesEntityTypeService.findAll()){
-            if(bet.getName().equals(nombrePropiedad)){
+
+    public boolean esTipoEntidad(String nombrePropiedad) {
+
+        for (BussinesEntityType bet : bussinesEntityTypeService.findAll()) {
+            if (bet.getName().equals(nombrePropiedad)) {
                 System.out.println("retornando true");
                 return true;
             }
@@ -334,5 +370,5 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         System.out.println("retornando false");
         return false;
     }
-    
+
 }

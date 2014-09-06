@@ -496,7 +496,7 @@ public class InitializeDatabase {
             attributes.add(buildProperty("Motor", "potencia", String.class.getName(), null, false, "Potencia", " Ingrese la potencia del Motor", false, 8L));
             attributes.add(buildProperty("Motor", "sistemaRefrigeracion", String.class.getName(), null, false, "Sistema de Refrigeración", "Ingrese el valor para sistema de refrigeración de Motor", false, 10L));
             attributes.add(buildProperty("Motor", "admicionEscape", String.class.getName(), null, false, "Admición de Escape", " Ingrese la admición de escape del Motor", false, 11L));
-            attributes.add(buildProperty("Motor", "instrumentosControl", String.class.getName(), null, false, "Instrumentos de control", "Ingrese instrumentos de control del Motor", false, 12L));
+            attributes.add(buildPropertyParteMecanica("Motor", "instrumentosControl", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Instrumentos de control", "Ingrese instrumentos de control del Motor", false, 12L,100));
             attributes.add(buildPropertyParteMecanica("Motor", "potencia", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Potencia", "Escoja el estado para potencia del motor", false, 13L,100));
             attributes.add(buildPropertyParteMecanica("Motor", "sistemaLubricacion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Lubricación", "Escoja el estado para sistema de lubricación del motor", false, 13L,100));
             attributes.add(buildPropertyParteMecanica("Motor", "sistemaRefrigeracion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Refrigeración", "Escoja el estado para sistema de refrigeración del motor", false, 14L,100));
@@ -823,7 +823,8 @@ public class InitializeDatabase {
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
             // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-
+             attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "viNumSolicitud", String.class.getName(), null, false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 1L));
+           
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);

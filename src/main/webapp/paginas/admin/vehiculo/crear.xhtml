@@ -334,7 +334,8 @@
                                             <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute('org.mtop.modelo.Vehiculo')}" var="a" varStatus="status"> 
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                 <div class="input">
-                                                    <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                     #{a.value} vali #{a.property.validator}
+                                                    <p:inputText value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                                   rendered="#{a.property.type eq 'java.lang.String'}">
                                                         <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                         <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
@@ -382,7 +383,7 @@
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" 
                                          styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
-                                         ajax="false" update="pv">
+                                         ajax="true" update="pv">
                             <f:param name="mensaje" value="#{controladorVehiculo.mensaje}"></f:param>
                         </p:commandButton>
                         <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
