@@ -112,12 +112,22 @@
                                         </p:inputText>
                                         <span class="help-inline text-muted">Número de fuente financiera. Ejm(001-002)<ocp:message forId="fuenteFinanciera"/></span>
                                         <br></br><br></br>
+                                        
+                                                    <h:panelGroup id="em1" layout="block" class="clearfix">
+                                        <div class="input">
+                                            <p:outputLabel value="Descripción"/><br></br>
+                                            <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
+                                                             value="#{controladorPartidaContabilidad.instance.descripcion}"
+                                                             required="true" label="observación" requiredMessage="Descripción requerida, necesita un valor" >
+                                                <f:ajax execute="@this" render="em1"  />
+                                            </p:inputTextarea>
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorPartidaContabilidad.instance.descripcion !=null}" styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Ingrese una descripción de la partida<ocp:message forId="observacion1" /></span>                                   
+                                        </div>
+                                    </h:panelGroup>   
 
 
-                                        <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Descripción" 
-                                                    value="#{controladorPartidaContabilidad.instance.descripcion}" required="true" 
-                                                    inlinehelp="Ingrese una descripción"
-                                                    execute ="@this save" render="descripcion"/><br></br>
+                                        
 
                                     </div>
                                 </div>
@@ -237,12 +247,20 @@
 
 
                     <div class="admin-actions " align="center" > 
-                        <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
-                                         icon="ui-icon-disk" update="@form"/>
+                        <p:commandButton id="save" value="Guardar"  
+                                         styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
+                                         icon="ui-icon-disk" update="panel" ajax="true"/>
 
                     
                     </div>
+                <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
+                    <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                        <div class="input" align="center">
+                            <h:outputText value="Por favor espere, Cargando..."/><br/>
+                        </div>
+                        <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                    </p:dialog>
                 </div></div>
         </h:form>
 

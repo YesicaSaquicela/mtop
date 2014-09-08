@@ -64,6 +64,7 @@ public class SignupEmailAvailabilityValidator implements Validator {
         ps.setEntityManager(em);
         String currentEmail = "";
         if (profile.isPersistent()) {
+            System.out.println("entroa correo persisten");
             currentEmail = ps.find(profile.getId()).getEmail();
         }
         System.out.println("currente"+currentEmail);

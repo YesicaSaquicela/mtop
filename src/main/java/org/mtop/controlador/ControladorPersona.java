@@ -77,6 +77,15 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
     List<Profile> listaPersona = new ArrayList<Profile>();
     List<Profile> listaPersona1;
     private String palabrab;
+      private String nombusuario;
+
+    public String getNombusuario() {
+        return nombusuario;
+    }
+
+    public void setNombusuario(String nombusuario) {
+        this.nombusuario = nombusuario;
+    }
 
     public String getPalabrab() {
         return palabrab;
