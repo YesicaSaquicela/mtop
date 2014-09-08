@@ -51,6 +51,7 @@ import org.mtop.modelo.SolicitudReparacionMantenimiento_;
 import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.Vehiculo_;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.servicios.ServicioGenerico;
 import org.mtop.util.UI;
@@ -91,8 +92,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private ItemSolicitudReparacion itemsr;
     private List<ItemSolicitudReparacion> itemsEliminar;
     private ItemSolicitudReparacion it;
- 
-    
+    private String numeroSolicitud;
+
     public ItemSolicitudReparacion getIt() {
         return it;
     }
@@ -522,8 +523,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         this.listaRequisiciones = listaRequisiciones;
     }
 
-    private String numeroSolicitud;
-
     public ControladorItemSolicitud getCitemsolicitud() {
         return citemsolicitud;
     }
@@ -534,9 +533,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public String getNumeroSolicitud() {
         if (getId() == null) {
+            List<BussinesEntityAttribute> bea = getInstance().findBussinesEntityAttribute("org.mtop.modelo.SolicitudReparacionMantenimiento");
+            System.out.println("bea size" + bea.size());
+            String valorInicial="8000";
+            for (BussinesEntityAttribute a : bea) {
+                if (a.getProperty().getName().equals("viNumSolicitud")) {
+                    System.out.println("entro a onbtener el valor "+a.getValue().toString());
+                    valorInicial = a.getValue().toString();
+                }
+            }
             System.out.println("numero" + getInstance().getNumSolicitud());
             List<SolicitudReparacionMantenimiento> lista = findAll(SolicitudReparacionMantenimiento.class);
-            int t = lista.size() + 8000;
+            int t = lista.size() + Integer.parseInt(valorInicial);
             System.out.println("valor de t :::::::::::" + t);
 
             setNumeroSolicitud(String.valueOf(t + 1));
@@ -683,8 +691,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return (Long) getId();
     }
 
-
-
 //    public SelectItem[] getGenderValues() {
 //        System.out.println(" entroa aitems");
 //        
@@ -697,13 +703,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 //        System.out.println("itesssssss"+items.length);
 //        return items;
 //    }
-
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
         System.out.println("vehiculo  en set soli" + getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
         System.out.println("id solllllllllll" + getInstance().getId());
-   
-       
+
         vehiculo = getInstance().getVehiculo();
         if (getInstance().getRequisicionId() != null) {
             requisicion = getInstance().getRequisicionId();
@@ -739,6 +743,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
         listaRequisiciones = lrq;
         System.out.println("lista despues set soli" + listaRequisiciones);
+
     }
 
     public String formato(Date fecha) {
@@ -950,7 +955,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-     
+
         System.out.println("vehiculo antes de guardar>>>" + getInstance().getVehiculo());
 
         try {

@@ -31,7 +31,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
 
-              <div align="right">
+                    <div align="right">
                         <p:button rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
                                   icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
                                   outcome="/paginas/secretario/solicitud/lista" 
@@ -52,9 +52,9 @@
                                                  rendered="true" ></p:inputText>
                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
-                                    
-                                 
-                                    
+
+
+
                                     <h:outputLabel value="Fecha de Solicitud" /> <br></br> 
                                     <p:inputText id="fecha" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"
                                                  readonly="true" styleClass="form-control"
@@ -69,7 +69,7 @@
                                                      requiredMessage="Se requiere elegir una persona que solicite una solicitud ">  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
-                                   
+
                                     </p:selectOneMenu> <br></br>
                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal" /></span><br></br><br></br> 
@@ -149,18 +149,22 @@
 
 
 
-                                <p:tab title="Otros" rendered="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.Solicitud').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
+                                <p:tab title="Otros" rendered="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento').size() ne 1 }" closable="false"  titleStyleClass="clearfix"  >
 
-                                    <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.Solicitud')}" var="a" varStatus="status"> 
-                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                    <ui:repeat  value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento')}" var="a" varStatus="status"> 
+              
+                                        <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
+                                        </p:outputLabel>
+                                        
                                         <div class="input">
-                                            <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                          rendered="#{a.property.type eq 'java.lang.String'}">
+                                            
+                                            <p:inputText value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                         rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumSolicitud'}">
                                                 <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                             </p:inputText>
                                             <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                           rendered="#{a.property.type eq 'java.lang.Double'}">
+                                                           rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Integer'}">
 
                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                             </p:inputText>
@@ -173,7 +177,7 @@
                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                             </pe:inputNumber>
                                             <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                             rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                 <p:ajax event="change" update="@parent" partialSubmit="true"/>
                                             </p:selectOneMenu>
@@ -181,9 +185,9 @@
                                                              rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                             </p:inputTextarea>                                             
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null and a.property.name ne 'viNumSolicitud'}"
                                                             styleClass="validation-status" />
-                                            <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
+                                            <span   class="help-inline text-muted"><br/> <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" value="#{a.property.helpInline}"></p:outputLabel>   <ocp:message forId="#{a.name}" /></span><br/><br/>
                                         </div>
 
 
@@ -247,7 +251,7 @@
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20">
 
-                                                      
+
                                                         <p:column headerText="Número de Registro" sortBy="#{v.numRegistro}">
                                                             <h:outputText value="#{v.numRegistro}" />
                                                         </p:column>
@@ -351,7 +355,7 @@
                                 <p:panel>
 
 
-                                 
+
 
                                     <p:outputLabel value="Elemento a Revisar"/><br></br>
                                     <p:inputTextarea id="elementoRevisar"  styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}"
@@ -363,7 +367,7 @@
                                                  />
                                     <h:graphicImage value="#{resource['success.gif']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla" /></span><br></br><br/>
-<br/>
+                                    <br/>
                                     <div class="admin-actions">
                                         <p:commandLink process="@form" update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1"  
                                                        styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
@@ -371,7 +375,7 @@
 
                                         </p:commandLink>
                                     </div><br/>
-                                     <p:messages id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
+                                    <p:messages id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
@@ -387,14 +391,14 @@
                                                         <p:column headerText="Elemento a Revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                             <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
                                                         </p:column>
-                                                        
+
 
                                                         <p:column headerText="Descripción de la falla" sortBy="#{la.descripcionFalla}">
                                                             <h:outputText value="#{la.descripcionFalla}"></h:outputText>
                                                         </p:column>
                                                         <p:column headerText="Opciones" style="width: 5%"> 
                                                             <p:commandButton icon="ui-icon-pencil" update=":form:listaa :form:elementoRevisar :form:descripcionFalla" title="Editar"
-                                                                           actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" process="@form">
+                                                                             actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" process="@form">
                                                                 <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
                                                             </p:commandButton>
                                                             <p:commandButton id="dardebaja" icon="ui-icon-trash" process="@form"
@@ -469,7 +473,7 @@
                                             <f:setPropertyActionListener value="requisicion" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
                                             <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo}" target="#{controladorRequisicion.instance.vehiculo}" /> 
                                             <f:setPropertyActionListener value="Requisición de Reparación" target="#{controladorRequisicion.instance.tipoRequisicion}" />
-                                            
+
                                         </p:commandButton>
                                     </div><br/>
 
@@ -493,7 +497,7 @@
                                                         <p:column headerText="Fecha de Requisición" sortBy="#{vr.fechaRequisicion}">
                                                             <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(vr.fechaRequisicion)}" />
                                                         </p:column>
-                                                          <p:column headerText="Tipo de Adquisición" sortBy="#{vr.tipoAquisicion}">
+                                                        <p:column headerText="Tipo de Adquisición" sortBy="#{vr.tipoAquisicion}">
                                                             <h:outputText value="#{vr.tipoAdquisicion}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{vr.observaciones}">
@@ -515,15 +519,15 @@
 
 
                                                     <br/>
-                                        <div class="admin-actions" align="right">
-                                        <p:commandButton id="save3" value="Quitar Requisición" 
-                                                         icon="ui-icon-closethick"  styleClass="btn  btn-success" 
-                                                         process="@this" update="@form" >
-                                             <f:setPropertyActionListener value="#{null}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
-                                       </p:commandButton>
-                                                        </div>
+                                                    <div class="admin-actions" align="right">
+                                                        <p:commandButton id="save3" value="Quitar Requisición" 
+                                                                         icon="ui-icon-closethick"  styleClass="btn  btn-success" 
+                                                                         process="@this" update="@form" >
+                                                            <f:setPropertyActionListener value="#{null}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
+                                                        </p:commandButton>
+                                                    </div>
                                                     <br/>
-                                        
+
                                                     <p:panel id="req"  >
                                                         <div class="panel panel-primary">
                                                             <div class="panel-heading"  align="center">Datos de Requisición seleccionada</div>
@@ -628,8 +632,8 @@
                                 <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" 
                                                  action="#{controladorSolicitudReparacionMantenimiento.guardar()}" 
                                                  process="@this"/>
-                             
-                                
+
+
                             </div>
                         </p:tab>
                     </p:wizard>
@@ -668,7 +672,7 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>Datos Generales</center></div>
                             <p:panel >
-                                
+
 
                                 <p:outputLabel value="Número de Requisición"/>
                                 <p:inputText id="numRequisicion"  value="#{controladorRequisicion.numeroRequisicion}"
@@ -721,8 +725,8 @@
                                     <f:selectItem itemLabel="Compra" itemValue="compra" />  
                                     <f:selectItem itemLabel="Pago" itemValue="pago" /> 
                                     <f:selectItem itemLabel="Credito" itemValue="credito" />  
-                                    
-                                    
+
+
                                 </p:selectOneMenu> <br></br>
                                 <span class="help-inline text-muted">Elija el tipo de adquisición<ocp:message forId="adquisicion" /></span><br></br><br></br>
 
@@ -842,20 +846,20 @@
 
                         </p:tabView><br></br>
 
-                            <div class="admin-actions">
+                        <div class="admin-actions">
 
-                                        <p:commandLink id="save101" value="Ir Crear Items" 
-                                                          styleClass="btn  btn-success" 
-                                                         process="@form" update="@form" immediate="false" >
+                            <p:commandLink id="save101" value="Ir Crear Items" 
+                                           styleClass="btn  btn-success" 
+                                           process="@form" update="@form" immediate="false" >
 
-                                            <f:setPropertyActionListener value="requisicion2" target="#{controladorSolicitudReparacionMantenimiento.vista}" /> 
-                                        </p:commandLink>
-                                    </div><br/>
+                                <f:setPropertyActionListener value="requisicion2" target="#{controladorSolicitudReparacionMantenimiento.vista}" /> 
+                            </p:commandLink>
+                        </div><br/>
                     </p:panel>
 
 
 
-<p:panel  rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2'}" id="req2" >
+                    <p:panel  rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2'}" id="req2" >
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>Items</center></div>
 
@@ -1050,54 +1054,54 @@
                             </p:panel>
 
                         </div>
-   <p:panel id="pp2">
+                        <p:panel id="pp2">
 
-                                <div class="admin-actions " align="center"> 
-                                  
-                                    <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() eq 0}" id="save1" value="Guardar" 
-                                                     update="@form :form:basicDT2" 
-                                                     process="@form" icon="ui-icon-disk" 
-                                                     styleClass="btn  btn-success" 
-                                                     actionListener="#{controladorRequisicion.guardarRequisicion()}"
-                                                     
-                                                     >
+                            <div class="admin-actions " align="center"> 
 
+                                <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() eq 0}" id="save1" value="Guardar" 
+                                                 update="@form :form:basicDT2" 
+                                                 process="@form" icon="ui-icon-disk" 
+                                                 styleClass="btn  btn-success" 
+                                                 actionListener="#{controladorRequisicion.guardarRequisicion()}"
 
-                                    </p:commandButton>
-
-                                    <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() ne 0}" id="save2" value="Guardar" 
-                                                     update="@form :form:basicDT2" 
-                                                     process="@form" icon="ui-icon-disk" 
-                                                     styleClass="btn  btn-success" 
-                                                     actionListener="#{controladorRequisicion.guardarRequisicion()}"
-                                                     ajax="false" immediate="false"
-                                                     >
-
-                                        <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"
-                                                         />
-                                        <f:setPropertyActionListener value="#{controladorRequisicion.listaRequisicion}" target="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"/>    
-                                    </p:commandButton>
+                                                 >
 
 
+                                </p:commandButton>
+
+                                <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() ne 0}" id="save2" value="Guardar" 
+                                                 update="@form :form:basicDT2" 
+                                                 process="@form" icon="ui-icon-disk" 
+                                                 styleClass="btn  btn-success" 
+                                                 actionListener="#{controladorRequisicion.guardarRequisicion()}"
+                                                 ajax="false" immediate="false"
+                                                 >
+
+                                    <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"
+                                                                 />
+                                    <f:setPropertyActionListener value="#{controladorRequisicion.listaRequisicion}" target="#{controladorSolicitudReparacionMantenimiento.listaRequisiciones}"/>    
+                                </p:commandButton>
 
 
-                                </div>
-                            </p:panel>
+
+
+                            </div>
+                        </p:panel>
                     </p:panel>
 
-                 
 
-                 
+
+
                 </div>
-</div>
-             <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+            </div>
+            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
-                        <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
-                            <div class="input" align="center">
-                            <h:outputText value="Por favor espere, Cargando..."/><br/>
-                            </div>
-                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
-                        </p:dialog>
+            <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                <div class="input" align="center">
+                    <h:outputText value="Por favor espere, Cargando..."/><br/>
+                </div>
+                <p:graphicImage value="/resources/ajax-loader.gif" /> 
+            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

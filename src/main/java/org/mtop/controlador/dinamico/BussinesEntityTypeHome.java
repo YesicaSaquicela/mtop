@@ -67,50 +67,152 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     List<Property> listaPropiedades;
     List<Property> listaPropiedades2;
     private String valorIniSolicitud;
+    private String viNumRequisicionRep;
+    private String viNumRequisicionBie;
+    private Property propiedad;
+    private Property propiedadbien;
+    private Property propiedadrepa;
 
     public String getValorIniSolicitud() {
-        System.out.println("obteniendo "+valorIniSolicitud);
+        System.out.println("obteniendo " + valorIniSolicitud);
         return valorIniSolicitud;
     }
 
     public void setValorIniSolicitud(String valorIniSolicitud) {
-        System.out.println("fijando valir ini "+valorIniSolicitud);
+        System.out.println("fijando valir ini " + valorIniSolicitud);
         this.valorIniSolicitud = valorIniSolicitud;
     }
-    
+
+    public String getViNumRequisicionRep() {
+        return viNumRequisicionRep;
+    }
+
+    public void setViNumRequisicionRep(String viNumRequisicionRep) {
+        this.viNumRequisicionRep = viNumRequisicionRep;
+    }
+
+    public String getViNumRequisicionBie() {
+        return viNumRequisicionBie;
+    }
+
+    public void setViNumRequisicionBie(String viNumRequisicionBie) {
+        this.viNumRequisicionBie = viNumRequisicionBie;
+    }
+
     @TransactionAttribute
     public void fijarValorSolicitud() {
+        valorIniSolicitud = valorIniSolicitud.trim();
+        System.out.println("entro a fijar solicitud");
+        if (!valorIniSolicitud.equals("")) {
+            System.out.println("nombre d ela propiedad" + propiedad.getName());
 
-        for (Property p : listaPropiedades) {
-            System.out.println("nombre d ela propiedad" + p.getName());
+            propiedad.setValidator("sdf");
+            Object o = new Object();
+            System.out.println("valor ini" + valorIniSolicitud);
+            o = valorIniSolicitud;
 
-            if (p.getName().equals("viNumSolicitud")) {
-                
-                p.setValidator("sdf");
-                Object o = new Object();
-                System.out.println("valor ini"+valorIniSolicitud);
-                 o = valorIniSolicitud;
-                 
-                 p.setValue((Serializable) o);
-                save(p);
-                System.out.println("paso guardar");
-                System.out.println("guardada p.value"+p.getValue());
-                System.out.println("id"+p.getId());
-     
-                break;
-
-            }
-
+            propiedad.setValue((Serializable) o);
+            save(propiedad);
+            System.out.println("paso guardar");
+            System.out.println("guardada p.value" + propiedad.getValue());
+            System.out.println("id" + propiedad.getId());
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valor inicial de numero de solicitud necesita un valor"));
         }
-        
+
+    }
+
+    @TransactionAttribute
+    public void fijarValorRequisicion() {
+        viNumRequisicionBie = viNumRequisicionBie.trim();
+        viNumRequisicionRep = viNumRequisicionRep.trim();
+        System.out.println("entro a fijar requisicion"); 
+                
+        if (!viNumRequisicionRep.equals("") && !viNumRequisicionBie.equals("")) {
+            System.out.println("nombre d ela propiedad" + propiedadbien.getName());
+           
+            Object o = new Object();
+            o = viNumRequisicionBie;
+            propiedadbien.setValue((Serializable) o);
+            save(propiedadbien);
+            
+            o = viNumRequisicionRep;
+            propiedadrepa.setValue((Serializable) o);
+            save(propiedadrepa);
+            
+            System.out.println("paso guardar");
+            System.out.println("guardada p.value" + propiedadrepa.getValue());
+            System.out.println("id" + propiedadrepa.getId());
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valores iniciales de requisición necesitan un valores"));
+        }
 
     }
 
     public List<Property> getListaPropiedades() {
+
+        System.out.println("lista propiedades" + listaPropiedades);
         return listaPropiedades;
     }
 
     public void setListaPropiedades(List<Property> listaPropiedades) {
+        try {
+            System.out.println("getinnstance .get label" + getInstance().getLabel());
+            if (getInstance().getLabel() != null) {
+                if (getInstance().getLabel().equals("Solicitud Reparación y Mantenimiento")) {
+                    System.out.println("entro a soli");
+                    List<Property> lp = new ArrayList<Property>();
+                    if (listaPropiedades != null) {
+                        for (Property p : listaPropiedades) {
+                            if (p.getName().equals("viNumSolicitud")) {
+                                valorIniSolicitud = p.getValue().toString();
+                                propiedad = p;
+                            } else {
+                                lp.add(p);
+                            }
+                        }
+                        if (valorIniSolicitud != null) {
+                            System.out.println("entro a fijar propiedades para soli");
+                            listaPropiedades = lp;
+                            listaPropiedades2 = listaPropiedades;
+                        }
+                    }
+
+                }
+                System.out.println("getinnstance .get label" + getInstance().getLabel());
+                if (getInstance().getLabel().equals("Requisición")) {
+                    System.out.println("entro a req");
+                    List<Property> lp = new ArrayList<Property>();
+                    if (listaPropiedades != null) {
+                        for (Property p : listaPropiedades) {
+                            System.out.println("name p"+p.getName());
+                            if (p.getName().equals("viNumRequisicionReparacion")) {
+                                viNumRequisicionRep = p.getValue().toString();
+                                propiedadrepa = p;
+                            } else {
+                                if (p.getName().equals("viNumRequisicionBienes")) {
+                                    viNumRequisicionBie=p.getValue().toString();
+                                    propiedadbien=p;
+                                } else {
+                                    lp.add(p);
+                                }
+                            }
+                         
+                        }
+                        if (valorIniSolicitud != null) {
+                            System.out.println("entro a fijar propiedades para req");
+                            listaPropiedades = lp;
+                            listaPropiedades2 = listaPropiedades;
+                        }
+                    }
+
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("e" + e);
+            e.printStackTrace();
+        }
         System.out.println("" + listaPropiedades);
         this.listaPropiedades2 = listaPropiedades;
         this.listaPropiedades = listaPropiedades;
@@ -249,6 +351,9 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         setEntityManager(em);
         bussinesEntityTypeService.setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
+        valorIniSolicitud="";
+        viNumRequisicionBie="";
+        viNumRequisicionRep="";
 
     }
 

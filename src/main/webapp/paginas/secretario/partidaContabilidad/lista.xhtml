@@ -84,7 +84,8 @@
                                             <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc" 
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
-                                                         rowsPerPageTemplate="5,10,15,20">
+                                                         rowsPerPageTemplate="5,10,15,20"
+                                                         emptyMessage="No se han encontrado coincidencias">
                                                 <p:column headerText="Número de provincia" sortBy="#{pc.numeroProvincia}">
                                                     <h:outputText value="#{pc.numeroProvincia}"></h:outputText>
                                                 </p:column>
