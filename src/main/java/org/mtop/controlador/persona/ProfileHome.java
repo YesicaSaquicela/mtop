@@ -219,7 +219,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     public void setProfileId(Long profileId) {
         setId(profileId);
         if(getInstance().getUsername()!=null){
-          password = getInstance().getPassword();
+        password = getInstance().getPassword();
         passwordConfirm = getInstance().getPassword();
         System.out.println("recupero pasworddddd" + password + passwordConfirm);
         }

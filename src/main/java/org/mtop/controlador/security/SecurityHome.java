@@ -100,12 +100,18 @@ public class SecurityHome implements Serializable {
     }
 
     private User getUser() throws IdentityException {
+        System.out.println("entro get user"+this.user);
+        
         if (this.user == null) {
+            System.out.println(" ento al if"+getUsername());
             user = new SimpleUser(getUsername());
             if (getUsername() != null && !getUsername().isEmpty()) {
+                System.out.println("fijando user>>>>");
                 user = securityGroupService.findUser(getUsername());
+                
             }
-        }        
+        }       
+        System.out.println("retornando>>>"+user);
         return user;
     }
 
@@ -127,10 +133,12 @@ public class SecurityHome implements Serializable {
     }
 
     public void setUsername(String username) {
+        System.out.println("usio llega en aotorizaci'on>>>>"+username);
         this.username = username;
     }
 
     public String getGroupname() {
+        System.out.println("grupo nombre>>>>>"+groupname);
         return groupname;
     }
 
@@ -167,6 +175,7 @@ public class SecurityHome implements Serializable {
         this.groupSelected=gs;
                System.out.println("fijndo grupo>>>>>>"+groupSelected);
     }
+    
     @Transactional
     public void disassociate() {
         Group g = groupSelected;
@@ -229,6 +238,7 @@ public class SecurityHome implements Serializable {
     public List<Group> findGroups() {
         List<Group> groups = new ArrayList<Group>();
         System.out.println("presenta antes");
+        System.out.println("");
         try {
            
             groups = new ArrayList<Group>(securityGroupService.find(getUser()));
