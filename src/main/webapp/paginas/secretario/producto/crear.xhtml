@@ -55,7 +55,7 @@
                                             <p:outputLabel value="Descripción"/><br></br>
                                             <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                              value="#{controladorProducto.instance.description}"
-                                                             required="true" label="observación" >
+                                                             required="true" label="observación" requiredMessage="Descripción requerida, necesita un valor" >
                                                 <f:ajax execute="@this" render="em1"  />
                                             </p:inputTextarea>
                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorProducto.instance.description !=null}" styleClass="validation-status" />
@@ -66,12 +66,12 @@
 
                                     <mtop:input id="cantidad" name="cantidad1" type="text" label="Cantidad" 
                                                 value="#{controladorProducto.instance.cantidad}" required="true" 
-                                                inlinehelp="Ingrese la cantidad" requiredMessagge="Cantidad requerida, necesita un valor"
+                                                inlinehelp="Ingrese la cantidad del producto" requiredMessage="Cantidad requerida, necesita un valor"
                                                 execute ="@this save" render="cantidad"/><br></br>
 
                                     <mtop:input id="costo" name="costo1" type="text" label="Costo" 
                                                 value="#{controladorProducto.instance.costo}" required="true" 
-                                                inlinehelp="Ingrese el costo" requiredMessagge="Costo requerido, necesita un valor"
+                                                inlinehelp="Ingrese el costo del producto" requiredMessage="Costo requerido, necesita un valor"
                                                 execute ="@this save" render="costo"/><br></br>
 
 

@@ -102,6 +102,9 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private List<Profile> listausuarios;
     private String estado;
     private List<Profile> listausuariosInactivos;
+  
+    
+    
 
     public List<Profile> getListausuariosInactivos() {
         return listausuariosInactivos;
@@ -208,16 +211,19 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     public Long getProfileId() {
         System.out.println("obtiene objetoget::::::::::::: " + getInstance().getFirstname());
-        System.out.println("usuario>>>>>" + getInstance().getUsername());
+        
         return (Long) getId();
 
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
-        password = getInstance().getPassword();
+        if(getInstance().getUsername()!=null){
+          password = getInstance().getPassword();
         passwordConfirm = getInstance().getPassword();
         System.out.println("recupero pasworddddd" + password + passwordConfirm);
+        }
+      
         System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
     }
 

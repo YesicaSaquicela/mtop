@@ -230,7 +230,7 @@ public class SecurityHome implements Serializable {
         List<Group> groups = new ArrayList<Group>();
         System.out.println("presenta antes");
         try {
-            System.out.println("\n\n\n\ngeetuser\n\n\n\n"+getUser().toString());
+           
             groups = new ArrayList<Group>(securityGroupService.find(getUser()));
         } catch (IdentityException ex) {
             Logger.getLogger(SecurityHome.class.getName()).log(Level.SEVERE, null, ex);

@@ -94,7 +94,13 @@
 
                                 <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
                                     <ul class="nav navbar-nav navbar-right">
+                                                                       
+                                            <li><h:link outcome="/paginas/reset" value="Cambiar Contraseña">                                        
+                                                    <f:param name="profileId" value="#{account.loggedId}"/>
+                                                </h:link>                                    
+                                            </li>
 
+                                        
                                         <h:panelGroup  rendered="#{account.tienePermiso('SECRETARIO')}" >
                                             <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" value="Solicitud" /></li>
                                             <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" value="Requisición" /></li>
@@ -108,11 +114,11 @@
                                             <li> <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml" value="  Configuraciones" /></li>
                                             <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" value="Kardex" /></li>
                                             <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" value="Plan Mantenimiento"/></li>
-           <li class="dropdown">
-                                                 <a href="paginas/admin/listProfile.xhtml" class="dropdown-toggle" data-toggle="dropdown">
+                                            <li class="dropdown">
+                                                <a href="paginas/admin/listProfile.xhtml" class="dropdown-toggle" data-toggle="dropdown">
                                                     Personal <b class="caret"></b>
                                                 </a>
-                                                
+
 
                                                 <ul class="dropdown-menu">
                                                     <li><h:link  outcome="/paginas/admin/listProfile.xhtml" value="Personal" /></li>        
@@ -135,7 +141,7 @@
 
                                                 </ul>
                                             </li>
-                                 
+
                                         </h:panelGroup>
 
 
