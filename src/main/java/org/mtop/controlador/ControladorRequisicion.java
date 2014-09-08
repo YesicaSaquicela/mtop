@@ -56,6 +56,7 @@ import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.SolicitudReparacionMantenimiento_;
 import org.mtop.modelo.Vehiculo_;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.PersistentObject_;
 
 import org.mtop.modelo.profile.Profile;
@@ -1098,6 +1099,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String getNumeroRequisicion() {
         System.out.println("antes\n\n\n" + numeroRequisicion);
         if (getId() == null) {
+            List<BussinesEntityAttribute> bea = getInstance().findBussinesEntityAttribute("org.mtop.modelo.Requisicion");
+            System.out.println("bea size" + bea.size());
+            String valorInicialReparacion="900";
+            String valorInicialBien="200";
+            for (BussinesEntityAttribute a : bea) {
+                if (a.getProperty().getName().equals("viNumRequisicionReparacion")) {
+                    System.out.println("entro a onbtener el valor "+a.getValue().toString());
+                    valorInicialReparacion = a.getValue().toString();
+                }
+                if (a.getProperty().getName().equals("viNumRequisicionBienes")) {
+                    System.out.println("entro a onbtener el valor "+a.getValue().toString());
+                    valorInicialBien = a.getValue().toString();
+                }
+            }
+            
+            
+            
             System.out.println("numero" + getInstance().getNumRequisicion());
             List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Bienes y Servicios");
             int t;
@@ -1107,14 +1125,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
 
                     // List<Requisicion> lr=servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Bienes y Servicios");
-                    t = lr.size() + 200;
+                    t = lr.size() + Integer.parseInt(valorInicialBien);
                     System.out.println("tttttt" + t);
                 } else {
                     lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Reparación");
-                    t = lr.size() + 900;
+                    t = lr.size() + Integer.parseInt(valorInicialReparacion);
                 }
             } else {
-                t = lr.size() + 900;
+                t = lr.size() + Integer.parseInt(valorInicialReparacion);
             }
             System.out.println("ttttttt" + t);
             setNumeroRequisicion(String.valueOf(t + 1));

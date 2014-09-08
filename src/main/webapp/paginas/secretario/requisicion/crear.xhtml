@@ -184,18 +184,23 @@
 
 
 
-                                <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
+                                <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 2 }" closable="false"  titleStyleClass="clearfix"  >
 
-                                    <ui:repeat value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
-                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                    <ui:repeat  value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
+              
+                                        <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" 
+                                                       class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
+                                        </p:outputLabel>
+                                        
                                         <div class="input">
-                                            <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                          rendered="#{a.property.type eq 'java.lang.String'}">
+                                            
+                                            <p:inputText value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                         rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}">
                                                 <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                             </p:inputText>
                                             <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                           rendered="#{a.property.type eq 'java.lang.Double'}">
+                                                           rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Integer'}">
 
                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                             </p:inputText>
@@ -208,7 +213,7 @@
                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                             </pe:inputNumber>
                                             <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                             rendered="#{a.property.type eq 'java.lang.String[]'}">  
+                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                 <p:ajax event="change" update="@parent" partialSubmit="true"/>
                                             </p:selectOneMenu>
@@ -216,9 +221,9 @@
                                                              rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                             </p:inputTextarea>                                             
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}"
                                                             styleClass="validation-status" />
-                                            <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
+                                            <span   class="help-inline text-muted"><br/> <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" value="#{a.property.helpInline}"></p:outputLabel>   <ocp:message forId="#{a.name}" /></span><br/><br/>
                                         </div>
 
 

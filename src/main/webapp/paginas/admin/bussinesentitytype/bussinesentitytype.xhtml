@@ -208,11 +208,10 @@ limitations under the License.
                             <div class="panel-heading"><h4 class="panel-title"><center>Lista de propiedades para la entidad #{bussinesEntityTypeHome.instance.label}</center></h4></div>
                             <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
 
-                                  
+
                                 <!--<f:facet name="header">
                                     <strong>#{e.name}</strong>#{' '}                            
                                 </f:facet>-->
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
                                 <div class="admin-actions">
 
 
@@ -272,7 +271,7 @@ limitations under the License.
                                              paginator="true" rows="5"                         
                                              paginatorPosition="top"
                                              rowsPerPageTemplate="5,10,15,20"
-                                             emptyMessage="No exite propiedades..."
+                                             emptyMessage="No se han encontrado coincidencias"
                                              > 
 
                                     <p:column  headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
@@ -381,12 +380,13 @@ limitations under the License.
                                     <div class="panel-body">
 
                                         <p:panel  id="fn1" >
+                                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
 
-                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
+                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
                                                            value="Valor inicial para numero de solicitud" />
                                             <div class="input">
-                                                <p:inputText  rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" id="vi" styleClass="xLarge span4" label="valor inicial"
-                                                              value="#{bussinesEntityTypeHome.valorIniSolicitud}">
+                                                <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" id="vi" styleClass="xLarge span4" label="valor inicial"
+                                                             value="#{bussinesEntityTypeHome.valorIniSolicitud}">
                                                     <f:ajax execute="@this" render="save"  />
                                                 </p:inputText>
                                                 <br/><br/>
@@ -399,17 +399,50 @@ limitations under the License.
                                                                  />
 
                                             </div>
+
+
+
+
+
+                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                           value="Valor inicial para numero de requisición de Bienes y Servicios" />
+                                            <div class="input">
+                                                <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
+                                                             id="vi1" styleClass="xLarge span4" label="valor inicial bienes y servicios"
+                                                             value="#{bussinesEntityTypeHome.viNumRequisicionBie}">
+                                                    <f:ajax execute="@this" render="save1"  />
+                                                </p:inputText>
+                                                <br/><br/>
+                                            </div>
+                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                           value="Valor inicial para numero de requisición de Reparación" />
+                                            <div class="input">
+                                                <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
+                                                             id="vi2" styleClass="xLarge span4" label="valor inicial reparación"
+                                                             value="#{bussinesEntityTypeHome.viNumRequisicionRep}">
+                                                    <f:ajax execute="@this" render="save1"  />
+                                                </p:inputText>
+                                                <br/><br/>
+                                            </div>
+                                            <div class="actions" align="center">
+                                                <p:commandButton styleClass="btn  btn-success" id="save1" 
+                                                                 action="#{bussinesEntityTypeHome.fijarValorRequisicion()}"
+                                                                 value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
+                                                                 rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                                 />
+
+                                            </div>
                                         </p:panel>
+
 
                                     </div>
                                 </div>
                             </div>
 
-
-
-
-
                         </c:when>
+
+
+
 
 
                     </c:forEach> 

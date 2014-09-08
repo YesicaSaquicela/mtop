@@ -85,7 +85,8 @@
                                             <p:dataTable id="listap" value="#{controladorProducto.listaProducto}" var="pd"
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
-                                                         rowsPerPageTemplate="5,10,15,20">
+                                                         rowsPerPageTemplate="5,10,15,20"
+                                                        emptyMessage="No se han encontrado coincidencias">
                                                 <p:column headerText="Código" sortBy="#{pd.codigo}">
                                                     <h:outputText value="#{pd.codigo}"></h:outputText>
                                                 </p:column>
