@@ -51,6 +51,7 @@
                                                 <h:outputLabel value="Número de Registro*"/>
                                                 <h:inputText id="registro"  value="#{controladorVehiculo.instance.numRegistro}" styleClass="form-control"
                                                              required="true" label="Número de Registro" 
+                                                             requiredMessage="Se necesita elegir número de registro para el vehículo"
                                                              >
                                                     <f:ajax execute="@this" render="num" />
 
@@ -67,7 +68,7 @@
                                                 <h:outputLabel value="Conductor:"/> <br></br>
                                                 <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
                                                                  converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                                 requiredMessage="Se requiere elegir un conductor para el vehículo">  
+                                                                 requiredMessage="Se necesita elegir un conductor para el vehículo">  
                                                     <f:ajax execute="@this" render="p" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                                     <f:selectItems value="#{controladorVehiculo.listaPersonas}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
@@ -80,27 +81,33 @@
                                         <mtop:input id="marca" name="marca" type="text" label="Marca" 
                                                     value="#{controladorVehiculo.instance.marca}" required="true" 
                                                     inlinehelp=" ingrese la marca Vehículo Ej(Chevrolet)" 
-                                                    execute ="@this save" render="marca" /><br></br>
+                                                    execute ="@this save" render="marca"
+                                                    requiredMessage="Se necesita elegir marca para el vehículo"/><br></br>
                                         <mtop:input id="color" name="color" type="text" label="Color" 
                                                     value="#{controladorVehiculo.instance.color}" required="true" 
                                                     inlinehelp="Ingrese el color del vehículo Ej(Azul)" 
-                                                    execute ="@this save" render="color" validator="stringValidator"/><br></br>
+                                                    execute ="@this save" render="color" validator="stringValidator"
+                                                    requiredMessage="Se necesita elegir un color para el vehículo"/><br></br>
 
                                         <mtop:input id="clase" name="clase" type="text" label="Clase de auto" 
                                                     value="#{controladorVehiculo.instance.clase}" required="true" 
                                                     inlinehelp="Ingrese la clase del vehículo Ej(todo terreno)" 
-                                                    execute ="@this save" render="clase" validator="stringValidator"/><br></br>
+                                                    execute ="@this save" render="clase" validator="stringValidator"
+                                                    requiredMessage="Se necesita elegir clase para el vehículo"/><br></br>
 
                                         <mtop:input id="modelo" name="modelo" type="text" label="Modelo" 
                                                     value="#{controladorVehiculo.instance.modelo}" required="true" 
                                                     inlinehelp="Ingrese el modelo del vehículo Ej(Luv)" 
-                                                    execute ="@this save" render="modelo" /><br></br>
+                                                    execute ="@this save" render="modelo" 
+                                                    requiredMessage="Se necesita elegir modelo para el vehículo"/><br></br>
 
 
                                         <h:panelGroup id="unm" layout="block" class="clearfix">
                                             <div class="input">
                                                 <h:outputLabel value="Placa*"/>
-                                                <h:inputText id="placa" value="#{controladorVehiculo.instance.placa}" styleClass="form-control" required="true" label="Placa">
+                                                <h:inputText id="placa" value="#{controladorVehiculo.instance.placa}" 
+                                                             styleClass="form-control" required="true" label="Placa"
+                                                             requiredMessage="Se necesita elegir placa para el vehículo">
                                                     <f:ajax execute="@this" render="unm" />
                                                     <f:validator validatorId="verificarPlaca" />
                                                     <f:validator validatorId="validadorPlaca" />
@@ -116,13 +123,14 @@
                                         <mtop:input id="numPasajeros" name="numPasajeros" type="text" label="Número de Pasajeros" 
                                                     value="#{controladorVehiculo.instance.numPasajeros}" required="true" 
                                                     inlinehelp="Ingrese el número de pasajeros del vehículo Ej(2)" 
-                                                    execute ="@this save" render="numPasajeros" validator="digitValidator"/><br></br>
+                                                    execute ="@this save" render="numPasajeros" validator="digitValidator"
+                                                    requiredMessage="Se necesita elegir un número de pasajeros para el vehículo"/><br></br>
                                         <h:panelGroup id="p1" layout="block" class="clearfix">
                                             <div class="input">
                                                 <h:outputLabel value="Tracción"/> <br></br>
                                                 <p:selectOneMenu id="traccion"  value="#{controladorVehiculo.instance.traccion}" effect="fade"
                                                                  converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                                 requiredMessage="Se requiere la traccion para el vehículo">  
+                                                                 requiredMessage="Se necesita la traccion para el vehículo">  
                                                     <f:ajax execute="@this" render="p" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                                     <f:selectItem itemLabel="4x4" itemValue="4x4" />  
@@ -136,27 +144,33 @@
                                         <mtop:input id="numCilindros" name="numCilindros" type="text" label="Número de Cilindros" 
                                                     value="#{controladorVehiculo.instance.numCilindros}" required="true" 
                                                     inlinehelp="Ingrese el número cilindros del vehículo Ej(2)" 
-                                                    execute ="@this save" render="numCilindros"/><br></br>
-                                        
+                                                    execute ="@this save" render="numCilindros"
+                                                    requiredMessage="Se necesita elegir número de cilindros para el vehículo"/><br></br>
+
                                         <br></br>
 
 
                                     </div>
                                     <div class="col-md-6"> 
-                                         <mtop:input id="avaluo" name="avaluo" type="text" label="Avalúo" 
+                                        <mtop:input id="avaluo" name="avaluo" type="text" label="Avalúo" 
                                                     value="#{controladorVehiculo.instance.avaluo}" required="true" 
                                                     inlinehelp="Ingrese el avalúo del vehículo Ej(12000)" 
-                                                    execute ="@this save" render="avaluo" /><br></br>
+                                                    execute ="@this save" render="avaluo"
+                                                    requiredMessage="Se necesita elegir avalúo del vehículo"/><br></br>
                                         <mtop:input id="cabina" name="cabina" type="text" label="Cabina" 
                                                     value="#{controladorVehiculo.instance.cabina}" required="true" 
                                                     inlinehelp="Ingrese que cabina tiene el vehículo Ej(Doble)" 
-                                                    execute ="@this save" render="cabina"/><br></br>
+                                                    execute ="@this save" render="cabina"
+                                                    requiredMessage="Se necesita elegir valor para cabina del vehículo"/><br></br>
 
                                         <h:panelGroup id="pm1" layout="block" class="clearfix">
 
                                             <div class="input">
                                                 <p:outputLabel value="Año de Fabricación*"/><br></br>
-                                                <p:inputText id="aniofabricacion" label="añp de fabricación" maxlength="4" value="#{controladorVehiculo.instance.anioFabricacion}"  styleClass="form-control" >
+                                                <p:inputText id="aniofabricacion" label="añp de fabricación" maxlength="4" 
+                                                             value="#{controladorVehiculo.instance.anioFabricacion}"  
+                                                             styleClass="form-control" 
+                                                             requiredMessage="Se necesita elegir valor para año de fabricación del vehículo">
                                                     <f:validateLength minimum="3"/>
                                                     <f:ajax execute="@this" render="pm1" />
                                                     <f:validator validatorId="fechanio" />
@@ -174,7 +188,7 @@
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo Ej(34)" 
-
+                                                     requiredMessage="Se necesita elegir valor para peso del vehículo"
                                                     execute ="@this save" render="peso" /><br></br>
 
 
@@ -182,7 +196,7 @@
 
                                             <div class="input">
                                                 <h:outputLabel value="Tipo de equipo* "/> <br></br> 
-                                                <p:selectOneMenu id="tipo" 
+                                                <p:selectOneMenu id="tipo"  requiredMessage="Se necesita elegir valor para tipo del vehículo"
                                                                  value="#{controladorVehiculo.instance.tipo}" effect="fade" required="true" >
                                                     <f:ajax execute="@this" render="t" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -199,18 +213,21 @@
                                         <mtop:input id="cilindraje" name="cilindraje" type="text" label="Cilindraje" 
                                                     value="#{controladorVehiculo.instance.cilindraje}" required="true" 
                                                     inlinehelp="Ingrese el cilindraje del vehículo Ej(2000 CC)" 
-                                                    execute ="@this save" render="cilindraje"/><br></br>
+                                                    execute ="@this save" render="cilindraje"
+                                                     requiredMessage="Se necesita elegir valor para cilindraje del vehículo"/><br></br>
 
 
                                         <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
                                                     value="#{controladorVehiculo.instance.kilometraje}" required="true" 
                                                     inlinehelp="Ingrese el kilometraje del vehículo Ej(5000)" 
-                                                    execute ="@this save" render="kilometraje" validator="digitValidator"/><br></br>
+                                                    execute ="@this save" render="kilometraje" validator="digitValidator"
+                                                     requiredMessage="Se necesita elegir valor para kilometraje del vehículo"/><br></br>
 
                                         <mtop:input id="tipoCombustible" name="tipoCombustible" type="text" label="Tipo de Combustible" 
                                                     value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
                                                     inlinehelp="Ingrese el tipo de combustible del vehículo Ej(Gasolina)" 
-                                                    execute ="@this save" render="tipoCombustible" validator="stringValidator"/><br></br>
+                                                    execute ="@this save" render="tipoCombustible" validator="stringValidator"
+                                                     requiredMessage="Se necesita elegir valor para tipo de combustible del vehículo"/><br></br>
                                         <h:panelGroup id="unm2" layout="block" class="clearfix">
                                             <div class="input">
                                                 <p:outputLabel value="Fecha Inicio del Soat:  "/>
@@ -233,7 +250,7 @@
                                                 <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  label="Fecha entrada de Taller "
                                                              styleClass="xLarge" 
                                                              >   
-                                                    <p:ajax immediate="true" event="dateSelect" rendered="save pm" />  
+                                                    <p:ajax immediate="true" event="dateSelect" rendered="save pm msg" update=":form:msg" />  
                                                     <p:ajax event="dateSelect" process="fechaEntrada fechaSalida validadorFechasI_F" rendered="save" update=":form:msg" />  
                                                 </p:calendar><br/>
                                                 <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasSoat" />
@@ -242,8 +259,12 @@
                                             </div>
 
                                             <span class="help-inline text-muted">Ingrese la fecha fin de soat del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
-                                            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" /> 
-                                        </h:panelGroup>
+                                            <span class="label label-danger">
+                                                <p:outputLabel id="msg" rendered="#{controladorVehiculo.mensaje1 != null}" value="#{controladorVehiculo.mensaje1}" /> 
+                                        
+                                                
+                                            </span>
+                                            </h:panelGroup>
 
                                     </div>
                                 </div>
@@ -284,7 +305,7 @@
                                                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                                         <div class="input">
                                                                             <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                         rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                                          rendered="#{a.property.type eq 'java.lang.String'}">
                                                                                 <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                                                 <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                                             </p:inputText>
@@ -334,9 +355,9 @@
                                             <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute('org.mtop.modelo.Vehiculo')}" var="a" varStatus="status"> 
                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                 <div class="input">
-                                                    
+
                                                     <p:inputText value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                 rendered="#{a.property.type eq 'java.lang.String'}">
                                                         <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
                                                         <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
                                                     </p:inputText>

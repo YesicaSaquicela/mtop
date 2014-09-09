@@ -39,29 +39,30 @@
                         <div class="panel-heading" align="center">Datos Generales del Usuario</div>
 
                         <p:panel id="p1" >
+                            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" /> 
+                                       
                             <div class="row">
                                 <div class="col-md-6"> 
 
-                                    <h:panelGroup id="unm" layout="block" class="clearfix">
+                                    <h:panelGrid id="unm"  class="clearfix" rendered="#{profileHome.instance.username == null}">
                                         <label for="username">Usuario</label>
                                         <div class="input">
                                             <p:inputText id="username" value="#{profileHome.instance.username}" 
                                                          styleClass="form-control" required="true" 
                                                          requiredMessage="Usuario requerido, necesita un valor" label="#{messages['common.username']}">
                                               
-                                                <f:ajax execute="username validador1" render="username unm validador1"/>
-                                                <f:validator validatorId="usernameValidator" />
-
+                                              
+                                                <p:ajax event="blur" process="username signupUsernameAvailabilityValidator1" update=":form:msg"/>
                                             </p:inputText>
                                             <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.username != null}"
                                                             styleClass="validation-status" />
                                             <span class="help-inline text-muted">Su nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
+                                         <s:validateForm id="signupUsernameAvailabilityValidator1" validatorId="signupUsernameAvailabilityValidator" />
                                         </div>
                                          
-                                    </h:panelGroup><br/>
-                                   <s:validateForm id="validador1" validatorId="signupUsernameAvailabilityValidator" />
+                                    </h:panelGrid><br/>
                                    
-                                    <h:panelGrid rendered="#{profileHome.instance.username == null}">
+                                    <h:panelGrid >
 
                                         <label for="password">#{messages['common.password']}</label>
                                         <div class="input">
@@ -79,7 +80,7 @@
                                         </div>
                                         <br/>
                                     </h:panelGrid>
-                                    <h:panelGrid rendered="#{profileHome.instance.username == null}">
+                                    <h:panelGrid >
                                         <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
                                         <div class="input">
                                             <h:inputSecret  id="passwordConfirm" value="#{profileHome.passwordConfirm}"
@@ -104,11 +105,11 @@
                         </p:panel></div> 
 
                     <div class="admin-actions " align="center">  
-                        <p:commandButton id="save" action="#{profileHome.saveUsuario()}"
+                        <p:commandButton  id="save" action="#{profileHome.saveUsuario()}"
                                          value="#{messages['common.save']}" 
-                                         styleClass="btn  btn-success" 
+                                         styleClass="btn  btn-success" ajax="truq"
                                          icon="ui-icon-disk" />
-
+                      
 
                     </div>
 

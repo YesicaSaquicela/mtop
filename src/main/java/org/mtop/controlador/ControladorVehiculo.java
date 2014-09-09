@@ -102,6 +102,21 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
     private String vista;
     private boolean desabilitar;
+    private String mensaje1;
+
+    public String getMensaje1() {
+        System.out.println("retorna"+mensaje1);
+        return mensaje1;
+    }
+
+    public void setMensaje1(String mensaje1) {
+        System.out.println("fijo"+mensaje1);
+        this.mensaje1 = mensaje1;
+    }
+    
+    
+    
+    
 
     public boolean isDesabilitar() {
         return desabilitar;

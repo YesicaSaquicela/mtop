@@ -44,17 +44,22 @@ public class validadorFechaSoat implements Validator {
     private InputElement<Date> fechaSalida;
     @Inject
     private InputElement<Date> fechaEntrada;
+    @Inject
+    private EntityManager em;
+    @Inject
+    private ControladorVehiculo cv;
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         log.info("Ingreso a validar fechas");
-
+        cv.setEntityManager(em);
         Date fFinal = fechaSalida.getValue();
         Date fEntrada = fechaEntrada.getValue();
         if (fFinal != null || fEntrada != null) {
             log.info(" fechaFinal:" + fFinal
                     + "fecha entrada : " + fEntrada);
             if (!fEntrada.before(fFinal)) {
+                cv.setMensaje1("La Fecha Final debe ser mayor a la Fecha de Inicio ");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("ADVERTENCIA: "), "La Fecha Final debe ser mayor a la Fecha de Inicio "));
 
             }

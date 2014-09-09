@@ -8,6 +8,7 @@
  */
 
 import java.io.Serializable;
+import java.util.AbstractSet;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -61,6 +62,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import org.hibernate.internal.util.collections.IdentityMap;
+import org.mtop.modelo.dinamico.BussinesEntityAttribute;
+import org.mtop.modelo.security.IdentityObject;
 import org.mtop.service.ProfileListService;
 
 /**
@@ -102,9 +107,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private List<Profile> listausuarios;
     private String estado;
     private List<Profile> listausuariosInactivos;
-  
-    
-    
 
     public List<Profile> getListausuariosInactivos() {
         return listausuariosInactivos;
@@ -211,19 +213,13 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     public Long getProfileId() {
         System.out.println("obtiene objetoget::::::::::::: " + getInstance().getFirstname());
-        
+
         return (Long) getId();
 
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
-        if(getInstance().getUsername()!=null){
-        password = getInstance().getPassword();
-        passwordConfirm = getInstance().getPassword();
-        System.out.println("recupero pasworddddd" + password + passwordConfirm);
-        }
-      
         System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
     }
 
@@ -327,43 +323,25 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     public String register() throws IdentityException {
-        if (getInstance().isPersistent()) {
-            System.out.println("entro a 1");
-            credentials.setUsername(getInstance().getUsername());
-            //credentials.getCredential().
-            credentials.setCredential(new PasswordCredential(getPassword()));
-            oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
-            identity.setAuthenticatorClass(IdmAuthenticator.class);
 
-            /*
-             * Try twice to work around some state bug in Seam Security
-             * TODO file issue in seam security
-             */
-            String result = identity.login();
-            if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
-                result = identity.login();
-            }
-            return result;
-        } else {
-            System.out.println("entro 2");
-            createUser();
-            //BasicPasswordEncryptor().encryptPassword(password)
-            credentials.setUsername(getInstance().getUsername());
-            //credentials.getCredential().
-            credentials.setCredential(new PasswordCredential(getPassword()));
-            oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
-            identity.setAuthenticatorClass(IdmAuthenticator.class);
+        System.out.println("entro 2");
+        createUser();
+        //BasicPasswordEncryptor().encryptPassword(password)
+        credentials.setUsername(getInstance().getUsername());
+        //credentials.getCredential().
+        credentials.setCredential(new PasswordCredential(getPassword()));
+        oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
+        identity.setAuthenticatorClass(IdmAuthenticator.class);
 
-            /*
-             * Try twice to work around some state bug in Seam Security
-             * TODO file issue in seam security
-             */
-            String result = identity.login();
-            if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
-                result = identity.login();
-            }
-            return result;
+        /*
+         * Try twice to work around some state bug in Seam Security
+         * TODO file issue in seam security
+         */
+        String result = identity.login();
+        if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
+            result = identity.login();
         }
+        return result;
 
     }
 
@@ -479,16 +457,36 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         return "/paginas/inicio.xhtml?faces-redirect=true";
     }
 
+   
+
     @TransactionAttribute
     private void createUser() throws IdentityException {
         // TODO validate username, email address, and user existence
         PersistenceManager identityManager = security.getPersistenceManager();
-        User user = identityManager.createUser(getInstance().getUsername());
+        System.out.println("entro a create user" + getInstance().getUsername());
+//        IdentityObject io=ps.findIdentityObjectByName(getInstance().getUsername());
+        Set<String> ik = getInstance().getIdentityKeys();
+        System.out.println("size " + ik.size());
+        User user = identityManager.findUser(getInstance().getUsername());
+        for (String oik : ik) {
+            System.out.println("ik" + oik);
+            user = identityManager.findUser(oik);
+            System.out.println("user" + user);
+        }
+
+        if (user == null) {
+            System.out.println("entro a null");
+            user = identityManager.createUser(getInstance().getUsername());
+            System.out.println("nuevo usuario ccreao");
+        }
+
         System.out.println("\n\\n\ncreando el usuerrrr\n\n\n" + getInstance().getUsername());
         AttributesManager attributesManager = security.getAttributesManager();
+
         PasswordCredential p = new PasswordCredential(getPassword());
         System.out.println("usuario crear" + user);
         System.out.println("contrase;a crearu>>>>>>>>" + p);
+
         attributesManager.updatePassword(user, p.getValue());
 
         attributesManager.addAttribute(user, "email", getInstance().getEmail());  //me permite agregar un atributo de cualquier tipo a un usuario 
@@ -508,10 +506,8 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         setProfileId(getInstance().getId());
         wire();
         getInstance().setName(getInstance().getUsername()); //Para referencia
-        getInstance().setType(bussinesEntityService.findBussinesEntityTypeByName(Profile.class
-                .getName()));
-        getInstance()
-                .buildAttributes(bussinesEntityService);
+        getInstance().setType(bussinesEntityService.findBussinesEntityTypeByName(Profile.class.getName()));
+        getInstance().buildAttributes(bussinesEntityService);
         save(getInstance()); //Actualizar estructura de datos
 
     }
@@ -537,9 +533,9 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         getInstance().setLastUpdate(now);
         String salida = "/paginas/admin/listProfile.xhtml?faces-redirect=true";
         System.out.println("entro a guardar");
-    
+
         getInstance().setEstado(true);
-        
+
         if (getInstance().isPersistent()) {
             try {
                 System.out.println("\n\n\n\nentra registroo\n\n\n");
