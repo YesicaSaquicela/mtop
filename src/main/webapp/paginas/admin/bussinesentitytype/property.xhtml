@@ -68,7 +68,7 @@
                                                 <label >#{messages['common.property.value']}</label>
                                                 <div class="input" >
                                                     <p:inputText id="in1"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
-                                                                 required="true" label="#{messages['common.property.value']}"
+                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType ne 'Fecha'
                                                                              and propertyHome.propertyType ne 'AreaTexto'
                                                                              and propertyHome.propertyType ne 'EnteroMayor'
@@ -79,7 +79,7 @@
 
 
                                                     <p:inputText id="in2" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
-                                                                 required="true" label="#{messages['common.property.value']}"
+                                                                 label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Entero'}"
 
                                                                  > 
@@ -90,8 +90,9 @@
                                                     </p:inputText>    
                                                     <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
                                                     <ocp:message forId="in2" />
-                                                    <!--s:validateForm id="valueintval" validatorId="digitValidator"/-->
-                                                    <p:calendar  value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" label="#{messages['common.property.value']}"
+                                                    
+                                                    <p:calendar  value="#{propertyHome.propertyDateValue}" styleClass="xLarge" navigator="true" 
+                                                                 label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Fecha'}" required="true">
 
                                                         <f:ajax event="dateSelect" execute="@this" render="save"/>
@@ -128,9 +129,6 @@
 
                                             </h:panelGroup><br></br>                   
 
-
-                                            <mtop:input id="validator" name="validator" type="text" label="#{messages['common.property.validator']}" 
-                                                        value="#{propertyHome.instance.validator}" required="false" inlinehelp="#{messages['common.property.validator.help']}" execute="@this save" /><br></br>
                                         </div>
                                         <div class="col-md-6"> 
 
@@ -208,7 +206,8 @@
 
                         <div class="actions" align="center">
                             <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 
-                                             value="#{messages['common.save']}" styleClass="btn  btn-success" icon="ui-icon-disk"/>
+                                             value="#{messages['common.save']}" ajax="true"
+                                             styleClass="btn  btn-success" icon="ui-icon-disk"/>
                       
                              <!--p:commandButton type="button" value="# {messages['common.delete']}" styleClass="btn  btn-success" onclick="# {propertyHome.hasValuesBussinesEntity()?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
                                              update=":cancel-dialog :alerts-dialog:" rendered="# {not empty propertyHome.instance.id}">                        

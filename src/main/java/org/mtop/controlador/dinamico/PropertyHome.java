@@ -42,6 +42,7 @@ import org.mtop.util.UI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.text.html.HTML;
 import javax.validation.constraints.Pattern;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.modelo.profile.Profile;
@@ -76,11 +77,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyType;
     @Inject
     private ServicioGenerico servgen;
-    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
+    @Pattern(regexp = "[0-9]*", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
     private String mensaje;
-   
-    
+
     public String getMensaje() {
         return mensaje;
     }
@@ -227,10 +227,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
 
         }
-        System.out.println("p.name"+getInstance().getName());
-        System.out.println("p.getGroupName "+getInstance().getGroupName());
+        System.out.println("p.name" + getInstance().getName());
+        System.out.println("p.getGroupName " + getInstance().getGroupName());
         if (getInstance().getGroupName() != null) {
-            System.out.println("get group name"+p.getGroupName());
+            System.out.println("get group name" + p.getGroupName());
             if (getInstance().getGroupName().equals("org.mtop.modelo.Vehiculo")) {
                 //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
                 tipos.add("EstadoParteMecanica");
@@ -303,10 +303,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyType() {
-        System.out.println("get instance"+getInstance());
+        System.out.println("get instance" + getInstance());
         if (getInstance().getId() != null) {
             System.out.println("entro");
-            System.out.println("tipo"+getInstance().getType());
+            System.out.println("tipo" + getInstance().getType());
             if (getInstance().getType().equals("java.lang.MultiLineString")) {
                 propertyType = "AreaTexto";
             } else {
@@ -383,7 +383,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                         } else {
                             if (this.propertyType.equals("Estructura")) {
                                 System.out.println("entro a estrusctura");
-                                        
+
                             }
                         }
 
@@ -473,6 +473,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 s.addProperty(this.getInstance());
 
             } catch (Exception ex) {
+                ex.printStackTrace();
                 System.out.println("ERROR>>>" + ex);
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
@@ -559,37 +560,46 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public Serializable converterToType(String value) {
+        value = value.trim();
+        System.out.println("value en integer" + value);
 
         Object o = new Object();
-        try {
-            if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
-                o = value;
-            } else if ("java.lang.Long".equals(getInstance().getType())) {
-                o = Long.valueOf(value);
-            } else if ("java.lang.Float".equals(getInstance().getType())) {
-                o = Float.valueOf(value);
-            } else if ("java.lang.Integer".equals(getInstance().getType())) {
-                o = Integer.valueOf(value);
-            } else if ("java.lang.Boolena".equals(getInstance().getType())) {
-                o = Boolean.valueOf(value);
-            } else if ("java.util.Date".equals(getInstance().getType())) {
-                SimpleDateFormat sdf;
-                sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha = null;
-                try {
-                    fecha = sdf.parse(value);
-                } catch (ParseException pe) {
-                    log.info("eqaula --> error converter date:" + pe.getMessage());
+        if (value.equals("")) {
+            System.out.println("entro a vacio");
+            o = null;
+        } else {
+            try {
+                if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
+                    o = value;
+                } else if ("java.lang.Long".equals(getInstance().getType())) {
+                    o = Long.valueOf(value);
+                } else if ("java.lang.Float".equals(getInstance().getType())) {
+                    o = Float.valueOf(value);
+                } else if ("java.lang.Integer".equals(getInstance().getType())) {
+
+                    o = (Object) value;
+                } else if ("java.lang.Boolena".equals(getInstance().getType())) {
+                    o = Boolean.valueOf(value);
+                } else if ("java.util.Date".equals(getInstance().getType())) {
+                    SimpleDateFormat sdf;
+                    sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fecha = null;
+                    try {
+                        fecha = sdf.parse(value);
+                    } catch (ParseException pe) {
+                        log.info("eqaula --> error converter date:" + pe.getMessage());
+                    }
+                    o = fecha;
+                } else if ("java.lang.Double".equals(getInstance().getType())) {
+                    o = Double.valueOf(value);
+                } else {
+                    o = value;
                 }
-                o = fecha;
-            } else if ("java.lang.Double".equals(getInstance().getType())) {
-                o = Double.valueOf(value);
-            } else {
-                o = value;
+            } catch (Exception e) {
+                log.info("eqaula --> error converter: " + value);
             }
-        } catch (Exception e) {
-            log.info("eqaula --> error converter: " + value);
         }
+
         System.out.println("valor de la propuiedad a convertir" + o);
         return (Serializable) o;
     }

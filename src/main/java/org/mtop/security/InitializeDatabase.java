@@ -453,7 +453,7 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Chasis", "serie", String.class.getName(), null, false, "Serie", "Ingrese la serie para el chasís", false, 1L));
+            attributes.add(buildProperty("Chasis", "serie", String.class.getName(), null, true, "Serie", "Ingrese la serie para el chasís", false, 1L));
             attributes.add(buildProperty("Chasis", "tipo", String.class.getName(), null, false, "Tipo", " Ingrese el tipo de chasís", false, 2L));
             attributes.add(buildProperty("Chasis", "capacidadTolva", String.class.getName(), null, false, "Capacidad Tolva", "Ingrese la capacidad de Tolva del chasís", false, 3L));
 
@@ -489,7 +489,7 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Motor", "serie", String.class.getName(), null, false, "Serie", "Ingrese la serie para el Motor", false, 1L));
+            attributes.add(buildProperty("Motor", "serie", String.class.getName(), null, true, "Serie", "Ingrese la serie para el Motor", false, 1L));
             attributes.add(buildProperty("Motor", "marca", String.class.getName(), null, false, "Marca", " Ingrese la marca del Motor", false, 2L));
             attributes.add(buildProperty("Motor", "modelo", String.class.getName(), null, false, "Modelo Tolva", "Ingrese el modelo del Motor", false, 3L));
             attributes.add(buildProperty("Motor", "tipo", String.class.getName(), null, false, "Tipo", "Ingrese el tipo de Motor", false, 4L));
