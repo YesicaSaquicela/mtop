@@ -65,7 +65,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public void buscar() {
-        if (palabrab == null || palabrab.equals("") || palabrab.contains(" ")) {
+        palabrab=palabrab.trim();
+        if (palabrab == null || palabrab.equals("")) {
             palabrab = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia

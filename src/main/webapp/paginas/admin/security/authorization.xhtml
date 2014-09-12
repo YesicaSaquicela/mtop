@@ -13,15 +13,7 @@
         </f:metadata>
 
         <ui:define name="header-replace">            
-            <div class="header-replace">
-                <div class="container-header" >
-                    <div class="row lf row-title" >                        
-                        <h3>#{not empty securityHome.username ? messages['common.associate'] : ''}
-                            #{messages['security.roles']} #{messages['common.for']}
-                            #{not empty securityHome.username ? securityHome.username : '' }</h3>     
-                    </div>     
-                </div>
-            </div>
+        
         </ui:define>
         <ui:define name="content">
             <h:form id="form" acceptcharset="UTF-8">      

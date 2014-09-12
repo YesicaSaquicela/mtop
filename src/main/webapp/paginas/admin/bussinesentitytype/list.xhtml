@@ -21,14 +21,7 @@ limitations under the License.
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/plantilla.xhtml">
-    <ui:param name="titulo" value="#{messages['module.setting.name']}" />
-    <ui:define name="header">
-
-
-        #{titulo}
-
-
-    </ui:define>
+   
     <ui:define name="content">
 
 
@@ -39,7 +32,7 @@ limitations under the License.
                     <div class="panel panel-primary">
                                                  <div class="panel-heading"><center>LISTA DE ENTIDADES</center></div>
                         <p:panel>
-                            <h3><h:outputLabel value="Lista de entidades"/></h3>
+                         
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="admin-actions">
 

@@ -1304,6 +1304,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public List<PartidaContabilidad> getListaPartida() {
+        
         return listaPartida;
     }
 
@@ -1660,6 +1661,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         idVehiculo = 0l;
         getInstance().setTipoRequisicion("Requisición de Reparación");
         listaPartida = findAll(PartidaContabilidad.class);
+        List<PartidaContabilidad> lpc= new ArrayList<PartidaContabilidad>();
+        for (PartidaContabilidad pcont : listaPartida) {
+            if(pcont.isEstado()){
+                lpc.add(pcont);
+            }
+        }
+        listaPartida=lpc;
+        
         listaProductos = new ArrayList<Producto>();
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());

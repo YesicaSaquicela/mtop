@@ -20,10 +20,7 @@
     </f:metadata>
     <ui:define name="header">
 
-        <h2>#{titulo}</h2>   
-
-
-    </ui:define>
+     </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -74,7 +71,8 @@
                                         <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
                                         <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                     
-                                    </p:selectOneMenu> <br></br>
+                                    </p:selectOneMenu> <br></br> 
+                                        
                                     
                                     <h:panelGroup id="pt" layout="block" class="clearfix">
                                    
