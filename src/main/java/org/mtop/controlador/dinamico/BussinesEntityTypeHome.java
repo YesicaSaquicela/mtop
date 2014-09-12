@@ -72,6 +72,30 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     private Property propiedad;
     private Property propiedadbien;
     private Property propiedadrepa;
+    private String mensaje2;
+    
+    public String fijarMensaje2(String s){
+        System.out.println("entro con s ==="+s);
+        if(s.equals("")){
+            System.out.println("entro a no puede ser null"+s);
+            return "no puede estar null";
+        }else{
+            System.out.println("entro a mensaje2"+mensaje2);
+            return mensaje2;
+                    
+        }
+    }
+    public String getMensaje2() {
+        System.out.println("obtener mensaje 2"+mensaje2);
+        return mensaje2;
+    }
+
+    public void setMensaje2(String mensaje2) {
+        System.out.println("fijar mensaje 2"+mensaje2);
+        this.mensaje2 = mensaje2;
+    }
+    
+    
 
     public String getValorIniSolicitud() {
         System.out.println("obteniendo " + valorIniSolicitud);
@@ -266,6 +290,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                 context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
                 palabrab = " ";
             } else {
+                listaPropiedades=le;
                 context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
             }
 

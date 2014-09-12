@@ -415,7 +415,7 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 1L));
-            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantía", "Tiempo de garantía del vehículo", false, 2L));
+            attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantía", "Tiempo de garantía del vehículo", false, 8L));
 //            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehículo", "Fecha de alta del vehículo", false, 3L));
 //            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehículo", "Fecha de baja del vehículo", false, 4L));
             attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 5L));

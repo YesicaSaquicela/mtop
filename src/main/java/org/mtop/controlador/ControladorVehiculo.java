@@ -793,6 +793,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("id a fijar" + vehiculoId);
 
         setId(vehiculoId);
+        
         idPersona = getInstance().getPersona().getId();
 
     }
