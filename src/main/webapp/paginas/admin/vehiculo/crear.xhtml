@@ -54,7 +54,6 @@
                                                              >
                                                     <f:ajax execute="@this" render="num" />
 
-                                                    <f:validator validatorId="digitValidator" />
                                                     <f:validator validatorId="validadorNumRegistro" />
                                                 </h:inputText>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.numRegistro != null}"
@@ -165,10 +164,10 @@
                                         <h:panelGroup id="pm1" layout="block" class="clearfix">
 
                                             <div class="input">
-                                                <p:outputLabel value="Año de Fabricación*"/><br></br>
+                                                <p:outputLabel value="Año de Fabricación*" /><br></br>
                                                 <p:inputText id="aniofabricacion" label="añp de fabricación" maxlength="4" 
                                                              value="#{controladorVehiculo.instance.anioFabricacion}"  
-                                                             styleClass="form-control" 
+                                                             styleClass="form-control"  
                                                              requiredMessage="Se necesita elegir valor para año de fabricación del vehículo">
                                                     <f:validateLength minimum="3"/>
                                                     <f:ajax execute="@this" render="pm1" />
@@ -179,6 +178,7 @@
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.anioFabricacion != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Ingrese el año de fabricación Ej(2014)<ocp:message forId="aniofabricacion"/></span>
+
                                             </div>
                                         </h:panelGroup>
                                         <br></br><br></br>
@@ -187,7 +187,7 @@
                                         <mtop:input id="peso" name="peso" type="text" label="Peso" 
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo Ej(34)" 
-                                                     requiredMessage="Se necesita elegir valor para peso del vehículo"
+                                                    requiredMessage="Se necesita elegir valor para peso del vehículo"
                                                     execute ="@this save" render="peso" /><br></br>
 
 
@@ -213,20 +213,20 @@
                                                     value="#{controladorVehiculo.instance.cilindraje}" required="true" 
                                                     inlinehelp="Ingrese el cilindraje del vehículo Ej(2000 CC)" 
                                                     execute ="@this save" render="cilindraje"
-                                                     requiredMessage="Se necesita elegir valor para cilindraje del vehículo"/><br></br>
+                                                    requiredMessage="Se necesita elegir valor para cilindraje del vehículo"/><br></br>
 
 
                                         <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
                                                     value="#{controladorVehiculo.instance.kilometraje}" required="true" 
                                                     inlinehelp="Ingrese el kilometraje del vehículo Ej(5000)" 
                                                     execute ="@this save" render="kilometraje" validator="digitValidator"
-                                                     requiredMessage="Se necesita elegir valor para kilometraje del vehículo"/><br></br>
+                                                    requiredMessage="Se necesita elegir valor para kilometraje del vehículo"/><br></br>
 
                                         <mtop:input id="tipoCombustible" name="tipoCombustible" type="text" label="Tipo de Combustible" 
                                                     value="#{controladorVehiculo.instance.tipoCombustible}" required="true" 
                                                     inlinehelp="Ingrese el tipo de combustible del vehículo Ej(Gasolina)" 
                                                     execute ="@this save" render="tipoCombustible" validator="stringValidator"
-                                                     requiredMessage="Se necesita elegir valor para tipo de combustible del vehículo"/><br></br>
+                                                    requiredMessage="Se necesita elegir valor para tipo de combustible del vehículo"/><br></br>
                                         <h:panelGroup id="unm2" layout="block" class="clearfix">
                                             <div class="input">
                                                 <p:outputLabel value="Fecha Inicio del Soat:  "/>
@@ -245,8 +245,9 @@
                                         <h:panelGroup id="pm" layout="block" class="clearfix">
 
                                             <div class="input">
-                                                <p:outputLabel value="Fecha Fin del Soat:  "/>
-                                                <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  label="Fecha entrada de Taller "
+                                                <p:outputLabel value="Fecha Fin del Soat:  " for="fechaSalida"/>
+                                                <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  
+                                                             label="Fecha entrada de Taller " 
                                                              styleClass="xLarge" 
                                                              >   
                                                     <p:ajax immediate="true" event="dateSelect" rendered="save pm msg" update=":form:msg" />  
@@ -258,12 +259,12 @@
                                             </div>
 
                                             <span class="help-inline text-muted">Ingrese la fecha fin de soat del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
-                                            <span class="label label-danger">
-                                                <p:outputLabel id="msg" rendered="#{controladorVehiculo.mensaje1 != null}" value="#{controladorVehiculo.mensaje1}" /> 
-                                        
-                                                
-                                            </span>
-                                            </h:panelGroup>
+
+                                            <h:outputLabel id="msg"  value="#{controladorVehiculo.mensaje1}" style="color:red" /> 
+
+
+
+                                        </h:panelGroup>
 
                                     </div>
                                 </div>
@@ -282,61 +283,104 @@
                                 </a>
                             </h4>
                         </div>
-                        <p:panel>    
+                        <p:panel id="panel7">    
+
+
                             <div id="collapseThree1" class="panel-collapse collapse">
                                 <div class="panel-body">
 
-
                                     <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <div  class="panel panel-primary">
                                                 <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
+                                                <p:tab title="#{p.label}"  closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
                                                     <c:choose>                        
                                                         <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
                                                             <h:panelGroup  layout="block" class="clearfix">
+
+
                                                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
 
-                                                                    <h:panelGroup rendered="#{a.property.type ne 'org.mtop.modelo.EstadoParteMecanica'}"  layout="block" class="clearfix">
-                                                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                                                        <div class="input">
-                                                                            <p:inputText  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                          rendered="#{a.property.type eq 'java.lang.String'}">
-                                                                                <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
-                                                                                <p:ajax event="keyup" update="@parent" partialSubmit="true"/>
-                                                                            </p:inputText>
-                                                                            <p:inputText   value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                           rendered="#{a.property.type eq 'java.lang.Double'}">
+                                                                    <h:panelGroup  rendered="#{a.property.type ne 'org.mtop.modelo.EstadoParteMecanica'}"  layout="block" class="clearfix">
+                                                                           
+                                                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                            <div class="input">
 
-                                                                                <p:ajax  event="keyup" update="@parent" partialSubmit="true"/>
-                                                                            </p:inputText>
-                                                                            <p:calendar value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                                        rendered="#{a.property.type eq 'java.util.Date'}">
-                                                                                <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                                                            </p:calendar>
-                                                                            <pe:inputNumber value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}"
-                                                                                            rendered="#{a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
-                                                                                <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                                            </pe:inputNumber>  
-                                                                            <p:selectOneMenu value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                                                                <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                                <p:ajax event="change" update="@parent" partialSubmit="true"/>
-                                                                            </p:selectOneMenu>
-                                                                            <p:inputTextarea value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                                             rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                                <p:ajax event="blur" update="@parent" partialSubmit="true"/>
-                                                                            </p:inputTextarea>  
+                                                                                <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                             rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                                    <f:validator validatorId="#{not empty a.property.validator ?  a.property.validator : 'safeTextUTF8Validator'}"/>
+                                                                                    <f:validator validatorId="vacio" rendered="#{a.property.required}"/>
 
-                                                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
-                                                                                            styleClass="validation-status" />
-                                                                            <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
-                                                                        </div>
+                                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                                </p:inputText>
+                                                                                <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                                               validator="realValidator" 
+                                                                                             validatorMessage="No se admiten letras "
+                                                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                             rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+
+                                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                                </p:inputText>
+                                                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                                                    <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                                </p:calendar>
+                                                                                
+                                                                                <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                                  label="#{a.property.label}"
+                                                                                                 rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                                    <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                                                </p:selectOneMenu>
+                                                                                <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                                </p:inputTextarea>  
+
+                                                                                <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
+                                                                                             label="#{a.property.label}"
+                                                                                             rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                                             required="#{a.property.required}"
+                                                                                             > 
+                                                                                    <f:validator validatorId="validadorDigitosDinamic"  />
+                                                                                    <f:ajax execute="@this" render="str5"  />
+                                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                            
+
+                                                                                </p:inputText>
+                                                                                
+                                                                                <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                                    <f:selectItem itemLabel="true" itemValue="true" />
+                                                                                    <f:selectItem itemLabel="false" itemValue="false" />
+                                                                                </p:selectOneButton>
+                                                                                    
+
+                                                                                #{a.value}
+                                                                                #{a.property.required}
+                                                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                                                styleClass="validation-status" />
+                                                                                <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
+                                                                                    <ocp:message forId="str" />
+                                                                                    <ocp:message forId="str1" />
+                                                                                    <ocp:message forId="str2" />
+                                                                                    <ocp:message forId="str3" />
+                                                                                    <ocp:message forId="str4" />
+                                                                                    <ocp:message forId="str5" />
+
+                                                                                </span><br/><br/>
+
+                                                                            </div>
+
+
+
 
                                                                     </h:panelGroup>  
+
 
                                                                 </ui:repeat>
                                                             </h:panelGroup>
@@ -403,7 +447,7 @@
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" 
                                          styleClass="btn  btn-success" action="#{controladorVehiculo.guardar()}"
-                                         ajax="true" update="pv">
+                                         ajax="true" update="pv :form:infoFM">
                             <f:param name="mensaje" value="#{controladorVehiculo.mensaje}"></f:param>
                         </p:commandButton>
                         <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 

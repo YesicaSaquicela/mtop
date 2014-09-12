@@ -62,6 +62,9 @@ public class validadorFechaSoat implements Validator {
                 cv.setMensaje1("La Fecha Final debe ser mayor a la Fecha de Inicio ");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("ADVERTENCIA: "), "La Fecha Final debe ser mayor a la Fecha de Inicio "));
 
+            }else
+            {
+                 cv.setMensaje1(null);
             }
         }
 

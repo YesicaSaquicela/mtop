@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,15 +122,15 @@ public class SecurityGroupListService extends LazyDataModel<Group> {
 
     @Transactional
     public void deleteGroup() {
-        if (this.getSelectedGroup() != null) {            
-            try {                 
+        if (this.getSelectedGroup() != null) {
+            try {
                 if (securityGroupService.isAssociatedUser(selectedGroup)) {
                     securityGroupService.removeGroup(selectedGroup);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getSelectedGroup().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide();"); //cerrar el popup si se grabo correctamente
                     this.setSelectedGroup(null);
-                }else{
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se pudo borrar! \nEste gropu tiene usuarios asociados:",""));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se pudo borrar! \nEste gropu tiene usuarios asociados:", ""));
                 }
             } catch (IdentityException ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se pudo borrar :  " + getSelectedGroup().getName(), ""));
@@ -142,7 +141,7 @@ public class SecurityGroupListService extends LazyDataModel<Group> {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cann't delete group!", "Please provide a group"));
         }
-        
+
     }
 
     @PostConstruct
@@ -186,6 +185,8 @@ public class SecurityGroupListService extends LazyDataModel<Group> {
         return entity.getName();
     }
 
+    
+    
     @Override
     public List<Group> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
         List<Group> result = new ArrayList<Group>();
@@ -202,12 +203,13 @@ public class SecurityGroupListService extends LazyDataModel<Group> {
             Logger.getLogger(SecurityGroupListService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IdentityException ex) {
             Logger.getLogger(SecurityGroupListService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         this.listGroups = result;
         return result;
     }
     
-    public void assignGroup(Group g){
+
+    public void assignGroup(Group g) {
         this.selectedGroup = g;
     }
 }

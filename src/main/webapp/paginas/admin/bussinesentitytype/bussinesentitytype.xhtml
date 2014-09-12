@@ -285,7 +285,8 @@ limitations under the License.
                                         <h:outputText value="#{propertyHome.ConvertirPropiedadesString(property)}" styleClass="span1"/>
                                     </p:column>                                 
                                     <p:column  headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 20%">
-                                        <h:outputText value="#{property.value}" styleClass="span3"/>
+                                        <h:outputText value="#{property.value}" styleClass="span3" rendered="#{property.type ne 'java.util.Date'}"/>
+                                        <h:outputText value="#{propertyHome.formato(property.value)}" styleClass="span3" rendered="#{property.type eq 'java.util.Date'}"/>
                                     </p:column>                                 
                                     <p:column  headerText="Obligatoria" sortBy="#{property.required}" style="width: 10%" >
                                         <h:selectBooleanCheckbox value="#{property.required}"  disabled="true" >                                

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 carlis.
+ * Copyright 2014 yesica.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,61 +15,52 @@
  */
 package org.mtop.faces.validator;
 
+
+import org.jboss.seam.faces.validation.InputElement;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
+
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import org.jboss.seam.faces.validation.InputElement;
-import org.mtop.controlador.ControladorVehiculo;
-import org.mtop.modelo.Vehiculo;
-import org.mtop.util.UI;
-
+import org.mtop.controlador.dinamico.BussinesEntityTypeHome;
 /**
  *
- * @author carlis
+ * @author yesica
  */
 @RequestScoped
-@FacesValidator("validadorNumRegistro")
-public class ValidadorNumRegistroVehiculo implements Validator {
+@FacesValidator("validadorDigitosDinamic")
+public class ValidadorDigitosDinamic implements Validator{
 
     @Inject
     private EntityManager em;
 
     @Inject
-    private ControladorVehiculo cv;
-
-    @Inject
-    private Vehiculo vehiculo;
-
+    private BussinesEntityTypeHome beth;
     private InputElement<Integer> value;
 
     @Override
-    public void validate(final FacesContext context, final UIComponent comp, final Object value)
+    public void validate(final FacesContext context, final UIComponent component, final Object value)
             throws ValidatorException {
-        System.out.println("validador numregistro");
-        //
+        beth.setEntityManager(em);
+     
+        System.out.println("\n\n\n\n entro al validador del digitos dinamico \n\n\n\n" + value);
         String field = value.toString();
-        System.out.println("field>>>" + field.matches("[0-9-]*"));
+        System.out.println("\n\n\n\n entro al validador del digitos dinamico\n\n\n\n" + field);
         if (!field.matches("[0-9-]*")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se admiten letras ", " ");
+            beth.setMensaje2("No se admiten letras");
+            System.out.println("\n\n\n si valida\n\n\n\n");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se admiten letras ", "No se admiten letras");
 
             throw new ValidatorException(msg);
-        } else {
-            if (value instanceof String && !value.equals(vehiculo.getNumRegistro()) && field.matches("[0-9-]*")) {
-                cv.setEntityManager(em);
-                System.out.println("entro>> validador");
-                if (!cv.numRegistroUnico((String) value)) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El número de registro ingresado no esta disponible. ¡Pertenece a otro vehículo! ", " ");
-
-                    throw new ValidatorException(msg);
-                }
-            }
+        }else{
+             beth.setMensaje2(null);
         }
+        
 
     }
 }

@@ -21,6 +21,7 @@ import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.Property;
 import org.mtop.controlador.*;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,6 +43,7 @@ import org.mtop.util.UI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.text.html.HTML;
 import javax.validation.constraints.Pattern;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.modelo.profile.Profile;
@@ -74,13 +76,13 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyStringValue;
     private Date propertyDateValue;
     private String propertyType;
+
     @Inject
     private ServicioGenerico servgen;
-    @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
+    @Pattern(regexp = "[0-9]*", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
     private String mensaje;
-   
-    
+
     public String getMensaje() {
         return mensaje;
     }
@@ -110,20 +112,38 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         setId(propertyId);
         if (getInstance().getType() != null) {
             propertyType = getInstance().getType();
-            if (propertyType.equals("java.util.Date")) {
-
-                Date fecha = Date.class.cast(getInstance().getValue());
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-                //String fecha=sdf.format(getInstance().getValue());
-                //String fecha = sdf.format(getInstance().getValue());
-                System.out.println(sdf.format(fecha));
-                //setPropertyStringValue(fecha);
-
-                setPropertyDateValue(fecha);
-            }
+//            if (propertyType.equals("java.util.Date")) {
+//
+//                Date fecha = Date.class.cast(getInstance().getValue());
+//                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+//                //String fecha=sdf.format(getInstance().getValue());
+//                //String fecha = sdf.format(getInstance().getValue());
+//                System.out.println(sdf.format(fecha));
+//                //setPropertyStringValue(fecha);
+//
+//                setPropertyDateValue(fecha);
+//            }
         }
         if (getInstance().getValue() != null) {
-            propertyStringValue = getInstance().getValue().toString();
+            if (getInstance().getType().equals("java.lang.Integer")) {
+                propertyNumberValue = getInstance().getValue().toString();
+            } else {
+                if (getInstance().getType().equals("java.util.Date")) {
+                    System.out.println("hacer casting fecha");
+                    propertyDateValue = Date.class.cast(getInstance().getValue());
+                    System.out.println("paso hacer casting fecha");
+                } else {
+                    if (getInstance().getType().equals("java.lang.String[]")) {
+
+                        propertyStringValue = getInstance().getValue().toString().substring(0, getInstance().getValue().toString().length() - 1);
+
+                    } else {
+                        propertyStringValue = getInstance().getValue().toString();
+                    }
+
+                }
+
+            }
 
         }
 
@@ -153,11 +173,20 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public void setPropertyDateValue(Date propertyDateValue) {
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-        String fecha = sdf.format(propertyDateValue);
-        System.out.println(fecha);
-        setPropertyStringValue(fecha);
-        this.propertyDateValue = propertyDateValue;
+        System.out.println("entro a fijar fecja" + propertyDateValue);
+        if (propertyDateValue == null) {
+            System.out.println("fijo nulll a fecha");
+            this.propertyDateValue = null;
+        } else {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            String fecha = sdf.format(propertyDateValue);
+            System.out.println(fecha);
+            setPropertyStringValue(fecha);
+            this.propertyDateValue = propertyDateValue;
+            
+        }
+        System.out.println("fijo fecha"+this.propertyDateValue);
+
     }
 
     public String getPropertyStringValue() {
@@ -227,10 +256,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
 
         }
-        System.out.println("p.name"+getInstance().getName());
-        System.out.println("p.getGroupName "+getInstance().getGroupName());
+        System.out.println("p.name" + getInstance().getName());
+        System.out.println("p.getGroupName " + getInstance().getGroupName());
         if (getInstance().getGroupName() != null) {
-            System.out.println("get group name"+p.getGroupName());
+            System.out.println("get group name" + p.getGroupName());
             if (getInstance().getGroupName().equals("org.mtop.modelo.Vehiculo")) {
                 //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
                 tipos.add("EstadoParteMecanica");
@@ -303,10 +332,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyType() {
-        System.out.println("get instance"+getInstance());
+        System.out.println("get instance" + getInstance());
         if (getInstance().getId() != null) {
             System.out.println("entro");
-            System.out.println("tipo"+getInstance().getType());
+            System.out.println("tipo" + getInstance().getType());
             if (getInstance().getType().equals("java.lang.MultiLineString")) {
                 propertyType = "AreaTexto";
             } else {
@@ -333,6 +362,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                                         } else {
                                             if (getInstance().getType().equals("java.util.Date")) {
                                                 propertyType = "Fecha";
+                                                System.out.println("fue fecha" + propertyDateValue);
                                             } else {
                                                 propertyType = "EstadoParteMecanica";
                                             }
@@ -359,38 +389,24 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             if (this.propertyType.equals("EstadoParteMecanica")) {
                 setPropertyStringValue("Bueno,Malo*");
             } else {
-                if (this.propertyType.equals("Texto")
-                        || this.propertyType.equals("Lista")
-                        || this.propertyType.equals("AreaTexto")
-                        || this.propertyType.equals("java.lang.Object")
-                        || this.propertyType.equals("Booleano")) {
 
-                    setPropertyStringValue(" ");
+                if (this.propertyType.equals("Fecha")) {
+                    System.out.println("entro a fecha");
+                    Date date = Calendar.getInstance().getTime();
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+                    String fecha = sdf.format(date);
+                    System.out.println(fecha);
+                    setPropertyStringValue(fecha);
+                    setPropertyDateValue(date);
                 } else {
-                    if (this.propertyType.equals("Real")
-                            || this.propertyType.equals("EnteroMayor")
-                            || this.propertyType.equals("Entero")) {
-                        setPropertyStringValue("0");
-                    } else {
-                        if (this.propertyType.equals("Fecha")) {
-                            System.out.println("entro a fecha");
-                            Date date = Calendar.getInstance().getTime();
-                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-                            String fecha = sdf.format(date);
-                            System.out.println(fecha);
-                            setPropertyStringValue(fecha);
-                            setPropertyDateValue(date);
-                        } else {
-                            if (this.propertyType.equals("Estructura")) {
-                                System.out.println("entro a estrusctura");
-                                        
-                            }
-                        }
+                    if (this.propertyType.equals("Estructura")) {
+                        System.out.println("entro a estrusctura");
 
                     }
                 }
 
             }
+
         }
         System.out.println("valor de tipo fijado " + propertyType);
 
@@ -436,10 +452,21 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
         }
     }
+    public String formato(Date fecha) {
+        System.out.println("\n\n\n\n\n\n\nhsadhjsdj" + fecha);
+        String fechaFormato = "";
+        if (fecha != null) {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            fechaFormato = formatter.format(fecha);
+        }
+
+        return fechaFormato;
+
+    }
 
     @TransactionAttribute
     public String saveProperty() {
-
+        System.out.println("entro a guardar");
         getInstance().setType(propertyType);
         System.out.println("TIpo::" + getInstance().getType());
         ConvertirStringPropiedades();
@@ -448,16 +475,23 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         log.info("eqaula --> saving " + getInstance().getName());
 
         if (getInstance().getType().equals("java.util.Date")) {
-
-            getInstance().setValue(Calendar.getInstance().getTime());
+            if(propertyDateValue!=null){
+                DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy");
+		propertyStringValue= fechaHora.format(propertyDateValue);
+		System.out.println("convertidooo"+propertyStringValue);
+            }else{
+                propertyStringValue="";
+            }
+            
+        }
+        if (getInstance().getType().equals("java.lang.String[]")) {
+            propertyStringValue = propertyStringValue + "*";
         }
         // if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
-        if (getInstance().getType().equals("java.lang.Long")) {
-            propertyStringValue = this.propertyStringValue.substring(0, (propertyStringValue.length() - 2));
-        }
         if (getInstance().getType().equals("java.lang.Integer")) {
             propertyStringValue = this.propertyNumberValue.toString();
         }
+
         if (getInstance().isPersistent()) {
             System.out.println("PRESENTAR GUERADAR>>>>>");
             getInstance().setValue(converterToType(propertyStringValue));
@@ -473,6 +507,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 s.addProperty(this.getInstance());
 
             } catch (Exception ex) {
+                ex.printStackTrace();
                 System.out.println("ERROR>>>" + ex);
                 //log.info("eqaula --> error saving new" + getInstance().getName());
             }
@@ -559,37 +594,47 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public Serializable converterToType(String value) {
+        value = value.trim();
+        System.out.println("value en integer" + value);
 
         Object o = new Object();
-        try {
-            if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
-                o = value;
-            } else if ("java.lang.Long".equals(getInstance().getType())) {
-                o = Long.valueOf(value);
-            } else if ("java.lang.Float".equals(getInstance().getType())) {
-                o = Float.valueOf(value);
-            } else if ("java.lang.Integer".equals(getInstance().getType())) {
-                o = Integer.valueOf(value);
-            } else if ("java.lang.Boolena".equals(getInstance().getType())) {
-                o = Boolean.valueOf(value);
-            } else if ("java.util.Date".equals(getInstance().getType())) {
-                SimpleDateFormat sdf;
-                sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha = null;
-                try {
-                    fecha = sdf.parse(value);
-                } catch (ParseException pe) {
-                    log.info("eqaula --> error converter date:" + pe.getMessage());
+        if (value.equals("")) {
+            System.out.println("entro a vacio");
+            o = null;
+        } else {
+            try {
+                if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
+                    o = value;
+                } else if ("java.lang.Long".equals(getInstance().getType())) {
+                    o = Long.valueOf(value);
+                } else if ("java.lang.Float".equals(getInstance().getType())) {
+                    o = Float.valueOf(value);
+                } else if ("java.lang.Integer".equals(getInstance().getType())) {
+
+                    o = (Object) value;
+                } else if ("java.lang.Boolean".equals(getInstance().getType())) {
+                    o = Boolean.valueOf(value);
+                } else if ("java.util.Date".equals(getInstance().getType())) {
+                    
+                    SimpleDateFormat sdf;
+                    sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fecha = null;
+                    try {
+                        fecha = sdf.parse(value);
+                    } catch (ParseException pe) {
+                        log.info("eqaula --> error converter date:" + pe.getMessage());
+                    }
+                    o = fecha;
+                } else if ("java.lang.Double".equals(getInstance().getType())) {
+                    o = Double.valueOf(value);
+                } else {
+                    o = value;
                 }
-                o = fecha;
-            } else if ("java.lang.Double".equals(getInstance().getType())) {
-                o = Double.valueOf(value);
-            } else {
-                o = value;
+            } catch (Exception e) {
+                log.info("eqaula --> error converter: " + value);
             }
-        } catch (Exception e) {
-            log.info("eqaula --> error converter: " + value);
         }
+
         System.out.println("valor de la propuiedad a convertir" + o);
         return (Serializable) o;
     }

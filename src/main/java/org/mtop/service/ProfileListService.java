@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
+
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -131,10 +131,13 @@ public class ProfileListService extends LazyDataModel<Profile> {
 
     }
 
+    
+    
+    
+    
     @Override
     public List<Profile> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
-
-        int end = first + pageSize;
+         int end = first + pageSize;
 
         QuerySortOrder order = QuerySortOrder.ASC;
         if (sortOrder == SortOrder.DESCENDING) {
@@ -150,6 +153,10 @@ public class ProfileListService extends LazyDataModel<Profile> {
 
         return qData.getResult();
     }
+
+    
+    
+   
 
     @Override
     public Profile getRowData(String rowKey) {
