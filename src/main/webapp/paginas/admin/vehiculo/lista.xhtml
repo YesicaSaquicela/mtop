@@ -23,7 +23,7 @@
                     <div class="panel panel-primary">
                                                  <div class="panel-heading"><center>LISTA DE VEHÍCULOS</center></div>
                         <p:panel>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            
 
                             <!--Botones de admin-->
                             <div class="admin-actions">
@@ -101,6 +101,7 @@
 
 
                                             <tbody>
+                                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v"
                                                              paginator="true" rows="15"                         
                                                              paginatorPosition="top"

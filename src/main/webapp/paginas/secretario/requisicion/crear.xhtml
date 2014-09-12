@@ -72,7 +72,7 @@
                                         <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
                                     
                                     </p:selectOneMenu> <br></br> 
-                                        
+                              
                                     
                                     <h:panelGroup id="pt" layout="block" class="clearfix">
                                    
@@ -331,11 +331,11 @@
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandLink update="@form"  
-                                                                           process="@this" value="Agregar" title="Seleccionar">
+                                                            <p:commandButton update="@form"  
+                                                                           process="@this" title="Agregar" icon="ui-icon-check" >
                                                                 <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.vehiculo}"  />
                                                                 <f:setPropertyActionListener value="#{items.id}" target="#{controladorVehiculo.vehiculoId}" />
-                                                            </p:commandLink>
+                                                            </p:commandButton>
                                                         </p:column>
                                                     </p:dataTable>
                                                     <br/>
@@ -803,10 +803,10 @@
 
                                                         <p:column style="width:4%;text-align: center" headerText="Acciones" >
 
-                                                            <p:commandLink update=":form:solicitudr "  process="@this" value="Agregar" title="Seleccionar">
+                                                            <p:commandButton update=":form:solicitudr "  process="@this" title="Agregar" icon="ui-icon-check" >
                                                                 <f:setPropertyActionListener value="#{items1}" target="#{controladorRequisicion.solicitudrep}" />
 
-                                                            </p:commandLink>
+                                                            </p:commandButton>
                                                         </p:column>
 
                                                     </p:dataTable>
@@ -1154,9 +1154,7 @@
 
                             <p:panel>
 
-
-
-                                <p:messages  id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
+                             
 
                                 <p:outputLabel value="Elemento a Revisar"/><br></br>
                                 <p:inputTextarea id="elementoRevisar"  
@@ -1193,7 +1191,7 @@
                                     </p:commandLink>
 
                                 </div><br/>
-
+<p:messages  id="mensaje1" showDetail="true" autoUpdate="true" closable="true" />
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
                                         <div class="table-responsive">
@@ -1213,16 +1211,16 @@
                                                     <p:column headerText="Descripción de la falla" sortBy="#{la.descripcionFalla}">
                                                         <h:outputText value="#{la.descripcionFalla}"></h:outputText>
                                                     </p:column>
-                                                    <p:column headerText="Opciones" style="width: 5%"> 
+                                                    <p:column headerText="Opciones" style="width: 10%"> 
                                                         <p:commandButton icon="ui-icon-pencil" update=":form:listaa :form:elementoRevisar :form:descripcionFalla" 
                                                                          actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" 
-                                                                         title="Editar" process="@form">
+                                                                         title="Editar" process="@form" style="margin-top:10px;">
                                                             <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
                                                         </p:commandButton>
-                                                        <br/>
+                                                      #{" "}
                                                         <p:commandButton update=":form:listaa " icon="ui-icon-trash"
                                                                          actionListener="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
-                                                                         title="Dar de Bajar" process="@form">
+                                                                         title="Dar de Bajar" process="@form" style="margin-top:10px;">
                                                             <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
                                                             <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />   
                                                         </p:commandButton>

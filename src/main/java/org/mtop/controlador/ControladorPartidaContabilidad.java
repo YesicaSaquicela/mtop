@@ -36,6 +36,7 @@ import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.PartidaContabilidad;
 import org.mtop.modelo.PartidaContabilidad_;
+import org.mtop.modelo.Producto;
 import org.mtop.servicios.ServicioGenerico;
 
 /**
@@ -55,6 +56,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     private String mensaje = "";
     private String vista = "";
     private String palabrab = "";
+    private List<PartidaContabilidad> listaPartidaC2 = new ArrayList<PartidaContabilidad>();
 
     public String getPalabrab() {
         return palabrab;
@@ -65,21 +67,22 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public void buscar() {
-        palabrab=palabrab.trim();
+
+        palabrab = palabrab.trim();
         if (palabrab == null || palabrab.equals("")) {
             palabrab = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia
-        List<PartidaContabilidad> lp = servgen.buscarTodoscoincidencia(PartidaContabilidad.class, PartidaContabilidad.class.getSimpleName(), PartidaContabilidad_.descripcion.getName(), palabrab);
+        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
         //buscando por numero de partidalistaPartidaC
-        for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
-
-            String resultado = partidaContabilidad.concatenarPartida();
-
-            if (resultado.contains(palabrab)) {
-
-                if (!lp.contains(partidaContabilidad)) {
-                    lp.add(partidaContabilidad);
+        System.out.println("entro a buscar>>>>>>>>>>>"+palabrab);
+        for (PartidaContabilidad p : listaPartidaC2) {
+            String resultado = p.concatenarPartida();
+            if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase())) {
+                lp.add(p);
+            } else {
+                if (resultado.contains(palabrab)) {
+                    lp.add(p);
                 }
             }
         }
@@ -101,23 +104,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     public void limpiar() {
         palabrab = "";
-        List<PartidaContabilidad> lp = servgen.buscarTodos(PartidaContabilidad.class);
-        listaPartidaC.clear();
-        System.out.println("lppp" + lp);
-
-        for (PartidaContabilidad partida : lp) {
-            System.out.println("iddddd" + partida.getId());
-            System.out.println("entro a for lista>>>>" + partida.isEstado());
-            if (partida.isEstado()) {
-                System.out.println("listatesssa" + listaPartidaC);
-                listaPartidaC.add(partida);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaPartidaC);
-
-            }
-
-        }
+        listaPartidaC = listaPartidaC2;
     }
 
     public ArrayList<String> autocompletar(String query) {
@@ -125,21 +112,18 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<PartidaContabilidad> lr = servgen.buscarTodoscoincidencia(PartidaContabilidad.class, PartidaContabilidad.class.getSimpleName(), PartidaContabilidad_.descripcion.getName(), query);
-
-        for (PartidaContabilidad partida : lr) {
-            System.out.println("econtro uno " + partida.getDescripcion());
-            ced.add(partida.getDescripcion());
-        }
-
         for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
 
             String resultado = partidaContabilidad.concatenarPartida();
 
             if (resultado.contains(query)) {
 
-                if (!ced.contains(partidaContabilidad)) {
+                if (!ced.contains(partidaContabilidad.concatenarPartida())) {
                     ced.add(resultado);
+                }
+            } else {
+                if (partidaContabilidad.getDescripcion().toLowerCase().contains(query.toLowerCase())&& !ced.contains(partidaContabilidad.getDescripcion().toLowerCase()) ) {
+                    ced.add(partidaContabilidad.getDescripcion());
                 }
             }
         }
@@ -217,6 +201,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC2 = listaPartidaC;
         System.out.println("liata en init>>>>>>>>" + listaPartidaC);
     }
 

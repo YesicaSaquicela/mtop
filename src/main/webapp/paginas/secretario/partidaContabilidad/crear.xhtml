@@ -52,7 +52,7 @@
                                         <p:outputLabel value="Número de Provincia"/><br></br>
                                         <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"  styleClass="form-control" >
                                             <f:validateLength minimum="4"/>
-<p:ajax event="blur" update="np" partialSubmit="true"  />
+                                         <p:ajax event="blur" update="np" partialSubmit="true"  />
                                         </p:inputText>
                                             <h:panelGroup id="np" layout="block" class="clearfix">
                                    

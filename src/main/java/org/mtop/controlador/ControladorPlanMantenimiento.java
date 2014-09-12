@@ -67,6 +67,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private String palabrab = "";
     private ActividadPlanMantenimiento it;
     private List<String> listaActividades;
+    private List<PlanMantenimiento> listaPlanM2= new ArrayList<PlanMantenimiento>();
    
 
   
@@ -114,24 +115,22 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             System.out.println("entro vacio");
             palabrab = "Ingrese algun valor a buscar";
         }
-        //buscando por coincidencia
-        List<PlanMantenimiento> le = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), palabrab);
-        //buscando por fechas
-        List<PlanMantenimiento> lef = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), palabrab);
-        System.out.println("Todas>>>>>>" + lef);
-        System.out.println("Todascoincidencia>>>>>>" + le);
+        System.out.println("entra palabra"+palabrab);
         List<Long> lplan = new ArrayList<Long>();
-        for (PlanMantenimiento p : le) {
-            lplan.add(p.getId());
-        }
-        for (PlanMantenimiento planm : lef) {
-            System.out.println("rerere " + planm);
-            System.out.println("lrq>>>> " + lplan);
+        
+            for (PlanMantenimiento pm : listaPlanM2) {
+            if (pm.isEstado() && !lplan.contains(pm)) {
+                
+                String s = formato(pm.getCreatedOn());
+                 System.out.println("entro al forrrrrmmm"+s);
+                if (pm.getRegistro().contains(palabrab) || s.contains(palabrab)) {
+                    lplan.add(pm.getId());
+                }
 
-            if (!lplan.contains(planm.getId())) {
-                lplan.add(planm.getId());
             }
+
         }
+  
 
         System.out.println("LEeeee" + lplan);
 
@@ -159,23 +158,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     public void limpiar() {
         palabrab = "";
-        List<PlanMantenimiento> lp = servgen.buscarTodos(PlanMantenimiento.class);
-        listaPlanMantenimiento.clear();
-        System.out.println("lppp" + lp);
-
-        for (PlanMantenimiento planM : lp) {
-            System.out.println("iddddd" + planM.getId());
-            System.out.println("entro a for lista>>>>" + planM.isEstado());
-            if (planM.isEstado()) {
-                System.out.println("listatesssa" + listaPlanMantenimiento);
-                listaPlanMantenimiento.add(planM);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaPlanMantenimiento);
-
-            }
-
-        }
+//      listaPlanMantenimiento=listaPlanM2;
     }
 
     public ArrayList<String> autocompletar(String query) {
@@ -183,14 +166,14 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<PlanMantenimiento> lp = servgen.buscarTodoscoincidencia(PlanMantenimiento.class, PlanMantenimiento.class.getSimpleName(), PlanMantenimiento_.registro.getName(), query);
+      
 
-        for (PlanMantenimiento planM : lp) {
+        for (PlanMantenimiento planM : listaPlanM2) {
             System.out.println("econtro uno " + planM.getRegistro());
             ced.add(planM.getRegistro());
         }
-        List<PlanMantenimiento> lc = servgen.buscarPlanMporFecha(PlanMantenimiento_.createdOn.getName(), query);
-        for (PlanMantenimiento planM : lc) {
+       
+        for (PlanMantenimiento planM : listaPlanM2) {
 
             if (!ced.contains(formato(planM.getCreatedOn()))) {
                 System.out.println("no lo contienes" + formato(planM.getCreatedOn()));
@@ -546,7 +529,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         listaPlanMantenimiento
                 = servgen.buscarTodos(PlanMantenimiento.class
                 );
-        cv.setEntityManager(em);
+        listaPlanM2=listaPlanMantenimiento;
+         cv.setEntityManager(em);
         cactividadpm = new ControladorActividadPlanMantenimiento();
 
         cactividadpm.setInstance(

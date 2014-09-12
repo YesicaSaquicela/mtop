@@ -700,6 +700,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         for (Requisicion r : listaRequisicion2) {
             if (r.isEstado() && !lrq.contains(r)) {
                 String s = r.getFechaRequisicion().toString();
+                
+                System.out.println("entro form....."+s);
                 if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)) {
                     lrq.add(r.getId());
                 }

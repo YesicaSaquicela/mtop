@@ -28,7 +28,7 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>LISTA DEL MANTENIMIENTO DE LOS VEHÍCULOS</center></div>
                             <p:panel rendered="#{controladorVehiculo.vista ne 'actividades'}" >
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                             
 
                                 <div class="row">
 
@@ -76,7 +76,7 @@
 
                                                 </div>
 
-
+   <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                                 <tbody>
                                                     <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v" paginator="true" rows="15"                         
                                                                  paginatorPosition="top"

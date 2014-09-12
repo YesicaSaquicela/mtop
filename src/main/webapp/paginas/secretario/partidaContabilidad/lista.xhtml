@@ -24,7 +24,7 @@
                     <div class="panel panel-primary">
                          <div class="panel-heading"><center>LISTA DE PARTIDAS DE CONTABILIDAD</center></div>
                         <p:panel>
-                            <p:messages for="confirmacion confirmacion1" showDetail="true" autoUpdate="true" closable="true" />  
+                            
                             <div class="admin-actions">
                                 <div class="panel panel-success">
                                     <p:panel>
@@ -80,6 +80,7 @@
 
 
                                         <tbody>
+                                              <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                             <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc" 
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"

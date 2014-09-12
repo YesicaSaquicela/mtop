@@ -44,6 +44,8 @@
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Número de Registro" 
                                          rendered="true" />
+                              <h:graphicImage value="#{resource['visto.png']}" 
+                                                                styleClass="validation-status" />
                             <span class="help-inline text-muted">Número de registro</span><br></br><br></br>
 
                             <h:outputLabel value="Fecha de Creación" /> <br></br> 
@@ -51,29 +53,38 @@
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Fecha de Creación" 
                                          rendered="true" />
-                            <span class="help-inline text-muted">Ingrese la fecha de creación<ocp:message forId="fecha" /></span><br></br><br></br> 
+                             <h:graphicImage value="#{resource['visto.png']}" 
+                                                                styleClass="validation-status" />
+                            <span class="help-inline text-muted">Fecha de creación del plan de mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
                             <p:outputLabel value="Actividad"/><br></br>
                             <p:inputTextarea maxlength="50" label="actividad" requiredMessage="Se necesita un actividad" 
                                              id="actividad" required="true" styleClass="form-control"
                                              value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
                                              >
-
+<p:ajax event="blur" update="ak" partialSubmit="true"  />
                             </p:inputTextarea>
+                            <h:panelGroup id="ak">
+                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.actividad != null}"
+                                                                styleClass="validation-status" />
                             <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
-
+  </h:panelGroup>
 
 
 
                             <h:outputLabel value="Kilometraje"/> <br></br> 
                             <p:selectOneMenu maxlength="50" required="true" label="kilometraje" requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
+                                <p:ajax event="change" update="km" partialSubmit="true"  />
                                 <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                 <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
 
                             </p:selectOneMenu><br></br>
+                            <h:panelGroup id="km">
+                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje != ''}"
+                                                                styleClass="validation-status" />
                             <span class="help-inline text-muted">Elija el Kilometraje</span><br></br><br></br> 
 
-
+                            </h:panelGroup>
                             <div class="admin-actions">
                                 <p:commandButton  process="@form" update=":form:listaa :form:actividad :form:kilometraje"  
                                                   styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  
@@ -216,9 +227,17 @@
 
                     <div class="admin-actions " align="center"> 
                         <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" 
-                                         update="p1" process="@this"/>
+                                         update="p1" process="@this" ajax="true"/>
 
                     </div>
+                         <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                        <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                            <div class="input" align="center">
+                                <h:outputText value="Por favor espere, Cargando..."/><br/>
+                            </div>
+                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                        </p:dialog>
 
 
                 </div>

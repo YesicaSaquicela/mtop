@@ -83,15 +83,15 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         List<Producto> lp = new ArrayList<Producto>();
         //buscando por coincidencia descripciion
 
-        for (Producto p : listaproductos2) {
-            if (p.getCodigo().contains(palabrab)) {
-                lp.add(p);
-            } else {
-                if (p.getDescription().toLowerCase().contains(palabrab.toLowerCase())) {
+            for (Producto p : listaproductos2) {
+                if (p.getCodigo().contains(palabrab)) {
                     lp.add(p);
+                } else {
+                    if (p.getDescription().toLowerCase().contains(palabrab.toLowerCase())) {
+                        lp.add(p);
+                    }
                 }
             }
-        }
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
