@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:param name="titulo" value="Lista de Solicitud de reparación/mantenimiento"/>
+    <f:metadata>
+        <f:viewParam id="sol" name="solId" value="#{controladorSolicitudReparacionMantenimiento.solicitudReparacionMantenimientoId}"/>
+
+    </f:metadata>
+    <ui:define name="header">
+
+        #{titulo}
+
+    </ui:define>
+    <ui:define name="content">
+        <h:form >
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                     <div align="right">
+                        <p:button  
+                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                  outcome="/paginas/secretario/solicitud/lista" 
+                                  styleClass="btn  btn-success"/>
+                    </div>
+                </div>
+                </div>
+        </h:form>
+        <h:form id="p2">
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="center">
+
+                        <p:panelGrid  id="imp1"                                                  
+                                      style="width:80%" columns="2" >
+                            <f:facet   name="header" class="panel-heading" >
+
+                                <p:row>
+                                   
+                                    <p:column style="width:20%" > 
+
+                                       <p:graphicImage   value="../../../resources/mtop1.jpg" width="82" height="50" alt="mtop1" /> 
+
+                                    </p:column  >
+
+                                    <p:column style="width:80%" > 
+
+                                        SOLICITUD DE REPARACIÓN Y MANTENIMIENTO 
+                                         DE EQUIPOS
+
+                                    </p:column>
+
+
+                                </p:row>
+                                <p:row></p:row>
+
+
+                            </f:facet>
+
+
+                            <p:panelGrid  id="imp12343"  style="margin-top:20px" columns="2" >
+                                <f:facet   name="header" class="panel-heading" >
+                                    <p:row >
+                                        <p:column colspan="20"  rowspan="40"> 
+                                            Detalle
+                                        </p:column>
+                                    </p:row>
+                                </f:facet>
+                                <h:outputLabel class="navbar-text" value="Número de Solicitud"/>
+                                <h:outputLabel class="navbar-text" value="Fecha de Solicitud"/>
+
+                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"/>
+
+                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"/>
+                            </p:panelGrid>
+
+
+
+
+                            <p:panelGrid  id="imp123"  style="margin-top:20px" 
+                                          columns="3" 
+                                          >
+                                <f:facet   name="header" class="panel-heading" >
+
+                                    <p:row >
+                                        <p:column colspan="20"  rowspan="40"> 
+                                            Datos del Vehículo
+                                        </p:column>
+                                    </p:row>
+
+                                </f:facet>
+                                <h:outputLabel class="navbar-text" value="Registro del Vehículo"/>
+                                <h:outputLabel class="navbar-text" value="Tipo de Equipo"/>
+                                <h:outputLabel class="navbar-text" value="Marca"/>
+
+                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.numRegistro}"/>
+                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.tipo}"/>
+                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
+                            </p:panelGrid>
+
+
+
+
+
+
+
+                        </p:panelGrid>
+
+
+                        <p:panelGrid id="imp" style="width:86%"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        ELEMENTO A REVISAR 
+                                    </p:column>
+                                    <p:column>
+                                        DESCRIPCIÓN DE LA FALLA
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+
+                        <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="a" varStatus="status">  
+                            <p:panelGrid  style="width:86%"  >
+                                <p:row>
+                                    <p:column style="width:50%" >
+                                        <h:outputText class="navbar-text" value="#{a.descripcionElementoRevisar}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText class="navbar-text" value="#{a.descripcionFalla}"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+
+
+                        </ui:repeat>
+
+
+                        <p:panelGrid style="width:86%" >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        Recibido por 
+                                    </p:column>
+                                    <p:column>
+                                        Solicitado por
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                                <p:column style="width:50%" >
+                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.concatenarNombre}"/>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+
+                        <p:panelGrid style="width:86%" >
+
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        OBSERVACIONES
+                                    </p:column>
+
+                                </p:row>
+                            </f:facet>
+
+
+                            <p:row>
+                                <p:column style="width:50%">
+                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"/>
+                                </p:column>
+
+                            </p:row>
+
+
+                            <f:facet name="footer">
+                                     <p:row>
+                                         <p:column style="width:50%">
+                                        <div class="admin-actions " align="right" >
+                                    <p:commandButton  type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                        <p:printer target=":p2" />  
+                                    </p:commandButton>
+                                </div> 
+                                    </p:column>
+
+                                </p:row>
+                              
+                            </f:facet>
+                        </p:panelGrid>
+
+                    </div>
+                </div></div>
+        </h:form>
+    </ui:define>
+</ui:composition>

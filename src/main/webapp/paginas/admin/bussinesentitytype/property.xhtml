@@ -62,7 +62,7 @@
                                                         <f:selectItems value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
                                                         <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
                                                     </p:selectOneMenu><br></br> 
-                                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{propertyHome.propertyType  != null}"
+                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{propertyHome.propertyType  != null}"
                                                                     styleClass="validation-status" />
                                                     <span class="help-inQline text-muted">#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
                                                 </div><br></br>

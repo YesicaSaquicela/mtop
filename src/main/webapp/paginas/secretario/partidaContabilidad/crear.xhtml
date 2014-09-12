@@ -55,9 +55,14 @@
                                         <p:outputLabel value="Número de Provincia"/><br></br>
                                         <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"  styleClass="form-control" >
                                             <f:validateLength minimum="4"/>
-
+<p:ajax event="blur" update="np" partialSubmit="true"  />
                                         </p:inputText>
-                                        <span class="help-inline text-muted">Numero de provincia (0011)<ocp:message forId="provincia"/></span>
+                                            <h:panelGroup id="np" layout="block" class="clearfix">
+                                   
+                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroProvincia != null}" styleClass="validation-status" />
+                               <span class="help-inline text-muted">Numero de provincia (0011)<ocp:message forId="provincia"/></span> 
+                                    </h:panelGroup>
+                                        
                                         <br></br><br></br>
 
                                         <p:outputLabel value="Número de unidad descentralizada"/><br></br>
@@ -68,17 +73,25 @@
                                         <p:outputLabel value="Número de Programa"/><br></br>
                                         <p:inputText id="programa" maxlength="2" value="#{controladorPartidaContabilidad.instance.numeroPrograma}"  styleClass="form-control" >
                                             <f:validateLength minimum="2"/>
-
+<p:ajax event="blur" update="np1" partialSubmit="true"  />
                                         </p:inputText>
+                                        <h:panelGroup id="np1" layout="block" class="clearfix">
+                                   
+                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroPrograma != null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Numero de programa(01-25)<ocp:message forId="programa"/></span>
+                                        </h:panelGroup>
                                         <br></br><br></br>
 
                                         <p:outputLabel value="Número de Proyecto"/><br></br>
                                         <p:inputText id="proyecto" maxlength="5" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
                                             <f:validateLength minimum="5"/>
-
+<p:ajax event="blur" update="np2" partialSubmit="true"  />
                                         </p:inputText>
+                                         <h:panelGroup id="np2" layout="block" class="clearfix">
+                                   
+                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroProyecto != null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Numero de proyecto(00011-00000)<ocp:message forId="proyecto"/></span>
+                                        </h:panelGroup>
                                         <br></br><br></br>
 
 
@@ -95,9 +108,13 @@
                                         <p:outputLabel value="Número de Item"/><br></br>
                                         <p:inputText id="item" maxlength="6" value="#{controladorPartidaContabilidad.instance.numeroItem}"  styleClass="form-control" >
                                             <f:validateLength minimum="6"/>
-
+<p:ajax event="blur" update="np3" partialSubmit="true"  />
                                         </p:inputText>
+                                        <h:panelGroup id="np3" layout="block" class="clearfix">
+                                   
+                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroItem != null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de ítem. Ejm(530101)<ocp:message forId="item"/></span>
+                                        </h:panelGroup>
                                         <br></br><br></br>
 
                                         <p:outputLabel value="Número geográfico"/><br></br>
@@ -108,9 +125,13 @@
                                         <p:outputLabel value="Número de Fuente Financiera"/><br></br>
                                         <p:inputText id="fuenteFinanciera" maxlength="3" value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}"  styleClass="form-control" >
                                             <f:validateLength minimum="3"/>
-
+<p:ajax event="blur" update="np4" partialSubmit="true"  />
                                         </p:inputText>
+                                                                                <h:panelGroup id="np4" layout="block" class="clearfix">
+                                   
+                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera != null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de fuente financiera. Ejm(001-002)<ocp:message forId="fuenteFinanciera"/></span>
+                                        </h:panelGroup>
                                         <br></br><br></br>
                                         
                                                     <h:panelGroup id="em1" layout="block" class="clearfix">
@@ -121,7 +142,7 @@
                                                              required="true" label="observación" requiredMessage="Descripción requerida, necesita un valor" >
                                                 <f:ajax execute="@this" render="em1"  />
                                             </p:inputTextarea>
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{controladorPartidaContabilidad.instance.descripcion !=null}" styleClass="validation-status" />
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.descripcion !=null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese una descripción de la partida<ocp:message forId="observacion1" /></span>                                   
                                         </div>
                                     </h:panelGroup>   
@@ -180,7 +201,7 @@
                                                                 <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                                             </p:inputTextarea>  
 
-                                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                             styleClass="validation-status" />
                                                             <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                                         </div>
@@ -230,7 +251,7 @@
                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                         <p:ajax event="blur" update="@parent" partialSubmit="true"/>
                                     </p:inputTextarea>                                             
-                                    <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                     styleClass="validation-status" />
                                     <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                 </div>

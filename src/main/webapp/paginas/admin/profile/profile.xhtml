@@ -63,7 +63,7 @@
 
                                             </p:calendar> <br/>                                 
 
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.fechanacimiento !=null}" styleClass="validation-status" />
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.fechanacimiento !=null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
                                         </h:panelGroup><br/>
 
@@ -77,7 +77,7 @@
                                                     <f:validator validatorId="ciAvailabilityValidator" />
                                                     <f:ajax execute="@this" render="cod"  />
                                                 </h:inputText>
-                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.code != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.code != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Ingrese cédula de identidad válida<ocp:message forId="dni" /></span>
                                             </div>
@@ -93,7 +93,7 @@
                                                     <f:selectItems value="#{profileHome.tipos}" />
                                                     <f:ajax execute="@this" render="em1"  />
                                                 </p:selectOneMenu>
-                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.tipo != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.tipo != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted"><br/>Ingrese el tipo de persona<ocp:message forId="tipop" /></span>
                                             </div>
@@ -110,7 +110,7 @@
                                                     <f:validator validatorId="signupEmailAvailabilityValidator" />
                                                     <f:ajax execute="@this" render="eml"  />
                                                 </h:inputText>
-                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.email != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.email != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Ingrese el correo electrónico<ocp:message forId="email" /></span>
                                             </div>

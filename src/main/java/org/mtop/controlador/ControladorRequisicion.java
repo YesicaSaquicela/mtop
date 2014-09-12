@@ -103,6 +103,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
     Producto pro;
     List<Requisicion> listaRequisicionAprobada = new ArrayList<Requisicion>();
+    private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
 
     private List<Requisicion> listaRequisicionfiltrada;
     private String tipo;
@@ -116,6 +117,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private List<ItemRequisicion> itemsEliminar;
     private ItemRequisicion it;
     private Double total = 0.0;
+    private List<Producto> listaproductos2 = new ArrayList<Producto>();
+
+    public List<Producto> getListaproductos2() {
+        return listaproductos2;
+    }
+
+    public void setListaproductos2(List<Producto> listaproductos2) {
+        this.listaproductos2 = listaproductos2;
+    }
+
+    public List<Vehiculo> getListVehiculos2() {
+        return listVehiculos2;
+    }
+
+    public void setListVehiculos2(List<Vehiculo> listVehiculos2) {
+        this.listVehiculos2 = listVehiculos2;
+    }
 
     public Double getTotal() {
         System.out.println("obteniendo total" + total);
@@ -462,19 +480,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("QUEryyyyy" + query);
 
         ArrayList<String> ced = new ArrayList<String>();
-
-        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), query);
-
-        for (Vehiculo vehiculo1 : lv) {
-            System.out.println("econtro uno " + vehiculo1.getNumRegistro());
-            ced.add(vehiculo1.getNumRegistro());
+        System.out.println("lista de vehiculos" + listVehiculos2);
+        for (Vehiculo vh : listVehiculos2) {
+            System.out.println("entro tien placa" + vh.getPlaca());
+            if (vh.getNumRegistro().contains(query)) {
+                ced.add(vh.getNumRegistro());
+            }
+            if (vh.getPlaca().toLowerCase().contains(query.toLowerCase())) {
+                ced.add(vh.getPlaca());
+            }
         }
-        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), query);
-        for (Vehiculo vehiculo1 : lc) {
-            System.out.println("econtro uno " + vehiculo1.getPlaca());
-            ced.add(vehiculo1.getPlaca());
-        }
-
 //         List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
 //          for (Vehiculo vehiculo : lk) {
 //            System.out.println("econtro uno " + vehiculo.getPlaca());
@@ -490,66 +505,53 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("QUEryyyyy" + query);
 
         ArrayList<String> ced = new ArrayList<String>();
+        for (Producto producto : listaproductos2) {
+            if (producto.isEstado()) {
+                if (producto.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                    ced.add(producto.getDescription());
+                }
+                if (producto.getCodigo().contains(query)) {
+                    ced.add(producto.getCodigo());
+                }
 
-        List<Producto> lp = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), PersistentObject_.description.getName(), query);
-
-        for (Producto producto : lp) {
-            System.out.println("econtro uno " + producto.getDescription());
-            if (!producto.getCantidad().equals(0) && producto.isEstado()) {
-                ced.add(producto.getDescription());
             }
-
         }
-        List<Producto> lc = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), Producto_.codigo.getName(), query);
-        for (Producto producto : lc) {
-            if (!producto.getCantidad().equals(0) && producto.isEstado()) {
-                System.out.println("econtro uno " + producto.getCodigo());
-                ced.add(producto.getCodigo());
-            }
 
-        }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
     }
 
     public void buscarv() {
+
         if (palabrabv == null || palabrabv.equals("") || palabrabv.contains(" ")) {
             palabrabv = "Ingrese algun valor a buscar";
         }
-        //buscando por coincidencia descripciion
-        System.out.println("\n\n\n\n esta buscando" + palabrabv);
-        List<Vehiculo> lv = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.numRegistro.getName(), palabrabv);
-        //buscando por codigo
-        System.out.println("\n\n\n\n lv\n\n\n\n" + lv);
-        List<Vehiculo> lc = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.placa.getName(), palabrabv);
-//        List<Vehiculo> lk = servgen.buscarTodoscoincidencia(Vehiculo.class, Vehiculo.class.getSimpleName(), Vehiculo_.kilometraje.getName(), palabrab);
-
-        for (Vehiculo vehiculo1 : lc) {
-            if (!lv.contains(vehiculo1)) {
-                lv.add(vehiculo1);
+        List<Vehiculo> lvs = new ArrayList<Vehiculo>();
+        System.out.println("lista de vehiculosen uscar>>>" + listVehiculos2);
+        for (Vehiculo veh1 : listVehiculos2) {
+            if (veh1.getNumRegistro().contains(palabrabv)) {
+                lvs.add(veh1);
+            } else {
+                if (veh1.getPlaca().toLowerCase().contains(palabrabv.toLowerCase())) {
+                    lvs.add(veh1);
+                }
             }
         }
 
-//        for (Vehiculo vehiculo : lk) {
-//            if (!lv.contains(vehiculo)) {
-//                lv.add(vehiculo);
-//            }
-//        }
-        if (lv.isEmpty()) {
+        if (lvs.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabv.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algún valor a buscar"));
+                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
                 palabrabv = " ";
             } else {
-
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrab));
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabv));
             }
 
         } else {
-            vehiculos = lv;
+            vehiculos = lvs;
         }
-        System.out.println("\n\n\n busco \n\n" + vehiculo);
+
         System.out.println("listaaaaa autocompletar" + vehiculos);
     }
 
@@ -559,14 +561,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (palabrabp == null || palabrabp.equals("")) {
             palabrabp = "Ingrese algun valor a buscar";
         }
-        System.out.println("Entroa a buscar al producto despues>>>>>>>>>" + palabrabp);
+        List<Producto> lp = new ArrayList<Producto>();
         //buscando por coincidencia descripciion
-        List<Producto> lp = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), PersistentObject_.description.getName(), palabrabp);
-        //buscando por codigo
-        List<Producto> lc = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), Producto_.codigo.getName(), palabrabp);
-        for (Producto producto : lc) {
-            if (!lp.contains(producto)) {
-                lp.add(producto);
+
+        for (Producto p : listaproductos2) {
+            if (p.getCodigo().contains(palabrabp)) {
+                lp.add(p);
+            } else {
+                if (p.getDescription().toLowerCase().contains(palabrabp.toLowerCase())) {
+                    lp.add(p);
+                }
             }
         }
 
@@ -596,44 +600,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void limpiarv() {
         palabrabv = "";
-        List<Vehiculo> lv = servgen.buscarTodos(Vehiculo.class);
-        vehiculos.clear();
-        System.out.println("lppp" + lv);
+        List<Vehiculo> lv = new ArrayList<Vehiculo>();
 
-        for (Vehiculo vehiculo1 : lv) {
+        System.out.println("antes lista de vehiculos>>>>" + listVehiculos2);
+        for (Vehiculo vehiculo1 : listVehiculos2) {
             System.out.println("iddddd" + vehiculo1.getId());
             System.out.println("entro a for lista>>>>" + vehiculo1.isEstado());
             if (vehiculo1.isEstado()) {
-                System.out.println("listatesssa" + vehiculos);
-                vehiculos.add(vehiculo1);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + vehiculos);
-
+                lv.add(vehiculo1);
             }
 
         }
+        vehiculos = lv;
     }
 
     public void limpiarp() {
         palabrabp = "";
-        List<Producto> lp = servgen.buscarTodos(Producto.class);
-        listaProductos.clear();
-        System.out.println("lppp" + lp);
-
-        for (Producto produ : lp) {
-            System.out.println("iddddd" + produ.getId());
-            System.out.println("entro a for lista>>>>" + produ.isEstado());
-            if (produ.isEstado() && !produ.getCantidad().equals(0)) {
-                System.out.println("listatesssa" + listaProductos);
-                listaProductos.add(produ);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaProductos);
-
-            }
-
-        }
+        listaProductos = listaproductos2;
     }
 
     public List<Profile> getListaPersonal() {
@@ -712,15 +695,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("entro vacio");
             palabrab = "Ingrese algun valor a buscar";
         }
-        //buscando por coincidencia
-        List<Requisicion> le = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), palabrab);
-        //buscando por fechas
-        List<Requisicion> lef = servgen.buscarRequisicionporFecha(Requisicion_.fechaRequisicion.getName(), palabrab);
-        System.out.println("Todas>>>>>>" + lef);
-        System.out.println("Todascoincidencia>>>>>>" + le);
+
         List<Long> lrq = new ArrayList<Long>();
         for (Requisicion r : listaRequisicion2) {
-            if (r.isEstado()&& !lrq.contains(r)) {
+            if (r.isEstado() && !lrq.contains(r)) {
                 String s = r.getFechaRequisicion().toString();
                 if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)) {
                     lrq.add(r.getId());
@@ -729,7 +707,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         }
-        
+
         System.out.println("LEeeee" + lrq);
 
 //        Vehiculo v = new Vehiculo();
@@ -800,12 +778,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void limpiar() {
 
         palabrab = "";
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
+
         listaRequisicion.clear();
         listaRequisicionAprobada.clear();
-        System.out.println("lppp" + lr);
 
-        for (Requisicion r : lr) {
+        for (Requisicion r : listaRequisicion2) {
             if (r.isEstado()) {
                 if (r.getAprobado()) {
                     listaRequisicionAprobada.add(r);
@@ -842,7 +819,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         String s = "";
         for (Requisicion requisicion : listaRequisicion2) {
             s = requisicion.getFechaRequisicion().toString();
-            if (s.contains(query) && requisicion.isEstado() && !ced.contains(requisicion.getFechaRequisicion().toString())) {
+            if (s.contains(query) && requisicion.isEstado() && !ced.contains(s)) {
                 ced.add(requisicion.getFechaRequisicion().toString());
             }
         }
@@ -881,32 +858,27 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (palabrabs == null || palabrabs.equals("")) {
             palabrabs = "Ingrese algun valor a buscar";
         }
-        //buscando por coincidencia
-        List<SolicitudReparacionMantenimiento> le = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), palabrabs);
-        //buscando por fechas
-        List<SolicitudReparacionMantenimiento> lef = servgen.buscarSolicitudporFecha(SolicitudReparacionMantenimiento_.fechaSolicitud.getName(), palabrabs);
         List<Long> lsoli = new ArrayList<Long>();
-        for (SolicitudReparacionMantenimiento srm : le) {
-            lsoli.add(srm.getId());
-        }
-        for (SolicitudReparacionMantenimiento solicitudesRM : lef) {
-            System.out.println("rerere " + solicitudesRM);
-            System.out.println("lrq>>>> " + lsoli);
+        for (SolicitudReparacionMantenimiento sol : listaSolicitudes2) {
+            if (sol.isEstado() && !lsoli.contains(sol)) {
+                String s = sol.getFechaSolicitud().toString();
+                if (sol.getNumSolicitud().contains(palabrabs) || s.contains(palabrabs)) {
+                    lsoli.add(sol.getId());
+                }
 
-            if (!lsoli.contains(solicitudesRM.getId())) {
-                lsoli.add(solicitudesRM.getId());
             }
+
         }
 
         System.out.println("LEeeee" + lsoli);
 
         if (lsoli.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
-            if (palabrab.equals("Ingrese algun valor a buscar")) {
+            if (palabrabs.equals("Ingrese algun valor a buscar")) {
                 context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
-                palabrab = " ";
+                palabrabs = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabs));
             }
 
         } else {
@@ -922,20 +894,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
             }
 
-            palabrab = "";
+            palabrabs = "";
         }
 
     }
 
     public void limpiars() {
         palabrabs = "";
-
-        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
-
         listaSolicitudes.clear();
-        System.out.println("lppp" + ls);
+
         System.out.println("vehisuclo " + getInstance().getVehiculo());
-        for (SolicitudReparacionMantenimiento soli : ls) {
+        for (SolicitudReparacionMantenimiento soli : listaSolicitudes2) {
             System.out.println("num sel la soli en lipiar " + soli.getNumSolicitud());
             System.out.println("estado sel la soli en lipiar " + soli.isEstado());
             System.out.println("req sel la soli en lipiar " + soli.getRequisicionId());
@@ -954,30 +923,24 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<SolicitudReparacionMantenimiento> le = servgen.buscarTodoscoincidencia(SolicitudReparacionMantenimiento.class, SolicitudReparacionMantenimiento.class.getSimpleName(), SolicitudReparacionMantenimiento_.numSolicitud.getName(), query);
-        //buscando por fechas
-        String s="";
+        String s = "";
         for (SolicitudReparacionMantenimiento soli : listaSolicitudes2) {
             System.out.println("econtro uno " + soli.getNumSolicitud());
-            if (soli.isEstado() 
-                    && soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId()) 
-                    && soli.getRequisicionId() == null 
-                   
-                    ) {
-                s=soli.getFechaSolicitud().toString();
-                if( soli.getNumSolicitud().contains(query)
-                        && !ced.contains(soli.getNumSolicitud())
-                       ){
+            if (soli.isEstado()
+                    && soli.getVehiculo().getId().equals(getInstance().getVehiculo().getId())
+                    && soli.getRequisicionId() == null) {
+                s = soli.getFechaSolicitud().toString();
+                if (soli.getNumSolicitud().contains(query)
+                        && !ced.contains(soli.getNumSolicitud())) {
                     ced.add(soli.getNumSolicitud());
                 }
-                 if(s.contains(query) &&  !ced.contains(s)){
+                if (s.contains(query) && !ced.contains(s)) {
                     ced.add(s);
                 }
-                
+
             }
 
         }
-        
 
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
@@ -1434,14 +1397,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     if (event.getOldStep().equals("address")) {
                         System.out.println("id d vechicilooo\n\n\n\n" + this.vehiculo);
                         System.out.println("id tipod e re q escogida" + getInstance().getTipoRequisicion());
-                        if (this.vehiculo != null) {
-                            if (this.vehiculo.getId() == null && getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
+                        if (getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
 
+                            if (this.vehiculo == null) {
                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
-
                                 return event.getOldStep();
+
                             } else {
-                                return event.getNewStep();
+                                if (this.vehiculo.getId() == null) {
+                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+                                    return event.getOldStep();
+                                } else {
+                                    return event.getNewStep();
+                                }
+
                             }
                         } else {
                             return event.getNewStep();
@@ -1573,16 +1542,21 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             this.vehiculo = vehiculo;
             getInstance().setVehiculo(vehiculo);
+            System.out.println("vehculo instance en set" + getInstance().getVehiculo());
             palabrab = "";
 
             // for para poder cambiar el id del vehiculo y las requisiciones
             System.out.println("solicicitud repa" + solicitudrep);
             if (solicitudrep != null) {
                 System.out.println("solicitud.vehiculo " + solicitudrep.getVehiculo());
-                if (solicitudrep.getVehiculo() != getInstance().getVehiculo() && getInstance().getSolicitudReparacionId() != null) {
-                    getInstance().setSolicitudReparacionId(null);
-                    solicitudrep = new SolicitudReparacionMantenimiento();
+                if (solicitudrep.getId() != null) {
+
+                    if (solicitudrep.getVehiculo() != getInstance().getVehiculo() && getInstance().getSolicitudReparacionId() != null) {
+                        getInstance().setSolicitudReparacionId(null);
+                        solicitudrep = new SolicitudReparacionMantenimiento();
+                    }
                 }
+
             }
 
             for (SolicitudReparacionMantenimiento sol : findAll(SolicitudReparacionMantenimiento.class)) {
@@ -1599,10 +1573,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         } else {
+
             vehiculo = new Vehiculo();
+            System.out.println("en set volivo cuando es diferente de null" + vehiculo);
             getInstance().setVehiculo(vehiculo);
             System.out.println("vevevevev" + vehiculo);
-            System.out.println("getinstancevehiculo" + getInstance().getVehiculo());
+            System.out.println("getinstancevehiculo en set>>>>>>>>" + getInstance().getVehiculo());
             if (solicitudrep != null) {
                 System.out.println("solicitud.vehiculo " + solicitudrep.getVehiculo());
                 if (getInstance().getSolicitudReparacionId() != null) {
@@ -1651,8 +1627,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         servgen.setEm(em);
         listaRequisicion = new ArrayList<Requisicion>();
         listaSolicitudes = new ArrayList<SolicitudReparacionMantenimiento>();
+        List<Requisicion> lrqn = findAll(Requisicion.class);
+        listaRequisicion2 = lrqn;
         listaRequisicion.clear();
-        for (Requisicion requisicion : findAll(Requisicion.class)) {
+        for (Requisicion requisicion : lrqn) {
             if (requisicion.isEstado()) {
                 if (!requisicion.getAprobado()) {
                     listaRequisicion.add(requisicion);
@@ -1662,8 +1640,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         }
-        listaRequisicion2 = listaRequisicion;
-       List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        System.out.println("lista de rquisiciones" + lrqn);
+        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
         listaSolicitudes.clear();
         for (SolicitudReparacionMantenimiento sol : ls) {
             System.out.println("iddddddddddddddd" + sol);
@@ -1678,6 +1656,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaSolicitudes2 = listaSolicitudes;
         System.out.println("lsiat de solicitudes" + listaSolicitudes);
         vehiculo = new Vehiculo();
+        System.out.println("en init vehiculo::::::" + vehiculo);
         idVehiculo = 0l;
         getInstance().setTipoRequisicion("Requisición de Reparación");
         listaPartida = findAll(PartidaContabilidad.class);
@@ -1694,6 +1673,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         solicitudrep = new SolicitudReparacionMantenimiento();
         listaPersonal = findAll(Profile.class);
         vehiculos = findAll(Vehiculo.class);
+        listVehiculos2 = vehiculos;
+        System.out.println("lista de vehiculos en init" + listVehiculos2);
         listaItemsRequisicion = new ArrayList<ItemRequisicion>();
         idPartidaC = 0l;
         idPersonal = 0l;
@@ -1701,6 +1682,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         getInstance().setObservaciones("");
         itemsEliminar = new ArrayList<ItemRequisicion>();
         solRequisicion = new SolicitudReparacionMantenimiento();
+        List<Producto> lproductos = new ArrayList<Producto>();
+        listaProductos = findAll(Producto.class);
+        System.out.println("lista de productos antes>>>>" + listaProductos);
+        for (Producto pd : listaProductos) {
+            System.out.println("entroa al for cone l estado" + pd.isEstado());
+            if (pd.isEstado()) {
+                lproductos.add(pd);
+            }
+        }
+        listaProductos = lproductos;
+        listaproductos2 = listaProductos;
+        System.out.println("lsita de productos222" + listaProductos);
     }
 
     @Override

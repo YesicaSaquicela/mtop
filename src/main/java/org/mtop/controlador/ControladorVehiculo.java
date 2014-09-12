@@ -481,7 +481,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (veh1.getNumRegistro().contains(palabrab)) {
                 lvs.add(veh1);
             } else {
-                if (veh1.getPlaca().contains(palabrab)) {
+                if (veh1.getPlaca().toLowerCase().contains(palabrab.toLowerCase())) {
                     lvs.add(veh1);
                 }
             }
@@ -517,7 +517,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (vh.getNumRegistro().contains(query)) {
                 ced.add(vh.getNumRegistro());
             }
-            if (vh.getPlaca().contains(query)) {
+            if (vh.getPlaca().toLowerCase().contains(query.toLowerCase())) {
                 ced.add(vh.getPlaca());
             }
         }
@@ -791,10 +791,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setVehiculoId(Long vehiculoId) {
 
         System.out.println("id a fijar" + vehiculoId);
-
         setId(vehiculoId);
-        
+        if(vehiculoId != 0){
+        System.out.println("get instance vehiculo"+getInstance().getId());
+        System.out.println("gent instance persona"+getInstance().getPersona());
         idPersona = getInstance().getPersona().getId();
+        }else{
+            System.out.println("entro a no");
+            setInstance(new Vehiculo());
+            System.out.println(""
+                    + "vehiculo en no"+getInstance());
+        }
+  
 
     }
 
