@@ -30,6 +30,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
+                                                 <div class="panel-heading"><center>LISTA DE REQUISICIONES</center></div>
                         <p:panel>
                             <!--Opción de mensaje, cuando se realiza una acción-->
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
@@ -155,7 +156,7 @@
                                                             <p:column headerText="Observación" sortBy="#{r.observaciones}">
                                                                 <h:outputText value="#{r.observaciones}"></h:outputText>
                                                             </p:column>
-                                                            <p:column headerText="Opciones" style="width: 5%"> 
+                                                            <p:column headerText="Editar" style="width: 5%"> 
                                                                 <center>
 
                                                                     <p:button id="selectButton" 
@@ -192,7 +193,7 @@
                                                                     </p:button>
                                                                 </center>
                                                             </p:column>
-                                                            <p:column>
+                                                            <p:column  headerText="Dar de Baja">
                                                                 <center>
 
                                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
@@ -247,15 +248,17 @@
                                                             <p:column headerText="Observación" sortBy="#{r.observaciones}">
                                                                 <h:outputText value="#{r.observaciones}"></h:outputText>
                                                             </p:column>
-                                                            <p:column headerText="Opciones" style="width: 5%"> 
+                                                            <p:column headerText="Vizualizar" style="width: 5%"> 
+
+                                                                <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                                                          outcome="imprimirRequisicion" 
+                                                                          title="Visualizar">  
+                                                                    <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                                                    <f:param name="reqId" value="#{r.id}"></f:param>
 
 
-                                                                <p:button id="selectButton" 
-                                                                          outcome="crear"
-                                                                          icon="ui-icon-pencil" title="Visualizar">  
-                                                                    <f:param name="requisicionId" value="#{r.id}"></f:param>
-                                                                    <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
                                                                 </p:button>
+
 
 
                                                             </p:column>

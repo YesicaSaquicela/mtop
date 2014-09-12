@@ -142,8 +142,8 @@ public class BussinesEntityListService extends LazyDataModel<BussinesEntity> {
     }
 
     @Override
-    public List<BussinesEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
-
+    public List<BussinesEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        
         int end = first + pageSize;
 
         QuerySortOrder order = QuerySortOrder.ASC;
@@ -158,6 +158,10 @@ public class BussinesEntityListService extends LazyDataModel<BussinesEntity> {
         this.setRowCount(qData.getTotalResultCount().intValue());
         return qData.getResult();
     }
+
+    
+    
+   
 
     public BussinesEntity[] getSelectedBussinesEntities() {
         return selectedBussinesEntities;

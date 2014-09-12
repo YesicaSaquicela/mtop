@@ -64,17 +64,14 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     private ArrayList<String> ced;
 
     public List<BussinesEntityType> getEntidadesFiltradas() {
-        System.out.println("\n\n\n\nonteniendo"+entidadesFiltradas);
+        System.out.println("\n\n\n\nonteniendo" + entidadesFiltradas);
         return entidadesFiltradas;
     }
 
     public void setEntidadesFiltradas(List<BussinesEntityType> entidadesFiltradas) {
         this.entidadesFiltradas = entidadesFiltradas;
     }
-    
-    
-    
-    
+
     public ArrayList<String> getCed() {
         return ced;
     }
@@ -183,7 +180,7 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
             resultList = le;
             setResultList(le);
             this.setResultList(le);
-            System.out.println("presentando\n\n\n" +getResultList());
+            System.out.println("presentando\n\n\n" + getResultList());
 
         }
 
@@ -223,7 +220,7 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
         log.info("Setup entityManager into bussinesEntityTypeService...");
         bussinesEntityTypeService.setEntityManager(entityManager);
         listaEntiidades = bussinesEntityTypeService.findAll();
-        resultList=listaEntiidades;
+        resultList = listaEntiidades;
         System.out.println("lista entidades en init" + listaEntiidades);
         System.out.println("palabre b" + palabrab);
 
@@ -258,12 +255,12 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     }
 
     @Override
-    public List<BussinesEntityType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
+    public List<BussinesEntityType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 
         log.info("load results for ..." + first + ", " + pageSize);
         System.out.println("\n\n\n\npalabra buscando en load" + palabrab);
-        System.out.println("resillist en load"+resultList);
-        System.out.println("lista de entidades en load"+listaEntiidades);
+        System.out.println("resillist en load" + resultList);
+        System.out.println("lista de entidades en load" + listaEntiidades);
 
         int end = first + pageSize;
 
@@ -280,18 +277,18 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
         if (palabrab != null) {
             System.out.println("entro a bsucar");
             buscar();
-            System.out.println("vuelve resullist"+resultList);
+            System.out.println("vuelve resullist" + resultList);
             qData.setResult(resultList);
         } else {
             System.out.println("no entro a bsucar");
             qData = bussinesEntityTypeService.find(first, end, sortField, order, _filters);
             this.setRowCount(qData.getTotalResultCount().intValue());
             listaEntiidades = qData.getResult();
-            
+
             System.out.println("lista de entidades " + listaEntiidades);
         }
-        System.out.println("devuel;ve+"+qData.getResult());
-        
+        System.out.println("devuel;ve+" + qData.getResult());
+
         return qData.getResult();
     }
 

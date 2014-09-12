@@ -16,7 +16,7 @@
 package org.mtop.controlador;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +33,7 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.Producto;
 import org.mtop.modelo.Producto_;
@@ -56,6 +57,15 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     private List<Producto> listaProducto;
     private String codigo;
     private String palabrab = "";
+    private List<Producto> listaproductos2 = new ArrayList<Producto>();
+
+    public List<Producto> getListaproductos2() {
+        return listaproductos2;
+    }
+
+    public void setListaproductos2(List<Producto> listaproductos2) {
+        this.listaproductos2 = listaproductos2;
+    }
 
     public String getPalabrab() {
         return palabrab;
@@ -70,16 +80,18 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         if (palabrab == null || palabrab.equals("")) {
             palabrab = "Ingrese algun valor a buscar";
         }
+        List<Producto> lp = new ArrayList<Producto>();
         //buscando por coincidencia descripciion
-        List<Producto> lp = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), PersistentObject_.description.getName(), palabrab);
-        //buscando por codigo
-        List<Producto> lc = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), Producto_.codigo.getName(), palabrab);
-        for (Producto producto : lc) {
-            if (!lp.contains(producto)) {
-                lp.add(producto);
+
+        for (Producto p : listaproductos2) {
+            if (p.getCodigo().contains(palabrab)) {
+                lp.add(p);
+            } else {
+                if (p.getDescription().toLowerCase().contains(palabrab.toLowerCase())) {
+                    lp.add(p);
+                }
             }
         }
-
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
@@ -90,14 +102,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             }
 
         } else {
-            for (Producto productol : lc) {
-                System.out.println("entroa al for lista productos");
-                if (productol.isEstado()) {
-                    System.out.println("entroa a comparar>>>");
-                    listaProducto = lp;
-                    System.out.println("devuelve lista>>>>" + listaProducto);
-                }
-            }
+            listaProducto = lp;
 
         }
 
@@ -105,23 +110,8 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
     public void limpiar() {
         palabrab = "";
-        List<Producto> lp = servgen.buscarTodos(Producto.class);
-        listaProducto.clear();
-        System.out.println("lppp" + lp);
+        listaProducto = listaproductos2;
 
-        for (Producto produ : lp) {
-            System.out.println("iddddd" + produ.getId());
-            System.out.println("entro a for lista>>>>" + produ.isEstado());
-            if (produ.isEstado()) {
-                System.out.println("listatesssa" + listaProducto);
-                listaProducto.add(produ);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaProducto);
-
-            }
-
-        }
     }
 
     public ArrayList<String> autocompletar(String query) {
@@ -129,21 +119,18 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<Producto> lp = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), PersistentObject_.description.getName(), query);
+        for (Producto producto : listaproductos2) {
+            if (producto.isEstado()) {
+                if (producto.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                    ced.add(producto.getDescription());
+                }
+                if (producto.getCodigo().contains(query)) {
+                    ced.add(producto.getCodigo());
+                }
 
-        for (Producto producto : lp) {
-            if (producto.isEstado()) {
-                System.out.println("econtro uno " + producto.getDescription());
-                ced.add(producto.getDescription());
             }
         }
-        List<Producto> lc = servgen.buscarTodoscoincidencia(Producto.class, Producto.class.getSimpleName(), Producto_.codigo.getName(), query);
-        for (Producto producto : lc) {
-            if (producto.isEstado()) {
-                System.out.println("econtro uno " + producto.getCodigo());
-                ced.add(producto.getCodigo());
-            }
-        }
+
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
@@ -253,6 +240,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             }
 
         }
+        listaproductos2 = listaProducto;
 
         System.out.println("Lista dfinaaaaaaalllll>>>" + listaProducto);
     }
@@ -308,19 +296,62 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
+    public boolean verificarPoducto(Long idproducto) {
+        boolean ban = true;
+        System.out.println("Entro a dar de baja>>>>>>" + idproducto);
+        List<ItemRequisicion> listaItems = findAll(ItemRequisicion.class);
+        for (ItemRequisicion itemreq : listaItems) {
+            if (itemreq.getProducto() != null) {
+                if (itemreq.getProducto().getId() != null) {
+                    if (itemreq.getProducto().getId().equals(idproducto)) {
+                        ban = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (ban) {
+            ban = true;
+        } else {
+            ban = false;
+        }
+        return ban;
+    }
+
     @Transactional
     public String darDeBaja(Long idproducto) {
+        boolean ban = true;
         System.out.println("Entro a dar de baja>>>>>>" + idproducto);
-        setId(idproducto);
-        setInstance(servgen.buscarPorId(Producto.class, idproducto));
-        Date now = Calendar.getInstance().getTime();
-        getInstance().setLastUpdate(now);
-        getInstance().setEstado(false);
+        List<ItemRequisicion> listaItems = findAll(ItemRequisicion.class);
+        System.out.println("lista de itens>>..." + listaItems);
+        for (ItemRequisicion itemreq : listaItems) {
+            System.out.println("entro al for>>>>>");
+            System.out.println("producto k llega" + idproducto);
 
-        //listaProducto.remove(findById(Producto.class,idproducto));
-        save(getInstance());
+            if (itemreq.getProducto() != null) {
+                System.out.println("producto que obtiene" + itemreq.getProducto().getId());
+                if (itemreq.getProducto().getId().equals(idproducto)) {
+                    ban = false;
+                    break;
+                }
+            }
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
+        }
+        System.out.println("retornando ban" + ban);
+        if (ban) {
+            setId(idproducto);
+            setInstance(servgen.buscarPorId(Producto.class, idproducto));
+            Date now = Calendar.getInstance().getTime();
+            getInstance().setLastUpdate(now);
+            getInstance().setEstado(false);
+            save(getInstance());
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El producto seleccionado ha sido dado de baja ", "exitosamente"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El producto seleccionado no se lo puede dar de baja", "porque ya se encuentra agregado en una requisición"));
+        }
+
         return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
