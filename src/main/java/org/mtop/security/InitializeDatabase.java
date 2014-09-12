@@ -62,6 +62,8 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Arrays;
 import javax.faces.context.FacesContext;
 import javax.persistence.Query;
@@ -212,7 +214,10 @@ public class InitializeDatabase {
             p.getIdentityKeys().add(u.getKey());
             p.setUsernameConfirmed(true);
             p.setShowBootcamp(true);
-
+            p.setCode("1104009871");
+            Date d = new Date(1990,5,13);
+           
+            p.setFechanacimiento(d);
             p.setName("Administrador");
             p.setFirstname("Mtop");
             p.setSurname("Software de Vehiculos");
@@ -255,7 +260,6 @@ public class InitializeDatabase {
         validarEstructuraParaDireccionV();
         validarEstructuraParaFrenosV();
         validarEstructuraParaCarroceriaV();
-       
 
         //validarEstructuraParaPerfilDeUsuario();
     }
@@ -379,7 +383,7 @@ public class InitializeDatabase {
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los Neumáticos", "/paginas/vehiculo/crear", 3L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Transmision", "Transmisión", "Información de la transmisión", "/paginas/vehiculo/crear", 9L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Suspension", "Suspensión", "Información de la suspensión", "/paginas/vehiculo/crear", 10L));
-           
+
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -492,19 +496,19 @@ public class InitializeDatabase {
             attributes.add(buildProperty("Motor", "marca", String.class.getName(), null, false, "Marca", " Ingrese la marca del Motor", false, 2L));
             attributes.add(buildProperty("Motor", "modelo", String.class.getName(), null, false, "Modelo Tolva", "Ingrese el modelo del Motor", false, 3L));
             attributes.add(buildProperty("Motor", "tipo", String.class.getName(), null, false, "Tipo", "Ingrese el tipo de Motor", false, 4L));
-            attributes.add(buildPropertyParteMecanica("Motor", "soporte", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Soporte", " Ingrese el valor para soporte del Motor", false, 5L,100));
+            attributes.add(buildPropertyParteMecanica("Motor", "soporte", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Soporte", " Ingrese el valor para soporte del Motor", false, 5L, 100));
             attributes.add(buildProperty("Motor", "tanque", String.class.getName(), null, false, "Tanque", "Ingrese el valor para tanque del Motor", false, 6L));
 
-            attributes.add(buildPropertyParteMecanica("Motor", "sistemaCombustible", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Combustible", "Ingrese el Sistema de Combustible para el Motor", false, 7L,100));
+            attributes.add(buildPropertyParteMecanica("Motor", "sistemaCombustible", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Combustible", "Ingrese el Sistema de Combustible para el Motor", false, 7L, 100));
             attributes.add(buildProperty("Motor", "potencia", String.class.getName(), null, false, "Potencia", " Ingrese la potencia del Motor", false, 8L));
             attributes.add(buildProperty("Motor", "sistemaRefrigeracion", String.class.getName(), null, false, "Sistema de Refrigeración", "Ingrese el valor para sistema de refrigeración de Motor", false, 10L));
             attributes.add(buildProperty("Motor", "admicionEscape", String.class.getName(), null, false, "Admición de Escape", " Ingrese la admición de escape del Motor", false, 11L));
-            attributes.add(buildPropertyParteMecanica("Motor", "instrumentosControl", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Instrumentos de control", "Ingrese instrumentos de control del Motor", false, 12L,100));
-            attributes.add(buildPropertyParteMecanica("Motor", "potencia", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Potencia", "Escoja el estado para potencia del motor", false, 13L,100));
-            attributes.add(buildPropertyParteMecanica("Motor", "sistemaLubricacion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Lubricación", "Escoja el estado para sistema de lubricación del motor", false, 13L,100));
-            attributes.add(buildPropertyParteMecanica("Motor", "sistemaRefrigeracion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Refrigeración", "Escoja el estado para sistema de refrigeración del motor", false, 14L,100));
-            attributes.add(buildPropertyParteMecanica("Motor", "sistemaAdmEsc", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Admición y Escape", "Escoja el estado para sistema de admición y escape del motor", false, 15L,100));
-            attributes.add(buildPropertyParteMecanica("Motor", "sistemaInsCon", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Instrumentos de Control", "Escoja el estado para sistema de instrumentos de control y escape del motor", false, 16L,100));
+            attributes.add(buildPropertyParteMecanica("Motor", "instrumentosControl", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Instrumentos de control", "Ingrese instrumentos de control del Motor", false, 12L, 100));
+            attributes.add(buildPropertyParteMecanica("Motor", "potencia", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Potencia", "Escoja el estado para potencia del motor", false, 13L, 100));
+            attributes.add(buildPropertyParteMecanica("Motor", "sistemaLubricacion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Lubricación", "Escoja el estado para sistema de lubricación del motor", false, 13L, 100));
+            attributes.add(buildPropertyParteMecanica("Motor", "sistemaRefrigeracion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Refrigeración", "Escoja el estado para sistema de refrigeración del motor", false, 14L, 100));
+            attributes.add(buildPropertyParteMecanica("Motor", "sistemaAdmEsc", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Admición y Escape", "Escoja el estado para sistema de admición y escape del motor", false, 15L, 100));
+            attributes.add(buildPropertyParteMecanica("Motor", "sistemaInsCon", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Sistema de Instrumentos de Control", "Escoja el estado para sistema de instrumentos de control y escape del motor", false, 16L, 100));
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -537,9 +541,9 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildPropertyParteMecanica("Transmision", "embrague", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Embrague", "Ingrese valor para embrague", false, 1L,100));
-            attributes.add(buildPropertyParteMecanica("Transmision", "cajaCambios", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de Cambios", " Ingrese valor para caja de cambios", false, 2L,100));
-            attributes.add(buildPropertyParteMecanica("Transmision", "diferenciales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Diferenciales", "Ingrese valor para diferenciales", false, 3L,100));
+            attributes.add(buildPropertyParteMecanica("Transmision", "embrague", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Embrague", "Ingrese valor para embrague", false, 1L, 100));
+            attributes.add(buildPropertyParteMecanica("Transmision", "cajaCambios", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de Cambios", " Ingrese valor para caja de cambios", false, 2L, 100));
+            attributes.add(buildPropertyParteMecanica("Transmision", "diferenciales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Diferenciales", "Ingrese valor para diferenciales", false, 3L, 100));
 
             //Agregar atributos
             structure.setProperties(attributes);
@@ -573,9 +577,9 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildPropertyParteMecanica("Suspension", "muelles-amortiguador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Muelles-amortiguador", "Ingrese valor para muelles-amortiguador", false, 1L,80));
-            attributes.add(buildPropertyParteMecanica("Suspension", "ejeDelantero", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje delantero", " Ingrese valor para eje delantero", false, 2L,100));
-            attributes.add(buildPropertyParteMecanica("Suspension", "ejePosterior", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje posterior", "Ingrese valor para eje posterior", false, 3L,100));
+            attributes.add(buildPropertyParteMecanica("Suspension", "muelles-amortiguador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Muelles-amortiguador", "Ingrese valor para muelles-amortiguador", false, 1L, 80));
+            attributes.add(buildPropertyParteMecanica("Suspension", "ejeDelantero", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje delantero", " Ingrese valor para eje delantero", false, 2L, 100));
+            attributes.add(buildPropertyParteMecanica("Suspension", "ejePosterior", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje posterior", "Ingrese valor para eje posterior", false, 3L, 100));
 
             //Agregar atributos
             structure.setProperties(attributes);
@@ -609,10 +613,10 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildPropertyParteMecanica("Direccion", "cajaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de dirección", "Ingrese valor para dirección", false, 1L,80));
-            attributes.add(buildPropertyParteMecanica("Direccion", "articulacionesTerminales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Articulaciones y terminales", " Ingrese valor para articulaciones y terminales", false, 2L,100));
-            attributes.add(buildPropertyParteMecanica("Direccion", "pinesBocines", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Pines bocines y rótulas", "Ingrese valor para pines bocines y rótulas", false, 3L,100));
-            attributes.add(buildPropertyParteMecanica("Direccion", "bombaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Bomba de la dirección", "Ingrese valor para bomba de la dirección", false, 4L,100));
+            attributes.add(buildPropertyParteMecanica("Direccion", "cajaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de dirección", "Ingrese valor para dirección", false, 1L, 80));
+            attributes.add(buildPropertyParteMecanica("Direccion", "articulacionesTerminales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Articulaciones y terminales", " Ingrese valor para articulaciones y terminales", false, 2L, 100));
+            attributes.add(buildPropertyParteMecanica("Direccion", "pinesBocines", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Pines bocines y rótulas", "Ingrese valor para pines bocines y rótulas", false, 3L, 100));
+            attributes.add(buildPropertyParteMecanica("Direccion", "bombaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Bomba de la dirección", "Ingrese valor para bomba de la dirección", false, 4L, 100));
 
             //Agregar atributos
             structure.setProperties(attributes);
@@ -646,10 +650,10 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildPropertyParteMecanica("Frenos", "cilindroPrincipal", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindro principal", "Ingrese valor para cilindro principal", false, 1L,100));
-            attributes.add(buildPropertyParteMecanica("Frenos", "cilindroSecundario", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindros secundarios", " Ingrese valor para cilindros secundarios", false, 2L,100));
-            attributes.add(buildPropertyParteMecanica("Frenos", "forros", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forros de freno", "Ingrese valor para forros de freno", false, 3L,80));
-            
+            attributes.add(buildPropertyParteMecanica("Frenos", "cilindroPrincipal", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindro principal", "Ingrese valor para cilindro principal", false, 1L, 100));
+            attributes.add(buildPropertyParteMecanica("Frenos", "cilindroSecundario", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindros secundarios", " Ingrese valor para cilindros secundarios", false, 2L, 100));
+            attributes.add(buildPropertyParteMecanica("Frenos", "forros", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forros de freno", "Ingrese valor para forros de freno", false, 3L, 80));
+
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -657,6 +661,7 @@ public class InitializeDatabase {
             entityManager.flush();
         }
     }
+
     private void validarEstructuraParaCarroceriaV() {
         BussinesEntityType bussinesEntityType = null;
         String name = "Carroceria";
@@ -681,8 +686,8 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildPropertyParteMecanica("Carroceria", "forma", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forma", "Ingrese valor para forma de la carrocería", false, 1L,100));
-          
+            attributes.add(buildPropertyParteMecanica("Carroceria", "forma", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forma", "Ingrese valor para forma de la carrocería", false, 1L, 100));
+
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -718,7 +723,7 @@ public class InitializeDatabase {
             attributes.add(buildProperty("Neumaticos", "llantas", String.class.getName(), null, false, "Llantas", "Ingrese valor para llantas", false, 1L));
             attributes.add(buildProperty("Neumaticos", "aros", String.class.getName(), null, false, "Aros", " Ingrese valor para aros", false, 2L));
             attributes.add(buildProperty("Neumaticos", "presion", String.class.getName(), null, false, " Presión", "Ingrese valor para presión", false, 3L));
-            attributes.add(buildPropertyParteMecanica("Neumaticos", "llantas", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Llantas", "Escoja el estado para las llantas", false, 13L,100));
+            attributes.add(buildPropertyParteMecanica("Neumaticos", "llantas", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Llantas", "Escoja el estado para las llantas", false, 13L, 100));
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -790,9 +795,9 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("SistemaElectrico", "voltaje", String.class.getName(), null, false, "Voltaje", "Ingrese el voltaje del vehículo", false, 5L));
             attributes.add(buildProperty("SistemaElectrico", "luces", String.class.getName(), null, false, "Luces", "Ingrese valor para las luces del vehículo", false, 8L));
-            attributes.add(buildPropertyParteMecanica("SistemaElectrico", "alterador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Alterador", "Ingrese el estado para alterador", false, 5L,100));
-            attributes.add(buildPropertyParteMecanica("SistemaElectrico", "baterias", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Baterias", "Ingrese el estado para bateria", false, 6L,100));
-            attributes.add(buildPropertyParteMecanica("SistemaElectrico", "motorArranque", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L,100));
+            attributes.add(buildPropertyParteMecanica("SistemaElectrico", "alterador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Alterador", "Ingrese el estado para alterador", false, 5L, 100));
+            attributes.add(buildPropertyParteMecanica("SistemaElectrico", "baterias", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Baterias", "Ingrese el estado para bateria", false, 6L, 100));
+            attributes.add(buildPropertyParteMecanica("SistemaElectrico", "motorArranque", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Arranque", "Ingrese el estado para motor de arranque", false, 7L, 100));
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -826,8 +831,8 @@ public class InitializeDatabase {
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
             // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-             attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "viNumSolicitud", String.class.getName(), "8000", false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 1L));
-           
+            attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "viNumSolicitud", String.class.getName(), "8000", false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 1L));
+
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -862,9 +867,9 @@ public class InitializeDatabase {
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
             // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-             attributes.add(buildProperty(Requisicion.class.getName(), "viNumRequisicionReparacion", String.class.getName(), "900", false, "Valor Inicial para numero de requisición tipo reparación", "Ingrese el valor inicial para el número de requisición tipo reparación", false, 1L));
+            attributes.add(buildProperty(Requisicion.class.getName(), "viNumRequisicionReparacion", String.class.getName(), "900", false, "Valor Inicial para numero de requisición tipo reparación", "Ingrese el valor inicial para el número de requisición tipo reparación", false, 1L));
             attributes.add(buildProperty(Requisicion.class.getName(), "viNumRequisicionBienes", String.class.getName(), "200", false, "Valor Inicial para numero de requisición tipo bienes y servicios", "Ingrese el valor inicial para el número de requisición tipo bienes y servicios", false, 1L));
-           
+
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);

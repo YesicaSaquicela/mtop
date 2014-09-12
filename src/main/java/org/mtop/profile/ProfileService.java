@@ -46,6 +46,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.modelo.profile.Profile_;
+import org.mtop.modelo.security.IdentityObject;
+import org.mtop.modelo.security.IdentityObject_;
 
 import org.mtop.modelo.security.IdentityObjectAttribute;
 import org.mtop.modelo.security.IdentityObjectCredential;
@@ -53,6 +55,8 @@ import org.mtop.modelo.security.IdentityObjectCredential;
 import org.mtop.service.BussinesEntityService;
 import org.mtop.util.PersistenceUtil;
 import org.mtop.util.Strings;
+import org.picketlink.idm.api.PersistenceManager;
+import org.picketlink.idm.api.User;
 import org.picketlink.idm.common.exception.IdentityException;
 
 /**
@@ -159,9 +163,12 @@ public class ProfileService extends PersistenceUtil<Profile> implements Serializ
     public boolean isUsernameAvailable(String username) {
        
         try {
+            System.out.println("username"+username);
             getProfileByUsername(username);
+            System.out.println("retornar false");
             return false;
         } catch (NoResultException e) {
+            System.out.println("retorna true");
             return true;
         }
     }
@@ -196,6 +203,25 @@ public class ProfileService extends PersistenceUtil<Profile> implements Serializ
         query.where(builder.equal(bussinesEntityType.get(Profile_.name), name));
         return getSingleResult(query);
     }
+    public IdentityObject findIdentityObjectByName(final String name) {
+        //log.info("find Profile with name " + name);
+        CriteriaBuilder builder = getCriteriaBuilder();
+        CriteriaQuery<IdentityObject> query = builder.createQuery(IdentityObject.class);
+        Root<IdentityObject> bussinesEntityType = query.from(IdentityObject.class);
+        query.where(builder.equal(bussinesEntityType.get(IdentityObject_.name), name));
+       
+        return getSingleResult(query);
+    }
+//    public User findUserByName(final String name) {
+//        //log.info("find Profile with name " + name);
+//        IdentityObject io=findIdentityObjectByName(name);
+//        PersistenceManager identityManager = security.getPersistenceManager();
+//        User user=io.getType().
+//              
+//       
+//        return getSingleResult(query);
+//    }
+
 
     /**
      *
