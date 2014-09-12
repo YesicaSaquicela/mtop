@@ -131,9 +131,13 @@ public class ProfileListService extends LazyDataModel<Profile> {
 
     }
 
+    
+    
+    
+    
     @Override
-    public List<Profile> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        int end = first + pageSize;
+    public List<Profile> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
+         int end = first + pageSize;
 
         QuerySortOrder order = QuerySortOrder.ASC;
         if (sortOrder == SortOrder.DESCENDING) {
@@ -149,6 +153,10 @@ public class ProfileListService extends LazyDataModel<Profile> {
 
         return qData.getResult();
     }
+
+    
+    
+   
 
     @Override
     public Profile getRowData(String rowKey) {

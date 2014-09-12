@@ -253,10 +253,11 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     public void setSelectedBussinesEntityType(BussinesEntityType selectedBussinesEntityType) {
         this.selectedBussinesEntityType = selectedBussinesEntityType;
     }
+    
+    
 
     @Override
-    public List<BussinesEntityType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-
+    public List<BussinesEntityType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
         log.info("load results for ..." + first + ", " + pageSize);
         System.out.println("\n\n\n\npalabra buscando en load" + palabrab);
         System.out.println("resillist en load" + resultList);
@@ -291,6 +292,10 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
 
         return qData.getResult();
     }
+
+        
+    
+   
 
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage(UI.getMessages("module.BussinesEntityType") + " " + UI.getMessages("common.selected"), ((BussinesEntityType) event.getObject()).getName());

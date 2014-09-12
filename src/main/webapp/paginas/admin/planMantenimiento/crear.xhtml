@@ -217,9 +217,17 @@
 
                     <div class="admin-actions " align="center"> 
                         <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" 
-                                         update="p1" process="@this"/>
+                                         update="p1" process="@this" ajax="true" />
 
                     </div>
+                    <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                        <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+                            <div class="input" align="center">
+                                <h:outputText value="Por favor espere, Cargando..."/><br/>
+                            </div>
+                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                        </p:dialog>
 
 
                 </div>

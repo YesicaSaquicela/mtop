@@ -185,8 +185,10 @@ public class SecurityGroupListService extends LazyDataModel<Group> {
         return entity.getName();
     }
 
+    
+    
     @Override
-    public List<Group> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public List<Group> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
         List<Group> result = new ArrayList<Group>();
         try {
             int end = first + pageSize;
@@ -205,6 +207,7 @@ public class SecurityGroupListService extends LazyDataModel<Group> {
         this.listGroups = result;
         return result;
     }
+    
 
     public void assignGroup(Group g) {
         this.selectedGroup = g;

@@ -328,11 +328,12 @@
                                                                                     <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
                                                                                 </p:inputText>
                                                                                 <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                                            rendered="#{a.property.type eq 'java.util.Date'}">
+                                                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                                                     <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
                                                                                 </p:calendar>
                                                                                 
-                                                                                <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                                <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                                  label="#{a.property.label}"
                                                                                                  rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                                     <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
@@ -348,17 +349,9 @@
                                                                                              required="#{a.property.required}"
                                                                                              > 
                                                                                     <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                                    <f:ajax execute="@this" render="str6 str61"  />
+                                                                                    <f:ajax execute="@this" render="str5"  />
                                                                                     <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                                                                    <!--f:validator validatorId="vacio" rendered="# {a.property.required}"/>
-                                                                                    <f:ajax execute="@this" render="str msg2" />
-                                                                                    <p:ajax event="keyup" update="@parent :form:infoFM" partialSubmit="true"/>
-                                                                                    <f:ajax execute="in2 passwordConfirm passwordValidator signupValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
-                                                                                    <f:ajax execute="@this" render=":form:save"  />
-                                                                                    <p:ajax event="blur" process=" validadordeDigitos" rendered="save" update=":form:msjs" />  
-                                                                                    <f:ajax execute="@this" render="in2" />
-       
-                                                                                    <f:validator validatorId="digitValidator" /-->
+                                                                            
 
                                                                                 </p:inputText>
                                                                                 
@@ -381,9 +374,6 @@
                                                                                     <ocp:message forId="str5" />
 
                                                                                 </span><br/><br/>
-                                                                                <!--s:validateForm id="validadordeDigitos" validatorId="digitValidator" />
-                                                                                <h:outputLabel  id="msg2" rendered="# {a.property.type eq 'java.lang.Integer' or a.property.type eq 'java.lang.String' }"
-                                                                                value="#{bussinesEntityTypeHome.mensaje2}" style="color:red" /--> 
 
                                                                             </div>
 
