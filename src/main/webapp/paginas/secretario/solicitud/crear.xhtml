@@ -267,7 +267,7 @@
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandButton update=":form:vehiculo" process="@this" title="Agregar" icon="ui-icon-check" title="Seleccionar">
+                                                            <p:commandButton update=":form:vehiculo" process="@this" title="Agregar" icon="ui-icon-check">
                                                                 <f:setPropertyActionListener value="#{v}" target="#{controladorSolicitudReparacionMantenimiento.vehiculo}" />
                                                                 <f:setPropertyActionListener value="#{v.id}" target="#{controladorVehiculo.vehiculoId}" />
                                                             </p:commandButton>
