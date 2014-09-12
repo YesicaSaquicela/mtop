@@ -36,9 +36,10 @@ public class RealValidador implements Validator {
         System.out.println("\n\n\n\n entro al validador del real\n\n\n\n" + value);
         String field = value.toString();
         System.out.println("\n\n\n\n entro al validador del real\n\n\n\n" + field);
-        if (!field.matches("[0-9]*\\.[0-9]+")) {
+        field=field.trim();
+        if (!field.matches("[0-9]+(\\.[0-9]+)?") && !field.equals("")) {
             System.out.println("\n\n\n si valida\n\n\n\n");
-            FacesMessage msg = new FacesMessage(UI.getMessages("No se admiten letras"));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "No se admiten letras");
             throw new ValidatorException(msg);
         } else {
         }
