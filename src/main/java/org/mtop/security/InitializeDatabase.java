@@ -169,6 +169,7 @@ public class InitializeDatabase {
     }
 
     private void validateSecurity() throws IdentityException {
+        
         // Validate credential types
         Map<String, Object> sessionOptions = new HashMap<String, Object>();
         sessionOptions.put(IdentitySessionProducer.SESSION_OPTION_ENTITY_MANAGER, entityManager);
@@ -216,6 +217,8 @@ public class InitializeDatabase {
             p.setFirstname("Mtop");
             p.setSurname("Software de Vehiculos");
             p.setTipo("administrador");
+            p.setCode("1104009871");
+           
             p.setEstado(true);
             p.setCreatedOn(now);
             p.setLastUpdate(now);

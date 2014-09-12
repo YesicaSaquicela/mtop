@@ -53,7 +53,7 @@
                                                 <f:validator validatorId="usernameValidator" />
 
                                             </p:inputText>
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.instance.username != null}"
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.username != null}"
                                                             styleClass="validation-status" />
                                             <span class="help-inline text-muted">Su nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
                                         </div>
@@ -72,7 +72,7 @@
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
                                             <h:panelGroup id="pwg" >
-                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.password != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.password != null}"
                                                                 styleClass="validation-status"/>
                                                 <span class="help-inline text-muted">Ingrese una contraseña<ocp:message id="pm"  forId="password" /></span>
                                             </h:panelGroup>
@@ -89,7 +89,7 @@
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
                                             <h:panelGroup id="pwcg">
-                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.passwordConfirm != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.passwordConfirm != null}"
                                                                 styleClass="validation-status"/>
                                                 <span class="help-inline text-muted">Vuelva a ingresar la contraseña<ocp:message forId="passwordConfirm" /></span>
                                             </h:panelGroup>

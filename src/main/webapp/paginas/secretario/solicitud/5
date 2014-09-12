@@ -24,11 +24,11 @@
         <h:form id="form">            
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                   
+                    <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista ne 'reportesolicitud'}" >
                         <div class="panel panel-primary">
-                         <div class="panel-heading"><center>LISTA DE SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO</center></div>
 
-                            <p:panel >
+
+                            <p:panel rendered="#{controladorSolicitudReparacionMantenimiento.vista ne 'reportesolicitud'}">
                                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                 <div class="admin-actions">
                                     <div class="text-primary" >
@@ -181,15 +181,13 @@
                                                                         <h:outputText value="#{sa.vehiculo.numRegistro}"></h:outputText>
                                                                     </p:column>
                                                                     <p:column headerText="Opciones" style="width: 5%"> 
-                                                                        <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                                  outcome="imprimirSolicitud" 
-                                                                                  title="Visualizar">  
-                                                                            <p:ajax event="click" partialSubmit="true" update="@this"/>
-                                                                            <f:param name="solId" value="#{sa.id}"></f:param>
-                                                                            
 
-                                                                        </p:button>
+                                                                        <p:commandButton id="visualizar12" icon="ui-icon-search" 
+                                                                                         update="@form" 
+                                                                                         title="Visualizar" >
 
+                                                                            <f:setPropertyActionListener value="reportesolicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}" />
+                                                                        </p:commandButton>
 
                                                                     </p:column>
                                                                 </p:dataTable></tbody></div></div>
@@ -207,14 +205,182 @@
 
 
 
-                            </p:panel></div> </div></div>
+                            </p:panel></div> </p:panel> </div></div>
 
 
+            <div align="center">
 
+                <p:panelGrid  id="imp1"  style="margin-top:20px" columns="2" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+                    <f:facet   name="header" class="panel-heading" >
+
+                        <p:row >
+                            <p:column>   </p:column>
+                            <p:column width="10" rowspan="30" colspan="10"> 
+
+                                <p:graphicImage   value="../../../resources/mtop1.jpg" width="82" height="50" alt="mtop1" /> 
+
+                            </p:column>
+
+                            <p:column colspan="20"  rowspan="40"> 
+
+                                #{"     "}  SOLICITUD DE REPARACIÓN Y MANTENIMIENTO DE EQUIPOS
+
+                            </p:column>
+
+
+                        </p:row>
+
+
+                    </f:facet>
+                     
+
+                    <p:panelGrid  id="imp12343"  style="margin-top:20px" columns="2" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+                        <f:facet   name="header" class="panel-heading" >
+                            <p:row >
+                                <p:column colspan="20"  rowspan="40"> 
+                                    Detalle
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <h:outputLabel class="navbar-text" value="Número de Solicitud"/>
+                        <h:outputLabel class="navbar-text" value="Fecha de Solicitud"/>
+
+                        <h:outputText class="navbar-text" value=""/>
+
+                        <h:outputText class="navbar-text" value=""/>
+                    </p:panelGrid>
+
+
+              
+
+                    <p:panelGrid  id="imp123"  style="margin-top:20px" columns="3" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+                        <f:facet   name="header" class="panel-heading" >
+
+                            <p:row >
+                                <p:column colspan="20"  rowspan="40"> 
+                                    Datos del Vehículo
+                                </p:column>
+                            </p:row>
+
+                        </f:facet>
+                        <h:outputLabel class="navbar-text" value="Registro del Vehículo"/>
+                        <h:outputLabel class="navbar-text" value="Tipo de Equipo"/>
+                        <h:outputLabel class="navbar-text" value="Marca"/>
+
+                        <h:outputText class="navbar-text" value=""/>
+                        <h:outputText class="navbar-text" value=""/>
+                        <h:outputText class="navbar-text" value=""/>
+                    </p:panelGrid>
+                    
+                          <p:panelGrid  id="imp1234"  style="margin-top:20px" columns="2" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+                        <f:facet   name="header" class="panel-heading" >
+                            <p:row >
+                                <p:column colspan="20"  rowspan="40"> 
+                                    Detalle
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <h:outputLabel class="navbar-text" value="          Elemento a Revisar        "/>
+                        <h:outputLabel class="navbar-text" value="          Descripción de la falla       " />
+                        <h:outputText class="navbar-text" value=""/>
+                        <h:outputText class="navbar-text" value=""/>
+                    </p:panelGrid>
+                    
+                  <p:panelGrid  id="imp1252"  style="margin-top:20px" columns="3" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+
+                    <f:facet   name="header" class="panel-heading" >
+                            <p:row >
+                                <p:column colspan="20"  rowspan="40"> 
+                                    #{"     "}
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    <h:outputLabel class="navbar-text" value="Recibido por "/>
+                    <h:outputLabel class="navbar-text" value="Solicitado por"/> 
+                    <h:outputLabel class="navbar-text" value="Observación"/>
+                   
+                    <h:outputText class="navbar-text" value=""/>
+
+                    <h:outputText class="navbar-text" value=""/>
+
+                    <h:outputText class="navbar-text" value=""/>
+                </p:panelGrid>
+                    
+               
+                </p:panelGrid>
+
+                <p:panelGrid  id="imp125"  style="margin-top:20px" columns="2" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+
+                    <h:outputLabel class="navbar-text" value="Elemento a Revisar "/>
+                    <h:outputLabel class="navbar-text" value="Descripción de la falla"/>
+
+
+                    <h:outputText class="navbar-text" value=""/>
+
+                    <h:outputText class="navbar-text" value=""/>
+
+                    <h:outputLabel class="navbar-text" value="Recibido por "/>
+                    <h:outputLabel class="navbar-text" value="Solicitado por"/>
+
+                    <h:outputText class="navbar-text" value=""/>
+
+                    <h:outputText class="navbar-text" value=""/>
+                </p:panelGrid>
+                <p:panelGrid  id="imp12"  style="margin-top:20px" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'reportesolicitud'}" >
+                    <f:facet name="header">
+                        <p:row >
+                            <p:column>   </p:column>
+                            <p:column width="10" rowspan="30" colspan="10"> 
+
+                                <p:graphicImage   value="../../../resources/mtop1.jpg" width="82" height="50" alt="mtop1" /> 
+
+                            </p:column>
+
+                            <p:column colspan="20"  rowspan="40"> 
+
+                                #{"     "}  SOLICITUD DE REPARACIÓN Y MANTENIMIENTO DE EQUIPOS
+
+                            </p:column>
+
+
+                        </p:row>
+                    </f:facet>
+                    <p:row >
+                        <p:column>   </p:column>
+                        <p:column width="10" rowspan="30" colspan="10"> 
+
+                            fdfd
+
+                        </p:column>
+
+                        <p:column colspan="20"  rowspan="40"> 
+                            dsfdf
+
+                        </p:column>
+
+
+                    </p:row>
+                    <p:row >
+                        <p:column>   </p:column>
+                        <p:column width="10" rowspan="30" colspan="10"> 
+
+                            fdfd333
+
+                        </p:column>
+
+                        <p:column colspan="20"  rowspan="40"> 
+                            dsfdf3333
+
+                        </p:column>
+
+
+                    </p:row>
+                </p:panelGrid>
+
+
+            </div>
 
         </h:form>
-
-
     </ui:define>
 </ui:composition>
 
