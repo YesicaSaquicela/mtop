@@ -197,10 +197,10 @@ limitations under the License.
                                       styleClass="btn  btn-success"/>
                         </div>
                         <br/>
-                        <div class="panel panel-primary">
+                           <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
+                               <div class="panel panel-primary">
                             <div class="panel-heading"><h4 class="panel-title"><center>Lista de propiedades para la entidad #{bussinesEntityTypeHome.instance.label}</center></h4></div>
-                            <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
-
+                         
 
                                 <!--<f:facet name="header">
                                     <strong>#{e.name}</strong>#{' '}                            
@@ -356,88 +356,87 @@ limitations under the License.
                                     </p:column>
                                 </p:dataTable>
                                 <br/>  <br/>
-
-                            </p:panel><br/>
-                        </div>
-                        <c:when test="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}">
-
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" 
-                                           href="#collapseThree">
-                                            Parametrización
-                                        </a>
-                                    </h4>
                                 </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
-                                    <div class="panel-body">
-
+                            </p:panel><br/>
+                        
+                        <c:when test="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}">
+                            <p:panel id="parame" rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Requisición'}">
+                                <div class="panel panel-primary" >
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" 
+                                               href="#collapseThree">
+                                                Parametrización
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        
                                         <p:panel  id="fn1" >
-                                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                                            <div class="panel-body">
 
-                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
-                                                           value="Valor inicial para numero de solicitud" />
-                                            <div class="input">
-                                                <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" id="vi" styleClass="xLarge span4" label="valor inicial"
-                                                             value="#{bussinesEntityTypeHome.valorIniSolicitud}">
-                                                    <f:ajax execute="@this" render="save"  />
-                                                </p:inputText>
-                                                <br/><br/>
-                                            </div>
-                                            <div class="actions" align="center">
-                                                <p:commandButton styleClass="btn  btn-success" id="save" 
-                                                                 action="#{bussinesEntityTypeHome.fijarValorSolicitud()}"
-                                                                 value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
-                                                                 rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
-                                                                 />
+                                            
+                                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
 
-                                            </div>
+                                                <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
+                                                               value="Valor inicial para numero de solicitud" />
+                                                <div class="input">
+                                                    <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" id="vi" styleClass="xLarge span4" label="valor inicial"
+                                                                 value="#{bussinesEntityTypeHome.valorIniSolicitud}">
+                                                        <f:ajax execute="@this" render="save"  />
+                                                    </p:inputText>
+                                                    <br/><br/>
+                                                </div>
+                                                <div class="actions" align="center">
+                                                    <p:commandButton styleClass="btn  btn-success" id="save" 
+                                                                     action="#{bussinesEntityTypeHome.fijarValorSolicitud()}"
+                                                                     value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
+                                                                     rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
+                                                                     />
 
-
-
-
-
-                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
-                                                           value="Valor inicial para numero de requisición de Bienes y Servicios" />
-                                            <div class="input">
-                                                <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
-                                                             id="vi1" styleClass="xLarge span4" label="valor inicial bienes y servicios"
-                                                             value="#{bussinesEntityTypeHome.viNumRequisicionBie}">
-                                                    <f:ajax execute="@this" render="save1"  />
-                                                </p:inputText>
-                                                <br/><br/>
-                                            </div>
-                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
-                                                           value="Valor inicial para numero de requisición de Reparación" />
-                                            <div class="input">
-                                                <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
-                                                             id="vi2" styleClass="xLarge span4" label="valor inicial reparación"
-                                                             value="#{bussinesEntityTypeHome.viNumRequisicionRep}">
-                                                    <f:ajax execute="@this" render="save1"  />
-                                                </p:inputText>
-                                                <br/><br/>
-                                            </div>
-                                            <div class="actions" align="center">
-                                                <p:commandButton styleClass="btn  btn-success" id="save1" 
-                                                                 action="#{bussinesEntityTypeHome.fijarValorRequisicion()}"
-                                                                 value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
-                                                                 rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
-                                                                 />
-
-                                            </div>
-                                        </p:panel>
+                                                </div>
 
 
+
+
+
+                                                <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                               value="Valor inicial para numero de requisición de Bienes y Servicios" />
+                                                <div class="input">
+                                                    <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
+                                                                 id="vi1" styleClass="xLarge span4" label="valor inicial bienes y servicios"
+                                                                 value="#{bussinesEntityTypeHome.viNumRequisicionBie}">
+                                                        <f:ajax execute="@this" render="save1"  />
+                                                    </p:inputText>
+                                                    <br/><br/>
+                                                </div>
+                                                <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                               value="Valor inicial para numero de requisición de Reparación" />
+                                                <div class="input">
+                                                    <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
+                                                                 id="vi2" styleClass="xLarge span4" label="valor inicial reparación"
+                                                                 value="#{bussinesEntityTypeHome.viNumRequisicionRep}">
+                                                        <f:ajax execute="@this" render="save1"  />
+                                                    </p:inputText>
+                                                    <br/><br/>
+                                                </div>
+                                                <div class="actions" align="center">
+                                                    <p:commandButton styleClass="btn  btn-success" id="save1" 
+                                                                     action="#{bussinesEntityTypeHome.fijarValorRequisicion()}"
+                                                                     value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
+                                                                     rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                                     />
+
+                                                </div>
+                                            
+
+
+                                        </div>
+                                            </p:panel>
                                     </div>
                                 </div>
-                            </div>
-
+                            </p:panel>
                         </c:when>
-
-
-
-
 
                     </c:forEach> 
                 </div></div>
