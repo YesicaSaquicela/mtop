@@ -221,7 +221,7 @@ limitations under the License.
                                                                     <center>
                                                                         <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                        <p:autoComplete placeholder="Valor a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeHome.palabrab}"   
+                                                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeHome.palabrab}"   
                                                                                         completeMethod="#{bussinesEntityTypeHome.autocompletar}"/> 
                                                                         #{'  '}
 
@@ -289,7 +289,7 @@ limitations under the License.
                                         <h:outputText value="#{property.sequence}" />
                                     </p:column>  
                                     <p:column  headerText="Opciones">
-
+                                        <center>
                                         <p:button icon="ui-icon-circle-check" styleClass="btn  btn-success"
                                                   rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
                                                   title="Crear Entidad"
@@ -352,7 +352,7 @@ limitations under the License.
                                             <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                             <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                         </p:confirmDialog>
-
+</center>
                                     </p:column>
                                 </p:dataTable>
                                 <br/>  <br/>

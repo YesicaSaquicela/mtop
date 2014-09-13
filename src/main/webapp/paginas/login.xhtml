@@ -68,17 +68,10 @@
                                 <br/>
                                 <div class="admin-actions" align="center">
                                     <p:commandButton action="#{authentication.login1()}" value="Ingresar"
-                                                     styleClass="btn  btn-success" ajax="true"/>
+                                                     styleClass="btn  btn-success" />
                                 </div>
                                 
-                                     <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
-
-                        <p:dialog modal="true" widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
-                            <div class="input" align="center">
-                                <h:outputText value="Por favor espere, Cargando..."/><br/>
-                            </div>
-                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
-                        </p:dialog>
+              
                                 <!--<center><h:link outcome="/paginas/recover" value="I forgot my password, what now?" /></center>-->
                             </h:form>
 
