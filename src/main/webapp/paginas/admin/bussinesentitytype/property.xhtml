@@ -70,23 +70,29 @@
                                                 <label >#{messages['common.property.value']}</label>
                                                 <div class="input" >
                                                     <p:inputText id="in1"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
-                                                                 label="#{messages['common.property.value']}" required="#{propertyHome.propertyType eq 'Lista'}"
+                                                                 label="#{messages['common.property.value']}" 
                                                                  rendered="#{propertyHome.propertyType ne 'Fecha'
                                                                              and propertyHome.propertyType ne 'AreaTexto'
                                                                              and propertyHome.propertyType ne 'EnteroMayor'
                                                                              and propertyHome.propertyType ne 'Real'
                                                                              and propertyHome.propertyType ne 'Entero'
                                                                              and propertyHome.propertyType ne 'Booleano'
+                                                                             and propertyHome.propertyType ne 'Estructura'
 
                                                      }"
                                                                  disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica'}">
+                                                          <p:ajax event="blur" update=":form:pvaluep" partialSubmit="true" rendered="#{propertyHome.propertyType eq 'Lista'}" />
+                                                    </p:inputText>
+                                                    <p:inputText id="in2"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                                 label="#{messages['common.property.value']}" required="true"
+                                                                 rendered="#{propertyHome.propertyType eq 'Lista'}">
                                                         <f:validator validatorId="validarLista" rendered="#{propertyHome.propertyType eq 'Lista'}" />
                                                         <f:ajax execute="@this" render="in1" rendered="#{propertyHome.propertyType eq 'Lista'}" />
                                                         <p:ajax event="blur" update=":form:pvaluep" partialSubmit="true" rendered="#{propertyHome.propertyType eq 'Lista'}" />
                                                     </p:inputText>
 
 
-                                                    <p:inputText id="in2" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
+                                                    <p:inputText id="in3" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Entero'}"
 
@@ -98,7 +104,7 @@
                                                     </p:inputText>    
 
                                                     <!--p:inplace id="ajax" editor="true" label="Fijar Fecha"-->
-                                                        <p:calendar id="in3" value="#{propertyHome.propertyDateValue}" styleClass="xLarge"
+                                                        <p:calendar id="in4" value="#{propertyHome.propertyDateValue}" styleClass="xLarge"
                                                                     navigator="true"   
                                                                     label="#{messages['common.property.value']}" 
                                                                     rendered="#{propertyHome.propertyType eq 'Fecha'}" >
@@ -108,7 +114,7 @@
                                                         </p:calendar>
                                                     <!--/p:inplace-->
 
-                                                    <p:inputTextarea id="in4" value="#{propertyHome.propertyStringValue}" styleClass="form-control"
+                                                    <p:inputTextarea id="in5" value="#{propertyHome.propertyStringValue}" styleClass="form-control"
                                                                      label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
                                                                      rendered="#{propertyHome.propertyType eq 'AreaTexto'}">
                                                         <f:ajax event="blur" execute="@this" render="save"/>
@@ -140,6 +146,7 @@
                                                         <ocp:message forId="in2" />
                                                         <ocp:message forId="in3" />
                                                         <ocp:message forId="in4" />
+                                                        <ocp:message forId="in5" />
                                                         <ocp:message forId="in6"  />
                                                     </span>
 
@@ -199,7 +206,7 @@
 
 
 
-                        <div class="panel panel-primary">
+                        <!--div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" 
@@ -212,15 +219,15 @@
                                 <div class="panel-body">
                                     <p:panel>                     
                                         <mtop:input id="overwrite" name="overwrite" type="text" label="#{messages['common.property.overwrite']}" 
-                                                    value="#{propertyHome.instance.overwrite}" required="false" inlinehelp="#{messages['common.property.overwrite.help']}" execute="@this save" /><br></br>
+                                                    value="# {propertyHome.instance.overwrite}" required="false" inlinehelp="#{messages['common.property.overwrite.help']}" execute="@this save" /><br></br>
                                         <mtop:input id="shwclms" name="showInColumns" type="checkbox" label="#{messages['common.property.showInColumns']}" 
-                                                    value="#{propertyHome.instance.showInColumns}" required="false" inlinehelp="#{messages['common.property.showInColumns.help']}" execute="@this save" /><br></br>
+                                                    value="# {propertyHome.instance.showInColumns}" required="false" inlinehelp="#{messages['common.property.showInColumns.help']}" execute="@this save" /><br></br>
                                         <mtop:input id="sdbep" name="showDefaultBEP" type="checkbox" label="#{messages['common.property.showDefaultBussinesEntityProperties']}" 
-                                                    value="#{propertyHome.instance.showDefaultBussinesEntityProperties}" required="false" inlinehelp="#{messages['common.property.showDefaultBussinesEntityProperties.help']}" execute="@this save" /><br></br>                     
+                                                    value="# {propertyHome.instance.showDefaultBussinesEntityProperties}" required="false" inlinehelp="#{messages['common.property.showDefaultBussinesEntityProperties.help']}" execute="@this save" /><br></br>                     
                                         <mtop:input id="minmb" name="minimumMembers" type="java.lang.Long" label="#{messages['common.property.minimumMembers']}" 
-                                                    value="#{propertyHome.instance.minimumMembers}" required="false" inlinehelp="#{messages['common.property.minimumMembers.help']}" execute="@this save" /><br></br>
+                                                    value="# {propertyHome.instance.minimumMembers}" required="false" inlinehelp="#{messages['common.property.minimumMembers.help']}" execute="@this save" /><br></br>
                                         <mtop:input id="maxmb" name="maximumMembers" type="java.lang.Long" label="#{messages['common.property.maximumMembers']}" 
-                                                    value="#{propertyHome.instance.maximumMembers}" required="false" inlinehelp="#{messages['common.property.maximumMembers.help']}" execute="@this save" /><br></br>
+                                                    value="# {propertyHome.instance.maximumMembers}" required="false" inlinehelp="#{messages['common.property.maximumMembers.help']}" execute="@this save" /><br></br>
                                     </p:panel>
                                 </div>
                             </div>
@@ -240,15 +247,15 @@
 
                                     <p:panel>                                         
                                         <mtop:input id="render" name="render" type="text" label="#{messages['common.property.render']}" 
-                                                    value="#{propertyHome.instance.render}" required="false" inlinehelp="#{messages['common.property.render.help']}" execute="@this save" /><br></br>
+                                                    value="# {propertyHome.instance.render}" required="false" inlinehelp="#{messages['common.property.render.help']}" execute="@this save" /><br></br>
                                         <mtop:input id="customf" name="customForm" type="text" label="#{messages['common.property.customForm']}" 
-                                                    value="#{propertyHome.instance.customForm}" required="false" inlinehelp="#{messages['common.property.customForm.help']}" execute="@this save" /><br></br> 
+                                                    value="# {propertyHome.instance.customForm}" required="false" inlinehelp="#{messages['common.property.customForm.help']}" execute="@this save" /><br></br> 
                                         <mtop:input id="gntrn" name="generatorName" type="text" label="#{messages['common.property.generatorName']}" 
-                                                    value="#{propertyHome.instance.generatorName}" required="false" inlinehelp="#{messages['common.property.generatorName.help']}" execute="@this save" /><br></br> 
+                                                    value="# {propertyHome.instance.generatorName}" required="false" inlinehelp="#{messages['common.property.generatorName.help']}" execute="@this save" /><br></br> 
                                     </p:panel> 
                                 </div>
                             </div>
-                        </div>
+                        </div-->
 
                         <div class="actions" align="center">
                             <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 

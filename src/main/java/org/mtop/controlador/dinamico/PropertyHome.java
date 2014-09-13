@@ -183,9 +183,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             System.out.println(fecha);
             setPropertyStringValue(fecha);
             this.propertyDateValue = propertyDateValue;
-            
+
         }
-        System.out.println("fijo fecha"+this.propertyDateValue);
+        System.out.println("fijo fecha" + this.propertyDateValue);
 
     }
 
@@ -452,6 +452,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
         }
     }
+
     public String formato(Date fecha) {
         System.out.println("\n\n\n\n\n\n\nhsadhjsdj" + fecha);
         String fechaFormato = "";
@@ -475,14 +476,14 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         log.info("eqaula --> saving " + getInstance().getName());
 
         if (getInstance().getType().equals("java.util.Date")) {
-            if(propertyDateValue!=null){
+            if (propertyDateValue != null) {
                 DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy");
-		propertyStringValue= fechaHora.format(propertyDateValue);
-		System.out.println("convertidooo"+propertyStringValue);
-            }else{
-                propertyStringValue="";
+                propertyStringValue = fechaHora.format(propertyDateValue);
+                System.out.println("convertidooo" + propertyStringValue);
+            } else {
+                propertyStringValue = "";
             }
-            
+
         }
         if (getInstance().getType().equals("java.lang.String[]")) {
             propertyStringValue = propertyStringValue + "*";
@@ -594,44 +595,45 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public Serializable converterToType(String value) {
-        value = value.trim();
-        System.out.println("value en integer" + value);
-
         Object o = new Object();
-        if (value.equals("")) {
-            System.out.println("entro a vacio");
-            o = null;
-        } else {
-            try {
-                if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
-                    o = value;
-                } else if ("java.lang.Long".equals(getInstance().getType())) {
-                    o = Long.valueOf(value);
-                } else if ("java.lang.Float".equals(getInstance().getType())) {
-                    o = Float.valueOf(value);
-                } else if ("java.lang.Integer".equals(getInstance().getType())) {
+        if (value != null) {
+            value = value.trim();
+            System.out.println("value en integer" + value);
+            if (value.equals("")) {
+                System.out.println("entro a vacio");
+                o = null;
+            } else {
+                try {
+                    if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
+                        o = value;
+                    } else if ("java.lang.Long".equals(getInstance().getType())) {
+                        o = Long.valueOf(value);
+                    } else if ("java.lang.Float".equals(getInstance().getType())) {
+                        o = Float.valueOf(value);
+                    } else if ("java.lang.Integer".equals(getInstance().getType())) {
 
-                    o = (Object) value;
-                } else if ("java.lang.Boolean".equals(getInstance().getType())) {
-                    o = Boolean.valueOf(value);
-                } else if ("java.util.Date".equals(getInstance().getType())) {
-                    
-                    SimpleDateFormat sdf;
-                    sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fecha = null;
-                    try {
-                        fecha = sdf.parse(value);
-                    } catch (ParseException pe) {
-                        log.info("eqaula --> error converter date:" + pe.getMessage());
+                        o = (Object) value;
+                    } else if ("java.lang.Boolean".equals(getInstance().getType())) {
+                        o = Boolean.valueOf(value);
+                    } else if ("java.util.Date".equals(getInstance().getType())) {
+
+                        SimpleDateFormat sdf;
+                        sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Date fecha = null;
+                        try {
+                            fecha = sdf.parse(value);
+                        } catch (ParseException pe) {
+                            log.info("eqaula --> error converter date:" + pe.getMessage());
+                        }
+                        o = fecha;
+                    } else if ("java.lang.Double".equals(getInstance().getType())) {
+                        o = Double.valueOf(value);
+                    } else {
+                        o = value;
                     }
-                    o = fecha;
-                } else if ("java.lang.Double".equals(getInstance().getType())) {
-                    o = Double.valueOf(value);
-                } else {
-                    o = value;
+                } catch (Exception e) {
+                    log.info("eqaula --> error converter: " + value);
                 }
-            } catch (Exception e) {
-                log.info("eqaula --> error converter: " + value);
             }
         }
 
