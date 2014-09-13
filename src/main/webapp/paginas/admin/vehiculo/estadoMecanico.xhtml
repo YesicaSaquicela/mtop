@@ -33,14 +33,9 @@
                         <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/lista" styleClass="btn  btn-success">
 
                         </p:button>
-                    </div>
+                    </div><br/>
                     <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-                    <div class="admin-actions " align="right" > 
-
-                        <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                            <p:printer target=":form" />  
-                        </p:commandButton>
-                    </div>
+                  
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">ESPECIFICACIÓNES TÉCNICAS</div>
                         <p:panel>
@@ -136,7 +131,7 @@
                                                                     <p:ajax event="change" update="@this"   />
                                                                 </p:selectOneMenu> 
 
-                                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                                 styleClass="validation-status" />
                                                                 <span class="help-inline text-muted"><br/>#{a.property.helpInline} <ocp:message forId="#{a.name}" /></span><br/><br/>
                                                             </div>
@@ -152,7 +147,9 @@
                             </c:forEach>
 
                         </p:tabView><br></br>
-                        <div class="panel panel-primary">
+                       
+
+                    </div>  <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" 
@@ -196,8 +193,6 @@
 
                             </p:panel>
                         </div>
-
-                    </div> 
 
                     <div class="admin-actions " align="center">
 

@@ -67,10 +67,27 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private String palabrab = "";
     private ActividadPlanMantenimiento it;
     private List<String> listaActividades;
-    private List<PlanMantenimiento> listaPlanM2= new ArrayList<PlanMantenimiento>();
-   
+    private List<ActividadPlanMantenimiento> listaactividadesPlan = new ArrayList<ActividadPlanMantenimiento>();
+    private List<PlanMantenimiento> listaPlanM2 = new ArrayList<PlanMantenimiento>();
+    private PlanMantenimiento planMantvisualizar= new PlanMantenimiento();
 
-  
+    public PlanMantenimiento getPlanMantvisualizar() {
+        return planMantvisualizar;
+    }
+
+    public void setPlanMantvisualizar(PlanMantenimiento planMantvisualizar) {
+        this.planMantvisualizar = planMantvisualizar;
+    }
+    
+    
+
+    public List<ActividadPlanMantenimiento> getListaactividadesPlan() {
+        return listaactividadesPlan;
+    }
+
+    public void setListaactividadesPlan(List<ActividadPlanMantenimiento> listaactividadesPlan) {
+        this.listaactividadesPlan = listaactividadesPlan;
+    }
 
     public List<String> getListaActividades() {
 
@@ -115,14 +132,14 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             System.out.println("entro vacio");
             palabrab = "Ingrese algun valor a buscar";
         }
-        System.out.println("entra palabra"+palabrab);
+        System.out.println("entra palabra" + palabrab);
         List<Long> lplan = new ArrayList<Long>();
-        
-            for (PlanMantenimiento pm : listaPlanM2) {
+
+        for (PlanMantenimiento pm : listaPlanM2) {
             if (pm.isEstado() && !lplan.contains(pm)) {
-                
+
                 String s = formato(pm.getCreatedOn());
-                 System.out.println("entro al forrrrrmmm"+s);
+                System.out.println("entro al forrrrrmmm" + s);
                 if (pm.getRegistro().contains(palabrab) || s.contains(palabrab)) {
                     lplan.add(pm.getId());
                 }
@@ -130,7 +147,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             }
 
         }
-  
 
         System.out.println("LEeeee" + lplan);
 
@@ -166,13 +182,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         ArrayList<String> ced = new ArrayList<String>();
 
-      
-
         for (PlanMantenimiento planM : listaPlanM2) {
             System.out.println("econtro uno " + planM.getRegistro());
             ced.add(planM.getRegistro());
         }
-       
+
         for (PlanMantenimiento planM : listaPlanM2) {
 
             if (!ced.contains(formato(planM.getCreatedOn()))) {
@@ -337,7 +351,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                         }
 
                     }
-                    
+
                 }
                 System.out.println("lista despues de editar" + listaActividades);
                 it = apm;
@@ -432,7 +446,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         }
         it = null;
-   
+
         System.out.println("lista de actividades al final" + cactividadpm.getListaActividades());
 
     }
@@ -529,8 +543,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         listaPlanMantenimiento
                 = servgen.buscarTodos(PlanMantenimiento.class
                 );
-        listaPlanM2=listaPlanMantenimiento;
-         cv.setEntityManager(em);
+        listaPlanM2 = listaPlanMantenimiento;
+        cv.setEntityManager(em);
         cactividadpm = new ControladorActividadPlanMantenimiento();
 
         cactividadpm.setInstance(
@@ -539,6 +553,12 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         listaActividades = new ArrayList<String>();
         cactividadpm.getInstance().setActividad("");
         System.out.println("lista de actividades en init" + listaActividades);
+        for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
+            if (planMantenimiento.getActivado()) {
+                planMantvisualizar=planMantenimiento;
+                listaactividadesPlan = planMantenimiento.getListaActividadpm();
+            }
+        }
 
     }
 
@@ -633,51 +653,45 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
         return "/paginas/admin/planMantenimient/lista.xhtml?faces-redirect=true";
     }
-/**
-    public void onRowEdit(RowEditEvent event) {
-        System.out.println("event" + event.getObject());
-        FacesMessage msg = new FacesMessage("Actividad Editada", ((String) event.getObject()));
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edicion cancelada", ((String) event.getObject()));
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void nuevo(String nuevo) {
-        System.out.println("fijando nuevo" + nuevo);
-    }
-
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        System.out.println("otro valor" + event.getOldValue());
-        System.out.println("antiguo valor" + oldValue);
-
-        Object newValue = event.getNewValue();
-
-        System.out.println("nuevo valor" + newValue);
-
-        listaActividades.add((String) newValue);
-        listaActividades.remove((String) oldValue);
-
-        if (newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Antiguo: " + oldValue + ", Nuevo:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
-
-    public void aniadirLista() {
-        System.out.println("entro a anidir lista con act selec " + actividadSeleccionada);
-        if (actividadSeleccionada != null) {
-            cactividadpm.getInstance().setActividad(actividadSeleccionada + " ," + cactividadpm.getInstance().getActividad());
-            System.out.println("instance despues de aniadir " + cactividadpm.getInstance());
-            System.out.println("lista antes" + listaActividades);
-            listaActividades.add(actividadSeleccionada);
-            System.out.println("lista depues " + listaActividades);
-            actividadSeleccionada = null;
-        }
-
-    }**/
+    /**
+     * public void onRowEdit(RowEditEvent event) { System.out.println("event" +
+     * event.getObject()); FacesMessage msg = new FacesMessage("Actividad
+     * Editada", ((String) event.getObject()));
+     * FacesContext.getCurrentInstance().addMessage(null, msg); }
+     *
+     * public void onRowCancel(RowEditEvent event) { FacesMessage msg = new
+     * FacesMessage("Edicion cancelada", ((String) event.getObject()));
+     * FacesContext.getCurrentInstance().addMessage(null, msg); }
+     *
+     * public void nuevo(String nuevo) { System.out.println("fijando nuevo" +
+     * nuevo); }
+     *
+     * public void onCellEdit(CellEditEvent event) { Object oldValue =
+     * event.getOldValue(); System.out.println("otro valor" +
+     * event.getOldValue()); System.out.println("antiguo valor" + oldValue);
+     *
+     * Object newValue = event.getNewValue();
+     *
+     * System.out.println("nuevo valor" + newValue);
+     *
+     * listaActividades.add((String) newValue); listaActividades.remove((String)
+     * oldValue);
+     *
+     * if (newValue != null && !newValue.equals(oldValue)) { FacesMessage msg =
+     * new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Antiguo: "
+     * + oldValue + ", Nuevo:" + newValue);
+     * FacesContext.getCurrentInstance().addMessage(null, msg); } }
+     *
+     * public void aniadirLista() { System.out.println("entro a anidir lista con
+     * act selec " + actividadSeleccionada); if (actividadSeleccionada != null)
+     * { cactividadpm.getInstance().setActividad(actividadSeleccionada + " ," +
+     * cactividadpm.getInstance().getActividad()); System.out.println("instance
+     * despues de aniadir " + cactividadpm.getInstance());
+     * System.out.println("lista antes" + listaActividades);
+     * listaActividades.add(actividadSeleccionada); System.out.println("lista
+     * depues " + listaActividades); actividadSeleccionada = null; }
+     *
+     * }*
+     */
 
 }

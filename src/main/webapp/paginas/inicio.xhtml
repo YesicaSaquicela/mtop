@@ -11,15 +11,15 @@
 
         <ui:define name="content">    
             <h:form id="form">
-                <h3>pagina de prueba.</h3>
-                <br/>
-                <br/>
-
+               
                 <h:panelGroup rendered="#{identity.loggedIn}">
                     <center>
-                                                        <h:graphicImage value="/resources/v.png" width="300" height="250
-                                                                        " />
-                            </center>
+
+                        <p:galleria value="#{controladorGaleria.images}" var="image" showCaption="true" panelWidth="600" panelHeight="300" style="width: 100%">  
+                        <p:graphicImage value="/resources/images/#{image}" title="Vehículos Mtop"/>  
+                    </p:galleria>
+                      
+                    </center>
 
                 </h:panelGroup>
 

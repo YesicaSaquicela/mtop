@@ -67,7 +67,7 @@
                                                 <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
                                                                  converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                                  requiredMessage="Se necesita elegir un conductor para el vehículo">  
-                                                    <f:ajax execute="@this" render="p" />
+                                                    <p:ajax event="change" update="p" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                                     <f:selectItems value="#{controladorVehiculo.listaPersonas}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
 
@@ -362,7 +362,7 @@
 
                                                                                 #{a.value}
                                                                                 #{a.property.required}
-                                                                                <h:graphicImage value="#{resource['success.gif']}" rendered="#{a.value != null}"
+                                                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                                                 styleClass="validation-status" />
                                                                                 <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
                                                                                     <ocp:message forId="str" />

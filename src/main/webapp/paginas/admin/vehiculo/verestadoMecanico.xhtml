@@ -25,23 +25,25 @@
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
         <!--Formulario dentro de un contenedor-->
+         <h:form >
+                        <div role="main">
+                            <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                                <div align="right">
+                                    <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" outcome="/paginas/admin/vehiculo/lista" styleClass="btn  btn-success">
+
+                                    </p:button>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                    <div align="right">
-                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/lista" styleClass="btn  btn-success">
+                    <div align="center">
+                   
 
-                        </p:button>
-                    </div>
-                    <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true"/>
-                    <div class="admin-actions " align="right" > 
 
-                        <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                            <p:printer target=":form" />  
-                        </p:commandButton>
-                    </div>
-
-                    <p:panelGrid style="margin-top:20px" columns="8"  >
+                    <p:panelGrid style="width:150%" columns="8"  >
                         <f:facet   name="header" class="panel-heading" >
                             <p:row>    #{"     "}  <p:column>     #{"     "}   </p:column> </p:row>
                             <p:row >
@@ -136,7 +138,7 @@
 
 
                     </p:panelGrid>
-                    <p:panelGrid style="margin-top:20px"  columns="8" >
+                    <p:panelGrid style="width:50%"  columns="8" >
                         <f:facet   name="header" class="panel-heading" >
                             <p:row >
 
@@ -401,18 +403,23 @@
                             <p:column rowspan="2">RESUMEN</p:column>
                             <p:column style="font-weight: bold;">ESTADO</p:column>
                             <p:column style="font-weight: bold;"> UBICACIÓN ACTUAL</p:column>
+                            <p:column rowspan="2"> <div class="admin-actions " align="right" > 
 
+                                    <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 50px">
+                                        <p:printer target=":form" />  
+                                    </p:commandButton>
+                                </div></p:column>
 
                         </p:row>
 
                         <p:row>
                             <p:column> #{controladorVehiculo.evaluacion}" </p:column>
-                            <p:column >2</p:column>
+                            <p:column>#{controladorVehiculo.obtenerUltimaUbicacionV(controladorVehiculo.instance)}</p:column>
                         </p:row>
-                        
+
                     </p:panelGrid>
 
-
+</div>
 
                 </div>
 

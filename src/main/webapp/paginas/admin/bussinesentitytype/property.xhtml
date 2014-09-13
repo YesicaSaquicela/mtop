@@ -26,10 +26,13 @@
                 <div role="main">
                     <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                         <div class="actions" align="right">
-                            <h:link id="cancel" value="#{messages['common.cancel']}" rendered="true" outcome="/paginas/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true" styleClass="btn  btn-success" >                        
-                                <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                        
-                            </h:link>           
-
+                                 
+       <p:button 
+                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                  outcome="/paginas/admin/bussinesentitytype/bussinesentitytype.xhtml?faces-redirect=true"
+           styleClass="btn  btn-success">
+                       <f:param name="bussinesEntityTypeId" value ="#{propertyHome.bussinesEntityTypeId}"></f:param>                     
+       </p:button>
 
                         </div><br/> 
                         <div class="panel panel-primary">

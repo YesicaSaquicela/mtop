@@ -968,9 +968,9 @@
                                                         <h:outputText value="#{itemp.cantidad}" />
                                                     </p:column>
                                                     <p:column style="width:4%;text-align: center">
-                                                        <p:commandLink update=":form:productosel :form:cantidad :form:descrip" title="Agregar" icon="ui-icon-check" immediate="true" >
+                                                        <p:commandButton update=":form:productosel :form:cantidad :form:descrip" title="Agregar" icon="ui-icon-check" immediate="true" >
                                                             <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
-                                                        </p:commandLink>
+                                                        </p:commandButton>
                                                     </p:column>
                                                 </p:dataTable>
                                                 <br/>
