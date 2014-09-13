@@ -35,13 +35,6 @@ limitations under the License.
     <ui:define name="header">                    
 
 
-
-
-        <h2>#{bussinesEntityTypeHome.bussinesEntityTypeId != null? messages['common.edit'] : messages['common.add']} 
-            #{bussinesEntityTypeHome.instance.label==null ? bussinesEntityTypeHome.instance.name : bussinesEntityTypeHome.instance.label}</h2>   
-        <p>#{bussinesEntityTypeHome.bussinesEntityTypeId != null ? bussinesEntityTypeHome.instance.description: ' '}</p>                                     
-
-
         <div class="admin-actions">
             <h:form id="control">  
                 <br/><br/><br/><br/>
@@ -264,7 +257,7 @@ limitations under the License.
                                     #{' '}
 
                                 </div><br/>
-                                <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
+                                 <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
                                 <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
                                              editable="false" resizableColumns="true" liveResize="true" 
                                              id="properties"

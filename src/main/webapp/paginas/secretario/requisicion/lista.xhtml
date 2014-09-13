@@ -98,28 +98,28 @@
                                                     <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
 
                                                         <div class="admin-actions">
-                                                            <br/><br/>
+                                                        
                                                             <h:link id="Acct" value="Todas" title="Todos los tipo de requisiciones" 
-                                                                    styleClass="btn  btn-success" >  
+                                                                    styleClass="btn success" >  
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>
                                                             #{' '}
 
                                                             <h:link id="Acc" value="Requisición de Reparación" 
                                                                     title="Requisiciones de tipo Reparación" 
-                                                                    outcome="lista" styleClass="btn  btn-success">                                        
+                                                                    outcome="lista" styleClass="btn success">                                        
                                                                 <f:param name="tipo" value="repa"/>
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>  
                                                             #{' '}
                                                             <h:link id="Acc1" value="Requisición de Bienes y Servicios" 
                                                                     title="Requisiciones de tipo Requisición de Bienes y Servicios" 
-                                                                    outcome="lista" styleClass="btn  btn-success" >                                        
+                                                                    outcome="lista" styleClass="btn success" >                                        
                                                                 <f:param name="tipo" value="bien"/>
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>                    
                                                         </div>
-                                                        <br/>
+                                                 
                                                         <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"
@@ -197,7 +197,7 @@
 
                                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                                      action="#{controladorRequisicion.darDeBaja(r)}" 
-                                                                                     title="Eliminar" update=":form:infoFM:listap">
+                                                                                     title="Dar de baja" update=":form:infoFM:listap">
                                                                         <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
                                                                     </p:commandButton></center>
                                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

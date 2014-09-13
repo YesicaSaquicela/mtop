@@ -58,6 +58,9 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     private String codigo;
     private String palabrab = "";
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
+    private List<String> images;
+    
+    
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
