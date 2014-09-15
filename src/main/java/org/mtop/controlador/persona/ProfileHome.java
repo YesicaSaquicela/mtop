@@ -126,7 +126,16 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
         if ("INACTIVO".equals(estado)) {
             System.out.println("entro a cambiar lista");
+
             listausuarios = ps.findAllA(true);
+            List<Profile> lu = new ArrayList<Profile>();
+            for (Profile profile : listausuarios) {
+                if (profile.getUsername() != null) {
+                    lu.add(profile);
+                }
+
+            }
+            listausuarios = lu;
         }
 
     }
@@ -287,7 +296,15 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         System.out.println("entri init");
         tipos = new HashMap<String, String>();
         tipos.put("Conductor", "Conductor");
+        List<Profile> lu = new ArrayList<Profile>();
         listausuarios = ps.findAllA(false);
+        for (Profile profile : listausuarios) {
+            if (profile.getUsername() != null) {
+                lu.add(profile);
+            }
+
+        }
+        listausuarios = lu;
 
     }
 

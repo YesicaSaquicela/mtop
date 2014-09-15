@@ -24,26 +24,9 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="33" y="10" width="111" height="89" uuid="0bf866e9-5edf-4082-8909-90648be75fa9"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg"]]></imageExpression>
+				<reportElement x="16" y="0" width="555" height="128" uuid="94f0a127-c3a2-42a2-98e8-c812e36660f6"/>
+				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/lproductos.jpg"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="162" y="21" width="390" height="79" uuid="7968174a-70a1-4194-a3e4-953e3beb0d7a"/>
-				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif" size="20" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[DEPARTAMENTO DE MANTENIMIENTO Y TALLERES]]></text>
-			</staticText>
-			<line>
-				<reportElement x="33" y="99" width="505" height="1" uuid="b4f77039-0c97-43b9-a3b5-4216028b5cb0"/>
-			</line>
-			<staticText>
-				<reportElement x="162" y="99" width="413" height="29" uuid="ae77a012-f8dc-4210-a4b8-39948948ac4c"/>
-				<textElement>
-					<font size="24" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Lista de Productos]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
