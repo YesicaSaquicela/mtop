@@ -42,6 +42,18 @@ public class Producto extends BussinesEntity implements Serializable {
      //ojo este atrubuto se lo podria heredar de la clases Persisten que es del modelo dinamico 
  
     private Double costo;
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
+    
 
     public Double getCosto() {
         return costo;

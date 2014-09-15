@@ -55,6 +55,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
 import org.jboss.seam.security.Identity;
 import org.mtop.cdi.Web;
+import org.mtop.modelo.Producto;
 import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
@@ -69,14 +70,11 @@ public class ReporteListas {
 
     private static final String REPORTE_USUARIOS = "reporteUsuario";  //nombre del reporte .jasper   
     private static final String REPORTE_VEHICULOS = "reporteVehiculo";
-    private static final String REPORTE_FICHASMEDICAS = "listaFichasMedicas";
-    private static final String REPORTE_CONSULTASMEDICAS = "listaConsultasMed";
-    private static final String REPORTE_CONSULTAS_ODONT = "listaConsultasOdont";
-    private static final String REPORTE_RECETAS = "listaRecetas";
-    private static final String REPORTE_PEDIDO = "pedidoExamen";
-    private static final String REPORTE_EXAMENES = "listaExamenes";
-    private static final String REPORTE_MEDICAMENTOS = "listaMedicamentos";
-    private static final String REPORTE_RESULTADO_EXAMEN = "resultadoExamen";
+    private static final String REPORTE_PERSONAL = "reportePersonal";
+    private static final String REPORTE_PRODUCTOS = "reporteProductos";
+    private static final String REPORTE_PARTIDA = "reportePartida";
+
+
     @Inject
     @Web
     private EntityManager em;
@@ -255,7 +253,24 @@ public class ReporteListas {
         }
     }
 
-    
+    public void renderProducto(List<Producto> pd) {
+
+        final String attachFileName = "productos.pdf";
+        
+        Map<String, Object> _values = new HashMap<String, Object>();
+//        _values.put("numeroP", p.size());
+        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String logo = context.getRealPath("/reportes/unl.png");
+//        _values.put("logo", logo);
+//        _values.put("usuarioResponsable", pLoggeado.getFullName());
+//        _values.put("usd", "$");
+        //Exportar a pdf 
+        JasperReportAction.exportToPdf(REPORTE_PRODUCTOS, pd, _values, attachFileName);
+
+        if (log.isDebugEnabled()) {
+            log.debug("export as pdf");
+        }
+    }
     public void renderVehiculo(List<Vehiculo> p) {
 
         final String attachFileName = "vehiculos.pdf";
@@ -274,6 +289,26 @@ public class ReporteListas {
             log.debug("export as pdf");
         }
     }
+    
+      public void renderPersonal(List<Profile> p) {
+
+        final String attachFileName = "personal.pdf";
+        
+        Map<String, Object> _values = new HashMap<String, Object>();
+//        _values.put("numeroP", p.size());
+        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String logo = context.getRealPath("/reportes/unl.png");
+//        _values.put("logo", logo);
+//        _values.put("usuarioResponsable", pLoggeado.getFullName());
+//        _values.put("usd", "$");
+        //Exportar a pdf 
+        JasperReportAction.exportToPdf(REPORTE_PERSONAL, p, _values, attachFileName);
+
+        if (log.isDebugEnabled()) {
+            log.debug("export as pdf");
+        }
+    }
+    
 //    public void renderPedido() {
 //
 //        final String attachFileName = "pacientes.pdf";

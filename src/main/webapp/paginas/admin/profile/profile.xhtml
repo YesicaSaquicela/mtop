@@ -70,14 +70,14 @@
                                         <h:panelGroup id="cod" layout="block" class="clearfix" rendered="true">
                                             <label for="dni">Cédula de identidad*</label>
                                             <div class="input">
-                                                <h:inputText class="form-control" id="dni" value="#{profileHome.instance.code}" 
+                                                <h:inputText class="form-control" id="dni" value="#{profileHome.instance.cedula}" 
                                                              styleClass="xLarge" required="true" label="#{messages['profile.dni']}"
                                                              requiredMessage="Cédula de identidad requerido, necesita un valor">
                                                     <f:validator validatorId="ciValidator" />
                                                     <f:validator validatorId="ciAvailabilityValidator" />
                                                     <f:ajax execute="@this" render="cod"  />
                                                 </h:inputText>
-                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.code != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.cedula != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Ingrese cédula de identidad válida<ocp:message forId="dni" /></span>
                                             </div>

@@ -55,7 +55,7 @@ public class CIAvailabilityValidator implements Validator {
         String currentDni = "";
         System.out.println("Perfil de usuario es: " + profile.toString());
         if (profile.isPersistent()) {
-            currentDni = ps.find(profile.getId()).getCode();
+            currentDni = ps.find(profile.getId()).getCedula();
             System.out.println("el dni es: " + currentDni);
         }
         if (currentDni != null) {

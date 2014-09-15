@@ -41,6 +41,17 @@ public class ItemRequisicion extends BussinesEntity implements Serializable{
     public Requisicion requisicion;
     @OneToOne
     public Producto producto;
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
 
     public Producto getProducto() {
         return producto;

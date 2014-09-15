@@ -214,7 +214,7 @@ public class InitializeDatabase {
             p.getIdentityKeys().add(u.getKey());
             p.setUsernameConfirmed(true);
             p.setShowBootcamp(true);
-            p.setCode("1104009871");
+            p.setCedula("1104009871");
             Date d = new Date(1990,5,13);
            
             p.setFechanacimiento(d);
@@ -222,7 +222,7 @@ public class InitializeDatabase {
             p.setFirstname("Mtop");
             p.setSurname("Software de Vehiculos");
             p.setTipo("administrador");
-            p.setCode("1104009871");
+         
            
             p.setEstado(true);
             p.setCreatedOn(now);

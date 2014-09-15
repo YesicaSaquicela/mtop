@@ -90,7 +90,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
                 if (p.getCodigo().contains(palabrab)) {
                     lp.add(p);
                 } else {
-                    if (p.getDescription().toLowerCase().contains(palabrab.toLowerCase())) {
+                    if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase())) {
                         lp.add(p);
                     }
                 }
@@ -124,8 +124,8 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         for (Producto producto : listaproductos2) {
             if (producto.isEstado()) {
-                if (producto.getDescription().toLowerCase().contains(query.toLowerCase())) {
-                    ced.add(producto.getDescription());
+                if (producto.getDescripcion().toLowerCase().contains(query.toLowerCase())) {
+                    ced.add(producto.getDescripcion());
                 }
                 if (producto.getCodigo().contains(query)) {
                     ced.add(producto.getCodigo());

@@ -4,22 +4,22 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM profile;]]>
+		<![CDATA[SELECT * FROM  partidacontabilidad;]]>
 	</queryString>
-	<field name="email" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{email}]]></fieldDescription>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{codigo}]]></fieldDescription>
 	</field>
-	<field name="firstname" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{firstname}]]></fieldDescription>
+	<field name="cantidad" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{cantidad}]]></fieldDescription>
 	</field>
-	<field name="surname" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{surname}]]></fieldDescription>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{descripcion}]]></fieldDescription>
 	</field>
-	<field name="tipo" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{tipo}]]></fieldDescription>
+	<field name="costo" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{costo}]]></fieldDescription>
 	</field>
-	<field name="username" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{username}]]></fieldDescription>
+	<field name="hola" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{hola}]]></fieldDescription>
 	</field>
 	<background>
 		<band/>
@@ -27,43 +27,67 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="1" y="0" width="555" height="128" uuid="825cdfa0-2a61-4a3b-bf80-0bbcf48eac3e"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/reportes/10617287_812462588772870_1932920118_n.jpg"]]></imageExpression>
+				<reportElement x="14" y="12" width="372" height="85" uuid="8b5e6df3-1e29-49ac-9e0d-0ba6b494af6c"/>
+				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="153" y="28" width="399" height="69" uuid="7da1d9df-8bd3-43fd-a9f4-18e4decb4623"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="20" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTAMENTO DE MANTENIMIENTO Y TALLERES]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="97" width="524" height="1" uuid="379a658a-cabb-46f9-a409-0f75ae255316"/>
+			</line>
+			<staticText>
+				<reportElement x="31" y="97" width="481" height="30" uuid="af4b1495-d35e-4b7b-8d77-d21c63907fa7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="DejaVu Serif" size="22" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Lista de Partidas de Contabilidad]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band/>
 	</pageHeader>
 	<columnHeader>
-		<band height="18">
+		<band height="34">
 			<staticText>
-				<reportElement mode="Opaque" x="270" y="0" width="157" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="52933b18-e69e-4e59-a0f5-e95850d89eef"/>
+				<reportElement mode="Opaque" x="270" y="0" width="157" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="52933b18-e69e-4e59-a0f5-e95850d89eef"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EMAIL]]></text>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1" y="0" width="124" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="30d18ccb-2772-457a-b28c-11fa62a78f2c"/>
+				<reportElement mode="Opaque" x="1" y="0" width="124" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="30d18ccb-2772-457a-b28c-11fa62a78f2c"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NOMBRE]]></text>
+				<text><![CDATA[CÓDIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="125" y="0" width="145" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="f3c0dd3b-1ef0-4576-a602-d8602158d40c"/>
+				<reportElement mode="Opaque" x="125" y="0" width="145" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="f3c0dd3b-1ef0-4576-a602-d8602158d40c"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[APELLIDO]]></text>
+				<text><![CDATA[CANTIDAD]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="427" y="0" width="128" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="afbf144b-474e-42d0-8729-f2fae162e2b9"/>
+				<reportElement mode="Opaque" x="427" y="0" width="128" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="afbf144b-474e-42d0-8729-f2fae162e2b9"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TIPO]]></text>
+				<text><![CDATA[COSTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="427" y="0" width="85" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="afbf144b-474e-42d0-8729-f2fae162e2b9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[hola]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="1" y="0" width="555" height="1" uuid="e686fba2-25ae-4901-ab13-88d59f2e012f"/>
@@ -77,28 +101,28 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="111" height="20" uuid="a1af2529-82a6-4569-a810-91d70d27692f"/>
+				<reportElement x="1" y="1" width="111" height="20" uuid="a1af2529-82a6-4569-a810-91d70d27692f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{firstname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="125" y="0" width="145" height="20" uuid="99b19ad5-6db8-40a8-a27d-ff486fa87bb5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="427" y="0" width="111" height="20" uuid="635c45dd-bb8e-4762-9bfb-90fbf3e3a144"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

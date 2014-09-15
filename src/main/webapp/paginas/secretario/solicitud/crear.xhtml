@@ -1067,8 +1067,8 @@
                                                     <p:column headerText="Código" sortBy="#{itemp.codigo}">
                                                         <h:outputText value="#{itemp.codigo}" />
                                                     </p:column>
-                                                    <p:column headerText="Descripción" sortBy="#{itemp.description}">
-                                                        <h:outputText value="#{itemp.description}" />
+                                                    <p:column headerText="Descripción" sortBy="#{itemp.descripcion}">
+                                                        <h:outputText value="#{itemp.descripcion}" />
                                                     </p:column>
                                                     <p:column headerText="Cantidad" sortBy="#{itemp.cantidad}">
                                                         <h:outputText value="#{itemp.cantidad}" />
@@ -1102,7 +1102,7 @@
                                                     <div class="col-md-4"> 
                                                         <h:outputLabel class="navbar-text" value=" Descripción: "/>
 
-                                                        <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.description}"/>
+                                                        <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.descripcion}"/>
 
 
                                                     </div>
@@ -1135,13 +1135,13 @@
                                 <br></br><br/>
 
                                 <p:outputLabel value="Descripción"/><br></br>
-                                <p:inputText id="descrip" value="#{controladorRequisicion.cir.instance.description}" 
+                                <p:inputText id="descrip" value="#{controladorRequisicion.cir.instance.descripcion}" 
                                              required="true" requiredMessage="Descripción requerida, necesita un valor" readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                 <p:ajax event="blur" update="desp" partialSubmit="true"  />
                                 </p:inputText>
                                 <br/>
                                  <h:panelGroup id="desp">
-                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.description != ''}" styleClass="validation-status" />
+                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.descripcion != ''}" styleClass="validation-status" />
                                 <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
                                 </h:panelGroup>
                                 <br></br><br/>
@@ -1184,8 +1184,8 @@
                                                     <p:column headerText="Unidad de Medida" sortBy="#{item2.unidadMedida}">
                                                         <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                     </p:column>
-                                                    <p:column headerText="Descripción" sortBy="#{item2.description}">
-                                                        <h:outputText value="#{item2.description}"></h:outputText>
+                                                    <p:column headerText="Descripción" sortBy="#{item2.descripcion}">
+                                                        <h:outputText value="#{item2.descripcion}"></h:outputText>
                                                     </p:column>
 
                                                     <p:column headerText="Opciones" style="width: 10%"> 

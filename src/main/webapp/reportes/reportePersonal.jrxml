@@ -4,10 +4,10 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM profile;]]>
+		<![CDATA[SELECT * FROM  profile;]]>
 	</queryString>
-	<field name="email" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{email}]]></fieldDescription>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{cedula}]]></fieldDescription>
 	</field>
 	<field name="firstname" class="java.lang.String">
 		<fieldDescription><![CDATA[$F{firstname}]]></fieldDescription>
@@ -18,16 +18,13 @@
 	<field name="tipo" class="java.lang.String">
 		<fieldDescription><![CDATA[$F{tipo}]]></fieldDescription>
 	</field>
-	<field name="username" class="java.lang.String">
-		<fieldDescription><![CDATA[$F{username}]]></fieldDescription>
-	</field>
 	<background>
 		<band/>
 	</background>
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="1" y="0" width="555" height="128" uuid="825cdfa0-2a61-4a3b-bf80-0bbcf48eac3e"/>
+				<reportElement x="1" y="0" width="555" height="128" uuid="cd25e9fa-3407-4b68-85e6-212bdd5d12cc"/>
 				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/reportes/10617287_812462588772870_1932920118_n.jpg"]]></imageExpression>
 			</image>
 		</band>
@@ -36,34 +33,34 @@
 		<band/>
 	</pageHeader>
 	<columnHeader>
-		<band height="18">
+		<band height="34">
 			<staticText>
-				<reportElement mode="Opaque" x="270" y="0" width="157" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="52933b18-e69e-4e59-a0f5-e95850d89eef"/>
+				<reportElement mode="Opaque" x="270" y="0" width="157" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="52933b18-e69e-4e59-a0f5-e95850d89eef"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EMAIL]]></text>
+				<text><![CDATA[APELLIDOS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1" y="0" width="124" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="30d18ccb-2772-457a-b28c-11fa62a78f2c"/>
+				<reportElement mode="Opaque" x="1" y="0" width="124" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="30d18ccb-2772-457a-b28c-11fa62a78f2c"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NOMBRE]]></text>
+				<text><![CDATA[NÚMERO DE CÉDULA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="125" y="0" width="145" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="f3c0dd3b-1ef0-4576-a602-d8602158d40c"/>
+				<reportElement mode="Opaque" x="125" y="0" width="145" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="f3c0dd3b-1ef0-4576-a602-d8602158d40c"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[APELLIDO]]></text>
+				<text><![CDATA[NOMBRES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="427" y="0" width="128" height="18" forecolor="#FFFFFF" backcolor="#206B86" uuid="afbf144b-474e-42d0-8729-f2fae162e2b9"/>
+				<reportElement mode="Opaque" x="427" y="0" width="128" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="afbf144b-474e-42d0-8729-f2fae162e2b9"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TIPO]]></text>
+				<text><![CDATA[TIPO DE PERSONA]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="1" y="0" width="555" height="1" uuid="e686fba2-25ae-4901-ab13-88d59f2e012f"/>
@@ -77,21 +74,21 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="111" height="20" uuid="a1af2529-82a6-4569-a810-91d70d27692f"/>
+				<reportElement x="1" y="1" width="111" height="20" uuid="a1af2529-82a6-4569-a810-91d70d27692f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{firstname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="125" y="0" width="145" height="20" uuid="99b19ad5-6db8-40a8-a27d-ff486fa87bb5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{firstname}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="427" y="0" width="111" height="20" uuid="635c45dd-bb8e-4762-9bfb-90fbf3e3a144"/>

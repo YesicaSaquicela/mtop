@@ -70,8 +70,21 @@
                                         <f:param name="partidaId" ></f:param>
 
                                     </h:link>
-                                </div><br/><br/>
+                                </div>
                             </div>
+                        <div class="admin-actions" align="right">
+
+                            <p:button id="visualizar" rendered="#{controladorPartidaContabilidad.listaPartidaC.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                                                          outcome="imprimirPartidaC" 
+                                                                          title="Visualizar">  
+                                                                    <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                                                    <!--f:param name="planMid" value="# {controladorPlanMantenimiento.instance.id}"></f:param-->
+
+
+                                                                </p:button>
+
+
+                                </div><br/><br/>
                             <!--Botones de admin-->
 
                             <div class="tab-content">

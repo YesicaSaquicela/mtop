@@ -63,7 +63,7 @@
 
 
                                     <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
-                                    <p:selectOneMenu id="partida"  value="#{controladorRequisicion.idPartidaC}" effect="fade"
+                                    <p:selectOneMenu id="partida" value="#{controladorRequisicion.idPartidaC}" effect="fade"
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                      requiredMessage="Se requiere eleguir una partida de contabilidad">  
                                         <p:ajax event="change" update="pt" partialSubmit="true"  />
@@ -571,8 +571,8 @@
                                                         <p:column headerText="Código" sortBy="#{itemp.codigo}">
                                                             <h:outputText value="#{itemp.codigo}" />
                                                         </p:column>
-                                                        <p:column headerText="Descripción" sortBy="#{itemp.description}">
-                                                            <h:outputText value="#{itemp.description}" />
+                                                        <p:column headerText="Descripción" sortBy="#{itemp.descripcion}">
+                                                            <h:outputText value="#{itemp.descripcion}" />
                                                         </p:column>
                                                         <p:column headerText="Cantidad" sortBy="#{itemp.cantidad}">
                                                             <div class="input" align="right">
@@ -614,7 +614,7 @@
                                                         <div class="col-md-4"> 
                                                             <h:outputLabel class="navbar-text" value=" Descripción: "/>
 
-                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.description}"/>
+                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.descripcion}"/>
 
 
                                                         </div>
@@ -666,7 +666,7 @@
 
                                     <p:outputLabel value="Descripción*"/><br></br>
                                     <p:inputTextarea id="descrip" 
-                                                     value="#{controladorRequisicion.cir.instance.description}"
+                                                     value="#{controladorRequisicion.cir.instance.descripcion}"
                                                      required="true" requiredMessage="Descipción requerida, necesita un valor"
                                                      readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                         <p:ajax event="blur" update="unm2" partialSubmit="true"  />
@@ -674,7 +674,7 @@
                                     <br/>
                                     <h:panelGroup id="unm2" layout="block" class="clearfix">
 
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.description != null}"
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.descripcion != null}"
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
 
@@ -727,8 +727,8 @@
                                                         <p:column headerText="Unidad de Medida" sortBy="#{item2.unidadMedida}">
                                                             <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                         </p:column>
-                                                        <p:column headerText="Descripción" sortBy="#{item2.description}">
-                                                            <h:outputText value="#{item2.description}"></h:outputText>
+                                                        <p:column headerText="Descripción" sortBy="#{item2.descripcion}">
+                                                            <h:outputText value="#{item2.descripcion}"></h:outputText>
                                                         </p:column>
                                                         <p:column rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}"  headerText="Valor Unitario" sortBy="#{item2.producto.costo}" 
                                                                   footerText="TOTAL = "   >
@@ -968,7 +968,7 @@
                                                                     <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Descripción">
-                                                                    <h:outputText value="#{item2.description}"></h:outputText>
+                                                                    <h:outputText value="#{item2.descripcion}"></h:outputText>
                                                                 </p:column>
 
 

@@ -8,24 +8,20 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    
+
     <f:metadata>
-        <f:viewParam id="sol" name="reqId" value="#{controladorRequisicion.requisicionId}"/>
+        <f:viewParam id="sol" name="partidacId" value="#{controladorPartidaContabilidad.partidaCId}"/>
 
     </f:metadata>
-    <ui:param name="titulo" value="#{controladorRequisicion.instance.tipoRequisicion}"/>
-    <ui:define name="header">
 
-    </ui:define>
     <ui:define name="content">
         <h:form >
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div align="right">
 
-                        <p:button 
-                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
-                                  outcome="/paginas/secretario/requisicion/lista" 
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                  rendered="#{true}" outcome="/paginas/secretario/partidaContabilidad/lista" 
                                   styleClass="btn  btn-success"/>
                     </div>
                 </div>
@@ -37,7 +33,7 @@
                     <div align="center">
 
                         <p:panelGrid  id="imp1"                                                  
-                                      style="width:100%" columns="4" >
+                                      style="width:100%" >
                             <f:facet   name="header" class="panel-heading" >
 
                                 <p:row>
@@ -50,7 +46,7 @@
 
                                     <p:column > 
 
-                                        #{controladorRequisicion.instance.tipoRequisicion}
+                                        DEPARTAMENTO DE MANTENIMIENTO Y TALLERES
 
                                     </p:column>
 
@@ -62,31 +58,26 @@
                             </f:facet>
 
 
-                            <h:outputLabel class="navbar-text" value="Requerido por"/>
-
-                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.psolicita.concatenarNombre}"/>
-                            <h:outputLabel class="navbar-text" value="Fecha de Requisición"/>
-
-                            <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"/>
-                            <h:outputLabel class="navbar-text" value="Partida"/>
-
-                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"/>
-                            <h:outputLabel class="navbar-text" value="Tipo de Adquisición"/>
-                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.tipoAdquisicion}"/>
-
 
                         </p:panelGrid>
 
-
-                        <p:panelGrid id="imp" style="width:100%"  >
+                        <p:panelGrid  style="width:100%"  >
                             <f:facet name="header">
                                 <p:row>
-                                    <p:column style="width:20%">
-                                        CANTIDAD
+                                    <p:column style="width:50%">
+                                        LISTA DE PARTIDAS DE CONTABILIDAD
                                     </p:column>
-                                    <p:column style="width:30%">
-                                        UNIDAD DE MEDIDA 
+
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                        <p:panelGrid style="width:100%"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        NÚMERO DE PARTIDA DE CONTABILIDAD
                                     </p:column>
+
                                     <p:column style="width:50%">
                                         DESCRIPCIÓN 
                                     </p:column>
@@ -94,18 +85,17 @@
                             </f:facet>
                         </p:panelGrid>
 
-                        <ui:repeat value="#{controladorRequisicion.listaItemsRequisicion}" var="a" varStatus="status">  
+                        <ui:repeat value="#{controladorPartidaContabilidad.listaPartidaC}" var="a" varStatus="status">  
                             <p:panelGrid  style="width:100%"  >
                                 <p:row>
-                                    <p:column style="width:20%" >
-                                        <h:outputText class="navbar-text" value="#{a.cantidad}"/>
+                                    <p:column style="width:50%" >
+                                        <h:outputText class="navbar-text" value="#{a.concatenarPartida}"/>
                                     </p:column>
-                                    <p:column style="width:30%">
-                                        <h:outputText class="navbar-text" value="#{a.unidadMedida}"/>
-                                    </p:column>
-                                    <p:column style="width:50%">
+                                    <p:column style="width:50%" >
                                         <h:outputText class="navbar-text" value="#{a.descripcion}"/>
                                     </p:column>
+
+
                                 </p:row>
                             </p:panelGrid>
 
@@ -117,24 +107,6 @@
 
                         <p:panelGrid style="width:100%" >
 
-                            <f:facet name="header">
-                                <p:row>
-
-                                    <p:column style="width:50%">
-                                        OBSERVACIONES
-                                    </p:column>
-
-                                </p:row>
-                            </f:facet>
-
-
-                            <p:row>
-
-                                <p:column style="width:50%">
-                                    <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.observaciones}"/>
-                                </p:column>
-
-                            </p:row>
 
 
                             <f:facet name="footer">

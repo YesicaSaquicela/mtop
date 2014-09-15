@@ -18,6 +18,8 @@ import javax.persistence.criteria.Root;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute_;
 import org.mtop.modelo.dinamico.BussinesEntityType_;
 import org.mtop.modelo.dinamico.BussinesEntity_;
+import org.mtop.modelo.profile.Profile;
+import org.mtop.modelo.profile.Profile_;
 import org.mtop.util.PersistenceUtil;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;
@@ -211,6 +213,14 @@ public class BussinesEntityService extends PersistenceUtil<BussinesEntity> {
         CriteriaQuery<BussinesEntity> query = builder.createQuery(BussinesEntity.class);
         Root<BussinesEntity> bussinesEntity = query.from(BussinesEntity.class);
         query.where(builder.equal(bussinesEntity.get(BussinesEntity_.code), code));        
+        return getSingleResult(query);
+    }
+    
+     public Profile findBussinesEntityByCode2(final String cedula){
+        CriteriaBuilder builder = getCriteriaBuilder();
+        CriteriaQuery<Profile> query = builder.createQuery(Profile.class);
+        Root<Profile> profile = query.from(Profile.class);
+        query.where(builder.equal(profile.get(Profile_.cedula), cedula));        
         return getSingleResult(query);
     }
 }

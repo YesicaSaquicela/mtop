@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteVehiculos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82a0cfcc-c5ba-4cc9-b921-3214b90f917d">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="138"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -65,14 +65,14 @@ FROM vehiculo]]>
 	<title>
 		<band height="148" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" mode="Transparent" x="217" y="3" width="336" height="102" forecolor="#0D0F1E" backcolor="#CAD1D3" uuid="95183cb3-f2f1-4702-96e8-fc63320e915e"/>
+				<reportElement style="Title" mode="Transparent" x="164" y="3" width="389" height="102" forecolor="#0D0F1E" backcolor="#CAD1D3" uuid="95183cb3-f2f1-4702-96e8-fc63320e915e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Century Schoolbook L" size="22" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[DEPARTAMENTO DE MANTENIMIENTO - TALLERES]]></text>
 			</staticText>
 			<image>
-				<reportElement x="0" y="3" width="174" height="118" uuid="74e5d94b-54b3-40ee-9ee8-9a4ac47bacf7"/>
+				<reportElement x="0" y="0" width="164" height="105" uuid="74e5d94b-54b3-40ee-9ee8-9a4ac47bacf7"/>
 				<imageExpression><![CDATA["../../../resources/mtop1.jpg"]]></imageExpression>
 			</image>
 		</band>

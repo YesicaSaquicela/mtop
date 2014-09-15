@@ -9,7 +9,7 @@
 
     <ui:param name="titulo" value="Lista del Personal" />
     <ui:define name="header-replace">
-       
+
     </ui:define>
     <ui:define name="content">
         <h:form id="form">
@@ -18,9 +18,9 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DEL PERSONAL</center></div>
+                        <div class="panel-heading"><center>LISTA DEL PERSONAL</center></div>
                         <p:panel>
-                            
+
                             <div class="admin-actions">
                                 <div class="panel panel-success">
                                     <p:panel>
@@ -62,12 +62,18 @@
                                                 </div>
                                             </div>
                                         </div> </p:panel></div>
-                                <div class="admin-actions" align="right">
 
-                                    <h:commandLink id="print" title="Imprimir Pedido" styleClass="btn" action="#{reporteListas.renderPedido()}" >  
-                                        <p:graphicImage value="/resources/print.gif" width="12" height="12"/>
-                                        <f:setPropertyActionListener value="#{pedidosExam_}" target="#{reporteListas.pedido}"/>
-                                    </h:commandLink>
+                                <div class="admin-actions" align="right">
+                                    <h:panelGrid id="export" class="columns" >
+                                        <p:panel>
+                                            <h:outputText value="Generar Reporte" />  
+                                            <br/>
+                                            <h:commandLink action="#{reporteListas.renderPersonal(controladorPersona.listaPersona)}" styleClass="btn">                    
+                                                <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
+
+                                            </h:commandLink>                    
+                                        </p:panel>
+                                    </h:panelGrid>
 
                                 </div>
 
@@ -86,7 +92,7 @@
                             </div>
 
 
-<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -111,11 +117,11 @@
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.surname}" />
                                                 </p:column>
-                                                <p:column sortBy="#{profile_.code}">
+                                                <p:column sortBy="#{profile_.cedula}">
                                                     <f:facet name="header">  
                                                         <h:outputText value="#{messages['profile.dni']}" />  
                                                     </f:facet> 
-                                                    <h:outputText value="#{profile_.code}" />
+                                                    <h:outputText value="#{profile_.cedula}" />
                                                 </p:column>
                                                 <p:column sortBy="#{profile_.email}">
                                                     <f:facet name="header">  
@@ -144,7 +150,7 @@
                                                     <center>
                                                         <p:button icon="ui-icon-person" 
                                                                   title="Crear Usuario" styleClass="btn  btn-success"
-                                                                  
+
                                                                   outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" 
                                                                   >
                                                             <f:param name="profileId" value="#{profile_.id}"></f:param>

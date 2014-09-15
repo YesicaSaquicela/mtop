@@ -175,7 +175,7 @@ public class ProfileService extends PersistenceUtil<Profile> implements Serializ
 
     public boolean isDniAviable(String code) {
         try {
-            BussinesEntity b = bussinesEntityService.findBussinesEntityByCode(code);
+            BussinesEntity b = bussinesEntityService.findBussinesEntityByCode2(code);
             if (b != null) {
                 return false;
             } else {

@@ -186,11 +186,13 @@ public class Authentication {
         PersistenceManager identityManager = security.getPersistenceManager();
         
         User user = identityManager.findUser(credencials.getUsername());
+        System.out.println("usuario"+user);
         if (user != null) {
             IdentityObjectAttribute ida = profileService.getAttributos(user.getKey(), "estado").get(0);
             //Profile userP = profileService.getProfileByUsername(credencials.getUsername());
             //Paciente p = pacienteServic.getPacientePorNombreUsuario(credencials.getUsername());
             if (ida != null && "ACTIVO".equals(ida.getValue())) {
+                System.out.println("entro a loguear");
                 //try {
                 this.login();
 //                } catch (Exception ex) {

@@ -169,7 +169,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             System.out.println("entro al for>>>>>>>");
             if (!items.getCantidad().equals(itemreq.getCantidad())
-                    && !items.getDescription().equals(itemreq.getDescription())
+                    && !items.getDescripcion().equals(itemreq.getDescripcion())
                     && !items.getUnidadMedida().equals(itemreq.getUnidadMedida())) {
                 System.out.println("entro a remover>>>>>");
                 li.add(items);
@@ -500,6 +500,31 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         return ced;
 
     }
+    
+     public ArrayList<String> autocompletarpartida(String query) {
+        System.out.println("QUEryyyyy" + query);
+
+        ArrayList<String> ced = new ArrayList<String>();
+        for (PartidaContabilidad partidaContabilidad :listaPartida) {
+
+            String resultado = partidaContabilidad.concatenarPartida();
+
+            if (resultado.contains(query)) {
+
+                if (!ced.contains(partidaContabilidad.concatenarPartida())) {
+                    ced.add(resultado);
+                }
+            } else {
+                if (partidaContabilidad.getDescripcion().toLowerCase().contains(query.toLowerCase())&& !ced.contains(partidaContabilidad.getDescripcion().toLowerCase()) ) {
+                    ced.add(partidaContabilidad.getDescripcion());
+                }
+            }
+        }
+
+        System.out.println("listaaaaa autocompletar" + ced);
+        return ced;
+
+    }
 
     public ArrayList<String> autocompletarp(String query) {
         System.out.println("QUEryyyyy" + query);
@@ -507,8 +532,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         ArrayList<String> ced = new ArrayList<String>();
         for (Producto producto : listaproductos2) {
             if (producto.isEstado()) {
-                if (producto.getDescription().toLowerCase().contains(query.toLowerCase())) {
-                    ced.add(producto.getDescription());
+                if (producto.getDescripcion().toLowerCase().contains(query.toLowerCase())) {
+                    ced.add(producto.getDescripcion());
                 }
                 if (producto.getCodigo().contains(query)) {
                     ced.add(producto.getCodigo());
@@ -568,7 +593,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (p.getCodigo().contains(palabrabp)) {
                 lp.add(p);
             } else {
-                if (p.getDescription().toLowerCase().contains(palabrabp.toLowerCase())) {
+                if (p.getDescripcion().toLowerCase().contains(palabrabp.toLowerCase())) {
                     lp.add(p);
                 }
             }
@@ -1004,10 +1029,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public void setPro(Producto pro) {
         System.out.println("fijandooooooooooooooooooooooooooooo" + pro);
         this.pro = pro;
-        cir.getInstance().setDescription(pro.getDescription());
+        cir.getInstance().setDescripcion(pro.getDescripcion());
         cir.getInstance().setCantidad(0);
         cir.getInstance().setUnidadMedida(" ");
-        cir.getInstance().setDescription(pro.getDescription());
+        cir.getInstance().setDescripcion(pro.getDescripcion());
         cir.getInstance().setProducto(pro);
         maximo = pro.getCantidad();
         palabrab = "";
@@ -1164,7 +1189,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void agregarItem() {
 
-        String des = cir.getInstance().getDescription().trim();
+        String des = cir.getInstance().getDescripcion().trim();
         String uni = cir.getInstance().getUnidadMedida().trim();
 
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
@@ -1198,18 +1223,18 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (it != null) {
                 System.out.println("entro a it");
                 if (!it.getCantidad().equals(cir.getInstance().getCantidad())
-                        && !it.getDescription().equals(cir.getInstance().getDescription())
+                        && !it.getDescripcion().equals(cir.getInstance().getDescripcion())
                         && !it.getUnidadMedida().equals(cir.getInstance().getUnidadMedida())) {
                     listaItemsRequisicion.remove(it);
                     listaItemsRequisicion.add(cir.getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se actualizó Item " + cir.getInstance().getDescription() + " con éxito ");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se actualizó Item " + cir.getInstance().getDescripcion() + " con éxito ");
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 } else {
                     it = null;
                 }
             } else {
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se creó Item " + cir.getInstance().getDescription() + " con éxito ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se creó Item " + cir.getInstance().getDescripcion() + " con éxito ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 listaItemsRequisicion.add(cir.getInstance());
             }
@@ -1221,7 +1246,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         pro.setCodigo("");
         cir.getInstance().setCantidad(0);
         cir.getInstance().setUnidadMedida(" ");
-        cir.getInstance().setDescription(" ");
+        cir.getInstance().setDescripcion(" ");
         getInstance().setListaItems(listaItemsRequisicion);
         editarItem(cir.getInstance());
         System.out.println("lista items ddd" + listaItemsRequisicion);
@@ -1676,7 +1701,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cir.setInstance(new ItemRequisicion());
         cir.getInstance().setCantidad(0);
         cir.getInstance().setUnidadMedida(" ");
-        cir.getInstance().setDescription(" ");
+        cir.getInstance().setDescripcion(" ");
         maximo = 100;
         pro = new Producto();
         pro.setCodigo("");
