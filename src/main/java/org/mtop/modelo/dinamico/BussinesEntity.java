@@ -202,6 +202,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public void setAttributes(List<BussinesEntityAttribute> attributes) {
+        System.out.println("entro a set atributes");
         for (BussinesEntityAttribute attr : attributes) {
             attr.setBussinesEntity(this);
         }
@@ -209,6 +210,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public void addBussinesEntityAttribute(BussinesEntityAttribute attribute) {
+        System.out.println("entro a set atributes add");
         attribute.setBussinesEntity(this);
         this.attributes.add(attribute);
     }
@@ -222,6 +224,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public boolean containsBussinesEntityAttribute(String name) {
+       
         for (BussinesEntityAttribute attr : getAttributes()) {
             if (name.equalsIgnoreCase(attr.getName())) {
                 return true;
@@ -253,7 +256,9 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
      * Retrieve all attributes for strcuture name list
      */
     public List<BussinesEntityAttribute> getBussinessEntityAttributes(String... structureNames) {
+         System.out.println("entroa a contais bussines entity atribute con names" +structureNames);
         List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
+      
         for (BussinesEntityAttribute a : getAttributes()) {
             for (String sn : structureNames) {
                 if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {

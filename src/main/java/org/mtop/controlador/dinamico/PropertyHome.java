@@ -495,7 +495,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
         if (getInstance().isPersistent()) {
             System.out.println("PRESENTAR GUERADAR>>>>>");
+
             getInstance().setValue(converterToType(propertyStringValue));
+
             System.out.println("propiedad convertida +++++" + getInstance().getValue());
             save(getInstance());
 
@@ -596,48 +598,48 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public Serializable converterToType(String value) {
         Object o = new Object();
-        if (value != null) {
-            value = value.trim();
-            System.out.println("value en integer" + value);
-            if (value.equals("")) {
-                System.out.println("entro a vacio");
-                o = null;
-            } else {
-                try {
-                    if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
-                        o = value;
-                    } else if ("java.lang.Long".equals(getInstance().getType())) {
-                        o = Long.valueOf(value);
-                    } else if ("java.lang.Float".equals(getInstance().getType())) {
-                        o = Float.valueOf(value);
-                    } else if ("java.lang.Integer".equals(getInstance().getType())) {
 
-                        o = (Object) value;
-                    } else if ("java.lang.Boolean".equals(getInstance().getType())) {
-                        o = Boolean.valueOf(value);
-                    } else if ("java.util.Date".equals(getInstance().getType())) {
+        value = value.trim();
+        System.out.println("value en integer" + value);
+        if (value.equals("")) {
+            System.out.println("entro a vacio");
+            o = null;
+        } else {
+            try {
+                if ("java.lang.String".equals(getInstance().getType()) || "java.lang.String[]".equals(getInstance().getType()) || "org.mtop.modelo.EstadoParteMecanica".equals(getInstance().getType()) || "java.lang.MultiLineString".equals(getInstance().getType())) {
+                    o = value;
+                } else if ("java.lang.Long".equals(getInstance().getType())) {
+                    o = Long.valueOf(value);
+                } else if ("java.lang.Float".equals(getInstance().getType())) {
+                    o = Float.valueOf(value);
+                } else if ("java.lang.Integer".equals(getInstance().getType())) {
 
-                        SimpleDateFormat sdf;
-                        sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        Date fecha = null;
-                        try {
-                            fecha = sdf.parse(value);
-                        } catch (ParseException pe) {
-                            log.info("eqaula --> error converter date:" + pe.getMessage());
-                        }
-                        o = fecha;
-                    } else if ("java.lang.Double".equals(getInstance().getType())) {
-                        o = Double.valueOf(value);
-                    } else {
-                        o = value;
+                    o = (Object) value;
+                } else if ("java.lang.Boolean".equals(getInstance().getType())) {
+                    o = Boolean.valueOf(value);
+                } else if ("java.util.Date".equals(getInstance().getType())) {
+
+                    SimpleDateFormat sdf;
+                    sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fecha = null;
+                    try {
+                        fecha = sdf.parse(value);
+                    } catch (ParseException pe) {
+                        log.info("eqaula --> error converter date:" + pe.getMessage());
                     }
-                } catch (Exception e) {
-                    log.info("eqaula --> error converter: " + value);
+                    o = fecha;
+                } else if ("java.lang.Double".equals(getInstance().getType())) {
+                    o = Double.valueOf(value);
+                } else {
+                    o = value;
                 }
+            } catch (Exception e) {
+                log.info("eqaula --> error converter: " + value);
             }
         }
 
-        System.out.println("valor de la propuiedad a convertir" + o);
+        System.out.println(
+                "valor de la propuiedad a convertir" + o);
         return (Serializable) o;
     }
 
@@ -731,6 +733,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public List<Property> findAllPropiedades() {
-        return findAll(Property.class);
+        return findAll(Property.class
+        );
     }
 }

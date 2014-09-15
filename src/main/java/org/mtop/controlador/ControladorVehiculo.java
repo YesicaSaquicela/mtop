@@ -105,18 +105,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private String mensaje1;
 
     public String getMensaje1() {
-        System.out.println("retorna"+mensaje1);
+        System.out.println("retorna" + mensaje1);
         return mensaje1;
     }
 
     public void setMensaje1(String mensaje1) {
-        System.out.println("fijo"+mensaje1);
+        System.out.println("fijo" + mensaje1);
         this.mensaje1 = mensaje1;
     }
-    
-    
-    
-    
 
     public boolean isDesabilitar() {
         return desabilitar;
@@ -486,6 +482,52 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
         }
+        System.out.println("entro a buscar");
+
+        List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
+        for (Vehiculo vehiculo : listVehiculos2) {
+            setId(vehiculo.getId());
+            bea = getInstance().findBussinesEntityAttribute("Motor");
+            for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
+
+                 if (bussinesEntityAttribute.getName().equals("serie")) {
+                   if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) ) {
+                        Boolean ban = false;
+                        for (Vehiculo v : lvs) {
+                            if (v.getId().equals(vehiculo.getId())) {
+                                ban = true;
+                            }
+                        }
+                        if (!ban) {
+                            lvs.add(vehiculo);
+                        }
+
+                    }
+
+                }
+            }
+            bea = getInstance().findBussinesEntityAttribute("Chasis");
+            for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
+                if (bussinesEntityAttribute.getName().equals("serie")) {
+                 
+
+                    if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)) {
+                        Boolean ban = false;
+                        for (Vehiculo v : lvs) {
+                            if (v.getId().equals(vehiculo.getId())) {
+                                ban = true;
+                            }
+                        }
+                        if (!ban) {
+                            lvs.add(vehiculo);
+                           
+                        }
+                    }
+
+                }
+            }
+
+        }
 
         if (lvs.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -520,6 +562,32 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (vh.getPlaca().toLowerCase().contains(query.toLowerCase())) {
                 ced.add(vh.getPlaca());
             }
+        }
+        List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
+        for (Vehiculo vehiculo : listVehiculos2) {
+            setId(vehiculo.getId());
+            bea = getInstance().findBussinesEntityAttribute("Motor");
+            for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
+
+                if (bussinesEntityAttribute.getName().equals("serie")) {
+                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                        ced.add((String) bussinesEntityAttribute.getValue());
+                        System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
+                    }
+
+                }
+            }
+            bea = getInstance().findBussinesEntityAttribute("Chasis");
+            for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
+                if (bussinesEntityAttribute.getName().equals("serie")) {
+                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                        ced.add((String) bussinesEntityAttribute.getValue());
+                        System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
+                    }
+
+                }
+            }
+
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
@@ -792,17 +860,16 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         System.out.println("id a fijar" + vehiculoId);
         setId(vehiculoId);
-        if(vehiculoId != 0){
-        System.out.println("get instance vehiculo"+getInstance().getId());
-        System.out.println("gent instance persona"+getInstance().getPersona());
-        idPersona = getInstance().getPersona().getId();
-        }else{
+        if (vehiculoId != 0) {
+            System.out.println("get instance vehiculo" + getInstance().getId());
+            System.out.println("gent instance persona" + getInstance().getPersona());
+            idPersona = getInstance().getPersona().getId();
+        } else {
             System.out.println("entro a no");
             setInstance(new Vehiculo());
             System.out.println(""
-                    + "vehiculo en no"+getInstance());
+                    + "vehiculo en no" + getInstance());
         }
-  
 
     }
 
@@ -989,6 +1056,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void crearKardex() {
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Kardex.class
+                .getName());
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         Kardex k = new Kardex();
@@ -997,6 +1067,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         k.setLastUpdate(now);
         k.setActivationTime(now);
         k.setVehiculo(getInstance());
+        k.setType(_type);
+        k.buildAttributes(bussinesEntityService);
+        create(k);
         save(k);
 
     }
