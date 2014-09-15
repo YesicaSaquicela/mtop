@@ -24,8 +24,8 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="1" y="0" width="555" height="128" uuid="cd25e9fa-3407-4b68-85e6-212bdd5d12cc"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/reportes/10617287_812462588772870_1932920118_n.jpg"]]></imageExpression>
+				<reportElement x="16" y="0" width="540" height="128" uuid="8806e829-8e47-4745-800f-d02cbddea8ae"/>
+				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/lpersonal.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
