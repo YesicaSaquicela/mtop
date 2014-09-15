@@ -10,7 +10,8 @@
         <ui:param name="title" value="Sign up" />
 
         <ui:define name="header">
-            <h3>Ingresar a MTOP</h3>
+            <br/>
+            <h3>Bienvenido al sofware del MTOP</h3>
         </ui:define>	
 
         <ui:define name="content">
@@ -37,7 +38,7 @@
                                 </style>
 
                                 <div class="clearfix">
-                                    <label for="name" >Username</label>
+                                    <label for="name" >Usuario</label>
 
                                     <div class="input-group">
                                         
@@ -54,13 +55,13 @@
                                 </div>
 
                                 <div class="clearfix">
-                                    <label for="password" >Password</label>
+                                    <label for="password" >Contraseña</label>
 
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
                                         
                                         <h:inputSecret id="password" value="#{credentials.password}"
-                                                       styleClass=" form-control" style="text-transform: uppercase;"  required="true">
+                                                       styleClass=" form-control" style="text-transform: uppercase;" requiredMessage="Contraseña incorrecta" required="true">
                                         </h:inputSecret>
                                         <br/><span class="help-inline"></span>
                                     </div>
