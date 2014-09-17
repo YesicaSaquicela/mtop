@@ -398,6 +398,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
      * lists
      */
     public List<BussinesEntityAttribute> findBussinesEntityAttribute(final String names) {
+        System.out.println("entro a finbusssines on"+names);
         if (names == null) {
             return new ArrayList<BussinesEntityAttribute>();
         }

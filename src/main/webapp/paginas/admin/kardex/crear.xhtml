@@ -380,19 +380,19 @@
                                             value="#{controladorKardex.instance.observaciones}"
                                             inlinehelp="Ingrese una descripción"
                                             execute ="@this save" render="descripcion"/><br></br>
-                                 #{ui.getProperties(controladorKardex.instance)}
+                                
                                 <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
                                    
                                     <c:forEach items="#{ui.getProperties(controladorKardex.instance)}" var="p" >
-                                        ds
+                                     
                                         <div  class="panel panel-primary">
                                             <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
                                             <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
-                                               df
+                                            
                                                 <c:choose>                        
                                                     <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
-                                                        dsfd
+                                                     
                                                         <h:panelGroup  layout="block" class="clearfix">
                                                             <ui:repeat value="#{controladorKardex.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
@@ -545,7 +545,8 @@
                                 </p:tabView><br></br><br></br>
 
                                 <div class="admin-actions " align="center">
-                                    <p:commandButton id="save" value="Guardar"   styleClass="btn  btn-success" action="#{controladorKardex.guardar}"
+                                    <p:commandButton id="save" value="Guardar"   styleClass="btn  btn-success" 
+                                                     action="#{controladorKardex.guardar}" update=":form:kar"
                                                      />
 
                                 </div>

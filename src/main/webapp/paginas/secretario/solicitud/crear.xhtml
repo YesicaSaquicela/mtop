@@ -272,20 +272,20 @@
                                                                 <center>
                                                                     <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrabv}"   
-                                                                                    completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletarv}"/> 
+                                                                    <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                    completeMethod="#{controladorVehiculo.autocompletar}"/> 
 
 
 
 
                                                                     <p:commandButton process="@form" value="Buscar" 
                                                                                      icon="ui-icon-search" update=":form:basicDT" 
-                                                                                     action="#{controladorSolicitudReparacionMantenimiento.buscarv()}" 
+                                                                                     action="#{controladorVehiculo.buscar()}" 
                                                                                      styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                     #{' '} #{' '} 
-                                                                    <p:commandButton process="@this" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:basicDT :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiarv()}" styleClass="btn btn-success" >
+                                                                    <p:commandButton process="@this" icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:basicDT :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                 </center>
@@ -303,7 +303,7 @@
 
 
                                                 <tbody>
-                                                    <p:dataTable id="basicDT" var="v" value="#{controladorSolicitudReparacionMantenimiento.listaVehiculos}"
+                                                    <p:dataTable id="basicDT" var="v" value="#{controladorVehiculo.listaVehiculos}"
                                                                  paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20">
@@ -320,14 +320,14 @@
                                                         </p:column>
 
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandButton update=":form:vehiculo" process="@this" title="Agregar" icon="ui-icon-check">
+                                                            <p:commandButton update=":form" process="@this" title="Agregar" icon="ui-icon-check">
                                                                 <f:setPropertyActionListener value="#{v}" target="#{controladorSolicitudReparacionMantenimiento.vehiculo}" />
                                                                 <f:setPropertyActionListener value="#{v.id}" target="#{controladorVehiculo.vehiculoId}" />
                                                             </p:commandButton>
                                                         </p:column>
                                                     </p:dataTable>
                                                     <br/>
-                                                    <p:panel id="vehiculo"  >
+                                                    <p:panel id="vehiculo" rendered="#{controladorVehiculo.instance.id ne null}"  >
                                                         <div class="panel panel-primary">
                                                             <div class="panel-heading"  align="center">Datos de Vehículo seleccionado</div>
                                                             <p:panel >
@@ -578,7 +578,7 @@
 
                                                         <p:column style="width:4%;text-align: center">
 
-                                                            <p:commandButton update=":form:req" process="@this" title="Agregar" icon="ui-icon-check" >
+                                                            <p:commandButton update=":form" process="@this" title="Agregar" icon="ui-icon-check" >
                                                                 <f:setPropertyActionListener value="#{vr}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
 
                                                             </p:commandButton>
@@ -588,17 +588,19 @@
 
 
                                                     <br/>
-                                                    <div class="admin-actions" align="right">
+                                                    
+                                                    <br/>
+                                                    
+                                                    <p:panel id="req" rendered="#{controladorSolicitudReparacionMantenimiento.requisicion.id ne null}" >
+                                                        <div class="admin-actions" align="right">
                                                         <p:commandButton id="save3" value="Quitar Requisición" 
                                                                          icon="ui-icon-closethick"  styleClass="btn  btn-success" 
                                                                          process="@this" update="@form" >
                                                             <f:setPropertyActionListener value="#{null}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
                                                         </p:commandButton>
-                                                    </div>
-                                                    <br/>
-
-                                                    <p:panel id="req"  >
+                                                    </div><br/>
                                                         <div class="panel panel-primary">
+                                                            
                                                             <div class="panel-heading"  align="center">Datos de Requisición seleccionada</div>
                                                             <p:panel >
                                                                 <div class="container-fluid" align="center">
@@ -647,29 +649,72 @@
 
 
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Confirmación</center></div>
+                                <div class="panel-heading"><center>Datos de la solicitud de reparación y mantenimiento a crear</center></div>
                                 <p:panel>
-                                    <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
-                                        <h:panelGrid >
-                                            <h:outputText value="Número de solicitud: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Fecha de solicitud: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Persona que solicita: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.concatenarNombre}" styleClass="outputLabel"/><br/>
+                                     <div class="container-fluid">
+                                        <!-- Example row of columns -->
+                                        <div class="row">
+                                            <div class="col-md-6"> 
 
-                                            <h:outputText value="Persona que recibe: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Observación: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" styleClass="outputLabel"/>
+                                                <h:panelGroup id="numSol" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Número de solicitud: " /><br/>
+                                                        <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.numSolicitud}" styleClass="outputLabel"/><br/>
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                                <h:panelGroup id="fecSol" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Fecha de solicitud: " /><br/>
+                                                        <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}" styleClass="outputLabel"/><br/>
+                                           
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                                <h:panelGroup id="perSol" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                          <h:outputLabel value="Persona que solicita: " /><br/>
+                                                          <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.concatenarNombre}" styleClass="outputLabel"/><br/>
 
-                                            <h:outputText value="Número de Requisición: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.numRequisicion}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Placa del vehículo: " />
-                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo.placa}" styleClass="outputLabel"/><br/>
-                                        </h:panelGrid>
-                                        <h:panelGrid>
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                                <h:panelGroup id="numReq2" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                              
+                                                       <h:outputLabel value="Observación: " /><br/>
+                                                        <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}" styleClass="outputLabel"/>
 
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                            </div>
+                                             <div class="col-md-6"> 
+                                                 <h:panelGroup id="perRec" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                           <h:outputLabel value="Persona que recibe: " /><br/>
+                                                           <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}" styleClass="outputLabel"/><br/>
+                                            
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                                 <h:panelGroup id="plaVeh" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                           <h:outputLabel value="Placa del vehículo: " /><br/>
+                                                           <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.vehiculo.placa}" styleClass="outputLabel"/><br/>
+                                       
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                                 <h:panelGroup id="numReq" rendered="#{controladorSolicitudReparacionMantenimiento.requisicion.id ne null}" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                           <h:outputLabel value="Número de Requisición: " rendered="#{controladorSolicitudReparacionMantenimiento.requisicion.id ne null}"/><br/>
+                                                           <h:outputText value="#{controladorSolicitudReparacionMantenimiento.requisicion.numRequisicion}" 
+                                                                         rendered="#{controladorSolicitudReparacionMantenimiento.requisicion.id ne null}" styleClass="outputLabel"/><br/>
+                                            
+                                                    </div>
+                                                </h:panelGroup><br/>
+                                             </div>
+                                            
+                                        </div>
+                                        
+                                        
+                                        
+                                            
 
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="todas">
@@ -677,9 +722,11 @@
 
 
                                                         <tbody>
-                                                            <h:outputText value="LISTA DE ITEMS" />
+                                                            
                                                             <p:dataTable id="listaaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la">
-
+                                                                <f:facet name="header" class="panel-heading" >
+                                                                    Lista de ítems de solicitud de reparación y mantenimiento
+                                                                </f:facet>
                                                                 <p:column headerText="Elemento a Revisar">
                                                                     <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
                                                                 </p:column>
@@ -688,10 +735,19 @@
                                                                     <h:outputText value="#{la.descripcionFalla }"></h:outputText>
                                                                 </p:column>
 
-                                                            </p:dataTable></tbody></div></div></div>
-                                        </h:panelGrid>
-
-                                    </h:panelGrid>
+                                                            </p:dataTable></tbody>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                        
+                                     </div>
+                                            
+                                            
+                                    
+                                            
+                                        
                                 </p:panel>
                             </div>
 
