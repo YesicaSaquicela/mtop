@@ -63,7 +63,7 @@
                                         </h:panelGroup><br></br>
                                         <h:panelGroup id="p" layout="block" class="clearfix">
                                             <div class="input">
-                                                <h:outputLabel value="Conductor:"/> <br></br>
+                                                <h:outputLabel value="Conductor*"/> <br></br>
                                                 <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
                                                                  converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                                  requiredMessage="Se necesita elegir un conductor para el vehículo">  
@@ -125,17 +125,17 @@
                                                     requiredMessage="Se necesita elegir un número de pasajeros para el vehículo"/><br></br>
                                         <h:panelGroup id="p1" layout="block" class="clearfix">
                                             <div class="input">
-                                                <h:outputLabel value="Tracción"/> <br></br>
+                                                <h:outputLabel value="Tracción*"/> <br></br>
                                                 <p:selectOneMenu id="traccion"  value="#{controladorVehiculo.instance.traccion}" effect="fade"
                                                                  converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                                 requiredMessage="Se necesita la traccion para el vehículo">  
-                                                    <p:ajax event="change" update="p" />
+                                                                 requiredMessage="Se necesita la tracción para el vehículo">  
+                                                    <p:ajax event="change" update="p1" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                                     <f:selectItem itemLabel="4x4" itemValue="4x4" />  
                                                     <f:selectItem itemLabel="4x2" itemValue="4x2" /> 
                                                     <f:selectItem itemLabel="4x1" itemValue="4x1" />
                                                 </p:selectOneMenu> <br></br>
-                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.traccion != ''}" styleClass="validation-status" />
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.traccion != null}" styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Elija la tracción del vehículo<ocp:message forId="traccion" /></span><br></br><br></br> 
                                             </div>
                                         </h:panelGroup >
@@ -294,7 +294,7 @@
                                             <div  class="panel panel-primary">
                                                 <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                                <p:tab title="#{p.label}"  closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
+                                                <p:tab title="#{p.label}"  closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure' and controladorVehiculo.obtenerAtributoDinamico(p.name)}" >
                                                     <c:choose>                        
                                                         <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
@@ -355,7 +355,7 @@
                                                                                 <f:selectItem itemLabel="false" itemValue="false" />
                                                                             </p:selectOneButton>
 
-                                                                            <h:graphicImage value="#{resource['visto.gif']}" rendered="#{a.value != null}"
+                                                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                                             styleClass="validation-status" />
                                                                             <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
                                                                                 <ocp:message forId="str" />

@@ -12,7 +12,7 @@
 
     <ui:define name="header">
 
-      </ui:define>
+    </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -23,127 +23,122 @@
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <!--Opción de mensaje, cuando se realiza una acción-->
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DEL ESTADO DE UBICACIÓN DE LOS VEHÍCULOS</center></div>
+                        <div class="panel-heading"><center>LISTA DEL ESTADO DE UBICACIÓN DE LOS VEHÍCULOS</center></div>
                         <p:panel>
-                           
+
 
                             <!--Botones de admin-->
-                            <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
+
+                            <div class="panel panel-info">
+                                  <div class="panel-heading">
+                               
 
 
-                                                    <div class="col-lg-6">
+                                       
+                                            <center>
+                                                <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                        <div class="input-group">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
-
-                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                 completeMethod="#{controladorVehiculo.autocompletarEstadoV}"/> 
-                                                                &nbsp;&nbsp;
+                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrabe}"   
+                                                                 completeMethod="#{controladorVehiculo.autocompletarEstadoV}"/> 
+                                                &nbsp;&nbsp;
 
 
 
 
 
-                                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listae" action="#{controladorVehiculo.buscarEstadoV()}" styleClass="btn btn-success" >
+                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listae" action="#{controladorVehiculo.buscarEstadoV()}" >
 
-                                                                </p:commandButton>
+                                                </p:commandButton>
 
-                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listae :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
+                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listae :form:acSimple" action="#{controladorVehiculo.limpiarEstadoV()}" >
 
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
+                                                </p:commandButton>
+                                            </center>
+                                       
 
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> </p:panel></div>
-
-                                <br/><br/>
-                            </div>
- <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                  </div>              
+ </div>
+                               
+                           
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
 
 
                                         <tbody>
-                                            <p:dataTable id="listae" value="#{controladorVehiculo.listaVehiculos}" var="vehiculo"
+                                            <p:dataTable id="listae" value="#{controladorVehiculo.listaEstadoV}" var="estado"
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20">
-                                                <!--f:setPropertyActionListener target="# {controladorVehiculo.instance}" value="vehiculo"/-->
-                                                <p:column headerText="Registro del Vehículo" sortBy="#{vehiculo.numRegistro}">
-                                                    <h:outputText value="#{vehiculo.numRegistro}"></h:outputText>
+
+                                                <p:column headerText="Registro del Vehículo" sortBy="#{estado.vehiculo.numRegistro}">
+                                                    <h:outputText value="#{estado.vehiculo.numRegistro}"></h:outputText>
                                                 </p:column>
 
-                                                <p:column headerText="Fecha de Inicio actual"   >
-                                                    <h:outputText value="#{controladorVehiculo.obtenerUltimaFechaV(vehiculo)}"></h:outputText>
+                                                <p:column headerText="Fecha de Inicio actual" sortBy="#{estado.fechaEntrada}">
+                                                    <h:outputText value="#{controladorVehiculo.formato(estado.fechaEntrada)}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Estado actual">
-                                                    <h:outputText value="#{controladorVehiculo.obtenerUltimoEstadoV(vehiculo)}"></h:outputText>
+                                                <p:column headerText="Estado actual" sortBy="#{estado.nombre}">
+                                                    <h:outputText value="#{estado.nombre}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Ubicacion actual">
-                                                    <h:outputText value="#{controladorVehiculo.obtenerUltimaUbicacionV(vehiculo)}"></h:outputText>
+                                                <p:column headerText="Ubicacion actual" sortBy="#{estado.ubicacion}">
+                                                    <h:outputText value="#{estado.ubicacion}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 5%"> 
+                                                    <center>
                                                     <p:button  icon="ui-icon-pencil" outcome="estadoUbicacion" title="Cambiar Estado Ubicación">
                                                         <f:param name="estadovId" value="#{vehiculo.id}"></f:param>
                                                     </p:button>
+                                                        </center>
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div></div> <br/>
 
-                           
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading"><center>GENERAR REPORTE DEL CONTROL DE ESTADO DE LOS VEHÍCULOS</center></div>
-                                    <p:panel >
-                                        <h:panelGrid columns="3" cellpadding="5">
-                                            <div class="input">
-                                                <h:outputLabel for="menu" value="Seleccione :  " /> 
 
-                                                <p:selectCheckboxMenu  id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Tipo de Vehículo  "
-                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                                    <f:selectItems value="#{controladorVehiculo.tipos}" />
-                                                    <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true" /> 
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><center>GENERAR REPORTE DEL CONTROL DE ESTADO DE LOS VEHÍCULOS</center></div>
+                                <p:panel >
+                                    <h:panelGrid columns="3" cellpadding="5">
+                                        <div class="input">
+                                            <h:outputLabel for="menu" value="Seleccione:  " /> 
 
-                                                    <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
+                                            <p:selectCheckboxMenu  id="menu" value="#{controladorVehiculo.tipoSeleccionados}" label="Tipo de Vehículo  "
+                                                                   filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                <f:selectItems value="#{controladorVehiculo.tipos}" />
+                                                <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true" /> 
+
+                                                <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
 
 
 
-                                                </p:selectCheckboxMenu> 
-                                            </div>
-                                            <br/><br/>
-                                            <div class="input">
-                                                <h:outputLabel for="menu2" value="Seleccione:  " /> 
+                                            </p:selectCheckboxMenu> 
+                                        </div>
+                                        <br/><br/>
+                                        <div class="input">
+                                            <h:outputLabel for="menu2" value="Seleccione:  " /> 
 
-                                                <p:selectCheckboxMenu  onchange="" id="menu2" value="#{controladorVehiculo.mesyanioSeleccionados}" label="Mes y Año "
-                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                                    <f:selectItems value="#{controladorVehiculo.mesyanio}" />
-                                                    <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true"/> 
+                                            <p:selectCheckboxMenu  onchange="" id="menu2" value="#{controladorVehiculo.mesyanioSeleccionados}" label="Mes y Año "
+                                                                   filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                <f:selectItems value="#{controladorVehiculo.mesyanio}" />
+                                                <p:ajax update="@form" event="toggleSelect" process="@this" immediate="true"/> 
 
-                                                    <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
+                                                <p:ajax update="@form" event="change" process="@this" immediate="true"/> 
 
-                                                </p:selectCheckboxMenu> 
-                                            </div>
+                                            </p:selectCheckboxMenu> 
+                                        </div>
 
-                                            <center><div class="admin-actions " align="center"> 
+                                        <center><div class="admin-actions " align="center"> 
                                                 <p:commandButton value="Generar Reporte"  
                                                                  disabled="#{controladorVehiculo.mesyanioSeleccionados == null or controladorVehiculo.tipoSeleccionados == null}" 
                                                                  action="#{controladorVehiculo.generaReporte()}" styleClass="btn btn-success" >
+                                                    
                                                 </p:commandButton>
                                             </div></center>
-                                        </h:panelGrid>
-                                    </p:panel>
-                                </div>
-                                    </p:panel>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </div>
+                        </p:panel>
 
                     </div></div></div>
         </h:form>

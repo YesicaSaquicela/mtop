@@ -8,7 +8,7 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-    
+
     <f:metadata>
         <f:viewParam id="sol" name="reqId" value="#{controladorRequisicion.requisicionId}"/>
 
@@ -24,9 +24,9 @@
                     <div align="right">
 
                         <p:button 
-                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
-                                  outcome="/paginas/secretario/requisicion/lista" 
-                                  styleClass="btn  btn-success"/>
+                            icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                            outcome="/paginas/secretario/requisicion/lista" 
+                            styleClass="btn  btn-success"/>
                     </div>
                 </div>
             </div>
@@ -34,8 +34,16 @@
         <h:form id="p2">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                    <div align="center">
-
+                    <div align="center" class="table-responsive">
+                        <p:panelGrid  style="width:100%"   >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        <img src="../../../resources/lrequi.png" width="900" height="193" alt="lrequi"/>
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
                         <p:panelGrid  id="imp1"                                                  
                                       style="width:100%" columns="4" >
                             <f:facet   name="header" class="panel-heading" >

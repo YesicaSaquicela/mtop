@@ -15,7 +15,7 @@
     </f:metadata>
     <ui:define name="header">
 
-       </ui:define>
+    </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -28,132 +28,115 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>LISTA DEL MANTENIMIENTO DE LOS VEHÍCULOS</center></div>
                             <p:panel rendered="#{controladorVehiculo.vista ne 'actividades'}" >
-                             
 
-                                <div class="row">
+                                     <div class="panel panel-info">
+                                <div class="panel-heading">
+                                     
+                              
+                                                                <center>
+                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="todas">
-                                            <div class="table-responsive">
-                                                <div class="admin-actions">
-                                                    <div class="panel panel-success">
-                                                        <p:panel>
-                                                            <div class="panel-body">
-                                                                <div class="container-fluid" align="center">
-                                                                    <div class="row-fluid">
+                                                                    <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                     completeMethod="#{controladorVehiculo.autocompletar}"/> 
+                                                                    &nbsp;&nbsp;
 
 
-                                                                        <div class="col-lg-6">
+                                                                    <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}"  >
 
-                                                                            <div class="input-group">
-                                                                                <center>
-                                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
+                                                                    </p:commandButton>
 
-                                                                                    <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                                     completeMethod="#{controladorVehiculo.autocompletar}"/> 
-                                                                                    &nbsp;&nbsp;
+                                                                    <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}">
 
-
+                                                                    </p:commandButton>
+                                                                </center>
+                                                        </div>
 
 
-
-                                                                                    <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}" styleClass="btn btn-success" >
-
-                                                                                    </p:commandButton>
-
-                                                                                    <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
-
-                                                                                    </p:commandButton>
-                                                                                </center>
-                                                                            </div>
+                                </div>
+  <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="todas">
+                                        <div class="table-responsive">
 
 
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> </p:panel></div>
+                                          
+                                            <tbody>
+                                                <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v" paginator="true" rows="15"                         
+                                                             paginatorPosition="top"
+                                                             rowsPerPageTemplate="5,10,15,20">
+                                                    <p:column headerText="Registro" sortBy="#{v.numRegistro}">
+                                                        <h:outputText value="#{v.numRegistro}"></h:outputText>
 
+                                                    </p:column>
+                                                    <p:column headerText="Kilometraje Actual" sortBy="#{v.kilometraje}">
+                                                        <h:outputText value="#{v.kilometraje}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Próximo Kilometraje" sortBy="#{controladorVehiculo.actividadplan.kilometraje }">
+                                                        <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Observación" sortBy="#{v.description}">
+                                                        <h:outputText value="#{v.description}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column style="width: 10%; text-align: center;">
+                                                        <f:facet name="header">                               
+                                                            <h:outputText value="ALERTAS" />  
+                                                        </f:facet> 
+                                                        <h:outputText value="#{controladorVehiculo.obtenerAlerta(v.kilometraje)}" rendered="#{not empty controladorVehiculo.obtenerAlerta(v.kilometraje)}" style="color: red;"/><br/>
 
-                                                </div>
-
-   <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                                                <tbody>
-                                                    <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v" paginator="true" rows="15"                         
-                                                                 paginatorPosition="top"
-                                                                 rowsPerPageTemplate="5,10,15,20">
-                                                        <p:column headerText="Registro" sortBy="#{v.numRegistro}">
-                                                            <h:outputText value="#{v.numRegistro}"></h:outputText>
-
-                                                        </p:column>
-                                                        <p:column headerText="Kilometraje Actual" sortBy="#{v.kilometraje}">
-                                                            <h:outputText value="#{v.kilometraje}"></h:outputText>
-                                                        </p:column>
-                                                        <p:column headerText="Próximo Kilometraje" sortBy="#{controladorVehiculo.actividadplan.kilometraje }">
-                                                            <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
-                                                        </p:column>
-                                                        <p:column headerText="Observación" sortBy="#{v.description}">
-                                                            <h:outputText value="#{v.description}"></h:outputText>
-                                                        </p:column>
-                                                        <p:column style="width: 10%; text-align: center;">
-                                                            <f:facet name="header">                               
-                                                                <h:outputText value="ALERTAS" />  
-                                                            </f:facet> 
-                                                            <h:outputText value="#{controladorVehiculo.obtenerAlerta(v.kilometraje)}" rendered="#{not empty controladorVehiculo.obtenerAlerta(v.kilometraje)}" style="color: red;"/><br/>
-
-                                                        </p:column>
-                                                        <p:column headerText="Cambiar Kilometraje" style="width: 5%"> 
-                                                            <center>
-                                                                <p:button  icon="ui-icon-pencil" outcome="cambiarKilometraje" title="Cambiar Kilometraje">
-                                                                    <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                                </p:button>
-                                                                <div class="admin-actions " align="center" > 
+                                                    </p:column>
+                                                    <p:column headerText="Cambiar Kilometraje" style="width: 5%"> 
+                                                        <center>
+                                                            <p:button  icon="ui-icon-pencil" outcome="cambiarKilometraje" title="Cambiar Kilometraje">
+                                                                <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                            </p:button>
+                                                            <div class="admin-actions " align="center" > 
 
 
 
 
 
-                                                                </div>
-                                                            </center>
+                                                            </div>
+                                                        </center>
 
 
-                                                        </p:column>
-                                                        <p:column headerText="Visualizar actividades" >
-                                                            <center>
-                                                                <!--p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar1" icon="ui-icon-search" 
-                                                                                 oncomplete="#{'carDialog.show();'}" immediate="true" 
-                                                                                 actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
-                                                                                 title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
-                                                                    <p:ajax process="@this" update=":form-dialog "/> 
-                                                                </p:commandButton-->
+                                                    </p:column>
+                                                    <p:column headerText="Visualizar actividades" >
+                                                        <center>
+                                                            <!--p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar1" icon="ui-icon-search" 
+                                                                             oncomplete="#{'carDialog.show();'}" immediate="true" 
+                                                                             actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
+                                                                             title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
+                                                                <p:ajax process="@this" update=":form-dialog "/> 
+                                                            </p:commandButton-->
 
-                                                                <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar12" icon="ui-icon-search" 
-                                                                                 process="@this" update="@form" 
-                                                                                 actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
-                                                                                 title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
+                                                            <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar12" icon="ui-icon-search" 
+                                                                             process="@this" update="@form" 
+                                                                             actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
+                                                                             title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
 
-                                                                    <f:setPropertyActionListener value="actividades" target="#{controladorVehiculo.vista}" />
-                                                                </p:commandButton>
-
-
-
-                                                                <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq false}" id="visualizar2" icon="ui-icon-search" 
-                                                                                 oncomplete="#{'carDialog1.show();'}" immediate="true" 
-                                                                                 actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
-                                                                                 title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
-                                                                    <p:ajax process="@this" update=":form-dialog1 "/> 
-                                                                </p:commandButton> <br/>
+                                                                <f:setPropertyActionListener value="actividades" target="#{controladorVehiculo.vista}" />
+                                                            </p:commandButton>
 
 
-                                                            </center>
 
-                                                        </p:column>
-                                                    </p:dataTable>
-                                                </tbody>
+                                                            <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq false}" id="visualizar2" icon="ui-icon-search" 
+                                                                             oncomplete="#{'carDialog1.show();'}" immediate="true" 
+                                                                             actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
+                                                                             title="Visualizar" disabled="#{controladorVehiculo.verificarPlan() eq false}">
+                                                                <p:ajax process="@this" update=":form-dialog1 "/> 
+                                                            </p:commandButton> <br/>
 
-                                            </div>
+
+                                                        </center>
+
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </tbody>
+
                                         </div>
                                     </div>
                                 </div>
+
 
                             </p:panel>  </div></p:panel>
 
@@ -166,7 +149,7 @@
                         </p:button>
 
                     </div><br/>
-                 
+
                     <div align="center">
                         <p:panelGrid  id="imp"  style="margin-top:20px" columns="2" rendered="#{controladorVehiculo.vista eq 'actividades'}" >
 
@@ -207,10 +190,10 @@
 
                             <f:facet name="footer">
                                 <div class="admin-actions " align="right" >
-                                <p:commandButton rendered="#{controladorVehiculo.vista eq 'actividades'}" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                                    <p:printer target=":form:imp" />  
-                                </p:commandButton>
-                                    </div> 
+                                    <p:commandButton rendered="#{controladorVehiculo.vista eq 'actividades'}" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                        <p:printer target=":form:imp" />  
+                                    </p:commandButton>
+                                </div> 
                             </f:facet>
                         </p:panelGrid>
                     </div>

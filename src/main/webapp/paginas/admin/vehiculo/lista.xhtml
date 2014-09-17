@@ -13,7 +13,7 @@
     </f:metadata>
     <ui:param name="titulo" value="Lista de Vehiculos"/>
     <ui:define name="header-replace">
-             
+
     </ui:define>
     <ui:define name="content">
         <h:form id="form">
@@ -21,78 +21,62 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE VEHÍCULOS</center></div>
+                        <div class="panel-heading"><center>LISTA DE VEHÍCULOS</center></div>
                         <p:panel>
-                            
+
 
                             <!--Botones de admin-->
-                            <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
 
 
-                                                    <div class="col-lg-6">
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                        <div class="input-group">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+                                        <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                         completeMethod="#{controladorVehiculo.autocompletar}"/> 
 
-                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                 completeMethod="#{controladorVehiculo.autocompletar}"/> 
+ &nbsp;&nbsp;
+                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:listap" action="#{controladorVehiculo.buscar()}"  >
 
+                                        </p:commandButton>
 
+                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" >
 
-
-
-
-                                                                <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:listap" action="#{controladorVehiculo.buscar()}" styleClass="btn btn-success" >
-
-                                                                </p:commandButton>
-
-                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" styleClass="btn btn-success" >
-
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> </p:panel></div><br/>
-
-                                <div class="admin-actions">
-                                    <h:link styleClass="btn btn-success"
-                                            outcome="crear"
-                                            value="Crear"
-                                            type="button">  
-                                        <f:param name="vehiculoId" ></f:param>
-                                    </h:link>
-
-
+                                        </p:commandButton>
+                                    </center>
                                 </div>
-                                <div class="admin-actions" align="right">
-                                  <h:panelGrid id="export" class="columns" >
-                                                <p:panel>
-                                                    <h:outputText value="Generar Reporte" />  
-                                                    <br/>
-                                                    <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" styleClass="btn">                    
-                                                        <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
 
-                                                    </h:commandLink>                    
-                                                </p:panel>
-                                            </h:panelGrid>
-                                    
-                                </div><br/><br/>
+
+                            </div><br/>
+
+
+                            <div class="admin-actions">
+                                <h:link styleClass="btn btn-success"
+                                        outcome="crear"
+                                        value="Crear"
+                                        type="button">  
+                                    <f:param name="vehiculoId" ></f:param>
+                                </h:link>
+
+
                             </div>
+                            <div class="admin-actions" align="right">
+                                <h:panelGrid id="export" class="columns" >
+                                    <p:panel>
+                                        <h:outputText value="Generar Reporte" />  
+                                        <br/>
+                                        <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" styleClass="btn">                    
+                                            <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
 
-    
-                                          
-                                               
-                            <div class="row">
+                                        </h:commandLink>                    
+                                    </p:panel>
+                                </h:panelGrid>
+
+                            </div>        
+<br/>
+                          
 
 
                                 <div class="tab-content">
@@ -103,15 +87,15 @@
                                             <tbody>
                                                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v"
-                                                             paginator="true" rows="15"                         
+                                                             paginator="true" rows="5"                         
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20"
                                                              emptyMessage="No se han encontrado coincidencias">
 
                                                     <p:column headerText="Nro Registro" sortBy="#{v.numRegistro}">
-                                                        
+
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
-                                                    
+
                                                     </p:column>
                                                     <p:column headerText="Color" sortBy="#{v.color}">
                                                         <h:outputText value="#{v.color}"></h:outputText>
@@ -122,40 +106,41 @@
                                                     <p:column headerText="Placa" sortBy="#{v.placa}">
                                                         <h:outputText value="#{v.placa}"></h:outputText>
                                                     </p:column>
+                                                    
                                                     <p:column headerText="Conductor" sortBy="#{v.persona.fullName}">
                                                         <h:outputText value="#{v.persona.fullName}"></h:outputText>
                                                     </p:column>
 
                                                     <p:column headerText="Editar" style="width: 5%"> 
                                                         <center>
-                                                        <p:button id="selectButton" styleClass="btn  btn-success"
-                                                                  outcome="crear"
-                                                                  icon="ui-icon-pencil" title="Editar">  
-                                                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                        </p:button> 
+                                                            <p:button id="selectButton" styleClass="btn  btn-success"
+                                                                      outcome="crear"
+                                                                      icon="ui-icon-pencil" title="Editar">  
+                                                                <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                            </p:button> 
 
                                                         </center>
 
                                                     </p:column>
-                                                                 <p:column headerText="Estado Mecánico" style="width: 5%"> 
+                                                    <p:column headerText="Estado Mecánico" style="width: 5%"> 
                                                         <center>
-                                                      
 
-                                                        <p:button id="selectButton1" icon="ui-icon-wrench" styleClass="btn  btn-success"
-                                                                  outcome="estadoMecanico" 
-                                                                  title="Editar Estado Mecánico">  
-                                                            <f:param name="vehiculoId" value="#{v.id}"></f:param>
-                                                        </p:button>
+
+                                                            <p:button id="selectButton1" icon="ui-icon-wrench" styleClass="btn  btn-success"
+                                                                      outcome="estadoMecanico" 
+                                                                      title="Editar Estado Mecánico">  
+                                                                <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                            </p:button>
                                                         </center>
 
                                                     </p:column>
                                                 </p:dataTable>
                                             </tbody><br/>
-                                        
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            
 
                         </p:panel>
                     </div>
