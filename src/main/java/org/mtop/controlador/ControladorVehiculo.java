@@ -518,6 +518,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         for (Vehiculo vehiculo : listVehiculos2) {
             setId(vehiculo.getId());
             bea = getInstance().findBussinesEntityAttribute("Motor");
+            System.out.println("presenta propieedades "+bea);
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serie")) {
@@ -601,7 +602,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serie")) {
-                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && 
+                            !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
                         System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                     }

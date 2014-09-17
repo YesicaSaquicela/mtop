@@ -239,10 +239,10 @@
 
                                             <p:inputText id="str"  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                          rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}">
-                                                
+
                                                 <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
                                             </p:inputText>
-                                            
+
                                             <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                          validator="realValidator" 
                                                          validatorMessage="No se admiten letras "
@@ -294,9 +294,9 @@
                                                 <ocp:message forId="str5" />
 
                                             </span><br/><br/>
-                                           
-                                            
-                                            
+
+
+
                                         </div>
 
 
@@ -331,8 +331,8 @@
                                                                 <center>
                                                                     <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrabv}"   
-                                                                                    completeMethod="#{controladorRequisicion.autocompletarv}"/> 
+                                                                    <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                                    completeMethod="#{controladorVehiculo.autocompletar}"/> 
 
 
 
@@ -340,13 +340,13 @@
 
 
                                                                     <p:commandButton value="Buscar" update=":form:basicDT10" 
-                                                                                     action="#{controladorRequisicion.buscarv()}" 
+                                                                                     action="#{controladorVehiculo.buscar()}" 
                                                                                      process="@form" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
                                                                     #{' '} #{' '} 
                                                                     <p:commandButton value="Limpiar" update=":form:basicDT10 :form:acSimple" 
-                                                                                     action="#{controladorRequisicion.limpiarv()}" 
+                                                                                     action="#{controladorVehiculo.limpiar()}" 
                                                                                      process="@form" styleClass="btn btn-success" >
 
                                                                     </p:commandButton>
@@ -367,7 +367,7 @@
                                                 <tbody>
                                                     <p:messages id="mensaje6" showDetail="true" autoUpdate="true" closable="true" />
 
-                                                    <p:dataTable id="basicDT10" var="items" value="#{controladorRequisicion.vehiculos}"
+                                                    <p:dataTable id="basicDT10" var="items" value="#{controladorVehiculo.listaVehiculos}"
 
                                                                  paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
@@ -860,7 +860,7 @@
 
                                                         <p:column style="width:4%;text-align: center" headerText="Acciones" >
 
-                                                            <p:commandButton update=":form:solicitudr "  process="@this" title="Agregar" icon="ui-icon-check" >
+                                                            <p:commandButton  process="@this" update="@form" title="Agregar" icon="ui-icon-check" >
                                                                 <f:setPropertyActionListener value="#{items1}" target="#{controladorRequisicion.solicitudrep}" />
 
                                                             </p:commandButton>
@@ -868,7 +868,7 @@
 
                                                     </p:dataTable>
                                                     <br/>
-                                                    <p:panel id="solicitudr"  >
+                                                    <p:panel id="solicitudr" rendered="#{controladorRequisicion.solicitudrep.id ne null}" >
                                                         <br></br>
                                                         <div align="right" class="admin-actions">
 
@@ -931,57 +931,95 @@
 
                         <p:tab id="confirm" title="Confirmación">
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Confirmación</center></div>
-                                <p:panel >
-                                    <h:panelGrid id="confirmacion" columns="2" cellpadding="7" columnClasses="grid,grid">
-                                        <h:panelGrid >
-                                            <h:outputText value="Número de requisición: " />
-                                            <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Fecha de requisición: " /><br/>
-                                            <h:outputText value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}" styleClass="outputLabel"/>
-                                            <h:outputText value="Tipo de Requisición: " /><br/>
-                                            <h:outputText value="#{controladorRequisicion.instance.tipoRequisicion}" styleClass="outputLabel"/>
-                                        </h:panelGrid>
+                                <div class="panel-heading"><center>Datos de la requisición a crear</center></div>
+                                <p:panel id="pv">
+                                    <div class="container-fluid">
+                                        <!-- Example row of columns -->
+                                        <div class="row">
+                                            <div class="col-md-6"> 
 
-                                        <h:panelGrid >
-                                            <h:outputText value="Número de Solicitud: " />
-                                            <h:outputText value="#{controladorRequisicion.solicitudrep.numSolicitud}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Requerido por: " />
-                                            <h:outputText value="#{controladorRequisicion.instance.psolicita.concatenarNombre}" styleClass="outputLabel"/><br/>
-                                            <h:outputText value="Placa del vehículo : " />
-                                            <h:outputText value="#{controladorRequisicion.vehiculo.placa}" styleClass="outputLabel"/>
-                                        </h:panelGrid>
-                                        <h:panelGrid>
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="todas">
-                                                    <div class="table-responsive">
+                                                <h:panelGroup id="numReq" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Número de requisición: " /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.instance.numRequisicion}" styleClass="outputLabel"/><br/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                                <h:panelGroup id="tipoReq" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Tipo de Requisición: " /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.instance.tipoRequisicion}" styleClass="outputLabel"/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                                <h:panelGroup id="fechaReq" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Fecha de requisición: " /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}" styleClass="outputLabel"/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                            </div>
+                                            <div class="col-md-6"> 
+                                                <h:panelGroup id="reqReq" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Requerido por: " /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.instance.psolicita.concatenarNombre}" styleClass="outputLabel"/><br/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                                 <h:panelGroup id="plVeh" rendered="#{controladorRequisicion.vehiculo.id ne null}" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Placa del vehículo : " rendered="#{controladorRequisicion.vehiculo.id ne null}" /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.vehiculo.placa}" styleClass="outputLabel" rendered="#{controladorRequisicion.vehiculo.id ne null}" />
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                                
+                                                <h:panelGroup id="numSols" rendered="#{controladorRequisicion.solicitudrep.id ne null}" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Número de Solicitud: " rendered="#{controladorRequisicion.solicitudrep.id ne null}" /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.solicitudrep.numSolicitud}" rendered="#{controladorRequisicion.solicitudrep.id ne null}" styleClass="outputLabel"/><br/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                               
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="todas">
+                                                <div class="table-responsive">
 
 
-                                                        <tbody>
-                                                            <p:dataTable id="listai2" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2">
+                                                    <tbody>
+                                                        <p:dataTable id="listai2" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2">
+                                                            <f:facet name="header">
+                                                                    Lista de ítems de requisición
+                                                                </f:facet>
+                                                            <p:column headerText="Cantidad">
+                                                                <h:outputText value="#{item2.cantidad}"></h:outputText>
+                                                            </p:column>
 
-                                                                <p:column headerText="Cantidad">
-                                                                    <h:outputText value="#{item2.cantidad}"></h:outputText>
-                                                                </p:column>
-
-                                                                <p:column headerText="Unidad de Medida">
-                                                                    <h:outputText value="#{item2.unidadMedida}"></h:outputText>
-                                                                </p:column>
-                                                                <p:column headerText="Descripción">
-                                                                    <h:outputText value="#{item2.descripcion}"></h:outputText>
-                                                                </p:column>
-
-
-                                                            </p:dataTable>
-                                                        </tbody></div></div></div>
+                                                            <p:column headerText="Unidad de Medida">
+                                                                <h:outputText value="#{item2.unidadMedida}"></h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Descripción">
+                                                                <h:outputText value="#{item2.descripcion}"></h:outputText>
+                                                            </p:column>
 
 
-                                        </h:panelGrid>
+                                                        </p:dataTable>
+                                                    </tbody>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
 
-                                    </h:panelGrid>
                                 </p:panel>
+
                             </div>
 
                             <div class="admin-actions " align="center"> 
@@ -1097,63 +1135,63 @@
                                                                 <h:panelGroup layout="block" class="clearfix">
                                                                     <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                                     <div class="input">
-                                                                         <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.String'}">
+                                                                        <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                     rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                 validator="realValidator" 
-                                                 validatorMessage="No se admiten letras "
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+                                                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        </p:inputText>
+                                                                        <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                                     validator="realValidator" 
+                                                                                     validatorMessage="No se admiten letras "
+                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                     rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                    </p:calendar>
+                                                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        </p:inputText>
+                                                                        <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                                    rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                                            <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                        </p:calendar>
 
-                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                     label="#{a.property.label}"
-                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                        <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:selectOneMenu>
-                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:inputTextarea>  
+                                                                        <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                         label="#{a.property.label}"
+                                                                                         rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                            <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                            <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                                        </p:selectOneMenu>
+                                                                        <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                         rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        </p:inputTextarea>  
 
-                                    <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                 label="#{a.property.label}"
-                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                 required="#{a.property.required}"
-                                                 > 
-                                        <f:validator validatorId="validadorDigitosDinamic"  />
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
+                                                                                     label="#{a.property.label}"
+                                                                                     rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                                     required="#{a.property.required}"
+                                                                                     > 
+                                                                            <f:validator validatorId="validadorDigitosDinamic"  />
+                                                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
 
 
-                                    </p:inputText>
+                                                                        </p:inputText>
 
-                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                    </p:selectOneButton>
+                                                                        <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                            <f:selectItem itemLabel="true" itemValue="true" />
+                                                                            <f:selectItem itemLabel="false" itemValue="false" />
+                                                                        </p:selectOneButton>
 
-                                    <h:graphicImage value="#{resource['visto.gif']}" rendered="#{a.value != null}"
-                                                    styleClass="validation-status" />
-                                    <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
-                                        <ocp:message forId="str" />
-                                        <ocp:message forId="str1" />
-                                        <ocp:message forId="str2" />
-                                        <ocp:message forId="str3" />
-                                        <ocp:message forId="str4" />
-                                        <ocp:message forId="str5" />
+                                                                        <h:graphicImage value="#{resource['visto.gif']}" rendered="#{a.value != null}"
+                                                                                        styleClass="validation-status" />
+                                                                        <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
+                                                                            <ocp:message forId="str" />
+                                                                            <ocp:message forId="str1" />
+                                                                            <ocp:message forId="str2" />
+                                                                            <ocp:message forId="str3" />
+                                                                            <ocp:message forId="str4" />
+                                                                            <ocp:message forId="str5" />
 
-                                    </span><br/><br/>
+                                                                        </span><br/><br/>
                                                                     </div>
 
                                                                 </h:panelGroup>  
@@ -1176,63 +1214,63 @@
                                             <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
                                                 #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                             <div class="input">
-                                                 <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.String'}">
+                                                <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                             rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                 validator="realValidator" 
-                                                 validatorMessage="No se admiten letras "
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                </p:inputText>
+                                                <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                             validator="realValidator" 
+                                                             validatorMessage="No se admiten letras "
+                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                             rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
-                                    </p:calendar>
+                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                </p:inputText>
+                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                    <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                </p:calendar>
 
-                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                     label="#{a.property.label}"
-                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                        <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:selectOneMenu>
-                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
-                                    </p:inputTextarea>  
+                                                <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                 label="#{a.property.label}"
+                                                                 rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                    <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                </p:selectOneMenu>
+                                                <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                </p:inputTextarea>  
 
-                                    <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                 label="#{a.property.label}"
-                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                 required="#{a.property.required}"
-                                                 > 
-                                        <f:validator validatorId="validadorDigitosDinamic"  />
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
+                                                             label="#{a.property.label}"
+                                                             rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                             required="#{a.property.required}"
+                                                             > 
+                                                    <f:validator validatorId="validadorDigitosDinamic"  />
+                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
 
 
-                                    </p:inputText>
+                                                </p:inputText>
 
-                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                    </p:selectOneButton>
+                                                <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                    <f:selectItem itemLabel="true" itemValue="true" />
+                                                    <f:selectItem itemLabel="false" itemValue="false" />
+                                                </p:selectOneButton>
 
-                                    <h:graphicImage value="#{resource['visto.gif']}" rendered="#{a.value != null}"
-                                                    styleClass="validation-status" />
-                                    <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
-                                        <ocp:message forId="str" />
-                                        <ocp:message forId="str1" />
-                                        <ocp:message forId="str2" />
-                                        <ocp:message forId="str3" />
-                                        <ocp:message forId="str4" />
-                                        <ocp:message forId="str5" />
+                                                <h:graphicImage value="#{resource['visto.gif']}" rendered="#{a.value != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted"><br/>#{a.property.helpInline} 
+                                                    <ocp:message forId="str" />
+                                                    <ocp:message forId="str1" />
+                                                    <ocp:message forId="str2" />
+                                                    <ocp:message forId="str3" />
+                                                    <ocp:message forId="str4" />
+                                                    <ocp:message forId="str5" />
 
-                                    </span><br/><br/>
+                                                </span><br/><br/>
                                             </div>
 
 
@@ -1390,7 +1428,7 @@
             <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
             <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
-                
+
                 <p:graphicImage value="/resources/ajax-loader.gif" /> 
             </p:dialog>
 

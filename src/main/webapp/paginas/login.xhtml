@@ -15,12 +15,13 @@
 
         <ui:define name="content">
             <div class="panel panel-primary">
-                 <div class="panel-heading"><center>Ingrese su usuario y contraseña para ingresar</center></div>
+                <div class="panel-heading"><center>Ingrese su usuario y contraseña para ingresar</center></div>
                 <p:panel>
 
                     <div class="table-responsive" >
-                        
+
                         <div class="row-fluid">
+                           
 
                             <h:form id="signin">
 
@@ -40,12 +41,12 @@
                                     <label for="name" >Usuario</label>
 
                                     <div class="input-group">
-                                        
+
 
                                         <span class="input-group-addon glyphicon glyphicon-use">
-                                            
+
                                         </span>
-                                       
+
 
                                         <h:inputText id="username" value="#{credentials.username}"
                                                      styleClass="form-control" required="true"/>
@@ -58,7 +59,7 @@
 
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                                        
+
                                         <h:inputSecret id="password" value="#{credentials.password}"
                                                        styleClass=" form-control" style="text-transform: uppercase;"  required="true">
                                         </h:inputSecret>
@@ -70,8 +71,8 @@
                                     <p:commandButton action="#{authentication.login1()}" value="Ingresar"
                                                      styleClass="btn  btn-success" />
                                 </div>
-                                
-              
+
+
                                 <!--<center><h:link outcome="/paginas/recover" value="I forgot my password, what now?" /></center>-->
                             </h:form>
 
