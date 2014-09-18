@@ -21,17 +21,9 @@
                         <div class="panel-heading"><center>LISTA DEL PERSONAL</center></div>
                         <p:panel>
 
-                            <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
-
-
-                                                    <div class="col-lg-6">
-
-                                                        <div class="input-group">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                
                                                             <center>
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
@@ -55,14 +47,22 @@
 
                                                                 </p:commandButton>
                                                             </center>
-                                                        </div>
+                                                     </div>
+                                      </div>
+
+                            
 
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> </p:panel></div>
+                                <div class="admin-actions">
 
+                                    <h:link styleClass="btn btn-success"
+                                            outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true"
+                                            value="Crear"
+                                            type="button">  
+                                        <f:param name="profileId"></f:param>
+                                    </h:link>
+
+                                </div>
                                 <div class="admin-actions" align="right">
                                     <h:panelGrid id="export" class="columns" >
                                         <p:panel>
@@ -75,21 +75,9 @@
                                         </p:panel>
                                     </h:panelGrid>
 
-                                </div>
-
-
-                                <div class="admin-actions">
-
-                                    <h:link styleClass="btn btn-success"
-                                            outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true"
-                                            value="Crear"
-                                            type="button">  
-                                        <f:param name="profileId"></f:param>
-                                    </h:link>
-
                                 </div><br/><br/>
 
-                            </div>
+                          
 
 
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  

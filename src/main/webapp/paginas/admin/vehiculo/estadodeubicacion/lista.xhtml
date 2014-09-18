@@ -9,7 +9,10 @@
                 template="/WEB-INF/templates/plantilla.xhtml">
 
     <ui:param name="titulo" value="Lista del Estado de ubicación del vehículo"/>
-
+ <f:metadata>
+     <f:viewParam name="msj2" value="#{controladorVehiculo.msj2}"/>
+        
+    </f:metadata>
     <ui:define name="header">
 
     </ui:define>
@@ -46,7 +49,7 @@
 
 
 
-                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listae" action="#{controladorVehiculo.buscarEstadoV()}" >
+                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listae" action="#{controladorVehiculo.buscarEstadoV()}"  >
 
                                                 </p:commandButton>
 
@@ -88,7 +91,7 @@
                                                 <p:column headerText="Opciones" style="width: 5%"> 
                                                     <center>
                                                     <p:button  icon="ui-icon-pencil" outcome="estadoUbicacion" title="Cambiar Estado Ubicación">
-                                                        <f:param name="estadovId" value="#{vehiculo.id}"></f:param>
+                                                        <f:param name="estadovId" value="#{estado.vehiculo.id}"></f:param>
                                                     </p:button>
                                                         </center>
                                                 </p:column>

@@ -230,6 +230,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
 
     public void setListaEstados(List<EstadoVehiculo> listaEstados) {
         for (EstadoVehiculo estadoVehiculo : listaEstados) {
+            
             estadoVehiculo.setVehiculo(this);
         }
         this.listaEstados = listaEstados;

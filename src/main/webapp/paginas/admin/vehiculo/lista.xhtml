@@ -8,8 +8,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/plantilla.xhtml">
     <f:metadata>
-        <f:viewParam name="mensaje" value="#{controladorVehiculo.mensaje}"/>
-
+        <f:viewParam name="msj" value="#{controladorVehiculo.msj}"/>
+        
     </f:metadata>
     <ui:param name="titulo" value="Lista de Vehiculos"/>
     <ui:define name="header-replace">
@@ -78,14 +78,14 @@
 <br/>
                           
 
-
+<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
                                         <div class="table-responsive">
 
 
                                             <tbody>
-                                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                                                
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v"
                                                              paginator="true" rows="5"                         
                                                              paginatorPosition="top"
