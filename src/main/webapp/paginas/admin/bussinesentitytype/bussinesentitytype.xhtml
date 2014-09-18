@@ -37,7 +37,7 @@ limitations under the License.
 
         <div class="admin-actions">
             <h:form id="control">  
-                <br/><br/><br/><br/>
+                
                 <!--TODO realizar accion para que los botones de add y edit se abran el panel de dialogo-->                            
                 <!--p:commandButton value="# {messages['common.edit']}" type="button"
                                  onclick="editDlg.show();" update=":edit-dialog"                                             
@@ -111,8 +111,8 @@ limitations under the License.
         <h:form id="form">
 
             <div role="main">
-                <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
-
+                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                                
                     <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.bussinesEntityTypeId == null}">  
 
                         <div class="actions" align="right">                                                                                                                                          
@@ -197,168 +197,161 @@ limitations under the License.
                                       styleClass="btn  btn-success"/>
                         </div>
                         <br/>
-                           <p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel#{e.name}" rendered="#{bussinesEntityTypeHome.instance.id != null}" >
-                               <div class="panel panel-primary">
-                            <div class="panel-heading"><h4 class="panel-title"><center>Lista de propiedades para la entidad #{bussinesEntityTypeHome.instance.label}</center></h4></div>
-                         
+                        <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.instance.id != null}">  
 
-                                <!--<f:facet name="header">
-                                    <strong>#{e.name}</strong>#{' '}                            
-                                </f:facet>-->
-                                <div class="admin-actions">
-
-
-                                    <div class="panel panel-success">
+                        <!--p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel# {e.name}" rendered="# {bussinesEntityTypeHome.instance.id != null}" -->
+                                <div class="panel panel-primary">
+                                        <div class="panel-heading"><h4 class="panel-title"><center>Lista de propiedades para la entidad #{bussinesEntityTypeHome.instance.label}</center></h4></div>
                                         <p:panel>
-                                            <div class="panel-body">
-                                                <div class="container-fluid" align="center">
-                                                    <div class="row-fluid">
 
-
-                                                        <div class="col-lg-6">
-                                                            <center>
-                                                                <div class="input-group">
-                                                                    <center>
-                                                                        <h:outputLabel value="Buscar:  " />     #{' '} 
-
-                                                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeHome.palabrab}"   
-                                                                                        completeMethod="#{bussinesEntityTypeHome.autocompletar}"/> 
-                                                                        #{'  '}
+                                        <!--<f:facet name="header">
+                                            <strong>#{e.name}</strong>#{' '}                            
+                                        </f:facet>-->
 
 
 
-                                                                        <p:commandButton value="Buscar" update=":form:properties" id="buscar" 
-                                                                                         action="#{bussinesEntityTypeHome.buscar()}" styleClass="btn btn-success" >
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <center>
+                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                        </p:commandButton>
+                                                    <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeHome.palabrab}"   
+                                                                    completeMethod="#{bussinesEntityTypeHome.autocompletar}"/> 
+                                                    #{'  '}
 
 
-                                                                        <p:commandButton value="Limpiar" update=":form:properties" 
-                                                                                         action="#{bussinesEntityTypeHome.limpiar()}" styleClass="btn btn-success" >
 
-                                                                        </p:commandButton>
-                                                                    </center>
-                                                                </div>
-                                                            </center>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
+                                                    <p:commandButton value="Buscar" update=":form:properties" id="buscar" 
+                                                                     action="#{bussinesEntityTypeHome.buscar()}" styleClass="btn btn-success" >
+
+                                                    </p:commandButton>
+
+
+                                                    <p:commandButton value="Limpiar" update=":form:properties" 
+                                                                     action="#{bussinesEntityTypeHome.limpiar()}" styleClass="btn btn-success" >
+
+                                                    </p:commandButton>
+                                                </center>
+
+                                            </div>
+                                        </div> 
+                                        <div class="admin-actions">
+                                            <h:link styleClass="btn btn-success"  value="Crear Propiedad" type="button" rendered="#{true}" outcome="property" >
+                                                <f:param name="propertyId"></f:param>
+                                                <f:param name="structureId" value ="#{e.id}"></f:param>
+                                                <f:param name="nombreGrupo" value ="#{bussinesEntityTypeHome.instance.name}"></f:param>
+                                                <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
+                                                <f:param name="backView" value="bussinesentitytype"></f:param>
+                                            </h:link>
+
+                                            #{' '}
+
+                                        </div><br/>
+                                        <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
+                                        <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
+                                                     editable="false" resizableColumns="true" liveResize="true" 
+                                                     id="properties"
+                                                     paginator="true" rows="5"                         
+                                                     paginatorPosition="top"
+                                                     rowsPerPageTemplate="5,10,15,20"
+                                                     emptyMessage="No se han encontrado coincidencias"
+                                                     > 
+
+                                            <p:column  headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
+                                                <h:outputText value="#{property.name}" />
+                                            </p:column>
+
+                                            <p:column  headerText="#{messages['common.property.label']}" sortBy="#{property.label}" style="width: 15%">
+                                                <h:outputText value="#{property.label}" />
+                                            </p:column>                        
+                                            <p:column  headerText="#{messages['common.property.type']}" sortBy="#{property.type}" style="width: 5%">
+                                                <h:outputText value="#{propertyHome.ConvertirPropiedadesString(property)}" styleClass="span1"/>
+                                            </p:column>                                 
+                                            <p:column  headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 20%">
+                                                <h:outputText value="#{property.value}" styleClass="span3" rendered="#{property.type ne 'java.util.Date'}"/>
+                                                <h:outputText value="#{propertyHome.formato(property.value)}" styleClass="span3" rendered="#{property.type eq 'java.util.Date'}"/>
+                                            </p:column>                                 
+                                            <p:column  headerText="Obligatoria" sortBy="#{property.required}" style="width: 10%" >
+                                                <h:selectBooleanCheckbox value="#{property.required}"  disabled="true" >                                
+                                                </h:selectBooleanCheckbox>
+                                            </p:column>
+                                            <p:column headerText="Posición" sortBy="#{property.sequence}" style="width: 5%">
+                                                <h:outputText value="#{property.sequence}" />
+                                            </p:column>  
+                                            <p:column  headerText="Opciones">
+                                                <center>
+                                                    <p:button icon="ui-icon-circle-check" styleClass="btn  btn-success"
+                                                              rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
+                                                              title="Crear Entidad"
+                                                              outcome="bussinesentitytype"
+                                                              >
+                                                        <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
+                                                        <f:param name="bussinesentitytypeLabel" value="#{property.name}"></f:param>
+                                                        <f:param name="bussinesentitytypeId" ></f:param>
+                                                        <f:param name="backView" value="list"></f:param>
+                                                    </p:button>
+                                                    <p:commandButton type="button" icon="ui-icon-circle-check" styleClass="btn  btn-success"
+                                                                     rendered="#{propertyHome.ConvertirPropiedadesString(property) ne 'Estructura'  or bussinesEntityTypeHome.esTipoEntidad(property.name) ne false}" 
+                                                                     title="Crear Entidad"
+                                                                     onclick="alertDlg1.show()"
+                                                                     update=":alerts-dialog1"  >
+
+                                                    </p:commandButton>
+                                                    #{' '}
+                                                    <p:button  icon="ui-icon-pencil
+                                                               "  
+                                                               id="button-edit"  rendered="true" 
+                                                               title="Editar"
+                                                               styleClass="btn  btn-success"
+                                                               outcome="property">
+                                                        <f:param name="propertyId" value="#{property.id}"></f:param>
+                                                        <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
+                                                        <f:param name="structureId" value ="#{e.id}"></f:param>                             
+                                                        <f:param name="backView" value="bussinesentitytype"></f:param>
+                                                    </p:button > 
+
+
+                                                    #{' '}          
+
+                                                    <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                     action="# {controladorRequisicion.darDeBaja(r)}" 
+                                                                     title="Eliminar" update=":form:properties">
+                                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                    </p:confirmDialog-->
+                                                    <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                     onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
+                                                                     update=":alerts-dialog:" 
+                                                                     title="Desactivar"
+                                                                     rendered="#{propertyHome.hasValuesBussinesEntity(property) eq false}">                        
+                                                    </p:commandButton>
+                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                     action="#{propertyHome.deleteProperty(property)}" 
+                                                                     title="Desactivar" update=":form:properties"
+                                                                     rendered="#{propertyHome.hasValuesBussinesEntity(property)}">       
+                                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
+
+                                                    </p:commandButton>
+
+
+
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                    </p:confirmDialog>
+                                                </center>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <br/>  <br/>
                                         </p:panel>
                                     </div>
-                                    <h:link styleClass="btn btn-success"  value="Crear Propiedad" type="button" rendered="#{true}" outcome="property" >
-                                        <f:param name="propertyId"></f:param>
-                                        <f:param name="structureId" value ="#{e.id}"></f:param>
-                                        <f:param name="nombreGrupo" value ="#{bussinesEntityTypeHome.instance.name}"></f:param>
-                                        <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
-                                        <f:param name="backView" value="bussinesentitytype"></f:param>
-                                    </h:link>
+                               
+                       
+                        </h:panelGroup> <br/>
 
-                                    #{' '}
-
-                                </div><br/>
-                                 <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
-                                <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
-                                             editable="false" resizableColumns="true" liveResize="true" 
-                                             id="properties"
-                                             paginator="true" rows="5"                         
-                                             paginatorPosition="top"
-                                             rowsPerPageTemplate="5,10,15,20"
-                                             emptyMessage="No se han encontrado coincidencias"
-                                             > 
-
-                                    <p:column  headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
-                                        <h:outputText value="#{property.name}" />
-                                    </p:column>
-
-                                    <p:column  headerText="#{messages['common.property.label']}" sortBy="#{property.label}" style="width: 15%">
-                                        <h:outputText value="#{property.label}" />
-                                    </p:column>                        
-                                    <p:column  headerText="#{messages['common.property.type']}" sortBy="#{property.type}" style="width: 5%">
-                                        <h:outputText value="#{propertyHome.ConvertirPropiedadesString(property)}" styleClass="span1"/>
-                                    </p:column>                                 
-                                    <p:column  headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 20%">
-                                        <h:outputText value="#{property.value}" styleClass="span3" rendered="#{property.type ne 'java.util.Date'}"/>
-                                        <h:outputText value="#{propertyHome.formato(property.value)}" styleClass="span3" rendered="#{property.type eq 'java.util.Date'}"/>
-                                    </p:column>                                 
-                                    <p:column  headerText="Obligatoria" sortBy="#{property.required}" style="width: 10%" >
-                                        <h:selectBooleanCheckbox value="#{property.required}"  disabled="true" >                                
-                                        </h:selectBooleanCheckbox>
-                                    </p:column>
-                                    <p:column headerText="Posición" sortBy="#{property.sequence}" style="width: 5%">
-                                        <h:outputText value="#{property.sequence}" />
-                                    </p:column>  
-                                    <p:column  headerText="Opciones">
-                                        <center>
-                                        <p:button icon="ui-icon-circle-check" styleClass="btn  btn-success"
-                                                  rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
-                                                  title="Crear Entidad"
-                                                  outcome="bussinesentitytype"
-                                                  >
-                                            <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
-                                            <f:param name="bussinesentitytypeLabel" value="#{property.name}"></f:param>
-                                            <f:param name="bussinesentitytypeId" ></f:param>
-                                            <f:param name="backView" value="list"></f:param>
-                                        </p:button>
-                                        <p:commandButton type="button" icon="ui-icon-circle-check" styleClass="btn  btn-success"
-                                                         rendered="#{propertyHome.ConvertirPropiedadesString(property) ne 'Estructura'  or bussinesEntityTypeHome.esTipoEntidad(property.name) ne false}" 
-                                                         title="Crear Entidad"
-                                                         onclick="alertDlg1.show()"
-                                                         update=":alerts-dialog1"  >
-
-                                        </p:commandButton>
-                                        #{' '}
-                                        <p:button  icon="ui-icon-pencil
-                                                   "  
-                                                   id="button-edit"  rendered="true" 
-                                                   title="Editar"
-                                                   styleClass="btn  btn-success"
-                                                   outcome="property">
-                                            <f:param name="propertyId" value="#{property.id}"></f:param>
-                                            <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
-                                            <f:param name="structureId" value ="#{e.id}"></f:param>                             
-                                            <f:param name="backView" value="bussinesentitytype"></f:param>
-                                        </p:button > 
-
-
-                                        #{' '}          
-
-                                        <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                         action="# {controladorRequisicion.darDeBaja(r)}" 
-                                                         title="Eliminar" update=":form:properties">
-                                            <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
-                                        </p:commandButton>
-                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                            <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                            <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                        </p:confirmDialog-->
-                                        <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                         onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
-                                                         update=":alerts-dialog:" 
-                                                         title="Desactivar"
-                                                         rendered="#{propertyHome.hasValuesBussinesEntity(property) eq false}">                        
-                                        </p:commandButton>
-                                        <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                         action="#{propertyHome.deleteProperty(property)}" 
-                                                         title="Desactivar" update=":form:properties"
-                                                         rendered="#{propertyHome.hasValuesBussinesEntity(property)}">       
-                                            <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
-
-                                        </p:commandButton>
-
-
-
-                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                            <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                            <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                        </p:confirmDialog>
-</center>
-                                    </p:column>
-                                </p:dataTable>
-                                <br/>  <br/>
-                                </div>
-                            </p:panel><br/>
-                        
                         <c:when test="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}">
                             <p:panel id="parame" rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Requisición'}">
                                 <div class="panel panel-primary" >
@@ -371,11 +364,11 @@ limitations under the License.
                                         </h4>
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse">
-                                        
+
                                         <p:panel  id="fn1" >
                                             <div class="panel-body">
 
-                                            
+
                                                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
 
                                                 <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
@@ -428,11 +421,11 @@ limitations under the License.
                                                                      />
 
                                                 </div>
-                                            
 
 
-                                        </div>
-                                            </p:panel>
+
+                                            </div>
+                                        </p:panel>
                                     </div>
                                 </div>
                             </p:panel>

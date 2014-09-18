@@ -118,7 +118,7 @@
                                                          <h:outputText value="Plan Activo" rendered="#{pm.activado eq true}" style="color: green;"></h:outputText>
                                                     <p:commandButton styleClass="btn  btn-success" rendered="#{pm.activado eq false}" id="confirmacion" icon="ui-icon-check"
                                                                      title="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}"
-                                                                     update="@form :form:visualizar">
+                                                                     update="@form :form">
                                                         <p:confirm header="Confirmación"
                                                                    message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
 

@@ -59,7 +59,25 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     private String palabrab = "";
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
     private List<String> images;
-    
+    private String msj = "";
+
+    public String getMsj() {
+        return msj;
+    }
+
+    public void setMsj(String msj) {
+        if (msj.substring(0, 2).equals("tr")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó  producto de código " + msj.substring(4, msj.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó producto de código " + msj.substring(5, msj.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+
+        }
+
+        System.out.println("fijo msj+" + msj);
+        this.msj = msj;
+    }
     
 
     public List<Producto> getListaproductos2() {
@@ -274,29 +292,27 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-
-        System.out.println("IIIIDEEEntro>>>>>>" + getProductoId());
-        System.out.println("IIIIDEPERSISTEN  >>>>>>" + getInstance().isPersistent());
+        String ms="";
 
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a Editar>>>>>>>>");
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Producto" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
+                ms= "false" + getInstance().getCodigo();
+            
             } else {
                 System.out.println("Entro a crear>>>>>>>>");
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Producto" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
+              ms= "true" + getInstance().getCodigo() ;
+              
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
+        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true&msj="+ms;
     }
 
     public boolean verificarPoducto(Long idproducto) {

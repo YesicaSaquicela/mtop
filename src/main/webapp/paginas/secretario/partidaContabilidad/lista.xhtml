@@ -7,6 +7,10 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
+    
+    <f:metadata>
+        <f:viewParam id="msjs" name="msj" value="#{controladorPartidaContabilidad.msj}" />
+    </f:metadata>
 
     <ui:param name="titulo" value="Lista de Partida de Contabilidad"/>
 
@@ -25,17 +29,10 @@
                          <div class="panel-heading"><center>LISTA DE PARTIDAS DE CONTABILIDAD</center></div>
                         <p:panel>
                             
-                            <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
-
-
-                                                    <div class="col-lg-6">
-
-                                                        <div class="input-group">
+                   
+                                
+                                        <div class="panel panel-info">
+                                <div class="panel-heading">
                                                             <center>
                                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
@@ -56,13 +53,11 @@
 
                                                                 </p:commandButton>
                                                             </center>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
+                                                        
                                             </div>
-                                        </div> </p:panel></div>
+                                        </div> 
+                                  
+                              
                                 <div class="admin-actions">
 
                                     <h:link styleClass="btn btn-success" value="Crear" 
@@ -71,7 +66,7 @@
 
                                     </h:link>
                                 </div>
-                            </div>
+                        
                         <div class="admin-actions" align="right">
 
                             <p:button id="visualizar" rendered="#{controladorPartidaContabilidad.listaPartidaC.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
@@ -84,7 +79,7 @@
                                                                 </p:button>
 
 
-                                </div><br/><br/>
+                                </div><br/>
                             <!--Botones de admin-->
 
                             <div class="tab-content">

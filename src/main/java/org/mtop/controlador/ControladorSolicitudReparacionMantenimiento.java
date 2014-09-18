@@ -102,8 +102,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setMsj(String msj) {
-        if (msj.substring(0, 2).equals("tru")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Solicitud de Reparación y Mantenimiento " + msj.substring(3, msj.length()) + " con éxito");
+        if (msj.substring(0, 2).equals("tr")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Solicitud de Reparación y Mantenimiento " + msj.substring(4, msj.length()) + " con éxito");
             FacesContext.getCurrentInstance().addMessage("", msg);
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Solicitud de Reparación y Mantenimiento " + msj.substring(5, msj.length()) + " con éxito");
