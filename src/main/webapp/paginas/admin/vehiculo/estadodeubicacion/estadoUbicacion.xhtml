@@ -15,7 +15,7 @@
 
     <ui:param name="titulo" value="Ficha Técnica de Vehículos y Estado Mecánico"/>
     <f:metadata>
-        <f:viewParam name="estadovId" value="#{controladorVehiculo.vehiculoId}"/>
+        <f:viewParam id="estadoIdv" name="estadovId" value="#{controladorVehiculo.vehiculoId}"/>
     </f:metadata>
     <ui:define name="header">
     </ui:define>
@@ -26,6 +26,12 @@
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="right">
+                        <p:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/estadodeubicacion/lista" styleClass="btn  btn-success" icon="ui-icon-arrowreturnthick-1-w">
+
+                        </p:button>
+
+                    </div><br/>
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
                         <p:panel id="p1" >
@@ -91,30 +97,38 @@
                                     </div>
                                 </div>
                             </div>
+                            <br/>
 
-                            <p:messages id="msg2" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row-fluid">
-                                    <p:outputLabel value="Fecha Final:"/>
+                                    <p:outputLabel value="Fecha Final*"/><br/>
                                     <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.fechaFinal}" 
                                                  styleClass="xLarge" required="true" disabled="true"
                                                  >   
                                     </p:calendar><br/>
+                                    <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Fecha del estado anterior del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
 
-                                    <p:outputLabel value="Fecha Inicio:"/>
+                                    <p:outputLabel value="Fecha Inicio*"/> <br/>
                                     <p:calendar  id="fechaSalida" value="#{controladorVehiculo.estado.fechaEntrada}"  label="Fecha entrada de Taller "
-                                                 styleClass="xLarge" required="true" 
+                                                 styleClass="xLarge" required="true" requiredMessage="Fecha de inicio requerida, necesita un valor." 
                                                  >   
-                                        <p:ajax event="dateSelect" rendered="save" />  
-                                        <p:ajax event="dateSelect" process="fechaSalida validadorFechasI_F" rendered="save" update=":form:msg2" />  
+                                        <p:ajax event="dateSelect" immediate="true" update=":form:msgf p12" rendered="save msgf" />  
+                                        <p:ajax event="dateSelect" process="fechaSalida validadorFechasI_F" rendered="save" update=":form:msgf" />  
                                     </p:calendar><br/>
-                                    <span class="help-inline text-muted">Fecha de Incio del estado actual del vehículo<ocp:message forId="fechaSalida" /></span><br></br><br></br> 
+                                    <h:panelGrid id="p12">
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.estado.fechaEntrada !=null}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Fecha de Incio del estado actual del vehículo<ocp:message forId="fechaSalida" /></span>
+                                    </h:panelGrid>
                                     <s:validateForm id="validadorFechasI_F" validatorId="validadorFechasS" />
+                                    <h:outputLabel id="msgf"  value="#{controladorVehiculo.mensajef}" style="color:red" /> <br/>
 
-                                    <h:outputLabel value="Estado"/> <br></br> 
-                                    <p:selectOneMenu id="estado"  value="#{controladorVehiculo.estado.nombre}" effect="fade" >  
+
+                                    <h:outputLabel value="Estado*"/> <br></br> 
+                                    <p:selectOneMenu id="estado" value="#{controladorVehiculo.estado.nombre}" 
+                                                     effect="fade" required="true" requiredMessage="Estado requerido, necesita un valor." >  
+                                        <p:ajax event="change" update="p11" />  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Equipo bueno inactivo" itemValue="Equipo bueno inactivo" />  
                                         <f:selectItem itemLabel="Equipo trabajando normal" itemValue="Equipo trabajando normal" /> 
@@ -123,12 +137,14 @@
                                         <f:selectItem itemLabel="Equipo para baja o remate" itemValue="Equipo para baja o remate" />  
 
                                     </p:selectOneMenu> <br></br>
-                                    <span class="help-inline text-muted">Elija que se encuentra haciendo el vehículo<ocp:message forId="estado" /></span><br></br><br></br> 
-
+                                    <h:panelGroup id="p11">
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.estado.nombre!=null}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Elija que se encuentra haciendo el vehículo<ocp:message forId="estado" /></span><br></br><br></br> 
+                                    </h:panelGroup>
                                     <mtop:input id="ubicacion" name="ubicacion" type="text" label="Ubicación" 
-                                                value="#{controladorVehiculo.estado.ubicacion}" required="true" 
+                                                value="#{controladorVehiculo.estado.ubicacion}"  
                                                 inlinehelp="Ingrese ubicación del vehículo" 
-                                                execute ="@this save" render="ubicacion"/><br></br>
+                                                execute ="@this save" render="ubicacion" required="true" requiredMessage="Ubicación requerida, necesita un valor."/><br></br>
 
 
 
@@ -140,11 +156,9 @@
 
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.guardarEstadoVehiculo()}"
-                                         ajax="false" update="p1"/>
-                        &nbsp;&nbsp;
-                        <p:button value="Regresar" rendered="#{true}" outcome="/paginas/admin/vehiculo/estadodeubicacion/lista" styleClass="btn  btn-success" icon="ui-icon-arrowreturnthick-1-w">
+                                         ajax="true" update="p1"/>
 
-                        </p:button>
+
                     </center>
                 </div></div>
         </h:form>

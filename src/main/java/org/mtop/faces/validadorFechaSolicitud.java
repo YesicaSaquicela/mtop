@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -52,13 +53,21 @@ public class validadorFechaSolicitud implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         log.info("Ingreso a validar fechas");
         cv.setEntityManager(em);
+       System.out.println("fecha de salida llega:::" + fechaSalida);
+//        System.out.println("fecha salida value+++"+fechaSalida.getValue());
+           Date fFinal = fechaSalida.getValue();
+        if (fFinal != null) {
+            System.out.println("entra>>> if");
+        
+            log.info(" fechaFinal:" + fFinal);
+            if (!cv.verificarFechaSolicitud(fFinal)) {
+                System.out.println("presenta mensaje");
+                cv.setMensajef("La Fecha Final debe ser mayor a la Fecha de Inicio ");
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("ADVERTENCIA: "), "La Fecha Inicio debe ser mayor a la Fecha de Final"));
 
-        Date fFinal = fechaSalida.getValue();
-
-        log.info(" fechaFinal:" + fFinal);
-        if (!cv.verificarFechaSolicitud(fFinal)) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("ADVERTENCIA: "), "La Fecha Inicio debe ser mayor a la Fecha de Final"));
-
+            } else {
+                cv.setMensajef(null);
+            }
         }
 
     }

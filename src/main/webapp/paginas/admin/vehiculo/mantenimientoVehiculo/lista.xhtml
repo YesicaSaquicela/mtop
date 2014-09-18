@@ -12,6 +12,7 @@
     <ui:param name="titulo" value="Mantenimiento de los vehiculos"/>
     <f:metadata>
         <f:viewParam name="vista" value="#{controladorVehiculo.vista}"/>
+        <f:viewParam name="msj1" value="#{controladorVehiculo.msj1}"/>
     </f:metadata>
     <ui:define name="header">
 
@@ -29,37 +30,37 @@
                             <div class="panel-heading"><center>LISTA DEL MANTENIMIENTO DE LOS VEHÍCULOS</center></div>
                             <p:panel rendered="#{controladorVehiculo.vista ne 'actividades'}" >
 
-                                     <div class="panel panel-info">
-                                <div class="panel-heading">
-                                     
-                              
-                                                                <center>
-                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
-
-                                                                    <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                                     completeMethod="#{controladorVehiculo.autocompletar}"/> 
-                                                                    &nbsp;&nbsp;
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
 
 
-                                                                    <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}"  >
+                                        <center>
+                                            <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                    </p:commandButton>
+                                            <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                             completeMethod="#{controladorVehiculo.autocompletar}"/> 
+                                            &nbsp;&nbsp;
 
-                                                                    <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}">
 
-                                                                    </p:commandButton>
-                                                                </center>
-                                                        </div>
+                                            <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorVehiculo.buscar()}"  >
+
+                                            </p:commandButton>
+
+                                            <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}">
+
+                                            </p:commandButton>
+                                        </center>
+                                    </div>
 
 
                                 </div>
-  <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
                                         <div class="table-responsive">
 
 
-                                          
+
                                             <tbody>
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v" paginator="true" rows="15"                         
                                                              paginatorPosition="top"

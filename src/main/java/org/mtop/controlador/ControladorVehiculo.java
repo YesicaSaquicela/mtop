@@ -102,10 +102,84 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<Vehiculo> listVehiculos2 = new ArrayList<Vehiculo>();
     private String vista;
     private boolean desabilitar;
-    private String mensaje1;
+    private String mensaje1 = "";
     private List<EstadoVehiculo> listaEstadoV = new ArrayList<EstadoVehiculo>();
     private String palabrabe;
     private List<EstadoVehiculo> listaEstadoV2 = new ArrayList<EstadoVehiculo>();
+    String msj = "";
+    String msj1 = "";
+    private String msj2 = "";
+    private String mensajef = "";
+
+    public String getMensajef() {
+        return mensajef;
+    }
+
+    public void setMensajef(String mensajef) {
+        this.mensajef = mensajef;
+    }
+
+    public String getMsj2() {
+        return msj2;
+    }
+
+    public void setMsj2(String msj2) {
+        if (msj2.substring(0, 2).equals("tru")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj2.substring(3, msj2.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el estado de ubicación del vehículo " + msj2.substring(5, msj2.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+
+        }
+
+        System.out.println("fijo msj+" + msj2);
+        this.msj2 = msj2;
+    }
+
+    public String getMensaje1() {
+        return mensaje1;
+    }
+
+    public void setMensaje1(String mensaje1) {
+        this.mensaje1 = mensaje1;
+    }
+
+    public String getMsj1() {
+        return msj1;
+    }
+
+    public void setMsj1(String msj1) {
+        if (msj1.substring(0, 2).equals("tru")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj1.substring(3, msj1.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el mantenimiento del Vehículo " + msj1.substring(5, msj1.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+
+        }
+
+        System.out.println("fijo msj+" + msj1);
+        this.msj1 = msj1;
+    }
+
+    public String getMsj() {
+        return msj;
+    }
+
+    public void setMsj(String msj) {
+        if (msj.substring(0, 2).equals("tru")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj.substring(3, msj.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Vehículo " + msj.substring(5, msj.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+
+        }
+
+        System.out.println("fijo msj+" + msj);
+        this.msj = msj;
+    }
 
     public String getPalabrabe() {
         return palabrabe;
@@ -134,16 +208,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public void setListaEstadoV(List<EstadoVehiculo> listaEstadoV) {
         this.listaEstadoV = listaEstadoV;
-    }
-
-    public String getMensaje1() {
-        System.out.println("retorna" + mensaje1);
-        return mensaje1;
-    }
-
-    public void setMensaje1(String mensaje1) {
-        System.out.println("fijo" + mensaje1);
-        this.mensaje1 = mensaje1;
     }
 
     public boolean isDesabilitar() {
@@ -308,8 +372,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         System.out.println("fecha a entrada" + fEntrada);
         System.out.println("fecha a final" + fFinal);
+       
         if (!fEntrada.before(fFinal)) {  //metodo que compara si una fecha es anterior a la otra
-//                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("La Fecha Final debe ser mayor a la Fecha de Inicio"), ""));
+//               
             System.out.println("entro a if");
             ban = false;
         }
@@ -442,9 +507,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
 
     }
-    
-      public String obtenerUltimaUbicacionV(Vehiculo vehiculo) {
-            String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
+
+    public String obtenerUltimaUbicacionV(Vehiculo vehiculo) {
+        String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
         return ubicacion;
     }
 
@@ -518,7 +583,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         for (Vehiculo vehiculo : listVehiculos2) {
             setId(vehiculo.getId());
             bea = getInstance().findBussinesEntityAttribute("Motor");
-            System.out.println("presenta propieedades "+bea);
+            System.out.println("presenta propieedades " + bea);
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serie")) {
@@ -562,11 +627,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         if (lvs.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                  FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                   FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabe);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabe);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -602,8 +667,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serie")) {
-                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && 
-                            !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                    if (((String) bussinesEntityAttribute.getValue()).contains(query)
+                            && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
                         System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                     }
@@ -626,10 +691,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return ced;
 
     }
-    
-    public void limpiarEstadoV()
-    {
-                palabrabe = "";
+
+    public void limpiarEstadoV() {
+        palabrabe = "";
         listaEstadoV = listaEstadoV2;
     }
 
@@ -639,7 +703,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             palabrabe = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia descripciion
-        System.out.println("ingreso a buscar la palabra"+palabrabe);
+        System.out.println("ingreso a buscar la palabra" + palabrabe);
         List<EstadoVehiculo> lv1 = new ArrayList<EstadoVehiculo>();
         for (EstadoVehiculo ev : listaEstadoV) {
             //EstadoVehiculo ev = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
@@ -676,7 +740,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         } else {
-            System.out.println("lista que presenta>>>"+lv1);
+            System.out.println("lista que presenta>>>" + lv1);
             listaEstadoV = lv1;
         }
 
@@ -688,7 +752,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         ArrayList<String> ced = new ArrayList<String>();
 
         for (EstadoVehiculo ev : listaEstadoV) {
-          //  EstadoVehiculo ev = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
+            //  EstadoVehiculo ev = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
             if (ev.getNombre().toLowerCase().contains(query.toLowerCase())) {
                 ced.add(ev.getNombre());
             }
@@ -700,7 +764,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
             String s = ev.getFechaEntrada().toString();
             System.out.println("valor de SSSSSSSSSSSS" + s);
-            if (s.contains(query)&& !ced.contains(s)) {
+            if (s.contains(query) && !ced.contains(s)) {
                 ced.add(ev.getFechaEntrada().toString());
             }
         }
@@ -986,7 +1050,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
             listaEstadoV.add(estadov);
         }
-        listaEstadoV2=listaEstadoV;
+        listaEstadoV2 = listaEstadoV;
 
         System.out.println("obtiene lista" + listaEstadoV);
         verificarPlan();
@@ -1112,6 +1176,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String guardar() {
+        String ms = "";
         Kardex k = new Kardex();
         desabilitar = true;
         Date now = Calendar.getInstance().getTime();
@@ -1146,7 +1211,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(k);
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
-                mensaje = "Se actualizó Vehiculo" + getInstance().getId() + " con éxito";
+                ms = "false" + getInstance().getNumRegistro();
 
             } else {
 
@@ -1169,7 +1234,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 System.out.println("volcio a guardar");
                 crearPlanMantenimientoActivo();
                 System.out.println("finalizo");
-                mensaje = "Se creó Vehiculo" + getInstance().getId() + " con éxito";
+
+                ms = "true" + getInstance().getNumRegistro();
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -1177,12 +1243,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             System.out.println("errrrrrrrrrrrrrrrrrrrrrrrorrrrrrrr");
         }
 
-        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true&msj=" + ms;
     }
 
     @TransactionAttribute
     public String guardarMantenimiento() {
-
+        String msjm = "";
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
@@ -1191,23 +1257,26 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
 //                RequestContext.getCurrentInstance().showMessageInDialog(msg);
+                msjm = "false" + getInstance().getNumRegistro();
             }
 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true&msj1=" + msjm;
     }
 
     public String guardarEstadoVehiculo() {
         System.out.println("entro metodo a guardarEstado::::::.");
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-
+        String ms1 = "";
+        System.out.println("persistente" + getInstance().isPersistent());
         try {
             if (getInstance().isPersistent()) {
-                if (verificarFechaSolicitud(fechaFinal)) {
+                System.out.println("entro apersistente");
+                if (verificarFechaSolicitud(estado.getFechaEntrada())) {
                     System.out.println("entro a editar estado:::::: ");
                     System.out.println("ante");
                     crearEstadoUbicacion2();
@@ -1216,10 +1285,16 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
                     getInstance().getListaEstados().add(estado);
                     System.out.println("lista de estado de l vehiculo" + getInstance().getListaEstados());
+                    
+                    ms1 = "false" + getInstance().getNumRegistro();
+                    System.out.println("paso de guardar al presentar mensaje::::"+ms1); 
                     save(getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
-
+         
+                   
+                    
                 } else {
+                    
+                    
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "la fecha de inicio es incorrecta");
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 }
@@ -1230,7 +1305,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
+        return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true&msj2=" + ms1;
     }
 
     @TransactionAttribute
