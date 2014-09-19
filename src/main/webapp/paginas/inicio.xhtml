@@ -6,22 +6,45 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
         <ui:define name="header">
-            MTOP SOFTWARE DE TRANSPORTE
+            <h2 align="center"> DEPARTAMENTO DE MANTENIMIENTO Y TALLERES</h2>
         </ui:define>
 
         <ui:define name="content">    
             <h:form id="form">
-               
-                <h:panelGroup rendered="#{identity.loggedIn}">
-                    <center>
+                <div role="main">
+                    <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
 
-                        <p:galleria value="#{controladorGaleria.images}" var="image" showCaption="true" panelWidth="600" panelHeight="300" style="width: 100%">  
-                        <p:graphicImage value="/resources/images/#{image}" title="Vehículos Mtop"/>  
-                    </p:galleria>
-                      
-                    </center>
+                        <p:layout style="min-width:400px;min-height:350px;">
+                            
+                            <p:layoutUnit position="west" resizable="true"  size="800" minSize="40" maxSize="300">
+                                <p:menu style="min-width:300px;min-height:50px;">
+                                    <p:submenu label="Quienes Somos" >
+                                        <p:menuitem value="Misión" outcome="mision"  />
+                                        <p:menuitem value="Visión"  />
+                                    </p:submenu>
+                                    <p:submenu label="Otros">
+                                        <p:menuitem value="Delete"   ajax="false" icon="ui-icon-close"/>
+                                    </p:submenu>
+                               
+                                </p:menu>
+                            </p:layoutUnit>
 
-                </h:panelGroup>
+                            <p:layoutUnit position="center" >
+                                <h:panelGroup rendered="#{identity.loggedIn}">
+                                    <center>
+
+                                        <p:galleria value="#{controladorGaleria.images}" var="image" showCaption="true" panelWidth="600" panelHeight="300" style="width: 100%">  
+                                            <p:graphicImage value="/resources/images/#{image}" title="Vehículos Mtop"/>  
+                                        </p:galleria>
+
+                                    </center>
+
+                                </h:panelGroup>
+                            </p:layoutUnit>
+                        </p:layout>
+
+
+                    </div></div>
 
 
             </h:form>

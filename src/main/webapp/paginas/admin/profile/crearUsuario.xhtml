@@ -58,7 +58,7 @@
                                         </div>
 
                                     </h:panelGrid>
-                                    <h:panelGrid id="us">
+                                    <h:panelGrid id="us" rendered="#{profileHome.instance.username == null}">
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.username != null}"
                                                             styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese el nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>

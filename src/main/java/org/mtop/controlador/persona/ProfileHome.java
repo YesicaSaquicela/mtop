@@ -678,9 +678,11 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             save(habilitar);
             em.merge(ida);
             em.flush();
+            habilitar.setDeleted(false);
             System.out.println("paso a remover de la lista");
             List<Profile> lui = new ArrayList<Profile>();
-            for (Profile profile : listausuariosInactivos) {
+            System.out.println("lista de usuarios inactivos:::::"+listausuariosInactivos);
+            for (Profile profile :listausuarios) {
                 if (!habilitar.getId().equals(profile.getId())) {
                     lui.add(profile);
                 }

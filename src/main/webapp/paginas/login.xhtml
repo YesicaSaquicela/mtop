@@ -14,23 +14,28 @@
         </ui:define>	
 
         <ui:define name="content">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><center>Ingrese su usuario y contraseña para ingresar</center></div>
-                <p:panel>
+            <h:form id="signin">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center>INGRESE SU USUARIO Y CONTRASEÑA</center></div>
+                    <p:panel>
 
-                    <div class="table-responsive" >
+                        <div class="table-responsive" >
 
-                        <div class="row-fluid">
-                           
+                            <div class="row-fluid">
 
-                            <h:form id="signin">
 
+
+                             
                                 <script type="text/javascript">
                                     $(document).ready(function() {
                                         $('#signin\\:username').attr("placeholder", "Quién eres tú?").focus();
                                     });
                                 </script>
-
+                                <!--script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#signin\\:password').attr("placeholder", "Contraseña?").focus();
+                                    });
+                                </script-->
                                 <style type="text/css">
                                     #signup input[type=text], #signup input[type=password] {
                                         width: 240px;
@@ -49,10 +54,10 @@
 
 
                                         <h:inputText id="username" value="#{credentials.username}"
-                                                     styleClass="form-control" required="true"/>
+                                                     styleClass="form-control" required="true" requiredMessage="Usuario requerido, necesita un valor"/>
                                         <br/><span class="help-inline"></span>
                                     </div>
-                                </div>
+                                </div><br/><br/>
 
                                 <div class="clearfix">
                                     <label for="password" >Contraseña</label>
@@ -61,7 +66,7 @@
                                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
 
                                         <h:inputSecret id="password" value="#{credentials.password}"
-                                                       styleClass=" form-control" style="text-transform: uppercase;"  required="true">
+                                                       styleClass=" form-control" style="text-transform: uppercase;"  required="true" requiredMessage="Contraseña requerida, necesita un valor">
                                         </h:inputSecret>
                                         <br/><span class="help-inline"></span>
                                     </div>
@@ -73,12 +78,13 @@
                                 </div>
 
 
-                                <!--<center><h:link outcome="/paginas/recover" value="I forgot my password, what now?" /></center>-->
-                            </h:form>
 
-                        </div>
-                    </div></p:panel></div>
+                            </div>
+                        </div></p:panel>
 
+
+                </div>
+            </h:form>
         </ui:define>
 
     </ui:composition>

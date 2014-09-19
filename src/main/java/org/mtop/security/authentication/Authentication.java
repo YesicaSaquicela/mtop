@@ -37,6 +37,7 @@ import org.picketlink.idm.api.User;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Event;
+import javax.faces.application.FacesMessage;
 import javax.servlet.ServletContext;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jboss.seam.security.Authenticator;
@@ -184,9 +185,9 @@ public class Authentication {
     public void login1() throws InterruptedException, IdentityException {
         identity.setAuthenticatorClass(IdmAuthenticator.class);
         PersistenceManager identityManager = security.getPersistenceManager();
-        
+
         User user = identityManager.findUser(credencials.getUsername());
-        System.out.println("usuario"+user);
+        System.out.println("usuario" + user);
         if (user != null) {
             IdentityObjectAttribute ida = profileService.getAttributos(user.getKey(), "estado").get(0);
             //Profile userP = profileService.getProfileByUsername(credencials.getUsername());
@@ -208,11 +209,17 @@ public class Authentication {
 //                    this.login();
 //                }
             } else {
-                messages.warn("!El usuario esta inactivo o no existe¡");  //los datos no son correctos                    
+                System.out.println(" no entro a loguear");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "! El usuario ", "esta inactivo o no existe¡");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+              //  messages.warn("!El usuario esta inactivo o no existe¡");  //los datos no son correctos                    
             }
 
         } else {
-            messages.warn(UI.getMessages("common.login.bad.usernamepassword"));
+            System.out.println("entro a us no correcto");
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "! Nombre de usuario  ", "o contraseña incorrectos. Intentelo de nuevo¡");
+//            FacesContext.getCurrentInstance().addMessage("", msg);
+            messages.warn(UI.getMessages("¡Nombre de usuario o contraseña incorrectos. Intentelo de nuevo1!"));
         }
         //buscar   /*
     }
