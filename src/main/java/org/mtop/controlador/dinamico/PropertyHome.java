@@ -82,7 +82,28 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     @Pattern(regexp = "[0-9]*", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
     private String mensaje;
+    private String msj = "";
 
+    public String getMsj() {
+        return msj;
+    }
+
+    public void setMsj(String msj) {
+        System.out.println("entro mensajess");
+                
+        if (msj.substring(0, 2).equals("tr")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Requisición " + msj.substring(4, msj.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Requisición " + msj.substring(5, msj.length()) + " con éxito");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+
+        }
+
+        System.out.println("fijo msj+" + msj);
+        this.msj = msj;
+    }
+    
     public String getMensaje() {
         return mensaje;
     }
@@ -256,11 +277,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
 
         }
-        System.out.println("p.name" + getInstance().getName());
-        System.out.println("p.getGroupName " + getInstance().getGroupName());
-        if (getInstance().getGroupName() != null) {
+        System.out.println("p.name" + p.getName());
+        System.out.println("p.getGroupName " + p.getGroupName());
+        if (p.getGroupName() != null) {
             System.out.println("get group name" + p.getGroupName());
-            if (getInstance().getGroupName().equals("org.mtop.modelo.Vehiculo")) {
+            if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
                 //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
                 tipos.add("EstadoParteMecanica");
                 System.out.println("si entro a grupo");
@@ -467,14 +488,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @TransactionAttribute
     public String saveProperty() {
-        System.out.println("entro a guardar");
         getInstance().setType(propertyType);
-        System.out.println("TIpo::" + getInstance().getType());
         ConvertirStringPropiedades();
-        System.out.println("tipo de la propiedaaaaaaaad>>>>>>>>>> " + getInstance().getType());
-        System.out.println("valor de la propiedad>>>>>" + this.propertyStringValue);
+    
         log.info("eqaula --> saving " + getInstance().getName());
-
+        //todo valor se asigna a property string value para poder convertir
         if (getInstance().getType().equals("java.util.Date")) {
             if (propertyDateValue != null) {
                 DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy");
@@ -494,19 +512,15 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
 
         if (getInstance().isPersistent()) {
-            System.out.println("PRESENTAR GUERADAR>>>>>");
-
+             //convierte en valor a serializable para poderlo guardar a la bases de datos
             getInstance().setValue(converterToType(propertyStringValue));
-
-            System.out.println("propiedad convertida +++++" + getInstance().getValue());
             save(getInstance());
-
         } else {
             try {
-                System.out.println("PRESENTAR Editaaarrr>>>>>");
+               
                 Structure s = bussinesEntityTypeService.getStructure(getStructureId()); //Retornar la estrucura.
+                //convierte en valor a serializable para poderlo guardar a la bases de datos
                 getInstance().setValue(converterToType(propertyStringValue));
-                System.out.println("propiedad convertida +++++" + getInstance().getValue());
                 s.addProperty(this.getInstance());
 
             } catch (Exception ex) {
@@ -518,23 +532,23 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
         //crear un entity type atribute para una propiedad
         // que sea de tipo estadoParteMecanica
-        if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-            BussinesEntityAttribute beta = new BussinesEntityAttribute();
-            for (Property p : findAll(Property.class)) {
-                if (p.getName().equals(this.getInstance().getName())) {
-                    beta.setProperty(p);
-                    beta.setType(p.getType());
-                    beta.setName(p.getLabel());
-                    beta.setValue("");
-                    //save(beta);
-                    break;
-                }
-            }
-            for (Vehiculo v : findAll(Vehiculo.class)) {
-                beta.setBussinesEntity(findById(BussinesEntity.class, v.getId()));
-                save(beta);
-            }
-        }
+//        if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
+//            BussinesEntityAttribute beta = new BussinesEntityAttribute();
+//            for (Property p : findAll(Property.class)) {
+//                if (p.getName().equals(this.getInstance().getName())) {
+//                    beta.setProperty(p);
+//                    beta.setType(p.getType());
+//                    beta.setName(p.getLabel());
+//                    beta.setValue("");
+//                    //save(beta);
+//                    break;
+//                }
+//            }
+//            for (Vehiculo v : findAll(Vehiculo.class)) {
+//                beta.setBussinesEntity(findById(BussinesEntity.class, v.getId()));
+//                save(beta);
+//            }
+//        }
 
         return "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
@@ -549,9 +563,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     @Transactional
     public String deleteProperty() {
-        System.out.println("entro elimianrrrr");
-
-        System.out.println("entro e eliminar" + getInstance().getName());
         String outcome = null;
         try {
             if (getInstance() == null) {

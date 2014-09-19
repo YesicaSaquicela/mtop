@@ -15,7 +15,7 @@
 
     <ui:define name="header">
 
-   </ui:define>
+    </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -28,59 +28,43 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE REQUISICIONES</center></div>
+                        <div class="panel-heading"><center>LISTA DE REQUISICIONES</center></div>
                         <p:panel>
                             <!--Opción de mensaje, cuando se realiza una acción-->
-                            
+
 
                             <!--Botones de admin-->
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
 
-                            <br/>
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
+                                                        completeMethod="#{controladorRequisicion.autocompletar}"/> 
+                                        &nbsp;&nbsp;
+
+
+
+                                        <p:commandButton value="Buscar" update=":form:infoFM:listap form:infoFM:listap1" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+
+                                        </p:commandButton>
+
+
+                                        <p:commandButton value="Limpiar" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+
+                                        </p:commandButton>
+                                    </center>
+                                </div>
+
+                            </div>
                             <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
-
-
-                                                    <div class="col-lg-6">
-                                                        <center>
-                                                            <div class="input-group">
-                                                                <center>
-                                                                    <h:outputLabel value="Buscar:  " />     #{' '} 
-
-                                                                    <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorRequisicion.palabrab}"   
-                                                                                    completeMethod="#{controladorRequisicion.autocompletar}"/> 
-                                                                    &nbsp;&nbsp;
-
-
-
-                                                                    <p:commandButton value="Buscar" update=":form:infoFM:listap form:infoFM:listap1" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
-
-                                                                    </p:commandButton>
-
-
-                                                                    <p:commandButton value="Limpiar" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
-
-                                                                    </p:commandButton>
-                                                                </center>
-                                                            </div>
-                                                        </center>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> </p:panel></div>
-                                    <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
-                                        <f:param name="requisicionId"></f:param>
-                                    </p:commandButton-->
                                 <h:link styleClass="btn btn-success" value="Crear"
                                         outcome="crear" type="button" >
                                     <f:param name="requisicionId" ></f:param>
                                     <f:param name="vista" value="requisicion"></f:param>
 
                                 </h:link>
-                                <br/>
                             </div>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="tab-content">
@@ -98,7 +82,7 @@
                                                     <p:tab id="ts" title="Requisiciones no aprobadas" closable="false"  titleStyleClass="clearfix" >
 
                                                         <div class="admin-actions">
-                                                        
+
                                                             <h:link id="Acct" value="Todas" title="Todos los tipo de requisiciones" 
                                                                     styleClass="btn success" >  
                                                                 <p:ajax update=":form:infoFM:listap"/>
@@ -119,7 +103,7 @@
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>                    
                                                         </div>
-                                                 
+
                                                         <p:dataTable id="listap" value="#{controladorRequisicion.listaRequisicion}" var="r"
                                                                      paginator="true" rows="15"                         
                                                                      paginatorPosition="top"

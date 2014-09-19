@@ -152,7 +152,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void eliminarItemS(ItemRequisicion itemreq) {
-
+        System.out.println("ingreso a eliminar");
         List<ItemRequisicion> li = new ArrayList<ItemRequisicion>();
         System.out.println("lista items" + listaItemsRequisicion);
         for (ItemRequisicion items : listaItemsRequisicion) {
@@ -169,6 +169,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     itemsEliminar.add(items);
 
                 }
+                System.out.println("a eliminar" + items.getDescripcion());
+//                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se eliminó Item " + items.getDescripcion() + " con éxito ");
+//                FacesContext.getCurrentInstance().addMessage("", msg);
 
             }
 
@@ -206,17 +209,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("entrofor" + apm);
 
             apm.setSolicitudReparacion(solis);//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
-            //citemsolicitud.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
-
             System.out.println("al crear");
-//            BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(ItemSolicitudReparacion.class.getName());
-//
-//            apm.setCreatedOn(now);
-//            apm.setLastUpdate(now);
-//            apm.setActivationTime(now);
-//            apm.setType(_type);
-//            apm.buildAttributes(bussinesEntityService);  //
-//           
+
             System.out.println("creo instance" + apm);
 
             lir.add(apm);
@@ -287,12 +281,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
-//    public void guardarSolicitud(SolicitudReparacionMantenimiento solicitudReparacionMantenimiento) {
-//        this.solicitudReparacionMantenimiento = solicitudReparacionMantenimiento;
-//        System.out.println("\n\n\n\n\nsolicitud asignada\n\n\n\n\n" + this.solicitudReparacionMantenimiento.getNumSolicitud());
-//        System.out.println("sus items " + this.solicitudReparacionMantenimiento.getListaItemSR());
-//
-//    }
     public String getTipo() {
         return tipo;
     }
@@ -645,9 +633,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
                 if (r.getVehiculo() != null) {
                     if (r.getVehiculo().getNumRegistro().equals(palabrab) && !lrq.contains(r.getId())) {
-                       
-                            lrq.add(r.getId());
-                     
+
+                        lrq.add(r.getId());
+
                     }
                     List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
 
@@ -658,10 +646,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                         if (bussinesEntityAttribute.getName().equals("serie")) {
-                            if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)  && !lrq.contains(r.getId())) {
-                               
-                                    lrq.add(r.getId());
-        
+                            if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lrq.contains(r.getId())) {
+
+                                lrq.add(r.getId());
+
                             }
 
                         }
@@ -670,10 +658,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
                         if (bussinesEntityAttribute.getName().equals("serie")) {
 
-                            if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)  && !lrq.contains(r.getId())) {
-                               
-                                    lrq.add(r.getId());
-                               
+                            if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lrq.contains(r.getId())) {
+
+                                lrq.add(r.getId());
+
                             }
 
                         }
@@ -768,7 +756,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
             if (requisicion.getVehiculo() != null) {
-                if(requisicion.getVehiculo().getNumRegistro().contains(query) && !ced.contains(requisicion.getVehiculo().getNumRegistro())){
+                if (requisicion.getVehiculo().getNumRegistro().contains(query) && !ced.contains(requisicion.getVehiculo().getNumRegistro())) {
                     ced.add(requisicion.getVehiculo().getNumRegistro());
                 }
                 List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
@@ -1160,7 +1148,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "campos abligatorios, cantidad, descripción y unidad de medida"));
-            System.out.println("\n\n\n\n no entro guardarrrrr\n\n\n\n");
+
         } else {
             if (pro != null) {
 
@@ -1168,8 +1156,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     Producto p = new Producto();
                     List<Producto> lp = new ArrayList<Producto>();
-                    System.out.println("proooooo+" + pro);
-                    System.out.println("lista productos" + listaProductos);
                     for (Producto prod : listaProductos) {
                         System.out.println("prod+prod" + prod);
                         if (!prod.getId().equals(pro.getId())) {
@@ -1179,10 +1165,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         }
                     }
                     listaProductos = lp;
-                    System.out.println("lista productos" + listaProductos);
                     pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
                     listaProductos.add(pro);
-                    System.out.println("lista productosdespus" + listaProductos);
                 }
             }
             if (it != null) {
@@ -1192,15 +1176,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         && !it.getUnidadMedida().equals(cir.getInstance().getUnidadMedida())) {
                     listaItemsRequisicion.remove(it);
                     listaItemsRequisicion.add(cir.getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se actualizó Item " + cir.getInstance().getDescripcion() + " con éxito ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
+
                 } else {
                     it = null;
                 }
             } else {
-
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se creó Item " + cir.getInstance().getDescripcion() + " con éxito ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
                 listaItemsRequisicion.add(cir.getInstance());
             }
 
@@ -1271,15 +1251,19 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("a fijar cant" + i.getCantidad());
                 System.out.println("a fijar unid" + i.getUnidadMedida());
                 pro = itemReq.getProducto();
-                int j = listaProductos.lastIndexOf(pro);
-                System.out.println("pro" + pro.getCantidad());
-                System.out.println("pro de lista" + pro.getCantidad());
-                pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
-                listaProductos.set(j, pro);
-                pro = listaProductos.get(j);
+                System.out.println("producto "+pro);
+                        
+                if (pro != null) {
+                    int j = listaProductos.lastIndexOf(pro);
+                    System.out.println("pro" + pro.getCantidad());
+                    System.out.println("pro de lista" + pro.getCantidad());
+                    pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
+                    listaProductos.set(j, pro);
+                    pro = listaProductos.get(j);
+                }
 
-                System.out.println("a fijada" + cir.getInstance().getCantidad());
-                System.out.println("a fijada" + cir.getInstance().getUnidadMedida());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se eliminó ítem" + i.getDescripcion()));
+
                 break;
 
             }
@@ -1709,11 +1693,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-
         if (getInstance().getVehiculo() != null) {
             if (getInstance().getVehiculo().getId() != null) {
-                System.out.println("entro a fijar vehciulo\n\n\n\n\n" + getInstance().getVehiculo());
-                System.out.println("vehiculo" + vehiculo);
                 getInstance().setVehiculo(vehiculo);
             } else {
                 getInstance().setVehiculo(null);
@@ -1723,25 +1704,22 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             getInstance().setVehiculo(null);
         }
 
-        System.out.println("PRESENTADNOIDE requisicion>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...>" + vehiculo);
         PartidaContabilidad p = servgen.buscarPorId(PartidaContabilidad.class, idPartidaC);
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersonal);
         getInstance().setPartidaContabilidad(p);
         getInstance().setPsolicita(psolicita);
-        System.out.println("id de ala partidaaaaaaaaaaaaa" + p.getId());
-
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
-                System.out.println("solicitudrepapapapapa" + solicitudrep);
+
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {
-                        System.out.println("anaidiando la solicitud" + solicitudrep);
+
                         getInstance().setSolicitudReparacionId(solicitudrep);
                         solicitudrep.setRequisicionId(getInstance());
                         solicitudrep.setLastUpdate(now);
                         try {
-                            System.out.println("guaradar solicitud con reqqq" + solicitudrep);
+
                             servgen.actualizar(solicitudrep);
                         } catch (Exception e) {
                             System.out.println("errorrrrr");
@@ -1766,8 +1744,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
                 System.out.println("ingresa a editar>>>>>>>");
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Requisicion" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("ingresa a creaaar>>>>>>>");
                 getInstance().setEstado(true);
@@ -1794,8 +1770,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     }
                 }
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion" + getInstance().getId() + " con éxito", " ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
             e.printStackTrace();

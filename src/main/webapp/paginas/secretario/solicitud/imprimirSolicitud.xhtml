@@ -34,23 +34,30 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div align="center" class="table-responsive">
-
+                        <p:panelGrid  style="width:100%"   >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        <img src="../../../resources/membrete.png" width="900" height="142" alt="membrete"/>
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
                         <p:panelGrid  id="imp1"                                                  
-                                      style="width:80%" columns="2" >
+                                      style="width:100%" columns="2" >
                             <f:facet   name="header" class="panel-heading" >
 
                                 <p:row>
                                    
-                                    <p:column style="width:20%" > 
+                                    <p:column  > 
 
-                                       <p:graphicImage   value="../../../resources/mtop1.jpg" width="82" height="50" alt="mtop1" /> 
-
+                                       
                                     </p:column  >
 
-                                    <p:column style="width:80%" > 
+                                    <p:column  > 
 
-                                        SOLICITUD DE REPARACIÓN Y MANTENIMIENTO 
-                                         DE EQUIPOS
+                                        Solicitud de Reparación y Mantenimiento 
+                                         de Equipos
 
                                     </p:column>
 
@@ -111,7 +118,7 @@
                         </p:panelGrid>
 
 
-                        <p:panelGrid id="imp" style="width:86%"  >
+                        <p:panelGrid id="imp" style="width:100%"  >
                             <f:facet name="header">
                                 <p:row>
                                     <p:column style="width:50%">
@@ -125,7 +132,7 @@
                         </p:panelGrid>
 
                         <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="a" varStatus="status">  
-                            <p:panelGrid  style="width:86%"  >
+                            <p:panelGrid  style="width:100%"  >
                                 <p:row>
                                     <p:column style="width:50%" >
                                         <h:outputText class="navbar-text" value="#{a.descripcionElementoRevisar}"/>
@@ -140,7 +147,7 @@
                         </ui:repeat>
 
 
-                        <p:panelGrid style="width:86%" >
+                        <p:panelGrid style="width:100%" >
                             <f:facet name="header">
                                 <p:row>
                                     <p:column style="width:50%">
@@ -163,7 +170,7 @@
 
                         </p:panelGrid>
 
-                        <p:panelGrid style="width:86%" >
+                        <p:panelGrid style="width:100%" >
 
                             <f:facet name="header">
                                 <p:row>

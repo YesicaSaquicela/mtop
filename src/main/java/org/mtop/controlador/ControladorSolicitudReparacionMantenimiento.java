@@ -95,25 +95,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private String numeroSolicitud;
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
     private List<Requisicion> listaRequisicion2 = new ArrayList<Requisicion>();
-    String msj = "";
-
-    public String getMsj() {
-        return msj;
-    }
-
-    public void setMsj(String msj) {
-        if (msj.substring(0, 2).equals("tru")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Solicitud de Reparación y Mantenimiento " + msj.substring(3, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Solicitud de Reparación y Mantenimiento " + msj.substring(5, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-
-        }
-
-        System.out.println("fijo msj+" + msj);
-        this.msj = msj;
-    }
 
     public ItemSolicitudReparacion getIt() {
         return it;
@@ -447,46 +428,44 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         cv.setEntityManager(em);
 
         for (SolicitudReparacionMantenimiento soli : listaSolicitudes2) {
-           
-                if (soli.getNumSolicitud().contains(query)) {
-                    System.out.println("econtro uno " + soli.getNumSolicitud());
-                    ced.add(soli.getNumSolicitud());
-                }
-                if (!ced.contains(soli.getFechaSolicitud().toString()) && soli.getFechaSolicitud().toString().contains(query)) {
-                    ced.add(soli.getFechaSolicitud().toString());
-                }
-                List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
-                if ((soli.getVehiculo().getNumRegistro().contains(query)
-                        || soli.getVehiculo().getPlaca().equals(palabrab)) && !ced.contains(soli.getVehiculo().getNumRegistro())) {
-                    ced.add(soli.getVehiculo().getNumRegistro());
-                }
-                cv.setId(soli.getVehiculo().getId());
-                System.out.println("entro a antes de obtener busnes entity con" + query);
-                bea = cv.getInstance().findBussinesEntityAttribute("Motor");
-                System.out.println("presenta propieedades " + bea);
-                for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
-                        if (((String) bussinesEntityAttribute.getValue()).contains(query)
-                                && !ced.contains((String) bussinesEntityAttribute.getValue())) {
-                            ced.add((String) bussinesEntityAttribute.getValue());
-                            System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
-                        }
+            if (soli.getNumSolicitud().contains(query)) {
+                System.out.println("econtro uno " + soli.getNumSolicitud());
+                ced.add(soli.getNumSolicitud());
+            }
+            if (!ced.contains(soli.getFechaSolicitud().toString()) && soli.getFechaSolicitud().toString().contains(query)) {
+                ced.add(soli.getFechaSolicitud().toString());
+            }
+            List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
+            if ((soli.getVehiculo().getNumRegistro().contains(query)
+                    || soli.getVehiculo().getPlaca().equals(palabrab)) && !ced.contains(soli.getVehiculo().getNumRegistro())) {
+                ced.add(soli.getVehiculo().getNumRegistro());
+            }
+            cv.setId(soli.getVehiculo().getId());
+            System.out.println("entro a antes de obtener busnes entity con" + query);
+            bea = cv.getInstance().findBussinesEntityAttribute("Motor");
+            System.out.println("presenta propieedades " + bea);
+            for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
+                if (bussinesEntityAttribute.getName().equals("serie")) {
+                    if (((String) bussinesEntityAttribute.getValue()).contains(query)
+                            && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                        ced.add((String) bussinesEntityAttribute.getValue());
+                        System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                     }
-                }
-                bea = getInstance().findBussinesEntityAttribute("Chasis");
-                for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
-                        if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
-                            ced.add((String) bussinesEntityAttribute.getValue());
-                            System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
-                        }
 
+                }
+            }
+            bea = getInstance().findBussinesEntityAttribute("Chasis");
+            for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
+                if (bussinesEntityAttribute.getName().equals("serie")) {
+                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                        ced.add((String) bussinesEntityAttribute.getValue());
+                        System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                     }
-                }
 
-           
+                }
+            }
 
         }
 
@@ -655,14 +634,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("lista antes" + findAll(Requisicion.class));
         //mosttrar lista de requisiciones con igual vehiculo ,estado true
         for (Requisicion req : findAll(Requisicion.class)) {
-            System.out.println("\n\nEntro a for requis  veh...>>>" + req.getVehiculo().getId());
+
             System.out.println("req.sol" + req.getSolicitudReparacionId() + "estado" + req.isEstado());
             if (req.isEstado() && req.getSolicitudReparacionId() == null) {
                 System.out.println("veh instance>>>" + getInstance().getVehiculo().getId());
-                if ((req.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
-                    System.out.println("\n\nentro a comparar en veh.....");
-                    lrs.add(req);
+                if (req.getVehiculo() != null) {
+                    System.out.println("\n\nEntro a for requis  veh...>>>" + req.getVehiculo().getId());
+
+                    if ((req.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
+                        System.out.println("\n\nentro a comparar en veh.....");
+                        lrs.add(req);
+                    }
                 }
+
             }
 
         }
@@ -715,13 +699,17 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         //mosttrar lista de requisiciones con igual vehiculo ,estado true
         System.out.println("lista toda set soli>>>" + lr);
         for (Requisicion req : lr) {
-            System.out.println("\n\nEntro a for requis set soli...>>>" + req.getVehiculo().getId());
-            System.out.println("req setsol" + req + "estadosetsoli" + req.isEstado());
+
+    
             if (req.isEstado() && req.getSolicitudReparacionId() == null) {
-                if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
-                    System.out.println("\n\nentro a comparar set soli.....");
-                    lrq.add(req);
+                if (req.getVehiculo() != null) {
+                     System.out.println("\n\nEntro a for requis set soli...>>>" + req.getVehiculo().getId());
+                    if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
+                        System.out.println("\n\nentro a comparar set soli.....");
+                        lrq.add(req);
+                    }
                 }
+
             }
         }
         listaRequisiciones = lrq;
@@ -784,7 +772,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             if (!items.getDescripcionElementoRevisar().equals(itemsol.getDescripcionElementoRevisar())
                     && !items.getDescripcionFalla().equals(itemsol.getDescripcionFalla())) {
                 System.out.println("entro a remover>>>>>");
-                
+
                 li.add(items);
 
             } else {
@@ -793,21 +781,19 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                 }
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se eliminó Item " + items.getDescripcionElementoRevisar() + " con éxito ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
+                FacesContext.getCurrentInstance().addMessage("", msg);
 
             }
 
         }
         listaItemsSolicitud = li;
-        
+
         System.out.println("lista nueva " + listaItemsSolicitud);
         getInstance().setListaItemSR(li);
 
     }
 
     public void agregarItemS() {
-        System.out.println("sada" + citemsolicitud.getInstance().getDescripcionElementoRevisar());
-        System.out.println("dsas" + citemsolicitud.getInstance().getDescripcionFalla());
 
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
             System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
@@ -820,15 +806,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         && !it.getDescripcionFalla().equals(citemsolicitud.getInstance().getDescripcionFalla())) {
                     listaItemsSolicitud.remove(it);
                     listaItemsSolicitud.add(citemsolicitud.getInstance());
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se actualizó Item " + citemsolicitud.getInstance().getDescripcionElementoRevisar() + " con éxito ");
-                    FacesContext.getCurrentInstance().addMessage("", msg);
+
                 } else {
                     it = null;
                 }
             } else {
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se creó Item " + citemsolicitud.getInstance().getDescripcionFalla() + " con éxito ");
-                FacesContext.getCurrentInstance().addMessage("", msg);
                 listaItemsSolicitud.add(citemsolicitud.getInstance());
             }
 
@@ -943,7 +926,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String ms = "";
 
         try {
             if (getInstance().isPersistent()) {
@@ -987,7 +969,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("antes de l LISTA,,,,");
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
-                ms = "false" + getInstance().getNumSolicitud();
 
             } else {
                 getInstance().setEstado(true);
@@ -1026,8 +1007,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                         System.out.println("fijando requ en crear" + requisicion);
                     }
                 }
-                ms = "true" + getInstance().getNumSolicitud();
-
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -1037,7 +1016,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("antes de fija solicitud");
 
         System.out.println("despues de fijar solicitud");
-        return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true&msj=" + ms;
+        return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute

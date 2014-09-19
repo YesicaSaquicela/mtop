@@ -74,17 +74,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     private Property propiedadrepa;
     private String mensaje2;
     
-    public String fijarMensaje2(String s){
-        System.out.println("entro con s ==="+s);
-        if(s.equals("")){
-            System.out.println("entro a no puede ser null"+s);
-            return "no puede estar null";
-        }else{
-            System.out.println("entro a mensaje2"+mensaje2);
-            return mensaje2;
-                    
-        }
-    }
+   
     public String getMensaje2() {
         System.out.println("obtener mensaje 2"+mensaje2);
         return mensaje2;

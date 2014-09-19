@@ -967,7 +967,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 System.out.println("observacion kardex" + getInstance().getObservaciones());
                 save(getInstance());
 
-               
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ErrorRRRRRRRRRRRRRRRRRRRRRR al guardar: " + getInstance().getId(), " ");

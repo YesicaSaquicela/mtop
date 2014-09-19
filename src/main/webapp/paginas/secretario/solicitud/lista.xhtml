@@ -11,11 +11,11 @@
     <ui:param name="titulo" value="Lista de Solicitud de reparación/mantenimiento"/>
     <f:metadata>
         <f:viewParam id="vistaaa" name="vista" value="#{controladorSolicitudReparacionMantenimiento.vista}"/>
-         <f:viewParam id="msjs" name="msj" value="#{controladorSolicitudReparacionMantenimiento.msj}" />
+       
     </f:metadata>
     <ui:define name="header">
 
-      </ui:define>
+    </ui:define>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -23,190 +23,184 @@
         <h:form id="form">            
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                   
-                        <div class="panel panel-primary">
-                         <div class="panel-heading"><center>LISTA DE SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO</center></div>
 
-                            <p:panel >
-                                
-                                <div class="admin-actions">
-                                    <div class="text-primary" >
-                                        <p:panel styleClass="bg-info">
-                                            <div class="panel-body">
-                                                <div class="container-fluid" align="center">
-                                                    <div class="row-fluid">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><center>LISTA DE SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO</center></div>
+
+                        <p:panel >
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
 
 
-                                                        <div class="col-lg-6">
-                                                            <center>
-                                                                <div class="input-group" >
-                                                                    <center>
-                                                                        <h:outputLabel value="Buscar:  " />     #{'    '} 
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{'    '} 
 
-                                                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrab}"   
-                                                                                        completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletar}"/> 
+                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorSolicitudReparacionMantenimiento.palabrab}"   
+                                                        completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletar}"/> 
 
-                                                                        #{' '} 
-                                                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:infoFM:listap  :form:infoFM:listasa" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="#fff" >
+                                        &nbsp;&nbsp;
+                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:infoFM:listap  :form:infoFM:listasa" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="#fff" >
 
-                                                                        </p:commandButton>
+                                        </p:commandButton>
 
 
-                                                                        <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="@brand-primary" >
+                                        <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="@brand-primary" >
 
-                                                                        </p:commandButton>
-                                                                    </center>
-                                                                </div>
-                                                            </center>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> </p:panel></div>
-                                        <!--p:commandButton value="Crear" rendered="#{true}" ajax="false" action="/paginas/secretario/requisicion/crear.xhtml?faces-redirect=true" styleClass="btn btn-success" >
-                                            <f:param name="requisicionId"></f:param>
-                                        </p:commandButton-->
-                                    <br/>
-                                    <div class="admin-actions">
-
-                                        <h:link styleClass="btn btn-success"
-                                                outcome="crear"
-                                                value="Crear"
-                                                type="button">  
-
-                                            <f:param name="valorVista" value="solicitud"/>
-                                            <f:param name="tipo" value="Requisición de Reparación"/>
-                                        </h:link>
-                                    </div>
-                                    <br/><br/>
+                                        </p:commandButton>
+                                    </center>
                                 </div>
-<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                                <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
-                                    <div  class="panel panel-primary">
-                                        <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
-                                        <p:tab id="ts" title="Lista de Solicitudes de Reparación y Mantenimiento No Aprobadas" closable="false"  titleStyleClass="clearfix" >
-                                            <div class="row-fluid">
+
+                            </div>
+                            <div class="admin-actions">
+
+                                <h:link styleClass="btn btn-success"
+                                        outcome="crear"
+                                        value="Crear"
+                                        type="button">  
+
+                                    <f:param name="valorVista" value="solicitud"/>
+                                    <f:param name="tipo" value="Requisición de Reparación"/>
+                                </h:link>
+                                <br/>
+                            </div>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="todas">
+                                    <div class="table-responsive">
+
+                                        <br/>
+                                        <tbody>
 
 
-                                                <div class="tab-content">
-                                                    <div class="tab-pane active" id="todas">
-                                                        <div class="table-responsive">
+                                            <p:tabView id="infoFM"  style="width: 99%; padding-bottom: 1.5%" >
+                                                <div  class="panel panel-primary">
+                                                    <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
+                                                    <p:tab id="ts" title="Solicitudes de reparación y mantenimiento no aprobadas" closable="false"  titleStyleClass="clearfix" >
+                                                        <div class="row-fluid">
 
 
-                                                            <tbody>
-                                                                <p:dataTable  id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
-                                                                              paginator="true" rows="15"                         
-                                                                              paginatorPosition="top"
-                                                                              rowsPerPageTemplate="5,10,15,20" emptyMessage="No se han encontrado coincidencias">
+                                                            <div class="tab-content">
+                                                                <div class="tab-pane active" id="todas">
+                                                                    <div class="table-responsive">
+
+                                                                        <br/>
+                                                                        <tbody>
+                                                                            <p:dataTable  id="listap" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" var="s"
+                                                                                          paginator="true" rows="15"                         
+                                                                                          paginatorPosition="top"
+                                                                                          rowsPerPageTemplate="5,10,15,20" emptyMessage="No se han encontrado coincidencias">
 
 
-                                                                    <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
-                                                                        <h:outputText value="#{s.numSolicitud}"></h:outputText>
-                                                                    </p:column>z
-                                                                    <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
-                                                                        <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Recibidor" sortBy="#{s.recibidor}">
-                                                                        <h:outputText value="#{s.recibidor}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Observación" sortBy="#{s.observacion}">
-                                                                        <h:outputText value="#{s.observacion}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Registro Requisición" sortBy="#{s.requisicionId.numRequisicion}">
-                                                                        <h:outputText value="#{s.requisicionId.numRequisicion}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Registro Vehículo" sortBy="#{s.vehiculo.numRegistro}">
-                                                                        <h:outputText value="#{s.vehiculo.numRegistro}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Editar" style="width: 5%"> 
-                                                                        <center>
-                                                                            <p:button id="selectButton" styleClass="btn  btn-success"
-                                                                                      outcome="crear"
-                                                                                      icon="ui-icon-pencil" title="Editar">  
-                                                                                <f:param name="solicitudId" value="#{s.id}"></f:param>
-                                                                                <f:param name="vehiculoId" value="#{s.vehiculo.id}"></f:param>
-                                                                                <f:param name="valorVista" value="solicitud"/>
-                                                                                <f:param name="tipo" value="Requisición de Reparación"/>
+                                                                                <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
+                                                                                    <h:outputText value="#{s.numSolicitud}"></h:outputText>
+                                                                                </p:column>z
+                                                                                <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
+                                                                                    <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Recibidor" sortBy="#{s.recibidor}">
+                                                                                    <h:outputText value="#{s.recibidor}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Observación" sortBy="#{s.observacion}">
+                                                                                    <h:outputText value="#{s.observacion}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Registro Requisición" sortBy="#{s.requisicionId.numRequisicion}">
+                                                                                    <h:outputText value="#{s.requisicionId.numRequisicion}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Registro Vehículo" sortBy="#{s.vehiculo.numRegistro}">
+                                                                                    <h:outputText value="#{s.vehiculo.numRegistro}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Editar" style="width: 5%"> 
+                                                                                    <center>
+                                                                                        <p:button id="selectButton" styleClass="btn  btn-success"
+                                                                                                  outcome="crear"
+                                                                                                  icon="ui-icon-pencil" title="Editar">  
+                                                                                            <f:param name="solicitudId" value="#{s.id}"></f:param>
+                                                                                            <f:param name="vehiculoId" value="#{s.vehiculo.id}"></f:param>
+                                                                                            <f:param name="valorVista" value="solicitud"/>
+                                                                                            <f:param name="tipo" value="Requisición de Reparación"/>
 
-                                                                            </p:button>
-                                                                        </center>
-                                                                    </p:column>
-                                                                    <p:column headerText="Dar de baja" style="width: 10%">
-                                                                        <center>
-                                                                            <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                                                             action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 
-                                                                                             title="Dar de baja" update=":form:infoFM">
-                                                                                <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja ha la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
-                                                                            </p:commandButton></center>
-                                                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                            <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                                            <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                                        </p:confirmDialog>
-                                                                    </p:column>
-                                                                </p:dataTable></tbody></div></div>
-                                                </div></div>
-                                        </p:tab>
-                                        <p:tab id="tsa" title="Lista de Solicitudes de Reparación y Mantenimiento Aprobadas" closable="false"  titleStyleClass="clearfix" >
-                                            <div class="row-fluid">
-
-
-                                                <div class="tab-content">
-                                                    <div class="tab-pane active" id="todas">
-                                                        <div class="table-responsive">
+                                                                                        </p:button>
+                                                                                    </center>
+                                                                                </p:column>
+                                                                                <p:column headerText="Dar de baja" style="width: 10%">
+                                                                                    <center>
+                                                                                        <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                                                         action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 
+                                                                                                         title="Dar de baja" update=":form:infoFM">
+                                                                                            <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja ha la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
+                                                                                        </p:commandButton></center>
+                                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                                                    </p:confirmDialog>
+                                                                                </p:column>
+                                                                            </p:dataTable></tbody></div></div>
+                                                            </div></div>
+                                                    </p:tab>
+                                                    <p:tab id="tsa" title="Solicitudes de reparación y mantenimiento aprobadas" closable="false"  titleStyleClass="clearfix" >
+                                                        <div class="row-fluid">
 
 
-                                                            <tbody>
-                                                                <p:dataTable id="listasa" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitudAprobadas}" var="sa"
-                                                                             paginator="true" rows="15"                         
-                                                                             paginatorPosition="top"
-                                                                             rowsPerPageTemplate="5,10,15,20">
+                                                            <div class="tab-content">
+                                                                <div class="tab-pane active" id="todas">
+                                                                    <div class="table-responsive">
 
 
-                                                                    <p:column headerText="Número de Solicitud" sortBy="#{sa.numSolicitud}">
-                                                                        <h:outputText value="#{sa.numSolicitud}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Fecha de Solicitud" sortBy="#{sa.fechaSolicitud}">
-                                                                        <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(sa.fechaSolicitud)}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Recibidor" sortBy="#{sa.recibidor}">
-                                                                        <h:outputText value="#{sa.recibidor}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Observación" sortBy="#{sa.observacion}">
-                                                                        <h:outputText value="#{sa.observacion}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Registro requisición" sortBy="#{sa.requisicionId.numRequisicion}">
-                                                                        <h:outputText value="#{sa.requisicionId.numRequisicion}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Registro Vehículo" sortBy="#{sa.vehiculo.numRegistro}">
-                                                                        <h:outputText value="#{sa.vehiculo.numRegistro}"></h:outputText>
-                                                                    </p:column>
-                                                                    <p:column headerText="Opciones" style="width: 5%"> 
-                                                                        <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                                  outcome="imprimirSolicitud" 
-                                                                                  title="Visualizar">  
-                                                                            <p:ajax event="click" partialSubmit="true" update="@this"/>
-                                                                            <f:param name="solId" value="#{sa.id}"></f:param>
-                                                                            
-
-                                                                        </p:button>
+                                                                        <tbody>
+                                                                            <p:dataTable id="listasa" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitudAprobadas}" var="sa"
+                                                                                         paginator="true" rows="15"                         
+                                                                                         paginatorPosition="top"
+                                                                                         rowsPerPageTemplate="5,10,15,20">
 
 
-                                                                    </p:column>
-                                                                </p:dataTable></tbody></div></div>
-                                                </div></div>
-                                        </p:tab>
+                                                                                <p:column headerText="Número de Solicitud" sortBy="#{sa.numSolicitud}">
+                                                                                    <h:outputText value="#{sa.numSolicitud}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Fecha de Solicitud" sortBy="#{sa.fechaSolicitud}">
+                                                                                    <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(sa.fechaSolicitud)}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Recibidor" sortBy="#{sa.recibidor}">
+                                                                                    <h:outputText value="#{sa.recibidor}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Observación" sortBy="#{sa.observacion}">
+                                                                                    <h:outputText value="#{sa.observacion}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Registro requisición" sortBy="#{sa.requisicionId.numRequisicion}">
+                                                                                    <h:outputText value="#{sa.requisicionId.numRequisicion}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Registro Vehículo" sortBy="#{sa.vehiculo.numRegistro}">
+                                                                                    <h:outputText value="#{sa.vehiculo.numRegistro}"></h:outputText>
+                                                                                </p:column>
+                                                                                <p:column headerText="Opciones" style="width: 5%"> 
+                                                                                    <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                                                                              outcome="imprimirSolicitud" 
+                                                                                              title="Visualizar">  
+                                                                                        <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                                                                        <f:param name="solId" value="#{sa.id}"></f:param>
+
+
+                                                                                    </p:button>
+
+
+                                                                                </p:column>
+                                                                            </p:dataTable></tbody></div></div>
+                                                            </div></div>
+                                                    </p:tab>
+                                                </div>
+
+
+                                            </p:tabView>
+                                        </tbody>
                                     </div>
+                                </div>
 
+                            </div>
 
-                                </p:tabView>
-
-                                <!--Opción de mensaje, cuando se realiza una acción-->
-
-
-                                <!--Botones de admin-->
-
-
-
-                            </p:panel></div> </div></div>
+                        </p:panel>
+                    </div> 
+                </div>
+            </div>
 
 
 

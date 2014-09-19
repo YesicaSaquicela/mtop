@@ -21,7 +21,7 @@ limitations under the License.
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/plantilla.xhtml">
-   
+
     <ui:define name="content">
 
 
@@ -30,58 +30,42 @@ limitations under the License.
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE ENTIDADES</center></div>
+                        <div class="panel-heading"><center>LISTA DE ENTIDADES</center></div>
                         <p:panel>
-                         
-                            
-                            <div class="admin-actions">
 
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{" "} 
 
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
-
-
-                                                    <div class="col-lg-6">
-                                                        <center>
-                                                            <div class="input-group">
-                                                                <center>
-                                                                    <h:outputLabel value="Buscar:  " />     #{" "} 
-
-                                                                    <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeListService.palabrab}"   
-                                                                                    completeMethod="#{bussinesEntityTypeListService.autocompletar}"/> 
-                                                                    #{" "} 
+                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{bussinesEntityTypeListService.palabrab}"   
+                                                        completeMethod="#{bussinesEntityTypeListService.autocompletar}"/> 
+                                        #{" "} 
 
 
 
-                                                                    <p:commandButton value="Buscar" update=":form:bussinesEntityTypeTable" process="@form" id="buscar" 
-                                                                                     action="#{bussinesEntityTypeListService.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandButton value="Buscar" update=":form:bussinesEntityTypeTable" process="@form" id="buscar" 
+                                                         action="#{bussinesEntityTypeListService.buscar()}" styleClass="btn btn-success" >
 
-                                                                    </p:commandButton>
+                                        </p:commandButton>
 
 
-                                                                    <p:commandButton value="Limpiar" process="@this" update="@form"  
-                                                                                     action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
+                                        <p:commandButton value="Limpiar" process="@this" update="@form"  
+                                                         action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
 
-                                                                    </p:commandButton>
-                                                                </center>
-                                                            </div>
-                                                        </center>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </p:panel>
+                                        </p:commandButton>
+                                    </center>
+
                                 </div>
-                                <!-- <h:link value="# {messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
-                                <f:param name="bussinesEntityTypeId"></f:param>
-                                <f:param name="backView" value="list"></f:param>
-                                </h:link>-->
-                                #{' '}
-
                             </div> 
+
+
+   <!-- <h:link value="# {messages['common.add']}" rendered="#{true}" outcome="bussinesentitytype" styleClass="btn primary">
+   <f:param name="bussinesEntityTypeId"></f:param>
+   <f:param name="backView" value="list"></f:param>
+   </h:link>-->
+                            #{' '}
+
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
@@ -92,7 +76,6 @@ limitations under the License.
                                             <p:dataTable var="bussinesEntityType" value="#{bussinesEntityTypeListService.resultList}"
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
-                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {RowsPerPageDropdown} {NextPageLink} {LastPageLink} "
                                                          rowsPerPageTemplate="5,10,15,20"
                                                          id="bussinesEntityTypeTable"                           
                                                          rendered="true"
@@ -136,7 +119,7 @@ limitations under the License.
             <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
             <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..."  resizable="false"  draggable="false" closable="false" > 
-               
+
                 <p:graphicImage value="/resources/ajax-loader.gif" /> 
             </p:dialog>
 

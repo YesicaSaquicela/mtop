@@ -8,6 +8,7 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
+
     <ui:param name="titulo" value="Lista de Partida de Contabilidad"/>
 
     <ui:define name="header">
@@ -22,69 +23,60 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                         <div class="panel-heading"><center>LISTA DE PARTIDAS DE CONTABILIDAD</center></div>
+                        <div class="panel-heading"><center>LISTA DE PARTIDAS DE CONTABILIDAD</center></div>
                         <p:panel>
-                            
-                            <div class="admin-actions">
-                                <div class="panel panel-success">
-                                    <p:panel>
-                                        <div class="panel-body">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
 
 
-                                                    <div class="col-lg-6">
 
-                                                        <div class="input-group">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPartidaContabilidad.palabrab}"   
-                                                                                 completeMethod="#{controladorPartidaContabilidad.autocompletar}"/> 
-                                                                &nbsp;&nbsp;
+                                        <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPartidaContabilidad.palabrab}"   
+                                                         completeMethod="#{controladorPartidaContabilidad.autocompletar}"/> 
+                                        &nbsp;&nbsp;
 
 
 
 
 
-                                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listapc" action="#{controladorPartidaContabilidad.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listapc" action="#{controladorPartidaContabilidad.buscar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-
-
-                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listapc :form:acSimple" action="#{controladorPartidaContabilidad.limpiar()}" styleClass="btn btn-success" >
-
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
+                                        </p:commandButton>
 
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> </p:panel></div>
-                                <div class="admin-actions">
+                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listapc :form:acSimple" action="#{controladorPartidaContabilidad.limpiar()}" styleClass="btn btn-success" >
 
-                                    <h:link styleClass="btn btn-success" value="Crear" 
-                                            outcome="crear" type="button" >
-                                        <f:param name="partidaId" ></f:param>
+                                        </p:commandButton>
+                                    </center>
 
-                                    </h:link>
                                 </div>
+                            </div> 
+
+
+                            <div class="admin-actions">
+
+                                <h:link styleClass="btn btn-success" value="Crear" 
+                                        outcome="crear" type="button" >
+                                    <f:param name="partidaId" ></f:param>
+
+                                </h:link>
                             </div>
-                        <div class="admin-actions" align="right">
 
-                            <p:button id="visualizar" rendered="#{controladorPartidaContabilidad.listaPartidaC.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                          outcome="imprimirPartidaC" 
-                                                                          title="Visualizar">  
-                                                                    <p:ajax event="click" partialSubmit="true" update="@this"/>
-                                                                    <!--f:param name="planMid" value="# {controladorPlanMantenimiento.instance.id}"></f:param-->
+                            <div class="admin-actions" align="right">
 
-
-                                                                </p:button>
+                                <p:button id="visualizar" rendered="#{controladorPartidaContabilidad.listaPartidaC.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                          outcome="imprimirPartidaC" 
+                                          title="Visualizar">  
+                                    <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                    <!--f:param name="planMid" value="# {controladorPlanMantenimiento.instance.id}"></f:param-->
 
 
-                                </div><br/><br/>
+                                </p:button>
+
+
+                            </div><br/>
                             <!--Botones de admin-->
 
                             <div class="tab-content">
@@ -93,7 +85,7 @@
 
 
                                         <tbody>
-                                              <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                             <p:dataTable id="listapc" value="#{controladorPartidaContabilidad.listaPartidaC}" var="pc" 
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"

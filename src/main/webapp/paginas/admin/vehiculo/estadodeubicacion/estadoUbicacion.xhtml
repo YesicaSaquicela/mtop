@@ -155,8 +155,9 @@
 
 
                     <center>
-                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" styleClass="btn  btn-success" action="#{controladorVehiculo.guardarEstadoVehiculo()}"
-                                         ajax="true" update="p1"/>
+                        <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" 
+                                         styleClass="btn  btn-success" action="#{controladorVehiculo.guardarEstadoVehiculo()}"
+                                         ajax="true" update="p1" process="@form" />
 
 
                     </center>

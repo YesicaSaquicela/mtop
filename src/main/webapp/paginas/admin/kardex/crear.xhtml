@@ -379,20 +379,22 @@
                                 <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Observación" 
                                             value="#{controladorKardex.instance.observaciones}"
                                             inlinehelp="Ingrese una descripción"
-                                            execute ="@this save" render="descripcion"/><br></br>
-                                
+                                            execute ="@this save" render="descripcion"
+                                            >
+                                </mtop:input><br></br>
+
                                 <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
-                                   
+
                                     <c:forEach items="#{ui.getProperties(controladorKardex.instance)}" var="p" >
-                                     
+
                                         <div  class="panel panel-primary">
                                             <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
                                             <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
-                                            
+
                                                 <c:choose>                        
                                                     <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
-                                                     
+
                                                         <h:panelGroup  layout="block" class="clearfix">
                                                             <ui:repeat value="#{controladorKardex.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
@@ -544,12 +546,13 @@
 
                                 </p:tabView><br></br><br></br>
 
-                                <div class="admin-actions " align="center">
-                                    <p:commandButton id="save" value="Guardar"   styleClass="btn  btn-success" 
-                                                     action="#{controladorKardex.guardar}" update=":form:kar"
-                                                     />
+                                <center>
+                                <p:commandButton id="save" value="Guardar"   ajax="true" update="kar"
+                                                 styleClass="btn  btn-success" action="#{controladorKardex.guardar}"
+                                                 />
+                                </center>
 
-                                </div>
+
 
                             </p:panel>
                         </div>
@@ -927,6 +930,17 @@
                     </p:panel>
                 </div>
             </div>
+            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                        <p:dialog modal="true" header="Por favor espere, Cargando..." widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
+
+                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                            <div class="progress progress-striped
+                             active">
+                            <div class="bar"
+                                 style="width: 40%;"></div>
+                        </div>
+                        </p:dialog>
         </h:form>
 
 

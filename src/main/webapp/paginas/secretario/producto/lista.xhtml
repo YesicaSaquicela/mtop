@@ -7,9 +7,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
-
+    
     <ui:param name="titulo" value="Lista de Productos"/>
-
+    
     <ui:define name="header">
     </ui:define>
     <ui:define name="content">
@@ -22,69 +22,66 @@
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <!--Opción de mensaje, cuando se realiza una acción-->
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE PRODUCTOS</center></div>
+                        <div class="panel-heading"><center>LISTA DE PRODUCTOS</center></div>
                         <p:panel>
-                          
-                            <div class="admin-actions">
-                                <div class="panel panel-success" align="center">
-                                    <p:panel>
-                                        <div class="panel-body" align="center">
-                                            <div class="container-fluid" align="center">
-                                                <div class="row-fluid">
 
 
-                                                    <div class="col-lg-6">
 
-                                                        <div class="input-group" align="center">
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorProducto.palabrab}"   
-                                                                                completeMethod="#{controladorProducto.autocompletar}"/> 
-                                                                &nbsp;&nbsp;
+                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorProducto.palabrab}"   
+                                                        completeMethod="#{controladorProducto.autocompletar}"/> 
+                                        &nbsp;&nbsp;
 
 
 
 
 
-                                                                <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:listap" action="#{controladorProducto.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:listap" action="#{controladorProducto.buscar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
+                                        </p:commandButton>
 
-                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorProducto.limpiar()}" styleClass="btn btn-success" >
+                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorProducto.limpiar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-                                                            </center>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> </p:panel></div>
-                                <div class="admin-actions">
-                                   
-
-                                    <h:link styleClass="btn btn-success" value="Crear" 
-                                            outcome="crear" type="button" >
-                                         <f:param name="productoId" ></f:param>
-
-                                    </h:link><br/><br/>
+                                        </p:commandButton>
+                                    </center>
                                 </div>
-                                     <div class="admin-actions" align="right">
-                                    <h:panelGrid id="export" class="columns" >
-                                        <p:panel>
-                                            <h:outputText value="Generar Reporte" />  
-                                            <br/>
-                                            <h:commandLink action="#{reporteListas.renderProducto(controladorProducto.listaProducto)}" styleClass="btn">                    
-                                                <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
 
-                                            </h:commandLink>                    
-                                        </p:panel>
-                                    </h:panelGrid>
 
+                            </div>
+                            <div class="container-fluid">
+                                <!-- Example row of columns -->
+                                <div class="row">
+                                    <div class="col-md-6"> 
+                                        <div class="admin-actions">
+
+
+                                            <h:link styleClass="btn btn-success" value="Crear" 
+                                                    outcome="crear" type="button" >
+                                                <f:param name="productoId" ></f:param>
+
+                                            </h:link><br/><br/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" align="right"> 
+                                        <h:panelGrid id="export" class="columns" >
+                                            <p:panel>
+                                                <h:outputText value="Generar Reporte" />  
+                                                <br/>
+                                                <h:commandLink action="#{reporteListas.renderProducto(controladorProducto.listaProducto)}" styleClass="btn">                    
+                                                    <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
+
+                                                </h:commandLink>                    
+                                            </p:panel>
+                                        </h:panelGrid><br/>
+                                    </div>
                                 </div>
                             </div>
+
+
                             <!--Botones de admin-->
 
                             <div class="tab-content">
@@ -93,12 +90,12 @@
 
 
                                         <tbody>
-                                              <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                                            <p:messages id="messages"  showDetail="true" autoUpdate="true" closable="true" />  
                                             <p:dataTable id="listap" value="#{controladorProducto.listaProducto}" var="pd"
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20"
-                                                        emptyMessage="No se han encontrado coincidencias">
+                                                         emptyMessage="No se han encontrado coincidencias">
                                                 <p:column headerText="Código" sortBy="#{pd.codigo}">
                                                     <h:outputText value="#{pd.codigo}"></h:outputText>
                                                 </p:column>
@@ -115,39 +112,47 @@
                                                               icon="ui-icon-pencil" title="Editar">  
                                                         <f:param name="productoId" value="#{pd.id}"></f:param>
                                                     </p:button> #{" "}
-
-                                                    <p:commandButton rendered="#{controladorProducto.verificarPoducto(pd.id) == true}" id="dardebaja" icon="ui-icon-trash" style="margin-top:10px;"
-                                                                     action="#{controladorProducto.darDeBaja(pd.id)}" 
-                                                                     title="Dar de baja" update="@form">
-                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja al producto seleccionado?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
                                                     
-                                                     <p:commandButton id="elimiar2" rendered="#{controladorProducto.verificarPoducto(pd.id) == false}" icon="ui-icon-trash" style="margin-top:10px;"
-                                                                     oncomplete="#{'carDialog1.show();'}" immediate="true"
-                                                                     title="Dar de baja111">
-                                                         <p:ajax process="@this" update=":form-dialog1 "/> 
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    <p:commandButton id="elimiar2" rendered="#{controladorProducto.verificarPoducto(pd.id) eq false}" icon="ui-icon-trash" style="margin-top:10px;"
+                                                                     onclick="#{'carDialog1.show();'}" immediate="true"
+                                                                     title="Dar de baja111" update=":form-dialog1">
                                                        
+
                                                     </p:commandButton>
                                                     
+                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                     action="#{controladorProducto.darDeBaja(pd.id)}" 
+                                                                     title="Desactivar" update=":form:listap" process="@this"
+                                                                    rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
+                                                        <p:confirm header="Dar de baja" message="¿Desea Realmente dar de baja el producto?" icon="ui-icon-alert" />
+
+                                                    </p:commandButton>
+
+
+
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                         <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                     </p:confirmDialog>
-
+                                                    
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div></div>
                         </p:panel></div></div></div>
-            
-            
+
+
         </h:form>
-                <p:dialog id="form-dialog1" header="Mensaje" widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
+        <p:dialog id="form-dialog1" header="Mensaje" widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
             <h:form id="v1"  >
                 <div class="container-fluid">
                     <div class="row-fluid"  >
                         <h:panelGroup layout="block" id="dial" style="padding:5px;">  
                             <h:outputText value="El producto se encuentra asignado a una requisición, no se lo puede dar de baja."/>
-                             
+
                         </h:panelGroup>
                     </div></div>
 
