@@ -371,18 +371,17 @@ public class InitializeDatabase {
             List<Property> attributes = new ArrayList<Property>();
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
-
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "SistemaElectrico", "Sistema Eléctrico", "Información del Sistema Eléctrico", "/paginas/vehiculo/crear", 2L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 3L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroceria", "Carrocería", "Información de Carrocería", "/paginas/vehiculo/crear", 4L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Direccion", "Dirección", "Información de Dirección", "/paginas/vehiculo/crear", 5L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 6L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Chasis", "Chasis", "Información de Chasís", "/paginas/vehiculo/crear", 7L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Motor", "Motor", "Información del Motor", "/paginas/vehiculo/crear", 8L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los Neumáticos", "/paginas/vehiculo/crear", 3L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Transmision", "Transmisión", "Información de la transmisión", "/paginas/vehiculo/crear", 9L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Suspension", "Suspensión", "Información de la suspensión", "/paginas/vehiculo/crear", 10L));
+             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Chasis", "Chasis", "Información de Chasís", "/paginas/vehiculo/crear", 1L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Motor", "Motor", "Información del Motor", "/paginas/vehiculo/crear", 2L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 3L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "SistemaElectrico", "Sistema Eléctrico", "Información del Sistema Eléctrico", "/paginas/vehiculo/crear", 4L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 5L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroceria", "Carrocería", "Información de Carrocería", "/paginas/vehiculo/crear", 6L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Direccion", "Dirección", "Información de Dirección", "/paginas/vehiculo/crear", 7L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 8L));
+           attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los Neumáticos", "/paginas/vehiculo/crear", 9L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Transmision", "Transmisión", "Información de la transmisión", "/paginas/vehiculo/crear", 10L));
+            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Suspension", "Suspensión", "Información de la suspensión", "/paginas/vehiculo/crear", 11L));
 
 //Agregar atributos
             structure.setProperties(attributes);

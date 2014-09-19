@@ -735,8 +735,14 @@
                                                             <p:commandButton  update=":form:listai "  icon="ui-icon-trash"
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
                                                                               process="@form" style="margin-top:10px;">
+                                                                <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la requisición?" icon="ui-icon-alert" />
+                                                            
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandButton>
+                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                            </p:confirmDialog>
 
                                                         </p:column>
 

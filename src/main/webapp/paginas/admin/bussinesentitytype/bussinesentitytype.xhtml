@@ -29,7 +29,6 @@ limitations under the License.
         <f:viewParam name="bussinesEntityTypeId" value="#{bussinesEntityTypeHome.bussinesEntityTypeId}" />             
         <f:viewParam name="bussinesentitytypeName" value="#{bussinesEntityTypeHome.instance.name}" />             
         <f:viewParam name="bussinesentitytypeLabel" value="#{bussinesEntityTypeHome.instance.label}" />             
-
         <s:viewAction action="#{bussinesEntityTypeHome.load}" if="#{conversation.transient}"/>                          
     </f:metadata>    
     <ui:define name="header">                    
@@ -433,6 +432,12 @@ limitations under the License.
 
                     </c:forEach> 
                 </div></div>
+             <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
+                    
+                    <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                </p:dialog>
 
 
         </h:form>

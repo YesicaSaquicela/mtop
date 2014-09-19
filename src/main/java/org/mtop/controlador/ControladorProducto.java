@@ -312,7 +312,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true&msj="+ms;
+        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
     public boolean verificarPoducto(Long idproducto) {
@@ -366,9 +366,9 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             getInstance().setEstado(false);
             save(getInstance());
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El producto seleccionado ha sido dado de baja ", "exitosamente"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado ha sido dado de baja  exitosamente"));
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El producto seleccionado no se lo puede dar de baja", "porque ya se encuentra agregado en una requisición"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado no se lo puede dar de baja porque ya se encuentra agregado en una requisición"));
         }
 
         return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";

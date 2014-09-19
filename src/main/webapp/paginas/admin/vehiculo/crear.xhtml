@@ -274,21 +274,15 @@
 
 
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" 
-                                   href="#collapseThree1">
-                                    Datos Adicionales
-                                </a>
-                            </h4>
-                        </div>
+                    
                         <p:panel id="panel7">    
 
-                            <div id="collapseThree1" class="panel-collapse collapse">
-                                <div class="panel-body">
+                           <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Datos Adicionales
+                        </div>
 
-                                    <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                               <p:tabView  id="infoFM" style="width: 99%; padding-bottom: 1.5%">
 
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <div  class="panel panel-primary">
@@ -313,7 +307,7 @@
                                                                                          required="#{a.property.required}" label="#{a.property.label}" 
                                                                                          rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true" rendered="@parent"/>
                                                                             </p:inputText>
                                                                             <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                                                          validator="realValidator" 
@@ -460,9 +454,9 @@
                                     </p:tabView><br></br><br></br> 
 
                                 </div>
-                            </div>
+                     
                         </p:panel> 
-                    </div>
+                    
 
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" 

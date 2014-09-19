@@ -54,9 +54,9 @@ public class ValidadorNumRegistroVehiculo implements Validator {
         System.out.println("validador numregistro");
         //
         String field = value.toString();
-        System.out.println("field>>>" + field.matches("[0-9-]*"));
-        if (!field.matches("[0-9-]*")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se admiten letras ", " ");
+        System.out.println("field>>>" + field.matches("[0-9]+(-[0-9]+)?"));
+        if (!field.matches("[0-9]+(-[0-9]+)?")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se admiten letras ni guión al inicio o al final ", " ");
 
             throw new ValidatorException(msg);
         } else {
