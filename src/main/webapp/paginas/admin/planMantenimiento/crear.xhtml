@@ -57,7 +57,7 @@
                                                                 styleClass="validation-status" />
                             <span class="help-inline text-muted">Fecha de creación del plan de mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
-                            <p:outputLabel value="Actividad"/><br></br>
+                            <p:outputLabel value="Actividad*"/><br></br>
                             <p:inputTextarea maxlength="50" label="actividad" requiredMessage="Se necesita un actividad" 
                                              id="actividad" required="true" styleClass="form-control"
                                              value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
@@ -65,14 +65,14 @@
 <p:ajax event="blur" update="ak" partialSubmit="true"  />
                             </p:inputTextarea>
                             <h:panelGroup id="ak">
-                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.actividad != null}"
+                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.actividad != ''}"
                                                                 styleClass="validation-status" />
                             <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
   </h:panelGroup>
 
 
 
-                            <h:outputLabel value="Kilometraje"/> <br></br> 
+                            <h:outputLabel value="Kilometraje*"/> <br></br> 
                             <p:selectOneMenu maxlength="50" required="true" label="kilometraje" requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
                                 <p:ajax event="change" update="km" partialSubmit="true"  />
                                 <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -80,7 +80,7 @@
 
                             </p:selectOneMenu><br></br>
                             <h:panelGroup id="km">
-                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje != ''}"
+                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje != null}"
                                                                 styleClass="validation-status" />
                             <span class="help-inline text-muted">Elija el Kilometraje</span><br></br><br></br> 
 

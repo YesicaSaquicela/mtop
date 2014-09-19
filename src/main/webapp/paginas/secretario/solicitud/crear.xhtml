@@ -65,7 +65,7 @@
                                     <p:selectOneMenu id="personal"  value="#{controladorSolicitudReparacionMantenimiento.idPersona}"
                                                      effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                     >  
+                                                     filter="true" filterMatchMode="contains">  
                                         <p:ajax event="change" update="srq" partialSubmit="true"  />
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  

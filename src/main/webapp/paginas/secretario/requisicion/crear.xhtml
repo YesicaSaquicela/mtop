@@ -22,9 +22,7 @@
 
     </ui:define>
     <ui:define name="content">
-        <!--Metadato que se realiza antes de renderizarse la vista-->
-
-        <!--Formulario dentro de un contenedor-->
+        
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
@@ -64,7 +62,7 @@
 
                                     <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
                                     <p:selectOneMenu id="partida" value="#{controladorRequisicion.idPartidaC}" effect="fade"
-                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                     converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains"
                                                      requiredMessage="Se requiere eleguir una partida de contabilidad">  
                                         <p:ajax event="change" update="pt" partialSubmit="true"  />
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -98,7 +96,7 @@
 
                                     <h:outputLabel value="Requerido por:"/> <br></br>
                                     <p:selectOneMenu id="personal1"  value="#{controladorRequisicion.idPersonal}" 
-                                                     effect="fade" label="requerido"
+                                                     effect="fade" label="requerido" filter="true" filterMatchMode="contains"
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                      requiredMessage="Se requiere eleguir una persona que solicita la requisición">  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -111,8 +109,10 @@
                                         <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal1" /></span><br></br><br></br> 
                                     </h:panelGroup>
                                     <h:outputLabel value="Tipo de adquisición "/><br></br>
-                                    <p:selectOneMenu id="adquisicion" disabled="#{controladorRequisicion.instance.id ne null}" label="Tipo de Adquisición" value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
-                                        <p:ajax event="change" update="ta" partialSubmit="true"  />
+                                    <p:selectOneMenu id="adquisicion" disabled="#{controladorRequisicion.instance.id ne null}"
+                                                      label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
+                                                      value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
+                                        <p:ajax event="change" update="ta" partialSubmit="true" />
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
                                         <f:selectItem itemLabel="Compra" itemValue="compra" />  
@@ -362,7 +362,6 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
-
 
                                                 <tbody>
                                                     <p:messages id="mensaje6" showDetail="true" autoUpdate="true" closable="true" />

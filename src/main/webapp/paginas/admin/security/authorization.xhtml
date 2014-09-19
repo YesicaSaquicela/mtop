@@ -13,7 +13,7 @@
         </f:metadata>
 
         <ui:define name="header-replace">            
-        
+
         </ui:define>
         <ui:define name="content">
             <h:form id="form" acceptcharset="UTF-8">      
@@ -33,45 +33,31 @@
                             <div class="panel-heading" align="center">Autorización</div>
                             <p:panel>
 
-                                <div class="admin-actions">
-                                    <div class="panel panel-success">
-                                        <p:panel>
-                                            <div class="panel-body">
-                                                <div class="container-fluid" >
-                                                    <div class="row-fluid">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
 
+                                        <div class="input">
+                                            <p:outputLabel value="Elegir Roles:"></p:outputLabel> <br/>
+                                            <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
+                                                             converter="omnifaces.SelectItemsConverter" 
+                                                             required="true" requiredMessage="false"
+                                                             rendered="true" label="#{messages['security.group']}">                         
+                                                <f:selectItem itemLabel="#{messages['common.choice']}"  itemValue = ""  />  
+                                                <f:selectItems value="#{securityHome.findAllGroups}" var="g" itemValue="#{g}" itemLabel="#{g.name}"/>
+                                                <p:ajax event="change" process="@this" update="@parent" partialSubmit="true"/>
+                                            </p:selectOneMenu>
 
-                                                        <div class="col-lg-6">
-
-                                                            <div class="input-group">
-
-                                                                <div class="input">
-                                                                    <p:outputLabel value="Elegir Roles:"></p:outputLabel><br/>
-                                                                    <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
-                                                                                     converter="omnifaces.SelectItemsConverter" 
-                                                                                     required="true" requiredMessage="false"
-                                                                                     rendered="true" label="#{messages['security.group']}">                         
-                                                                        <f:selectItem itemLabel="#{messages['common.choice']}"  itemValue = ""  />  
-                                                                        <f:selectItems value="#{securityHome.findAllGroups}" var="g" itemValue="#{g}" itemLabel="#{g.name}"/>
-                                                                        <p:ajax event="change" process="@this" update="@parent" partialSubmit="true"/>
-                                                                    </p:selectOneMenu> #{""}
-
-                                                                    <p:commandButton id="add" value="#{messages['common.assignto']}"
-                                                                                     actionListener="#{securityHome.associateTo()}" styleClass="btn  btn-success" 
-                                                                                     icon="ui-icon-circle-check" rendered="true" update="groupTable" process="@this"/>
+                                            <p:commandButton id="add" value="#{messages['common.assignto']}"
+                                                             actionListener="#{securityHome.associateTo()}" styleClass="btn  btn-success" 
+                                                             icon="ui-icon-circle-check" rendered="true" update="groupTable" process="@this"/>
 
 
 
 
-                                                                </div>
+                                        </div>
+                                    </div></div>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div></p:panel></div></div>
 
-                    
                                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
@@ -90,16 +76,16 @@
                                                     <p:column headerText="#{messages['common.actions']}" style="width: 10%">                            
 
                                                         <center>
-                                                        <p:commandButton icon="ui-icon-trash" title="Borrar Rol"   
-                                                                         actionListener="#{securityHome.asignargrupo(group1)}" 
-                                                                         oncomplete="deletedDlg.show();" update=":delete-dialog" 
-                                                                         style="margin-top:10px;" ajax="true" process="@this"
-                                                                         >                          
-                                                        </p:commandButton> 
-                                                        
-                                                   </center>
-                                                        
-                                                        
+                                                            <p:commandButton icon="ui-icon-trash" title="Borrar Rol"   
+                                                                             actionListener="#{securityHome.asignargrupo(group1)}" 
+                                                                             oncomplete="deletedDlg.show();" update=":delete-dialog" 
+                                                                             style="margin-top:10px;" ajax="true" process="@this"
+                                                                             >                          
+                                                            </p:commandButton> 
+
+                                                        </center>
+
+
                                                     </p:column>
 
                                                 </p:dataTable>     
@@ -115,7 +101,7 @@
                 <h:form id="form-dialog-confirm-delete">
 
                     <h:panelGroup layout="block" style="padding:5px;">  
-                        
+
                         <h:outputText value="#{messages['common.delete.confirm.message']} #{securityHome.group.name}"/>  
                     </h:panelGroup>  
                     <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"  

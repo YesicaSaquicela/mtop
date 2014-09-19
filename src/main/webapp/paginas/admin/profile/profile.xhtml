@@ -65,7 +65,7 @@
 
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.fechanacimiento !=null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
-                                        </h:panelGroup><br/>
+                                        </h:panelGroup>
 
                                         <h:panelGroup id="cod" layout="block" class="clearfix" rendered="true">
                                             <label for="dni">Cédula de identidad*</label>
@@ -87,15 +87,15 @@
                                             <div class="input">
                                                 <p:outputLabel for="tipop" value="Tipo de Persona* " /><br/>
                                                 <p:selectOneMenu id="tipop" value="#{profileHome.instance.tipo}" 
-                                                                 effect="fold" editable="true"
+                                                                 effect="fold" editable="true" filter="true" filterMatchMode="contains" 
                                                                  requiredMessage="Tipo de persona requerido, necesita un valor">
                                                     <f:selectItem itemLabel="Seleccione uno" itemValue="" />
                                                     <f:selectItems value="#{profileHome.tipos}" />
                                                     <f:ajax execute="@this" render="em1"  />
-                                                </p:selectOneMenu>
+                                                </p:selectOneMenu><br/>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.tipo != null}"
                                                                 styleClass="validation-status" />
-                                                <span class="help-inline text-muted"><br/>Ingrese el tipo de persona<ocp:message forId="tipop" /></span>
+                                                <span class="help-inline text-muted">Ingrese el tipo de persona<ocp:message forId="tipop" /></span>
                                             </div>
                                         </h:panelGroup><br/>
 

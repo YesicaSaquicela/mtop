@@ -9,7 +9,7 @@
                 template="/WEB-INF/templates/plantilla.xhtml"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-   
+
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -23,45 +23,35 @@
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <!--Opción de mensaje, cuando se realiza una acción-->
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE KARDEX</center></div>
+                        <div class="panel-heading"><center>LISTA DE KARDEX</center></div>
                         <p:panel>
-                           
+
 
                             <!--Botones de admin-->
 
                             <br/>
-                            <div class="admin-actions">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="row">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " /> #{' '} 
+
+                                        <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrab}"   
+                                                         completeMethod="#{controladorKardex.autocompletar}"/> 
 
 
-                                            <div class="col-lg-6">
-                                                <center>
-                                                    <div class="input-group">
-                                                        <center>
-                                                            <h:outputLabel value="Buscar:  " />
+                            &nbsp;&nbsp;
 
-                                                            <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorKardex.palabrab}"   
-                                                                             completeMethod="#{controladorKardex.autocompletar}"/> 
+                                        <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+
+                                        </p:commandButton>
 
 
+                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
 
-                                                            <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
-
-                                                            </p:commandButton>
-
-
-                                                            <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
-
-                                                            </p:commandButton>
-                                                        </center>
-                                                    </div>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div></div>
-
+                                        </p:commandButton>
+                                    </center>
+                                </div>
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
@@ -69,22 +59,22 @@
 
 
                                         <tbody>
-                                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                             <p:dataTable id="listap" value="#{controladorKardex.listakardex}" var="item"
 
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20" 
-                                                        emptyMessage="No se han encontrado coincidencias">
+                                                         emptyMessage="No se han encontrado coincidencias">
                                                 <p:column headerText="Número de kardex" sortBy="#{item.numero}" >
                                                     <h:outputText value="#{item.numero}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Observación" sortBy="#{item.observaciones}">
                                                     <h:outputText value="#{item.observaciones}"></h:outputText>
                                                 </p:column>
-                                              
+
                                                 <p:column headerText="Opciones" style="width: 5%"> 
-                                                  
+
                                                     <p:button id="selectButton" styleClass="btn  btn-success"
                                                               outcome="crear"
                                                               icon="ui-icon-pencil" title="Editar">  
