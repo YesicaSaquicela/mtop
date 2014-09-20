@@ -10,7 +10,7 @@
         <ui:param name="title" value="Sign up" />
 
         <ui:define name="header">
-            <h3 ><center>BIENVENIDOS AL SOFTWARE MTOP</center></h3>
+            <h3 >BIENVENIDOS AL SOFTWARE MTOP</h3>
         </ui:define>	
 
         <ui:define name="content">
@@ -26,10 +26,14 @@
 
                                 <script type="text/javascript">
                                     $(document).ready(function() {
-                                        $('#signin\\:username').attr("placeholder", "Quién eres tú?").focus();
+                                        $('#signin\\:username').attr("placeholder", "Cuál es tu usuario?").focus();
                                     });
                                 </script>
-
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#signin\\:password').attr("placeholder", "Cuál es tu contraseña?").focus();
+                                    });
+                                </script>
                                 <style type="text/css">
                                     #signup input[type=text], #signup input[type=password] {
                                         width: 240px;
