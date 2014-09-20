@@ -56,22 +56,20 @@
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+                     
                         </button>
                         <a class="navbar-brand" >
+                           
                             <h:panelGroup rendered="#{identity.loggedIn}">
 
-
+ <br/><br/>
                                 <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
 
-                                    <h:graphicImage value="/resources/mtop.png" width="200" height="40" />
+                                    <h:graphicImage value="/resources/mtop.png" width="150" height="40" />
                                 </h:outputLink>
-                                <!--h:link value="#{'Inicio, Mtop-Software'}" outcome="/paginas/inicio.xhtml?faces-redirect=true" styleClass="btn btn-success" style="margin-top: 10px"/-->
-                                <h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
-                                    <h:graphicImage value="/resources/refresh.png" width="30" height="25" />
+                                
+                                <h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="Cerrar Sesión">
+                                    <h:graphicImage value="/resources/imagenes2/cerrar-sesion.png" width="30" height="25" />
                                 </h:outputLink>
                             </h:panelGroup>
 
@@ -83,10 +81,7 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <!--li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Help</a></li-->
+               
                         </ul>
                         <form class="navbar-form navbar-right">
                             <!--input type="text" class="form-control" placeholder="Search..."/-->
@@ -94,29 +89,46 @@
 
                                 <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
                                     <ul class="nav navbar-nav navbar-right">
-                                                                       
-                                            <li><h:link outcome="/paginas/reset" value="Cambiar Contraseña">                                        
-                                                    <f:param name="profileId" value="#{account.loggedId}"/>
-                                                </h:link>                                    
-                                            </li>
 
-                                        
+                                        <li><h:link outcome="/paginas/reset" title="Cambiar Contraseña">                                        
+                                                <f:param name="profileId" value="#{account.loggedId}"/>
+                                                <p:graphicImage value="/resources/imagenes2/key.ico" width="50" height="50" />
+
+                                            </h:link>                                    
+                                        </li>
+
+
                                         <h:panelGroup  rendered="#{account.tienePermiso('SECRETARIO')}" >
-                                            <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" value="Solicitud" /></li>
-                                            <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" value="Requisición" /></li>
+                                            <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" title="Solicitud Repración y Mantenimiento" >
+                                                    <p:graphicImage value="/resources/imagenes2/soli.ico" width="50" height="50" />
+                                                </h:link></li>
+                                                    <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" title="Requisición" >
+                                                <p:graphicImage value="/resources/imagenes2/rq2.png" width="50" height="50" />
+                                                </h:link></li>
 
-                                            <li><h:link outcome="/paginas/secretario/producto/lista.xhtml" value="Producto" /></li>
-                                            <li><h:link outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" value="Partida de Contabilidad" /></li>
+                                            <li><h:link outcome="/paginas/secretario/producto/lista.xhtml" title="Producto" >
+                                                    <p:graphicImage value="/resources/imagenes2/prod1.png" width="50" height="50" />
+                                                </h:link></li>
+                                            <li><h:link outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" title="Partida de Contabilidad" >
+                                                    <p:graphicImage value="/resources/imagenes2/partsi.ico" width="50" height="50" />
+                                                </h:link></li>
                                         </h:panelGroup>
 
 
                                         <h:panelGroup  rendered="#{account.tienePermiso('ADMIN')}" >
-                                            <li> <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml" value="  Configuraciones" /></li>
-                                            <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" value="Kardex" /></li>
-                                            <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" value="Plan Mantenimiento"/></li>
+                                            <li> <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml" title="  Configuraciones" >
+                                                    <p:graphicImage value="/resources/imagenes2/confisi.png" width="50" height="50" />
+                                                </h:link>
+                                            </li>
+                                            <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" title="Kardex" >
+                                                    <p:graphicImage value="/resources/imagenes2/kardex.png" width="50" height="50" />
+                                                </h:link></li>
+                                            <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" title="Plan de Mantenimiento" >
+                                                    <p:graphicImage value="/resources/imagenes2/doc4.png" width="50" height="50" />
+                                                </h:link></li>
                                             <li class="dropdown">
-                                                <a href="paginas/admin/listProfile.xhtml" class="dropdown-toggle" data-toggle="dropdown">
-                                                    Personal <b class="caret"></b>
+                                                <a href="paginas/admin/listProfile.xhtml" title="Personal" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <p:graphicImage value="/resources/imagenes2/personasi.ico" width="50" height="50" /> <b class="caret"></b>
                                                 </a>
 
 
@@ -130,11 +142,14 @@
                                                 </ul>
                                             </li>
                                             <li class="dropdown">
-                                                <a href="paginas/admin/vehiculo/lista.xhtml" class="dropdown-toggle" data-toggle="dropdown">
-                                                    Vehículos <b class="caret"></b>
+                                                <a href="paginas/admin/vehiculo/lista.xhtml" title="Vehículo" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <p:graphicImage value="/resources/imagenes2/vh.ico" width="50" height="50" /><b class="caret"></b>
+
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li><h:link  outcome="/paginas/admin/vehiculo/lista.xhtml" value="Vehículo" /></li>        
+                                                    <li><h:link  outcome="/paginas/admin/vehiculo/lista.xhtml" value="Vehículo" >
+
+                                                        </h:link></li>        
                                                     <li><h:link  outcome="/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
                                                     <li><h:link outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml" value="Mantenimiento del Vehículo" /></li>
                                                     <li class="divider"></li>
@@ -159,12 +174,13 @@
                                 </h:panelGroup>
 
                             </div>
-                            <div class="form-group">
+                            
+                            <!--div class="form-group">
 
                                 <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
                                     <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
                                 </h:panelGroup>
-                            </div>
+                            </div-->
 
                         </form>
                     </div>
@@ -175,11 +191,10 @@
             <div class="jumbotron">
                 <div class="container" style="margin: -5% 0.5 -10% 30%; ">
                     <div class="row lf row-title" > 
-                        <h2>
-                            <br/>  <ui:insert name="header">
+                             <ui:insert name="header">
 
                             </ui:insert>
-                        </h2>
+                        
                     </div>               
 
                     <!--Contenido-->
@@ -198,10 +213,6 @@
                         });
                     </script>
                 </div>
-
-
-
-
 
             </div>   
             <ui:insert name="content" ></ui:insert>

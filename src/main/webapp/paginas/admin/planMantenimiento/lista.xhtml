@@ -8,7 +8,9 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
 
-
+    <f:metadata>
+        
+    </f:metadata>
     <ui:define name="content">
         <!--Metadato que se realiza antes de renderizarse la vista-->
 
@@ -18,59 +20,55 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE PLANES DE MANTENIMIENTO</center></div>
+                        <div class="panel-heading"><center>LISTA DE PLANES DE MANTENIMIENTO</center></div>
                         <p:panel>
-                            
-                                <div class="panel panel-info">
-                                  <div class="panel-heading">
-                                   
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPlanMantenimiento.palabrab}"   
-                                                                                 completeMethod="#{controladorPlanMantenimiento.autocompletar}"/> 
-                                                                &nbsp;&nbsp;
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
 
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
 
+                                        <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorPlanMantenimiento.palabrab}"   
+                                                         completeMethod="#{controladorPlanMantenimiento.autocompletar}"/> 
+                                        &nbsp;&nbsp;
 
 
 
-                                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorPlanMantenimiento.buscar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
 
-                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorPlanMantenimiento.limpiar()}" styleClass="btn btn-success" >
+                                        <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorPlanMantenimiento.buscar()}" styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-                                                            </center>
-                                                       </div>
-                                      </div>
-                                <div class="admin-actions">
+                                        </p:commandButton>
 
-                                    <h:link styleClass="btn btn-success" value="Crear" 
-                                            outcome="crear" type="button" >
-                                        <f:param name="planMantenimientoId" ></f:param>
+                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorPlanMantenimiento.limpiar()}" styleClass="btn btn-success" >
 
-                                    </h:link>
-
+                                        </p:commandButton>
+                                    </center>
                                 </div>
-                              
-                                <div class="admin-actions" align="right">
+                            </div>
+                            <div class="admin-actions">
 
-                                    <p:button id="visualizar" rendered="#{controladorPlanMantenimiento.listaactividadesPlan.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                          outcome="imprimirPlanActivo" 
-                                                                          title="Visualizar">  
-                                                                    <p:ajax event="click" partialSubmit="true" update="@this"/>
-                                                                    <!--f:param name="planMid" value="# {controladorPlanMantenimiento.instance.id}"></f:param-->
+                                <h:link styleClass="btn btn-success" value="Crear" 
+                                        outcome="crear" type="button" >
+                                    <f:param name="planMantenimientoId" ></f:param>
+
+                                </h:link>
+
+                            </div>
+
+                            <div class="admin-actions" align="right">
+
+                                <p:button id="visualizar" rendered="#{controladorPlanMantenimiento.listaactividadesPlan.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                          outcome="imprimirPlanActivo" 
+                                          title="Visualizar">  
+                               
+                                </p:button>
 
 
-                                                                </p:button>
+                            </div><br/><br/>
 
-
-                                </div><br/><br/>
-                          
-
-                            <!--Botones de admin-->
+                      
 
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
@@ -83,7 +81,7 @@
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20"
-                                                        emptyMessage="No se han encontrado coincidencias">
+                                                         emptyMessage="No se han encontrado coincidencias">
                                                 <p:column headerText="Número de Registro" sortBy="#{pm.registro}">
                                                     <h:outputText value="#{pm.registro}"></h:outputText>
                                                 </p:column>
@@ -109,11 +107,11 @@
                                                         <p:confirm header="Confirmación"
                                                                    message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
 
-                                                    </p:commandButton>
-                                                        </center>
+                                                        </p:commandButton>
+                                                    </center>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" update="listap" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                        <p:commandButton value="Si" ajax="false" update=":form:visualizar" process="@form" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                     </p:confirmDialog>
                                                 </p:column>

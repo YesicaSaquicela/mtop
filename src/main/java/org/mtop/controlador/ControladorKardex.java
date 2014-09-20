@@ -509,10 +509,13 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (lk.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+
                 palabrab = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrab);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {
@@ -550,10 +553,13 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (lsoli.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabs.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                  FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabs = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrabs);
+                FacesContext.getCurrentInstance().addMessage("", msg);
+                
             }
 
         } else {
@@ -591,12 +597,14 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("LEeeee" + lrq);
 
         if (lrq.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
+        
             if (palabrarna.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                  FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrarna = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrarna));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrarna);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {
@@ -634,17 +642,20 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("LEeeee" + lsoli);
 
         if (lsoli.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
+          
             if (palabrasna.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrasna = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrasna));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrasna);
+                FacesContext.getCurrentInstance().addMessage("", msg);
+               
             }
 
         } else {
             listasolNoAp = lsoli;
-            palabrabs = "";
+            palabrasna = "";
         }
 
     }
@@ -677,12 +688,15 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("LEeeee" + lrq);
 
         if (lrq.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
+            
             if (palabrabr.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabr = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabr));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrabr);
+                FacesContext.getCurrentInstance().addMessage("", msg);
+           
             }
 
         } else {

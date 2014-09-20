@@ -124,8 +124,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setMsj2(String msj2) {
-        if (msj2.substring(0, 2).equals("tru")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj2.substring(3, msj2.length()) + " con éxito");
+        if (msj2.substring(0, 2).equals("tr")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj2.substring(4, msj2.length()) + " con éxito");
             FacesContext.getCurrentInstance().addMessage("", msg);
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el estado de ubicación del vehículo " + msj2.substring(5, msj2.length()) + " con éxito");
@@ -150,8 +150,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setMsj1(String msj1) {
-        if (msj1.substring(0, 2).equals("tru")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj1.substring(3, msj1.length()) + " con éxito");
+        if (msj1.substring(0, 2).equals("tr")) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el mantenimiento del Vehículo " + msj1.substring(3, msj1.length()) + " con éxito");
             FacesContext.getCurrentInstance().addMessage("", msg);
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el mantenimiento del Vehículo " + msj1.substring(5, msj1.length()) + " con éxito");
@@ -168,8 +168,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setMsj(String msj) {
-        if (msj.substring(0, 2).equals("tru")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj.substring(3, msj.length()) + " con éxito");
+        System.out.println("llego a mensaje");
+        if (msj.substring(0, 2).equals("tr")) {
+            System.out.println("debe entrar en true");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj.substring(4, msj.length()) + " con éxito");
             FacesContext.getCurrentInstance().addMessage("", msg);
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Vehículo " + msj.substring(5, msj.length()) + " con éxito");
@@ -1144,16 +1146,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("\n\n\n entro crear estado despues\n\n\n\n" + estado);
     }
 
-    public void crearPlanMantenimientoActivo() {
-
-        for (PlanMantenimiento pm : cplanMantenimiento.getListaPlanMantenimiento()) {
-            if (pm.getActivado()) {
-                getInstance().setPlanM(pm);
-            }
-
-        }
-
-    }
 
     public void crearKardex() {
         BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Kardex.class
@@ -1189,10 +1181,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         getInstance().setPersona(psolicita);
         System.out.println("persona conductor" + getInstance().getPersona());
 
-//        if (!getInstance().getPlaca().equals("")) {
-//            System.out.println("entro>>>>>" + getInstance().getPlaca());
-//            listaVehiculos.remove(getInstance().getPlaca());
-//        }
         try {
             if (getInstance().isPersistent()) {
 
@@ -1211,7 +1199,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(k);
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
-                ms = "false" + getInstance().getNumRegistro();
+            //    ms = "false" + getInstance().getNumRegistro();
 
             } else {
 
@@ -1232,10 +1220,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 crearKardex();
                 crearEstadoUbicacion();
                 System.out.println("volcio a guardar");
-                crearPlanMantenimientoActivo();
+
+                
+             //   ms = "true" + getInstance().getNumRegistro();
+                System.out.println("presenta mensaje>??>"+ms);
                 System.out.println("finalizo");
 
-                ms = "true" + getInstance().getNumRegistro();
+                
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -1243,7 +1234,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             System.out.println("errrrrrrrrrrrrrrrrrrrrrrrorrrrrrrr");
         }
 
-        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true&msj=" + ms;
+        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
@@ -1257,14 +1248,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
 //                RequestContext.getCurrentInstance().showMessageInDialog(msg);
-                msjm = "false" + getInstance().getNumRegistro();
+             //   msjm = "false" + getInstance().getNumRegistro();
             }
 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true&msj1=" + msjm;
+        return "/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml?faces-redirect=true";
     }
 
     public String guardarEstadoVehiculo() {
@@ -1286,7 +1277,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     getInstance().getListaEstados().add(estado);
                     System.out.println("lista de estado de l vehiculo" + getInstance().getListaEstados());
                     
-                    ms1 = "false" + getInstance().getNumRegistro();
+                 //   ms1 = "false" + getInstance().getNumRegistro();
                     System.out.println("paso de guardar al presentar mensaje::::"+ms1); 
                     save(getInstance());
          
@@ -1305,7 +1296,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
         }
-        return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true&msj2=" + ms1;
+        return "/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute

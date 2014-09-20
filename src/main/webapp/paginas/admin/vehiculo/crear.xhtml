@@ -65,7 +65,7 @@
                                             <div class="input">
                                                 <h:outputLabel value="Conductor*"/> <br></br>
                                                 <p:selectOneMenu id="personal"  value="#{controladorVehiculo.idPersona}" effect="fade"
-                                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                                 converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains"
                                                                  requiredMessage="Se necesita elegir un conductor para el vehículo">  
                                                     <p:ajax event="change" update="p" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -196,7 +196,8 @@
                                             <div class="input">
                                                 <h:outputLabel value="Tipo de equipo* "/> <br></br> 
                                                 <p:selectOneMenu id="tipo"  requiredMessage="Se necesita elegir valor para tipo del vehículo"
-                                                                 value="#{controladorVehiculo.instance.tipo}" effect="fade" required="true" >
+                                                                 value="#{controladorVehiculo.instance.tipo}" filter="true" filterMatchMode="contains"
+                                                                 effect="fade" required="true" >
                                                     <f:ajax execute="@this" render="t" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                                     <f:selectItems value="#{controladorVehiculo.tipos}" />

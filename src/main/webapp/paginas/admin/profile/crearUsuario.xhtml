@@ -20,7 +20,7 @@
     </f:metadata>
     <ui:define name="header">
 
-     
+
 
     </ui:define>
     <ui:define name="content">
@@ -39,8 +39,8 @@
                         <div class="panel-heading" align="center">Datos Generales del Usuario</div>
 
                         <p:panel id="p1" >
-                            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" /> 
-                                       
+
+
                             <div class="row">
                                 <div class="col-md-6"> 
 
@@ -50,18 +50,22 @@
                                             <p:inputText id="username" value="#{profileHome.instance.username}" 
                                                          styleClass="form-control" required="true" 
                                                          requiredMessage="Usuario requerido, necesita un valor" label="#{messages['common.username']}">
-                                              
-                                              
-                                                <p:ajax event="blur" process="username signupUsernameAvailabilityValidator1" update=":form:msg"/>
+
+
+                                                <p:ajax event="blur" process="username signupUsernameAvailabilityValidator1" update="us"/>
                                             </p:inputText>
-                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.username != null}"
-                                                            styleClass="validation-status" />
-                                            <span class="help-inline text-muted">Su nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
-                                         <s:validateForm id="signupUsernameAvailabilityValidator1" validatorId="signupUsernameAvailabilityValidator" />
+                                            
                                         </div>
-                                         
-                                    </h:panelGrid><br/>
-                                   
+
+                                    </h:panelGrid>
+                                    <h:panelGrid id="us" rendered="#{profileHome.instance.username == null}">
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.username != null}"
+                                                            styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Ingrese el nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
+                                            <s:validateForm id="signupUsernameAvailabilityValidator1" validatorId="signupUsernameAvailabilityValidator" />
+                                    </h:panelGrid>
+                                    <br/>
+
                                     <h:panelGrid >
 
                                         <label for="password">#{messages['common.password']}</label>
@@ -106,12 +110,19 @@
 
                     <div class="admin-actions " align="center">  
                         <p:commandButton  id="save" action="#{profileHome.saveUsuario()}"
-                                         value="#{messages['common.save']}" 
-                                         styleClass="btn  btn-success" ajax="truq"
-                                         icon="ui-icon-disk" />
-                      
+                                          value="#{messages['common.save']}" 
+                                          styleClass="btn  btn-success" ajax="true"
+                                          icon="ui-icon-disk" />
+
 
                     </div>
+                        <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
+                    <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
+
+                        <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                    </p:dialog>
+                
 
 
 
