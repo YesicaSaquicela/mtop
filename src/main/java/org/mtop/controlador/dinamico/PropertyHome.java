@@ -82,28 +82,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     @Pattern(regexp = "[0-9]*", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
     private String mensaje;
-    private String msj = "";
 
-    public String getMsj() {
-        return msj;
-    }
-
-    public void setMsj(String msj) {
-        System.out.println("entro mensajess");
-                
-        if (msj.substring(0, 2).equals("tr")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Requisición " + msj.substring(4, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Requisición " + msj.substring(5, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-
-        }
-
-        System.out.println("fijo msj+" + msj);
-        this.msj = msj;
-    }
-    
     public String getMensaje() {
         return mensaje;
     }
@@ -132,7 +111,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         System.out.println("fijando" + propertyId);
         setId(propertyId);
         if (getInstance().getType() != null) {
-            propertyType = getInstance().getType();
+            propertyType = convertirPropiedadPresentar(getInstance().getType());
+            System.out.println("lfijo" + propertyType);
 //            if (propertyType.equals("java.util.Date")) {
 //
 //                Date fecha = Date.class.cast(getInstance().getValue());
@@ -352,49 +332,58 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
     }
 
-    public String getPropertyType() {
-        System.out.println("get instance" + getInstance());
-        if (getInstance().getId() != null) {
-            System.out.println("entro");
-            System.out.println("tipo" + getInstance().getType());
-            if (getInstance().getType().equals("java.lang.MultiLineString")) {
-                propertyType = "AreaTexto";
+    public String convertirPropiedadPresentar(String nombre) {
+        if (nombre.equals("java.lang.MultiLineString")) {
+            return "AreaTexto";
+        } else {
+            if (nombre.equals("java.lang.String[]")) {
+                return "Lista";
             } else {
-                if (getInstance().getType().equals("java.lang.String[]")) {
-                    propertyType = "Lista";
+                if (nombre.equals("java.lang.Boolean")) {
+                    return "Booleano";
                 } else {
-                    if (getInstance().getType().equals("java.lang.Boolean")) {
-                        propertyType = "Booleano";
+                    if (nombre.equals("java.lang.Long")) {
+                        return "EnteroMayor";
                     } else {
-                        if (getInstance().getType().equals("java.lang.Long")) {
-                            propertyType = "EnteroMayor";
+                        if (nombre.equals("java.lang.Integer")) {
+                            return "Entero";
                         } else {
-                            if (getInstance().getType().equals("java.lang.Integer")) {
-                                propertyType = "Entero";
+                            if (nombre.equals("java.lang.Double")) {
+                                return "Real";
                             } else {
-                                if (getInstance().getType().equals("java.lang.Double")) {
-                                    propertyType = "Real";
+                                if (nombre.equals("java.lang.String")) {
+                                    return "Texto";
                                 } else {
-                                    if (getInstance().getType().equals("java.lang.String")) {
-                                        propertyType = "Texto";
+                                    if (nombre.equals("org.mtop.modelo.EstadoParteMecanica")) {
+                                        return "EstadoParteMecanica";
                                     } else {
-                                        if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-                                            propertyType = "EstadoParteMecanica";
+                                        if (nombre.equals("java.util.Date")) {
+                                            System.out.println("fue fecha" + propertyDateValue);
+                                            return "Fecha";
                                         } else {
-                                            if (getInstance().getType().equals("java.util.Date")) {
-                                                propertyType = "Fecha";
-                                                System.out.println("fue fecha" + propertyDateValue);
-                                            } else {
-                                                propertyType = "EstadoParteMecanica";
-                                            }
-
+                                            return "Estructura";
                                         }
+
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public String getPropertyType() {
+        System.out.println("get instance" + getInstance());
+        System.out.println("property typw" + propertyType);
+        if (getInstance().getId() != null) {
+            System.out.println("tiene valor " + hasValuesBussinesEntity());
+            if (!hasValuesBussinesEntity()) {
+                System.out.println("entro");
+                System.out.println("tipo" + getInstance().getType());
+                propertyType = convertirPropiedadPresentar(getInstance().getType());
+
             }
         }
 
@@ -490,7 +479,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     public String saveProperty() {
         getInstance().setType(propertyType);
         ConvertirStringPropiedades();
-    
+
         log.info("eqaula --> saving " + getInstance().getName());
         //todo valor se asigna a property string value para poder convertir
         if (getInstance().getType().equals("java.util.Date")) {
@@ -512,12 +501,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
 
         if (getInstance().isPersistent()) {
-             //convierte en valor a serializable para poderlo guardar a la bases de datos
+            //convierte en valor a serializable para poderlo guardar a la bases de datos
             getInstance().setValue(converterToType(propertyStringValue));
             save(getInstance());
         } else {
             try {
-               
+
                 Structure s = bussinesEntityTypeService.getStructure(getStructureId()); //Retornar la estrucura.
                 //convierte en valor a serializable para poderlo guardar a la bases de datos
                 getInstance().setValue(converterToType(propertyStringValue));
@@ -549,7 +538,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 //                save(beta);
 //            }
 //        }
-
         return "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
@@ -655,16 +643,52 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public boolean hasValuesBussinesEntity() {
-        boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
-        //log.info("eqaula --> property tiene valores : " + ban);
-        System.out.println("borrando " + getInstance().getName());
-        return ban;
+        if (getInstance().getId() != null) {
+            boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
+            //log.info("eqaula --> property tiene valores : " + ban);
+            System.out.println("borrando " + getInstance().getName());
+            System.out.println("ban11" + ban);
+
+            if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
+                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
+                System.out.println("\n\n\nbet" + bet);
+                if (bet != null) {
+                    Structure s = getInstance().getStructure();
+                    for (Structure object : bet.getStructures()) {
+                        System.out.println("nombre de estructura" + object.getName());
+                        System.out.println("nombre de la propiedad" + getInstance().getName());
+                        if (object.getName().equals(getInstance().getName())) {
+                            s = object;
+                        }
+                    }
+
+                    System.out.println("valor de la structura" + s.getName());
+                    if (s.getProperties().isEmpty()) {
+                        System.out.println("no tiene propiedades");
+                        return true;
+
+                    } else {
+
+                        return false;
+                    }
+                } else {
+
+                    return true;
+                }
+
+            }
+            return ban;
+        } else {
+            return true;
+        }
+
     }
 
     public boolean hasValuesBussinesEntity(Property p) {
 
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
+        System.out.println("ban2" + ban);
         System.out.println("fijando p.name a intance" + p.getName());
         System.out.println("valor de bandera" + ban);
         if (ban == false) {

@@ -100,10 +100,10 @@ limitations under the License.
                                                 <p:column headerText="Editar">
                                                     <p:button icon="ui-icon-pencil"  
                                                               id="button-edit"  rendered="true" 
-                                                              title="Editar"
+                                                              title="Editar" 
                                                               styleClass="btn  btn-success"
                                                               outcome="bussinesentitytype" >
-
+                                                        <p:ajax event="click" update="@form"/>
                                                         <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
                                                         <f:param name="backView" value="list"></f:param>
                                                     </p:button>

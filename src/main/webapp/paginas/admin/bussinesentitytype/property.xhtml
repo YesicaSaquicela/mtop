@@ -55,21 +55,22 @@
                                                         execute="@this save" render="name"
                                                         requiredMessage="Se necesita valor para nombre de la propiedad"/><br></br>                   
 
-                                            <h:panelGroup id="typeP" layout="block" class="clearfix" >
+                                            <h:panelGroup  id="typeP" layout="block" class="clearfix" >
                                                 <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
                                                 <div class="input">
-                                                    <p:selectOneMenu id="type" value="#{propertyHome.propertyType}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="true" requiredMessage="false" 
-                                                                     label="#{messages['common.property.type']}" rendered="true">
+                                                    <p:selectOneMenu disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="type" value="#{propertyHome.propertyType}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="true" requiredMessage="false" 
+                                                                     label="#{messages['common.property.type']}" rendered="true" >
                                                         <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
-                                                        <f:selectItems value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
+                                                        <f:selectItems  value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
                                                         <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
                                                     </p:selectOneMenu><br></br> 
                                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{propertyHome.propertyType  != null}"
                                                                     styleClass="validation-status" />
                                                     <span class="help-inQline text-muted">#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
+                                                   
                                                 </div><br></br>
                                             </h:panelGroup>
-                                            <h:panelGroup id="pvaluep" layout="block" class="clearfix">
+                                            <h:panelGroup  id="pvaluep" layout="block" class="clearfix">
                                                 <label >#{messages['common.property.value']}</label>
                                                 <div class="input" >
                                                     <p:inputText id="in1"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
@@ -79,13 +80,11 @@
                                                                              and propertyHome.propertyType ne 'EnteroMayor'
                                                                              and propertyHome.propertyType ne 'Real'
                                                                              and propertyHome.propertyType ne 'Entero'
-                                                                             and propertyHome.propertyType ne 'Booleano'
-
-                                                     }"
-                                                                 disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica'}">
+                                                                             and propertyHome.propertyType ne 'Booleano'}"
+                                                                 disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica' or propertyHome.hasValuesBussinesEntity eq false}">
                                                           <p:ajax event="blur" update=":form:pvaluep" partialSubmit="true" rendered="#{propertyHome.propertyType eq 'Lista'}" />
                                                     </p:inputText>
-                                                    <p:inputText id="in2"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in2"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                                                  label="#{messages['common.property.value']}" required="true"
                                                                  rendered="#{propertyHome.propertyType eq 'Lista'}">
                                                         <f:validator validatorId="validarLista" rendered="#{propertyHome.propertyType eq 'Lista'}" />
@@ -94,7 +93,7 @@
                                                     </p:inputText>
 
 
-                                                    <p:inputText id="in3" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in3" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Entero'}"
 
@@ -106,7 +105,7 @@
                                                     </p:inputText>    
 
                                                     <!--p:inplace id="ajax" editor="true" label="Fijar Fecha"-->
-                                                        <p:calendar id="in4" value="#{propertyHome.propertyDateValue}" styleClass="xLarge"
+                                                        <p:calendar disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in4" value="#{propertyHome.propertyDateValue}" styleClass="xLarge"
                                                                     navigator="true"   
                                                                     label="#{messages['common.property.value']}" 
                                                                     rendered="#{propertyHome.propertyType eq 'Fecha'}" >
@@ -116,13 +115,13 @@
                                                         </p:calendar>
                                                     <!--/p:inplace-->
 
-                                                    <p:inputTextarea id="in5" value="#{propertyHome.propertyStringValue}" styleClass="form-control"
+                                                    <p:inputTextarea disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in5" value="#{propertyHome.propertyStringValue}" styleClass="form-control"
                                                                      label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
                                                                      rendered="#{propertyHome.propertyType eq 'AreaTexto'}">
                                                         <f:ajax event="blur" execute="@this" render="save"/>
                                                     </p:inputTextarea>
 
-                                                    <p:inputText id="in6" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in6" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Real' or propertyHome.propertyType eq 'EnteroMayor' }"
                                                                  validator="realValidator" 
@@ -133,7 +132,7 @@
 
                                                         <!--p:ajax event="keypress" process="value valueintval" rendered="save"/-->
                                                     </p:inputText> 
-                                                    <p:selectOneButton value="#{propertyHome.propertyStringValue}" rendered="#{propertyHome.propertyType eq 'Booleano'}">
+                                                    <p:selectOneButton disabled="#{propertyHome.hasValuesBussinesEntity eq false}" value="#{propertyHome.propertyStringValue}" rendered="#{propertyHome.propertyType eq 'Booleano'}">
                                                         <f:selectItem itemLabel="true" itemValue="true" />
                                                         <f:selectItem itemLabel="false" itemValue="false" />
                                                     </p:selectOneButton> 

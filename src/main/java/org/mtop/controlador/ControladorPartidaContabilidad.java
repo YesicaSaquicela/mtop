@@ -289,7 +289,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     @Transactional
-    public String inactivarPartida(Long idPartidac) {
+    public void inactivarPartida(Long idPartidac) {
 
         setId(idPartidac);
         setInstance(findById(PartidaContabilidad.class, idPartidac));
@@ -297,22 +297,25 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         getInstance().setLastUpdate(now);
         getInstance().setEstado(false);
         servgen.actualizar(getInstance());
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFORMACIÓN: ", "La partida de contabilidad se inactivo exitosamente:  ");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se inactivo exitosamente:  ");
         FacesContext.getCurrentInstance().addMessage("", msg);
-        return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
+        listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC2 = listaPartidaC;
+      
     }
 
     @Transactional
-    public String activarPartida(Long idPartidac) {
+    public void activarPartida(Long idPartidac) {
 
         setId(idPartidac);
         getInstance().setEstado(true);
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         servgen.actualizar(getInstance());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se activo exitosamente:  " + getInstance().getName()));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se activo exitosamente" ));
 
-        return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
+      listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC2 = listaPartidaC;
     }
 
 }

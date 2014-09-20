@@ -11,7 +11,7 @@
     <ui:param name="titulo" value="Lista de Solicitud de reparación/mantenimiento"/>
     <f:metadata>
         <f:viewParam id="vistaaa" name="vista" value="#{controladorSolicitudReparacionMantenimiento.vista}"/>
-       
+
     </f:metadata>
     <ui:define name="header">
 
@@ -127,9 +127,10 @@
                                                                                     <center>
                                                                                         <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                                                          action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 
-                                                                                                         title="Dar de baja" update=":form:infoFM">
+                                                                                                         title="Dar de baja" update="@form">
                                                                                             <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja ha la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
-                                                                                        </p:commandButton></center>
+                                                                                        </p:commandButton>
+                                                                                    </center>
                                                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                                                         <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />

@@ -303,6 +303,7 @@ limitations under the License.
                                                                title="Editar"
                                                                styleClass="btn  btn-success"
                                                                outcome="property">
+                                                        <p:ajax event="click" update="@form"/>
                                                         <f:param name="propertyId" value="#{property.id}"></f:param>
                                                         <f:param name="bussinesEntityTypeId" value ="#{bussinesEntityTypeHome.instance.id}"></f:param>
                                                         <f:param name="structureId" value ="#{e.id}"></f:param>                             

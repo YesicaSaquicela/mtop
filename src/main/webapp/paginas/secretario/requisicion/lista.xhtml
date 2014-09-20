@@ -181,7 +181,7 @@
 
                                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                                      action="#{controladorRequisicion.darDeBaja(r)}" 
-                                                                                     title="Dar de baja" update=":form:infoFM:listap">
+                                                                                     title="Dar de baja" update="@form">
                                                                         <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
                                                                     </p:commandButton></center>
                                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

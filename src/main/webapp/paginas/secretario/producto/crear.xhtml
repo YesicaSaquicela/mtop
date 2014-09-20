@@ -62,7 +62,7 @@
                                     </h:panelGroup>            
 
 
-                                    <mtop:input id="cantidad" name="cantidad1" type="text" label="Cantidad" 
+                                    <mtop:input id="cantidad" name="cantidad1" type="decimal" label="Cantidad" numDecimales="0"
                                                 value="#{controladorProducto.instance.cantidad}" required="true" 
                                                 inlinehelp="Ingrese la cantidad del producto" requiredMessage="Cantidad requerida, necesita un valor"
                                                 execute ="@this save" render="cantidad"/><br></br>

@@ -24,7 +24,7 @@
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>LISTA DE PARTIDAS DE CONTABILIDAD</center></div>
-                        <p:panel>
+                        <p:panel id="tabla">
 
 
 
@@ -70,15 +70,12 @@
                                           outcome="imprimirPartidaC" 
                                           title="Visualizar">  
                                     <p:ajax event="click" partialSubmit="true" update="@this"/>
-                                    <!--f:param name="planMid" value="# {controladorPlanMantenimiento.instance.id}"></f:param-->
-
+                                  
 
                                 </p:button>
 
 
                             </div><br/>
-                            <!--Botones de admin-->
-
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -117,16 +114,20 @@
                                                             <f:param name="partidaId" value="#{pc.id}"></f:param>
                                                         </p:button></center>
                                                 </p:column>
-                                                <p:column headerText="Activar/Desactivar Partida" style="width: 5%"> <center>
+                                                <p:column id="col" headerText="Activar/Desactivar Partida" style="width: 5%"> <center>
                                                         <p:commandButton rendered="#{pc.estado eq false}" styleClass="btn  btn-success"
-                                                                         id="confirmacion" title="Activar Partida" icon="ui-icon-check"
-                                                                         action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" update="@form">
+                                                                         id="confirmacion" title="Activar Partida" icon="ui-icon-check" update="@form"
+                                                                         action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" 
+                                                                         >
+                                  
                                                             <p:confirm header="Confirmación" message="¿Desea Realmente Activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                         </p:commandButton>
-                                                        <p:commandButton rendered="#{pc.estado eq true}" styleClass="btn  btn-success"
-                                                                         id="confirmacion1" title="Desactivar Partida" icon="ui-icon-closethick"
-                                                                         action="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" update="@form">
+                                                        <p:commandButton rendered="#{pc.estado eq true}" styleClass="btn  btn-success" update="@form"
+                                                                         id="confirmacion1" title="Desactivar Partida" icon="ui-icon-closethick" 
+                                                                         action="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" >
                                                             <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
+                                                              
+                                  
                                                         </p:commandButton></center>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
@@ -138,8 +139,12 @@
                                                     </p:confirmDialog>
                                                 </p:column>
                                             </p:dataTable>
-                                        </tbody></div></div></div>
-                        </p:panel></div>
+                                        </tbody>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
                 </div>
             </div>
 

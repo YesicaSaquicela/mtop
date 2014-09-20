@@ -700,10 +700,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("lista toda set soli>>>" + lr);
         for (Requisicion req : lr) {
 
-    
             if (req.isEstado() && req.getSolicitudReparacionId() == null) {
                 if (req.getVehiculo() != null) {
-                     System.out.println("\n\nEntro a for requis set soli...>>>" + req.getVehiculo().getId());
+                    System.out.println("\n\nEntro a for requis set soli...>>>" + req.getVehiculo().getId());
                     if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
                         System.out.println("\n\nentro a comparar set soli.....");
                         lrq.add(req);
@@ -852,7 +851,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaSolicitud = findAll(SolicitudReparacionMantenimiento.class);
         listaRequisiciones = findAll(Requisicion.class);
         List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
-        listaSolicitudes2 = ls;
+        listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
         listaSolicitud.clear();
         System.out.println("cslistaaaaa solicituddd" + listaSolicitud);
         for (SolicitudReparacionMantenimiento sol : ls) {
@@ -864,6 +863,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 } else {
                     listaSolicitudAprobadas.add(sol);
                 }
+                listaSolicitudes2.add(sol);
             }
 
         }
@@ -1164,18 +1164,39 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     @Transactional
-    public String darDeBaja(Long idSolicitud) {
+    public void darDeBaja(Long idSolicitud) {
         System.out.println("Entro a dar de baja>>>>>>" + idSolicitud);
         setId(idSolicitud);
         setInstance(servgen.buscarPorId(SolicitudReparacionMantenimiento.class, idSolicitud));
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         getInstance().setEstado(false);
-
         save(getInstance());
+        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
+        listaSolicitud.clear();
+        System.out.println("cslistaaaaa solicituddd" + listaSolicitud);
+        for (SolicitudReparacionMantenimiento sol : ls) {
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La partida seleccionada ha sido dada de baja ", "exitosamente"));
-        return "/paginas/secretario/solicitud/lista.xhtml?faces-redirect=true";
+            if (sol.isEstado()) {
+                if (!sol.getAprobado()) {
+                    System.out.println("entro a listar>>>>>>");
+                    listaSolicitud.add(sol);
+                }
+                listaSolicitudes2.add(sol);
+            }
+
+        }
+        if (getInstance().getRequisicionId() != null) {
+            System.out.println("entro a remover requisicion de la reeq");
+            Requisicion r = getInstance().getRequisicionId();
+            r.setLastUpdate(now);
+            r.setSolicitudReparacionId(null);
+            System.out.println("solo" + r);
+            save(r);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La solicitud " + getInstance().getNumSolicitud() + " ha sido dada de baja"));
+
     }
 
     @Transactional

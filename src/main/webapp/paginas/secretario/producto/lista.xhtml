@@ -126,7 +126,7 @@
                                                     
                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                      action="#{controladorProducto.darDeBaja(pd.id)}" 
-                                                                     title="Desactivar" update=":form:listap" process="@this"
+                                                                     title="Desactivar" update="@form" 
                                                                     rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
                                                         <p:confirm header="Dar de baja" message="¿Desea Realmente dar de baja el producto?" icon="ui-icon-alert" />
 

@@ -78,7 +78,6 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         System.out.println("fijo msj+" + msj);
         this.msj = msj;
     }
-    
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
@@ -104,15 +103,15 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         List<Producto> lp = new ArrayList<Producto>();
         //buscando por coincidencia descripciion
 
-            for (Producto p : listaproductos2) {
-                if (p.getCodigo().contains(palabrab)) {
+        for (Producto p : listaproductos2) {
+            if (p.getCodigo().contains(palabrab)) {
+                lp.add(p);
+            } else {
+                if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase())) {
                     lp.add(p);
-                } else {
-                    if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase())) {
-                        lp.add(p);
-                    }
                 }
             }
+        }
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
@@ -239,11 +238,8 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaProducto = servgen.buscarTodos(Producto.class);
-        System.out.println("lisssssstaa...a. de remover." + listaProducto);
         crequisicion = new ControladorRequisicion();
-        System.out.println("tama;o listaaaa" + listaProducto.size());
-
+        listaProducto=new ArrayList<Producto>();
         List<Producto> lp = servgen.buscarTodos(Producto.class);
         listaProducto.clear();
         System.out.println("lppp" + lp);
@@ -292,21 +288,21 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String ms="";
+        String ms = "";
 
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a Editar>>>>>>>>");
                 save(getInstance());
-                ms= "false" + getInstance().getCodigo();
-            
+                ms = "false" + getInstance().getCodigo();
+
             } else {
                 System.out.println("Entro a crear>>>>>>>>");
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-              ms= "true" + getInstance().getCodigo() ;
-              
+                ms = "true" + getInstance().getCodigo();
+
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -339,7 +335,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     }
 
     @Transactional
-    public String darDeBaja(Long idproducto) {
+    public void darDeBaja(Long idproducto) {
         boolean ban = true;
         System.out.println("Entro a dar de baja>>>>>>" + idproducto);
         List<ItemRequisicion> listaItems = findAll(ItemRequisicion.class);
@@ -366,12 +362,23 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             getInstance().setEstado(false);
             save(getInstance());
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado ha sido dado de baja  exitosamente"));
+            List<Producto> lp = servgen.buscarTodos(Producto.class);
+            listaProducto.clear();
+            for (Producto produ : lp) {
+                if (produ.isEstado()) {
+                    System.out.println("listatesssa" + listaProducto);
+                    listaProducto.add(produ);
+
+                }
+
+            }
+            listaproductos2 = listaProducto;
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado "+getInstance().getDescripcion()+" ha sido dado de baja  exitosamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado no se lo puede dar de baja porque ya se encuentra agregado en una requisición"));
         }
 
-        return "/paginas/secretario/producto/lista.xhtml?faces-redirect=true";
     }
 
 }
