@@ -13,20 +13,24 @@
             <h:form id="form">
                 <div role="main">
                     <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-
-                        <p:layout style="min-width:400px;min-height:350px;">
-                            
+<div class="panel panel-info">
+      <div class="panel-heading">
+                        <p:layout style="min-width:400px;min-height:350px;color:blue">
+ 
+                                   
                             <p:layoutUnit position="west" resizable="true"  size="800" minSize="40" maxSize="300">
-                                <p:menu style="min-width:300px;min-height:50px;">
-                                    <p:submenu label="Quienes Somos" >
-                                        <p:menuitem value="Misión" outcome="mision"  />
-                                        <p:menuitem value="Visión" outcome="vision" />
-                                    </p:submenu>
-                                    <p:submenu label="Otros">
-                                        <p:menuitem value="Inicio"   outcome="/paginas/inicio.xhtml?faces-redirect=true" icon="ui-icon-close"/>
-                                    </p:submenu>
                                
-                                </p:menu>
+                                        <p:menu style="min-width:300px;min-height:50px;">
+                                            <p:submenu label="Quienes Somos" >
+                                                <p:menuitem value="Misión" outcome="mision"  />
+                                                <p:menuitem value="Visión" outcome="vision" />
+                                            </p:submenu>
+                                            <p:submenu label="Otros">
+                                                <p:menuitem value="Inicio"   outcome="/paginas/inicio.xhtml?faces-redirect=true" />
+                                            </p:submenu>
+
+                                        </p:menu>
+                                    
                             </p:layoutUnit>
 
                             <p:layoutUnit position="center" >
@@ -41,7 +45,7 @@
 
                                 </h:panelGroup>
                             </p:layoutUnit>
-                        </p:layout>
+                        </p:layout></div></div>
 
 
                     </div></div>

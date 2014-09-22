@@ -9,33 +9,31 @@
     <ui:composition template="/WEB-INF/templates/plantilla2.xhtml">
         <ui:param name="title" value="Sign up" />
 
-        <ui:define name="header">
-            <br/><h3>Ingresar a MTOP</h3>
+           <ui:define name="header">
+            <h3 >BIENVENIDOS AL SOFTWARE MTOP</h3>
         </ui:define>	
 
         <ui:define name="content">
             <h:form id="signin">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                 <div class="panel panel-primary">
-                    <div class="panel-heading"><center>INGRESE SU USUARIO Y CONTRASEÑA</center></div>
+                    <div class="panel-heading"><center>INGRESE USUARIO Y CONTRASEÑA</center></div>
                     <p:panel>
 
                         <div class="table-responsive" >
 
                             <div class="row-fluid">
 
-
-
-                             
                                 <script type="text/javascript">
                                     $(document).ready(function() {
-                                        $('#signin\\:username').attr("placeholder", "Quién eres tú?").focus();
+                                        $('#signin\\:username').attr("placeholder", "¿CUÁL ES TU USUARIO?").focus();
                                     });
                                 </script>
-                                <!--script type="text/javascript">
+                                <script type="text/javascript">
                                     $(document).ready(function() {
-                                        $('#signin\\:password').attr("placeholder", "Contraseña?").focus();
+                                        $('#signin\\:password').attr("placeholder", "¿Cuál es tu contraseña?").focus();
                                     });
-                                </script-->
+                                </script>
                                 <style type="text/css">
                                     #signup input[type=text], #signup input[type=password] {
                                         width: 240px;
@@ -43,7 +41,7 @@
                                 </style>
 
                                 <div class="clearfix">
-                                    <label for="name" >Usuario</label>
+                                    <label for="name" >Usuario*</label>
 
                                     <div class="input-group">
 
@@ -57,33 +55,30 @@
                                                      styleClass="form-control" required="true" requiredMessage="Usuario requerido, necesita un valor"/>
                                         <br/><span class="help-inline"></span>
                                     </div>
-                                </div><br/><br/>
+                                </div><br/>
 
                                 <div class="clearfix">
-                                    <label for="password" >Contraseña</label>
+                                    <label for="password" >Contraseña*</label>
 
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
 
                                         <h:inputSecret id="password" value="#{credentials.password}"
-                                                       styleClass=" form-control" style="text-transform: uppercase;"  required="true" requiredMessage="Contraseña requerida, necesita un valor">
+                                                       styleClass=" form-control" style="text-transform: uppercase;" requiredMessage="Contraseña requerida, necesita un valor" required="true">
                                         </h:inputSecret>
                                         <br/><span class="help-inline"></span>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="admin-actions" align="center">
-                                    <p:commandButton action="#{authentication.login1()}" value="Ingresar"
-                                                     styleClass="btn  btn-success" />
+                                    <h:commandButton action="#{authentication.login1()}" value="Ingresar"
+                                                     />
                                 </div>
-
+                                <!--<center><h:link outcome="/paginas/recover" value="I forgot my password, what now?" /></center>-->
 
 
                             </div>
-                        </div></p:panel>
-
-
-                </div>
+                        </div></p:panel></div>
             </h:form>
         </ui:define>
 
