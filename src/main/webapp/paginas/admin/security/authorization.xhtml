@@ -46,7 +46,7 @@
                                                 <f:selectItems value="#{securityHome.findAllGroups}" var="g" itemValue="#{g}" itemLabel="#{g.name}"/>
                                                 <p:ajax event="change" process="@this" update="@parent" partialSubmit="true"/>
                                             </p:selectOneMenu>
-
+                                            #{" "}
                                             <p:commandButton id="add" value="#{messages['common.assignto']}"
                                                              actionListener="#{securityHome.associateTo()}" styleClass="btn  btn-success" 
                                                              icon="ui-icon-circle-check" rendered="true" update="groupTable" process="@this"/>

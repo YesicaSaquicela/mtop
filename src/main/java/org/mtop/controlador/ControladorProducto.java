@@ -239,7 +239,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         crequisicion = new ControladorRequisicion();
-        listaProducto=new ArrayList<Producto>();
+        listaProducto = new ArrayList<Producto>();
         List<Producto> lp = servgen.buscarTodos(Producto.class);
         listaProducto.clear();
         System.out.println("lppp" + lp);
@@ -295,7 +295,8 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
                 System.out.println("Entro a Editar>>>>>>>>");
                 save(getInstance());
                 ms = "false" + getInstance().getCodigo();
-
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se ha actualizó vehiculo " + getInstance().getDescripcion() + "exitosamente ");
+                FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("Entro a crear>>>>>>>>");
                 getInstance().setEstado(true);
@@ -374,7 +375,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             }
             listaproductos2 = listaProducto;
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado "+getInstance().getDescripcion()+" ha sido dado de baja  exitosamente"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado " + getInstance().getDescripcion() + " ha sido dado de baja  exitosamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El producto seleccionado no se lo puede dar de baja porque ya se encuentra agregado en una requisición"));
         }
