@@ -30,6 +30,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import net.sf.jasperreports.engine.util.JRStyleResolver;
 import org.mtop.cdi.Web;
+import org.mtop.modelo.dinamico.Property;
+import org.mtop.modelo.dinamico.Structure;
 import org.mtop.util.QueryData;
 import org.mtop.util.QuerySortOrder;
 import org.mtop.util.UI;
@@ -62,6 +64,43 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     private List<BussinesEntityType> listaEntiidades;
     private List<BussinesEntityType> entidadesFiltradas;
     private ArrayList<String> ced;
+    private Structure estructura;
+
+    public boolean tienePropiedades(Long bet) {
+
+        boolean ban = true;
+        System.out.println("beeeeeeeeeet   +" + bet);
+
+        System.out.println("las estructuras" + bet);
+        BussinesEntityType entidad = bussinesEntityTypeService.find(bet);
+        System.out.println("entidad" + entidad.getName());
+        System.out.println("estructuras ");
+        for (Structure est : entidad.getStructures()) {
+            
+            System.out.println("est propiedades" + est.getProperties());
+            if (est.getProperties().isEmpty()) {
+                estructura=est;
+                ban = false;
+                break;
+            }
+
+        }
+
+//        
+//        for (Structure s : bet.getStructures()) {
+//            System.out.println("s."+s.getName());
+//        }
+//        System.out.println("bet.name"+bet.getName());
+//        BussinesEntityType bet1 = bussinesEntityTypeService.findByName(bet.getName());
+//        System.out.println("bet1"+bet1.getName());
+//        System.out.println("entiti manager"+bussinesEntityTypeService.getEntityManager());
+//        
+//        bussinesEntityTypeService.getEntityManager();
+        System.out.println("a retornar " + ban);
+        return ban;
+    }
+
+   
 
     public List<BussinesEntityType> getEntidadesFiltradas() {
         System.out.println("\n\n\n\nonteniendo" + entidadesFiltradas);
@@ -253,8 +292,6 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
     public void setSelectedBussinesEntityType(BussinesEntityType selectedBussinesEntityType) {
         this.selectedBussinesEntityType = selectedBussinesEntityType;
     }
-    
-    
 
     @Override
     public List<BussinesEntityType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
@@ -292,10 +329,6 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
 
         return qData.getResult();
     }
-
-        
-    
-   
 
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage(UI.getMessages("module.BussinesEntityType") + " " + UI.getMessages("common.selected"), ((BussinesEntityType) event.getObject()).getName());

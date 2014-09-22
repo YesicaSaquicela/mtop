@@ -253,6 +253,7 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
     }
 
     protected <E> void delete(final E entity) throws NoResultException {
+        
         getEntityManager().remove(getEntityManager().merge(entity));
     }
 

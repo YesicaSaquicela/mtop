@@ -52,6 +52,7 @@ public class Property implements Comparable<Property>, Serializable {
     @Column(name = "property_id")
     private Long id;
     private String groupName; //nombre de grupo
+    @Column(unique = true)
     private String name;
     private String label;
     private Long sequence;

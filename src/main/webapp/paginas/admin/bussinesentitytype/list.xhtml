@@ -94,10 +94,12 @@ limitations under the License.
                                                     <h:outputText value="#{bussinesEntityType.structures.size()}"></h:outputText>
                                                 </p:column> 
 
+
                                                 <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
                                                     <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
                                                 </p:column> 
                                                 <p:column headerText="Editar">
+
                                                     <p:button icon="ui-icon-pencil"  
                                                               id="button-edit"  rendered="true" 
                                                               title="Editar" 
@@ -107,14 +109,35 @@ limitations under the License.
                                                         <f:param name="bussinesEntityTypeId" value="#{bussinesEntityType.id}"></f:param>
                                                         <f:param name="backView" value="list"></f:param>
                                                     </p:button>
+
+
+                                                    <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                     onclick="alertDlg.show()"  immediate="true"
+                                                                     update=":alerts-dialog:" 
+                                                                     title="Desactivar"
+                                                                     rendered="#{bussinesEntityTypeListService.tienePropiedades(bussinesEntityType.id)}">                        
+                                                    </p:commandButton>
+                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                     actionListener="#{bussinesEntityTypeHome.fijaEntidad(bussinesEntityType.id)}" 
+                                                                     oncomplete="dlg1.show();" update=":dia" process="@this"
+                                                                     title="Desactivar" 
+                                                                     rendered="#{bussinesEntityTypeListService.tienePropiedades(bussinesEntityType.id) eq false}">       
+
+                                                    </p:commandButton>
+
+
                                                 </p:column>
+
 
                                                 <f:facet name="footer">
                                                       <!-- <p:commandButton id="multiViewButton" value="#{messages['common.view']}" icon="ui-icon-search"  
                                                                         update=":form:displayMulti" oncomplete="multiBussinesEntityDialog.show()"/>  -->
                                                 </f:facet>
                                             </p:dataTable>     
-                                        </tbody></div></div></div>
+                                        </tbody>
+                                    </div>
+                                </div>
+                            </div>
                         </p:panel></div></div> </div>
             <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
@@ -124,6 +147,43 @@ limitations under the License.
             </p:dialog>
 
         </h:form>
+
+        <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+            <h:form id="form-alerts-dialog1">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                    <h:outputText value="Esta entidad tiene propiedades."/>
+                    <br/>
+                    <h:outputText value="Para poder borrarla primero borre  sus propiedades."/>  
+                </h:panelGroup>                          
+                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id="dia" header="Dar de baja" widgetVar="dlg1"  resizable="false" modal="true">
+            <h:form id="form-dialog-confirm-delete5">
+
+                <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                    <h:outputText value="Desea realmente dar de baja a la Entidad "/>
+                    <br/>
+                    <h:outputText value="#{bussinesEntityTypeHome.instance.name}"/>  
+
+
+
+                </h:panelGroup> 
+
+                <h:commandLink action="#{bussinesEntityTypeHome.deleteBussinesEntityType()}" 
+                               type="button" value="SI"  styleClass="btn btn-success"/>
+                #{' '}
+
+                <h:commandLink value="NO" type="button" onclick="dlg1.hide();" styleClass="btn btn-success" 
+                               />  
+
+
+            </h:form>
+
+
+        </p:dialog>
 
     </ui:define>
 </ui:composition>

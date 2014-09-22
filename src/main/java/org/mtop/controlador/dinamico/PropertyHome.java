@@ -43,6 +43,7 @@ import org.mtop.util.UI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.TypedQuery;
 import javax.swing.text.html.HTML;
 import javax.validation.constraints.Pattern;
 import org.jboss.seam.transaction.Transactional;
@@ -76,6 +77,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     private String propertyStringValue;
     private Date propertyDateValue;
     private String propertyType;
+    private List<Property> propiedades;
 
     @Inject
     private ServicioGenerico servgen;
@@ -232,6 +234,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     @PostConstruct
     public void init() {
         setEntityManager(em);
+        System.out.println("volvio a ejecutar init");
         bussinesEntityTypeService.setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
         mensaje = "mensaje";
@@ -385,6 +388,13 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 propertyType = convertirPropiedadPresentar(getInstance().getType());
 
             }
+        } else {
+            if (propertyType != null) {
+                if (propertyType.equals("Booleano")) {
+                    propertyStringValue = "true";
+                }
+            }
+
         }
 
         System.out.println("tipo a retornar " + propertyType);
@@ -542,16 +552,25 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     @Transactional
-    public String deleteProperty(Property p) {
+    public void deleteProperty(Property p) {
         setStructureId(p.getStructure().getId());
         setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
         setInstance(p);
-        return deleteProperty();
+        bussinesEntityTypeService.find(getBussinesEntityTypeId());
+        System.out.println("encontro estrictura" + bussinesEntityTypeService.find(getBussinesEntityTypeId()).getStructures());
+        for (Structure estr : bussinesEntityTypeService.find(getBussinesEntityTypeId()).getStructures()) {
+            System.out.println("fijo propiedades" + estr.getProperties());
+            propiedades = estr.getProperties();
+            break;
+        }
+        propiedades.remove(p);
+        System.out.println("fijo propiedades" + propiedades);
+        
     }
 
     @Transactional
-    public String deleteProperty() {
-        String outcome = null;
+    public void deleteProperty() {
+        // String outcome = null;
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("property is null");
@@ -565,11 +584,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     save(s);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
-                    outcome = "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+                    //  outcome = "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
+
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, UI.getMessages("common.property.hasValues") + " " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
-                    outcome = "/paginas/admin/bussinesentitytype/property?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId() + "&propertyId=" + getPropertyId();
+                    // outcome = "/paginas/admin/bussinesentitytype/property?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId() + "&propertyId=" + getPropertyId();
                 }
 
             } else {
@@ -581,7 +601,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRORE", e.toString()));
         }
-        return outcome;
     }
 
     public void onRowSelect(SelectEvent event) {
@@ -597,8 +616,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public Serializable converterToType(String value) {
         Object o = new Object();
+        if (value != null) {
+            value = value.trim();
+        } else {
+            value = "";
+        }
 
-        value = value.trim();
         System.out.println("value en integer" + value);
         if (value.equals("")) {
             System.out.println("entro a vacio");
@@ -646,38 +669,49 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         if (getInstance().getId() != null) {
             boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
             //log.info("eqaula --> property tiene valores : " + ban);
-            System.out.println("borrando " + getInstance().getName());
-            System.out.println("ban11" + ban);
 
+            System.out.println("fijando p.name a intance" + getInstance().getName());
+            System.out.println("valor de bandera" + ban);
             if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
+
                 BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
                 System.out.println("\n\n\nbet" + bet);
                 if (bet != null) {
-                    Structure s = getInstance().getStructure();
-                    for (Structure object : bet.getStructures()) {
-                        System.out.println("nombre de estructura" + object.getName());
-                        System.out.println("nombre de la propiedad" + getInstance().getName());
-                        if (object.getName().equals(getInstance().getName())) {
-                            s = object;
-                        }
-                    }
-
-                    System.out.println("valor de la structura" + s.getName());
-                    if (s.getProperties().isEmpty()) {
-                        System.out.println("no tiene propiedades");
-                        return true;
-
-                    } else {
-
-                        return false;
-                    }
-                } else {
-
-                    return true;
+                    ban = false;
                 }
 
             }
+            System.out.println("ban2" + ban);
             return ban;
+
+//            if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
+//                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
+//                System.out.println("\n\n\nbet" + bet);
+//                if (bet != null) {
+//                    Structure s = getInstance().getStructure();
+//                    for (Structure object : bet.getStructures()) {
+//                        System.out.println("nombre de estructura" + object.getName());
+//                        System.out.println("nombre de la propiedad" + getInstance().getName());
+//                        if (object.getName().equals(getInstance().getName())) {
+//                            s = object;
+//                        }
+//                    }
+//
+//                    System.out.println("valor de la structura" + s.getName());
+//                    if (s.getProperties().isEmpty()) {
+//                        System.out.println("no tiene propiedades");
+//                        return true;
+//
+//                    } else {
+//
+//                        return false;
+//                    }
+//                } else {
+//
+//                    return true;
+//                }
+//
+//            }
         } else {
             return true;
         }
@@ -688,68 +722,79 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
-        System.out.println("ban2" + ban);
+
         System.out.println("fijando p.name a intance" + p.getName());
         System.out.println("valor de bandera" + ban);
-        if (ban == false) {
-            setStructureId(p.getStructure().getId());
-            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
-            setInstance(p);
-            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
-            System.out.println("retornando la evaluciaon");
-            return ban;
-        } else {
-            if (p.getType().equals("org.mtop.modelo.dinamico.Structure")) {
-                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(p.getName());
-                System.out.println("\n\n\nbet" + bet);
-                if (bet != null) {
-                    Structure s = p.getStructure();
-                    for (Structure object : bet.getStructures()) {
-                        System.out.println("nombre de estructura" + object.getName());
-                        System.out.println("nombre de la propiedad" + p.getName());
-                        if (object.getName().equals(p.getName())) {
-                            s = object;
-                        }
-                    }
+        if (p.getType().equals("org.mtop.modelo.dinamico.Structure")) {
 
-                    System.out.println("valor de la structura" + s.getName());
-                    if (!s.getProperties().isEmpty()) {
-                        System.out.println("presento propiedades");
-                        boolean b = false;
-                        for (Property p1 : s.getProperties()) {
-                            if (bussinesEntityService.findBussinesEntityForProperty(p1).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p1).isEmpty()) {
-                                b = true;
-                                System.out.println("encontro entidad llenba" + p1);
-                                break;
-                            }
-
-                        }
-                        if (b) {
-                            setStructureId(p.getStructure().getId());
-                            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
-                            setInstance(p);
-                            System.out.println("Esta propiedad no es una Entidad con propiedades \n que tiene registros de una Entidad de Negocio");
-                            return b;
-                        } else {
-                            System.out.println("retornando false de nooo");
-                            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
-
-                            return b;
-                        }
-                    } else {
-                        System.out.println("no tiene propiedades");
-                        return true;
-                    }
-                } else {
-
-                    return true;
-                }
-
-            } else {
-                return ban;
+            BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(p.getName());
+            System.out.println("\n\n\nbet" + bet);
+            if (bet != null) {
+                ban = false;
             }
 
         }
+        System.out.println("ban2" + ban);
+        return ban;
+//        if (ban == false) {
+//            setStructureId(p.getStructure().getId());
+//            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
+//            setInstance(p);
+//            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
+//            System.out.println("retornando la evaluciaon");
+//            return ban;
+//        } else {
+//            if (p.getType().equals("org.mtop.modelo.dinamico.Structure")) {
+//                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(p.getName());
+//                System.out.println("\n\n\nbet" + bet);
+//                if (bet != null) {
+//                    Structure s = p.getStructure();
+//                    for (Structure object : bet.getStructures()) {
+//                        System.out.println("nombre de estructura" + object.getName());
+//                        System.out.println("nombre de la propiedad" + p.getName());
+//                        if (object.getName().equals(p.getName())) {
+//                            s = object;
+//                        }
+//                    }
+//
+//                    System.out.println("valor de la structura" + s.getName());
+//                    if (!s.getProperties().isEmpty()) {
+//                        System.out.println("presento propiedades");
+//                        boolean b = false;
+//                        for (Property p1 : s.getProperties()) {
+//                            if (bussinesEntityService.findBussinesEntityForProperty(p1).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p1).isEmpty()) {
+//                                b = true;
+//                                System.out.println("encontro entidad llenba" + p1);
+//                                break;
+//                            }
+//
+//                        }
+//                        if (b) {
+//                            setStructureId(p.getStructure().getId());
+//                            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
+//                            setInstance(p);
+//                            System.out.println("Esta propiedad no es una Entidad con propiedades \n que tiene registros de una Entidad de Negocio");
+//                            return b;
+//                        } else {
+//                            System.out.println("retornando false de nooo");
+//                            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
+//
+//                            return b;
+//                        }
+//                    } else {
+//                        System.out.println("no tiene propiedades");
+//                        return true;
+//                    }
+//                } else {
+//
+//                    return true;
+//                }
+//
+//            } else {
+//                return ban;
+//            }
+//
+//        }
     }
 
     public String cargarValidador() {
@@ -771,4 +816,66 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         return findAll(Property.class
         );
     }
+
+    public Property obtenerNombre(final String nombre) throws NoResultException {
+        System.out.println("obtener nombre");
+        TypedQuery<Property> query = em.createQuery("SELECT p FROM Property p WHERE p.name = :nombre", Property.class);
+        System.out.println("query" + query);
+        query.setParameter("nombre", nombre);
+        System.out.println("query.getSingleResult()" + query.getSingleResult());
+        Property result = query.getSingleResult();
+        System.out.println("resultdo" + result);
+        return result;
+    }
+
+    public boolean nombreUnico(String nombre) {
+        System.out.println("entro al validador" + getInstance().getId());
+
+        List<Property> listaps = findAllPropiedades();
+
+        if (getInstance().getId() == null) {
+            System.out.println("entro>>>>>>>>>>");
+            try {
+                obtenerNombre(nombre);
+                return false;
+            } catch (NoResultException e) {
+                return true;
+            }
+        } else {
+            System.out.println("cual envia a elim" + getInstance().getId());
+            System.out.println("lista v antes" + listaps);
+
+            List<Property> lp = new ArrayList<Property>();
+            for (Property p : listaps) {
+                if (!p.getName().equals(findById(Property.class, getInstance().getId()).getName())) {
+                    lp.add(p);
+                }
+            }
+            listaps = lp;
+            System.out.println("lista v" + listaps);
+            System.out.println("ide instance" + getInstance().getId());
+            for (Property v : listaps) {
+                System.out.println("entro al for" + v.getId());
+
+                if (v.getName().equals(getInstance().getName())) {
+                    System.out.println("entro al if>>>");
+                    obtenerNombre(nombre);
+                    return false;
+                }
+            }
+            System.out.println("nunca entro al if");
+            return true;
+        }
+
+    }
+
+    public List<Property> getPropiedades() {
+        System.out.println("ontiene propiedades " + propiedades);
+        return propiedades;
+    }
+
+    public void setPropiedades(List<Property> propiedades) {
+        this.propiedades = propiedades;
+    }
+
 }

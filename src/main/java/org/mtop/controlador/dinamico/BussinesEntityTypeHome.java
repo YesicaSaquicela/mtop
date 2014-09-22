@@ -310,6 +310,14 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         setId(bussinesEntityTypeId);
 
     }
+    public void fijaEntidad(Long bussinesEntityTypeId) {
+        System.out.println("enro a fija e la entidad ");
+                
+        setId(bussinesEntityTypeId);
+        System.out.println("fijo "+getInstance().getName());
+
+    }
+    
 
     public String getName() {
         return name;
@@ -422,6 +430,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     @Transactional
     public String deleteBussinesEntityType() {
+        System.out.println("ento a borrar entidad"+getInstance().getLabel());
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("property is null");
@@ -443,6 +452,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         }
         return "/paginas/admin/bussinesentitytype/list";
     }
+    
 
     @TransactionAttribute
     public void displayBootcampAjax() {

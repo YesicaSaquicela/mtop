@@ -196,7 +196,7 @@ limitations under the License.
                                       styleClass="btn  btn-success"/>
                         </div>
                         <br/>
-                        <h:panelGroup layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.instance.id != null}">  
+                        <h:panelGroup id="panel" layout="block" class="clearfix" rendered="#{bussinesEntityTypeHome.instance.id != null}">  
 
                         <!--p:panel id="panel" toggleable="true" closable="false" toggleSpeed="0" closeSpeed="0" widgetVar="panel# {e.name}" rendered="# {bussinesEntityTypeHome.instance.id != null}" -->
                                 <div class="panel panel-primary">
@@ -313,35 +313,23 @@ limitations under the License.
 
                                                     #{' '}          
 
-                                                    <!--p:commandButton id="dardebaja" icon="ui-icon-trash"
-                                                                     action="# {controladorRequisicion.darDeBaja(r)}" 
-                                                                     title="Eliminar" update=":form:properties">
-                                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
-                                                    </p:commandButton>
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                    </p:confirmDialog-->
-                                                    <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                   <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                      onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
                                                                      update=":alerts-dialog:" 
                                                                      title="Desactivar"
                                                                      rendered="#{propertyHome.hasValuesBussinesEntity(property) eq false}">                        
                                                     </p:commandButton>
                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                                     action="#{propertyHome.deleteProperty(property)}" 
-                                                                     title="Desactivar" update=":form:properties"
+                                                                       actionListener="#{propertyHome.deleteProperty(property)}" 
+                                                                     oncomplete="dlg1.show();" update=":dia" process="@this"
+                                                                     title="Desactivar" 
                                                                      rendered="#{propertyHome.hasValuesBussinesEntity(property)}">       
-                                                        <p:confirm header="Desactivar" message="¿Desea Realmente desactivar la propiedad seleccionada?" icon="ui-icon-alert" />
-
+                                                       
+                                                     
                                                     </p:commandButton>
 
 
 
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                    </p:confirmDialog>
                                                 </center>
                                             </p:column>
                                         </p:dataTable>
@@ -476,7 +464,9 @@ limitations under the License.
         <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog">
                 <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="#{propertyHome.mensaje}"/>  
+                    <h:outputText value="no se puede eliminar la propiedad ya que etsa creada como entidad"/> 
+                    <br/>
+                    <h:outputText value="o tiene un objeto creado con esta propiedad"/> 
                 </h:panelGroup>                          
                 <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
                                  styleClass="btn  btn-success"/>  
@@ -493,6 +483,31 @@ limitations under the License.
                 <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg1.hide();"                                           
                                  styleClass="btn  btn-success"/>  
             </h:form>
+        </p:dialog>
+        <p:dialog id="dia" header="Dar de baja" widgetVar="dlg1"  resizable="false" modal="true">
+            <h:form id="form-dialog-confirm-delete5">
+
+                <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                    <h:outputText value="Desea realmente dar de baja a la propiedad "/>
+                    <br/>
+                    <h:outputText value="#{propertyHome.instance.name}"/>  
+                    
+
+                </h:panelGroup> 
+                
+                <h:commandLink action="#{propertyHome.deleteProperty()}" 
+                               type="button" value="SI"  styleClass="btn btn-success">
+                    <f:setPropertyActionListener target="#{bussinesEntityTypeHome.listaPropiedades}" value="#{propertyHome.propiedades}"/>
+                </h:commandLink>
+                #{' '}
+                
+                <h:commandLink value="NO" type="button" onclick="dlg1.hide();" styleClass="btn btn-success" 
+                                 />  
+
+
+            </h:form>
+
+
         </p:dialog>
 
     </ui:define>    
