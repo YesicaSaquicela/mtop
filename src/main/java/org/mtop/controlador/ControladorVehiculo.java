@@ -1198,8 +1198,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 System.out.println("antes de actualizar");
                 save(k);
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: " ,"Se ha actualizó vehiculo "+getInstance().getNumRegistro()+ "exitosamente ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
             //    ms = "false" + getInstance().getNumRegistro();
 
@@ -1223,8 +1221,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 crearEstadoUbicacion();
                 System.out.println("volcio a guardar");
 
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: " ,"Se ha guardado vehiculo "+getInstance().getNumRegistro()+ "exitosamente ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
+                
              //   ms = "true" + getInstance().getNumRegistro();
                 System.out.println("presenta mensaje>??>"+ms);
                 System.out.println("finalizo");

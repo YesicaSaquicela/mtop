@@ -46,7 +46,7 @@
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
                                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
-                                                    <h:outputText rendered="#{a.name =='serie'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                    <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
                                                 </ui:repeat>
                                             </c:if>
                                         </c:forEach>
@@ -80,7 +80,7 @@
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                                    <h:outputText rendered="#{a.name =='serie'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                    <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
                                                 </ui:repeat>
                                             </c:if>
                                         </c:forEach>
