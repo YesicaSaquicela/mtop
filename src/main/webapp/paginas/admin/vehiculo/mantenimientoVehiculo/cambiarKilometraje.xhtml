@@ -74,11 +74,11 @@
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk"
                                          styleClass="btn  btn-success" action="#{controladorVehiculo.guardarMantenimiento()}"
-                                         ajax="true" update="pv"/>
+                                         ajax="true" update="pv" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
                     </center>
-                    <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+                   
 
                     <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
                         

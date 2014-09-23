@@ -32,18 +32,18 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading" align="center">Cambio de contraseña</div>
                             <p:panel id="p1" >
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                            
 
                                 <div class="clearfix">
                                     <label for="password">#{messages['common.password.new']}</label>
                                     <div class="input">
                                         <h:inputSecret class="form-control" id="password" value="#{profileHome.password}" redisplay="true" 
-                                                       styleClass="xLarge" style="text-transform: uppercase;" required="true" requiredMessage="Required" label="#{messages['common.password']}">
-                                            <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
+                                                       style="width:100%" required="true" requiredMessage="Contraseña requerida, necesita un valor" label="#{messages['common.password']}">
+                                            <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg"/>
                                             <f:validator validatorId="passwordValidator" />
                                         </h:inputSecret>
                                         <h:panelGroup id="pwg">
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.password != null}"
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.password != null}"
                                                             styleClass="validation-status"/>
                                             <span class="help-inline text-muted">Ingrese la nueva contraseña<ocp:message id="pm"  forId="password" /></span>
                                         </h:panelGroup>
@@ -53,13 +53,14 @@
                                 <div class="clearfix">
                                     <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
                                     <div class="input">
-                                        <h:inputSecret id="passwordConfirm" class="form-control" value="#{profileHome.passwordConfirm}"
-                                                       redisplay="true" styleClass="xLarge" style="text-transform: uppercase;" label="#{messages['common.confirmPassword']}">
-                                            <f:ajax execute="password passwordConfirm passwordValidator signup:signupValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
+                                        <h:inputSecret id="passwordConfirm" class="form-control" value="#{profileHome.passwordConfirm}" 
+                                                       requiredMessage="Contraseña requerida, necesita un valor"
+                                                       redisplay="true" style="width:100%" label="#{messages['common.confirmPassword']}">
+                                            <f:ajax execute="password passwordConfirm passwordValidator signup:signupValidator" render="password passwordConfirm pwg pwcg"/>
                                             <f:validator validatorId="passwordValidator" />
                                         </h:inputSecret>
                                         <h:panelGroup id="pwcg">
-                                            <h:graphicImage value="#{resource['success.gif']}" rendered="#{profileHome.passwordConfirm != null}"
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.passwordConfirm != null}"
                                                             styleClass="validation-status"/>
                                             <span class="help-inline text-muted">Confirme la nueva contraseña<ocp:message forId="passwordConfirm" /></span>
                                         </h:panelGroup>
@@ -75,12 +76,20 @@
                             
                         </div>
                            <div class="actions" align="center">
-                                    <h:commandButton action="#{profileHome.changePassword()}" value="#{messages['common.save']}"
-                                                     styleClass="btn  btn-success">
-                                        <f:ajax execute="@form" render="@form" />
-                                    </h:commandButton>
+                                    <p:commandButton action="#{profileHome.changePassword()}" value="#{messages['common.save']}"
+                                                     styleClass="btn  btn-success" 
+                                                     update="p1" ajax="true"
+                                                     onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()">
+                                        
+                                    </p:commandButton>
 
                                 </div>
+                    
+                    
+                    <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..."  resizable="false"  draggable="false" closable="false" > 
+                        
+                        <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                    </p:dialog>
                     </div></div>
 
             </h:form>
