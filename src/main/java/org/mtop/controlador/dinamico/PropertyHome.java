@@ -392,6 +392,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             if (propertyType != null) {
                 if (propertyType.equals("Booleano")) {
                     propertyStringValue = "true";
+                } else {
+                    propertyStringValue = "";
                 }
             }
 
@@ -565,7 +567,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
         propiedades.remove(p);
         System.out.println("fijo propiedades" + propiedades);
-        
+
     }
 
     @Transactional

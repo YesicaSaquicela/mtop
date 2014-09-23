@@ -1170,7 +1170,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public String guardar() {
         String ms = "";
         Kardex k = new Kardex();
-        desabilitar = true;
+        
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 

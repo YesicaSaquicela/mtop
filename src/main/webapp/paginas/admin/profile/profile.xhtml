@@ -124,11 +124,11 @@
                             <p:commandButton styleClass="btn  btn-success" id="save" 
                                              action="#{profileHome.saveProfile()}" 
                                              value="Guardar" icon="ui-icon-disk" update="p1" ajax="true"
-                                             />
+                                             onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
                         </div>
-                          <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+                        
 
                     <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
                         

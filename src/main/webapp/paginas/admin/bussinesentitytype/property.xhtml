@@ -42,11 +42,13 @@
                                 <div class="container-fluid">
                                     <div class="row-fluid"  >
                                         <div class="col-md-6"> 
-                                            <h:outputLabel value="otro valor"></h:outputLabel>
 
-                                            <p:outputLabel  value="#{messages['common.property.groupName']}"/><br/>
+
+                                            <p:outputLabel  value="Nombre del Grupo"/><br/>
                                             <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
-                                                         value="#{propertyHome.instance.groupName}" disabled="true" required="false"  /><br/>
+                                                         value="#{propertyHome.instance.groupName}" disabled="true" style="width:100%"  /><br/>
+                                            <h:graphicImage value="#{resource['visto.png']}" 
+                                                                    styleClass="validation-status" />
                                             <span class="help-inline text-muted">Nombre del Grupo</span><br/><br/>
 
                                             <h:panelGroup id="num" layout="block" class="clearfix">
@@ -54,7 +56,7 @@
                                                     <h:outputLabel value="Nombre de Propiedad *"/>
                                                     <h:inputText disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" id="registro" value="#{propertyHome.instance.name}" styleClass="form-control"
                                                                  required="true" label="Nombre de Propiedad" 
-                                                                 requiredMessage="Se necesita valor para nombre de la propiedad"
+                                                                 requiredMessage="Nombre de la propiedad requerida, necesita un valor."
                                                                  >
                                                         <f:ajax execute="@this" render="num" />
 
@@ -72,8 +74,12 @@
                                             <h:panelGroup  id="typeP" layout="block" class="clearfix"  >
                                                 <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
                                                 <div class="input">
-                                                    <p:selectOneMenu disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" id="type" value="#{propertyHome.propertyType}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="true" requiredMessage="false" 
-                                                                     label="#{messages['common.property.type']}" rendered="true" >
+                                                    <p:selectOneMenu disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" id="type" 
+                                                                     value="#{propertyHome.propertyType}" effect="fade" 
+                                                                     converter="#{omnifaces.SelectItemsConverter}" required="true"  
+                                                                     label="#{messages['common.property.type']}" rendered="true" 
+                                                                      requiredMessage="Tipo de dato requerido, necesita un valor."
+                                                                      style="width:100%">
                                                         <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
                                                         <f:selectItems  value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
                                                         <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
@@ -87,7 +93,7 @@
                                             <h:panelGroup  id="pvaluep" layout="block" class="clearfix"  >
                                                 <label >#{messages['common.property.value']}</label>
                                                 <div class="input" >
-                                                    <p:inputText id="in1"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                    <p:inputText id="in1"  value="#{propertyHome.propertyStringValue}" style="width:100%"
                                                                  label="#{messages['common.property.value']}" 
                                                                  rendered="#{propertyHome.propertyType ne 'Fecha'
                                                                              and propertyHome.propertyType ne 'AreaTexto'
@@ -99,7 +105,7 @@
                                                                  disabled="#{propertyHome.propertyType eq 'EstadoParteMecanica' or propertyHome.hasValuesBussinesEntity eq false}">
                                                         <p:ajax event="blur" update="pvaluep" partialSubmit="true" rendered="#{propertyHome.propertyType eq 'Lista'}" />
                                                     </p:inputText>
-                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in2"  value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in2"  value="#{propertyHome.propertyStringValue}" style="width:100%"
                                                                  label="#{messages['common.property.value']}" required="true"
                                                                  rendered="#{propertyHome.propertyType eq 'Lista'}">
                                                         <f:validator validatorId="validarLista" rendered="#{propertyHome.propertyType eq 'Lista'}" />
@@ -108,7 +114,7 @@
                                                     </p:inputText>
 
 
-                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in3" value="#{propertyHome.propertyNumberValue}" styleClass="xLarge"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in3" value="#{propertyHome.propertyNumberValue}" style="width:100%"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Entero'}"
 
@@ -120,7 +126,7 @@
                                                     </p:inputText>    
 
                                                     <!--p:inplace id="ajax" editor="true" label="Fijar Fecha"-->
-                                                    <p:calendar disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in4" value="#{propertyHome.propertyDateValue}" styleClass="xLarge"
+                                                    <p:calendar disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in4" value="#{propertyHome.propertyDateValue}" style="width:100%"
                                                                 navigator="true"   
                                                                 label="#{messages['common.property.value']}" 
                                                                 rendered="#{propertyHome.propertyType eq 'Fecha'}" >
@@ -131,12 +137,12 @@
                                                     <!--/p:inplace-->
 
                                                     <p:inputTextarea disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in5" value="#{propertyHome.propertyStringValue}" styleClass="form-control"
-                                                                     label="#{messages['common.property.value']}" style="width: 400px; height: 100px;" 
+                                                                     label="#{messages['common.property.value']}"  
                                                                      rendered="#{propertyHome.propertyType eq 'AreaTexto'}">
                                                         <f:ajax event="blur" execute="@this" render="save"/>
                                                     </p:inputTextarea>
 
-                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in6" value="#{propertyHome.propertyStringValue}" styleClass="xLarge"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in6" value="#{propertyHome.propertyStringValue}" style="width:100%"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Real' or propertyHome.propertyType eq 'EnteroMayor' }"
                                                                  validator="realValidator" 
@@ -153,8 +159,8 @@
                                                     </p:selectOneButton> 
 
 
-
-                                                    <h:graphicImage value="#{resource['success.gif']}" 
+                                                    <br/>
+                                                    <h:graphicImage value="#{resource['visto.png']}" 
                                                                     rendered="#{propertyHome.propertyStringValue != null or propertyHome.propertyDateValue != null or propertyHome.propertyNumberValue != null}"
                                                                     styleClass="validation-status" />
                                                     <span class="help-inline text-muted">#{messages['common.property.value.help']} 
@@ -173,7 +179,8 @@
                                                     <br></br>
                                                     <div class="input">
                                                         <p:outputLabel for="evaluacion" value="Porcentaje de Evaluación  " />#{" "}
-                                                        <p:selectOneRadio id="evaluacion" value="#{propertyHome.instance.evaluacionParte}" required="true"  >
+                                                        <p:selectOneRadio id="evaluacion" value="#{propertyHome.instance.evaluacionParte}" style="width:100%"
+                                                                          requiredMessage="Porcentaje de evaluación requerida, necesita un valor." required="true"  >
                                                             <f:selectItem itemLabel="Muy importante   " itemValue="100" /><br/>
                                                             <f:selectItem itemLabel="Importante" itemValue="80" />
                                                         </p:selectOneRadio>
@@ -184,12 +191,21 @@
 
                                         </div>
                                         <div class="col-md-6"> 
-
-
-                                            <mtop:input id="rqd" name="requerid" type="checkbox" 
+                                            <h:outputLabel value="Propiedad Requerida" /><br/>
+                                            <p:selectBooleanCheckbox value="#{propertyHome.instance.required}" required="false" >
+                                           <p:ajax event="change" update="pr" partialSubmit="true"  />
+                                            </p:selectBooleanCheckbox>
+                                            <h:panelGrid id="pr">
+                                                <h:graphicImage value="#{resource['visto.png']}" 
+                                                                rendered="#{propertyHome.instance.required != ''}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Selecciones si es requerida esta propiedad</span>
+                                            </h:panelGrid>
+                                            <!--mtop:input id="rqd" name="requerid" type="checkbox" 
                                                         label="#{messages['common.property.required']}" render="rqd"
                                                         value="#{propertyHome.instance.required}" required="false" 
-                                                        inlinehelp="#{messages['common.property.required.help']}" execute="@this save" /><br></br>                                   
+                                                        inlinehelp="#{messages['common.property.required.help']}" execute="@this save" /--><br></br>                                   
+
                                             <mtop:input id="secuencia" name="sequence" type="java.lang.Long" 
                                                         label="#{messages['common.property.sequence']}" 
                                                         numDecimales="0"
@@ -202,7 +218,7 @@
                                                         validador="stringValidator" 
                                                         required="true" inlinehelp="#{messages['common.property.label.help']}" 
                                                         execute="@this save" 
-                                                        requiredMessage="Se necesita valor para etiqueta de la propiedad"/><br></br>
+                                                        requiredMessage="Etiqueta de vista requerida, necesita un valor."/><br></br>
 
 
 
@@ -211,7 +227,7 @@
                                             <mtop:input id="hpline" name="helpInline" type="textarea" label="#{messages['common.property.helpinline']}" 
                                                         value="#{propertyHome.instance.helpInline}" required="true" 
                                                         inlinehelp="Ingrese una descripción de la linea" execute="@this save"
-                                                        requiredMessage="Se necesita valor para linea de ayuda de la propiedad"/><br></br>
+                                                        requiredMessage="Línea de ayuda requerida, necesita un valor."/><br></br>
                                         </div>
 
                                     </div>   </div>
@@ -277,7 +293,7 @@
                             <p:commandButton id="save" action="#{propertyHome.saveProperty()}" 
                                              value="#{messages['common.save']}" ajax="true"
                                              styleClass="btn  btn-success" icon="ui-icon-disk"
-                                             update="fnp"
+                                             update="fnp" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"
                                              />
 
                             <!--p:commandButton type="button" value="# {messages['common.delete']}" 
@@ -287,7 +303,7 @@
                            </p:commandButton-->
                         </div>    
                     </div></div>
-                <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+
 
                 <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
 

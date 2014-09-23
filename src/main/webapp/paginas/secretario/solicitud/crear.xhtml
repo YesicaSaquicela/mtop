@@ -111,7 +111,7 @@
                                                                                  required="#{a.property.required}" label="#{a.property.label}" 
                                                                                  rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                     </p:inputText>
                                                                     <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                                                  validator="realValidator" 
@@ -119,22 +119,22 @@
                                                                                  required="#{a.property.required}" label="#{a.property.label}" 
                                                                                  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                     </p:inputText>
                                                                     <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                                 rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                     </p:calendar>
 
                                                                     <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
                                                                                      label="#{a.property.label}"
                                                                                      rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                        <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
                                                                     </p:selectOneMenu>
                                                                     <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                     </p:inputTextarea>  
 
                                                                     <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
@@ -143,7 +143,7 @@
                                                                                  required="#{a.property.required}"
                                                                                  > 
                                                                         <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
                                                                     </p:inputText>
@@ -192,7 +192,7 @@
                                                          required="#{a.property.required}" label="#{a.property.label}" 
                                                          rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                             </p:inputText>
                                             <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                          validator="realValidator" 
@@ -200,22 +200,22 @@
                                                          required="#{a.property.required}" label="#{a.property.label}" 
                                                          rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                             </p:inputText>
                                             <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                         rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                             </p:calendar>
 
                                             <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
                                                              label="#{a.property.label}"
                                                              rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                <p:ajax event="change" update="@this" partialSubmit="true"/>
                                             </p:selectOneMenu>
                                             <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                              rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                             </p:inputTextarea>  
 
                                             <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
@@ -224,7 +224,7 @@
                                                          required="#{a.property.required}"
                                                          > 
                                                 <f:validator validatorId="validadorDigitosDinamic"  />
-                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
                                             </p:inputText>
@@ -735,7 +735,7 @@
                             <div class="admin-actions " align="center"> 
                                 <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" 
                                                  action="#{controladorSolicitudReparacionMantenimiento.guardar()}" 
-                                                 process="@this"/>
+                                                 process="@this" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
                             </div>
@@ -796,7 +796,7 @@
 
                                 <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
                                 <p:selectOneMenu id="partida"  value="#{controladorRequisicion.idPartidaC}" effect="fade"
-                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                 converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains" 
                                                  requiredMessage="Partida de contabilidad requerida, necesita un valor">  
                                     <p:ajax event="change" update="pc" partialSubmit="true"  />
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -808,7 +808,7 @@
                                     <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
                                 </h:panelGroup>
                                 <h:outputLabel value="Tipo de requisición "/> <br></br> 
-                                <p:selectOneMenu id="tipoRequisicion" 
+                                <p:selectOneMenu id="tipoRequisicion" filter="true" filterMatchMode="contains" 
                                                  value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                     <p:ajax event="change" update="tr" partialSubmit="true"  />
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -823,7 +823,7 @@
 
                                 <h:outputLabel value="Requerido por:"/> <br></br>
                                 <p:selectOneMenu id="personal1"  value="#{controladorRequisicion.idPersonal}" effect="fade"
-                                                 converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                 converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains" 
                                                  requiredMessage="Se requiere eleguir una persona que solicita la requisición">  
                                     <p:ajax event="change" update="rpp" partialSubmit="true"  />
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -836,7 +836,7 @@
                                 </h:panelGroup>
 
                                 <h:outputLabel value="Tipo de adquisición "/><br></br>
-                                <p:selectOneMenu  id="adquisicion" label="Tipo de Adquisición" 
+                                <p:selectOneMenu  id="adquisicion" label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
                                                   requiredMessage="Tipo de adquisición requerida, necesita un valor"
                                                   value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
                                     <p:ajax event="change" update="ta" partialSubmit="true"  />
@@ -888,7 +888,7 @@
                                                                              required="#{a.property.required}" label="#{a.property.label}" 
                                                                              rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                 </p:inputText>
                                                                 <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                                              validator="realValidator" 
@@ -896,22 +896,22 @@
                                                                              required="#{a.property.required}" label="#{a.property.label}" 
                                                                              rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                 </p:inputText>
                                                                 <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                             rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                                    <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                    <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                 </p:calendar>
 
                                                                 <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
                                                                                  label="#{a.property.label}"
                                                                                  rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                    <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                                    <p:ajax event="change" update="@this" partialSubmit="true"/>
                                                                 </p:selectOneMenu>
                                                                 <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                                  rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                 </p:inputTextarea>  
 
                                                                 <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
@@ -920,7 +920,7 @@
                                                                              required="#{a.property.required}"
                                                                              > 
                                                                     <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                    <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
                                                                 </p:inputText>
@@ -967,7 +967,7 @@
                                         <p:inputText id="str"  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                      rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}">
 
-                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                         </p:inputText>
 
                                         <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
@@ -976,22 +976,22 @@
                                                      required="#{a.property.required}" label="#{a.property.label}" 
                                                      rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                         </p:inputText>
                                         <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                     rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                            <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                            <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                         </p:calendar>
 
                                         <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
                                                          label="#{a.property.label}"
                                                          rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                             <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                            <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                            <p:ajax event="change" update="@this" partialSubmit="true"/>
                                         </p:selectOneMenu>
                                         <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                          rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                         </p:inputTextarea>  
 
                                         <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
@@ -1000,7 +1000,7 @@
                                                      required="#{a.property.required}"
                                                      > 
                                             <f:validator validatorId="validadorDigitosDinamic"  />
-                                            <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
                                         </p:inputText>
@@ -1279,7 +1279,7 @@
 
             </div>
             </div>
-            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+          
 
             <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." 
                       resizable="false"  draggable="false" closable="false" > 

@@ -111,12 +111,12 @@
                     <div class="admin-actions " align="center">  
                         <p:commandButton  id="save" action="#{profileHome.saveUsuario()}"
                                           value="#{messages['common.save']}" 
-                                          styleClass="btn  btn-success" ajax="true"
-                                          icon="ui-icon-disk" />
+                                          styleClass="btn  btn-success" update="p1" ajax="true"
+                                          icon="ui-icon-disk" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
                     </div>
-                        <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+                   
 
                     <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
 

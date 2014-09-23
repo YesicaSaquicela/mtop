@@ -50,8 +50,9 @@
                                         <br></br><br></br>
 
                                         <p:outputLabel value="Número de Provincia"/><br></br>
-                                        <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"  styleClass="form-control" >
-                                            <f:validateLength minimum="4"/>
+                                        <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"
+                                                     styleClass="form-control" requiredMessage="Número de provincia requerido, necesita un valor" >
+                                            <f:validateLength minimum="4" />
                                             <p:ajax event="blur" update="np" partialSubmit="true"  />
                                         </p:inputText>
                                         <h:panelGroup id="np" layout="block" class="clearfix">
@@ -174,7 +175,7 @@
                                                                          required="#{a.property.required}" label="#{a.property.label}" 
                                                                          rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                             </p:inputText>
                                                             <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                                          validator="realValidator" 
@@ -182,22 +183,22 @@
                                                                          required="#{a.property.required}" label="#{a.property.label}" 
                                                                          rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                             </p:inputText>
                                                             <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                         rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                                <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                             </p:calendar>
 
                                                             <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
                                                                              label="#{a.property.label}"
                                                                              rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                                 <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                                                <p:ajax event="change" update="@this" partialSubmit="true"/>
                                                             </p:selectOneMenu>
                                                             <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                              rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                             </p:inputTextarea>  
 
                                                             <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
@@ -206,7 +207,7 @@
                                                                          required="#{a.property.required}"
                                                                          > 
                                                                 <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
                                                             </p:inputText>
@@ -251,7 +252,7 @@
                                                  required="#{a.property.required}" label="#{a.property.label}" 
                                                  rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                     </p:inputText>
                                     <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
                                                  validator="realValidator" 
@@ -259,22 +260,22 @@
                                                  required="#{a.property.required}" label="#{a.property.label}" 
                                                  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                     </p:inputText>
                                     <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                 rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                     </p:calendar>
 
                                     <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
                                                      label="#{a.property.label}"
                                                      rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                        <p:ajax event="change" update=":form:infoFM" partialSubmit="true"/>
+                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
                                     </p:selectOneMenu>
                                     <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                     </p:inputTextarea>  
 
                                     <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
@@ -283,7 +284,7 @@
                                                  required="#{a.property.required}"
                                                  > 
                                         <f:validator validatorId="validadorDigitosDinamic"  />
-                                        <p:ajax event="blur" update=":form:infoFM" partialSubmit="true"/>
+                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
                                     </p:inputText>
@@ -320,11 +321,12 @@
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  
                                          styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
-                                         icon="ui-icon-disk" update="panel" ajax="true"/>
+                                         icon="ui-icon-disk" update="panel" ajax="true"
+                                         onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
                     </div>
-                    <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+                   
 
                     <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
                         
