@@ -73,30 +73,30 @@
 
                                                 </p:selectOneMenu> <br></br>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.idPersona != ''}" styleClass="validation-status" />
-                                                <span class="help-inline text-muted">Elija el conductor del vehículo<ocp:message forId="personal" /></span><br></br> 
+                                                <span class="help-inline text-muted">Elija el conductor del vehículo<ocp:message forId="personal" /></span>
                                             </div>
-                                        </h:panelGroup >
+                                        </h:panelGroup ><br></br> 
                                         <mtop:input id="marca" name="marca" type="text" label="Marca" 
                                                     value="#{controladorVehiculo.instance.marca}" required="true" 
                                                     inlinehelp=" ingrese la marca Vehículo Ej(Chevrolet)" 
-                                                    execute ="@this save" render="marca"
+                                                    render="marca"
                                                     requiredMessage="Marca requerida, necesita un valor"/><br></br>
                                         <mtop:input id="color" name="color" type="text" label="Color" 
                                                     value="#{controladorVehiculo.instance.color}" required="true" 
                                                     inlinehelp="Ingrese el color del vehículo Ej(Azul)" 
-                                                    execute ="@this save" render="color" validator="stringValidator"
+                                                    render="color" validator="stringValidator"
                                                     requiredMessage="Color requerido, necesita un valor"/><br></br>
 
                                         <mtop:input id="clase" name="clase" type="text" label="Clase de auto" 
                                                     value="#{controladorVehiculo.instance.clase}" required="true" 
                                                     inlinehelp="Ingrese la clase del vehículo Ej(todo terreno)" 
-                                                    execute ="@this save" render="clase" validator="stringValidator"
+                                                    render="clase" validator="stringValidator"
                                                     requiredMessage="Clase requerida, necesita un valor"/><br></br>
 
                                         <mtop:input id="modelo" name="modelo" type="text" label="Modelo" 
                                                     value="#{controladorVehiculo.instance.modelo}" required="true" 
                                                     inlinehelp="Ingrese el modelo del vehículo Ej(Luv)" 
-                                                    execute ="@this save" render="modelo" 
+                                                    render="modelo" 
                                                     requiredMessage="Modelo requerido, necesita un valor"/><br></br>
 
 
@@ -106,7 +106,7 @@
                                                 <h:inputText id="placa" value="#{controladorVehiculo.instance.placa}" 
                                                              styleClass="form-control" required="true" label="Placa"
                                                              requiredMessage="Placa requerida, necesita un valor">
-                                                    <f:ajax execute="@this" render="unm" />
+                                                    <f:ajax  render="unm" />
                                                     <f:validator validatorId="verificarPlaca" />
                                                     <f:validator validatorId="validadorPlaca" />
                                                 </h:inputText>
@@ -121,7 +121,7 @@
                                         <mtop:input id="numPasajeros" name="numPasajeros" type="decimal" label="Número de Pasajeros" 
                                                     value="#{controladorVehiculo.instance.numPasajeros}" required="true" numDecimales="0"
                                                     inlinehelp="Ingrese el número de pasajeros del vehículo Ej(2)" maxValue="99"
-                                                    execute ="@this save" render="numPasajeros" validator="digitValidator"
+                                                    render="numPasajeros" validator="digitValidator"
                                                     requiredMessage="Número de pasajeros requerido, necesita un valor"/><br></br>
                                         <h:panelGroup id="p1" layout="block" class="clearfix">
                                             <div class="input">
@@ -142,7 +142,7 @@
                                         <mtop:input id="numCilindros" name="numCilindros" type="decimal" label="Número de Cilindros" 
                                                     value="#{controladorVehiculo.instance.numCilindros}" required="true" numDecimales="0"
                                                     inlinehelp="Ingrese el número cilindros del vehículo Ej(2)" maxValue="9"
-                                                    execute ="@this save" render="numCilindros"
+                                                    render="numCilindros"
                                                     requiredMessage="Número de cilindros requerido, necesita un valor"/><br></br>
 
                                         <br></br>
@@ -153,30 +153,29 @@
                                         <mtop:input id="avaluo" name="avaluo" type="decimal" label="Avalúo" numDecimales="2" 
                                                     value="#{controladorVehiculo.instance.avaluo}" required="true" 
                                                     inlinehelp="Ingrese el avalúo del vehículo en dólares Ej(12000 $)" symbol=" $" symbolPosition="s"  
-                                                    execute ="@this save" render="avaluo"  maxValue="99999" 
+                                                    render="avaluo"  maxValue="99999" 
                                                     requiredMessage="Avalúo requerido, necesita un valor"/><br></br>
 
                                         <h:panelGroup id="cabina1" layout="block" class="clearfix">
                                             <div class="input">
-                                                <p:outputLabel for="cabina" value="Cabina * " /><br/>
+                                                <p:outputLabel value="Cabina*" /><br/>
                                                 <p:selectOneMenu id="cabina" value="#{controladorVehiculo.instance.cabina}" 
-                                                                 effect="fold" editable="true"  style="width: 100%"
+                                                                 effect="fold" editable="true"  style="width: 100%" required="true"
                                                                  requiredMessage="Cabina requerida, necesita un valor"
                                                                  label="Cabina" >
-                                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
                                                     <f:selectItems value="#{controladorVehiculo.tiposCabina}" />
-                                                    <f:ajax execute="@this" render="cabina1"  />
+                                                    <f:ajax render="cabina1" />
                                                 </p:selectOneMenu><br/>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.tipo != null}"
                                                                 styleClass="validation-status" />
-                                                <span class="help-inline text-muted">Ingrese el tipo de combustible del vehículo Ej(Gasolina)<ocp:message forId="cabina" /></span><br/>
+                                                <span class="help-inline text-muted">Ingrese el tipo de cabina del vehículo Ej(Doble)<ocp:message forId="cabina" /></span>
                                             </div>
-                                        </h:panelGroup>
+                                        </h:panelGroup><br></br> 
 
                                         <mtop:input id="aniofabricacion" name="aniofabricacion" type="decimal" label="Año fabricación" numDecimales="0"
                                                     value="#{controladorVehiculo.instance.anioFabricacion}" required="true" 
                                                     inlinehelp="Ingrese el año de fabricación Ej(2014)" 
-                                                    execute ="@this save" render="aniofabricacion" validator="fechanio"
+                                                    render="aniofabricacion" validator="fechanio"
                                                     requiredMessage="Año de fabricación requerido, necesita un valor"/><br></br>
 
 
@@ -186,7 +185,7 @@
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo en toneladas Ej(1.5 TON)" symbol=" TON" symbolPosition="s"  
                                                     requiredMessage="Peso requerido, necesita un valor"
-                                                    execute ="@this save" render="peso" maxValue="999" /><br></br>
+                                                    render="peso" maxValue="999" /><br></br>
 
 
                                         <h:panelGroup id="t" layout="block" class="clearfix">
@@ -196,7 +195,7 @@
                                                 <p:selectOneMenu id="tipo"  requiredMessage="Tipo requerido, necesita un valor" style="width: 100%"
                                                                  value="#{controladorVehiculo.instance.tipo}" filter="true" filterMatchMode="contains"
                                                                  effect="fade" required="true" >
-                                                    <f:ajax execute="@this" render="t" />
+                                                    <f:ajax render="t" />
                                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                                     <f:selectItems value="#{controladorVehiculo.tipos}" />
 
@@ -212,7 +211,7 @@
                                                     value="#{controladorVehiculo.instance.cilindraje}" required="true" 
                                                     inlinehelp="Ingrese el cilindraje del vehículo en centímetros cúbicos Ej(2000 CC)" 
                                                     symbol=" CC" symbolPosition="s" maxValue="9999" 
-                                                    execute ="@this save" render="cilindraje"
+                                                    render="cilindraje"
                                                     requiredMessage="Cilindraje requerido, necesita un valor"/><br></br>
 
 
@@ -220,19 +219,18 @@
                                                     value="#{controladorVehiculo.instance.kilometraje}" required="true" 
                                                     inlinehelp="Ingrese el kilometraje del vehículo Ej(5000)" maxValue="50000"
                                                     symbol=" km" symbolPosition="s"
-                                                    execute ="@this save" render="kilometraje" validator="digitValidator"
+                                                   render="kilometraje" validator="digitValidator"
                                                     requiredMessage="Kilometraje requerido, necesita un valor"/><br></br>
 
                                         <h:panelGroup id="tipoCombustible1" layout="block" class="clearfix">
                                             <div class="input">
-                                                <p:outputLabel for="tipoCombustible" value="Tipo de Combustible* " /><br/>
+                                                <p:outputLabel  value="Tipo de Combustible*" /><br/>
                                                 <p:selectOneMenu id="tipoCombustible" value="#{controladorVehiculo.instance.tipoCombustible}" 
-                                                                 effect="fold" editable="true"  style="width: 100%"
+                                                                 effect="fold" editable="true"  style="width: 100%" required="true"
                                                                  requiredMessage="Combustible requerido, necesita un valor"
                                                                  label="Tipo de Combustible" >
-                                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
                                                     <f:selectItems value="#{controladorVehiculo.tiposCombustible}" />
-                                                    <f:ajax execute="@this" render="tipoCombustible1"  />
+                                                    <f:ajax  render="tipoCombustible1"  />
                                                 </p:selectOneMenu><br/>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.tipo != null}"
                                                                 styleClass="validation-status" />
