@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -110,6 +111,31 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     String msj1 = "";
     private String msj2 = "";
     private String mensajef = "";
+    private List<String> tiposCombustible=new ArrayList<String>(Arrays.asList("Gasolina", "Diesel"));
+    private List<String> tiposCabina=new ArrayList<String>(Arrays.asList("Simple", "Doble"));
+
+    public List<String> getTiposCabina() {
+        return tiposCabina;
+    }
+
+    public void setTiposCabina(List<String> tiposCabina) {
+        this.tiposCabina = tiposCabina;
+    }
+    
+    
+    
+    
+    public List<String> getTiposCombustible() {
+        
+        return tiposCombustible;
+    }
+
+    public void setTiposCombustible(List<String> tiposCombustible) {
+        this.tiposCombustible = tiposCombustible;
+    }
+    
+    
+    
 
     public String getMensajef() {
         return mensajef;
@@ -495,7 +521,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Integer fv = Integer.parseInt(fanio);
         System.out.println("fecha k llega" + fv);
         System.out.println("fecha formato" + fa);
-        if (fv <= fa && fv >= 1980) {
+        if (fv <= fa && fv >= 1950) {
             System.out.println("entro a true");
             return true;
         } else {
