@@ -77,8 +77,11 @@ limitations under the License.
                     </p:selectOneMenu>  
                 </c:when>
                 <c:when test="#{type == 'java.lang.Long' or type == 'java.lang.Double' or type == 'java.lang.Float' or type == 'decimal'}"  >
-                    <pe:inputNumber id="#{name}" value="#{value}" style="width:100%" required="#{required}" label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}">  
-                        <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
+                    <pe:inputNumber id="#{name}" value="#{value}"  required="#{required}" 
+                                    requiredMessage="#{requiredMessage}" symbolPosition="#{symbolPosition}"  style="width: 100%"
+                                    maxValue="#{maxValue}"
+                                    label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}" symbol="#{symbol}">  
+                        <p:ajax event="blur" update="#{render}" partialSubmit="true" />
                     </pe:inputNumber>  
                     <br/>
                 </c:when>
