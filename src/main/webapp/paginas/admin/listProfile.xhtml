@@ -33,19 +33,19 @@
 
 
 
-                                                                <p:commandButton icon="ui-icon-search" value="Buscar" 
+                                                                <p:commandLink type="button" value="Buscar" 
                                                                                  update=":form:profileDataTable1"
                                                                                  action="#{controladorPersona.buscar()}" 
                                                                                  styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
-
-                                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" 
+                                                                </p:commandLink>
+#{' '} #{' '} 
+                                                                <p:commandLink type="button"
                                                                                  value="Limpiar" update=":form:profileDataTable1 :form:acSimple" 
                                                                                  action="#{controladorPersona.limpiar()}"
                                                                                  styleClass="btn btn-success" >
 
-                                                                </p:commandButton>
+                                                                </p:commandLink>
                                                             </center>
                                                      </div>
                                       </div>

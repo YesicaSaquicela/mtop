@@ -533,10 +533,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabp.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACIÓN: Ingrese algún valor a buscar"));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabp = " ";
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrabp));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabp);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {
@@ -689,10 +691,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lrq.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algún valor a buscar"));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", "No se ha encontrado " + palabrab));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {
@@ -859,10 +863,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lsoli.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabs.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabs = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabs));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabs);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {

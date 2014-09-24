@@ -26,10 +26,6 @@
                         <div class="panel-heading"><center>LISTA DE KARDEX</center></div>
                         <p:panel>
 
-
-                            <!--Botones de admin-->
-
-                            <br/>
                             <div class="panel panel-info">
                                 <div class="panel-heading">
 
@@ -40,19 +36,22 @@
                                                          completeMethod="#{controladorKardex.autocompletar}"/> 
 
 
-                            &nbsp;&nbsp;
+                                        &nbsp;&nbsp;
 
-                                        <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listap" action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandLink value="Buscar" update=":form:listap" type="button"
+                                                       action="#{controladorKardex.buscar()}" styleClass="btn btn-success" >
 
-                                        </p:commandButton>
+                                        </p:commandLink>
 
+                                        #{' '} #{' '} 
+                                        <p:commandLink value="Limpiar" update=":form:listap :form:acSimple" type="button"
+                                                       action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
 
-                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorKardex.limpiar()}" styleClass="btn btn-success" >
-
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </center>
                                 </div>
                             </div>
+
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -73,15 +72,30 @@
                                                     <h:outputText value="#{item.observaciones}"></h:outputText>
                                                 </p:column>
 
-                                                <p:column headerText="Opciones" style="width: 5%"> 
-
-                                                    <p:button id="selectButton" styleClass="btn  btn-success"
-                                                              outcome="crear"
-                                                              icon="ui-icon-pencil" title="Editar">  
-                                                        <f:param name="kardexId" value="#{item.id}"></f:param>
-                                                        <f:param name="valorVista" value="kardex"></f:param>
-                                                    </p:button>
+                                                <p:column headerText="Editar" style="width: 5%"> 
+                                                    <center>
+                                                        <p:button id="selectButton" styleClass="btn  btn-success"
+                                                                  outcome="crear"
+                                                                  icon="ui-icon-pencil" title="Editar">  
+                                                            <f:param name="kardexId" value="#{item.id}"></f:param>
+                                                            <f:param name="valorVista" value="kardex"></f:param>
+                                                        </p:button>
+                                                    </center>
                                                 </p:column>
+                                                <p:column headerText="Visualizar" style="width: 5%"> 
+                                                    <center>
+
+                                                        <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                                                  outcome="imprimirKardex" 
+                                                                  title="Visualizar">  
+                                                            <f:param name="kardexId1" value="#{item.id}"></f:param>
+                                                            <f:param name="vehId" value="#{item.vehiculo.id}"></f:param>
+
+
+                                                        </p:button>
+                                                    </center>
+                                                </p:column>
+
                                             </p:dataTable></tbody></div></div></div>
                         </p:panel> </div> </div></div>
         </h:form>

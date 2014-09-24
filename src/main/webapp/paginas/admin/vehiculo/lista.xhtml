@@ -37,14 +37,19 @@
                                         <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
                                                          completeMethod="#{controladorVehiculo.autocompletar}"/> 
 
- &nbsp;&nbsp;
-                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:listap" action="#{controladorVehiculo.buscar()}"  >
+{' '} 
+                                        <p:commandLink value="Buscar" type="button"
+                                                       update=":form:listap" action="#{controladorVehiculo.buscar()}" 
+                                                       styleClass="btn btn-success">
 
-                                        </p:commandButton>
+                                        </p:commandLink>
+#{' '} #{' '} 
+                                        <p:commandLink type="button" value="Limpiar" 
+                                                       update=":form:listap :form:acSimple" 
+                                                       action="#{controladorVehiculo.limpiar()}" 
+                                                       styleClass="btn btn-success">
 
-                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorVehiculo.limpiar()}" >
-
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </center>
                                 </div>
 

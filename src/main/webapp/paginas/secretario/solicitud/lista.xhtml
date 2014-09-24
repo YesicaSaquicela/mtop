@@ -40,14 +40,14 @@
                                                         completeMethod="#{controladorSolicitudReparacionMantenimiento.autocompletar}"/> 
 
                                         &nbsp;&nbsp;
-                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:infoFM:listap  :form:infoFM:listasa" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="#fff" >
+                                        <p:commandLink value="Buscar" type="button" update=":form:infoFM:listap  :form:infoFM:listasa" action="#{controladorSolicitudReparacionMantenimiento.buscar()}" styleClass="#fff" >
 
-                                        </p:commandButton>
+                                        </p:commandLink>
 
+#{' '} #{' '} 
+                                        <p:commandLink value="Limpiar" type="button" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="@brand-primary" >
 
-                                        <p:commandButton value="Limpiar" icon="ui-icon-arrowrefresh-1-s" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}" styleClass="@brand-primary" >
-
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </center>
                                 </div>
 

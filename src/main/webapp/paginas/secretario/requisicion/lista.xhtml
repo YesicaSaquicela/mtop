@@ -46,14 +46,14 @@
 
 
 
-                                        <p:commandButton value="Buscar" update=":form:infoFM:listap form:infoFM:listap1" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandLink value="Buscar" type="button" update=":form:infoFM:listap form:infoFM:listap1" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
 
-                                        </p:commandButton>
+                                        </p:commandLink>
 
+ #{' '}  #{' '} 
+                                        <p:commandLink value="Limpiar" type="button" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
 
-                                        <p:commandButton value="Limpiar" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
-
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </center>
                                 </div>
 
