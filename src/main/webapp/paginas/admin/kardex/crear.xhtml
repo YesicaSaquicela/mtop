@@ -372,13 +372,17 @@
 
                                 </p:tabView>
                                 <br/>
-
-                                <mtop:input id="descripcion" name="descripcion1" type="textarea" label="Observación" 
-                                            value="#{controladorKardex.instance.observaciones}"
-                                            inlinehelp="Ingrese una descripción"
-                                            execute ="@this save" render="descripcion"
-                                            >
-                                </mtop:input><br></br>
+  <p:outputLabel value="Observación"/><br></br>
+                                    <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
+                                                     value="#{controladorKardex.instance.observaciones}"
+                                                     label="observación" >
+                                        <p:ajax event="blur" update="obs" />
+                                    </p:inputTextarea>
+                                    <h:panelGroup id="obs" layout="block" class="clearfix">
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorKardex.instance.observaciones != ''}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Ingrese observaciones de kardex<ocp:message forId="observacion1" /></span>                                   
+                                    </h:panelGroup>
+                                <br></br>
 
                                 <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
 

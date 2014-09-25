@@ -62,7 +62,7 @@
                                     <span class="help-inline text-muted">Fecha actual de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
                                     <h:outputLabel value="Solicitado por:"/> <br></br>
-                                    <p:selectOneMenu id="personal"  value="#{controladorSolicitudReparacionMantenimiento.idPersona}"
+                                    <p:selectOneMenu id="personal" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersona}"
                                                      effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                      filter="true" filterMatchMode="contains">  
@@ -1151,7 +1151,9 @@
                         <br/>
 
                         <p:outputLabel value="Cantidad"/><br></br>
-                        <p:spinner  id="cantidad" required="true"  value="#{controladorRequisicion.cir.instance.cantidad}" min="1" max="#{controladorRequisicion.maximo}" /><br/>
+                        <p:spinner  id="cantidad" required="true"
+                                    value="#{controladorRequisicion.cir.instance.cantidad}"
+                                    min="1" max="#{controladorRequisicion.maximo}" style="width: 100%" /><br/>
                         <h:graphicImage value="#{resource['visto.png']}" 
                                         styleClass="validation-status" />
                         <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad"/></span>
@@ -1159,17 +1161,20 @@
 
                         <p:outputLabel value="Descripción"/><br></br>
                         <p:inputText id="descrip" value="#{controladorRequisicion.cir.instance.descripcion}" 
-                                     required="true" requiredMessage="Descripción requerida, necesita un valor" readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
+                                     required="true" style="width: 100%"
+                                     requiredMessage="Descripción requerida, necesita un valor" readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                             <p:ajax event="blur" update="desp" partialSubmit="true"  />
                         </p:inputText>
                         <br/>
                         <h:panelGroup id="desp">
-                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.descripcion != ''}" styleClass="validation-status" />
+                            <h:graphicImage value="#{resource['visto.png']}" 
+                                            rendered="#{controladorRequisicion.cir.instance.descripcion != ''}"
+                                            styleClass="validation-status" />
                             <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
                         </h:panelGroup>
                         <br></br><br/>
                         <p:outputLabel value="Unidad de Medida"/><br></br>
-                        <p:inputText id="unidadMedida" 
+                        <p:inputText id="unidadMedida" style="width: 100%"
                                      requiredMessage="Unidad de medida requerida, necesita un valor"
                                      value="#{controladorRequisicion.cir.instance.unidadMedida}" required="true"  >
                             <p:ajax event="blur" update="um" partialSubmit="true"  />
