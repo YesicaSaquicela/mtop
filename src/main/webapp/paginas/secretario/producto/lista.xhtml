@@ -40,13 +40,13 @@
 
 
 
-                                        <p:commandButton value="Buscar" icon="ui-icon-search" update=":form:listap" action="#{controladorProducto.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandLink value="Buscar" type="button" update=":form:listap" action="#{controladorProducto.buscar()}" styleClass="btn btn-success" >
 
-                                        </p:commandButton>
+                                        </p:commandLink>
+ #{' '}  #{' '} 
+                                        <p:commandLink type="button" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorProducto.limpiar()}" styleClass="btn btn-success" >
 
-                                        <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorProducto.limpiar()}" styleClass="btn btn-success" >
-
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </center>
                                 </div>
 

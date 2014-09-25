@@ -337,7 +337,7 @@
 
                                                                     <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
                                                                                 rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
-                                                                        <p:ajax event="dateSelect" update="@parent" partialSubmit="true"/>
+                                                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                     </p:calendar>
 
                                                                     <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 

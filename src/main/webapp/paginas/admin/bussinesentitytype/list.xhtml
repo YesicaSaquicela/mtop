@@ -44,16 +44,16 @@ limitations under the License.
 
 
 
-                                        <p:commandButton value="Buscar" update=":form:bussinesEntityTypeTable" process="@form" id="buscar" 
-                                                         action="#{bussinesEntityTypeListService.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandLink value="Buscar" update=":form:bussinesEntityTypeTable" type="button"  process="@form" id="buscar1" 
+                                                       action="#{bussinesEntityTypeListService.buscar()}" styleClass="btn btn-success" >
 
-                                        </p:commandButton>
+                                        </p:commandLink>
 
-
-                                        <p:commandButton value="Limpiar" process="@this" update="@form"  
+          #{'  '}#{'  '}
+                                        <p:commandLink value="Limpiar" process="@this" update="@form"  type="button"
                                                          action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
 
-                                        </p:commandButton>
+                                        </p:commandLink>
                                     </center>
 
                                 </div>
@@ -139,12 +139,9 @@ limitations under the License.
                                 </div>
                             </div>
                         </p:panel></div></div> </div>
-            <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
 
-            <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..."  resizable="false"  draggable="false" closable="false" > 
 
-                <p:graphicImage value="/resources/ajax-loader.gif" /> 
-            </p:dialog>
+
 
         </h:form>
 
@@ -153,10 +150,12 @@ limitations under the License.
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="Esta entidad tiene propiedades."/>
                     <br/>
-                    <h:outputText value="Para poder borrarla primero borre  sus propiedades."/>  
-                </h:panelGroup>                          
-                <p:commandButton value="#{messages['common.cancel']}" type="button" onclick="alertDlg.hide();"                                           
-                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                    <h:outputText value="Para poder borrarla primero borre sus propiedades."/>  
+                </h:panelGroup>  
+                <center>
+                    <p:commandButton value="Regresar" type="button" onclick="alertDlg.hide();"                                           
+                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                </center>
             </h:form>
         </p:dialog>
 
@@ -171,15 +170,15 @@ limitations under the License.
 
 
                 </h:panelGroup> 
+                <center>
+                    <h:commandLink action="#{bussinesEntityTypeHome.deleteBussinesEntityType()}" 
+                                   type="button" value="SI" />
+                    #{' '}
 
-                <h:commandLink action="#{bussinesEntityTypeHome.deleteBussinesEntityType()}" 
-                               type="button" value="SI"  styleClass="btn btn-success"/>
-                #{' '}
+                    <h:commandLink value="NO" type="button" onclick="dlg1.hide();" 
+                                   />  
 
-                <h:commandLink value="NO" type="button" onclick="dlg1.hide();" styleClass="btn btn-success" 
-                               />  
-
-
+                </center>
             </h:form>
 
 

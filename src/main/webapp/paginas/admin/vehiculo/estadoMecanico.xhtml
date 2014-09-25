@@ -199,19 +199,20 @@
                         <p:commandButton id="save" value="Guardar" disabled="#{controladorVehiculo.desabilitar}" 
                                          ajax="true" icon="ui-icon-disk" 
                                          styleClass="btn  btn-success" action="#{controladorVehiculo.editarEstado()}"
-                                         immediate="true" update="@this"/>
+                                         immediate="true" update="@this" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
                         <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
                                   outcome="verestadoMecanico" value="Ver Estado Mecánico"
-                                  title="Visualizar">  
+                                  title="Visualizar" onclick="ajaxStatusDialog.show()" escape="ajaxStatusDialog.hide()">  
                             <p:ajax event="click" partialSubmit="true" update="@this"/>
                             <f:param name="vehiculoId" value="#{controladorVehiculo.instance.id}"></f:param>
                             <f:param name="evaluacion" value="#{controladorVehiculo.obtenerEvaluacion()}"></f:param>
                             
                         </p:button>
-                        <p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
-
+                       
+  
+                     
                         <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
                             
                             <p:graphicImage value="/resources/ajax-loader.gif" /> 

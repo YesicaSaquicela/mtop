@@ -653,13 +653,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         }
 
         if (lvs.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
+           
             if (palabrab.equals("Ingrese algun valor a buscar")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabe);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 

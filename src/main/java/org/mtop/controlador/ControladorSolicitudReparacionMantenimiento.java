@@ -226,10 +226,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         if (lrq.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabr.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabr = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrabr));
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabr);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {

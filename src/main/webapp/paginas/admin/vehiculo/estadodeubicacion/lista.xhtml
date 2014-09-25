@@ -49,13 +49,19 @@
 
 
 
-                                                <p:commandButton icon="ui-icon-search" value="Buscar" update=":form:listae" action="#{controladorVehiculo.buscarEstadoV()}"  >
+                                                <p:commandLink type="button" value="Buscar" 
+                                                               update=":form:listae" 
+                                                               action="#{controladorVehiculo.buscarEstadoV()}"
+                                                               styleClass="btn btn-success">
 
-                                                </p:commandButton>
+                                                </p:commandLink>
+#{' '} 
+                                                <p:commandLink type="button" value="Limpiar" 
+                                                               update=":form:listae :form:acSimple"
+                                                               action="#{controladorVehiculo.limpiarEstadoV()}" 
+                                                               styleClass="btn btn-success">
 
-                                                <p:commandButton icon="ui-icon-arrowrefresh-1-s" value="Limpiar" update=":form:listae :form:acSimple" action="#{controladorVehiculo.limpiarEstadoV()}" >
-
-                                                </p:commandButton>
+                                                </p:commandLink>
                                             </center>
                                        
 

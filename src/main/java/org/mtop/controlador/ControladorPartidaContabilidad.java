@@ -88,12 +88,14 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         }
 
         if (lp.isEmpty()) {
-            FacesContext context = FacesContext.getCurrentInstance();
+       
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                context.addMessage(null, new FacesMessage("INFORMACION: Ingrese algun valor a buscar"));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                context.addMessage(null, new FacesMessage("INFORMACION: No se ha encontrado " + palabrab));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
+                FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
         } else {

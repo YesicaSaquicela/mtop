@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon"
+                xmlns:mtop="http://mtop.org/jsf/facelets"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+
+    <f:metadata>
+        <f:viewParam id="sol" name="kardexId1" value="#{controladorKardex.kardexId}"/>
+        <f:viewParam id="vh1" name="vehId" value="#{controladorVehiculo.vehiculoId}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form >
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="right">
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                  outcome="/paginas/admin/kardex/lista"
+                                  styleClass="btn  btn-success">
+
+                        </p:button>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <h:form id="p2">
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="center" >
+                        <p:panelGrid  style="width:100%"    >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+
+                                        <img src="../../../resources/membrete.png" width="900" height="142" alt="membrete"/>
+
+                                    </p:column>
+
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                        <p:panelGrid style="width:150%" columns="6"  >
+                            <f:facet   name="header" class="panel-heading" >
+
+                                <p:row >
+
+
+                                    <p:column colspan="20"  rowspan="40"> 
+
+                                        #{"     "}  ESPECIFICACIONES DEL VEÍCULO
+
+
+
+                                    </p:column>
+
+                                </p:row>
+
+                            </f:facet>
+
+
+                            <h:outputLabel class="navbar-text" value=" Registro"/>
+                            <h:outputLabel class="navbar-text" value=" Tipo"/>
+                            <h:outputLabel class="navbar-text" value=" Marca"/>
+                            <h:outputLabel class="navbar-text" value=" Modelo"/>
+                            <h:outputLabel class="navbar-text" value=" Número de Chasis "/>
+                            <h:outputLabel class="navbar-text" value=" Número de Motor"/>
+                           
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipo}"/>
+
+
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.modelo}"/>
+
+                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
+                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
+                                        <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                    </ui:repeat>
+                                </c:if>
+                            </c:forEach>
+                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                    </ui:repeat>
+                                </c:if>
+                            </c:forEach>
+                            
+                            <h:outputLabel class="navbar-text" value="Conductor"/>
+                            <h:outputLabel class="navbar-text" value=" Placa "/>
+                            <h:outputLabel class="navbar-text" value=" Color "/>
+                            <h:outputLabel class="navbar-text" value=" Combustible "/>
+                            <h:outputLabel class="navbar-text" value=" Cabina "/>
+                            <h:outputLabel class="navbar-text" value=" Avalúo "/>
+
+<h:outputText class="navbar-text" value="#{controladorVehiculo.instance.persona.fullName}"/>
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.placa}"/>
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.color}"/>
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipoCombustible}"/>
+   
+                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Neumaticos'}"> 
+                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="#{a.name =='llantas'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                    </ui:repeat>
+                                </c:if>
+                            </c:forEach>
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.avaluo}"/>
+
+
+                        </p:panelGrid>
+                        <p:panelGrid  style="width:100%"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        LISTA DE SOLICITUDES DE REPARACIÓN Y MANTENIMIENTO
+                                    </p:column>
+
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                        <p:panelGrid  style="width:100%"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:20%">
+                                        Número de Registro
+                                    </p:column>
+                                    <p:column style="width:30%">
+                                        Fecha de Solicitud
+                                    </p:column>
+                                    <p:column style="width:50%">
+                                        Observación
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+
+                        <ui:repeat value="#{controladorKardex.listaSol}" var="a" varStatus="status">  
+                            <p:panelGrid  style="width:100%"  >
+                                <p:row>
+                                    <p:column style="width:20%" >
+                                        <h:outputText class="navbar-text" value="#{a.numSolicitud}"/>
+                                    </p:column>
+                                    <p:column style="width:30%" >
+                                        <h:outputText class="navbar-text" value="#{controladorKardex.formato(a.fechaSolicitud)}"/>
+                                    </p:column>
+                                    <p:column style="width:50%">
+                                        <h:outputText class="navbar-text" value="#{a.observacion}"/>
+                                    </p:column>
+
+                                </p:row>
+                            </p:panelGrid>
+
+
+                        </ui:repeat>
+                        <p:panelGrid  style="width:100%"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        LISTA DE REQUISICIONES
+                                    </p:column>
+
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                        <p:panelGrid  style="width:100%"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:20%">
+                                        Número de Registro
+                                    </p:column>
+                                    <p:column style="width:30%">
+                                        Fecha de Requisición
+                                    </p:column>
+                                    <p:column style="width:50%">
+                                        Observación
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+
+                        <ui:repeat value="#{controladorKardex.listaReq}" var="r" varStatus="status">  
+                            <p:panelGrid  style="width:100%"  >
+                                <p:row>
+                                    <p:column style="width:20%" >
+                                        <h:outputText class="navbar-text" value="#{r.numRequisicion}"/>
+                                    </p:column>
+                                    <p:column style="width:30%" >
+                                        <h:outputText class="navbar-text" value="#{controladorKardex.formato(r.fechaRequisicion)}"/>
+                                    </p:column>
+                                    <p:column style="width:50%">
+                                        <h:outputText class="navbar-text" value="#{r.observaciones}"/>
+                                    </p:column>
+
+                                </p:row>
+                            </p:panelGrid>
+
+
+                        </ui:repeat>
+                            <p:panelGrid style="width:100%" >
+
+
+                            <f:facet name="footer">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        <div class="admin-actions " align="right" >
+                                            <p:commandButton  type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                                <p:printer target=":p2" />  
+                                            </p:commandButton>
+                                        </div> 
+                                    </p:column>
+
+                                </p:row>
+
+                            </f:facet>
+                        </p:panelGrid>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
