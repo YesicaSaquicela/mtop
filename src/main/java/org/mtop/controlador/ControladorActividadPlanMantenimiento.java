@@ -56,11 +56,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
     private EntityManager em;
     @Inject
     private ServicioGenerico servgen;
-    List<ActividadPlanMantenimiento> listaActividades = new ArrayList<ActividadPlanMantenimiento>();
-
-    
-      
- 
+   
     public Long getActividadPlanMantenimientoId() {
         System.out.println("IIIIDEE"+getId());
         return (Long) getId();
@@ -86,13 +82,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
         getInstance();
     }
 
-    public List<ActividadPlanMantenimiento> getListaActividades() {
-        return listaActividades;
-    }
-
-    public void setListaActividades(List<ActividadPlanMantenimiento> listaActividades) {
-        this.listaActividades = listaActividades;
-    }
+    
 
     
 
@@ -104,7 +94,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaActividades = servgen.buscarTodos(ActividadPlanMantenimiento.class);
+      
     }
 
     @Override
