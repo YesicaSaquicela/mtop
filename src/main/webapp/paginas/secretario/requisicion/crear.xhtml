@@ -22,7 +22,7 @@
 
     </ui:define>
     <ui:define name="content">
-        
+
         <h:form id="form">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
@@ -110,8 +110,8 @@
                                     </h:panelGroup>
                                     <h:outputLabel value="Tipo de adquisición "/><br></br>
                                     <p:selectOneMenu id="adquisicion" disabled="#{controladorRequisicion.instance.id ne null}"
-                                                      label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
-                                                      value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
+                                                     label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
+                                                     value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
                                         <p:ajax event="change" update="ta" partialSubmit="true" />
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
@@ -199,7 +199,7 @@
                                                                         <f:selectItem itemLabel="true" itemValue="true" />
                                                                         <f:selectItem itemLabel="false" itemValue="false" />
                                                                     </p:selectOneButton>
-<br/>
+                                                                    <br/>
                                                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                                     styleClass="validation-status" />
                                                                     <span class="help-inline text-muted">#{a.property.helpInline} 
@@ -282,7 +282,7 @@
                                                 <f:selectItem itemLabel="true" itemValue="true" />
                                                 <f:selectItem itemLabel="false" itemValue="false" />
                                             </p:selectOneButton>
-<br/>
+                                            <br/>
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}"
                                                             styleClass="validation-status" />
                                             <span class="help-inline text-muted"><p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" value="#{a.property.helpInline}"></p:outputLabel>  
@@ -321,163 +321,163 @@
                                 <p:panel>
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
-                                         
-                                               
-                                                    <center>
-                                                        <h:outputLabel value="Buscar:  " />     #{' '} 
-
-                                                        <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
-                                                                        completeMethod="#{controladorVehiculo.autocompletar}"/> 
-
-  #{'  '}
-                                                        <p:commandButton value="Buscar" update=":form:basicDT10" 
-                                                                         action="#{controladorVehiculo.buscar()}" 
-                                                                         process="@form" styleClass="btn btn-success" >
-
-                                                        </p:commandButton>
-                                                        #{' '} #{' '} 
-                                                        <p:commandButton value="Limpiar" update=":form:basicDT10 :form:acSimple" 
-                                                                         action="#{controladorVehiculo.limpiar()}" 
-                                                                         process="@form" styleClass="btn btn-success" >
-
-                                                        </p:commandButton>
-                                                    </center>
 
 
-                                                </div> 
-                                        </div>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="todas">
-                                                <div class="table-responsive">
+                                            <center>
+                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                                completeMethod="#{controladorVehiculo.autocompletar}"/> 
+
+                                                #{'  '}
+                                                <p:commandButton value="Buscar" update=":form:basicDT10" 
+                                                                 action="#{controladorVehiculo.buscar()}" 
+                                                                 process="@form" styleClass="btn btn-success" >
+
+                                                </p:commandButton>
+                                                #{' '} #{' '} 
+                                                <p:commandButton value="Limpiar" update=":form:basicDT10 :form:acSimple" 
+                                                                 action="#{controladorVehiculo.limpiar()}" 
+                                                                 process="@form" styleClass="btn btn-success" >
+
+                                                </p:commandButton>
+                                            </center>
 
 
-                                                    <tbody>
-                                                        <p:messages id="mensaje6" showDetail="true" autoUpdate="true" closable="true" />
-
-                                                        <p:dataTable id="basicDT10" var="items" value="#{controladorVehiculo.listaVehiculos}"
-
-                                                                     paginator="true" rows="5"                         
-                                                                     paginatorPosition="top"
-
-                                                                     rowsPerPageTemplate="5,10,15,20"
-                                                                     >
-                                                            <p:column headerText="Nro Registro" sortBy="#{items.numRegistro}">
-                                                                <h:outputText value="#{items.numRegistro}"></h:outputText>
-                                                            </p:column>
-                                                            <p:column headerText="Color" sortBy="#{items.color}">
-                                                                <h:outputText value="#{items.color}"></h:outputText>
-                                                            </p:column>
-                                                            <p:column headerText="Marca" sortBy="#{items.marca}">
-                                                                <h:outputText value="#{items.marca}"></h:outputText>
-                                                            </p:column>
-                                                            <p:column headerText="Placa" sortBy="#{items.placa}">
-                                                                <h:outputText value="#{items.placa}"></h:outputText>
-                                                            </p:column>
-
-                                                            <p:column style="width:4%;text-align: center">
-                                                                <p:commandButton update="@form"  
-                                                                                 process="@this" title="Agregar" icon="ui-icon-check" >
-                                                                    <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.vehiculo}"  />
-                                                                    <f:setPropertyActionListener value="#{items.id}" target="#{controladorVehiculo.vehiculoId}" />
-                                                                </p:commandButton>
-                                                            </p:column>
-                                                        </p:dataTable>
-                                                        <br/>
-                                                        <p:panel id="vehiculo" rendered="#{controladorVehiculo.instance.id ne null}">
+                                        </div> 
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="todas">
+                                            <div class="table-responsive">
 
 
+                                                <tbody>
+                                                    <p:messages id="mj" showDetail="true" closable="true" />
 
-                                                            <br></br>
-                                                            <div align="right" class="admin-actions">
+                                                    <p:dataTable id="basicDT10" var="items" value="#{controladorVehiculo.listaVehiculos}"
 
-                                                                <p:commandButton value="Quitar Vehículo" update="@form" icon="ui-icon-closethick"
-                                                                                 process="@form" styleClass="btn btn-success" 
+                                                                 paginator="true" rows="5"                         
+                                                                 paginatorPosition="top"
 
-                                                                                 >
+                                                                 rowsPerPageTemplate="5,10,15,20"
+                                                                 >
+                                                        <p:column headerText="Nro Registro" sortBy="#{items.numRegistro}">
+                                                            <h:outputText value="#{items.numRegistro}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Color" sortBy="#{items.color}">
+                                                            <h:outputText value="#{items.color}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Marca" sortBy="#{items.marca}">
+                                                            <h:outputText value="#{items.marca}"></h:outputText>
+                                                        </p:column>
+                                                        <p:column headerText="Placa" sortBy="#{items.placa}">
+                                                            <h:outputText value="#{items.placa}"></h:outputText>
+                                                        </p:column>
 
-                                                                    <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.vehiculo}"  />
-                                                                    <f:setPropertyActionListener value="#{null}" target="#{controladorVehiculo.vehiculoId}" />
-                                                                </p:commandButton>
+                                                        <p:column style="width:4%;text-align: center">
+                                                            <p:commandButton update="@form"  
+                                                                             process="@this" title="Agregar" icon="ui-icon-check" >
+                                                                <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.vehiculo}"  />
+                                                                <f:setPropertyActionListener value="#{items.id}" target="#{controladorVehiculo.vehiculoId}" />
+                                                            </p:commandButton>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                    <br/>
+                                                    <p:panel id="vehiculo" rendered="#{controladorVehiculo.instance.id ne null}">
 
-                                                            </div><br/>
-                                                            <div class="panel panel-primary">
-                                                                <div class="panel-heading"  align="center">Datos de Vehículo seleccionado</div>
-                                                                <p:panel >
-                                                                    <div class="container-fluid" align="center">
-                                                                        <div class="row-fluid"  >
-                                                                            <div class="col-md-4"> 
-                                                                                <h:outputLabel class="navbar-text" value=" Registro:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
 
-                                                                            </div>
-                                                                            <div class="col-md-4"> 
-                                                                                <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
 
-                                                                                <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                                                                    <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
-                                                                                        <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
-                                                                                            <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
-                                                                                        </ui:repeat>
-                                                                                    </c:if>
-                                                                                </c:forEach>
+                                                        <br></br>
+                                                        <div align="right" class="admin-actions">
 
-                                                                            </div>
-                                                                            <div class="col-md-4"> 
-                                                                                <h:outputLabel class="navbar-text" value=" Placa: "/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.placa}"/>
+                                                            <p:commandButton value="Quitar Vehículo" update="@form" icon="ui-icon-closethick"
+                                                                             process="@form" styleClass="btn btn-success" 
 
-                                                                            </div>
+                                                                             >
 
-                                                                            <div class="col-md-4"> 
-                                                                                <h:outputLabel class="navbar-text" value=" Tipo:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipo}"/>
-                                                                            </div>
+                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.vehiculo}"  />
+                                                                <f:setPropertyActionListener value="#{null}" target="#{controladorVehiculo.vehiculoId}" />
+                                                            </p:commandButton>
+
+                                                        </div><br/>
+                                                        <div class="panel panel-primary">
+                                                            <div class="panel-heading"  align="center">Datos de Vehículo seleccionado</div>
+                                                            <p:panel >
+                                                                <div class="container-fluid" align="center">
+                                                                    <div class="row-fluid"  >
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Registro:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
 
                                                                         </div>
-                                                                        <div class="row-fluid"  >
-                                                                            <div class="col-md-4"> 
-                                                                                <h:outputLabel class="navbar-text" value=" Modelo:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.modelo}"/>
-                                                                            </div>
-                                                                            <div class="col-md-4"> 
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
 
-                                                                                <h:outputLabel class="navbar-text" value=" Color:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.color}"/>
+                                                                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                                                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
+                                                                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
+                                                                                        <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                                                    </ui:repeat>
+                                                                                </c:if>
+                                                                            </c:forEach>
 
-                                                                            </div>
-                                                                            <div class="col-md-4"> 
-                                                                                <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
-                                                                                <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                                                                    <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                                                                        <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                                                                            <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
-                                                                                        </ui:repeat>
-                                                                                    </c:if>
-                                                                                </c:forEach>
+                                                                        </div>
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Placa: "/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.placa}"/>
 
-                                                                            </div>
+                                                                        </div>
 
-                                                                            <div class="col-md-4"> 
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Tipo:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipo}"/>
+                                                                        </div>
 
-                                                                                <h:outputLabel class="navbar-text" value=" Marca:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
-                                                                            </div>
+                                                                    </div>
+                                                                    <div class="row-fluid"  >
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Modelo:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.modelo}"/>
+                                                                        </div>
+                                                                        <div class="col-md-4"> 
+
+                                                                            <h:outputLabel class="navbar-text" value=" Color:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.color}"/>
+
+                                                                        </div>
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
+                                                                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                                                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                                                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                                                                        <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                                                    </ui:repeat>
+                                                                                </c:if>
+                                                                            </c:forEach>
+
+                                                                        </div>
+
+                                                                        <div class="col-md-4"> 
+
+                                                                            <h:outputLabel class="navbar-text" value=" Marca:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
                                                                         </div>
                                                                     </div>
-                                                                </p:panel>
-                                                            </div>
+                                                                </div>
+                                                            </p:panel>
+                                                        </div>
 
 
 
 
-                                                        </p:panel>
-                                                        <br/>
-                                                    </tbody>
+                                                    </p:panel>
+                                                    <br/>
+                                                </tbody>
 
 
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
 
                                 </p:panel>
                                 <br/>
@@ -503,7 +503,7 @@
                                                                 value="#{controladorRequisicion.palabrabp}"   
                                                                 completeMethod="#{controladorRequisicion.autocompletarp}"/> 
 
-  #{'  '}
+                                                #{'  '}
 
                                                 <p:commandButton value="Buscar" 
                                                                  update=":form:basicoDT3 :form:acSimple1" 
@@ -635,43 +635,40 @@
                                                             styleClass="validation-status" />
                                             <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad"/></span>
                                         </div>
-                                    </h:panelGroup>
+                                  
                                     <br></br><br/>
 
 
+                                        <p:outputLabel value="Descripción*"/><br></br>
+                                        <p:inputTextarea id="descrip" 
+                                                         value="#{controladorRequisicion.cir.instance.descripcion}"
+                                                         required="true" requiredMessage="Descipción requerida, necesita un valor"
+                                                         readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
+                                            <f:ajax execute="cantidad" render="unm"/>
+                                        </p:inputTextarea>
+                                        <br/>
 
-                                    <p:outputLabel value="Descripción*"/><br></br>
-                                    <p:inputTextarea id="descrip" 
-                                                     value="#{controladorRequisicion.cir.instance.descripcion}"
-                                                     required="true" requiredMessage="Descipción requerida, necesita un valor"
-                                                     readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                        <p:ajax event="blur" update="unm2" partialSubmit="true"  />
-                                    </p:inputTextarea>
-                                    <br/>
-                                    <h:panelGroup id="unm2" layout="block" class="clearfix">
 
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.descripcion != null}"
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
 
-                                    </h:panelGroup>
                                     <br></br><br/>
 
 
+                                        <p:outputLabel value="Unidad de Medida*"/><br></br>
+                                        <p:inputText id="unidadMedida" requiredMessage="Unidad de medida requerida, necesita un valor"
+                                                     value="#{controladorRequisicion.cir.instance.unidadMedida}" required="true"  >
+                                            <f:ajax execute="cantidad" render="unm"/>
+                                        </p:inputText>
+                                        <br/>
 
-                                    <p:outputLabel value="Unidad de Medida*"/><br></br>
-                                    <p:inputText id="unidadMedida" requiredMessage="Unidad de medida requerida, necesita un valor"
-                                                 value="#{controladorRequisicion.cir.instance.unidadMedida}" required="true"  >
-                                        <p:ajax event="blur" update="unm3" partialSubmit="true"  />
-                                    </p:inputText>
-                                    <br/>
-                                    <h:panelGroup id="unm3" layout="block" class="clearfix">
 
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.unidadMedida != ''}"
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida"/></span>
 
-                                    </h:panelGroup>
+                                  
                                     <br></br><br/>
                                     <div class="admin-actions">
                                         <p:commandLink process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:basicoDT3" 
@@ -680,7 +677,70 @@
 
                                         </p:commandLink>
                                     </div><br/>
+                                    </h:panelGroup>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <h:panelGroup id="unm1" layout="block" class="clearfix">
 
+                                        <div class="input">
+                                            <p:outputLabel value="Cantidad*"/><br></br>
+                                            <p:spinner  id="cantidad1" required="true"  
+                                                        requiredMessage="Cantidad requerida, necesita un valor"
+                                                        value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
+                                                <f:ajax execute="cantidad" render="unm1"/>
+                                            </p:spinner >   <br/>
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.it.cantidad != null}"
+                                                            styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
+                                        </div>
+                                  
+                                    <br></br><br/>
+
+
+                                        <p:outputLabel value="Descripción*"/><br></br>
+                                        <p:inputTextarea id="descrip1" 
+                                                         value="#{controladorRequisicion.it.descripcion}"
+                                                         required="true" requiredMessage="Descipción requerida, necesita un valor"
+                                                         readonly="#{controladorRequisicion.it.tipoAdquisicion eq 'bodega'}" >
+                                            <f:ajax execute="cantidad" render="unm1"/>
+                                        </p:inputTextarea>
+                                        <br/>
+
+
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.it.descripcion != null}"
+                                                        styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip1"/></span>
+
+                                    <br></br><br/>
+
+
+                                        <p:outputLabel value="Unidad de Medida*"/><br></br>
+                                        <p:inputText id="unidadMedida1" requiredMessage="Unidad de medida requerida, necesita un valor"
+                                                     value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
+                                            <f:ajax execute="cantidad" render="unm1"/>
+                                        </p:inputText>
+                                        <br/>
+
+
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.it.unidadMedida != ''}"
+                                                        styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
+
+                                  
+                                    <br></br><br/>
+                                    <div class="admin-actions">
+                                        <p:commandLink  process="@form" update=":form:listai :form:un1 :form:basicoDT3" 
+                                                       styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
+                                                       actionListener="#{controladorRequisicion.editar()}">
+
+                                        </p:commandLink>
+                                    </div><br/>
+                                    </h:panelGroup>
+                                    
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
@@ -723,21 +783,23 @@
                                                             </div>
                                                         </p:column>
 
-                                                        <p:column headerText="Opciones" style="width: 10%"> 
+                                                        <p:column headerText="Editar" style="width: 3%"> 
 
-                                                            <p:commandButton  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:listai :form:productosel :form:basicoDT3" 
+                                                            <p:commandButton  update=":form:un1 :form:productosel :form:basicoDT3" 
                                                                               icon="ui-icon-pencil" style="margin-top:10px;"
                                                                               actionListener="#{controladorRequisicion.editarItem(item2)}" title="Editar"
                                                                               process="@form">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
                                                             </p:commandButton> #{" "}
-
-                                                            <p:commandButton  update=":form:listai "  icon="ui-icon-trash"
+                                                        </p:column>
+                                                        <p:column headerText="Dar de baja" style="width: 3%"> 
+                                                            <p:commandButton  update=":form:listai "  icon="ui-icon-trash" 
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
                                                                               process="@form" style="margin-top:10px;">
+                                                                 
                                                                 <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la requisición?" icon="ui-icon-alert" />
-                                                            
-                                                                <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
+
+                                                                <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton>
                                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                                 <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
@@ -774,7 +836,7 @@
                                                 <p:autoComplete styleClass="xLarge" id="acSimples" value="#{controladorRequisicion.palabrabs}"   
                                                                 completeMethod="#{controladorRequisicion.autocompletars}"/> 
 
-  #{'  '}
+                                                #{'  '}
                                                 <p:commandButton value="Buscar" process="@form"
                                                                  update=":form:basicDT12" 
                                                                  action="#{controladorRequisicion.buscars()}" styleClass="btn btn-success" >
@@ -1005,7 +1067,7 @@
                             <div class="admin-actions " align="center"> 
                                 <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" action="#{controladorRequisicion.guardar()}" 
                                                  styleClass="btn  btn-success"  process="@this" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()" />
-                           
+
 
                             </div>
 
@@ -1160,7 +1222,7 @@
                                                                             <f:selectItem itemLabel="true" itemValue="true" />
                                                                             <f:selectItem itemLabel="false" itemValue="false" />
                                                                         </p:selectOneButton>
-<br/>
+                                                                        <br/>
                                                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                                         styleClass="validation-status" />
                                                                         <span class="help-inline text-muted">#{a.property.helpInline} 
@@ -1239,7 +1301,7 @@
                                                     <f:selectItem itemLabel="true" itemValue="true" />
                                                     <f:selectItem itemLabel="false" itemValue="false" />
                                                 </p:selectOneButton>
-<br/>
+                                                <br/>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted">#{a.property.helpInline} 
@@ -1405,7 +1467,7 @@
 
                 </div>
             </div>
-            
+
 
             <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
 

@@ -116,6 +116,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private ItemRequisicion it;
     private Double total = 0.0;
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
+    
+    public void editar(ItemRequisicion it) {
+        System.out.println("llego a editar "+it.getDescripcion());
+        System.out.println("entor a editar con tamanio"+it.getUnidadMedida());
+        it=new ItemRequisicion();
+                
+    }
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
@@ -1683,6 +1690,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         listaProductos = lproductos;
         listaproductos2 = listaProductos;
         System.out.println("lsita de productos222" + listaProductos);
+        it=new ItemRequisicion();
     }
 
     @Override

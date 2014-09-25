@@ -44,8 +44,8 @@
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Número de Registro" 
                                          rendered="true" />
-                              <h:graphicImage value="#{resource['visto.png']}" 
-                                                                styleClass="validation-status" />
+                            <h:graphicImage value="#{resource['visto.png']}" 
+                                            styleClass="validation-status" />
                             <span class="help-inline text-muted">Número de registro</span><br></br><br></br>
 
                             <h:outputLabel value="Fecha de Creación" /> <br></br> 
@@ -53,70 +53,117 @@
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Fecha de Creación" 
                                          rendered="true" />
-                             <h:graphicImage value="#{resource['visto.png']}" 
-                                                                styleClass="validation-status" />
+                            <h:graphicImage value="#{resource['visto.png']}" 
+                                            styleClass="validation-status" />
                             <span class="help-inline text-muted">Fecha de creación del plan de mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
-
-                            <p:outputLabel value="Actividad*"/><br></br>
-                            <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Se necesita un actividad" 
-                                             id="actividad" required="true" styleClass="form-control"
-                                             value="#{controladorPlanMantenimiento.cactividadpm.instance.actividad}"
-                                             >
-<p:ajax event="blur" update="ak" partialSubmit="true"  />
-                            </p:inputTextarea>
                             <h:panelGroup id="ak">
-                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.actividad != ''}"
-                                                                styleClass="validation-status" />
-                            <span class="help-inline text-muted">Descripción de actividad</span><br></br><br></br>
-  </h:panelGroup>
+                                <p:outputLabel value="Actividad*"/><br></br>
+                                <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Se necesita un actividad" 
+                                                 id="actividad" required="true" styleClass="form-control"
+                                                 value="#{controladorPlanMantenimiento.actividadPlanM.actividad}"
+                                                 >
+                                    <f:ajax  render="ak" />
+                                </p:inputTextarea>
 
+                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.actividadPlanM.actividad != ''}"
+                                                styleClass="validation-status" />
+                                <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
+                            </h:panelGroup>
 
-
-                            <h:outputLabel value="Kilometraje*"/> <br></br> 
-                            <p:selectOneMenu maxlength="50" required="true" label="kilometraje" requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  value="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje}" effect="fade" >  
-                                <p:ajax event="change" update="km" partialSubmit="true"  />
-                                <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
-
-                            </p:selectOneMenu><br></br>
                             <h:panelGroup id="km">
-                              <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.cactividadpm.instance.kilometraje != null}"
-                                                                styleClass="validation-status" />
-                            <span class="help-inline text-muted">Elija el Kilometraje</span><br></br><br></br> 
+                                <h:outputLabel value="Kilometraje*"/> <br></br> 
+                                <p:selectOneMenu  maxlength="50" required="true" label="kilometraje" 
+                                                  requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  
+                                                  value="#{controladorPlanMantenimiento.actividadPlanM.kilometraje}" effect="fade" >  
+
+                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                    <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
+                                    <f:ajax render="km"/>
+
+                                </p:selectOneMenu><br></br>
+
+                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.actividadPlanM.kilometraje != null}"
+                                                styleClass="validation-status" />
+                                <span class="help-inline text-muted">Elija el Kilometraje<ocp:message forId="kilometraje" /></span><br></br><br></br> 
 
                             </h:panelGroup>
                             <div class="admin-actions">
-                                <p:commandButton  process="@form" update=":form:listaa :form:actividad :form:kilometraje"  
+                                <p:commandButton  process=":form:p1 :form:msg" update=":form:p1 :form:msg"  
                                                   styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  
                                                   actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
-
+                                     <p:ajax immediate="true" event="change" rendered="p1 msg" update=":form:msg" />  
                                 </p:commandButton>
                             </div><br/>
+                            #{controladorPlanMantenimiento.mensaje}
+                         <h:outputLabel id="msg"  value="#{controladorPlanMantenimiento.mensaje}" style="color:red" /> 
 
-                            <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
 
-                            <p:dataTable id="listaa"  
-                                         value="#{controladorPlanMantenimiento.cactividadpm.listaActividades}"
-                                         var="la" emptyMessage="No se han encontrado coincidencias">
+                            <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.listaActividades}" var="la">
 
                                 <p:column headerText="Actividad">
-                                    <h:outputText value="#{la.actividad}"></h:outputText>
+                                    <h:outputText style="width: 70%" value="#{la.actividad}"></h:outputText>
                                 </p:column>
 
                                 <p:column headerText="Kilometraje">
                                     <h:outputText value="#{la.kilometraje}"></h:outputText>
                                 </p:column>
-                                <p:column headerText="Opciones" style="width: 5%"> 
-                                    <p:commandButton immediate="true" ajax="true" process="@this" icon="ui-icon-pencil"
-                                                     update=":form:listaa :form:actividad :form:kilometraje" title="Editar"
-                                                     actionListener="#{controladorPlanMantenimiento.editarActividad(la)}" >
-                                        <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.cactividadpm.instance}" />
+                                <p:column headerText="Editar" style="width: 3%"> 
+                                    <center>
+                                    <p:commandButton  immediate="true" ajax="true" process="@this" type="utton" update=":form:documentPanel" 
+                                                    oncomplete="PF('documentDialog').show()" title="View Detail" icon="ui-icon-pencil">
+                                        <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.it}" />
                                     </p:commandButton>
+                                        </center>
 
                                 </p:column>
+                                <p:column headerText="Dar de baja"  style="width: 3%">
+                                    <center>
+
+                                        <p:commandButton immediate="true" process="@this" id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                         action="#{controladorPlanMantenimiento.darDeBaja(car)}" 
+                                                         title="Dar de baja" update=":form:listaa">
+                                            <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja la actividad seleccionada?" icon="ui-icon-alert" />
+                                        </p:commandButton></center>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                        <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                    </p:confirmDialog>
+                                </p:column>
                             </p:dataTable><br></br>
+                            
+
+
+
 
                         </p:panel>
+                        <p:dialog width="450" height="300" id="dialog"   header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                                <h:panelGroup id="documentPanel" style="width:100%">
+                                    <h:outputLabel for="name" value="Kilometraje: " />
+                                    <h:outputText id="name"  value="#{controladorPlanMantenimiento.it.kilometraje}"  >  
+
+
+                                    </h:outputText><br></br>
+                                    <h:panelGroup id="ak1">
+                                        <p:outputLabel value="Actividad*"/><br></br>
+                                        <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Se necesita un actividad" 
+                                                         id="actividad1" required="true" styleClass="form-control"
+                                                         value="#{controladorPlanMantenimiento.it.actividad}" >
+                                            <f:ajax  render="ak1" />
+                                        </p:inputTextarea>
+
+
+                                        <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad1" /></span><br></br><br></br>
+                                    </h:panelGroup><br/>
+                                      <div class="admin-actions " align="center"> 
+                                    <p:commandButton immediate="true" ajax="true" process="@this" styleClass="btn  btn-success"  icon="ui-icon-disk"
+                                                     update=":form:p1 :form:actividad1" value="GUARDAR" oncomplete="documentDialog.hide()"
+                                                     action="#{controladorPlanMantenimiento.editar(controladorPlanMantenimiento.it)}"  >
+
+                                    </p:commandButton></div><br/>
+
+
+                                </h:panelGroup>
+                            </p:dialog>
 
                     </div>
 
@@ -136,63 +183,63 @@
                                                     <h:panelGroup layout="block" class="clearfix">
                                                         <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                         <div class="input">
-                                                             <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.String'}">
+                                                            <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                         required="#{a.property.required}" label="#{a.property.label}" 
+                                                                         rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                 validator="realValidator" 
-                                                 validatorMessage="No se admiten letras "
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                            </p:inputText>
+                                                            <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                         validator="realValidator" 
+                                                                         validatorMessage="No se admiten letras "
+                                                                         required="#{a.property.required}" label="#{a.property.label}" 
+                                                                         rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                    </p:calendar>
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                            </p:inputText>
+                                                            <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                        rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                                <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
+                                                            </p:calendar>
 
-                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                     label="#{a.property.label}"
-                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                    </p:selectOneMenu>
-                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                    </p:inputTextarea>  
+                                                            <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                             label="#{a.property.label}"
+                                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                <p:ajax event="change" update="@this" partialSubmit="true"/>
+                                                            </p:selectOneMenu>
+                                                            <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                             rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                            </p:inputTextarea>  
 
-                                    <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                 label="#{a.property.label}"
-                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                 required="#{a.property.required}"
-                                                 > 
-                                        <f:validator validatorId="validadorDigitosDinamic"  />
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                            <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
+                                                                         label="#{a.property.label}"
+                                                                         rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                         required="#{a.property.required}"
+                                                                         > 
+                                                                <f:validator validatorId="validadorDigitosDinamic"  />
+                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
-                                    </p:inputText>
+                                                            </p:inputText>
 
-                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                    </p:selectOneButton>
-<br/>
-                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
-                                                    styleClass="validation-status" />
-                                    <span class="help-inline text-muted">#{a.property.helpInline} 
-                                        <ocp:message forId="str" />
-                                        <ocp:message forId="str1" />
-                                        <ocp:message forId="str2" />
-                                        <ocp:message forId="str3" />
-                                        <ocp:message forId="str4" />
-                                        <ocp:message forId="str5" />
+                                                            <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                <f:selectItem itemLabel="true" itemValue="true" />
+                                                                <f:selectItem itemLabel="false" itemValue="false" />
+                                                            </p:selectOneButton>
+                                                            <br/>
+                                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
+                                                                            styleClass="validation-status" />
+                                                            <span class="help-inline text-muted">#{a.property.helpInline} 
+                                                                <ocp:message forId="str" />
+                                                                <ocp:message forId="str1" />
+                                                                <ocp:message forId="str2" />
+                                                                <ocp:message forId="str3" />
+                                                                <ocp:message forId="str4" />
+                                                                <ocp:message forId="str5" />
 
-                                    </span><br/><br/>
+                                                            </span><br/><br/>
                                                         </div>
 
                                                     </h:panelGroup>  
@@ -213,7 +260,7 @@
                             <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.PlanMantenimiento')}" var="a" varStatus="status"> 
                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                 <div class="input">
-                                     <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
                                                  required="#{a.property.required}" label="#{a.property.label}" 
                                                  rendered="#{a.property.type eq 'java.lang.String'}">
 
@@ -258,7 +305,7 @@
                                         <f:selectItem itemLabel="true" itemValue="true" />
                                         <f:selectItem itemLabel="false" itemValue="false" />
                                     </p:selectOneButton>
-<br/>
+                                    <br/>
                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
                                                     styleClass="validation-status" />
                                     <span class="help-inline text-muted">#{a.property.helpInline} 
@@ -286,12 +333,12 @@
                                          onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
                     </div>
-                         
 
-                        <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
-                            
-                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
-                        </p:dialog>
+
+                    <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
+
+                        <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                    </p:dialog>
 
 
                 </div>
