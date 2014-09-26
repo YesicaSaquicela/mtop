@@ -116,6 +116,30 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private ItemRequisicion it;
     private Double total = 0.0;
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
+    private String mensaje="";
+      public String getMensaje() {
+        System.out.println("obteniendo mensaje :"+mensaje);
+                
+        return mensaje;
+    }
+
+      
+      
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    
+     public ItemRequisicion getIt() {
+        System.out.println("obteniendo mensaje :"+mensaje);
+                
+        return it;
+    }
+
+      
+      
+    public void setIt(ItemRequisicion it) {
+        this.it = it;
+    }
     
     public void editar(ItemRequisicion it) {
         System.out.println("llego a editar "+it.getDescripcion());
@@ -146,9 +170,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.total = total;
     }
 
-    public void setIt(ItemRequisicion it) {
-        this.it = it;
-    }
 
     public List<ItemRequisicion> getItemsEliminar() {
         return itemsEliminar;
@@ -1193,20 +1214,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     listaProductos.add(pro);
                 }
             }
-            if (it != null) {
-                System.out.println("entro a it");
-                if (!it.getCantidad().equals(cir.getInstance().getCantidad())
-                        && !it.getDescripcion().equals(cir.getInstance().getDescripcion())
-                        && !it.getUnidadMedida().equals(cir.getInstance().getUnidadMedida())) {
-                    listaItemsRequisicion.remove(it);
-                    listaItemsRequisicion.add(cir.getInstance());
-
-                } else {
-                    it = null;
-                }
-            } else {
+//            if (it != null) {
+//                System.out.println("entro a it");
+//                if (!it.getCantidad().equals(cir.getInstance().getCantidad())
+//                        && !it.getDescripcion().equals(cir.getInstance().getDescripcion())
+//                        && !it.getUnidadMedida().equals(cir.getInstance().getUnidadMedida())) {
+//                    listaItemsRequisicion.remove(it);
+//                    listaItemsRequisicion.add(cir.getInstance());
+//
+//                } else {
+//                    it = null;
+//                }
+//            } else {
                 listaItemsRequisicion.add(cir.getInstance());
-            }
+//            }
 
             cir.setInstance(new ItemRequisicion());
         }
@@ -1217,49 +1238,49 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cir.getInstance().setUnidadMedida(" ");
         cir.getInstance().setDescripcion(" ");
         getInstance().setListaItems(listaItemsRequisicion);
-        editarItem(cir.getInstance());
+//        editarItem(cir.getInstance());
         System.out.println("lista items ddd" + listaItemsRequisicion);
 
     }
 
-    public void editarItem(ItemRequisicion itemReq) {
-        List<ItemRequisicion> lir = listaItemsRequisicion;
-        for (ItemRequisicion i : lir) {
-
-            if (i.getCantidad().equals(itemReq.getCantidad())
-                    && i.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
-//                listaItemsRequisicion.remove(con);
-                System.out.println("a fijar cant" + i.getCantidad());
-                System.out.println("a fijar unid" + i.getUnidadMedida());
-                cir.setInstance(i);
-                it = i;
-
-                if (itemReq != null) {
-                    if (itemReq.getProducto() != null) {
-                        pro = itemReq.getProducto();
-                        int j = 0;
-                        for (Producto p : listaProductos) {
-                            if (p.getId().equals(pro.getId())) {
-                                j++;
-                                break;
-                            }
-                        }
-                        pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
-                        listaProductos.set(j, pro);
-
-                        pro = listaProductos.get(j);
-                        maximo = pro.getCantidad() + it.getCantidad();
-                    }
-
-                }
-                break;
-
-            }
-
-        }
-        getInstance().setListaItems(listaItemsRequisicion);
-
-    }
+//    public void editarItem(ItemRequisicion itemReq) {
+//        List<ItemRequisicion> lir = listaItemsRequisicion;
+//        for (ItemRequisicion i : lir) {
+//
+//            if (i.getCantidad().equals(itemReq.getCantidad())
+//                    && i.getUnidadMedida().equals(itemReq.getUnidadMedida())) {
+////                listaItemsRequisicion.remove(con);
+//                System.out.println("a fijar cant" + i.getCantidad());
+//                System.out.println("a fijar unid" + i.getUnidadMedida());
+//                cir.setInstance(i);
+//                it = i;
+//
+//                if (itemReq != null) {
+//                    if (itemReq.getProducto() != null) {
+//                        pro = itemReq.getProducto();
+//                        int j = 0;
+//                        for (Producto p : listaProductos) {
+//                            if (p.getId().equals(pro.getId())) {
+//                                j++;
+//                                break;
+//                            }
+//                        }
+//                        pro.setCantidad(itemReq.getCantidad() + listaProductos.get(j).getCantidad());
+//                        listaProductos.set(j, pro);
+//
+//                        pro = listaProductos.get(j);
+//                        maximo = pro.getCantidad() + it.getCantidad();
+//                    }
+//
+//                }
+//                break;
+//
+//            }
+//
+//        }
+//        getInstance().setListaItems(listaItemsRequisicion);
+//
+//    }
 
     public void eliminarItem(ItemRequisicion itemReq) {
 
@@ -1347,6 +1368,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String onFlowprocessR(FlowEvent event) {
+       
         if (skip) {
             skip = false;   //reset in case user goes back  
 
@@ -1680,7 +1702,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         solRequisicion = new SolicitudReparacionMantenimiento();
         List<Producto> lproductos = new ArrayList<Producto>();
         listaProductos = findAll(Producto.class);
-        System.out.println("lista de productos antes>>>>" + listaProductos);
         for (Producto pd : listaProductos) {
             System.out.println("entroa al for cone l estado" + pd.isEstado());
             if (pd.isEstado()) {

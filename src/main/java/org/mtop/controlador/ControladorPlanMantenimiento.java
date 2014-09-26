@@ -74,21 +74,18 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private List<ActividadPlanMantenimiento> listaactividadesPlan = new ArrayList<ActividadPlanMantenimiento>();
     private List<PlanMantenimiento> listaPlanM2 = new ArrayList<PlanMantenimiento>();
     private PlanMantenimiento planMantvisualizar = new PlanMantenimiento();
-    
-    private String mensaje;
+    String s="";
 
-    public String getMensaje() {
-        System.out.println("obteniendo mensaje :"+mensaje);
-                
-        return mensaje;
+    public String getS() {
+        return s;
     }
 
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
+    public void setS(String s) {
+        this.s = s;
     }
     
     
-    
+ 
     
     public PlanMantenimiento getPlanMantvisualizar() {
         return planMantvisualizar;
@@ -428,8 +425,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                 System.out.println("it" + it);
                 System.out.println("instance" + actividadPlanM.getKilometraje());
                 System.out.println("entro a kilometraje escojido");
-                mensaje="ERROR! EL kilometraje que ha escojido ya se encuentra agregado en la lista";
-                System.out.println("el mesjae"+mensaje);
+                s="ERROR! EL kilometraje que ha escojido ya se encuentra agregado en la lista";
+                System.out.println("el mesjae"+s);
                         
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "EL kilometraje que ha escojido ya se encuentra agregado en la lista"));
 //            }
@@ -440,10 +437,11 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     }
 
-    public void editar(ActividadPlanMantenimiento actividad) {
+    public String editar(ActividadPlanMantenimiento actividad) {
         System.out.println("llego a editar "+actividad.getDescription());
         System.out.println("entor a editar con tamanio"+listaActividades.size());
         it=new ActividadPlanMantenimiento();
+        return "documentDialog.hide()";
                 
     }
 
@@ -639,9 +637,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         return PlanMantenimiento.class;
     }
 
-    public void mensaje() {
-
-    }
+   
 
     @TransactionAttribute
     public String guardar() {

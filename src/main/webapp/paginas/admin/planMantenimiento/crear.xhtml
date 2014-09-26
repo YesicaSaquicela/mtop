@@ -91,11 +91,11 @@
                                 <p:commandButton  process=":form:p1 :form:msg" update=":form:p1 :form:msg"  
                                                   styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  
                                                   actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
-                                     <p:ajax immediate="true" event="change" rendered="p1 msg" update=":form:msg" />  
+                                     <p:ajax immediate="true" event="click" rendered="p1 msg" update=":form:msg" />  
                                 </p:commandButton>
                             </div><br/>
-                            #{controladorPlanMantenimiento.mensaje}
-                         <h:outputLabel id="msg"  value="#{controladorPlanMantenimiento.mensaje}" style="color:red" /> 
+                           
+                         <h:outputLabel id="msg"  value="#{controladorPlanMantenimiento.s}" style="color:red" /> 
 
 
                             <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.listaActividades}" var="la">
@@ -155,11 +155,11 @@
                                         <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad1" /></span><br></br><br></br>
                                     </h:panelGroup><br/>
                                       <div class="admin-actions " align="center"> 
-                                    <p:commandButton immediate="true" ajax="true" process="@this" styleClass="btn  btn-success"  icon="ui-icon-disk"
-                                                     update=":form:p1 :form:actividad1" value="GUARDAR" oncomplete="documentDialog.hide()"
+                                    <p:commandLink immediate="true" ajax="true" process="@this" styleClass="btn  btn-success"  
+                                                     update=":form:p1 :form:actividad1" value="GUARDAR" 
                                                      action="#{controladorPlanMantenimiento.editar(controladorPlanMantenimiento.it)}"  >
 
-                                    </p:commandButton></div><br/>
+                                    </p:commandLink></div><br/>
 
 
                                 </h:panelGroup>
