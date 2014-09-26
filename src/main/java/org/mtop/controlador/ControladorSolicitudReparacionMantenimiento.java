@@ -95,6 +95,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private String numeroSolicitud;
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
     private List<Requisicion> listaRequisicion2 = new ArrayList<Requisicion>();
+    private String nombrew="";
+
+    public String getNombrew() {
+        System.out.println("obtien en get"+nombrew);
+        return nombrew;
+    }
+
+    public void setNombrew(String nombrew) {
+        this.nombrew = nombrew;
+    }
 
     public ItemSolicitudReparacion getIt() {
         return it;
@@ -226,11 +236,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         if (lrq.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabr.equals("Ingrese algun valor a buscar")) {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabr = " ";
             } else {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabr);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabr);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -545,41 +555,49 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public String onFlowProcess(FlowEvent event) {
+        nombrew="req";
         System.out.println("ENRTRO FLOWPROCESS" + event.getNewStep());
         System.out.println("Entro getOld" + event.getOldStep());
         System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
         System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
-
         System.out.println("otro retorna");
-        if (skip) {
-            skip = false;   //reset in case user goes back  
-
-            return "confirm";
+        System.out.println("nombre wizard111" + nombrew);
+        if (skip){
+                 
+            skip = false;  
+            nombrew="Solicitud";//reset in case user goes back
+            System.out.println("nombre wizard111skip" + nombrew);
+           return "confirm";
         } else {
+            nombrew = "req";
+            System.out.println("nombre wizard" + nombrew);
             System.out.println("pasoooo");
             if (getInstance().getId() != null) {
                 this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
             }
             if (event.getNewStep().equals("sol") && event.getOldStep().equals("address")) {
+                
                 return event.getNewStep();
             } else {
                 if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
+                 
                     return event.getNewStep();
                 } else {
                     if (event.getOldStep().equals("address") && getInstance().getVehiculo() == null) {
                         System.out.println("entro al mensaje vehiculo");
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
-
+                        
                         return event.getOldStep();
                     } else {
 
                         if (event.getOldStep().equals("items") && this.listaItemsSolicitud.isEmpty()) {
                             System.out.println("estas vaciaaaaaa");
                             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
-
+                            
                             return event.getOldStep();
                         } else {
 
+                            System.out.println("nombre wizard" + nombrew);
                             return event.getNewStep();
                         }
                     }
@@ -601,7 +619,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public Vehiculo getVehiculo() {
-
+      nombrew = "req";
         if (getSolicitudReparacionMantenimientoId() != null) {
             System.out.println("vehiculo " + getInstance().getVehiculo());
             vehiculo = getInstance().getVehiculo();
@@ -611,7 +629,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-
+        nombrew = "req";
+        System.out.println("vehiculo  en set nombrew" + nombrew);
         System.out.println("vehiculo  en set" + getInstance().getVehiculo());
         System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
         this.vehiculo = vehiculo;
@@ -676,7 +695,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("vehiculo  en set soli" + getInstance().getVehiculo());
         setId(solicitudReparacionMantenimientoId);
         System.out.println("id solllllllllll" + getInstance().getId());
-
+       
         vehiculo = getInstance().getVehiculo();
         if (getInstance().getRequisicionId() != null) {
             requisicion = getInstance().getRequisicionId();
@@ -687,6 +706,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>." + getInstance().getListaItemSR());
         if (getInstance().isPersistent()) {
+        
             System.out.println("entro111111111111");
             listaItemsSolicitud = getInstance().getListaItemSR();
             System.out.println("entro a obtener lisra" + listaItemsSolicitud);
@@ -838,17 +858,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setListaSolicitud(List<SolicitudReparacionMantenimiento> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
         listaItemsSolicitud = getInstance().getListaItemSR();
-
     }
 
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
-         *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
-         */
-
-        bussinesEntityService.setEntityManager(em);
+              bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaSolicitud = findAll(SolicitudReparacionMantenimiento.class);
         listaRequisiciones = findAll(Requisicion.class);
@@ -900,6 +915,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         idPersona = 0l;
         getInstance().setRecibidor("");
         getInstance().setObservacion("");
+        nombrew = "Solicitud";
+        System.out.println("nombre en el init" + nombrew);
 
     }
 
