@@ -562,8 +562,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
         System.out.println("otro retorna");
         System.out.println("nombre wizard111" + nombrew);
-        if (skip){
-                 
+        System.out.println("sjkkkippp"+skip);
+        if (skip){    
             skip = false;  
             nombrew="Solicitud";//reset in case user goes back
             System.out.println("nombre wizard111skip" + nombrew);
@@ -596,10 +596,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                             
                             return event.getOldStep();
                         } else {
-
+                           System.out.println("sjkkkippp ultimo return"+skip);
                             System.out.println("nombre wizard" + nombrew);
                             return event.getNewStep();
                         }
+                        
                     }
                 }
             }

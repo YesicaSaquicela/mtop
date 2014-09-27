@@ -41,7 +41,7 @@
                                      >
                     </p:commandButton>
                         #{"                                                        "} #{"                                                        "}
-                        <p:commandButton icon="ui-icon-arrowthick-1-e" update="@form" process="@form" value="Siguiente" type="button" onclick="PF('wizard').next();"
+                        <p:commandButton icon="ui-icon-arrowthick-1-e" update="@form" process="@form" disabled="#{controladorSolicitudReparacionMantenimiento.skip ne false}"  value="Siguiente" type="button" onclick="PF('wizard').next();"
                                      >
                     </p:commandButton>
                                 </div><br/>
