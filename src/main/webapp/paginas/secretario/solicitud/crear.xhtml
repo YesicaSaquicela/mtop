@@ -312,7 +312,7 @@
                                                     <p:dataTable id="basicDT" var="v" value="#{controladorVehiculo.listaVehiculos}"
                                                                  paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
-                                                                 rowsPerPageTemplate="5,10,15,20">
+                                                                 rowsPerPageTemplate="5,10,15,20" mptyMessage="No se han encontrado coincidencias">
 
 
                                                         <p:column headerText="Número de Registro" sortBy="#{v.numRegistro}">
@@ -464,7 +464,7 @@
                                                         <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
                                                                      paginator="true" rows="5"                         
                                                                      paginatorPosition="top"
-                                                                     rowsPerPageTemplate="5,10,15,20">
+                                                                     rowsPerPageTemplate="5,10,15,20" mptyMessage="No se han encontrado coincidencias">
 
                                                             <p:column headerText="Elemento a Revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                                 <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
@@ -531,7 +531,7 @@
                                         <div class="admin-actions">
 
                                             <p:commandLink id="save111" value="Crear Requisicion" 
-                                                             icon="ui-icon-disk"  styleClass="btn  btn-success" 
+                                                             styleClass="btn  btn-success" 
                                                              process="@this" update="@form" 
                                                              actionListener="#{controladorRequisicion.init()}">
 
@@ -719,7 +719,9 @@
 
                                                         <tbody>
 
-                                                            <p:dataTable id="listaaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la">
+                                                            <p:dataTable id="listaaa"  
+                                                                         value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}"
+                                                                         var="la" mptyMessage="No se han encontrado coincidencias">
                                                                 <f:facet name="header" class="panel-heading" >
                                                                     Lista de ítems de solicitud de reparación y mantenimiento
                                                                 </f:facet>
@@ -1101,7 +1103,7 @@
                                                                  paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
 
-                                                                 rowsPerPageTemplate="5,10,15,20"
+                                                                 rowsPerPageTemplate="5,10,15,20" mptyMessage="No se han encontrado coincidencias"
 
                                                                  >
                                                         <p:column headerText="Código" sortBy="#{itemp.codigo}">
@@ -1194,7 +1196,7 @@
                                     <p:inputText id="unidadMedida" style="width: 100%"
                                                  requiredMessage="Unidad de medida requerida, necesita un valor"
                                                  value="#{controladorRequisicion.cir.instance.unidadMedida}" required="true"  >
-                                        <p:ajax event="blur" update="um"/>
+                                         <f:ajax execute="@this" render="um"  />
                                     </p:inputText>
                                     <br/>
                                     <h:panelGroup id="um">
@@ -1220,7 +1222,7 @@
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="5"                         
                                                                  paginatorPosition="top"
-                                                                 rowsPerPageTemplate="5,10,15,20">
+                                                                 rowsPerPageTemplate="5,10,15,20" mptyMessage="No se han encontrado coincidencias" >
 
                                                         <p:column headerText="Cantidad" sortBy="#{item2.cantidad}">
                                                             <h:outputText value="#{item2.cantidad}"></h:outputText>
