@@ -32,21 +32,29 @@
                                   icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
                                   outcome="/paginas/secretario/solicitud/lista" 
                                   styleClass="btn  btn-success"/>
-                    </div><br/>
-#{controladorSolicitudReparacionMantenimiento.nombrew eq 'Solicitud'}
+                        </div><br/>
+                        <p:panelGrid border="0" style="width: 100%">
+                             <p:row>
+                              <p:column   style="text-align: left">
+                            <p:commandButton update="form" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                                            title="atras" rendered="#{controladorSolicitudReparacionMantenimiento.nombrew ne 'Solicitud'}"  onclick="PF('wizard').back();" >
+                                                  
+                                                            </p:commandButton>
+                                      </p:column>
+                             <p:column   style="text-align: right">
+                          <p:commandButton update="form" process="@this" icon="ui-icon-arrowthick-1-e" rendered="#{controladorSolicitudReparacionMantenimiento.nombrew ne 'Final'}" value="Siguiente" 
+                                  title="siguiente" onclick="PF('wizard').next();" >
+                                                  
+                                                            </p:commandButton>
+            </p:column>
+                                  </p:row>
+                   
+                           
+                        </p:panelGrid>
                     
-                      <div class="admin-actions " align="right"> 
-               
-                    <p:commandButton id="a" update="@form" process="@form" disabled="#{controladorSolicitudReparacionMantenimiento.nombrew eq 'Solicitud'}" icon="ui-icon-arrowthick-1-w" value="Atras" type="button" onclick="PF('wizard').back();"
-                                     >
-                    </p:commandButton>
-                        #{"                                                        "} #{"                                                        "}
-                        <p:commandButton icon="ui-icon-arrowthick-1-e" update="@form" process="@form" disabled="#{controladorSolicitudReparacionMantenimiento.skip ne false}"  value="Siguiente" type="button" onclick="PF('wizard').next();"
-                                     >
-                    </p:commandButton>
-                                </div><br/>
+                      
                     
-                    <p:wizard  widgetVar="wizard" showNavBar="true" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente">
+                    <p:wizard   widgetVar="wizard" showNavBar="true"  showStepStatus="false" rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}" backLabel="Atrás" nextLabel="Siguiente">
                         <p:tab id="sol"  title="Solicitud">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos Generales</center></div>

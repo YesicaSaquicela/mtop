@@ -612,17 +612,13 @@
                                 </p:panel>
 
 
-                                <p:panel>
-
-
-
-
+                                <p:panel id="p1">
 
 
                                     <br/>
 
 
-                                    <h:panelGroup id="unm" layout="block" class="clearfix">
+                                    <h:panelGroup id="unm" layout="block" rendered="#{controladorRequisicion.it.id eq null}" class="clearfix">
 
                                         <div class="input">
                                             <p:outputLabel value="Cantidad*"/><br></br>
@@ -671,7 +667,7 @@
                                   
                                     <br></br><br/>
                                     <div class="admin-actions">
-                                        <p:commandLink process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:basicoDT3" 
+                                        <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:basicoDT3" 
                                                        styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
                                                        actionListener="#{controladorRequisicion.agregarItem()}">
 
@@ -684,10 +680,10 @@
                                     
                                     
                                     
-                                    <h:panelGroup id="unm1" layout="block" class="clearfix">
+                                    <h:panelGroup id="unm1" rendered="#{controladorRequisicion.it.id ne null}" layout="block" class="clearfix">
 
                                         <div class="input">
-                                            <p:outputLabel value="Cantidad*"/><br></br>
+                                            <p:outputLabel value="Cantidad1*"/><br></br>
                                             <p:spinner  id="cantidad1" required="true"  
                                                         requiredMessage="Cantidad requerida, necesita un valor"
                                                         value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
@@ -701,11 +697,11 @@
                                     <br></br><br/>
 
 
-                                        <p:outputLabel value="Descripción*"/><br></br>
+                                        <p:outputLabel value="Descripción1*"/><br></br>
                                         <p:inputTextarea id="descrip1" 
                                                          value="#{controladorRequisicion.it.descripcion}"
                                                          required="true" requiredMessage="Descipción requerida, necesita un valor"
-                                                         readonly="#{controladorRequisicion.it.tipoAdquisicion eq 'bodega'}" >
+                                                         readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                             <f:ajax execute="cantidad" render="unm1"/>
                                         </p:inputTextarea>
                                         <br/>
@@ -718,7 +714,7 @@
                                     <br></br><br/>
 
 
-                                        <p:outputLabel value="Unidad de Medida*"/><br></br>
+                                        <p:outputLabel value="Unidad de Medida1*"/><br></br>
                                         <p:inputText id="unidadMedida1" requiredMessage="Unidad de medida requerida, necesita un valor"
                                                      value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
                                             <f:ajax execute="cantidad" render="unm1"/>
@@ -726,21 +722,25 @@
                                         <br/>
 
 
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.it.unidadMedida != ''}"
+                                        <h:graphicImage value="#{resource['visto.png']}" 
+                                                        rendered="#{controladorRequisicion.it.unidadMedida != ''}"
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
 
                                   
                                     <br></br><br/>
                                     <div class="admin-actions">
-                                        <p:commandLink  process="@form" update=":form:listai :form:un1 :form:basicoDT3" 
-                                                       styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  
-                                                       actionListener="#{controladorRequisicion.editar()}">
+                                        <p:commandLink id="crearItem"  update="@form" process="@form" 
+                                                       styleClass="btn  btn-success" value="Crear Item1" title="Crear Item"  
+                                                       actionListener="#{controladorRequisicion.editar(it)}">
 
                                         </p:commandLink>
                                     </div><br/>
                                     </h:panelGroup>
+                                    #{controladorRequisicion.it}
                                     
+                                            <h:outputLabel id="msg"  value="#{controladorVehiculo.mensaje1}" style="color:red" /> 
+
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
@@ -785,11 +785,11 @@
 
                                                         <p:column headerText="Editar" style="width: 3%"> 
 
-                                                            <p:commandButton  update=":form:un1 :form:productosel :form:basicoDT3" 
-                                                                              icon="ui-icon-pencil" style="margin-top:10px;"
-                                                                              actionListener="#{controladorRequisicion.editarItem(item2)}" title="Editar"
+                                                            <p:commandButton  update="@form"  
+                                                                              icon="ui-icon-pencil" style="margin-top:10px;" id="editar"
+                                                                               title="Editar"
                                                                               process="@form">
-                                                                <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.cir.instance}" />
+                                                                <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton> #{" "}
                                                         </p:column>
                                                         <p:column headerText="Dar de baja" style="width: 3%"> 
