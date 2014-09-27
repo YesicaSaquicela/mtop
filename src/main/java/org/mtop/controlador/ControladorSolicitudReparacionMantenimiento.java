@@ -600,10 +600,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                             return event.getOldStep();
                         } else {
-
+                           System.out.println("sjkkkippp ultimo return"+skip);
                             System.out.println("nombre wizard" + nombrew);
                             return event.getNewStep();
                         }
+                        
                     }
                 }
             }
