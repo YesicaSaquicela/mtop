@@ -141,7 +141,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.it = it;
     }
     
-    public void editar(ItemRequisicion it) {
+    public void editar() {
         System.out.println("llego a editar "+it.getDescripcion());
         System.out.println("entor a editar con tamanio"+it.getUnidadMedida());
         it=new ItemRequisicion();

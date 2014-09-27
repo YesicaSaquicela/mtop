@@ -136,7 +136,8 @@
 
 
                         </p:panel>
-                        <p:dialog width="450" height="300" id="dialog"   header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                        <p:dialog width="450" height="300" id="dialog"   header="Document Detail" showEffect="fade" 
+                                  widgetVar="documentDialog" modal="true" resizable="false" closable="true">
                                 <h:panelGroup id="documentPanel" style="width:100%">
                                     <h:outputLabel for="name" value="Kilometraje: " />
                                     <h:outputText id="name"  value="#{controladorPlanMantenimiento.it.kilometraje}"  >  
@@ -156,10 +157,12 @@
                                     </h:panelGroup><br/>
                                       <div class="admin-actions " align="center"> 
                                     <p:commandLink immediate="true" ajax="true" process="@this" styleClass="btn  btn-success"  
-                                                     update=":form:p1 :form:actividad1" value="GUARDAR" 
+                                                     update=":form:p1 :form:actividad1" value="GUARDAR"  oncomplete="PF('documentDialog').hide()"
                                                      action="#{controladorPlanMantenimiento.editar(controladorPlanMantenimiento.it)}"  >
 
-                                    </p:commandLink></div><br/>
+                                    </p:commandLink><br/>
+                                      </div>
+                        
 
 
                                 </h:panelGroup>

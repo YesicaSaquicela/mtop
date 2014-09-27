@@ -79,9 +79,10 @@ limitations under the License.
                 <c:when test="#{type == 'java.lang.Long' or type == 'java.lang.Double' or type == 'java.lang.Float' or type == 'decimal'}"  >
                     <pe:inputNumber id="#{name}" value="#{value}"  required="#{required}" 
                                     requiredMessage="#{requiredMessage}" symbolPosition="#{symbolPosition}"  style="width: 100%"
-                                    maxValue="#{maxValue}"
+                                    maxValue="#{maxValue}" 
                                     label="#{label}" decimalPlaces="#{numDecimales}" disabled="#{disabled}" symbol="#{symbol}">  
                         <p:ajax event="blur" update="#{render}" partialSubmit="true" />
+                        <f:validator validatorId="#{validator}"/>
                     </pe:inputNumber>  
                     <br/>
                 </c:when>

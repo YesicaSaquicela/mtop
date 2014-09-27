@@ -52,13 +52,20 @@ public class fechaanio implements Validator {
         System.out.println(" entro validadorfa");
         String field = value.toString();
         System.out.println("field.matches(\"[0-9-]*\")" + field.matches("[0-9]*"));
-        System.out.println("value"+(String)value);
+        System.out.println("value" + (String) value);
         if (!value.equals("")) {
-            if (value instanceof String && !value.equals(vehiculo.getAnioFabricacion()) && field.matches("[0-9]*")) {
-                cv.setEntityManager(em);
-                if (!cv.obtenerAñoV((String) value)) {
-                    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añoActual).", null));
+            if (field.matches("[0-9]*")) {
+                if (value instanceof String && !value.equals(vehiculo.getAnioFabricacion())) {
+                    cv.setEntityManager(em);
+                    if (!cv.obtenerAñoV((String) value)) {
+                        System.out.println("entro a presentar mensaje");
+
+                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añoActual).", null));
+                    }
                 }
+            } else {
+                System.out.println("entroa validar letras");
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se admiten letras", null));
             }
 
         }
