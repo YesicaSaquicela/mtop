@@ -437,13 +437,13 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
     }
 
-    public String editar(ActividadPlanMantenimiento actividad) {
-        System.out.println("llego a editar "+actividad.getActividad());
+    public void editar() {
+       
         System.out.println("it"+it.getActividad());
              
         System.out.println("entor a editar con tamanio"+listaActividades.size());
         it=new ActividadPlanMantenimiento();
-        return "documentDialog.hide()";
+        
                 
     }
 
