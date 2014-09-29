@@ -59,7 +59,7 @@ public class Vehiculo extends BussinesEntity implements Serializable {
     private Profile persona;
     //registro hace referencia al codigo heredado
     private String tipo;
-    private String cilindraje;
+    private Double cilindraje;
 
     private Integer kilometraje;
     private String tipoCombustible;
@@ -200,11 +200,11 @@ public class Vehiculo extends BussinesEntity implements Serializable {
         this.numRegistro = numRegistro;
     }
 
-    public String getCilindraje() {
+    public Double getCilindraje() {
         return cilindraje;
     }
 
-    public void setCilindraje(String cilindraje) {
+    public void setCilindraje(Double cilindraje) {
         this.cilindraje = cilindraje;
     }
 

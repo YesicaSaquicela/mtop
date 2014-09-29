@@ -15,7 +15,7 @@
     </f:metadata>
     <ui:param name="title" value="#{messages['module.profils']}" />
     <ui:define name="header-replace">
-        
+
     </ui:define>
     <ui:define name="content">
         <h:form id="form">
@@ -23,7 +23,7 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div class="panel panel-primary">
-                                                 <div class="panel-heading"><center>LISTA DE USUARIOS</center></div>
+                        <div class="panel-heading"><center>LISTA DE USUARIOS</center></div>
                         <p:panel>
 
                             <div class="admin-actions" align="right">
@@ -76,37 +76,38 @@
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.username}" />
                                                 </p:column>
-                                                <p:column headerText="Opciones" style="width: 10%">
+                                                <p:column headerText="Asignar Rol" style="width: 5%; text-align: center">
 
-                                                        <p:button title="Asignar Roles" icon="ui-icon-key" 
-                                                                  rendered="#{profile_.deleted ne true}" style="margin-top:10px;"
-                                                                  outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" 
-                                                                  >                          
-                                                            <f:param name="username" value="#{profile_.username}"></f:param>
+                                                    <p:button title="Asignar Roles" icon="ui-icon-key" 
+                                                              rendered="#{profile_.deleted ne true}" style="margin-top:10px;"
+                                                              outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" 
+                                                              >                          
+                                                        <f:param name="username" value="#{profile_.username}"></f:param>
 
-                                                        </p:button> #{" "}
-                                                   
-                                                       
-                                                        <p:commandButton title="Desactivar Cuenta" icon="ui-icon-closethick" 
-                                                                         style="margin-top:10px;" id="confirmacion" 
-                                                                         action="#{profileHome.inavilitarCuenta(profile_)}"
-                                                                         update="@form" rendered="#{profile_.username ne null and profile_.deleted ne true }">
-                                                            <p:confirm header="Confirmación"
-                                                                       message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
+                                                    </p:button> #{" "}
+                                                </p:column>
 
-                                                        </p:commandButton>   #{" "}
+                                                <p:column  headerText="Cuenta de usuario" style="width: 5%; text-align: center"  >
+                                                    <p:commandButton title="Desactivar Cuenta" icon="ui-icon-closethick" 
+                                                                     style="margin-top:10px;" id="confirmacion" 
+                                                                     action="#{profileHome.inavilitarCuenta(profile_)}"
+                                                                     update="@form" rendered="#{profile_.username ne null and profile_.deleted ne true }">
+                                                        <p:confirm header="Confirmación"
+                                                                   message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
-                                                        <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
-                                                                         title="Activar cuenta" icon="ui-icon-check"
-                                                                         rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.deleted eq true }"
-                                                                         update="@form" style="margin-top:10px;"
-                                                                         >
-                                                            <p:confirm header="Confirmación"
-                                                                       message="¿Desea Realmente habilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
+                                                    </p:commandButton>   #{" "}
+               
+                                                    <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
+                                                                     title="Activar cuenta" icon="ui-icon-check"
+                                                                     rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.deleted eq true }"
+                                                                     update="@form" style="margin-top:10px;"
+                                                                     >
+                                                        <p:confirm header="Confirmación"
+                                                                   message="¿Desea Realmente habilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
-                                                        </p:commandButton>
+                                                    </p:commandButton>
 
-                                                    
+
                                                     <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode">
                                                         <p:commandButton value="Si" ajax="false" update="profileDataTable" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />

@@ -121,7 +121,7 @@
                                         <mtop:input id="numPasajeros" name="numPasajeros" type="decimal" label="Número de Pasajeros" 
                                                     value="#{controladorVehiculo.instance.numPasajeros}" required="true" numDecimales="0"
                                                     inlinehelp="Ingrese el número de pasajeros del vehículo Ej(2)" maxValue="99"
-                                                    render="numPasajeros" validator="digitValidator"
+                                                    render="numPasajeros"
                                                     requiredMessage="Número de pasajeros requerido, necesita un valor"/><br></br>
                                         <h:panelGroup id="p1" layout="block" class="clearfix">
                                             <div class="input">
@@ -142,7 +142,7 @@
                                         <mtop:input id="numCilindros" name="numCilindros" type="decimal" label="Número de Cilindros" 
                                                     value="#{controladorVehiculo.instance.numCilindros}" required="true" numDecimales="0"
                                                     inlinehelp="Ingrese el número cilindros del vehículo Ej(2)" maxValue="9"
-                                                    render="numCilindros"
+                                                    render="numCilindros" 
                                                     requiredMessage="Número de cilindros requerido, necesita un valor"/><br></br>
 
                                         <br></br>
@@ -152,7 +152,7 @@
                                     <div class="col-md-6"> 
                                         <mtop:input id="avaluo" name="avaluo" type="decimal" label="Avalúo" numDecimales="2" 
                                                     value="#{controladorVehiculo.instance.avaluo}" required="true" 
-                                                    inlinehelp="Ingrese el avalúo del vehículo en dólares Ej(12000 $)" symbol=" $" symbolPosition="s"  
+                                                    inlinehelp="Ingrese el avalúo del vehículo en dólares Ej(12000 $)" symbol=" $" 
                                                     render="avaluo"  maxValue="99999" 
                                                     requiredMessage="Avalúo requerido, necesita un valor"/><br></br>
 
@@ -172,14 +172,22 @@
                                             </div>
                                         </h:panelGroup><br></br> 
 
-                                        <mtop:input id="aniofabricacion" name="aniofabricacion" type="decimal" label="Año fabricación" numDecimales="0"
-                                                    value="#{controladorVehiculo.instance.anioFabricacion}" required="true" 
-                                                    inlinehelp="Ingrese el año de fabricación Ej(2014)" 
-                                                    render="aniofabricacion" validator="fechanio"
-                                                    requiredMessage="Año de fabricación requerido, necesita un valor"/><br></br>
+                                   
 
-
-
+                                         <h:panelGroup id="aniofabricacion1" layout="block" class="clearfix">
+                                            <div class="input">
+                                                <h:outputLabel value="Año fabricación*"/>
+                                                <h:inputText id="aniofabricacion" value="#{controladorVehiculo.instance.anioFabricacion}" 
+                                                             styleClass="form-control" required="true" label="Año fabricación" maxlength="4"
+                                                             requiredMessage="Año de fabricación requerido, necesita un valor">
+                                                    <f:ajax  render="aniofabricacion1" />
+                                                    <f:validator validatorId="fechanio" />
+                                                </h:inputText>
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.anioFabricacion != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted"><br/>Ingrese el año de fabricación Ej(2014)<ocp:message forId="aniofabricacion" /></span>
+                                            </div>
+                                        </h:panelGroup><br></br>
 
                                         <mtop:input id="peso" name="peso" type="decimal" label="Peso" numDecimales="2"
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
@@ -219,7 +227,7 @@
                                                     value="#{controladorVehiculo.instance.kilometraje}" required="true" 
                                                     inlinehelp="Ingrese el kilometraje del vehículo Ej(5000)" maxValue="50000"
                                                     symbol=" km" symbolPosition="s"
-                                                   render="kilometraje" validator="digitValidator"
+                                                   render="kilometraje" 
                                                     requiredMessage="Kilometraje requerido, necesita un valor"/><br></br>
 
                                         <h:panelGroup id="tipoCombustible1" layout="block" class="clearfix">

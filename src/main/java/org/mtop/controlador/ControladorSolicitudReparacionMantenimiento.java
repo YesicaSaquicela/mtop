@@ -600,11 +600,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                             return event.getOldStep();
                         } else {
-                           System.out.println("sjkkkippp ultimo return"+skip);
+                            System.out.println("sjkkkippp ultimo return" + skip);
                             System.out.println("nombre wizard" + nombrew);
                             return event.getNewStep();
                         }
-                        
+
                     }
                 }
             }
@@ -771,24 +771,6 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return listaSolicitud;
     }
 
-    public void editarItemS(ItemSolicitudReparacion itemsol) {
-
-        List<ItemSolicitudReparacion> li = listaItemsSolicitud;
-        for (ItemSolicitudReparacion items : li) {
-            System.out.println("entro al for>>>>>>>");
-            if (items.getDescripcionElementoRevisar().equals(itemsol.getDescripcionElementoRevisar())
-                    && items.getDescripcionFalla().equals(itemsol.getDescripcionFalla())) {
-                System.out.println("entro a remover>>>>>");
-                citemsolicitud.setInstance(items);
-                it = items;
-                break;
-            }
-        }
-        //ojo aumente..
-        getInstance().setListaItemSR(listaItemsSolicitud);
-
-    }
-
     public void eliminarItemS(ItemSolicitudReparacion itemsol) {
 
         List<ItemSolicitudReparacion> li = new ArrayList<ItemSolicitudReparacion>();
@@ -819,6 +801,15 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     }
 
+    public void editar() {
+        System.out.println("llego a editar " + it.getDescripcionElementoRevisar());
+        System.out.println("entor a editar con tamanio" + it.getDescripcionFalla());
+        it = new ItemSolicitudReparacion();
+        it.setDescripcionElementoRevisar(" ");
+        it.setDescripcionFalla(" ");
+
+    }
+
     public void agregarItemS() {
 
         if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
@@ -826,26 +817,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
-            if (it != null) {
-                System.out.println("entro a it");
-                if (!it.getDescripcionElementoRevisar().equals(citemsolicitud.getInstance().getDescripcionElementoRevisar())
-                        && !it.getDescripcionFalla().equals(citemsolicitud.getInstance().getDescripcionFalla())) {
-                    listaItemsSolicitud.remove(it);
-                    listaItemsSolicitud.add(citemsolicitud.getInstance());
 
-                } else {
-                    it = null;
-                }
-            } else {
-
-                listaItemsSolicitud.add(citemsolicitud.getInstance());
-            }
+            listaItemsSolicitud.add(citemsolicitud.getInstance());
 
             citemsolicitud.setInstance(new ItemSolicitudReparacion());
+            citemsolicitud.getInstance().setDescripcionElementoRevisar(" ");
+            citemsolicitud.getInstance().setDescripcionFalla(" ");
+
         }
         //aumente
         getInstance().setListaItemSR(listaItemsSolicitud);
-        editarItemS(citemsolicitud.getInstance());
 
     }
 
@@ -910,8 +891,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         idVehiculo = 0l;
         citemsolicitud = new ControladorItemSolicitud();
         citemsolicitud.setInstance(new ItemSolicitudReparacion());
-        citemsolicitud.getInstance().setDescripcionElementoRevisar("");
-        citemsolicitud.getInstance().setDescripcionFalla("");
+        citemsolicitud.getInstance().setDescripcionElementoRevisar(" ");
+        citemsolicitud.getInstance().setDescripcionFalla(" ");
+        it = new ItemSolicitudReparacion();
+        it.setDescripcionElementoRevisar(" ");
+        it.setDescripcionFalla(" ");
         requisicion = new Requisicion();
         listaPersonal = findAll(Profile.class);
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();

@@ -62,7 +62,7 @@
                                                  id="actividad" required="true" styleClass="form-control"
                                                  value="#{controladorPlanMantenimiento.actividadPlanM.actividad}"
                                                  >
-                                    <f:ajax  render="ak" />
+                                      <f:ajax execute="actividad" render="ak"/>
                                 </p:inputTextarea>
 
                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.actividadPlanM.actividad != ''}"
@@ -78,7 +78,7 @@
 
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                     <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  
-                                    <f:ajax render="km"/>
+                                    <f:ajax execute="kilometraje" render="km"/>
 
                                 </p:selectOneMenu><br></br>
 
@@ -109,7 +109,7 @@
                                 </p:column>
                                 <p:column headerText="Editar" style="width: 3%"> 
                                     <center>
-                                    <p:commandButton  immediate="true" ajax="true" process="@this" type="utton" update=":form:documentPanel" 
+                                    <p:commandButton process="@this" type="utton" update=":form:dialog" 
                                                     oncomplete="PF('documentDialog').show()" title="View Detail" icon="ui-icon-pencil">
                                         <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.it}" />
                                     </p:commandButton>
@@ -136,7 +136,8 @@
 
 
                         </p:panel>
-                        <p:dialog width="450" height="300" id="dialog"   header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                        <p:dialog width="450" height="300" id="dialog"   header="Document Detail" showEffect="fade" 
+                                  widgetVar="documentDialog" modal="true" resizable="false" closable="true">
                                 <h:panelGroup id="documentPanel" style="width:100%">
                                     <h:outputLabel for="name" value="Kilometraje: " />
                                     <h:outputText id="name"  value="#{controladorPlanMantenimiento.it.kilometraje}"  >  
@@ -148,18 +149,22 @@
                                         <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Se necesita un actividad" 
                                                          id="actividad1" required="true" styleClass="form-control"
                                                          value="#{controladorPlanMantenimiento.it.actividad}" >
-                                            <f:ajax  render="ak1" />
+                                            <f:ajax execute="actividad1" render="ak1"/>
                                         </p:inputTextarea>
 
 
                                         <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad1" /></span><br></br><br></br>
                                     </h:panelGroup><br/>
-                                      <div class="admin-actions " align="center"> 
-                                    <p:commandLink immediate="true" ajax="true" process="@this" styleClass="btn  btn-success"  
-                                                     update=":form:p1 :form:actividad1" value="GUARDAR" 
-                                                     action="#{controladorPlanMantenimiento.editar(controladorPlanMantenimiento.it)}"  >
+                                          <div class="admin-actions" align="center">
+                                                    <p:commandLink  update=":form:listaa :form:actividad1" process=":form:dialog"
+                                                                    styleClass="btn  btn-success" value="GUARDAR" title="Crear Item"  oncomplete="PF('documentDialog').hide()" 
+                                                                    action="#{controladorPlanMantenimiento.editar()}">
 
-                                    </p:commandLink></div><br/>
+                                                    </p:commandLink>
+                                                     
+                                                </div><br/>
+                                    
+                        
 
 
                                 </h:panelGroup>

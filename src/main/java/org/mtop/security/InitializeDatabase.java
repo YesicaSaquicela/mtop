@@ -719,7 +719,7 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildProperty("Neumaticos", "llantas", String.class.getName(), null, false, "Llantas", "Ingrese valor para llantas", false, 1L));
+            attributes.add(buildProperty("Neumaticos", "llantas", String.class.getName(), null, true, "Llantas", "Ingrese valor para llantas", false, 1L));
             attributes.add(buildProperty("Neumaticos", "aros", String.class.getName(), null, false, "Aros", " Ingrese valor para aros", false, 2L));
             attributes.add(buildProperty("Neumaticos", "presion", String.class.getName(), null, false, " Presión", "Ingrese valor para presión", false, 3L));
             attributes.add(buildPropertyParteMecanica("Neumaticos", "estadoLlantas", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Llantas", "Escoja el estado para las llantas", false, 13L, 100));
