@@ -65,8 +65,10 @@ import java.util.Map;
 import java.util.Set;
 import org.hibernate.internal.util.collections.IdentityMap;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
+import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.security.IdentityObject;
 import org.mtop.service.ProfileListService;
+import org.mtop.util.UI;
 
 /**
  *
@@ -122,7 +124,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     }
 
     public void setEstado(String estado) {
-        System.out.println("lista de usuarios estado antes>>>" + ps.findAllA(true));
+       
 
         if ("INACTIVO".equals(estado)) {
             System.out.println("entro a cambiar lista");
@@ -146,8 +148,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     public void inavilitarCuenta(Profile selectedProfile) {
-        System.out.println("PROFILE_________init");
-        Date now = Calendar.getInstance().getTime();
+
         try {
             PersistenceManager identityManager = security.getPersistenceManager();
             AttributesManager attributesManager = security.getAttributesManager();
@@ -172,9 +173,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
                     }
                 }
                 listausuarios = lui;
-                System.out.println("lista despues" + listausuarios);
-                System.out.println("obtienes estado" + ida.getValue());
-                System.out.println("obtiene is estado" + selectedProfile.isEstado());
                 FacesMessage msg = new FacesMessage("EL Usuario: " + selectedProfile.getFullName(), "ha sido deshabilitado");
                 FacesContext.getCurrentInstance().addMessage("", msg);
 
@@ -245,6 +243,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @Override
     protected Profile createInstance() {
+         BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Profile.class.getName());
         Date now = Calendar.getInstance().getTime();
         Profile profile = new Profile();
         profile.setCreatedOn(now);
@@ -252,7 +251,8 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         profile.setActivationTime(now);
         profile.setExpirationTime(Dates.addDays(now, 364));
         profile.setResponsable(null); //Establecer al usuario actual
-        //profile.buildAttributes(bussinesEntityService);
+        profile.setType(_type);
+        profile.buildAttributes(bussinesEntityService);
         return profile;
     }
 
@@ -293,7 +293,8 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         bussinesEntityService.setEntityManager(em);
         ps.setEntityManager(em);
         securityRol.setSecurity(security);
-        System.out.println("entri init");
+        System.out.println("entri init"+getInstance());
+       
         tipos = new HashMap<String, String>();
         tipos.put("Conductor", "Conductor");
         tipos.put("Secretario", "Secetario");
@@ -560,6 +561,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     public String saveProfile() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
+        System.out.println("getinstance"+getInstance());
 
         try {
             if (getInstance().isPersistent()) {

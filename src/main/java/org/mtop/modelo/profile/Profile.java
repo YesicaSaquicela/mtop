@@ -308,12 +308,12 @@ public class Profile extends BussinesEntity implements Serializable {
 
     @Override
     public String toString() {
-//        return Profile.class.getName()
-//                + "id=" + getId() + ","
-//                + "fullName=" + getFullName() + ","
-//                + "IdentityKeys=" + getIdentityKeys() + ","
-//                + " ]";
-        return getFullName();
+        return Profile.class.getName()
+                + "[ id=" + getId() + ","
+                + "fullName=" + getFullName() + ","
+                + "IdentityKeys=" + getIdentityKeys() + ","
+                + " ]";
+//        return getFullName();
     }
 
 //    public Object getId() {

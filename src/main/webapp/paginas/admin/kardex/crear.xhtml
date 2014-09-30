@@ -111,7 +111,7 @@
                         </div>
 
                     </p:panel >
-                    <p:panel id="kar" rendered="#{controladorKardex.vista eq 'kardex' }" >
+                    <p:panel id="kar" rendered="#{controladorKardex.vista eq 'kardex'}">
                         <div  class="panel panel-primary">
 
                             <div class="panel-heading" align="center">
@@ -267,9 +267,7 @@
                                                                 <p:column headerText="Fecha de Requisición" sortBy="#{item.fechaRequisicion}">
                                                                     <h:outputText value="#{controladorRequisicion.formato(item.fechaRequisicion)}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Observación" sortBy="#{item.observaciones}">
-                                                                    <h:outputText value="#{item.observaciones}"></h:outputText>
-                                                                </p:column>
+                                                                
                                                                 <p:column headerText="Registro del vehículo" sortBy="#{item.vehiculo.numRegistro}">
                                                                     <h:outputText value="#{item.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
@@ -280,82 +278,7 @@
                                                                                      oncomplete="dlg1.show();" update=":dia" process="@this"
                                                                                      style="margin-top:10px;" >                          
                                                                     </p:commandButton> 
-                                                                    <!--p:commandButton update="@form" id="dardebaja8" icon="ui-icon-trash"
-                                                                              title="Dar de baja3"  
-                                                                              
-                                                                              >
-                                                                        <f:setPropertyActionListener value="# {item}" target="# {controladorKardex.requisicion}" />
-
-                                                                        
-
-                                                                      <p:confirm header="Confirmación" message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
-                                                                    </p:commandButton-->
-
-                                                                    <!--p:button id="dardebaja3" icon="ui-icon-trash"
-                                                                              title="Dar de baja3"  
-                                                                              outcome="/paginas/admin/kardex/crear"  
-                                                                              onclick="dlg1.show();" 
-
-                                                                              >
-
-                                                                        <f:param name="estado" value="false"/>
-                                                                        <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
-                                                                        <f:param name="requisicionId" value="# s{item.id}"/>
-                                                                        <f:param name="valorVista" value="kardex"/>
-                                                                    </p:button>
-                                                                     <p:commandButton value="View" icon="ui-icon-extlink" actionListener="# {controladorKardex.viewCars}" />
-                                                                    <p:commandButton  value="Dar de baja" icon="ui-icon-extlink" onclick="# {controladorKardex.fijarRequi(item)}"  >
-                                                                        <f:setPropertyActionListener value="# {item}" target="# {controladorKardex.requisicion}" />
-
-                                                                    </p:commandButton>
-
-<p:commandButton value="Select Car" icon="ui-icon-extlink" actionListener="# {controladorKardex.chooseCar}">
-    <f:setPropertyActionListener value="# {item}" target="# {controladorKardex.requisicion}" />
-    <p:ajax event="dialogReturn"  update="@form" process="@this" />
-</p:commandButton-->
-
-
-                                                                    <!--p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                        <p:button id="dardebaja13" icon="ui-icon-trash"
-                                                                                  title="Dar de baja"  value="SI"
-                                                                                  outcome="/paginas/admin/kardex/crear"  
-
-                                                                                  >
-                                                                            <f:param name="estado" value="false"/>
-                                                                            <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
-                                                                            <f:param name="requisicionId" value="# {controladorKardex.requisicion.id}"/>
-                                                                            <f:param name="valorVista" value="kardex"/>
-                                                                        </p:button>
-                                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                                    </p:confirmDialog-->
-                                                                    <!--p:dialog id="cancel-dialog2" header="# {messages['common.delete.confirm']}" widgetVar="deletedDlg2" resizable="false" modal="true">  
-                                                                        <h:form id="form-dialog-confirm-delete2">
-
-                                                                            <h:panelGroup layout="block" style="padding:5px;">  
-                                                                                <h:outputText value="Desea realmente dar de baja a la Requisición "/>
-                                                                                <h:outputText value="# {controladorKardex.requisicion.numRequisicion}"/>  
-
-                                                                            </h:panelGroup>  
-                                                                            <p:commandButton value="# {messages['common.yes']}" action="# {pedidoExamenListaServicio.borrar()}" 
-                                                                                             oncomplete="# {'deletedDlg2.hide();'}" update="@form" immediate="true" ajax="true"
-                                                                                             style="margin-top:10px;" >                          
-                                                                            </p:commandButton> 
-
-                                                                            <p:button id="dardebaja3" icon="ui-icon-trash"
-                                                                                      title="Dar de baja"  
-                                                                                      outcome="/paginas/admin/kardex/crear"  
-
-                                                                                      >
-                                                                                <f:param name="estado" value="false"/>
-                                                                                <f:param name="kardexId" value="# {controladorKardex.instance.id}"/>
-                                                                                <f:param name="requisicionId" value="# {controladorKardex.requisicion.id}"/>
-                                                                                <f:param name="valorVista" value="kardex"/>
-                                                                            </p:button>
-                                                                            <p:commandButton value="# {messages['common.no']}" type="button" onclick="deletedDlg2.hide();"  
-                                                                                             style="margin-top:10px;"/>  
-
-                                                                        </h:form>
-                                                                    </p:dialog-->
+                                                                  
 
 
 
@@ -371,163 +294,172 @@
 
 
                                 </p:tabView>
-                                <br/>
-  <p:outputLabel value="Observación"/><br></br>
-                                    <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
-                                                     value="#{controladorKardex.instance.observaciones}"
-                                                     label="observación" >
-                                        <p:ajax event="blur" update="obs" />
-                                    </p:inputTextarea>
-                                    <h:panelGroup id="obs" layout="block" class="clearfix">
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorKardex.instance.observaciones != ''}" styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Ingrese observaciones de kardex<ocp:message forId="observacion1" /></span>                                   
-                                    </h:panelGroup>
+                    
                                 <br></br>
 
-                                <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
-
-                                    <c:forEach items="#{ui.getProperties(controladorKardex.instance)}" var="p" >
-
-                                        <div  class="panel panel-primary">
-                                            <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
-
-                                            <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
-
-                                                <c:choose>                        
-                                                    <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
-
-                                                        <h:panelGroup  layout="block" class="clearfix">
-                                                            <ui:repeat value="#{controladorKardex.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+                             <br></br><br></br>
 
 
-                                                                <h:panelGroup layout="block" class="clearfix">
-                                                                    <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                                                    <div class="input">
-                                                                        <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                     rendered="#{a.property.type eq 'java.lang.String'}">
+                            </p:panel>
+                            
+                             
+                            
+                        </div>
+                    </p:panel>
+                     <p:panel id="panel7"  rendered="#{ui.tieneValores(controladorKardex.instance) and controladorKardex.vista eq 'kardex'}">    
 
-                                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                        </p:inputText>
-                                                                        <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                                                     validator="realValidator" 
-                                                                                     validatorMessage="No se admiten letras "
-                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                     rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">
+                                DATOS ADICIONALES
+                            </div>
 
-                                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                        </p:inputText>
-                                                                        <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                                    rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                                            <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                                                        </p:calendar>
+                            <p:tabView  id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
 
-                                                                        <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                                                         label="#{a.property.label}"
-                                                                                         rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                                                            <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                            <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                                                        </p:selectOneMenu>
-                                                                        <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                                         rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                        </p:inputTextarea>  
+                                <c:forEach items="#{ui.getProperties(controladorKardex.instance)}" var="p" >
+                                    <div  class="panel panel-primary">
+                                        <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                                                        <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                                                     label="#{a.property.label}"
-                                                                                     rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                                                     required="#{a.property.required}"
-                                                                                     > 
-                                                                            <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                        <p:tab title="#{p.label}"  closable="false"  titleStyleClass="clearfix" 
+                                               rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure' }" >
+                                            <c:choose>                        
+                                                <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
+
+                                              
 
 
-                                                                        </p:inputText>
-
-                                                                        <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                                                            <f:selectItem itemLabel="true" itemValue="true" />
-                                                                            <f:selectItem itemLabel="false" itemValue="false" />
-                                                                        </p:selectOneButton>
-                                                                        <br/>
-                                                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
-                                                                                        styleClass="validation-status" />
-                                                                        <span class="help-inline text-muted">#{a.property.helpInline} 
-                                                                            <ocp:message forId="str" />
-                                                                            <ocp:message forId="str1" />
-                                                                            <ocp:message forId="str2" />
-                                                                            <ocp:message forId="str3" />
-                                                                            <ocp:message forId="str4" />
-                                                                            <ocp:message forId="str5" />
-
-                                                                        </span><br/><br/>
-                                                                    </div>
-
-                                                                </h:panelGroup>  
-
-                                                            </ui:repeat>
-                                                        </h:panelGroup>
-
-                                                    </c:when>
-                                                </c:choose>
-                                            </p:tab>
-                                        </div>
-                                    </c:forEach>
+                                                        <ui:repeat value="#{controladorKardex.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
 
+                                                            <h:panelGroup id="panel1" layout="block" class="clearfix">
 
-                                    <p:tab title="Otros" rendered="#{controladorKardex.instance.findBussinesEntityAttribute('org.mtop.modelo.Kardex').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
+                                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
+                                                                    #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                <div class="input">
 
-                                        <ui:repeat value="#{controladorKardex.instance.findBussinesEntityAttribute('org.mtop.modelo.Kardex')}" var="a" varStatus="status"> 
-                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                                 required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                 rendered="#{a.property.type eq 'java.lang.String'}">
+
+                                                                        <f:ajax execute="str" render="panel1"/>
+                                                                    </p:inputText>
+                                                                    
+                                                                    <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                                    required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                    decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                                                       <f:ajax execute="str1" render="panel1"/>
+                                                                    </pe:inputNumber>  
+
+                                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
+                                                                        <f:ajax execute="str2" render="panel1"/>
+                                                                    </p:calendar>
+
+                                                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                     label="#{a.property.label}" style="width: 100%"
+                                                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                        <f:ajax execute="str3" event="change" render="panel1"/>
+                                                                    </p:selectOneMenu>
+                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                       <f:ajax execute="str4" render="panel1"/>
+                                                                    </p:inputTextarea>  
+
+                                                                    <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                                    required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                    decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
+                                                                        <f:ajax execute="str5" render="panel1"/>
+                                                                    </pe:inputNumber>  
+
+                                                                    <p:selectOneButton value="#{a.value}" style="width: 100%" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                        <f:selectItem itemLabel="true" itemValue="true" />
+                                                                        <f:selectItem itemLabel="false" itemValue="false" />
+                                                                    </p:selectOneButton>
+                                                                    <br/>
+                                                                   
+                                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne '' and controladorKardex.instance.persistent}"
+                                                                                    styleClass="validation-status" />
+                                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne null and controladorKardex.instance.persistent eq false}"
+                                                                                    styleClass="validation-status" />
+                                                              
+                                                                    <span class="help-inline text-muted">#{a.property.helpInline} 
+                                                                        <ocp:message forId="str" />
+                                                                        <ocp:message forId="str1" />
+                                                                        <ocp:message forId="str2" />
+                                                                        <ocp:message forId="str3" />
+                                                                        <ocp:message forId="str4" />
+                                                                        <ocp:message forId="str5" />
+                                                                    </span><br/><br/>
+                                                                </div>
+                                                                
+                                                            </h:panelGroup>  
+
+
+                                                        </ui:repeat>
+                                                    
+
+                                                </c:when>
+                                            </c:choose>
+                                        </p:tab>
+                                    </div>
+                                </c:forEach>
+
+
+
+                                <p:tab title="Otros" rendered="#{controladorKardex.instance.findBussinesEntityAttribute('org.mtop.modelo.Kardex').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
+
+                                    <ui:repeat value="#{controladorKardex.instance.findBussinesEntityAttribute('org.mtop.modelo.Kardex')}" var="a" varStatus="status"> 
+                                         <h:panelGroup id="otro" layout="block" class="clearfix">
+                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
+                                                #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                             <div class="input">
+
                                                 <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
                                                              required="#{a.property.required}" label="#{a.property.label}" 
                                                              rendered="#{a.property.type eq 'java.lang.String'}">
 
-                                                    <p:ajax event="blur" update=":form:infoFM1" partialSubmit="true"/>
+                                                    <f:ajax execute="str" render="otro"/>
                                                 </p:inputText>
-                                                <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                             validator="realValidator" 
-                                                             validatorMessage="No se admiten letras "
-                                                             required="#{a.property.required}" label="#{a.property.label}" 
-                                                             rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                </p:inputText>
-                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                    <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
+                                                <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                required="#{a.property.required}" label="#{a.property.label}" 
+                                                                decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                                   <f:ajax execute="str1" render="otro"/>
+                                                </pe:inputNumber>  
+
+                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
+                                                    <f:ajax execute="str2" render="otro"/>
                                                 </p:calendar>
 
                                                 <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                                 label="#{a.property.label}"
+                                                                 label="#{a.property.label}" style="width: 100%"
                                                                  rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                    <p:ajax event="change" update="@this" partialSubmit="true"/>
+                                                    <f:ajax execute="str3" event="change" render="otro"/>
                                                 </p:selectOneMenu>
                                                 <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                  rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                   <f:ajax execute="str4" render="otro"/>
                                                 </p:inputTextarea>  
 
-                                                <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                             label="#{a.property.label}"
-                                                             rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                             required="#{a.property.required}"
-                                                             > 
-                                                    <f:validator validatorId="validadorDigitosDinamic"  />
-                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                required="#{a.property.required}" label="#{a.property.label}" 
+                                                                decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
+                                                    <f:ajax execute="str5" render="otro"/>
+                                                </pe:inputNumber>  
 
-
-                                                </p:inputText>
-
-                                                <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                <p:selectOneButton value="#{a.value}" style="width: 100%" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
                                                     <f:selectItem itemLabel="true" itemValue="true" />
                                                     <f:selectItem itemLabel="false" itemValue="false" />
                                                 </p:selectOneButton>
                                                 <br/>
-                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
+
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne '' and controladorKardex.instance.persistent}"
                                                                 styleClass="validation-status" />
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne null and controladorKardex.instance.persistent eq false}"
+                                                                styleClass="validation-status" />
+
                                                 <span class="help-inline text-muted">#{a.property.helpInline} 
                                                     <ocp:message forId="str" />
                                                     <ocp:message forId="str1" />
@@ -535,36 +467,20 @@
                                                     <ocp:message forId="str3" />
                                                     <ocp:message forId="str4" />
                                                     <ocp:message forId="str5" />
-
                                                 </span><br/><br/>
                                             </div>
+                                        </h:panelGroup>
 
+                                    </ui:repeat>
 
-                                        </ui:repeat>
+                                </p:tab>
+                               
 
-                                    </p:tab>
-                                    <br/>
+                            </p:tabView>
 
-                                </p:tabView><br></br><br></br>
-
-                                <center>
-                                    <p:commandButton id="save" value="Guardar"   ajax="true" update="kar"
-                                                     styleClass="btn  btn-success" action="#{controladorKardex.guardar}"
-                                                     onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
-                                </center>
-
-
-
-                            </p:panel>
                         </div>
-                    </p:panel>
 
-
-
-
-
-
-
+                    </p:panel> <br></br><br></br> 
 
 
 

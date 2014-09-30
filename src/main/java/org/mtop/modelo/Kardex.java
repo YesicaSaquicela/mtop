@@ -37,7 +37,6 @@ import org.mtop.modelo.Vehiculo;
 @PrimaryKeyJoinColumn(name = "id")//representa el id de la superclase
 public class Kardex extends BussinesEntity implements Serializable {
   
-    private String observaciones;
     @OneToMany(mappedBy = "kardex", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SolicitudReparacionMantenimiento> listaSolicitudReparacion = new ArrayList<SolicitudReparacionMantenimiento>();
     @OneToMany(mappedBy = "kardex",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -76,14 +75,6 @@ public class Kardex extends BussinesEntity implements Serializable {
         this.numero = numero;
     }
     
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
 
     public List<SolicitudReparacionMantenimiento> getListaSolicitudReparacion() {
         return listaSolicitudReparacion;

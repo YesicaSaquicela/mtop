@@ -58,7 +58,7 @@
                                                                  required="true" label="Nombre de Propiedad" 
                                                                  requiredMessage="Nombre de la propiedad requerida, necesita un valor."
                                                                  >
-                                                        <f:ajax execute="@this" render="num" />
+                                                        <f:ajax execute="registro" render="num" />
 
                                                         <f:validator validatorId="validarNomPropiedad" />
                                                     </h:inputText>
@@ -82,7 +82,7 @@
                                                                       style="width:100%">
                                                         <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
                                                         <f:selectItems  value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
-                                                        <p:ajax event="change" update="@parent pvaluep " partialSubmit="true"/>
+                                                       <f:ajax execute="type" render="typeP pvaluep" />
                                                     </p:selectOneMenu><br></br> 
                                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{propertyHome.propertyType  != null}"
                                                                     styleClass="validation-status" />
@@ -114,27 +114,25 @@
                                                     </p:inputText>
 
 
-                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in3" value="#{propertyHome.propertyNumberValue}" style="width:100%"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in3" 
+                                                                 value="#{propertyHome.propertyNumberValue}" style="width:100%"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Entero'}"
 
                                                                  > 
-                                                        <f:ajax execute="@this" render="save"  />
-
-
-                                                        <!--p:ajax event="keypress" process="value valueintval" rendered="save"/-->
+                                                         <f:ajax execute="in3" render="pvaluep" />
+                                                       
                                                     </p:inputText>    
 
-                                                    <!--p:inplace id="ajax" editor="true" label="Fijar Fecha"-->
+                                           
                                                     <p:calendar disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in4" value="#{propertyHome.propertyDateValue}" style="width:100%"
                                                                 navigator="true"   
                                                                 label="#{messages['common.property.value']}" 
                                                                 rendered="#{propertyHome.propertyType eq 'Fecha'}" >
-                                                        <p:ajax event="dateSelect" update=":form:pvaluep" partialSubmit="true"/>
-                                                        <p:ajax event="change" update=":form:pvaluep" partialSubmit="true"/>
-                                                        <!--f:ajax event="dateSelect" execute="@this" render="save"/-->
+                                                         <f:ajax execute="in4" render="pvaluep" />
+                                                       
                                                     </p:calendar>
-                                                    <!--/p:inplace-->
+                                                  
 
                                                     <p:inputTextarea disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in5" value="#{propertyHome.propertyStringValue}" styleClass="form-control"
                                                                      label="#{messages['common.property.value']}"  
@@ -142,16 +140,17 @@
                                                         <f:ajax event="blur" execute="@this" render="save"/>
                                                     </p:inputTextarea>
 
-                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in6" value="#{propertyHome.propertyStringValue}" style="width:100%"
+                                                    <p:inputText disabled="#{propertyHome.hasValuesBussinesEntity eq false}" id="in6" 
+                                                                 value="#{propertyHome.propertyStringValue}" style="width:100%"
                                                                  label="#{messages['common.property.value']}"
                                                                  rendered="#{propertyHome.propertyType eq 'Real' or propertyHome.propertyType eq 'EnteroMayor' }"
                                                                  validator="realValidator" 
                                                                  validatorMessage="No se admiten letras "
                                                                  > 
 
-                                                        <p:ajax event="blur" update=":form:pvaluep" partialSubmit="true"/>
+                                                        <f:ajax execute="in6" render="pvaluep" />
+                                                       
 
-                                                        <!--p:ajax event="keypress" process="value valueintval" rendered="save"/-->
                                                     </p:inputText> 
                                                     <p:selectOneButton disabled="#{propertyHome.hasValuesBussinesEntity eq false}" value="#{propertyHome.propertyStringValue}" rendered="#{propertyHome.propertyType eq 'Booleano'}">
                                                         <f:selectItem itemLabel="true" itemValue="true" />
@@ -161,8 +160,17 @@
 
                                                     <br/>
                                                     <h:graphicImage value="#{resource['visto.png']}" 
-                                                                    rendered="#{propertyHome.propertyStringValue != null or propertyHome.propertyDateValue != null or propertyHome.propertyNumberValue != null}"
+                                                                    rendered="#{propertyHome.propertyStringValue != null and propertyHome.propertyType ne 'Fecha' and propertyHome.propertyType ne 'Entero'}"
                                                                     styleClass="validation-status" />
+                                                    
+                                                    <h:graphicImage value="#{resource['visto.png']}" 
+                                                                    rendered="#{propertyHome.propertyDateValue != null and propertyHome.propertyType eq 'Fecha'}"
+                                                                    styleClass="validation-status" />
+                                                    
+                                                    <h:graphicImage value="#{resource['visto.png']}" 
+                                                                    rendered="#{propertyHome.propertyNumberValue != null and propertyHome.propertyType eq 'Entero'}"
+                                                                    styleClass="validation-status" />
+                                                    
                                                     <span class="help-inline text-muted">#{messages['common.property.value.help']} 
                                                         <ocp:message forId="in1" />
                                                         <ocp:message forId="in2" />
@@ -193,14 +201,12 @@
                                         <div class="col-md-6"> 
                                             <h:outputLabel value="Propiedad Requerida" /><br/>
                                             <p:selectBooleanCheckbox value="#{propertyHome.instance.required}" required="false" >
-                                           <p:ajax event="change" update="pr" partialSubmit="true"  />
+                                           
                                             </p:selectBooleanCheckbox>
-                                            <h:panelGrid id="pr">
-                                                <h:graphicImage value="#{resource['visto.png']}" 
-                                                                rendered="#{propertyHome.instance.required != ''}"
-                                                                styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Selecciones si es requerida esta propiedad</span>
-                                            </h:panelGrid>
+                                           <br/>
+                                           <br/>
+                                         
                                             <!--mtop:input id="rqd" name="requerid" type="checkbox" 
                                                         label="#{messages['common.property.required']}" render="rqd"
                                                         value="#{propertyHome.instance.required}" required="false" 

@@ -74,7 +74,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private List<ActividadPlanMantenimiento> listaactividadesPlan = new ArrayList<ActividadPlanMantenimiento>();
     private List<PlanMantenimiento> listaPlanM2 = new ArrayList<PlanMantenimiento>();
     private PlanMantenimiento planMantvisualizar = new PlanMantenimiento();
-    String s="";
+    String s = "";
 
     public String getS() {
         return s;
@@ -83,10 +83,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public void setS(String s) {
         this.s = s;
     }
-    
-    
- 
-    
+
     public PlanMantenimiento getPlanMantvisualizar() {
         return planMantvisualizar;
     }
@@ -117,7 +114,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             System.out.println("kilome   " + actividadPlanMantenimiento.getKilometraje());
             System.out.println("activ   " + actividadPlanMantenimiento.getActividad());
         }
-       
+
         return listaActividades;
     }
 
@@ -298,6 +295,12 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                 }
 
             }
+            for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
+                if (planMantenimiento.getActivado()) {
+                    planMantvisualizar = planMantenimiento;
+                    listaactividadesPlan = planMantenimiento.getListaActividadpm();
+                }
+            }
             //     msj = "";
             //    ms1 = "true" + getInstance().getRegistro();
 //            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "El Plan de Mantenimiento seleccionado ha sido activado");
@@ -352,10 +355,9 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void agregarActividad() {
-       
+
         boolean ban = true;
         System.out.println("entra guardar");
-        
 
         for (ActividadPlanMantenimiento apm : listaActividades) {
             System.out.println("ENTRO>>>>>>>" + apm.getKilometraje());
@@ -383,8 +385,8 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 //                    it = null;
 //                }
 //            } else {
-                System.out.println("creo");
-                listaActividades.add(actividadPlanM);
+            System.out.println("creo");
+            listaActividades.add(actividadPlanM);
 //                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó la actividad " + actividadPlanM.getActividad() + " con éxito "));
 
 //            }
@@ -422,29 +424,27 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 //                }
 //
 //            } else {
-                System.out.println("it" + it);
-                System.out.println("instance" + actividadPlanM.getKilometraje());
-                System.out.println("entro a kilometraje escojido");
-                s="ERROR! EL kilometraje que ha escojido ya se encuentra agregado en la lista";
-                System.out.println("el mesjae"+s);
-                        
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "EL kilometraje que ha escojido ya se encuentra agregado en la lista"));
+            System.out.println("it" + it);
+            System.out.println("instance" + actividadPlanM.getKilometraje());
+            System.out.println("entro a kilometraje escojido");
+            s = "ERROR! EL kilometraje que ha escojido ya se encuentra agregado en la lista";
+            System.out.println("el mesjae" + s);
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "EL kilometraje que ha escojido ya se encuentra agregado en la lista"));
 //            }
 
         }
         it = null;
-       
 
     }
 
     public void editar() {
-       
-        System.out.println("it"+it.getActividad());
-             
-        System.out.println("entor a editar con tamanio"+listaActividades.size());
-        it=new ActividadPlanMantenimiento();
-        
-                
+
+        System.out.println("it" + it.getActividad());
+
+        System.out.println("entor a editar con tamanio" + listaActividades.size());
+        it = new ActividadPlanMantenimiento();
+
     }
 
 //    public void editarActividad(ActividadPlanMantenimiento actividad) {
@@ -477,7 +477,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 //        }
 //
 //    }
-
     public void guardarActividad() {
 
         for (ActividadPlanMantenimiento apm : listaActividades) {
@@ -593,7 +592,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         listaPlanMantenimiento = servgen.buscarTodos(PlanMantenimiento.class);
         listaPlanM2 = listaPlanMantenimiento;
         cv.setEntityManager(em);
-        
+
         cactividadpm = new ControladorActividadPlanMantenimiento();
 
         actividadPlanM = new ActividadPlanMantenimiento();
@@ -606,7 +605,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
                 listaactividadesPlan = planMantenimiento.getListaActividadpm();
             }
         }
-        it=new ActividadPlanMantenimiento();
+        it = new ActividadPlanMantenimiento();
         listaActividades = new ArrayList<ActividadPlanMantenimiento>();
 //        listaActividades2 = new ArrayList<ActividadPlanMantenimiento>();
         System.out.println("lista de actividades en el inirt" + listaActividades);
@@ -617,19 +616,13 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     protected PlanMantenimiento
             createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(PlanMantenimiento.class
-                .getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(PlanMantenimiento.class.getName());
         Date now = Calendar.getInstance().getTime();
         PlanMantenimiento planM = new PlanMantenimiento();
-
         planM.setCreatedOn(now);
-
         planM.setLastUpdate(now);
-
         planM.setActivationTime(now);
-
         planM.setType(_type);
-
         planM.buildAttributes(bussinesEntityService);  //
         return planM;
     }
@@ -638,8 +631,6 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     public Class<PlanMantenimiento> getEntityClass() {
         return PlanMantenimiento.class;
     }
-
-   
 
     @TransactionAttribute
     public String guardar() {
