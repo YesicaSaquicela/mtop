@@ -811,8 +811,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void agregarItemS() {
-
-        if (citemsolicitud.getInstance().getDescripcionElementoRevisar().equals("") || citemsolicitud.getInstance().getDescripcionFalla().equals("")) {
+        String desEl = citemsolicitud.getInstance().getDescripcionElementoRevisar().trim();
+        String desfa = citemsolicitud.getInstance().getDescripcionFalla().trim();
+        if (desEl.equals("") || desfa.equals("")) {
             System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
 
@@ -821,8 +822,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             listaItemsSolicitud.add(citemsolicitud.getInstance());
 
             citemsolicitud.setInstance(new ItemSolicitudReparacion());
-            citemsolicitud.getInstance().setDescripcionElementoRevisar(" ");
-            citemsolicitud.getInstance().setDescripcionFalla(" ");
+            citemsolicitud.getInstance().setDescripcionElementoRevisar("");
+            citemsolicitud.getInstance().setDescripcionFalla("");
 
         }
         //aumente
