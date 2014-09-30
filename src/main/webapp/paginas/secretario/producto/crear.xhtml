@@ -116,7 +116,7 @@
                                                                         <f:ajax execute="str" render="panel1"/>
                                                                     </p:inputText>
                                                                     
-                                                                    <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                    <pe:inputNumber id="str1" value="#{a.value}"  style="width: 100%" 
                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
                                                                                     decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                                        <f:ajax execute="str1" render="panel1"/>
@@ -133,12 +133,12 @@
                                                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                         <f:ajax execute="str3" event="change" render="panel1"/>
                                                                     </p:selectOneMenu>
-                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                    <p:inputTextarea id="str4" value="#{a.value}"  style="width: 100%; height: 100px;" required="#{a.property.required}" label="#{a.property.label}" 
                                                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                                        <f:ajax execute="str4" render="panel1"/>
                                                                     </p:inputTextarea>  
 
-                                                                    <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                    <pe:inputNumber id="str5" value="#{a.value}"  style="width: 100%"
                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
                                                                                     decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
                                                                         <f:ajax execute="str5" render="panel1"/>
@@ -194,7 +194,7 @@
                                                     <f:ajax execute="str" render="otro"/>
                                                 </p:inputText>
 
-                                                <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                <pe:inputNumber id="str1" value="#{a.value}"   style="width: 100%"
                                                                 required="#{a.property.required}" label="#{a.property.label}" 
                                                                 decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                    <f:ajax execute="str1" render="otro"/>
@@ -211,13 +211,13 @@
                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                     <f:ajax execute="str3" event="change" render="otro"/>
                                                 </p:selectOneMenu>
-                                                <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                <p:inputTextarea id="str4" value="#{a.value}"  required="#{a.property.required}" label="#{a.property.label}" 
+                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}"  style="width: 100%; height: 100px;">
                                                    <f:ajax execute="str4" render="otro"/>
                                                 </p:inputTextarea>  
 
-                                                <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
-                                                                required="#{a.property.required}" label="#{a.property.label}" 
+                                                <pe:inputNumber id="str5" value="#{a.value}" 
+                                                                required="#{a.property.required}" label="#{a.property.label}"  style="width: 100%"
                                                                 decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
                                                     <f:ajax execute="str5" render="otro"/>
                                                 </pe:inputNumber>  
@@ -248,86 +248,13 @@
 
                                 </p:tab>
 
-                            </p:tabView>
 
+                    </p:tabView>
                         </div>
-
-                    </p:panel> <br></br><br></br>
-
-
-
-
-                        <p:tab title="Otros" rendered="#{controladorProducto.instance.findBussinesEntityAttribute('org.mtop.modelo.Producto').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
-
-                            <ui:repeat value="#{controladorProducto.instance.findBussinesEntityAttribute('org.mtop.modelo.Producto')}" var="a" varStatus="status"> 
-                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                <div class="input">
-                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.String'}">
-
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                 validator="realValidator" 
-                                                 validatorMessage="No se admiten letras "
-                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
-
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                    </p:inputText>
-                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                    </p:calendar>
-
-                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                     label="#{a.property.label}"
-                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                    </p:selectOneMenu>
-                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                    </p:inputTextarea>  
-
-                                    <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                 label="#{a.property.label}"
-                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                 required="#{a.property.required}"
-                                                 > 
-                                        <f:validator validatorId="validadorDigitosDinamic"  />
-                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-
-
-                                    </p:inputText>
-
-                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                    </p:selectOneButton>
-<br/>
-                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
-                                                    styleClass="validation-status" />
-                                    <span class="help-inline text-muted">#{a.property.helpInline} 
-                                        <ocp:message forId="str" />
-                                        <ocp:message forId="str1" />
-                                        <ocp:message forId="str2" />
-                                        <ocp:message forId="str3" />
-                                        <ocp:message forId="str4" />
-                                        <ocp:message forId="str5" />
-
-                                    </span><br/><br/>
-                                </div>
-
-
-                            </ui:repeat>
-
-                        </p:tab>
-                        <br></br><br></br>
-
-                    </p:tabView><br></br><br></br>
+               </p:panel>
+                    
+                    
+                    <br></br><br></br>
 
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  styleClass="btn  btn-success" 
