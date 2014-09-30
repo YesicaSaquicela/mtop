@@ -117,6 +117,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Double total = 0.0;
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
     private String mensaje = "";
+    private String nombrew = "";
+
+    public String getNombrew() {
+        System.out.println("obtien en get" + nombrew);
+        return nombrew;
+    }
+
+    public void setNombrew(String nombrew) {
+        this.nombrew = nombrew;
+    }
 
     public String getMensaje() {
         System.out.println("obteniendo mensaje :" + mensaje);
@@ -135,17 +145,38 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setIt(ItemRequisicion it) {
+        System.out.println("fijando iten de descripcion>>>>>>"+it.getDescripcion());
+        System.out.println("cantidad>>>>>>"+it.getCantidad());
+        System.out.println("unidad>>>>>>"+it.getUnidadMedida());
         this.it = it;
     }
 
+    public void fijarIt(ItemRequisicion itemn)
+    {
+         System.out.println("llega itemnuevo>>>>>>"+itemn);
+          System.out.println("fijando iten de descripcion en metodo fijar>>>>>>"+itemn.getDescripcion());
+        System.out.println("metodo cantidad>>>>>>"+itemn.getCantidad());
+        System.out.println("u metodo nidad>>>>>>"+itemn.getUnidadMedida());
+        it=itemn;
+    }
+    
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
-        System.out.println("entor a editar con tamanio" + it.getUnidadMedida());
+        System.out.println("entor a editar con tamanio" + it.getDescripcion());
         it = new ItemRequisicion();
         it.setCantidad(0);
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
     }
+    
+    public void editar2(){
+    listaItemsRequisicion.add(cir.getInstance());
+    it = new ItemRequisicion();
+        it.setCantidad(0);
+        it.setUnidadMedida(" ");
+        it.setDescripcion(" ");
+    }
+    
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
@@ -611,7 +642,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             }
         }
-
+       
         System.out.println("lista de items" + listaItemsRequisicion);
         return listaItemsRequisicion;
     }
@@ -1211,18 +1242,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     listaProductos.add(pro);
                 }
             }
-//            if (it != null) {
-//                System.out.println("entro a it");
-//                if (!it.getCantidad().equals(cir.getInstance().getCantidad())
-//                        && !it.getDescripcion().equals(cir.getInstance().getDescripcion())
-//                        && !it.getUnidadMedida().equals(cir.getInstance().getUnidadMedida())) {
-//                    listaItemsRequisicion.remove(it);
-//                    listaItemsRequisicion.add(cir.getInstance());
-//
-//                } else {
-//                    it = null;
-//                }
-//            } else {
+
             listaItemsRequisicion.add(cir.getInstance());
 //            }
 
@@ -1234,9 +1254,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         pro = new Producto();
         pro.setCodigo("");
-        cir.getInstance().setCantidad(0);
-        cir.getInstance().setUnidadMedida(" ");
-        cir.getInstance().setDescripcion(" ");
         getInstance().setListaItems(listaItemsRequisicion);
 //        editarItem(cir.getInstance());
         System.out.println("lista items ddd" + listaItemsRequisicion);
@@ -1397,20 +1414,29 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String onFlowProcess(FlowEvent event) {
+        nombrew = "soli";
         System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
         System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
         System.out.println("maximo" + getMaximo());
 
         if (skip) {
             skip = false;   //reset in case user goes back  
-
+nombrew = "Final";
             return "confirm";
         } else {
+            nombrew = "soli";
+             if (event.getNewStep().equals("confirm") && event.getOldStep().equals("solicitud")) {
+                nombrew = "Final";//reset in case user goes back
+                System.out.println("nombre wizard111skip dfdsfds" + nombrew);
+            }
             System.out.println("pasoooo");
             if (getInstance().getId() != null) {
                 this.cir.setListaItemsRequisicion(getInstance().getListaItems());
             }
+            
             if (event.getNewStep().equals("req") && event.getOldStep().equals("address")) {
+                nombrew = "Requisicion";
+                 System.out.println("nombre en re adres"+nombrew); 
                 return event.getNewStep();
             } else {
                 if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
@@ -1539,6 +1565,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public Vehiculo getVehiculo() {
+                nombrew = "soli";
         vehiculo = getInstance().getVehiculo();
         System.out.println("jsjsjsjsjsjsjjsjsjsjjsjsjjs" + vehiculo);
         System.out.println("getinstancevehiculo" + getInstance().getVehiculo());
@@ -1546,6 +1573,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
+                nombrew = "soli";
         List<SolicitudReparacionMantenimiento> lss = new ArrayList<SolicitudReparacionMantenimiento>();
         if (vehiculo != null) {
             System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
@@ -1714,6 +1742,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         it.setCantidad(0);
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
+         nombrew = "Requisicion";
+        System.out.println("nombre en el init" + nombrew);
+
     }
 
     @Override
