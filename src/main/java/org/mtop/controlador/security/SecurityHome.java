@@ -155,12 +155,12 @@ public class SecurityHome implements Serializable {
             if (getGroup() != null && getUser() != null) {                
                 if (!securityGroupService.isAssociated(group, user)) {                 
                     security.getRelationshipManager().associateUser(group, user);
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización realizada  ","con exito!"));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización realizada con exito! ",""));
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización exitosa!", "usuario " + getUser().getKey() + " fue asignado en " + getGroup().getName() ));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorización exitosa! usuario " + getUser().getKey() + " fue asignado en " + getGroup().getName(),"" ));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede realizar la autorización para el", getGroup().getName() + " y " + getUser().getKey()));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede realizar la autorización para el"+ getGroup().getName() + " y " + getUser().getKey(),""));
             }
 
         } catch (IdentityException ex) {

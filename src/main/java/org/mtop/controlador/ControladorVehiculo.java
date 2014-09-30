@@ -1051,7 +1051,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
         ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
-        System.out.println("lista vehiculos" + listaVehiculos);
+        System.out.println("entra init" + getInstance());
+       
         listVehiculos2 = listaVehiculos;
         idPersona = 0l;
         listaPersonas = findAll(Profile.class);

@@ -181,7 +181,7 @@ public class InitializeDatabase {
          * Create our test user (me!)
          */
         Date now = Calendar.getInstance().getTime();
-        BussinesEntityType bussinesEntityType = null;
+//        BussinesEntityType bussinesEntityType = null;
         TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
                 BussinesEntityType.class);
         query.setParameter("name", Profile.class.getName());
@@ -197,7 +197,7 @@ public class InitializeDatabase {
             g = session.getPersistenceManager().createGroup("ADMIN", "GROUP");
         }
 
-        bussinesEntityType = query.getSingleResult();
+//        bussinesEntityType = query.getSingleResult();
         if (session.getPersistenceManager().findUser("admin") == null) {
             User u = session.getPersistenceManager().createUser("admin");
             session.getAttributesManager().updatePassword(u, "adminadmin");
@@ -230,7 +230,7 @@ public class InitializeDatabase {
             p.setActivationTime(now);
             p.setExpirationTime(Dates.addDays(now, 364));
             p.setResponsable(null); //Establecer al usuario actual
-            p.setType(bussinesEntityType); //Relacionar con un tipo de entidad de negocio y su estructura
+//            p.setType(bussinesEntityType); //Relacionar con un tipo de entidad de negocio y su estructura
             p.buildAttributes(bussinesEntityService); //Crear la estructura de datos glue
             entityManager.persist(p);
             entityManager.flush();

@@ -961,10 +961,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         getInstance().setLastUpdate(now);
         System.out.println("\n\n\n\n\nentro guardar kardexxxxxxxxxx");
         this.instance.setVehiculo(getInstance().getVehiculo());
-        System.out.println("observacion kardex fuera" + getInstance().getObservaciones());
         try {
             if (getInstance().isPersistent()) {
-                System.out.println("observacion kardex" + getInstance().getObservaciones());
                 save(getInstance());
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");

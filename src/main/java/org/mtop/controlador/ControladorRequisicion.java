@@ -117,12 +117,26 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Double total = 0.0;
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
     private String mensaje = "";
+     private String aprobada; 
 
     public String getMensaje() {
         System.out.println("obteniendo mensaje :" + mensaje);
 
         return mensaje;
     }
+
+    public String getAprobada() {
+          System.out.println("obteniendo :" + aprobada);
+
+        return aprobada;
+    }
+
+    public void setAprobada(String aprobada) {
+        System.out.println("fijando :" + aprobada);
+        this.aprobada = aprobada;
+    }
+
+   
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
@@ -332,7 +346,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     lr2.add(requisicion);
                 }
             }
-            setListaRequisicionAprobada(lr);
             setListaRequisicionAprobada(lr2);
 
         } else {
@@ -350,7 +363,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         lr2.add(requisicion);
                     }
                 }
-                setListaRequisicionAprobada(lr);
                 setListaRequisicionAprobada(lr2);
             }
 
@@ -359,10 +371,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.tipo = tipo;
     }
 
-    public List<Requisicion> getListaRequisicionfiltrada() {
-        System.out.println("entro a obtener" + listaRequisicionfiltrada);
-        return listaRequisicionfiltrada;
-    }
+   
 
     public String getValorTipo() {
         return valorTipo;
@@ -372,10 +381,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.valorTipo = valorTipo;
         System.out.println("fijo valor tipo" + valorTipo);
         List<Requisicion> lr = new ArrayList<Requisicion>();
+        List<Requisicion> lr1 = new ArrayList<Requisicion>();
         if (valorTipo.equals("repa")) {
             for (Requisicion r : listaRequisicion) {
                 if (r.getTipoRequisicion().equals("Requisición de Reparación")) {
                     lr.add(r);
+                }
+            }
+            for (Requisicion requis: listaRequisicionAprobada) {
+                if (requis.getTipoRequisicion().equals("Requisición de Reparación")) {
+                    lr1.add(requis);
                 }
             }
 
@@ -386,12 +401,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         lr.add(r);
                     }
                 }
+                for (Requisicion r : listaRequisicionAprobada) {
+                    if (r.getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
+                        lr1.add(r);
+                    }
+                }
             }
 
         }
         if (!lr.isEmpty()) {
             listaRequisicion = lr;
         }
+        if (!lr1.isEmpty()) {
+            listaRequisicionAprobada = lr1;
+        }
+        System.out.println("devuenlve en aprobadad"+lr);
+         System.out.println("devuenlve en no aprobadad"+lr1);
+                
     }
 
     public void fijarvalorTipo(String s) {
@@ -400,11 +426,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         setValorTipo(s);
     }
 
-    public void setListaRequisicionfiltrada(List<Requisicion> listaRequisicionfiltrada) {
-        this.listaRequisicionfiltrada = listaRequisicionfiltrada;
-        System.out.println("entro a fijar" + listaRequisicionfiltrada);
-    }
-
+  
     public List<Requisicion> getListaRequisicionAprobada() {
         return listaRequisicionAprobada;
     }

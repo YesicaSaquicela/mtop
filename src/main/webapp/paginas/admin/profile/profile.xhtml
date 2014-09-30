@@ -6,6 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:s="http://jboss.org/seam/faces"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:mtop="http://mtop.org/jsf/facelets"
@@ -63,7 +64,7 @@
 
                                             </p:calendar> <br/>                                 
 
-                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.fechanacimiento !=null}" styleClass="validation-status" />
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.fechanacimiento != null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
                                         </h:panelGroup>
 
@@ -72,7 +73,8 @@
                                             <div class="input">
                                                 <h:inputText class="form-control" id="dni" value="#{profileHome.instance.cedula}" 
                                                              styleClass="xLarge" required="true" label="#{messages['profile.dni']}"
-                                                             requiredMessage="Cédula de identidad requerido, necesita un valor">
+                                                             requiredMessage="Cédula de identidad requerido, necesita un valor"
+                                                             maxlength="10" >
                                                     <f:validator validatorId="ciValidator" />
                                                     <f:validator validatorId="ciAvailabilityValidator" />
                                                     <f:ajax execute="@this" render="cod"  />
@@ -119,6 +121,184 @@
                                 </div>
                             </p:panel>
                         </div>
+                      
+                        
+                        <p:panel id="panel7" rendered="#{ui.tieneValores(profileHome.instance)}">    
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading"  align="center">
+                                DATOS ADICIONALES
+                            </div>
+
+                            <p:tabView  id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                                
+                                <c:forEach items="#{ui.getProperties(profileHome.instance)}" var="p" >
+                                    <div  class="panel panel-primary">
+                                        <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
+
+                                        <p:tab title="#{p.label}"  closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
+                                            <c:choose>                        
+                                                <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
+
+                                                    
+
+
+                                                        <ui:repeat value="#{profileHome.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+
+
+                                                            <h:panelGroup id="panel1"  layout="block" class="clearfix">
+
+                                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
+                                                                    #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                <div class="input">
+
+                                                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                                 required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                 rendered="#{a.property.type eq 'java.lang.String'}">
+
+                                                                        <f:ajax execute="str" render="panel1"/>
+                                                                    </p:inputText>
+                                                                    
+                                                                    <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                                    required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                    decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                                                       <f:ajax execute="str1" render="panel1"/>
+                                                                    </pe:inputNumber>  
+
+                                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
+                                                                        <f:ajax execute="str2" render="panel1"/>
+                                                                    </p:calendar>
+
+                                                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                     label="#{a.property.label}" style="width: 100%"
+                                                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                        <f:ajax execute="str3" event="change" render="panel1"/>
+                                                                    </p:selectOneMenu>
+                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                       <f:ajax execute="str4" render="panel1"/>
+                                                                    </p:inputTextarea>  
+
+                                                                    <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                                    required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                    decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
+                                                                        <f:ajax execute="str5" render="panel1"/>
+                                                                    </pe:inputNumber>  
+
+                                                                    <p:selectOneButton value="#{a.value}" style="width: 100%" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                        <f:selectItem itemLabel="true" itemValue="true" />
+                                                                        <f:selectItem itemLabel="false" itemValue="false" />
+                                                                    </p:selectOneButton>
+                                                                    <br/>
+                                                                   
+                                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne '' and profileHome.instance.persistent}"
+                                                                                    styleClass="validation-status" />
+                                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne null and profileHome.instance.persistent eq false}"
+                                                                                    styleClass="validation-status" />
+                                                              
+                                                                    <span class="help-inline text-muted">#{a.property.helpInline} 
+                                                                        <ocp:message forId="str" />
+                                                                        <ocp:message forId="str1" />
+                                                                        <ocp:message forId="str2" />
+                                                                        <ocp:message forId="str3" />
+                                                                        <ocp:message forId="str4" />
+                                                                        <ocp:message forId="str5" />
+                                                                    </span><br/><br/>
+                                                                </div>
+                                                                
+                                                            </h:panelGroup>  
+
+
+                                                        </ui:repeat>
+                                                   
+
+                                                </c:when>
+                                            </c:choose>
+                                        </p:tab>
+                                    </div>
+                                </c:forEach>
+
+
+
+                                <p:tab title="Otros" rendered="#{profileHome.instance.findBussinesEntityAttribute('org.mtop.modelo.profile.Profile').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
+
+                                    <ui:repeat value="#{profileHome.instance.findBussinesEntityAttribute('org.mtop.modelo.profile.Profile')}" var="a" varStatus="status"> 
+                                         <h:panelGroup id="otro" layout="block" class="clearfix">
+                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                            <div class="input">
+
+                                                <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                             rendered="#{a.property.type eq 'java.lang.String'}">
+
+                                                    <f:ajax execute="str" render="otro"/>
+                                                </p:inputText>
+
+                                                <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                required="#{a.property.required}" label="#{a.property.label}" 
+                                                                decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
+                                                   <f:ajax execute="str1" render="otro"/>
+                                                </pe:inputNumber>  
+
+                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
+                                                    <f:ajax execute="str2" render="otro"/>
+                                                </p:calendar>
+
+                                                <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                 label="#{a.property.label}" style="width: 100%"
+                                                                 rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                    <f:ajax execute="str3" event="change" render="otro"/>
+                                                </p:selectOneMenu>
+                                                <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                   <f:ajax execute="str4" render="otro"/>
+                                                </p:inputTextarea>  
+
+                                                <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                required="#{a.property.required}" label="#{a.property.label}" 
+                                                                decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
+                                                    <f:ajax execute="str5" render="otro"/>
+                                                </pe:inputNumber>  
+
+                                                <p:selectOneButton value="#{a.value}" style="width: 100%" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                    <f:selectItem itemLabel="true" itemValue="true" />
+                                                    <f:selectItem itemLabel="false" itemValue="false" />
+                                                </p:selectOneButton>
+                                                <br/>
+
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne '' and profileHome.instance.persistent}"
+                                                                styleClass="validation-status" />
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value ne null and profileHome.instance.persistent eq false}"
+                                                                styleClass="validation-status" />
+
+                                                <span class="help-inline text-muted">#{a.property.helpInline} 
+                                                    <ocp:message forId="str" />
+                                                    <ocp:message forId="str1" />
+                                                    <ocp:message forId="str2" />
+                                                    <ocp:message forId="str3" />
+                                                    <ocp:message forId="str4" />
+                                                    <ocp:message forId="str5" />
+                                                </span><br/><br/>
+                                            </div>
+                                        </h:panelGroup>
+
+                                    </ui:repeat>
+
+                                </p:tab>
+
+                            </p:tabView>
+
+                        </div>
+
+                    </p:panel> 
+                        <br></br><br></br> 
+                        
+                        
+                        
 
                         <div class="actions" align="center">
                             <p:commandButton styleClass="btn  btn-success" id="save" 

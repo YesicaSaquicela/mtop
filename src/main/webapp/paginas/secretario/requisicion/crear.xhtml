@@ -625,7 +625,7 @@
                                             <p:spinner  id="cantidad" required="true"  
                                                         requiredMessage="Cantidad requerida, necesita un valor"
                                                         value="#{controladorRequisicion.cir.instance.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
-                                                <f:ajax execute="cantidad" render="unm"/>
+                                                <f:ajax execute="cantidad" render="@all"/>
                                             </p:spinner >   <br/>
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.cantidad != '0'}"
                                                             styleClass="validation-status" />
@@ -640,7 +640,7 @@
                                                          value="#{controladorRequisicion.cir.instance.descripcion}"
                                                          required="true" requiredMessage="Descipción requerida, necesita un valor"
                                                          readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                            <f:ajax execute="descrip" render="unm5"/>
+                                            <f:ajax execute="descrip" render="@all"/>
                                         </p:inputTextarea>
                                         <br/>
 
@@ -656,7 +656,7 @@
                                         <p:outputLabel value="Unidad de Medida*"/><br></br>
                                         <p:inputText id="unidadMedida" requiredMessage="Unidad de medida requerida, necesita un valor"
                                                      value="#{controladorRequisicion.cir.instance.unidadMedida}" required="true"  >
-                                            <f:ajax execute="unidadMedida" render="unm6"/>
+                                            <f:ajax execute="unidadMedida" render="@all"/>
                                         </p:inputText>
                                         <br/>
 
@@ -685,7 +685,7 @@
 
 
                                                 <tbody>
-                                                    <p:messages id="mensaje2" showDetail="true" autoUpdate="true" closable="true" />
+                                                    <p:messages id="mensaje2" showDetail="true" autoUpdate="false" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="15"                         
                                                                  paginatorPosition="top"
@@ -736,12 +736,12 @@
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
                                                                               process="@form" style="margin-top:10px;">
 
-                                                                <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la requisición?" icon="ui-icon-alert" />
+                                                                <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar el ítem de la requisición?" icon="ui-icon-alert" />
 
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton>
                                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                                 <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                             </p:confirmDialog>
 
@@ -771,8 +771,7 @@
                                                                 value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
                                                        <f:ajax execute="cantidad1" render="documentPanel1"/>
                                                     </p:spinner >   <br/>
-                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.it.cantidad != null}"
-                                                                    styleClass="validation-status" />
+                                                    
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
                                                 </div>
                                         </h:panelGroup>
@@ -790,8 +789,7 @@
                                                 <br/>
 
 
-                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.it.descripcion != null}"
-                                                                styleClass="validation-status" />
+                                               
                                                 <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip1"/></span>
                                          </h:panelGroup>
                                                 <br></br><br/>
@@ -805,9 +803,7 @@
                                                 <br/>
 
 
-                                                <h:graphicImage value="#{resource['visto.png']}" 
-                                                                rendered="#{controladorRequisicion.it.unidadMedida != ''}"
-                                                                styleClass="validation-status" />
+                                              
                                                 <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
 
                                                  </h:panelGroup>

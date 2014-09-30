@@ -260,9 +260,12 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
       
         for (BussinesEntityAttribute a : getAttributes()) {
+            System.out.println("\n\n\n agrego a"+a.getName());
             for (String sn : structureNames) {
+                System.out.println("antes de agregar a bufer");
                 if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
                     _buffer.add(a);
+                    System.out.println("lo agrego a bufer");
                 }
             }
         }

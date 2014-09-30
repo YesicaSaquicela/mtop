@@ -32,12 +32,12 @@
 
 
                                     <center>
-                                        <h:outputLabel value="Buscar:  " />     #{' '} 
+                                            <h:outputLabel value="Buscar:  " />     #{' '} 
 
                                         <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
                                                          completeMethod="#{controladorVehiculo.autocompletar}"/> 
 
-{' '} 
+ #{' '} 
                                         <p:commandLink value="Buscar" type="button"
                                                        update=":form:listap" action="#{controladorVehiculo.buscar()}" 
                                                        styleClass="btn btn-success">
@@ -72,7 +72,8 @@
                                     <p:panel>
                                         <h:outputText value="Generar Reporte" />  
                                         <br/>
-                                        <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" styleClass="btn">                    
+                                        <h:commandLink action="#{reporteListas.renderVehiculo(controladorVehiculo.listaVehiculos)}" 
+                                                       styleClass="btn" target="_blank">                    
                                             <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
 
                                         </h:commandLink>                    

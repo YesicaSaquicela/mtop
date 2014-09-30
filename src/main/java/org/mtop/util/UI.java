@@ -59,6 +59,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.mtop.modelo.dinamico.BussinesEntityType;
 
 @Named("ui")
 @RequestScoped
@@ -201,7 +202,26 @@ public class UI {
 
         return cleaned;
     }      
-    
+     public boolean tieneValores(BussinesEntity entity) {
+        List<Property> lp= getProperties(entity);
+//        boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
+        //log.info("eqaula --> property tiene valores : " + ban);
+        List<BussinesEntityAttribute> lbea=new ArrayList<BussinesEntityAttribute>();
+         System.out.println("propertien"+lp);
+         for (Property property : lp) {
+             lbea=entity.findBussinesEntityAttribute(property.getName());
+             break;
+         }
+          System.out.println("busines entity atribute"+lbea);
+        if(lbea.isEmpty()){
+            System.out.println("retorna falso");
+            return false;
+        }else{
+            System.out.println("retorn true");
+            return true;
+        }
+        
+    }
     //public List<String>
         
 }

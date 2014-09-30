@@ -31,7 +31,8 @@
                                     <p:panel>
                                         <h:outputText value="Generar Reporte" />  
 
-                                        <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn">                    
+                                        <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn"
+                                                       target="_blank">                    
                                             <p:graphicImage value="/resources/pdf.png" width="50" height="40 "/>                          
                                             <f:setPropertyActionListener target="#{reporteListas.estado}" value="#{profileListService.estado eq 'inactivo'? true: false}" />
                                         </h:commandLink>                    

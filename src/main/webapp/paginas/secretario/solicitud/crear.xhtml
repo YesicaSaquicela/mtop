@@ -472,7 +472,7 @@
 
 
                                                     <tbody>
-                                                         <p:messages id="mensaje1fdgf" showDetail="true" autoUpdate="true" closable="true" />
+                                                         <p:messages id="mensaje1fdgf" showDetail="true" autoUpdate="false" closable="true" />
                                                         <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
                                                                      paginator="true" rows="5"                         
                                                                      paginatorPosition="top"
@@ -498,10 +498,10 @@
                                                                                  action="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
                                                                                  title="Eliminar" update=":form:listaa" style="margin-top:10px;">
 
-                                                                    <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
+                                                                    <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar el ítem de la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
                                                                 </p:commandButton>
                                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                    <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                    <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                                     <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                                 </p:confirmDialog>
                                                             </p:column>

@@ -68,10 +68,7 @@
                                                 <p:column headerText="Número de kardex" sortBy="#{item.numero}" >
                                                     <h:outputText value="#{item.numero}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Observación" sortBy="#{item.observaciones}">
-                                                    <h:outputText value="#{item.observaciones}"></h:outputText>
-                                                </p:column>
-
+                                              
                                                 <p:column headerText="Editar" style="width: 5%"> 
                                                     <center>
                                                         <p:button id="selectButton" styleClass="btn  btn-success"
@@ -86,7 +83,7 @@
                                                     <center>
 
                                                         <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                  outcome="imprimirKardex" 
+                                                                  outcome="imprimirKardex" target="_blank"
                                                                   title="Visualizar">  
                                                             <f:param name="kardexId1" value="#{item.id}"></f:param>
                                                             <f:param name="vehId" value="#{item.vehiculo.id}"></f:param>

@@ -392,9 +392,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             if (propertyType != null) {
                 if (propertyType.equals("Booleano")) {
                     propertyStringValue = "true";
-                } else {
-                    propertyStringValue = "";
-                }
+                } 
             }
 
         }
@@ -421,10 +419,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     setPropertyStringValue(fecha);
                     setPropertyDateValue(date);
                 } else {
-                    if (this.propertyType.equals("Estructura")) {
-                        System.out.println("entro a estrusctura");
-
-                    }
+                    propertyStringValue =null;
                 }
 
             }
@@ -509,7 +504,12 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
         // if (getInstance().getType().equals("java.lang.Long") || getInstance().getType().equals("java.lang.Integer")) {
         if (getInstance().getType().equals("java.lang.Integer")) {
-            propertyStringValue = this.propertyNumberValue.toString();
+            System.out.println("valor de propuedad numero"+propertyNumberValue);
+            if(propertyNumberValue!=null){
+                propertyStringValue = this.propertyNumberValue.toString();
+            }
+                    
+            
         }
 
         if (getInstance().isPersistent()) {
