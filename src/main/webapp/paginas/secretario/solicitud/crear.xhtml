@@ -1190,7 +1190,7 @@
                                                             <h:outputText value="#{itemp.cantidad}" />
                                                         </p:column>
                                                         <p:column style="width:4%;text-align: center">
-                                                            <p:commandButton update=":form:productosel :form:cantidad :form:descrip" title="Agregar" icon="ui-icon-check" immediate="true" >
+                                                            <p:commandButton update=":form:productosel :form:cantidad :form:desp" title="Agregar" icon="ui-icon-check" immediate="true" >
                                                                 <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
                                                             </p:commandButton>
                                                         </p:column>
@@ -1380,7 +1380,6 @@
                                                                 requiredMessage="Cantidad requerida, necesita un valor"
                                                                 value="#{controladorRequisicion.it.cantidad}" min="1"
                                                                 max="#{controladorRequisicion.maximo}" >
-                                                       <f:ajax event="blur" execute="cantidad1" render="documentPanelc2"/>
                                                     </p:spinner >   <br/>
                                                   
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
@@ -1395,7 +1394,7 @@
                                                                  value="#{controladorRequisicion.it.descripcion}"
                                                                  required="true" requiredMessage="Descipción requerida, necesita un valor"
                                                                  readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                                     <f:ajax execute="descrip1" render="documentPaneld2"/>
+                                                    
                                                 </p:inputTextarea>
                                                 <br/>
                                                 <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip1"/></span>
@@ -1407,7 +1406,7 @@
                                                 <p:inputText id="unidadMedida1" style="width: 100%" required="true"
                                                              requiredMessage="Unidad de medida , necesita un valor"
                                                              value="#{controladorRequisicion.it.unidadMedida}" >
-                                                      <f:ajax event="blur" execute="unidadMedida1" render="documentPane3"/>
+                                                     
                                                 </p:inputText>
                                                 <br/>
                                                 <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
@@ -1416,9 +1415,9 @@
                                                 <br></br><br/>
 
                                                 <div class="admin-actions" align="center">
-                                                    <p:commandLink  update=":form:documentPanelc :form:listai :form:pi :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" process="@this" 
+                                                    <p:commandLink  update=":form:documentPanelc :form:listai :form:pi :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" process=":form:documentPanelc" 
                                                                     styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  oncomplete="PF('documentDialog1').hide()" 
-                                                                    action="#{controladorRequisicion.editar()}">
+                                                                    action="#{controladorRequisicion.editar()}" id="editarI">
 
                                                     </p:commandLink>
                                                      
