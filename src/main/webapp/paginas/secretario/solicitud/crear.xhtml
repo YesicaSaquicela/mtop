@@ -37,14 +37,14 @@
                 <h:panelGroup id="bt">
                         <div class="row">
                           <div class="col-md-4"> 
-                              <p:commandButton update="bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                              <p:commandButton update="bt bt1" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
                                                title="atras" rendered="#{controladorSolicitudReparacionMantenimiento.nombrew ne 'Solicitud' and controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
                                                onclick="PF('wizard').back();" >
 
                               </p:commandButton></div>
                           <div class="col-md-4 col-md-offset-4" >
                            <p align="right">
-                               <p:commandButton update="bt" process="@this" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
+                               <p:commandButton update="bt bt1" process="@this" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
                                                 rendered="#{controladorSolicitudReparacionMantenimiento.nombrew ne 'Final' and controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
                                              title="siguiente" onclick="PF('wizard').next();" >
 
@@ -53,7 +53,7 @@
                           </div>
                         </div>
                     </h:panelGroup>
-                    <p:wizard widgetVar="wizard" showNavBar="true"  showStepStatus="false" 
+                    <p:wizard widgetVar="wizard" showNavBar="false"  showStepStatus="false" 
                                 rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" 
                                 flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}"
                                 backLabel="Atrás" nextLabel="Siguiente">
@@ -1342,7 +1342,7 @@
                                                           
                                                                 <p:commandButton update=":form:dialog1"   oncomplete="PF('documentDialog1').show()"
                                                                               icon="ui-icon-pencil" 
-                                                                              title="Editar2222"
+                                                                              title="Editar"
                                                                               process="@this">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                                 </p:commandButton> 
@@ -1429,6 +1429,7 @@
                                      </p:dialog>
 
                             </div>
+                 
                             <p:panel id="pp2">
 
                                 <div class="admin-actions " align="center"> 
@@ -1465,7 +1466,25 @@
                             </p:panel>
                         </p:panel>
 
+                  <h:panelGroup id="bt1">
+                        <div class="row">
+                          <div class="col-md-4"> 
+                              <p:commandButton update="bt1 bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                                               title="atras" rendered="#{controladorSolicitudReparacionMantenimiento.nombrew ne 'Solicitud' and controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
+                                               onclick="PF('wizard').back();" >
 
+                              </p:commandButton></div>
+                          <div class="col-md-4 col-md-offset-4" >
+                           <p align="right">
+                               <p:commandButton update="bt1 bt" process="@this" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
+                                                rendered="#{controladorSolicitudReparacionMantenimiento.nombrew ne 'Final' and controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
+                                             title="siguiente" onclick="PF('wizard').next();" >
+
+                             </p:commandButton>
+                           </p>
+                          </div>
+                        </div>
+                    </h:panelGroup>
 
 
                     </div>
