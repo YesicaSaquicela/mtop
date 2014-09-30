@@ -119,6 +119,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String mensaje = "";
     private String nombrew = "";
     private String aprobada;
+    private String mensajeR;
+    
 
     public String getMensajeR() {
         return mensajeR;
