@@ -118,6 +118,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
     private String mensaje = "";
     private String nombrew = "";
+    private String aprobada;
 
     public String getNombrew() {
         System.out.println("obtien en get" + nombrew);
