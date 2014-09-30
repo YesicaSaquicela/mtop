@@ -120,7 +120,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String nombrew = "";
     private String aprobada;
     private String mensajeR;
-    
 
     public String getMensajeR() {
         return mensajeR;
@@ -1481,13 +1480,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public String onFlowProcess(FlowEvent event) {
         nombrew = "soli";
+        System.out.println("\n\n\n\n\n\nENRTRO FLOWPROCESS" + event.getNewStep());
+        System.out.println("Entro getOld" + event.getOldStep());
         System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
         System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
         System.out.println("maximo" + getMaximo());
 
         if (skip) {
             skip = false;   //reset in case user goes back  
-nombrew = "Final";
+            nombrew = "Final";
             return "confirm";
         } else {
             nombrew = "soli";
@@ -2017,8 +2018,9 @@ nombrew = "Final";
             listaItemsRequisicion = null;
 
         } else {
-            mensajeR="Error al guardar: La lista de items de la requisición se encuentra vacia.";
- 
+            mensajeR="La lista de items de la requisición se encuentra vacia ";
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
+            FacesContext.getCurrentInstance().addMessage("", msg);
 
         }
 

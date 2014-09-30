@@ -35,17 +35,18 @@
                     </div><br/>
                     #{controladorRequisicion.nombrew}
                     #{controladorRequisicion.nombrew ne 'Requisicion'}
-                    <h:panelGroup id="bt"> 
-                    <div class="row">
+                               
+                        <h:panelGroup id="bt">
+                        <div class="row">
                           <div class="col-md-4"> 
-                              <p:commandButton id="at" update="bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                              <p:commandButton update="bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
                                                title="atras" rendered="#{controladorRequisicion.nombrew ne 'Requisicion' and controladorRequisicion.vista eq 'requisicion'}" 
                                                onclick="PF('wizard').back();" >
 
                               </p:commandButton></div>
                           <div class="col-md-4 col-md-offset-4" >
                            <p align="right">
-                               <p:commandButton id="sg" update="bt" process="@this" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
+                               <p:commandButton update="bt" process="@this bt" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
                                                 rendered="#{controladorRequisicion.nombrew ne 'Final' and controladorRequisicion.vista eq 'requisicion'}" 
                                              title="siguiente" onclick="PF('wizard').next();" >
 
@@ -53,7 +54,7 @@
                            </p>
                           </div>
                         </div>
-                        </h:panelGroup>
+                    </h:panelGroup>
 
                     <p:wizard showStepStatus="false" widgetVar="wizard" showNavBar="true" 
                               rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
@@ -1372,12 +1373,10 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>Items de Solicitud</center></div>
 
-                            <p:panel>
-
-
+                            <p:panel id="ps">
 
                                 <p:outputLabel value="Elemento a Revisar"/><br></br>
-                                <p:inputTextarea id="elementoRevisar"  
+                                <p:inputTextarea id="elementoRevisar"  required="true"
                                                  requiredMessage="Elemento a Revisar requerido, necesita un valor"
                                                  styleClass="form-control" 
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}">
@@ -1390,7 +1389,7 @@
                                 </h:panelGroup><br/>
 
                                 <p:outputLabel value="Descripción de Falla"/><br></br>
-                                <p:inputTextarea id="descripcionFalla"   styleClass="form-control" 
+                                <p:inputTextarea id="descripcionFalla" required="true"   styleClass="form-control" 
                                                  requiredMessage="Descripción de la Falla, necesita un valor"
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
                                                  >
@@ -1402,15 +1401,16 @@
                                     <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla" /></span><br></br>
                                 </h:panelGroup><br/><br/>
                                 <div class="admin-actions">
-                                    <p:commandLink update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1 :form:save134 :form:save1  :form:pp2" 
-                                                   process="@form" value="Crear Item" title="Seleccionar" type="button"
-                                                   styleClass="btn  btn-success" immediate="false">
+                                    <p:commandLink update="@form" ajax="true"
+                                                   process=":form:ps" value="Crear Item" title="Seleccionar" type="button"
+                                                   styleClass="btn  btn-success" >
                                         <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" 
                                                                      target="#{controladorSolicitudReparacionMantenimiento.itemsr}" />
 
                                     </p:commandLink>
 
                                 </div><br/>
+                                 <h:outputLabel id="msgs"  value="#{controladorSolicitudReparacionMantenimiento.mensajeS}" style="color:red" /> 
                                 <p:messages  id="mensaje1" showDetail="true" closable="true" />
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
@@ -1465,7 +1465,7 @@
                             <div class="admin-actions " align="center"> 
 
                                 <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" id="save1" value="Guardar" 
-                                                 update="@form :form:basicDT12" 
+                                                 update="@form :form:basicDT12 :form:msgs" 
                                                  process="@form" icon="ui-icon-disk" 
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
