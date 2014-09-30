@@ -35,17 +35,18 @@
                     </div><br/>
                     #{controladorRequisicion.nombrew}
                     #{controladorRequisicion.nombrew ne 'Requisicion'}
-                    <h:panelGroup id="bt"> 
-                    <div class="row">
+                               
+                        <h:panelGroup id="bt">
+                        <div class="row">
                           <div class="col-md-4"> 
-                              <p:commandButton id="at" update="bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                              <p:commandButton update="bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
                                                title="atras" rendered="#{controladorRequisicion.nombrew ne 'Requisicion' and controladorRequisicion.vista eq 'requisicion'}" 
                                                onclick="PF('wizard').back();" >
 
                               </p:commandButton></div>
                           <div class="col-md-4 col-md-offset-4" >
                            <p align="right">
-                               <p:commandButton id="sg" update="bt" process="@this" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
+                               <p:commandButton update="bt" process="@this bt" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
                                                 rendered="#{controladorRequisicion.nombrew ne 'Final' and controladorRequisicion.vista eq 'requisicion'}" 
                                              title="siguiente" onclick="PF('wizard').next();" >
 
@@ -53,7 +54,7 @@
                            </p>
                           </div>
                         </div>
-                        </h:panelGroup>
+                    </h:panelGroup>
 
                     <p:wizard showStepStatus="false" widgetVar="wizard" showNavBar="true" 
                               rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
@@ -1173,7 +1174,7 @@
                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.idPersona != ''}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Elija el personal que solicita<ocp:message forId="personal" /></span><br></br><br></br> 
                                 </h:panelGroup>
-                                  <p:outputLabel value="Recibe"/><br></br>
+                                  <p:outputLabel value="Recibe*"/><br></br>
                                     <p:inputText maxlength="50" id="recibe" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"
                                                      required="true" requiredMessage="Recibe requerido, necesita un valor">
                                         <p:ajax event="blur" update="obs1" partialSubmit="true"  />
@@ -1373,9 +1374,7 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading"><center>Items de Solicitud</center></div>
 
-                            <p:panel>
-
-
+                            <p:panel id="ps">
 
                                 <p:outputLabel value="Elemento a Revisar"/><br></br>
                                 <p:inputTextarea id="elementoRevisar"  
@@ -1391,7 +1390,7 @@
                                 </h:panelGroup><br/>
 
                                 <p:outputLabel value="Descripción de Falla"/><br></br>
-                                <p:inputTextarea id="descripcionFalla"   styleClass="form-control" 
+                                <p:inputTextarea id="descripcionFalla"  styleClass="form-control" 
                                                  requiredMessage="Descripción de la Falla, necesita un valor"
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
                                                  >
@@ -1403,15 +1402,16 @@
                                     <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla" /></span><br></br>
                                 </h:panelGroup><br/><br/>
                                 <div class="admin-actions">
-                                    <p:commandLink update=":form:listaa :form:elementoRevisar :form:descripcionFalla :form:mensaje1 :form:save134 :form:save1  :form:pp2" 
-                                                   process="@form" value="Crear Item" title="Seleccionar" type="button"
-                                                   styleClass="btn  btn-success" immediate="false">
+                                    <p:commandLink update="@form" ajax="true"
+                                                   process=":form:ps" value="Crear Item" title="Seleccionar" type="button"
+                                                   styleClass="btn  btn-success" >
                                         <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" 
                                                                      target="#{controladorSolicitudReparacionMantenimiento.itemsr}" />
 
                                     </p:commandLink>
 
                                 </div><br/>
+                                 <h:outputLabel id="msgs"  value="#{controladorSolicitudReparacionMantenimiento.mensajeS}" style="color:red" /> 
                                 <p:messages  id="mensaje1" showDetail="true" closable="true" />
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
@@ -1432,13 +1432,15 @@
                                                     <p:column headerText="Descripción de la falla" sortBy="#{la.descripcionFalla}">
                                                         <h:outputText value="#{la.descripcionFalla}"></h:outputText>
                                                     </p:column>
-                                                    <p:column headerText="Opciones" style="width: 10%"> 
-                                                        <p:commandButton icon="ui-icon-pencil" update=":form:listaa :form:elementoRevisar :form:descripcionFalla" 
-                                                                         actionListener="#{controladorSolicitudReparacionMantenimiento.editarItemS(la)}" 
-                                                                         title="Editar" process="@form" style="margin-top:10px;">
-                                                            <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
-                                                        </p:commandButton>
-                                                        #{" "}
+                                                    <p:column headerText="Editar" style="width: 10%"> 
+                                                                             <center>                                
+                                                        <p:commandButton icon="ui-icon-pencil" update=":form:dialog1" title="Editar"
+                                                                                 style="margin-top:10px;" process="@this"  oncomplete="PF('documentDialog1').show()">
+                                                                    <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.it}" />
+                                                                </p:commandButton> </center> 
+                                                      </p:column>
+                                                        <p:column headerText="Dar de baja" style="width: 10%"> 
+                                                            <center> 
                                                         <p:commandButton update=":form:listaa " icon="ui-icon-trash"
                                                                          actionListener="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
                                                                          title="Dar de Bajar" process="@form" style="margin-top:10px;">
@@ -1450,6 +1452,7 @@
                                                             <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                             <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                                                         </p:confirmDialog>
+                                                                </center> 
                                                     </p:column>
                                                 </p:dataTable></tbody></div></div></div>
                                 <br></br>
@@ -1459,14 +1462,55 @@
 
 
                             </p:panel>
+   <p:dialog position="500,400" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar Items de Solcitud de Reparación y Mantenimiento" 
+                                              widgetVar="documentDialog1" modal="true" resizable="false">
+                                       <h:panelGroup id="documentPanelc" style="width:100%">
+                       
+                                       <p:outputLabel value="Elemento a Revisar"/><br></br>
+                                       <h:panelGroup id="er1">
+                                        <p:inputTextarea id="elementoRevisar1" required="true"
+                                                         styleClass="form-control" 
+                                                         value="#{controladorSolicitudReparacionMantenimiento.it.descripcionElementoRevisar}"
+                                                         requiredMessage="Elemento a revisar requerido, necesita un valor">
+                                            <f:ajax execute="elementoRevisar1" update="er1"/>
+                                        </p:inputTextarea>
+                                        
+                                          <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar1" /></span><br></br><br/>
+                                        </h:panelGroup>
 
+                                        <p:outputLabel value="Descripción de Falla"/><br></br>
+                                       <h:panelGroup id="df2">
+                                        <p:inputTextarea id="descripcionFalla1" required="true"
+                                                         styleClass="form-control" 
+                                                         value="#{controladorSolicitudReparacionMantenimiento.it.descripcionFalla}"
+                                                         requiredMessage="Descripción de falla requerido, necesita un valor" >
+                                            <f:ajax execute="descripcionFalla1" update="df2"/>
+                                        </p:inputTextarea>
+                                           <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla1" /></span><br></br><br/>
+                                        </h:panelGroup>
+                                        <br/>
+                            <center>
+                                                <div class="admin-actions">
+                                                    <p:commandLink   update=":form:documentPanelc :form:listaa :form:elementoRevisar1 :form:descripcionFalla1" process=":form:documentPanelc"
+                                                                    styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  oncomplete="PF('documentDialog1').hide()" 
+                                                                    action="#{controladorSolicitudReparacionMantenimiento.editar()}">
+
+                                                    </p:commandLink>
+                                                     
+                                                </div>
+                                </center><br/>
+
+                                                <br/>
+                                                </h:panelGroup>
+                                           
+                                     </p:dialog>
                         </div>
                         <p:panel id="pp2">
 
                             <div class="admin-actions " align="center"> 
 
                                 <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" id="save1" value="Guardar" 
-                                                 update="@form :form:basicDT12" 
+                                                 update="@form :form:basicDT12 :form:msgs" 
                                                  process="@form" icon="ui-icon-disk" 
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"

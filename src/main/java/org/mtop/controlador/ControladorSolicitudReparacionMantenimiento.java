@@ -96,7 +96,17 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
     private List<Requisicion> listaRequisicion2 = new ArrayList<Requisicion>();
     private String nombrew = "";
+    private String mensajeS;
 
+    public String getMensajeS() {
+        return mensajeS;
+    }
+
+    public void setMensajeS(String mensajeS) {
+        this.mensajeS = mensajeS;
+    }
+    
+       
     public String getNombrew() {
         System.out.println("obtien en get" + nombrew);
         return nombrew;
@@ -1041,6 +1051,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         if (this.listaItemsSolicitud.isEmpty()) {
             System.out.println("estas vaciaaaaaa");
+            mensajeS="debe ingresar al menos un item a la solicitud";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
 
         } else {
