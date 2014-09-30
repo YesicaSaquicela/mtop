@@ -331,7 +331,7 @@
                                                                         <f:ajax execute="str" render="panel1"/>
                                                                     </p:inputText>
                                                                     
-                                                                    <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                    <pe:inputNumber id="str1" value="#{a.value}"  style="width: 100%"
                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
                                                                                     decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                                        <f:ajax execute="str1" render="panel1"/>
@@ -348,12 +348,12 @@
                                                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                         <f:ajax execute="str3" event="change" render="panel1"/>
                                                                     </p:selectOneMenu>
-                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                    <p:inputTextarea id="str4" value="#{a.value}"  style="width: 100%; height: 100px;" required="#{a.property.required}" label="#{a.property.label}"  
                                                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                                        <f:ajax execute="str4" render="panel1"/>
                                                                     </p:inputTextarea>  
 
-                                                                    <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                    <pe:inputNumber id="str5" value="#{a.value}"  style="width: 100%"
                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
                                                                                     decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
                                                                         <f:ajax execute="str5" render="panel1"/>
@@ -408,7 +408,7 @@
                                                     <f:ajax execute="str" render="otro"/>
                                                 </p:inputText>
 
-                                                <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                <pe:inputNumber id="str1" value="#{a.value}" style="width: 100%"
                                                                 required="#{a.property.required}" label="#{a.property.label}" 
                                                                 decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                    <f:ajax execute="str1" render="otro"/>
@@ -425,12 +425,12 @@
                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                     <f:ajax execute="str3" event="change" render="otro"/>
                                                 </p:selectOneMenu>
-                                                <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                <p:inputTextarea id="str4" value="#{a.value}" style="width: 100%; height: 100px;" required="#{a.property.required}" label="#{a.property.label}" 
                                                                  rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                    <f:ajax execute="str4" render="otro"/>
                                                 </p:inputTextarea>  
 
-                                                <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                <pe:inputNumber id="str5" value="#{a.value}"  style="width: 100%"
                                                                 required="#{a.property.required}" label="#{a.property.label}" 
                                                                 decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
                                                     <f:ajax execute="str5" render="otro"/>

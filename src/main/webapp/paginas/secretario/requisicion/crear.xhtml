@@ -648,7 +648,8 @@
                                             <p:outputLabel value="Cantidad*"/><br></br>
                                             <p:spinner  id="cantidad" required="true"  
                                                         requiredMessage="Cantidad requerida, necesita un valor"
-                                                        value="#{controladorRequisicion.cir.instance.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
+                                                        value="#{controladorRequisicion.cir.instance.cantidad}" min="1" 
+                                                        max="#{controladorRequisicion.maximo}" >
                                                 <f:ajax execute="cantidad" render="@all"/>
                                             </p:spinner >   <br/>
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.cantidad != '0'}"
