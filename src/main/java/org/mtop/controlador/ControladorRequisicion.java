@@ -2017,9 +2017,8 @@ nombrew = "Final";
             listaItemsRequisicion = null;
 
         } else {
-            mensajeR="La lista de items de la requisición se encuentra vacia ";
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
+            mensajeR="Error al guardar: La lista de items de la requisición se encuentra vacia.";
+ 
 
         }
 
