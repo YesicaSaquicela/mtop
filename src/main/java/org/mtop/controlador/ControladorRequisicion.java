@@ -119,7 +119,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String mensaje = "";
     private String nombrew = "";
     private String aprobada;
+    private String mensajeR;
+    
 
+    public String getMensajeR() {
+        return mensajeR;
+    }
+
+    public void setMensajeR(String mensajeR) {
+        this.mensajeR = mensajeR;
+    }
+    
     public String getNombrew() {
         System.out.println("obtien en get" + nombrew);
         return nombrew;
@@ -159,38 +169,72 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setIt(ItemRequisicion it) {
+        System.out.println("llego a it>>");
         System.out.println("fijando iten de descripcion>>>>>>"+it.getDescripcion());
         System.out.println("cantidad>>>>>>"+it.getCantidad());
         System.out.println("unidad>>>>>>"+it.getUnidadMedida());
+         if (it.getProducto() != null) {
+                        pro = it.getProducto();
+                        int j = 0;
+                        for (Producto p : listaProductos) {
+                            if (p.getId().equals(pro.getId())) {
+                                j++;
+                                break;
+                            }
+                        }
+                        pro.setCantidad(it.getCantidad() + listaProductos.get(j).getCantidad());
+                        listaProductos.set(j, pro);
+
+                        pro = listaProductos.get(j);
+                        maximo = pro.getCantidad();
+                        System.out.println("maximo en set it"+maximo);
+        }
         this.it = it;
     }
 
-    public void fijarIt(ItemRequisicion itemn)
-    {
-         System.out.println("llega itemnuevo>>>>>>"+itemn);
-          System.out.println("fijando iten de descripcion en metodo fijar>>>>>>"+itemn.getDescripcion());
-        System.out.println("metodo cantidad>>>>>>"+itemn.getCantidad());
-        System.out.println("u metodo nidad>>>>>>"+itemn.getUnidadMedida());
-        it=itemn;
-    }
+//    public void fijarIt(ItemRequisicion itemn)
+//    {
+//         System.out.println("llega itemnuevo>>>>>>"+itemn);
+//          System.out.println("fijando iten de descripcion en metodo fijar>>>>>>"+itemn.getDescripcion());
+//        System.out.println("metodo cantidad>>>>>>"+itemn.getCantidad());
+//        System.out.println("u metodo nidad>>>>>>"+itemn.getUnidadMedida());
+//        it=itemn;
+//    }
     
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
         System.out.println("entor a editar con tamanio" + it.getDescripcion());
+        if (pro != null) {
+
+                if (!pro.getCodigo().equals("")) {
+
+                    Producto p = new Producto();
+                    List<Producto> lp = new ArrayList<Producto>();
+                    for (Producto prod : listaProductos) {
+                        System.out.println("prod+prod" + prod);
+                        if (!prod.getId().equals(pro.getId())) {
+                            System.out.println("a aniadir" + prod);
+                            lp.add(prod);
+
+                        }
+                    }
+                    listaProductos = lp;
+                    pro.setCantidad(pro.getCantidad() - it.getCantidad());
+                    
+                    System.out.println("pro en editar " + pro);  
+                    listaProductos.add(pro);
+                }
+            }
         it = new ItemRequisicion();
+        
         it.setCantidad(0);
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
+        
+        
     }
     
-    public void editar2(){
-    listaItemsRequisicion.add(cir.getInstance());
-    it = new ItemRequisicion();
-        it.setCantidad(0);
-        it.setUnidadMedida(" ");
-        it.setDescripcion(" ");
-    }
-    
+ 
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
@@ -1973,8 +2017,8 @@ nombrew = "Final";
             listaItemsRequisicion = null;
 
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
+            mensajeR="Error al guardar: La lista de items de la requisición se encuentra vacia.";
+ 
 
         }
 
