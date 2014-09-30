@@ -1243,10 +1243,10 @@
 
                                     <p:outputLabel value="Cantidad*"/><br></br>
                                     <h:panelGroup id="cant">
-                                    <p:spinner  id="cantidad" required="true"
+                                    <p:spinner  id="cantidad" 
                                                 value="#{controladorRequisicion.cir.instance.cantidad}"
                                                 min="1" max="#{controladorRequisicion.maximo}"  >
-                                        <f:ajax execute="cantidad" render="cant"/>
+                                        <f:ajax event="blur" execute="cantidad" render="cant"/>
                                     </p:spinner><br/>
                                     
                                      <h:graphicImage value="#{resource['visto.png']}" 
@@ -1300,7 +1300,7 @@
 
                                                 <tbody>
                                                     #{controladorRequisicion.it}
-                                                    
+                                                    <h:outputLabel id="msgr"  value="#{controladorRequisicion.mensajeR}" style="color:red" /> 
                                                     <p:messages id="mensaje2" showDetail="true" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="5"                         
@@ -1338,25 +1338,8 @@
                                                         </p:column>
                                                         <p:column headerText="Editar" style="width: 10%"> 
 
-                                                            <!--p:commandButton process="@form" update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel"
-                                                                             icon="ui-icon-pencil" title="Editar"
-                                                                             actionListener="# {controladorRequisicion.editarItem(item2)}" >
-                                                                <f:setPropertyActionListener value="# {item2}" target="# {controladorRequisicion.cir.instance}" />
-                                                            </p:commandButton-->
-                                                            <center>
-                                                            <p:commandButton update="@form"   oncomplete="PF('documentDialog1').show()"
-                                                                              icon="ui-icon-pencil" id="editar"
-                                                                              title="Editar"
-                                                                              process="@this" actionListener="#{controladorRequisicion.fijarIt(item2)}">
-                                                                <!--f:setPropertyActionListener value="# {item2}" target="# {controladorRequisicion.it}" /-->
-                                                             </p:commandButton> 
-                                                            
-                                                            <p:commandButton update=":form:dialog1"   oncomplete="PF('documentDialog1').show()"
-                                                                              icon="ui-icon-pencil" 
-                                                                              title="Editar1111111" process="@this"
-                                                                              action="#{controladorRequisicion.fijarIt(item2)}">
-                                                                <!--f:setPropertyActionListener value="# {item2}" target="# {controladorRequisicion.it}" /-->
-                                                                </p:commandButton> 
+                                                               <center>
+                                                          
                                                                 <p:commandButton update=":form:dialog1"   oncomplete="PF('documentDialog1').show()"
                                                                               icon="ui-icon-pencil" 
                                                                               title="Editar2222"
@@ -1395,8 +1378,9 @@
                                                     <p:outputLabel value="Cantidad*"/><br></br>
                                                     <p:spinner  id="cantidad1" required="true"  
                                                                 requiredMessage="Cantidad, necesita un valor"
-                                                                value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
-                                                       <f:ajax execute="cantidad1" render="documentPanelc2"/>
+                                                                value="#{controladorRequisicion.it.cantidad}" min="1"
+                                                                max="#{controladorRequisicion.maximo}" >
+                                                       <f:ajax event="blur" execute="cantidad1" render="documentPanelc2"/>
                                                     </p:spinner >   <br/>
                                                   
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
@@ -1416,13 +1400,13 @@
                                                 <br/>
                                                 <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip1"/></span>
                                          </h:panelGroup>
-                                                <br></br><br/>
+                                                <br></br>
 
                                          <h:panelGroup id="documentPane3" style="width:100%">
                                                 <p:outputLabel value="Unidad de Medida*"/><br></br>
                                                 <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida , necesita un valor"
                                                              value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
-                                                      <f:ajax execute="unidadMedida1" render="documentPane3"/>
+                                                      <f:ajax event="blur" execute="unidadMedida1" render="documentPane3"/>
                                                 </p:inputText>
                                                 <br/>
                                                 <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
@@ -1431,7 +1415,7 @@
                                                 <br></br><br/>
 
                                                 <div class="admin-actions" align="center">
-                                                    <p:commandLink  update=":form:listai :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" 
+                                                    <p:commandLink  update=":form:listai :form:pi :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" process="@this" 
                                                                     styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  oncomplete="PF('documentDialog1').hide()" 
                                                                     action="#{controladorRequisicion.editar()}">
 
@@ -1451,7 +1435,7 @@
 
                                     <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() eq 0}"
                                                      id="save1" value="Guardar" 
-                                                     update="@form :form:basicDT2" 
+                                                     update="@form :form:basicDT2 :form:msgr" 
                                                      process="@form" icon="ui-icon-disk" 
                                                      styleClass="btn  btn-success" 
                                                      actionListener="#{controladorRequisicion.guardarRequisicion()}"
