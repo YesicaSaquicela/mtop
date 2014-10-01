@@ -121,11 +121,12 @@
                                                     <p:column headerText="Editar" style="width: 5%"> 
                                                         <center>
                                                             <p:button id="selectButton" styleClass="btn  btn-success"
-                                                                      outcome="crear"
+                                                                      outcome="crear" 
                                                                       icon="ui-icon-pencil" title="Editar">  
                                                                 <f:param name="vehiculoId" value="#{v.id}"></f:param>
+                                                           
                                                             </p:button> 
-
+                                                        
                                                         </center>
 
                                                     </p:column>
@@ -148,7 +149,12 @@
                                     </div>
                                 </div>
                             
+<p:ajaxStatus onstart="ajaxStatusDialog.show();" onsuccess="ajaxStatusDialog.hide();"/> 
+                        <p:dialog modal="true" header="Por favor espere, Cargando..."  widgetVar="ajaxStatusDialog"  resizable="false"  draggable="false" closable="false" > 
 
+                            <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                        
+                        </p:dialog>
                         </p:panel>
                     </div>
                 </div>
