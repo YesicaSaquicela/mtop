@@ -1477,6 +1477,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
         System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
         System.out.println("maximo" + getMaximo());
+        System.out.println("antessss "+event.getOldStep());
+        System.out.println("nuevoooo "+event.getNewStep());
 
         if (skip) {
             skip = false;   //reset in case user goes back  
@@ -1484,7 +1486,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             return "confirm";
         } else {
             nombrew = "soli";
-             if (event.getNewStep().equals("confirm") && event.getOldStep().equals("solicitud")) {
+             if (event.getNewStep().equals("confirm") && (event.getOldStep().equals("solicitud")|| event.getOldStep().equals("items"))) {
                 nombrew = "Final";//reset in case user goes back
                 System.out.println("nombre wizard111skip dfdsfds" + nombrew);
             }
@@ -1624,7 +1626,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public Vehiculo getVehiculo() {
-                nombrew = "soli";
         vehiculo = getInstance().getVehiculo();
         System.out.println("jsjsjsjsjsjsjjsjsjsjjsjsjjs" + vehiculo);
         System.out.println("getinstancevehiculo" + getInstance().getVehiculo());
@@ -1632,7 +1633,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-                nombrew = "soli";
+            
         List<SolicitudReparacionMantenimiento> lss = new ArrayList<SolicitudReparacionMantenimiento>();
         if (vehiculo != null) {
             System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());

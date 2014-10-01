@@ -649,7 +649,7 @@
                                                         requiredMessage="Cantidad requerida, necesita un valor"
                                                         value="#{controladorRequisicion.cir.instance.cantidad}" min="1" 
                                                         max="#{controladorRequisicion.maximo}" >
-                                                <f:ajax execute="cantidad" render="@all"/>
+                                                <f:ajax event="blur"  render="unm"/>
                                             </p:spinner >   <br/>
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.cantidad != '0'}"
                                                             styleClass="validation-status" />
@@ -664,7 +664,7 @@
                                                          value="#{controladorRequisicion.cir.instance.descripcion}"
                                                          requiredMessage="Descipción requerida, necesita un valor"
                                                          readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                            <f:ajax execute="descrip" render="@all"/>
+                                            <f:ajax  render="unm5"/>
                                         </p:inputTextarea>
                                         <br/>
 
@@ -681,7 +681,7 @@
                                         <p:inputText style="width: 100%" id="unidadMedida" maxlength="50"
                                                      requiredMessage="Unidad de medida requerida, necesita un valor"
                                                      value="#{controladorRequisicion.cir.instance.unidadMedida}">
-                                            <f:ajax execute="unidadMedida" render="unm6"/>
+                                            <f:ajax  render="unm6"/>
                                         </p:inputText>
                                         <br/>
 
@@ -794,7 +794,7 @@
                                                     <p:spinner  id="cantidad1" required="true"  
                                                                 requiredMessage="Cantidad, necesita un valor"
                                                                 value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
-                                                       <f:ajax execute="cantidad1" render="documentPanel1"/>
+                                                        <f:ajax event="blur" execute="cantidad1" render="documentPanel1"/>
                                                     </p:spinner >   <br/>
                                                     
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
