@@ -119,16 +119,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String mensaje = "";
     private String nombrew = "";
     private String aprobada;
-    private String mensajeR;
-
-    public String getMensajeR() {
-        return mensajeR;
-    }
-
-    public void setMensajeR(String mensajeR) {
-        this.mensajeR = mensajeR;
-    }
-
+ 
+    
     public String getNombrew() {
         System.out.println("obtien en get" + nombrew);
         return nombrew;
@@ -2015,7 +2007,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             listaItemsRequisicion = null;
 
         } else {
-            mensajeR = "La lista de items de la requisición se encuentra vacia ";
+           
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: ", " La lista de items de la requisición se encuentra vacia ");
             FacesContext.getCurrentInstance().addMessage("", msg);
 

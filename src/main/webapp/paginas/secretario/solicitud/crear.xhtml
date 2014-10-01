@@ -80,7 +80,7 @@
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Fecha actual de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
-                                    <h:outputLabel value="Solicitado por:"/> <br></br>
+                                    <h:outputLabel value="Solicitado por*"/> <br></br>
                                    <h:panelGroup id="srq" layout="block" class="clearfix">
                                     <p:selectOneMenu id="personal" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersona}"
                                                      effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
@@ -97,7 +97,7 @@
                                     </h:panelGroup>
                                     <br></br>
        
-                                      <p:outputLabel value="Recibe"/><br></br>
+                                      <p:outputLabel value="Recibe*"/><br></br>
                                     <h:panelGroup id="obs1">
                                       <p:inputText maxlength="50" id="recibe" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"
                                                      required="true" requiredMessage="Recibe requerido, necesita un valor">
@@ -108,7 +108,7 @@
                                         <span class="help-inline text-muted">Ingrese el nombre de la persona quien recibe la solicitud<ocp:message forId="recibe" /></span>
                                     </h:panelGroup><br/><br/>
                                     
-                                    <p:outputLabel value="Observación"/><br></br>
+                                    <p:outputLabel value="Observación*"/><br></br>
                                     <h:panelGroup id="obs">
                                     <p:inputTextarea maxlength="150" id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
                                                      required="true" requiredMessage="Observación requerida, necesita un valor">
@@ -450,7 +450,7 @@
 
                                          <h:panelGroup id="er">
 
-                                        <p:outputLabel value="Elemento a Revisar"/><br></br>
+                                        <p:outputLabel value="Elemento a Revisar*"/><br></br>
                                         <p:inputTextarea id="elementoRevisar" 
                                                          styleClass="form-control" 
                                                          value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}"
@@ -462,7 +462,7 @@
                                             <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar" /></span><br></br><br/>
                                         </h:panelGroup>
                                         <h:panelGroup id="df">
-                                        <p:outputLabel value="Descripción de Falla"/><br></br>
+                                        <p:outputLabel value="Descripción de Falla*"/><br></br>
                                         <p:inputTextarea id="descripcionFalla"   styleClass="form-control" 
                                                          value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
                                                          requiredMessage="Descripción de falla requerido, necesita un valor" >
@@ -888,11 +888,11 @@
                                                  readonly="true" styleClass="form-control"
                                                  required="true" 
                                                  rendered="true" />
-                                    <br></br> 
+                                    
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Fecha de creación<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
 
-                                    <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
+                                    <h:outputLabel value="Partida de Contabilidad*"/> <br></br> 
                                     <h:panelGroup id="pc">
                                     <p:selectOneMenu id="partida"  value="#{controladorRequisicion.idPartidaC}" effect="fade" style="width: 100%"
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains" 
@@ -906,7 +906,7 @@
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.idPartidaC != ''}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
                                     </h:panelGroup>
-                                    <h:outputLabel value="Tipo de requisición "/> <br></br> 
+                                    <h:outputLabel value="Tipo de requisición*"/> <br></br> 
                                    <h:panelGroup id="tr">
                                     <p:selectOneMenu style="width: 100%" id="tipoRequisicion" filter="true" filterMatchMode="contains" 
                                                      value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
@@ -921,7 +921,7 @@
                                         <span class="help-inline text-muted">Elija el tipo de requisición<ocp:message forId="tipoRequisicion" /></span><br></br><br></br> 
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="Requerido por:"/> <br></br>
+                                    <h:outputLabel value="Requerido por*"/> <br></br>
                                      <h:panelGroup id="rpp">
                                     <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonal}" effect="fade"
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains" 
@@ -936,7 +936,7 @@
                                         <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal1" /></span><br></br><br></br> 
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="Tipo de adquisición "/><br></br>
+                                    <h:outputLabel value="Tipo de adquisición*"/><br></br>
                                    <h:panelGroup id="ta">
                                     <p:selectOneMenu style="width: 100%" id="adquisicion" label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
                                                       requiredMessage="Tipo de adquisición requerida, necesita un valor"
@@ -955,7 +955,7 @@
                                         <span class="help-inline text-muted">Elija el tipo de adquisición<ocp:message forId="adquisicion" /></span><br></br><br></br>
                                     </h:panelGroup>
 
-                                    <p:outputLabel value="Observación"/><br></br>
+                                    <p:outputLabel value="Observación*"/><br></br>
                                      <h:panelGroup id="ob1">
                                     <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control"
                                                      requiredMessage="Observación requerida, necesita un valor"
@@ -1311,8 +1311,7 @@
                                     <br></br><br/>
                                     <div class="admin-actions">
 
-                                       
-                                           <p:commandLink  update=":form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel :form:save2 :form:save1  :form:pp2 :form:mensaje2" 
+                                           <p:commandLink  update=":form:pi :form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel :form:save2 :form:save1 :form:pp2 :form:mensaje2" 
                                                             styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  process=":form:pi"
                                                             actionListener="#{controladorRequisicion.agregarItem()}">
 
@@ -1324,8 +1323,8 @@
 
 
                                                 <tbody>
-                                                    #{controladorRequisicion.it}
-                                                    <h:outputLabel id="msgr"  value="#{controladorRequisicion.mensajeR}" style="color:red" /> 
+                                                    
+                                                    
                                                     <p:messages id="mensaje2" showDetail="true" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="5"                         
@@ -1344,7 +1343,7 @@
                                                         <p:column headerText="Descripción" sortBy="#{item2.descripcion}">
                                                             <h:outputText value="#{item2.descripcion}"></h:outputText>
                                                         </p:column>
-  <p:column rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}"  
+                                                        <p:column rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}"  
                                                                   headerText="Valor Unitario" sortBy="#{item2.producto.costo}" 
                                                                   footerText="TOTAL = "   >
                                                             <div class="input" align="right">
@@ -1393,7 +1392,7 @@
 
 
                                 </p:panel>
-                                 <p:dialog position="500,400" width="400" height="auto" id="dialog1"  header="Document Detail" 
+                                 <p:dialog position="500,400" width="400" height="auto" id="dialog1"  header="Editar Items de Requisición" 
                                              showEffect="fade" widgetVar="documentDialog1" modal="true" resizable="false">
                                        <h:panelGroup id="documentPanelc" style="width:100%">
                                         <h:panelGroup id="documentPanelc2" style="width:100%">
@@ -1402,9 +1401,10 @@
                                                <div class="input">
                                                     <p:outputLabel value="Cantidad*"/><br></br>
                                                     <p:spinner  id="cantidad1" required="true"  
-                                                                requiredMessage="Cantidad, necesita un valor"
+                                                                requiredMessage="Cantidad requerida, necesita un valor"
                                                                 value="#{controladorRequisicion.it.cantidad}" min="1"
                                                                 max="#{controladorRequisicion.maximo}" >
+                                                     <f:ajax execute="cantidad1" render="documentPanelc2"/>
                                                     </p:spinner >   <br/>
                                                   
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
@@ -1417,21 +1417,21 @@
                                                 <p:outputLabel value="Descripción*"/><br></br>
                                                 <p:inputTextarea id="descrip1" style="width: 100%"
                                                                  value="#{controladorRequisicion.it.descripcion}"
-                                                                 required="true" requiredMessage="Descipción , necesita un valor"
+                                                                 required="true" requiredMessage="Descipción requerida, necesita un valor"
                                                                  readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                                    
+                                                    <f:ajax execute="descrip1" render="documentPaneld2"/>
                                                 </p:inputTextarea>
                                                 <br/>
                                                 <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip1"/></span>
                                          </h:panelGroup>
-                                                <br></br>
+                                                <br></br> <br></br>
 
                                          <h:panelGroup id="documentPane3" style="width:100%">
                                                 <p:outputLabel value="Unidad de Medida*"/><br></br>
                                                 <p:inputText id="unidadMedida1" style="width: 100%" required="true"
-                                                             requiredMessage="Unidad de medida , necesita un valor"
+                                                             requiredMessage="Unidad de medida requerida, necesita un valor"
                                                              value="#{controladorRequisicion.it.unidadMedida}" >
-                                                     
+                                                     <f:ajax execute="unidadMedida1" render="documentPane3"/>
                                                 </p:inputText>
                                                 <br/>
                                                 <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
@@ -1461,7 +1461,7 @@
 
                                     <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() eq 0}"
                                                      id="save1" value="Guardar" 
-                                                     update="@form :form:basicDT2 :form:msgr" 
+                                                     update="@form :form:basicDT2" 
                                                      process="@form" icon="ui-icon-disk" 
                                                      styleClass="btn  btn-success" 
                                                      actionListener="#{controladorRequisicion.guardarRequisicion()}"
