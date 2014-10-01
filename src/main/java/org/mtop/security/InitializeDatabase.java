@@ -830,7 +830,7 @@ public class InitializeDatabase {
             //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
             // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
-            attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "viNumSolicitud", String.class.getName(), "8000", false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 1L));
+            attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "viNumSolicitud", String.class.getName(), "8000", false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 50L));
 
 //Agregar atributos
             structure.setProperties(attributes);

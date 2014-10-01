@@ -370,6 +370,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         }
 
         if (ban == true) {
+            s="";
 //            System.out.println("entro a bandera true con it" + it);
 //
 //            if (it != null) {
@@ -576,6 +577,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         listaKilometraje.add(125000);
         listaKilometraje.add(130000);
         listaKilometraje.add(135000);
+        listaKilometraje.add(140000);
         listaKilometraje.add(145000);
         listaKilometraje.add(150000);
 
@@ -597,7 +599,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         actividadPlanM = new ActividadPlanMantenimiento();
         listak();
-        actividadPlanM.setActividad("");
+        
 
         for (PlanMantenimiento planMantenimiento : listaPlanMantenimiento) {
             if (planMantenimiento.getActivado()) {

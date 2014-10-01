@@ -1088,7 +1088,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getNumSolicitud() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento " + getInstance().getNumSolicitud() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");

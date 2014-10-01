@@ -1448,8 +1448,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         tipos.add("Distribuidor de asfalto");
         tipos.add("Distribuidor de aridos");
         tipos.add("Escoba mecánica");
-        tipos.add("Escoba mecánica");
-        tipos.add("Escoba mecánica");
         tipos.add("Excabadora");
         tipos.add("Fresadora");
         tipos.add("Gabarra");

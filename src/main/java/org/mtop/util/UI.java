@@ -77,21 +77,21 @@ public class UI {
     }
 
     public List<Property> getProperties(BussinesEntity entity) {
-        System.out.println("entro a get properties con "+entity); 
-       if (entity == null) {
+        System.out.println("entro a get properties con " + entity);
+        if (entity == null) {
             return new ArrayList<Property>();
         }
-        System.out.println("tipo"+entity.getType());
+        System.out.println("tipo" + entity.getType());
         if (entity.getType() == null) {
             return new ArrayList<Property>();
         }
 
         Query q = em.createNamedQuery("Property.findByBussinesEntityTypeName");
-        System.out.println("qqq"+q);
+        System.out.println("qqq" + q);
         q.setParameter("bussinesEntityTypeName", entity.getType().getName());
-         System.out.println("collections"+q);
+        System.out.println("collections" + q);
         Collections.sort(q.getResultList());
-        System.out.println("collections"+q.getResultList());
+        System.out.println("collections" + q.getResultList());
         return q.getResultList();
     }
 
@@ -122,7 +122,6 @@ public class UI {
 //
 //        return columns;
 //    }   
-  
     public BussinesEntity makeBussinessEntity(Group g) {
         Date now = Calendar.getInstance().getTime();
         //TODO internacionalizar cadenas estáticas
@@ -148,8 +147,7 @@ public class UI {
 
     }
 
-    
-     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
+    public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();
         SelectItem[] items = new SelectItem[size];
         int i = 0;
@@ -162,7 +160,6 @@ public class UI {
         }
         return items;
     }
-    
 
     public List<SelectItem> getValuesAsSelectItem(List<Object> values) {
         List<SelectItem> items = new ArrayList<SelectItem>();
@@ -186,14 +183,14 @@ public class UI {
     }
 
     private Object cleanValue(Object value) {
-        
+
         if (value == null) {
             return null;
         }
-        if (!(value instanceof String)){
+        if (!(value instanceof String)) {
             return value;
         }
-        
+
         String cleaned = value.toString();
 
         if (cleaned.contains("*")) {
@@ -201,27 +198,56 @@ public class UI {
         }
 
         return cleaned;
-    }      
-     public boolean tieneValores(BussinesEntity entity) {
-        List<Property> lp= getProperties(entity);
+    }
+
+    public boolean tieneValores(BussinesEntity entity) {
+        List<Property> lp = getProperties(entity);
 //        boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
-        List<BussinesEntityAttribute> lbea=new ArrayList<BussinesEntityAttribute>();
-         System.out.println("propertien"+lp);
-         for (Property property : lp) {
-             lbea=entity.findBussinesEntityAttribute(property.getName());
-             break;
-         }
-          System.out.println("busines entity atribute"+lbea);
-        if(lbea.isEmpty()){
-            System.out.println("retorna falso");
-            return false;
-        }else{
-            System.out.println("retorn true");
-            return true;
+        List<BussinesEntityAttribute> lbea = new ArrayList<BussinesEntityAttribute>();
+
+        System.out.println("label " + entity.getType().getLabel());
+
+        Boolean ban = true;
+        if (entity.getType().getLabel().equals("Requisición") || entity.getType().getLabel().equals("Solicitud Reparación y Mantenimiento")) {
+            if (entity.getType().getLabel().equals("Requisición")) {
+                if (lp.size() <= 2) {
+                    System.out.println("retorna menor que uno req ");
+                    ban = false;
+                } else {
+                    System.out.println("retorna mayo que uno req");
+                    return true;
+                }
+            } else {
+                if (lp.size() <= 1) {
+                    System.out.println("retorna menor que uno sol");
+                    ban = false;
+                } else {
+                    System.out.println("retorna mayo que uno sol");
+                    return true;
+                }
+            }
+
+        } else {
+            for (Property property : lp) {
+                lbea = entity.findBussinesEntityAttribute(property.getName());
+                break;
+            }
         }
-        
+        if (ban) {
+
+            System.out.println("busines entity atribute" + lbea);
+            if (lbea.isEmpty()) {
+                System.out.println("retorna falso");
+                return false;
+            } else {
+                System.out.println("retorn true");
+                return true;
+            }
+        } else {
+            return ban;
+        }
+
     }
-    //public List<String>
-        
+
 }
