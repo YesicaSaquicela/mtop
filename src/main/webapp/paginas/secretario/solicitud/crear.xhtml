@@ -122,6 +122,13 @@
                                     </h:panelGroup><br/>
                                 </p:panel>
                             </div>  
+                            <p:panel id="panel7" rendered="#{ui.tieneValores(controladorSolicitudReparacionMantenimiento.instance)}">    
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">
+                               DATOS ADICIONALES
+                            </div>
+
                             <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
                                 <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.instance)}" var="p" >
                                     <div  class="panel panel-primary">
@@ -216,7 +223,7 @@
                                        closable="false"  titleStyleClass="clearfix"  >
 
                                     <ui:repeat  value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento')}" var="a" varStatus="status"> 
-
+                                        
                                         <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
                                         </p:outputLabel>
 
@@ -224,7 +231,7 @@
 
                                             <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
                                                          required="#{a.property.required}" label="#{a.property.label}" 
-                                                         rendered="#{a.property.type eq 'java.lang.String'}">
+                                                         rendered="#{a.property.type eq 'java.lang.String' and a.property.name ne 'viNumSolicitud'}">
 
                                                 <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                             </p:inputText>
@@ -268,9 +275,10 @@
                                                 <f:selectItem itemLabel="false" itemValue="false" />
                                             </p:selectOneButton>
                                             <br/>
-                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null and a.property.name ne 'viNumSolicitud'}"
                                                             styleClass="validation-status" />
-                                            <span class="help-inline text-muted">#{a.property.helpInline} 
+                                            <span  class="help-inline text-muted"> 
+                                                <h:outputText value="#{a.property.helpInline}" rendered="#{a.property.name ne 'viNumSolicitud'}" /> 
                                                 <ocp:message forId="str" />
                                                 <ocp:message forId="str1" />
                                                 <ocp:message forId="str2" />
@@ -278,7 +286,7 @@
                                                 <ocp:message forId="str4" />
                                                 <ocp:message forId="str5" />
 
-                                            </span><br/><br/>
+                                            </span><br /><br/>
                                         </div>
 
 
@@ -287,7 +295,9 @@
                                 </p:tab>
                                 <br/>
 
-                            </p:tabView><br></br>
+                            </p:tabView>
+                        </div>
+                            </p:panel><br></br>
                         </p:tab>
                         <p:tab id="address" title="Asignar Vehículo">
                             <div class="panel panel-primary">
@@ -445,7 +455,7 @@
                                                          styleClass="form-control" 
                                                          value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}"
                                                          requiredMessage="Elemento a revisar requerido, necesita un valor">
-                                             <f:ajax execute="elementoRevisar" render="er"/>
+                                              <p:ajax event="blur" update="er" partialSubmit="true"  /> 
                                         </p:inputTextarea>
                                        
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar.trim() != ''}" styleClass="validation-status" />
@@ -456,7 +466,7 @@
                                         <p:inputTextarea id="descripcionFalla"   styleClass="form-control" 
                                                          value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
                                                          requiredMessage="Descripción de falla requerido, necesita un valor" >
-                                                <f:ajax execute="descripcionFalla" render="df"/>
+                                                <p:ajax event="blur" update="df" partialSubmit="true"  /> 
                                         </p:inputTextarea>
                                         
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla.trim() != ''}" styleClass="validation-status" />
@@ -960,8 +970,13 @@
 
                                 </p:panel>
                             </div>
+                                    <p:panel id="panel71" rendered="#{ui.tieneValores(controladorRequisicion.instance)}">    
 
-                            <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">
+                               DATOS ADICIONALES
+                            </div>
+                          <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
                                 <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
                                     <div  class="panel panel-primary">
                                         <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
@@ -1034,6 +1049,7 @@
                                                                         <ocp:message forId="str5" />
 
                                                                     </span><br/><br/>
+
                                                                 </div>
 
                                                             </h:panelGroup>  
@@ -1056,7 +1072,9 @@
                                         <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" 
                                                        class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
                                         </p:outputLabel>
+
                                         <div class="input">
+
                                             <p:inputText id="str"  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
                                                          rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}">
 
@@ -1114,6 +1132,9 @@
                                                 <ocp:message forId="str5" />
 
                                             </span><br/><br/>
+
+
+
                                         </div>
 
 
@@ -1122,7 +1143,11 @@
                                 </p:tab>
                                 <br/>
 
-                            </p:tabView><br></br>
+                            </p:tabView>
+                        </div>
+                                    </p:panel>
+                                        
+                                        <br></br>
 
                             <div class="admin-actions">
 
@@ -1246,7 +1271,7 @@
                                     <p:spinner  id="cantidad" 
                                                 value="#{controladorRequisicion.cir.instance.cantidad}"
                                                 min="1" max="#{controladorRequisicion.maximo}"  >
-                                        <f:ajax event="blur" execute="cantidad" render="cant"/>
+                                        <p:ajax event="blur" update="cant" partialSubmit="true"  />
                                     </p:spinner><br/>
                                     
                                      <h:graphicImage value="#{resource['visto.png']}" 
@@ -1261,7 +1286,7 @@
                                     <p:inputTextarea id="descrip" value="#{controladorRequisicion.cir.instance.descripcion}" 
                                                  style="width: 100%" maxlength="150"
                                                  requiredMessage="Descripción requerida, necesita un valor" readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                         <f:ajax execute="descrip" render="desp"/>
+                                          <p:ajax event="blur" update="desp" partialSubmit="true"  />
                                     </p:inputTextarea>
                                     <br/>
                                   

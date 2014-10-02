@@ -65,7 +65,7 @@
                                       <f:ajax execute="actividad" render="ak"/>
                                 </p:inputTextarea>
 
-                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.actividadPlanM.actividad != ''}"
+                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.actividadPlanM.actividad != null}"
                                                 styleClass="validation-status" />
                                 <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
                             </h:panelGroup>

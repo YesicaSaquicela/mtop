@@ -81,6 +81,11 @@
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20">
 
+                                                <p:column style="width:16px">
+                                                        <p:rowToggler>
+                                                            
+                                                        </p:rowToggler>
+                                                    </p:column>
                                                 <p:column headerText="Registro del Vehículo" sortBy="#{estado.vehiculo.numRegistro}">
                                                     <h:outputText value="#{estado.vehiculo.numRegistro}"></h:outputText>
                                                 </p:column>
@@ -101,6 +106,54 @@
                                                     </p:button>
                                                         </center>
                                                 </p:column>
+                                                <p:rowExpansion>
+                                   <div class="panel panel-primary">
+                                                        <div class="panel-heading"  align="center">Datos del Vehículo</div>
+                                                  <p:panel id="v" >
+                                                            <div class="container-fluid" align="center">
+                                                                <div class="row-fluid"  >
+                                                                    <div class="col-md-4"> 
+                                                                        <h:outputLabel class="navbar-text" value=" Registro:"/>
+                                                                        <h:outputText class="navbar-text" value="#{estado.vehiculo.numRegistro}"/>
+
+                                                                    </div>
+                      
+                                                                    <div class="col-md-4"> 
+                                                                        <h:outputLabel class="navbar-text" value=" Placa: "/>
+                                                                        <h:outputText class="navbar-text" value="#{estado.vehiculo.placa}"/>
+
+                                                                    </div>
+
+                                                                    <div class="col-md-4"> 
+                                                                        <h:outputLabel class="navbar-text" value=" Tipo:"/>
+                                                                        <h:outputText class="navbar-text" value="#{estado.vehiculo.tipo}"/>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="row-fluid"  >
+                                                                    <div class="col-md-4"> 
+                                                                        <h:outputLabel class="navbar-text" value=" Modelo:"/>
+                                                                        <h:outputText class="navbar-text" value="#{estado.vehiculo.modelo}"/>
+                                                                    </div>
+                                                                    <div class="col-md-4"> 
+
+                                                                        <h:outputLabel class="navbar-text" value=" Color:"/>
+                                                                        <h:outputText class="navbar-text" value="#{estado.vehiculo.color}"/>
+
+                                                                    </div>
+              
+
+                                                                    <div class="col-md-4"> 
+
+                                                                        <h:outputLabel class="navbar-text" value=" Marca:"/>
+                                                                        <h:outputText class="navbar-text" value="#{estado.vehiculo.marca}"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </p:panel>
+                                                    </div>
+
+                                                    </p:rowExpansion>
                                             </p:dataTable>
                                         </tbody></div></div></div> <br/>
 

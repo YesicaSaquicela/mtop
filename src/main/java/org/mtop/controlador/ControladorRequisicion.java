@@ -137,7 +137,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String getAprobada() {
-          System.out.println("obteniendo :" + aprobada);
+        System.out.println("obteniendo :" + aprobada);
 
         return aprobada;
     }
@@ -146,8 +146,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("fijando :" + aprobada);
         this.aprobada = aprobada;
     }
-
-   
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
@@ -161,24 +159,24 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setIt(ItemRequisicion it) {
         System.out.println("llego a it>>");
-        System.out.println("fijando iten de descripcion>>>>>>"+it.getDescripcion());
-        System.out.println("cantidad>>>>>>"+it.getCantidad());
-        System.out.println("unidad>>>>>>"+it.getUnidadMedida());
-         if (it.getProducto() != null) {
-                        pro = it.getProducto();
-                        int j = 0;
-                        for (Producto p : listaProductos) {
-                            if (p.getId().equals(pro.getId())) {
-                                j++;
-                                break;
-                            }
-                        }
-                        pro.setCantidad(it.getCantidad() + listaProductos.get(j).getCantidad());
-                        listaProductos.set(j, pro);
+        System.out.println("fijando iten de descripcion>>>>>>" + it.getDescripcion());
+        System.out.println("cantidad>>>>>>" + it.getCantidad());
+        System.out.println("unidad>>>>>>" + it.getUnidadMedida());
+        if (it.getProducto() != null) {
+            pro = it.getProducto();
+            int j = 0;
+            for (Producto p : listaProductos) {
+                if (p.getId().equals(pro.getId())) {
+                    j++;
+                    break;
+                }
+            }
+            pro.setCantidad(it.getCantidad() + listaProductos.get(j).getCantidad());
+            listaProductos.set(j, pro);
 
-                        pro = listaProductos.get(j);
-                        maximo = pro.getCantidad();
-                        System.out.println("maximo en set it"+maximo);
+            pro = listaProductos.get(j);
+            maximo = pro.getCantidad();
+            System.out.println("maximo en set it" + maximo);
         }
         this.it = it;
     }
@@ -191,41 +189,37 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //        System.out.println("u metodo nidad>>>>>>"+itemn.getUnidadMedida());
 //        it=itemn;
 //    }
-    
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
         System.out.println("entor a editar con tamanio" + it.getDescripcion());
         if (pro != null) {
 
-                if (!pro.getCodigo().equals("")) {
+            if (!pro.getCodigo().equals("")) {
 
-                    Producto p = new Producto();
-                    List<Producto> lp = new ArrayList<Producto>();
-                    for (Producto prod : listaProductos) {
-                        System.out.println("prod+prod" + prod);
-                        if (!prod.getId().equals(pro.getId())) {
-                            System.out.println("a aniadir" + prod);
-                            lp.add(prod);
+                Producto p = new Producto();
+                List<Producto> lp = new ArrayList<Producto>();
+                for (Producto prod : listaProductos) {
+                    System.out.println("prod+prod" + prod);
+                    if (!prod.getId().equals(pro.getId())) {
+                        System.out.println("a aniadir" + prod);
+                        lp.add(prod);
 
-                        }
                     }
-                    listaProductos = lp;
-                    pro.setCantidad(pro.getCantidad() - it.getCantidad());
-                    
-                    System.out.println("pro en editar " + pro);  
-                    listaProductos.add(pro);
                 }
+                listaProductos = lp;
+                pro.setCantidad(pro.getCantidad() - it.getCantidad());
+
+                System.out.println("pro en editar " + pro);
+                listaProductos.add(pro);
             }
+        }
         it = new ItemRequisicion();
-        
+
         it.setCantidad(0);
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
-        
-        
+
     }
-    
- 
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
@@ -437,8 +431,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.tipo = tipo;
     }
 
-   
-
     public String getValorTipo() {
         return valorTipo;
     }
@@ -454,7 +446,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     lr.add(r);
                 }
             }
-            for (Requisicion requis: listaRequisicionAprobada) {
+            for (Requisicion requis : listaRequisicionAprobada) {
                 if (requis.getTipoRequisicion().equals("Requisición de Reparación")) {
                     lr1.add(requis);
                 }
@@ -481,9 +473,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (!lr1.isEmpty()) {
             listaRequisicionAprobada = lr1;
         }
-        System.out.println("devuenlve en aprobadad"+lr);
-         System.out.println("devuenlve en no aprobadad"+lr1);
-                
+        System.out.println("devuenlve en aprobadad" + lr);
+        System.out.println("devuenlve en no aprobadad" + lr1);
+
     }
 
     public void fijarvalorTipo(String s) {
@@ -492,7 +484,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         setValorTipo(s);
     }
 
-  
     public List<Requisicion> getListaRequisicionAprobada() {
         return listaRequisicionAprobada;
     }
@@ -699,7 +690,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             }
         }
-       
+
         System.out.println("lista de items" + listaItemsRequisicion);
         return listaItemsRequisicion;
     }
@@ -1477,8 +1468,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
         System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
         System.out.println("maximo" + getMaximo());
-        System.out.println("antessss "+event.getOldStep());
-        System.out.println("nuevoooo "+event.getNewStep());
+        System.out.println("antessss " + event.getOldStep());
+        System.out.println("nuevoooo " + event.getNewStep());
 
         if (skip) {
             skip = false;   //reset in case user goes back  
@@ -1486,7 +1477,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             return "confirm";
         } else {
             nombrew = "soli";
-             if (event.getNewStep().equals("confirm") && (event.getOldStep().equals("solicitud")|| event.getOldStep().equals("items"))) {
+            if (event.getNewStep().equals("confirm") && (event.getOldStep().equals("solicitud") || event.getOldStep().equals("items"))) {
                 nombrew = "Final";//reset in case user goes back
                 System.out.println("nombre wizard111skip dfdsfds" + nombrew);
             }
@@ -1494,10 +1485,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (getInstance().getId() != null) {
                 this.cir.setListaItemsRequisicion(getInstance().getListaItems());
             }
-            
+
             if (event.getNewStep().equals("req") && event.getOldStep().equals("address")) {
                 nombrew = "Requisicion";
-                 System.out.println("nombre en re adres"+nombrew); 
+                System.out.println("nombre en re adres" + nombrew);
                 return event.getNewStep();
             } else {
                 if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
@@ -1633,7 +1624,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-            
+
         List<SolicitudReparacionMantenimiento> lss = new ArrayList<SolicitudReparacionMantenimiento>();
         if (vehiculo != null) {
             System.out.println("entra a fijar un vehiculo con su iddd" + vehiculo.getId());
@@ -1802,7 +1793,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         it.setCantidad(0);
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
-         nombrew = "Requisicion";
+        nombrew = "Requisicion";
         System.out.println("nombre en el init" + nombrew);
 
     }
@@ -1997,13 +1988,20 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             List<Requisicion> lr = findAll(Requisicion.class);
             System.out.println("antes del for>>>>>>>");
             for (Requisicion req : lr) {
-
-                if (req.isEstado() && req.getSolicitudReparacionId() == null && req.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
-                    System.out.println("entro a comparar>>>>>");
+                System.out.println("req " + req + "estado req" + req.isEstado());
+                if (req.isEstado() && req.getSolicitudReparacionId()== null) {
+                    if (getInstance().getVehiculo() != null && req.getVehiculo()!=null) {
+                        System.out.println("s1111 "+req.getVehiculo().getId());
+                        System.out.println("s222 "+ getInstance().getVehiculo().getId() );
+                        if ((req.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
+                             System.out.println("entro a comparar>>>>>");
                     System.out.println("listatesssa" + listaRequisicion);
-                    listaRequisicion.add(req);
+                           listaRequisicion.add(req);
+                        }
+                    }
 
                 }
+
 
             }
             listaRequisicion.add(getInstance());

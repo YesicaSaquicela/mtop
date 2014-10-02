@@ -7,6 +7,7 @@
 package org.mtop.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class ActividadPlanMantenimiento extends BussinesEntity implements Serial
     @NotNull
     private Integer kilometraje;
     @NotNull
+    @Column(length = 1000)
     private String actividad;
     @ManyToOne
     @JoinColumn(name = "planMId")

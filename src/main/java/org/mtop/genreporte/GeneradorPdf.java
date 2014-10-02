@@ -333,7 +333,7 @@ public class GeneradorPdf {
 //        ByteArrayInputStream bais1 = new ByteArrayInputStream(buf1.toString()
 //                .getBytes());
         System.out.println("\n\n\n\n tipos seleccionados" + tipoSeleccionados.length);
-        System.out.println("\n\n\n\n meses seleccionados" + mesyanioSeleccionados.length);
+        System.out.println("\n\n\n\n " + mesyanioSeleccionados.length);
         OutputStream os = new FileOutputStream("controlEstado.pdf");
 
         try {
@@ -423,6 +423,8 @@ public class GeneradorPdf {
 
                         }
                     }
+                    System.out.println("valor de la bandera+"+bandera);
+                            
                     if (bandera == true) {
                         System.out.println("ssssssss" + s);
 //                    document.newPage();
@@ -504,7 +506,7 @@ public class GeneradorPdf {
                         cell1 = new PdfPCell(new Phrase("EQUIPO: " + s, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
                         cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
                         table1.addCell(cell1);
-                        cell1 = new PdfPCell(new Phrase("MES111: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
+                        cell1 = new PdfPCell(new Phrase("MES: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
                         cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
                         table1.addCell(cell1);
                         cell1 = new PdfPCell(new Phrase(mes, FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD)));
@@ -932,6 +934,14 @@ public class GeneradorPdf {
                         }
                         document.add(table1);
                         document.newPage();
+                        document.setPageCount(1);
+                    }else{
+//                        parrafo = new Paragraph(
+//                                " \n \n \n  No existe registro del tipo "+s+" y mes seleccionado "+mesSeleccionado); 
+//
+//                        parrafo.setAlignment(Element.ALIGN_CENTER);
+//
+//                        document.add(parrafo);
                     }
 
                 }
@@ -1021,80 +1031,89 @@ public class GeneradorPdf {
 //            cell.setBorderColor(BaseColor.RED);
 //            table.addCell(cell);
 //            document.add(table);
-            document.newPage();
-            for (i = 0; i < 10; i++) {
+//            document.newPage();
+//            for (i = 0; i < 10; i++) {
+//
+//                parrafo = new Paragraph(
+//                        "Esta es una de las paginas de prueba de nuestro programa, es la pagina numero 0x" + String.format("%03X", i + 42
+//                        ));
+//
+//                parrafo.setAlignment(Element.ALIGN_CENTER);
+//
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//                document.add(parrafo);
+//
+//                if (document.isInline()) {
+//                    parrafo = new Paragraph(
+//                            "nuevo documento" + String.format("%03X", i + 42
+//                            ));
+//
+//                }
+//                document.newPage();
+//            }
+            System.out.println("pagina"+document.getPageNumber());
+            
+            if(document.getPageNumber()==0){
+                 parrafo = new Paragraph(
+                                " \n \n \n  No existe registro del tipo  y mes seleccionado "); 
 
-                parrafo = new Paragraph(
-                        "Esta es una de las paginas de prueba de nuestro programa, es la pagina numero 0x" + String.format("%03X", i + 42
-                        ));
+                        parrafo.setAlignment(Element.ALIGN_CENTER);
 
-                parrafo.setAlignment(Element.ALIGN_CENTER);
-
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-                document.add(parrafo);
-
-                if (document.isInline()) {
-                    parrafo = new Paragraph(
-                            "nuevo documento" + String.format("%03X", i + 42
-                            ));
-
-                }
-                document.newPage();
+                        document.add(parrafo);
             }
-
             document.close();
 
             float b = writer.getVerticalPosition(true);
@@ -1122,7 +1141,7 @@ public class GeneradorPdf {
 
             Image logo = null;
             try {
-                logo = Image.getInstance("../../../resources/mtop1.jpg");
+                logo = Image.getInstance("mtop1.jpg");
                 logo.setAlignment(Image.ALIGN_LEFT);
                 logo.scaleAbsoluteHeight(20);
                 logo.scaleAbsoluteWidth(20);
@@ -1152,8 +1171,8 @@ public class GeneradorPdf {
 
             //Pie
             ColumnText.showTextAligned(writer.getDirectContent(),
-                    Element.ALIGN_CENTER, new Phrase(String.format("page %d otra cosa", writer.getPageNumber())),
-                    (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
+                    Element.ALIGN_RIGHT, new Phrase(String.format("página %d ", writer.getPageNumber())),
+                    (rect.getLeft()-150 + rect.getRight()) / 2, rect.getBottom() + 18, 0);
 
         }
 
