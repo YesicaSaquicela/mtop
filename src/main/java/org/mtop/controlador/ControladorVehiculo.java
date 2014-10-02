@@ -655,11 +655,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         if (lvs.isEmpty()) {
            
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: No se ha encontrado", palabrab);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -819,7 +819,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public boolean vizualizarActividades(Long vehiculoid) {
         System.out.println("antes de los view");
-        // viewCarsCustomized();
+        
         System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
         Vehiculo v = findById(Vehiculo.class, vehiculoid);
         Integer proKilometraje = obtenerKilometraje(v.getKilometraje());
@@ -853,7 +853,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     return true;
 
                 }
-                break;
             }
         }
 
@@ -1129,7 +1128,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setMensaje(String mensaje) {
         System.out.println("fijando mensaje");
         if (!mensaje.equals("")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Vehículo" + getInstance().getId() + " con éxito", "");
             FacesContext.getCurrentInstance().addMessage("Informaciónn", msg);
         }
         this.mensaje = mensaje;
@@ -1273,7 +1272,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         try {
             if (getInstance().isPersistent()) {
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizo Vehiculo" + getInstance().getId() + " con éxito");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizó Vehículo" + getInstance().getId() + " con éxito");
 //                RequestContext.getCurrentInstance().showMessageInDialog(msg);
              //   msjm = "false" + getInstance().getNumRegistro();
             }
@@ -1336,7 +1335,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
         try {
             save(getInstance());
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Vehiculo" + getInstance().getId() + " con éxito", " ");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Vehículo" + getInstance().getId() + " con éxito", " ");
             FacesContext.getCurrentInstance().addMessage("", msg);
 
         } catch (Exception e) {
@@ -1360,7 +1359,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 //        cestado.getInstance().setEstado(false);
 //        crearEstadoUbicacion();
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La vehículo seleccionado ha sido dada de baja ", "exitosamente"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El vehículo seleccionado ha sido dada de baja ", "exitosamente"));
         return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 

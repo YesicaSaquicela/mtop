@@ -27,38 +27,58 @@
     </ui:define>
     <ui:define name="content">
 
-        <h:form id="form">
-            <h3 ><center>ACTIVIDADES POR KILOMETRAJE</center></h3>
+        <h:form id="form" target="_blank">
+
             <div role="main">
                 <div class="container-content" style="margin: 2em 10em 6em 10em; " align="left">
+                    <div align="center">
+                        <p:panelGrid  id="imp"  style="margin-top:20px" columns="2" >
 
-                    <p:panel id="infoP" header="Actividades" style="margin-top: -5px;">                    
-                        <div class="container-fluid">   
-                            <div class="row-fluid" >
-                                <div style="margin-left: -1%; float: left" class="span7">
-                                    <mtop:vista id="kilometraje" name="kilometraje" type="text" label="Kilometraje" value="#{controladorVehiculo.prokilometraje}" /> 
-                                    <mtop:vista id="actividades" name="actividades" type="textarea" label="Actividades" value="#{controladorVehiculo.actividadekilometraje}" />
+                            <f:facet   name="header" class="panel-heading" >
+                                <p:row>    #{"     "}  <p:column>     #{"     "}   </p:column> </p:row>
+                                <p:row >
+                                    <p:column>   </p:column>
+                                    <p:column width="10" rowspan="30" colspan="10"> 
 
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </p:panel>
+                                        <p:graphicImage   value="../../../../resources/mtop1.jpg" width="82" height="50" alt="mtop1" /> 
 
 
 
 
-                    <center>
-                        <h:commandLink value="Imprimir" type="link" >  
-                            <p:printer target=":form" />  
-                        </h:commandLink>
+                                    </p:column>
 
-                        &nbsp;&nbsp;
-                        <h:button value="Regresar" rendered="#{true}" outcome="/paginas/vehiculo/mantenimientoVehiculo/lista" styleClass="btn  btn-success">
+                                    <p:column colspan="20"  rowspan="40"> 
 
-                        </h:button>
-                    </center>
+                                        #{"     "}  ACTIVIDADES POR KILOMETRAJE
+
+
+
+                                    </p:column>
+
+                                </p:row>
+
+                            </f:facet>
+
+
+                            <h:outputLabel class="navbar-text" value=" kILOMETRAJE"/>
+
+                            <h:outputLabel class="navbar-text" value="ACTIVIDADES"/>
+
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.actividadplan.kilometraje}"/>
+
+                            <h:outputText class="navbar-text" value="#{controladorVehiculo.actividadplan.actividad}"/>
+
+                            <f:facet name="footer">
+                                <div class="admin-actions " align="right" >
+                                    <p:commandButton type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                        <p:printer target=":form" />  
+                                    </p:commandButton>
+                                </div> 
+                            </f:facet>
+                        </p:panelGrid>
+                    </div>
+
                 </div></div>
         </h:form>
 
