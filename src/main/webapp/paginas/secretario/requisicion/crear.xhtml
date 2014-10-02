@@ -100,7 +100,9 @@
 
                                     <h:outputLabel value="Tipo de requisición "/> <br></br> 
                                      <h:panelGroup id="tr" layout="block" class="clearfix">
-                                    <p:selectOneMenu style="width: 100%" id="tipoRequisicion" disabled="#{controladorRequisicion.instance.id ne null}"
+                                    <p:selectOneMenu style="width: 100%" id="tipoRequisicion"
+                                                     requiredMessage="Tipo de requisición requerida,necesita un valor"
+                                                     disabled="#{controladorRequisicion.instance.id ne null}"
                                                      value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
@@ -119,7 +121,7 @@
                                     <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonal}" 
                                                      effect="fade" label="requerido" filter="true" filterMatchMode="contains"
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                     requiredMessage="Se requiere eleguir una persona que solicita la requisición">  
+                                                     requiredMessage="Requerido necesita un valor">  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorRequisicion.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
                                         <p:ajax event="change" update="pr" partialSubmit="true"  />
@@ -131,7 +133,9 @@
                                     </h:panelGroup>
                                     <h:outputLabel value="Tipo de adquisición "/><br></br>
                                     <h:panelGroup id="ta" layout="block" class="clearfix">
-                                    <p:selectOneMenu style="width: 100%" id="adquisicion" disabled="#{controladorRequisicion.instance.id ne null}"
+                                    <p:selectOneMenu style="width: 100%" id="adquisicion" 
+                                                     requiredMessage="Tipo de adquisición requerido, necesita un valor"
+                                                     disabled="#{controladorRequisicion.instance.id ne null}"
                                                      label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
                                                      value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
                                         <p:ajax event="change" update="ta" partialSubmit="true" />
@@ -150,7 +154,8 @@
                                     <h:panelGroup id="obs" layout="block" class="clearfix">
                                     <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                      value="#{controladorRequisicion.instance.observaciones}"
-                                                     required="true" label="observación" >
+                                                     required="true" label="observación" 
+                                                     requiredMessage="Observación requerida, necesita un valor">
                                         <p:ajax event="blur" update="obs" partialSubmit="true"  />
                                     </p:inputTextarea>
                                     
@@ -710,7 +715,7 @@
 
 
                                                 <tbody>
-                                                     #{controladorRequisicion.it}
+                                                    
                                                     <p:messages id="mensaje2" showDetail="true" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="15"                         
@@ -792,7 +797,7 @@
                                                <div class="input">
                                                     <p:outputLabel value="Cantidad*"/><br></br>
                                                     <p:spinner  id="cantidad1" required="true"  
-                                                                requiredMessage="Cantidad, necesita un valor"
+                                                                requiredMessage="Cantidad requerida, necesita un valor"
                                                                 value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
                                                         <f:ajax event="blur" execute="cantidad1" render="documentPanel1"/>
                                                     </p:spinner >   <br/>
@@ -807,7 +812,7 @@
                                                 <p:outputLabel value="Descripción*"/><br></br>
                                                 <p:inputTextarea id="descrip1" style="width: 100%"
                                                                  value="#{controladorRequisicion.it.descripcion}"
-                                                                 required="true" requiredMessage="Descipción , necesita un valor"
+                                                                 required="true" requiredMessage="Descipción requerida, necesita un valor"
                                                                  readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                                      <f:ajax execute="descrip1" render="documentPanel2"/>
                                                 </p:inputTextarea>
@@ -821,14 +826,12 @@
 
                                          <h:panelGroup id="documentPane3" style="width:100%">
                                                 <p:outputLabel value="Unidad de Medida*"/><br></br>
-                                                <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida , necesita un valor"
+                                                <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
                                                              value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
                                                       <f:ajax execute="unidadMedida1" render="documentPane3"/>
                                                 </p:inputText>
                                                 <br/>
-
-
-                                              
+                                            
                                                 <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
 
                                                  </h:panelGroup>
@@ -913,7 +916,7 @@
                                                         <p:column headerText="Número" sortBy="#{items1.numSolicitud}">
                                                             <h:outputText value="#{items1.numSolicitud}" />
                                                         </p:column>
-                                                        <p:column headerText="Fecha de Requisición" sortBy="#{controladorRequisicion.formato(items1.fechaSolicitud)}" >
+                                                        <p:column headerText="Fecha de Requisición" sortBy="#{items1.fechaSolicitud}" >
                                                             <h:outputText value="#{controladorRequisicion.formato(items1.fechaSolicitud)}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{items1.observacion}">
@@ -925,7 +928,7 @@
                                                         </p:column>
 
 
-                                                        <p:column style="width:4%;text-align: center" headerText="Acciones" >
+                                                        <p:column style="width:4%;text-align: center" headerText="Agregar" >
 
                                                             <p:commandButton  process="@this" update="@form" title="Agregar" icon="ui-icon-check" >
                                                                 <f:setPropertyActionListener value="#{items1}" target="#{controladorRequisicion.solicitudrep}" />
@@ -1164,8 +1167,8 @@
                                     <h:outputLabel value="Solicitado por*"/> <br></br>
                                     <p:selectOneMenu id="personal" style="width:100%"  value="#{controladorSolicitudReparacionMantenimiento.idPersona}" effect="fade"
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains" 
-                                                     requiredMessage="Se requiere elegir una persona que solicite una solicitud ">  
-                                        <p:ajax event="change" update="sp" partialSubmit="true"  />
+                                                     requiredMessage="Solicitado por es requerido, necesita un valor">  
+                                        <p:ajax event="change" update="sp" partialSubmit="true" /> 
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
                                         <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->

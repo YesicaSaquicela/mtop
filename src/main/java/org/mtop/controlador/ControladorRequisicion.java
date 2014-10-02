@@ -646,11 +646,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lp.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabp.equals("Ingrese algun valor a buscar")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabp = " ";
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabp);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: No se ha encontrado", palabrabp);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -804,11 +804,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lrq.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: No se ha encontrado", palabrab);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -976,11 +976,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (lsoli.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabs.equals("Ingrese algun valor a buscar")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabs = " ";
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabs);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: No se ha encontrado", palabrabs);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -1277,7 +1277,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         if (cir.getInstance().getCantidad().equals(0) || des.equals("") || uni.equals("")) {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", "campos abligatorios, cantidad, descripción y unidad de medida"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", " Campos abligatorios, cantidad, descripción y unidad de medida"));
 
         } else {
             if (pro != null) {
@@ -1456,7 +1456,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             } else {
                 if (event.getOldStep().equals("items1") && this.listaItemsRequisicion.isEmpty()) {
 
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la lista"));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Debe ingresar al menos un item a la lista"));
 
                     return event.getOldStep();
                 } else {
@@ -1509,12 +1509,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         if (getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
 
                             if (this.vehiculo == null) {
-                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Debe escoger un vehiculo"));
                                 return event.getOldStep();
 
                             } else {
                                 if (this.vehiculo.getId() == null) {
-                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Debe escoger un vehiculo"));
                                     return event.getOldStep();
                                 } else {
                                     return event.getNewStep();
@@ -1529,7 +1529,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                         if (event.getOldStep().equals("items") && this.listaItemsRequisicion.isEmpty()) {
 
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la lista"));
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", " Debe ingresar al menos un item a la lista"));
 
                             return event.getOldStep();
                         } else {
@@ -1982,7 +1982,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 create(getInstance());
                 save(getInstance());
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Requisicion  " + getInstance().getNumRequisicion() + "  con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creó una nueva Requisición  " + getInstance().getNumRequisicion() + "  con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
 
             } catch (Exception e) {

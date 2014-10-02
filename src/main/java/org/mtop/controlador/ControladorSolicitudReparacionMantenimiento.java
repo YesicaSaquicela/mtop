@@ -246,11 +246,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         if (lrq.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabr.equals("Ingrese algun valor a buscar")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabr = " ";
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrabr);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: No se ha encontrado", palabrabr);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -599,14 +599,14 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 } else {
                     if (event.getOldStep().equals("address") && getInstance().getVehiculo() == null) {
                         System.out.println("entro al mensaje vehiculo");
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe escoger un vehiculo"));
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", " Debe escoger un vehiculo"));
 
                         return event.getOldStep();
                     } else {
 
                         if (event.getOldStep().equals("items") && this.listaItemsSolicitud.isEmpty()) {
                             System.out.println("estas vaciaaaaaa");
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Debe ingresar al menos un item a la solicitud"));
 
                             return event.getOldStep();
                         } else {
@@ -825,7 +825,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         String desfa = citemsolicitud.getInstance().getDescripcionFalla().trim();
         if (desEl.equals("") || desfa.equals("")) {
             System.out.println("\n\nENTRO A PRESENTAR MENSAJE>>>>>>>>>");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "campos abligatorios, elemento a revisar, descripción de la falla"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", " Campos abligatorios, elemento a revisar, descripción de la falla"));
 
         } else {
 
@@ -1052,7 +1052,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         if (this.listaItemsSolicitud.isEmpty()) {
             System.out.println("estas vaciaaaaaa");
             mensajeS="debe ingresar al menos un item a la solicitud";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "debe ingresar al menos un item a la solicitud"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Debe ingresar al menos un item a la solicitud"));
 
         } else {
             try {
@@ -1088,7 +1088,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Solicitud de Reparacion y Mantenimiento" + getInstance().getNumSolicitud() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creó una nueva Solicitud de Reparación y Mantenimiento" + getInstance().getNumSolicitud() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
