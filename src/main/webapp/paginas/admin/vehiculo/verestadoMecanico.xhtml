@@ -69,14 +69,14 @@
 
                         <h:outputLabel class="navbar-text" value=" Registro"/>
 
-                        <h:outputLabel class="navbar-text" value=" Tipo:"/>
+                        <h:outputLabel class="navbar-text" value=" Tipo"/>
 
-                        <h:outputLabel class="navbar-text" value=" Marca:"/>
-                        <h:outputLabel class="navbar-text" value=" Modelo:"/>
+                        <h:outputLabel class="navbar-text" value=" Marca"/>
+                        <h:outputLabel class="navbar-text" value=" Modelo"/>
                         <h:outputLabel class="navbar-text" value="Cilindraje"/>
                         <h:outputLabel class="navbar-text" value="Año"/>
-                        <h:outputLabel class="navbar-text" value=" Número de Chasis "/>
-                        <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
+                        <h:outputLabel class="navbar-text" value=" Número de Chasis"/>
+                        <h:outputLabel class="navbar-text" value=" Número de Motor"/>
 
 
                         <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
@@ -165,7 +165,7 @@
                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                    <h:outputText rendered="#{a.name =='potencia'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                    <h:outputText rendered="#{a.name =='estadoPotencia'}" class="navbar-text" value="#{a.value}" ></h:outputText>
                                 </ui:repeat>
                             </c:if>
                         </c:forEach>
@@ -238,7 +238,7 @@
                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                    <h:outputText rendered="#{a.name =='sistemaRefrigeracion'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                    <h:outputText rendered="#{a.name =='estadoSistemaRefrigeracion'}" class="navbar-text" value="#{a.value}" ></h:outputText>
                                 </ui:repeat>
                             </c:if>
                         </c:forEach>
@@ -289,7 +289,6 @@
                         </c:forEach>
                         <h:outputLabel class="navbar-text" value=" SISTEMA ELÉCTRICO "/>
                         <h:outputText class="navbar-text" value=" ESTADO "/>
-
 
 
 
