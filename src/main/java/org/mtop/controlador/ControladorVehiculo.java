@@ -830,7 +830,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         System.out.println("vehiculo iddddddd" + v.getId());
 
         actividadplan.setKilometraje(proKilometraje);
-
+        System.out.println("actividad plan:::::"+actividadplan.getKilometraje());
         if (v.getPlanM() != null) {
             PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
             List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
