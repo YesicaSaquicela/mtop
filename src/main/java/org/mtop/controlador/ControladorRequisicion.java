@@ -1991,7 +1991,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("req " + req + "estado req" + req.isEstado());
                 if (req.isEstado() && req.getSolicitudReparacionId()== null) {
                     if (getInstance().getVehiculo() != null && req.getVehiculo()!=null) {
-                        if ((req.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
+                        System.out.println("s1111 "+req.getVehiculo().getId());
+                        System.out.println("s222 "+ getInstance().getVehiculo().getId() );
+                        if ((req.getVehiculo().getId().equals(getInstance().getVehiculo().getId()))) {
                              System.out.println("entro a comparar>>>>>");
                     System.out.println("listatesssa" + listaRequisicion);
                            listaRequisicion.add(req);

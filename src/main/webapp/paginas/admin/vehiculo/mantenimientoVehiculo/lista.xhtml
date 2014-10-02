@@ -111,7 +111,7 @@
                                                     <p:column headerText="Visualizar actividades" >
                                                         <center>
                                                     
-
+                                                            #{controladorVehiculo.vizualizarActividades(v.id)}
                                                             <p:commandButton rendered="#{controladorVehiculo.vizualizarActividades(v.id) eq true}" id="visualizar12" icon="ui-icon-search" 
                                                                              process="@this" update="@form" 
                                                                              actionListener="#{controladorVehiculo.vizualizarActividades(v.id)}"  
