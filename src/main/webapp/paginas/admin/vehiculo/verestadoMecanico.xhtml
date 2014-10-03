@@ -135,13 +135,13 @@
 
 
                         </p:panelGrid>
-                        <p:panelGrid style="width:50%"  columns="8" >
+                        <!--p:panelGrid style="width:50%"  columns="8" >
                             <f:facet   name="header" class="panel-heading" >
                                 <p:row >
 
                                     <p:column colspan="20"  rowspan="40"> 
                                         <center>
-                                            #{"     "} ESTADO MECÁNICO
+                                            # {"     "} ESTADO MECÁNICO
                                         </center>
                                     </p:column>
 
@@ -162,35 +162,35 @@
 
 
                             <h:outputLabel class="navbar-text" value=" Potencia Motor "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='estadoPotencia'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='estadoPotencia'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Embrague "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Transmision'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='embrague'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Transmision'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='embrague'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
                             <h:outputLabel class="navbar-text" value=" Caja de dirección "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='cajaDireccion'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='cajaDireccion'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Cilindro principal "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Frenos'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='cilindroPrincipal'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Frenos'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='cilindroPrincipal'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
@@ -199,34 +199,34 @@
 
 
                             <h:outputLabel class="navbar-text" value=" Sistema de lubricación "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='sistemaLubricacion'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='sistemaLubricacion'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Caja de cambios "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Transmision'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='cajaCambios'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Transmision'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='cajaCambios'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Articulaciones y terminales "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='articulacionesTerminales'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='articulacionesTerminales'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Cilindros secundarios "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Frenos'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='cilindroSecundario'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Frenos'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='cilindroSecundario'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
@@ -235,55 +235,55 @@
 
 
                             <h:outputLabel class="navbar-text" value=" Sistema de refrigeración "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='estadoSistemaRefrigeracion'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='estadoSistemaRefrigeracion'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Diferenciales "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Transmision'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='diferenciales'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Transmision'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='diferenciales'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Pines, bocines y rótulas "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='pinesBocines'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='pinesBocines'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
                             <h:outputLabel class="navbar-text" value=" Forros de freno "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Frenos'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='forros'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Frenos'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='forros'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
 
                             <h:outputLabel class="navbar-text" value=" Sistema de admisión y escape "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='sistemaAdmEsc'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='sistemaAdmEsc'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" SUSPENSIÓN "/>
                             <h:outputText class="navbar-text" value=" ESTADO "/>
                             <h:outputLabel class="navbar-text" value=" Bombas de la dirección "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='bombaDireccion'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Direccion'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='bombaDireccion'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
@@ -293,28 +293,28 @@
 
 
                             <h:outputLabel class="navbar-text" value=" Sistema de combustible "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='sistemaCombustible'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="#{a.name =='sistemaCombustible'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Muelles y amortiguadores "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Suspension'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='muelles-amortiguador'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Suspension'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='muelles-amortiguador'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" OTROS "/>
                             <h:outputText class="navbar-text" value=" ESTADO "/>
                             <h:outputLabel class="navbar-text" value=" Baterías "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='SistemaElectrico'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='baterias'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='SistemaElectrico'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='baterias'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
@@ -323,85 +323,98 @@
 
 
                             <h:outputLabel class="navbar-text" value=" Soportes "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='soporte'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='soporte'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Eje delantero "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Suspension'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='ejeDelantero'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Suspension'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='ejeDelantero'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Llantas "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Neumaticos'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='llantas'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Neumaticos'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='llantas'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Arranque "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='SistemaElectrico'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='motorArranque'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='SistemaElectrico'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='motorArranque'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
 
                             <h:outputLabel class="navbar-text" value=" Instrumentos de control "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='instrumentosControl'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='instrumentosControl'}" class="navbar-text" value="#{a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
                             <h:outputLabel class="navbar-text" value=" Eje posterior "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Suspension'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='ejePosterior'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Suspension'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='ejePosterior'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
                             <h:outputLabel class="navbar-text" value=" Carroceria "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Carroceria'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='forma'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Carroceria'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='forma'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
                             <h:outputLabel class="navbar-text" value=" Alternador "/>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='SistemaElectrico'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='alterador'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                            <c:forEach items="# {ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                <c:if test="# {p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='SistemaElectrico'}"> 
+                                    <ui:repeat value="# {controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                        <h:outputText rendered="# {a.name =='alterador'}" class="navbar-text" value="# {a.value}" ></h:outputText>
                                     </ui:repeat>
                                 </c:if>
                             </c:forEach>
 
 
 
-                        </p:panelGrid>
+                        </p:panelGrid!-->
+                         <p:panelGrid  style="width:150%;text-align: center"   >
+                            <f:facet   name="header" class="panel-heading" >
+                                <p:row >
 
+                                    <p:column > 
+                                        <center>
+                                            #{"     "} ESTADO MECÁNICO
+                                        </center>
+                                    </p:column>
+
+                                </p:row>
+
+                            </f:facet>
+                              </p:panelGrid>
                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
 
                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
 
 
-                                <p:panelGrid style="width:100%" >
+                                <p:panelGrid style="width:150%" rendered="#{controladorVehiculo.tieneEstadosEstructura(p)}"  >
                                    
                                     <f:facet name="header">
                                         <p:row>
@@ -416,10 +429,10 @@
                                 </p:panelGrid>
 
                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                        
-                                    <p:panelGrid style="width:100%" rendered="#{a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}" >
+                                    <p:panelGrid style="width:150%" rendered="#{a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}" >
                                         <p:row>
                                             <p:column style="width:50%" >
-                                                <h:outputLabel class="navbar-text" value="#{a.name}"/>
+                                                <h:outputLabel class="navbar-text" value="#{a.property.label}"/>
                                             </p:column>
                                             <p:column style="width:40%">
                                                 <h:outputText class="navbar-text" value="#{a.value}" ></h:outputText>
@@ -434,6 +447,7 @@
 
                             </c:if>
                         </c:forEach>
+                        
 
                         <p:panelGrid  style="margin-top:20px">
                             <p:row>

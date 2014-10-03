@@ -1386,7 +1386,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public boolean tieneEstadosEstructura(Property propiedad) {
-        for (Property p : servgen.buscarTodos(Property.class)) {
+        System.out.println("propiedades "+propiedad.getStructure().getProperties());
+        
+        for (Property p : findAll(Property.class)) {
             if (p.getGroupName()
                     != null) {
                 if (p.getGroupName().equals(propiedad.getName())) {

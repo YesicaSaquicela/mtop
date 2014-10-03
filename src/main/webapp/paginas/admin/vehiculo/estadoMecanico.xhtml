@@ -126,7 +126,7 @@
 
 
                                                                 <p:selectOneMenu  value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                                  rendered="#{a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                                  rendered="#{a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}" >  
                                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                     <p:ajax event="change" update="@this"   />
                                                                 </p:selectOneMenu> 

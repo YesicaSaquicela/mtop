@@ -29,7 +29,7 @@
 
                     <div align="right">
                         <p:button rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" 
-                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" style="width: 110px; height: 33px"
                                   outcome="/paginas/secretario/solicitud/lista" 
                                   styleClass="btn  btn-success"/>
                         </div><br/>
@@ -832,7 +832,7 @@
 
                                 <div class="admin-actions " align="center"> 
                                     <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" styleClass="btn  btn-success" 
-                                                     action="#{controladorSolicitudReparacionMantenimiento.guardar()}" 
+                                                     action="#{controladorSolicitudReparacionMantenimiento.guardar()}"  style="width: 110px; height: 33px"
                                                      process="@this" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 
@@ -859,7 +859,7 @@
 
                         <div class="admin-actions " align="right">
                             <p:commandButton   rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion' or controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2'}" 
-                                               update="@form" process="@this" icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                               update="@form" process="@this" icon="ui-icon-arrowreturnthick-1-w" value="Regresar" style="width: 110px; height: 33px"
                                                styleClass="btn  btn-success"
                                                actionListener="#{controladorRequisicion.init()}">
                                 <f:setPropertyActionListener value="solicitud" target="#{controladorSolicitudReparacionMantenimiento.vista}"/>
@@ -1460,7 +1460,7 @@
                                 <div class="admin-actions " align="center"> 
 
                                     <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() eq 0}"
-                                                     id="save1" value="Guardar" 
+                                                     id="save1" value="Guardar"  style="width: 110px; height: 33px"
                                                      update="@form :form:basicDT2" 
                                                      process="@form" icon="ui-icon-disk" 
                                                      styleClass="btn  btn-success" 
@@ -1471,7 +1471,8 @@
 
                                     </p:commandButton>
 
-                                    <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() ne 0}" id="save2" value="Guardar" 
+                                    <p:commandButton rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'requisicion2' and controladorRequisicion.listaItemsRequisicion.size() ne 0}"
+                                                     id="save2" value="Guardar"  style="width: 110px; height: 33px"
                                                      update="@form :form:basicDT2" 
                                                      process="@form" icon="ui-icon-disk" 
                                                      styleClass="btn  btn-success" 
