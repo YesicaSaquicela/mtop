@@ -419,13 +419,14 @@ limitations under the License.
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
                 </h:panelGroup>  
+                <center>
                 <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"  
                                  action="#{bussinesEntityTypeHome.deleteBussinesEntityType()}"                                          
                                  ajax="true" process="@this"  
                                  style="margin-top:10px;">  
                 </p:commandButton>  
                 <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                 style="margin-top:10px;"/>  
+                                 style="margin-top:10px;"/>  </center>
             </h:form>
         </p:dialog> 
 
@@ -436,13 +437,14 @@ limitations under the License.
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
                 </h:panelGroup>  
+                <center>
                 <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"                                           
                                  action="#{propertyHome.deleteProperty()}"                                          
                                  ajax="true" process="@this"  
                                  style="margin-top:10px;">  
                 </p:commandButton>  
                 <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                 style="margin-top:10px;"/>  
+                                 style="margin-top:10px;"/>  </center>
             </h:form>
         </p:dialog>
         <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
@@ -464,9 +466,10 @@ limitations under the License.
                     <h:outputText value="Solamente se pueden crear como entidad a las propiedades tipo Estructura "/>
                     <br/>
                     <h:outputText value="O esta propiedad ya a sido creada como Entidad "/>  
-                </h:panelGroup>                          
+                </h:panelGroup>    
+                <center>
                 <p:commandButton icon="ui-icon-arrowreturnthick-1-w"  value="Regresar" type="button" onclick="alertDlg1.hide();"                                           
-                                 />  
+                                 /> </center> 
             </h:form>
         </p:dialog>
         <p:dialog id="dia" header="Confirmación" widgetVar="dlg1"  resizable="false" modal="true">
