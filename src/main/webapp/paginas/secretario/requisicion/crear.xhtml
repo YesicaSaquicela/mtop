@@ -354,7 +354,7 @@
                         <p:tab  id="address" title="Asignar Vehículo">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de Vehículos de Reparación y Mantenimiento</center></div>
-                                <br/>
+                            
                                 <p:panel>
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
@@ -828,10 +828,7 @@
                                                                  readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                                      <f:ajax execute="descrip1" render="documentPanel2"/>
                                                 </p:inputTextarea>
-                                         </h:panelGroup>       <br/>
-
-
-                                        </h:panelGroup>
+                                         </h:panelGroup>     <br/>
                                          <h:panelGroup id="documentPane3" style="width:100%">
                                                 <p:outputLabel value="Unidad de Medida*"/><br></br>
                                                 <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
@@ -1127,7 +1124,7 @@
                     <div align="right">
 
 
-
+                        <h:panelGroup>
 
                         <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud1' or controladorRequisicion.vista eq 'solicitud2' }"
                                          id="regresar1" value="Regresar" style="width: 110px; height: 33px"
@@ -1141,7 +1138,7 @@
                             <f:setPropertyActionListener value="#{null}" 
                                                          target="#{controladorSolicitudReparacionMantenimiento.instance}"/>
                         </p:commandLink>
-
+                            </h:panelGroup>
 
                     </div><br/>
 
@@ -1545,7 +1542,7 @@
 
                                 <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" 
                                                  id="save1" value="Guardar" 
-                                                 update="@form :form:basicDT12 :form:msgs" 
+                                                 update="@form :form:basicDT12 :form:mensaje1" 
                                                  process="@form" icon="ui-icon-disk"  style="width: 110px; height: 33px"
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
