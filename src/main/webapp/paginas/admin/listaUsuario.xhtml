@@ -110,8 +110,10 @@
 
 
                                                     <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode">
+                                                        <center>
                                                         <p:commandButton value="Si" ajax="false" update="profileDataTable" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                  </center>
                                                     </p:confirmDialog>
 
 
@@ -134,12 +136,14 @@
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="Esta seguro que quiere habilitar esta cuenta de usuario "/>  
                 </h:panelGroup>  
+                <center>
                 <p:commandButton value="Si" action="#{profileListService.inavilitarCuenta()}" 
                                  oncomplete="#{'deletedDlg.hide();'}" update=":form:profileDataTable" immediate="true" ajax="true"
                                  style="margin-top:10px;" process="@this"> 
                 </p:commandButton>  #{' '}
                 <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
                                  style="margin-top:10px;"/>  
+                </center>
 
             </h:form>
         </p:dialog> 

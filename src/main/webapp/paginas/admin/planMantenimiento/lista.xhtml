@@ -116,8 +116,10 @@
                                                     </center>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <center>
                                                         <p:commandButton value="Si" ajax="false" update=":form:visualizar" process="@form" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                   </center>
                                                     </p:confirmDialog>
                                                 </p:column>
                                             </p:dataTable>
