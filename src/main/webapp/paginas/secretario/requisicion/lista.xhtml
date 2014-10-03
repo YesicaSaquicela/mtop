@@ -140,7 +140,7 @@
                                                             <p:column headerText="Editar" style="width: 5%"> 
                                                                 <center>
 
-                                                                    <p:button id="selectButton" 
+                                                                    <p:button id="selectButton" style="width: 35px; height: 35px" 
                                                                               rendered="#{r.vehiculo.id ne null and r.id ne null}"
                                                                               outcome="crear" styleClass="btn  btn-success"
                                                                               icon="ui-icon-pencil" title="Editar">  
@@ -150,14 +150,14 @@
                                                                     </p:button>
                                                                     <p:button rendered="#{r.vehiculo.id ne null and r.id eq null}" 
                                                                               id="selectButton1" styleClass="btn  btn-success"
-                                                                              outcome="crear"
+                                                                              outcome="crear" style="width: 35px; height: 35px"
                                                                               icon="ui-icon-pencil" title="Editar">  
 
                                                                         <f:param name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
                                                                         <f:param name="vista" value="requisicion"></f:param>
                                                                     </p:button>
                                                                     <p:button rendered="#{r.vehiculo.id eq null and r.id ne null}" 
-                                                                              id="selectButton2" 
+                                                                              id="selectButton2" style="width: 35px; height: 35px"
                                                                               outcome="crear" styleClass="btn  btn-success"
                                                                               icon="ui-icon-pencil" title="Editar">  
                                                                         <f:param name="requisicionId" value="#{r.id}"></f:param>
@@ -166,7 +166,7 @@
                                                                     </p:button>
                                                                     <p:button rendered="#{r.vehiculo.id eq null and r.id eq null}" 
                                                                               id="selectButton3" styleClass="btn  btn-success"
-                                                                              outcome="crear"
+                                                                              outcome="crear" style="width: 35px; height: 35px"
                                                                               icon="ui-icon-pencil" title="Editar">  
 
 
@@ -177,22 +177,31 @@
                                                             <p:column  headerText="Dar de Baja">
                                                                 <center>
 
-                                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                                     style="width: 35px; height: 35px"
+                                                                                     styleClass="btn  btn-success"
                                                                                      action="#{controladorRequisicion.darDeBaja(r)}" 
                                                                                      title="Dar de baja" update="@form">
-                                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición  seleccionada?" icon="ui-icon-alert" />
+                                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición seleccionada?" icon="ui-icon-alert" />
                                                                     </p:commandButton></center>
-                                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                    <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                                    <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                                <p:confirmDialog global="true" showEffect="fade" widgetVar="conf" hideEffect="explode">
+                                                                    <center>
+                                                                        <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                            <p:ajax event="click" process="@form" update="@form" />
+                                                                        </h:commandLink>
+
+                                                                        #{' '}
+                                                                        <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                                    </center>
+                                                                    
                                                                 </p:confirmDialog>
 
                                                             </p:column>
                                                         </p:dataTable>
                                                     </p:tab>
                                                     <p:tab id="ts1" title="Requisiciones aprobadas" closable="false"  titleStyleClass="clearfix" >
-                                                      
-                                                        
+
+
                                                         <div class="admin-actions">
 
                                                             <h:link id="Acct2" value="Todas" title="Todos los tipo de requisiciones" 

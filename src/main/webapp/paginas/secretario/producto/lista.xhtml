@@ -100,45 +100,64 @@
                                                 <p:column headerText="Código" sortBy="#{pd.codigo}">
                                                     <h:outputText value="#{pd.codigo}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Cantidad" sortBy="#{pd.cantidad}">
-                                                    <h:outputText value="#{pd.cantidad}"></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="Descripción" sortBy="#{pd.descripcion}" style="width: 5%">
+                                                      <p:column headerText="Descripción" sortBy="#{pd.descripcion}" style="width: 5%">
                                                     <h:outputText value="#{pd.descripcion}" style="width: 5%" ></h:outputText>
                                                 </p:column>
+                                                <p:column headerText="Cantidad" sortBy="#{pd.cantidad}">
+                                                    <div class="input" align="right">
+                                                    <h:outputText value="#{pd.cantidad}"></h:outputText>
+                                                    </div>
+                                                </p:column>
+                                                <p:column headerText="Costo" sortBy="#{pd.costo}" style="width: 5%">
+                                                      <div class="input" align="right">
+                                                    <h:outputText value="#{pd.costo}" style="width: 5%" >
+                                                    <f:convertNumber  type="currency" currencySymbol="$ " />
+                                                    </h:outputText>
+                                                      </div>
+                                                </p:column>
+                                            
+                                                
                                                 <p:column headerText="Editar" style="width: 10%"> 
                                                     <center>
-                                                    <p:button id="selectButton" style="margin-top:10px;"
-                                                              outcome="crear"
-                                                              icon="ui-icon-pencil" title="Editar">  
-                                                        <f:param name="productoId" value="#{pd.id}"></f:param>
-                                                    </p:button>
-</center>
+                                                        <p:button id="selectButton" style="width: 35px; height: 35px"
+                                                                  outcome="crear"
+                                                                  icon="ui-icon-pencil" title="Editar">  
+                                                            <f:param name="productoId" value="#{pd.id}"></f:param>
+                                                        </p:button>
+                                                    </center>
                                                 </p:column>
 
                                                 <p:column headerText="Dar de baja" style="width: 10%">   
-<center>
-                                                    <p:commandButton id="elimiar2" rendered="#{controladorProducto.verificarPoducto(pd.id) eq false}" icon="ui-icon-trash" style="margin-top:10px;"
-                                                                     onclick="#{'carDialog1.show();'}" immediate="true"
-                                                                     title="Dar de baja111" update=":form-dialog1">
+                                                    <center>
+                                                        <p:commandButton id="elimiar2" style="width: 35px; height: 35px"
+                                                                         rendered="#{controladorProducto.verificarPoducto(pd.id) eq false}" 
+                                                                         icon="ui-icon-trash" process="@this"
+                                                                         oncomplete="#{'alertDlg1.show();'}" immediate="true"
+                                                                         title="Dar de baja" update=":alerts-dialog1">
 
 
-                                                    </p:commandButton>
+                                                        </p:commandButton>
 
-                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                                     action="#{controladorProducto.darDeBaja(pd.id)}" 
-                                                                     title="Desactivar" update="@form" 
-                                                                     rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
-                                                        <p:confirm header="Dar de baja" message="¿Desea Realmente dar de baja el producto?" icon="ui-icon-alert" />
+                                                        <p:commandButton id="dardebaja" style="width: 35px; height: 35px"
+                                                                         icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                                         action="#{controladorProducto.darDeBaja(pd.id)}" 
+                                                                         title="Desactivar" update="@form" 
+                                                                         rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
+                                                            <p:confirm header="Dar de baja" message="¿Desea Realmente dar de baja el producto?" icon="ui-icon-alert" />
 
-                                                    </p:commandButton>
+                                                        </p:commandButton>
 
-</center>
+                                                    </center>
 
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                    <p:confirmDialog global="true" showEffect="fade" widgetVar="conf" hideEffect="explode">
                                                         <center>
-                                                            <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                            <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+
+                                                            <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:15%"  >
+                                                                <p:ajax event="click" process="@form" update="@form" />
+                                                            </h:commandLink>
+
+                                                            #{' '}
+                                                            <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:15%"  />
                                                         </center>
                                                     </p:confirmDialog>
 
@@ -149,16 +168,16 @@
 
 
         </h:form>
-        <p:dialog id="form-dialog1" header="Mensaje" widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
-            <h:form id="v1"  >
-                <div class="container-fluid">
-                    <div class="row-fluid"  >
-                        <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                            <h:outputText value="El producto se encuentra asignado a una requisición, no se lo puede dar de baja."/>
-
-                        </h:panelGroup>
-                    </div></div>
-
+       
+         <p:dialog id="alerts-dialog1" header="Mensaje" widgetVar="alertDlg1" resizable="false" modal="true">  
+            <h:form id="form-alerts-dialog1">
+                <h:panelGroup layout="block" style="padding:5px;">  
+                     <h:outputText value="El producto se encuentra asignado a una requisición, no se lo puede dar de baja."/>
+                </h:panelGroup>    
+                <center>
+                <h:commandLink value="Regresar" type="button" onclick="#{'alertDlg1.hide();'}" 
+                                class="btn btn-success"  styleClass="ui-confirmdialog-no"  
+                                 /> </center> 
             </h:form>
         </p:dialog>
     </ui:define>

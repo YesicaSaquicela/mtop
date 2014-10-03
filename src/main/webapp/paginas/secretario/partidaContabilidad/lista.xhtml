@@ -109,35 +109,37 @@
                                                 <p:column headerText="Editar" style="width: 5%"> 
                                                     <center>
                                                         <p:button id="selectButton" styleClass="btn  btn-success"
-                                                                  outcome="crear"
+                                                                  outcome="crear" style="width: 35px; height: 35px"
                                                                   icon="ui-icon-pencil" title="Editar">  
                                                             <f:param name="partidaId" value="#{pc.id}"></f:param>
                                                         </p:button></center>
                                                 </p:column>
                                                 <p:column id="col" headerText="Activar/Desactivar Partida" style="width: 5%"> <center>
-                                                        <p:commandButton rendered="#{pc.estado eq false}" styleClass="btn  btn-success"
+                                                        <p:commandButton rendered="#{pc.estado eq false}" style="width: 35px; height: 35px"
+                                                                         styleClass="btn  btn-success"
                                                                          id="confirmacion" title="Activar Partida" icon="ui-icon-check" update="@form"
                                                                          action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" 
                                                                          >
                                   
                                                             <p:confirm header="Confirmación" message="¿Desea Realmente Activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                         </p:commandButton>
-                                                        <p:commandButton rendered="#{pc.estado eq true}" styleClass="btn  btn-success" update="@form"
+                                                        <p:commandButton rendered="#{pc.estado eq true}" style="width: 35px; height: 35px"
+                                                                         styleClass="btn  btn-success" update="@form"
                                                                          id="confirmacion1" title="Desactivar Partida" icon="ui-icon-closethick" 
                                                                          action="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" >
                                                             <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
-                                                              
-                                  
-                                                        </p:commandButton></center>
+                                                         </p:commandButton></center>
 
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                    <p:confirmDialog global="true" showEffect="fade" widgetVar="conf" hideEffect="explode">
                                                         <center>
-                                                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
-
-                                                        </p:commandButton>
-
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                  </center>
+            
+                                                            <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                <p:ajax event="click" process="@form" update="@form" />
+                                                            </h:commandLink>
+                                                              
+                                                              #{' '}
+                                                        <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                        </center>
                                                     </p:confirmDialog>
                                                 </p:column>
                                             </p:dataTable>
