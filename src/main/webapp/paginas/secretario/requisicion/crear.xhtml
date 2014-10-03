@@ -27,13 +27,12 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div align="right">
-                        <h:panelGroup>
-                       
-                        <p:commandLink rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
+                                              
+                        <p:button rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
                                   value="Regresar" style="width: 110px; height: 33px"
                                   outcome="/paginas/secretario/requisicion/lista" 
-                                  styleClass="btn  btn-success" />
-                         </h:panelGroup>
+                                  styleClass="btn btn-success" />
+                         
                     </div><br/>
                  
                                
@@ -83,12 +82,12 @@
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
 
-                                    <h:outputLabel value="Partida de Contabilidad "/> <br></br> 
+                                    <h:outputLabel value="Partida de Contabilidad*"/> <br></br> 
 
                                     <h:panelGroup id="pt" layout="block" class="clearfix">
                                         <p:selectOneMenu id="partida" style="width: 100%" value="#{controladorRequisicion.idPartidaC}" effect="fade"
                                                          converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains"
-                                                         requiredMessage="Se requiere eleguir una partida de contabilidad">  
+                                                         requiredMessage="Partida de contabilidad requerida, necesita un valor">  
                                             <f:ajax execute="partida" render="pt"/>
                                             <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                             <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
@@ -100,7 +99,7 @@
                                     </h:panelGroup>
 
 
-                                    <h:outputLabel value="Tipo de requisición "/> <br></br> 
+                                    <h:outputLabel value="Tipo de requisición*"/> <br></br> 
                                      <h:panelGroup id="tr" layout="block" class="clearfix">
                                     <p:selectOneMenu style="width: 100%" id="tipoRequisicion"
                                                      requiredMessage="Tipo de requisición requerida,necesita un valor"
@@ -118,7 +117,7 @@
                                         </span><br></br><br></br> 
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="Requerido por:"/> <br></br>
+                                    <h:outputLabel value="Requerido por*"/> <br></br>
                                      <h:panelGroup id="pr" layout="block" class="clearfix">
                                     <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonal}" 
                                                      effect="fade" label="requerido" filter="true" filterMatchMode="contains"
@@ -133,7 +132,7 @@
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.idPersonal != ''}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal1" /></span><br></br><br></br> 
                                     </h:panelGroup>
-                                    <h:outputLabel value="Tipo de adquisición "/><br></br>
+                                    <h:outputLabel value="Tipo de adquisición*"/><br></br>
                                     <h:panelGroup id="ta" layout="block" class="clearfix">
                                     <p:selectOneMenu style="width: 100%" id="adquisicion" 
                                                      requiredMessage="Tipo de adquisición requerido, necesita un valor"
@@ -152,7 +151,7 @@
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.tipoAdquisicion != ''}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Elija el tipo de adquisición<ocp:message forId="adquisicion" /></span><br></br><br></br>
                                     </h:panelGroup>
-                                    <p:outputLabel value="Observación"/><br></br>
+                                    <p:outputLabel value="Observación*"/><br></br>
                                     <h:panelGroup id="obs" layout="block" class="clearfix">
                                     <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                      value="#{controladorRequisicion.instance.observaciones}"
@@ -363,7 +362,7 @@
                                             <center>
                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                <p:autoComplete styleClass="xLarge" id="acSimple" value="#{controladorVehiculo.palabrab}"   
+                                                <p:autoComplete styleClass="xLarge" placeholder="Criterio a buscar" id="acSimple" value="#{controladorVehiculo.palabrab}"   
                                                                 completeMethod="#{controladorVehiculo.autocompletar}"/> 
 
                                                 #{'  '}
@@ -536,7 +535,8 @@
                                             <center >
                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                <p:autoComplete styleClass="xLarge" id="acSimple1" 
+                                                <p:autoComplete styleClass="xLarge" placeholder="Criterio a buscar"
+                                                                id="acSimple1" 
                                                                 value="#{controladorRequisicion.palabrabp}"   
                                                                 completeMethod="#{controladorRequisicion.autocompletarp}"/> 
 
@@ -672,8 +672,7 @@
                                       </h:panelGroup>
                                         </div>
                                    
-                                    <br></br><br/>
-
+                                    <br></br>
                                     
                                         <p:outputLabel value="Descripción*"/><br></br>
                                         <p:inputTextarea id="descrip" style="width: 100%" maxlength="150"
@@ -690,7 +689,7 @@
                                         <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
                                     </h:panelGroup>
 
-                                    <br></br><br/>
+                                    <br></br>
 
                                     
                                         <p:outputLabel value="Unidad de Medida*"/><br></br>
@@ -707,7 +706,7 @@
                                         <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida"/></span>
                                     </h:panelGroup>
 
-                                    <br></br><br/>
+                                    <br></br>
                                     <div class="admin-actions">
                                         <p:commandLink  update=":form:p1" 
                                                         styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  process=":form:p1"
@@ -716,10 +715,7 @@
                                         </p:commandLink>
                                     </div><br/>
 
-
-
-                                    <h:outputLabel id="msg"  value="#{controladorVehiculo.mensaje1}" style="color:red" /> 
-
+                                    
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
@@ -770,7 +766,7 @@
                                                         <p:column headerText="Editar" style="width: 3%"> 
 
                                                             <p:commandButton  update=":form:dialog"   oncomplete="PF('documentDialog').show()"
-                                                                              icon="ui-icon-pencil" style="margin-top:10px;" id="editar"
+                                                                              icon="ui-icon-pencil" style="width: 35px; height: 35px" id="editar"
                                                                               title="Editar"
                                                                               process="@this">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
@@ -779,15 +775,22 @@
                                                         <p:column headerText="Dar de baja" style="width: 3%"> 
                                                             <p:commandButton  update=":form:listai :form:mensaje2"  icon="ui-icon-trash" 
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
-                                                                              process="@form" style="margin-top:10px;">
+                                                                              process="@form" style="width: 35px; height: 35px">
 
                                                                 <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar el ítem de la requisición?" icon="ui-icon-alert" />
 
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton>
-                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                                <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                            <p:confirmDialog global="true" widgetVar="conf" showEffect="fade" hideEffect="explode">
+                                                                        <center>
+                                                                        <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                            <p:ajax event="click" update=":form:listai" />
+                                                                        </h:commandLink>
+
+                                                                        #{' '}
+                                                                        <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                                    </center>
+                                                             
                                                             </p:confirmDialog>
 
                                                         </p:column>
@@ -874,7 +877,8 @@
                                             <center>
                                                 <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                                <p:autoComplete styleClass="xLarge" id="acSimples" value="#{controladorRequisicion.palabrabs}"   
+                                                <p:autoComplete styleClass="xLarge" placeholder="Criterio a buscar"
+                                                                id="acSimples" value="#{controladorRequisicion.palabrabs}"   
                                                                 completeMethod="#{controladorRequisicion.autocompletars}"/> 
 
                                                 #{'  '}
@@ -1403,7 +1407,7 @@
 
                             <p:panel id="ps">
                                  <h:panelGroup id="er">
-                                <p:outputLabel value="Elemento a Revisar"/><br></br>
+                                <p:outputLabel value="Elemento a Revisar*"/><br></br>
                                 <p:inputTextarea id="elementoRevisar"  
                                                  styleClass="form-control" 
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}">
@@ -1415,7 +1419,7 @@
                                     <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar" /></span><br></br>
                                 </h:panelGroup><br/>
                                  <h:panelGroup id="df">
-                                <p:outputLabel value="Descripción de Falla"/><br></br>
+                                <p:outputLabel value="Descripción de Falla*"/><br></br>
                                 <p:inputTextarea id="descripcionFalla"  styleClass="form-control" 
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
                                                  >
@@ -1448,7 +1452,8 @@
                                                 <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
                                                              paginator="true" rows="15"    rowIndexVar="rowIndex"                     
                                                              paginatorPosition="top"
-                                                             rowsPerPageTemplate="5,10,15,20">
+                                                             rowsPerPageTemplate="5,10,15,20"
+                                                             emptyMessage="No se han encontrado items">
 <p:column headerText="Nro.">
     <center>
         <h:outputText value="#{rowIndex + 1}" />
@@ -1478,9 +1483,18 @@
                                                                 <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />   
                                                             </p:commandButton>
 
-                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                                <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                            <p:confirmDialog global="true" showEffect="fade" widgetVar="conf1" hideEffect="explode">
+                                                                                  <center>
+                                                                        <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                            <p:ajax event="click" update=":form:listaa" />
+                                                                        </h:commandLink>
+
+                                                                        #{' '}
+                                                                        <h:commandLink value="No" type="button" onclick="conf1.hide()" styleClass="btn btn-success"  style="width:10%"  >
+                                                                             <p:ajax event="click" update=":form:listaa" />
+                                                                        </h:commandLink>
+                                                                    </center>
+                                                               
                                                             </p:confirmDialog>
                                                         </center> 
                                                     </p:column>
@@ -1496,7 +1510,7 @@
                                               widgetVar="documentDialog1" modal="true" resizable="false">
                                        <h:panelGroup id="documentPanelc" style="width:100%">
                        
-                                       <p:outputLabel value="Elemento a Revisar"/><br></br>
+                                       <p:outputLabel value="Elemento a Revisar*"/><br></br>
                                     
                                     <h:panelGroup id="er1">
                                         <p:inputTextarea id="elementoRevisar1" required="true"
@@ -1509,7 +1523,7 @@
                                         <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar1" /></span><br></br><br/>
                                     </h:panelGroup>
 
-                                    <p:outputLabel value="Descripción de Falla"/><br></br>
+                                    <p:outputLabel value="Descripción de Falla*"/><br></br>
                                     <h:panelGroup id="df2">
                                         <p:inputTextarea id="descripcionFalla1" required="true"
                                                          styleClass="form-control" 
@@ -1543,7 +1557,7 @@
                                 <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" 
                                                  id="save1" value="Guardar" 
                                                  update="@form :form:basicDT12 :form:mensaje1" 
-                                                 process="@form" icon="ui-icon-disk"  style="width: 110px; height: 33px"
+                                                 process="@form" style="width: 110px; height: 33px"
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
 
@@ -1555,7 +1569,7 @@
                                 <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() ne 0}" 
                                                  id="save134" value="Guardar" 
                                                  update="@form :form:basicDT12"  style="width: 110px; height: 33px"
-                                                 process="@form" icon="ui-icon-disk" 
+                                                 process="@form"  
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
                                                  ajax="false" immediate="false"
