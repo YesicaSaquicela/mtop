@@ -32,34 +32,32 @@
 
                             <div class="panel-heading" align="center">Autorización</div>
                             <p:panel>
-
+                                <div class="table-responsive">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-                                        <h:panelGroup id="panelAsignar">
-                                        <div class="input">
-                                            <p:outputLabel value="Elegir Roles:"></p:outputLabel> <br/>
-                                            <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
+                                 <p:outputLabel value="Elegir Roles:"></p:outputLabel> 
+                                 <h:panelGrid  style="width: 25%" id="panelAsignar" columns="2">
+                                                                                                                        
+
+                                              <p:selectOneMenu id="group_" value="#{securityHome.group}" effect="fade" 
                                                              converter="omnifaces.SelectItemsConverter" 
                                                              required="true" requiredMessage="Rol requerido, necesita un valor"
                                                              rendered="true" label="#{messages['security.group']}">                         
                                                 <f:selectItem itemLabel="#{messages['common.choice']}"  itemValue = ""  />  
                                                 <f:selectItems value="#{securityHome.findAllGroups}" var="g" itemValue="#{g}" itemLabel="#{g.name}"/>
                                                 <p:ajax event="change" process="@this" update="@parent" partialSubmit="true"/>
-                                            </p:selectOneMenu>
-                                            
+                                            </p:selectOneMenu> 
+                                         
                                            
-                                            #{" "}
-                                            <p:commandLink id="add" value="#{messages['common.assignto']}"
+                                     <p:commandLink  id="add" value="#{messages['common.assignto']}"
                                                              actionListener="#{securityHome.associateTo()}" styleClass="btn  btn-success" 
                                                              rendered="true" update="groupTable panelAsignar messages" process=":form:panelAsignar"/>
 
-
-                                             </div>
-                                            <br/>
-                                            </h:panelGroup>
+                                            
+                                            </h:panelGrid>
 
                                         
-                                    </div></div>
+                                    </div></div></div><br/>
 
 
                                 <p:messages id="messages" showDetail="false"  closable="true" />  
@@ -74,10 +72,10 @@
 
 
 
-                                                    <p:column headerText="#{messages['security.group.name']}" sortBy="#{group1.name}">
+                                                    <p:column headerText="Nombre del Grupo" sortBy="#{group1.name}">
                                                         <h:outputText value="#{group1.name}" />
                                                     </p:column>             
-                                                    <p:column headerText="#{messages['common.actions']}" style="width: 10%">                            
+                                                    <p:column headerText="Borrar Rol" style="width: 10%">                            
 
                                                         <center>
                                                             <p:commandButton icon="ui-icon-trash" title="Borrar Rol"   
