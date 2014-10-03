@@ -27,11 +27,13 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div align="right">
-
-                        <p:button rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
-                                  icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                        <h:panelGroup>
+                       
+                        <p:commandLink rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
+                                  value="Regresar" style="width: 110px; height: 33px"
                                   outcome="/paginas/secretario/requisicion/lista" 
-                                  styleClass="btn  btn-success"/>
+                                  styleClass="btn  btn-success" />
+                         </h:panelGroup>
                     </div><br/>
                  
                                
@@ -818,7 +820,7 @@
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
                                                 </div>
                                         </h:panelGroup>
-<h:panelGroup id="documentPanel2" style="width:100%">
+                                        <h:panelGroup id="documentPanel2" style="width:100%">
                                                 <p:outputLabel value="Descripción*"/><br></br>
                                                 <p:inputTextarea id="descrip1" style="width: 100%"
                                                                  value="#{controladorRequisicion.it.descripcion}"
@@ -829,7 +831,7 @@
                                          </h:panelGroup>       <br/>
 
 
-
+                                        </h:panelGroup>
                                          <h:panelGroup id="documentPane3" style="width:100%">
                                                 <p:outputLabel value="Unidad de Medida*"/><br></br>
                                                 <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
@@ -1105,7 +1107,8 @@
                             </div>
 
                             <div class="admin-actions " align="center"> 
-                                <p:commandButton id="save" value="Guardar" icon="ui-icon-disk" action="#{controladorRequisicion.guardar()}" 
+                                <p:commandButton id="save" value="Guardar" 
+                                                 action="#{controladorRequisicion.guardar()}"  style="width: 100px; height: 33px;text-align:center"
                                                  styleClass="btn  btn-success"  process="@this" onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()" />
 
 
@@ -1126,8 +1129,8 @@
 
 
 
-                        <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud1' or controladorRequisicion.vista eq 'solicitud2' }"
-                                         id="regresar1" value="Regresar" icon="ui-icon-arrowreturnthick-1-w" 
+                        <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud1' or controladorRequisicion.vista eq 'solicitud2' }"
+                                         id="regresar1" value="Regresar" style="width: 110px; height: 33px"
                                          styleClass="btn  btn-success"  process="@this" update="@form "
                                          actionListener="#{controladorSolicitudReparacionMantenimiento.init()}"
 
@@ -1137,7 +1140,7 @@
                             <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}"/>
                             <f:setPropertyActionListener value="#{null}" 
                                                          target="#{controladorSolicitudReparacionMantenimiento.instance}"/>
-                        </p:commandButton>
+                        </p:commandLink>
 
 
                     </div><br/>
@@ -1436,7 +1439,7 @@
                                     </p:commandLink>
 
                                 </div><br/>
-                                <h:outputLabel id="msgs"  value="#{controladorSolicitudReparacionMantenimiento.mensajeS}" style="color:red" /> 
+                              
                                 <p:messages  id="mensaje1" showDetail="true" closable="true" />
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
@@ -1540,19 +1543,21 @@
 
                             <div class="admin-actions " align="center"> 
 
-                                <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" id="save1" value="Guardar" 
+                                <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" 
+                                                 id="save1" value="Guardar" 
                                                  update="@form :form:basicDT12 :form:msgs" 
-                                                 process="@form" icon="ui-icon-disk" 
+                                                 process="@form" icon="ui-icon-disk"  style="width: 110px; height: 33px"
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
 
                                                  >
 
 
-                                </p:commandButton>
+                                </p:commandLink>
 
-                                <p:commandButton rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() ne 0}" id="save134" value="Guardar" 
-                                                 update="@form :form:basicDT12" 
+                                <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() ne 0}" 
+                                                 id="save134" value="Guardar" 
+                                                 update="@form :form:basicDT12"  style="width: 110px; height: 33px"
                                                  process="@form" icon="ui-icon-disk" 
                                                  styleClass="btn  btn-success" 
                                                  actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
@@ -1562,7 +1567,7 @@
                                     <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}" />
 
                                     <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" target="#{controladorRequisicion.listaSolicitudes}"/>
-                                </p:commandButton>
+                                </p:commandLink>
 
 
 
