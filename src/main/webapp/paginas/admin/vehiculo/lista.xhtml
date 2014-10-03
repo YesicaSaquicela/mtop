@@ -85,7 +85,7 @@
 
 
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-                                <div class="tab-content">
+                                <div class="tab-content" >
                                     <div class="tab-pane active" id="todas">
                                         <div class="table-responsive">
 
@@ -94,11 +94,12 @@
                                                 
                                                 
                                                 <p:dataTable id="listap" value="#{controladorVehiculo.listaVehiculos}" var="v"
-                                                             paginator="true" rows="5"                         
+                                                             paginator="true" rows="5" 
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20"
                                                              emptyMessage="No se han encontrado coincidencias">
 
+                                             
                                                     <p:column headerText="Nro Registro" sortBy="#{v.numRegistro}">
 
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>

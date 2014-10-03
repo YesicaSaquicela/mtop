@@ -729,11 +729,15 @@
                                                     
                                                     <p:messages id="mensaje2" showDetail="true" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
-                                                                 paginator="true" rows="15"                         
+                                                                 paginator="true" rows="15" rowIndexVar="rowIndex"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20"
                                                                  emptyMessage="No se han encontrado items" >
-
+  <p:column headerText="Nro.">
+      <center>
+        <h:outputText value="#{rowIndex + 1}" />
+        </center>
+      </p:column>
                                                         <p:column headerText="Cantidad" sortBy="#{item2.cantidad}">
                                                             <div class="input" align="right">
                                                                 <h:outputText value="#{item2.cantidad}"></h:outputText>
@@ -824,7 +828,7 @@
                                                                  readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                                      <f:ajax execute="descrip1" render="documentPanel2"/>
                                                 </p:inputTextarea>
-                                                <br/>
+                                         </h:panelGroup>       <br/>
 
 
                                         </h:panelGroup>
@@ -1445,10 +1449,15 @@
                                             <tbody>
 
                                                 <p:dataTable id="listaa"  value="#{controladorSolicitudReparacionMantenimiento.listaItemsSolicitud}" var="la"
-                                                             paginator="true" rows="15"                         
+                                                             paginator="true" rows="15"    rowIndexVar="rowIndex"                     
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20">
-
+<p:column headerText="Nro.">
+    <center>
+        <h:outputText value="#{rowIndex + 1}" />
+        </center>
+      </p:column>
+                                              
                                                     <p:column headerText="Elemento a Revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                         <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
                                                     </p:column>
