@@ -173,7 +173,7 @@ limitations under the License.
                         <div align="right">
 
                             <p:button rendered="#{bussinesEntityTypeHome.instance.id != null}"
-                                      icon="ui-icon-arrowreturnthick-1-w" value="Regresar" 
+                                      icon="ui-icon-arrowreturnthick-1-w" value="Regresar" style="width: 110px; height: 33px"
                                       outcome="/paginas/admin/bussinesentitytype/list" 
                                       styleClass="btn  btn-success"/>
                         </div>
@@ -229,9 +229,10 @@ limitations under the License.
                                         #{' '}
 
                                     </div><br/>
+                                     <!--resizableColumns="true" liveResize="true"--> 
                                     <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
                                     <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
-                                                 editable="false" resizableColumns="true" liveResize="true" 
+                                                 editable="false" first="1"
                                                  id="properties"
                                                  paginator="true" rows="5"                         
                                                  paginatorPosition="top"
@@ -239,32 +240,32 @@ limitations under the License.
                                                  emptyMessage="No se han encontrado coincidencias"
                                                  > 
 
-                                        <p:column  headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 15%">
+                                        <p:column  headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 12%">
                                             <h:outputText value="#{property.name}" />
                                         </p:column>
 
-                                        <p:column  headerText="#{messages['common.property.label']}" sortBy="#{property.label}" style="width: 15%">
+                                        <p:column  headerText="#{messages['common.property.label']}" sortBy="#{property.label}" style="width: 13%">
                                             <h:outputText value="#{property.label}" />
                                         </p:column>                        
                                         <p:column  headerText="#{messages['common.property.type']}" sortBy="#{property.type}" style="width: 5%">
                                             <h:outputText value="#{propertyHome.ConvertirPropiedadesString(property)}" styleClass="span1"/>
                                         </p:column>                                 
-                                        <p:column  headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 20%">
+                                        <p:column  headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 15%">
                                             <h:outputText value="#{property.value}" styleClass="span3" rendered="#{property.type ne 'java.util.Date'}"/>
                                             <h:outputText value="#{propertyHome.formato(property.value)}" styleClass="span3" rendered="#{property.type eq 'java.util.Date'}"/>
                                         </p:column>                                 
-                                        <p:column  headerText="Obligatoria" sortBy="#{property.required}" style="width: 10%" >
+                                        <p:column  headerText="Obligatoria" sortBy="#{property.required}" style="width: 5%" >
                                             <h:selectBooleanCheckbox value="#{property.required}"  disabled="true" >                                
                                             </h:selectBooleanCheckbox>
                                         </p:column>
                                         <p:column headerText="Posición" sortBy="#{property.sequence}" style="width: 5%">
                                             <h:outputText value="#{property.sequence}" />
                                         </p:column>  
-                                        <p:column  headerText="Opciones">
-                                            <center>
+                                        <p:column  headerText="Crear Entidad" style="width: 5%;text-align: center">
+                                           
                                                 <p:button icon="ui-icon-circle-check" styleClass="btn  btn-success"
                                                           rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
-                                                          title="Crear Entidad"
+                                                          title="Crear Entidad" style="width: 35px; height: 35px"
                                                           outcome="bussinesentitytype"
                                                           >
                                                     <f:param name="bussinesentitytypeName" value="#{property.name}"></f:param>
@@ -274,16 +275,18 @@ limitations under the License.
                                                 </p:button>
                                                 <p:commandButton type="button" icon="ui-icon-circle-check" styleClass="btn  btn-success"
                                                                  rendered="#{propertyHome.ConvertirPropiedadesString(property) ne 'Estructura'  or bussinesEntityTypeHome.esTipoEntidad(property.name) ne false}" 
-                                                                 title="Crear Entidad"
+                                                                 title="Crear Entidad" style="width: 35px; height: 35px"
                                                                  onclick="alertDlg1.show()"
                                                                  update=":alerts-dialog1"  >
 
                                                 </p:commandButton>
-                                                #{' '}
+                                                
+                                        </p:column>
+                                        <p:column  headerText="Editar" style="width: 5%;text-align: center">
                                                 <p:button  icon="ui-icon-pencil
                                                            "  
                                                            id="button-edit"  rendered="true" 
-                                                           title="Editar"
+                                                           title="Editar" style="width: 35px; height: 35px"
                                                            styleClass="btn  btn-success"
                                                            outcome="property">
                                                     <p:ajax event="click" update="@form"/>
@@ -295,16 +298,17 @@ limitations under the License.
 
 
                                                 #{' '}          
-
+                                        </p:column>
+                                         <p:column  headerText="Desactivar" style="width: 5%;text-align: center">
                                                 <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                  onclick="#{propertyHome.hasValuesBussinesEntity(property)?  'deletedDlg.show()' : 'alertDlg.show()' }"  immediate="true"
-                                                                 update=":alerts-dialog:" 
+                                                                 update=":alerts-dialog:" style="width: 35px; height: 35px"
                                                                  title="Desactivar"
                                                                  rendered="#{propertyHome.hasValuesBussinesEntity(property) eq false}">                        
                                                 </p:commandButton>
                                                 <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                  actionListener="#{propertyHome.deleteProperty(property)}" 
-                                                                 oncomplete="dlg1.show();" update=":dia" process="@this"
+                                                                 oncomplete="dlg1.show();" update=":dia" process="@this" style="width: 35px; height: 35px"
                                                                  title="Desactivar" 
                                                                  rendered="#{propertyHome.hasValuesBussinesEntity(property)}">       
 
@@ -312,8 +316,6 @@ limitations under the License.
                                                 </p:commandButton>
 
 
-
-                                            </center>
                                         </p:column>
                                     </p:dataTable>
                                     <br/>  <br/>
@@ -467,11 +469,11 @@ limitations under the License.
                                  />  
             </h:form>
         </p:dialog>
-        <p:dialog id="dia" header="Dar de baja" widgetVar="dlg1"  resizable="false" modal="true">
+        <p:dialog id="dia" header="Desactivar" widgetVar="dlg1"  resizable="false" modal="true">
             <h:form id="form-dialog-confirm-delete5">
 
                 <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                    <h:outputText value="Desea realmente dar de baja a la propiedad "/>
+                    <h:outputText value="Desea realmente desactivar la propiedad "/>
                     <br/>
                     <h:outputText value="#{propertyHome.instance.name}"/>  
 
@@ -479,7 +481,7 @@ limitations under the License.
                 </h:panelGroup> 
                 <center>
                     <h:commandLink action="#{propertyHome.deleteProperty()}" 
-                                   type="button" value="SI" class="btn btn-success"  style="width:20%" >
+                                   type="button" value="SÍ" class="btn btn-success"  style="width:20%" >
                         <f:setPropertyActionListener target="#{bussinesEntityTypeHome.listaPropiedades}" value="#{propertyHome.propiedades}"/>
                     </h:commandLink>
                     #{' '}

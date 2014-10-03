@@ -263,6 +263,8 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
             System.out.println("\n\n\n agrego a"+a.getName());
             for (String sn : structureNames) {
                 System.out.println("antes de agregar a bufer");
+                System.out.println("nombre de la estructura "+sn);
+                System.out.println("valor del busines entuitty atribute "+a.getProperty().getStructure().getBussinesEntityType().getName());
                 if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
                     _buffer.add(a);
                     System.out.println("lo agrego a bufer");

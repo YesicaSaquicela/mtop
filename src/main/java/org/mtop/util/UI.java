@@ -230,10 +230,19 @@ public class UI {
 
         } else {
             for (Property property : lp) {
-                lbea = entity.findBussinesEntityAttribute(property.getName());
+                System.out.println(" nombre de la estructura "+property.getStructure().getName());
+                System.out.println("nombre del tiepo en de la entidad "+entity.getType().getName());
+                if(property.getType().equals("org.mtop.modelo.dinamico.Structure")){
+                    lbea = entity.findBussinesEntityAttribute(property.getName());
+                }else{
+                     lbea = entity.findBussinesEntityAttribute(property.getStructure().getName());
+                }
+                
                 break;
             }
         }
+        System.out.println("valor de ban"+ban);
+                
         if (ban) {
 
             System.out.println("busines entity atribute" + lbea);

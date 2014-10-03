@@ -32,7 +32,7 @@
                                     <center>
                                         <h:outputLabel value="Buscar:  " />     #{' '} 
 
-                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorProducto.palabrab}"   
+                                        <p:autoComplete style="width: 5%" placeholder="Criterio a buscar" styleClass="xLarge" id="acSimple" value="#{controladorProducto.palabrab}"   
                                                         completeMethod="#{controladorProducto.autocompletar}"/> 
                                         &nbsp;&nbsp;
 
@@ -103,8 +103,8 @@
                                                 <p:column headerText="Cantidad" sortBy="#{pd.cantidad}">
                                                     <h:outputText value="#{pd.cantidad}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Descripción" sortBy="#{pd.descripcion}">
-                                                    <h:outputText value="#{pd.descripcion}"></h:outputText>
+                                                <p:column headerText="Descripción" sortBy="#{pd.descripcion}" style="width: 5%">
+                                                    <h:outputText value="#{pd.descripcion}" style="width: 5%" ></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Opciones" style="width: 10%"> 
 

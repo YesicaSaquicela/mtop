@@ -49,9 +49,9 @@ limitations under the License.
 
                                         </p:commandLink>
 
-          #{'  '}#{'  '}
+                                        #{'  '}#{'  '}
                                         <p:commandLink value="Limpiar" process="@this" update="@form"  type="button"
-                                                         action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
+                                                       action="#{bussinesEntityTypeListService.limpiar()}" styleClass="btn btn-success" >
 
                                         </p:commandLink>
                                     </center>
@@ -73,36 +73,37 @@ limitations under the License.
 
 
                                         <tbody>
-                                            <p:dataTable var="bussinesEntityType" value="#{bussinesEntityTypeListService.resultList}"
+                                     
+                                            <p:dataTable style="width: 100%" var="bussinesEntityType" value="#{bussinesEntityTypeListService.resultList}"
                                                          paginator="true" rows="15"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20"
-                                                         id="bussinesEntityTypeTable"                           
+                                                         id="bussinesEntityTypeTable"                       
                                                          rendered="true"
                                                          >
 
-                                                <p:column headerText="#{messages['module.BussinesEntityType.name']}" 
+                                                <p:column headerText="#{messages['module.BussinesEntityType.name']}" style="width: 10%"
                                                           sortBy="#{bussinesEntityType.name}"  >
-                                                    <h:outputText value="#{bussinesEntityType.name}"></h:outputText>
+                                                    <h:outputText value="#{bussinesEntityType.name}" style="width: 10%"></h:outputText>
                                                 </p:column>
 
                                                 <p:column headerText="#{messages['module.BussinesEntityType.label']}" sortBy="#{bussinesEntityType.name}">
-                                                    <h:outputText value="#{bussinesEntityType.label}"></h:outputText>
+                                                    <h:outputText value="#{bussinesEntityType.label}" style="width: 10%"></h:outputText>
                                                 </p:column>
 
                                                 <p:column headerText="#{messages['module.BussinesEntityType.structureAccount']}" sortBy="#{bussinesEntityType.name}">
-                                                    <h:outputText value="#{bussinesEntityType.structures.size()}"></h:outputText>
+                                                    <h:outputText value="#{bussinesEntityType.structures.size()}" style="width: 10%"></h:outputText>
                                                 </p:column> 
 
 
                                                 <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
-                                                    <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}"></h:outputText>
+                                                    <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}" style="width: 10%"></h:outputText>
                                                 </p:column> 
-                                                <p:column headerText="Editar">
+                                                <p:column headerText="Editar" style="width: 5%;text-align: center">
 
                                                     <p:button icon="ui-icon-pencil"  
                                                               id="button-edit"  rendered="true" 
-                                                              title="Editar" 
+                                                              title="Editar" style="width: 35px; height: 35px"
                                                               styleClass="btn  btn-success"
                                                               outcome="bussinesentitytype" >
                                                         <p:ajax event="click" update="@form"/>
@@ -110,17 +111,18 @@ limitations under the License.
                                                         <f:param name="backView" value="list"></f:param>
                                                     </p:button>
 
-
+                                                </p:column>
+                                                <p:column headerText="Desactivar" style="width:5%;text-align: center">
                                                     <p:commandButton type="button" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                                     onclick="alertDlg.show()"  immediate="true"
-                                                                     update=":alerts-dialog:" 
+                                                                     onclick="alertDlg.show()"  immediate="true" 
+                                                                     update=":alerts-dialog:" style="width: 35px; height: 35px"
                                                                      title="Desactivar"
                                                                      rendered="#{bussinesEntityTypeListService.tienePropiedades(bussinesEntityType.id)}">                        
                                                     </p:commandButton>
-                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
+                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash" 
                                                                      actionListener="#{bussinesEntityTypeHome.fijaEntidad(bussinesEntityType.id)}" 
                                                                      oncomplete="dlg1.show();" update=":dia" process="@this"
-                                                                     title="Desactivar" 
+                                                                     title="Desactivar" style="width: 35px; height: 35px" styleClass="btn  btn-success"
                                                                      rendered="#{bussinesEntityTypeListService.tienePropiedades(bussinesEntityType.id) eq false}">       
 
                                                     </p:commandButton>
@@ -150,7 +152,7 @@ limitations under the License.
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="Esta entidad tiene propiedades."/>
                     <br/>
-                    <h:outputText value="Para poder borrarla primero borre sus propiedades."/>  
+                    <h:outputText value="Para poder desactivar la entidad primero desactive sus propiedades."/>  
                 </h:panelGroup>  
                 <center>
                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="Regresar" type="button" onclick="alertDlg.hide();"                                           
@@ -159,11 +161,11 @@ limitations under the License.
             </h:form>
         </p:dialog>
 
-        <p:dialog id="dia" header="Dar de baja" widgetVar="dlg1"  resizable="false" modal="true">
+        <p:dialog id="dia" header="Desactivar" widgetVar="dlg1"  resizable="false" modal="true">
             <h:form id="form-dialog-confirm-delete5">
 
                 <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                    <h:outputText value="Desea realmente dar de baja a la Entidad "/>
+                    <h:outputText value="Desea realmente desactivar la Entidad "/>
                     <br/>
                     <h:outputText value="#{bussinesEntityTypeHome.instance.name}"/>  
 
@@ -172,10 +174,10 @@ limitations under the License.
                 </h:panelGroup> 
                 <center>
                     <h:commandLink action="#{bussinesEntityTypeHome.deleteBussinesEntityType()}" 
-                                   type="button" value="SI" />
+                                   type="button" value="SÍ" class="btn btn-success"  style="width:20%"  />
                     #{' '}
 
-                    <h:commandLink value="NO" type="button" onclick="dlg1.hide();" 
+                    <h:commandLink value="NO" type="button" onclick="dlg1.hide();" class="btn btn-success"  style="width:20%" 
                                    />  
 
                 </center>
