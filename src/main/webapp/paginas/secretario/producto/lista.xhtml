@@ -7,9 +7,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="/WEB-INF/templates/plantilla.xhtml">
-    
+
     <ui:param name="titulo" value="Lista de Productos"/>
-    
+
     <ui:define name="header">
     </ui:define>
     <ui:define name="content">
@@ -43,7 +43,7 @@
                                         <p:commandLink value="Buscar" type="button" update=":form:listap" action="#{controladorProducto.buscar()}" styleClass="btn btn-success" >
 
                                         </p:commandLink>
- #{' '}  #{' '} 
+                                        #{' '}  #{' '} 
                                         <p:commandLink type="button" value="Limpiar" update=":form:listap :form:acSimple" action="#{controladorProducto.limpiar()}" styleClass="btn btn-success" >
 
                                         </p:commandLink>
@@ -106,42 +106,42 @@
                                                 <p:column headerText="Descripción" sortBy="#{pd.descripcion}" style="width: 5%">
                                                     <h:outputText value="#{pd.descripcion}" style="width: 5%" ></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Opciones" style="width: 10%"> 
-
+                                                <p:column headerText="Editar" style="width: 10%"> 
+                                                    <center>
                                                     <p:button id="selectButton" style="margin-top:10px;"
                                                               outcome="crear"
                                                               icon="ui-icon-pencil" title="Editar">  
                                                         <f:param name="productoId" value="#{pd.id}"></f:param>
-                                                    </p:button> #{" "}
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
+                                                    </p:button>
+</center>
+                                                </p:column>
+
+                                                <p:column headerText="Dar de baja" style="width: 10%">   
+<center>
                                                     <p:commandButton id="elimiar2" rendered="#{controladorProducto.verificarPoducto(pd.id) eq false}" icon="ui-icon-trash" style="margin-top:10px;"
                                                                      onclick="#{'carDialog1.show();'}" immediate="true"
                                                                      title="Dar de baja111" update=":form-dialog1">
-                                                       
+
 
                                                     </p:commandButton>
-                                                    
+
                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                      action="#{controladorProducto.darDeBaja(pd.id)}" 
                                                                      title="Desactivar" update="@form" 
-                                                                    rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
+                                                                     rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
                                                         <p:confirm header="Dar de baja" message="¿Desea Realmente dar de baja el producto?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>
 
-
+</center>
 
                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                                         <center>
-                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                    </center>
+                                                            <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                            <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                        </center>
                                                     </p:confirmDialog>
-                                                    
+
                                                 </p:column>
                                             </p:dataTable>
                                         </tbody></div></div></div>
