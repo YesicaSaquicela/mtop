@@ -454,7 +454,9 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     private void createUser() throws IdentityException {
-        // TODO validate username, email address, and user existence
+        // TODO validate username, email address, and user existenceP
+//        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Profile.class
+//                .getName());
         PersistenceManager identityManager = security.getPersistenceManager();
         System.out.println("entro a create user" + getInstance().getUsername());
 //        IdentityObject io=ps.findIdentityObjectByName(getInstance().getUsername());
@@ -499,8 +501,9 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         setProfileId(getInstance().getId());
         wire();
         getInstance().setName(getInstance().getUsername()); //Para referencia
-        getInstance().setType(bussinesEntityService.findBussinesEntityTypeByName(Profile.class.getName()));
-        getInstance().buildAttributes(bussinesEntityService);
+//        getInstance().setType(_type);
+//        
+//        getInstance().buildAttributes(bussinesEntityService);
         save(getInstance()); //Actualizar estructura de datos
 
     }

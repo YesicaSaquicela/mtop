@@ -210,8 +210,9 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public void addBussinesEntityAttribute(BussinesEntityAttribute attribute) {
-        System.out.println("entro a set atributes add");
+        System.out.println("entro a set atributes add" +attribute);
         attribute.setBussinesEntity(this);
+        this.getLastUpdate();
         this.attributes.add(attribute);
     }
     
@@ -262,10 +263,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         for (BussinesEntityAttribute a : getAttributes()) {
             System.out.println("\n\n\n agrego a"+a.getName());
             for (String sn : structureNames) {
-                System.out.println("antes de agregar a bufer");
-                System.out.println("nombre de la estructura "+sn);
-                System.out.println("valor del busines entuitty atribute "+a.getProperty().getStructure().getBussinesEntityType().getName());
-                if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
+              if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
                     _buffer.add(a);
                     System.out.println("lo agrego a bufer");
                 }
@@ -318,6 +316,8 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         }
         for (Structure s : getType().getStructures()) {
             for (Property a : s.getProperties()) {
+                System.out.println("propiedad "+a);
+                System.out.println("nombre de la propiedad "+a.getName());
                 if (a.getType().equals(Group.class.getName())) {
                     buildGroup(a, bes);
                 } else if (a.getType().equals(Structure.class.getName())) {  //
@@ -348,6 +348,8 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     protected void loadStructure(Property a, BussinesEntityService bes) {
+        System.out.println("load estructura "+bes);
+        System.out.println("property "+a);
         BussinesEntityType _type = bes.findBussinesEntityTypeByName(a.getName());
         if (_type == null) {
             return;

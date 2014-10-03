@@ -97,7 +97,7 @@
                                                                    message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>   #{" "}
-               
+
                                                     <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
                                                                      title="Activar cuenta" icon="ui-icon-check"
                                                                      rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.deleted eq true }"
@@ -109,11 +109,15 @@
                                                     </p:commandButton>
 
 
-                                                    <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode">
+                                                    <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode" widgetVar="conf">
                                                         <center>
-                                                        <p:commandButton value="Si" ajax="false" update="profileDataTable" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
-                                                  </center>
+                                                            <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                <p:ajax event="click" process="@form" update="profileDataTable" />
+                                                            </h:commandLink>
+                                                            #{' '}
+                                                            <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                        </center>
+                                       
                                                     </p:confirmDialog>
 
 
@@ -137,12 +141,12 @@
                     <h:outputText value="Esta seguro que quiere habilitar esta cuenta de usuario "/>  
                 </h:panelGroup>  
                 <center>
-                <p:commandButton value="Si" action="#{profileListService.inavilitarCuenta()}" 
-                                 oncomplete="#{'deletedDlg.hide();'}" update=":form:profileDataTable" immediate="true" ajax="true"
-                                 style="margin-top:10px;" process="@this"> 
-                </p:commandButton>  #{' '}
-                <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                 style="margin-top:10px;"/>  
+                    <p:commandButton value="Si" action="#{profileListService.inavilitarCuenta()}" 
+                                     oncomplete="#{'deletedDlg.hide();'}" update=":form:profileDataTable" immediate="true" ajax="true"
+                                     style="margin-top:10px;" process="@this"> 
+                    </p:commandButton>  #{' '}
+                    <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
+                                     style="margin-top:10px;"/>  
                 </center>
 
             </h:form>

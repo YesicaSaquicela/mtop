@@ -44,7 +44,7 @@
 
                                         </p:commandLink>
 
-#{' '} #{' '} 
+                                        #{' '} #{' '} 
                                         <p:commandLink styleClass="btn btn-success"  value="Limpiar" type="button" update=":form:infoFM:listap  :form:infoFM:listasa :form:acSimple" action="#{controladorSolicitudReparacionMantenimiento.limpiar()}">
 
                                         </p:commandLink>
@@ -112,7 +112,7 @@
                                                                                 <p:column headerText="Editar" style="width: 5%"> 
                                                                                     <center>
                                                                                         <p:button id="selectButton" styleClass="btn  btn-success"
-                                                                                                  outcome="crear"
+                                                                                                  outcome="crear" style="width: 35px; height: 35px"
                                                                                                   icon="ui-icon-pencil" title="Editar">  
                                                                                             <f:param name="solicitudId" value="#{s.id}"></f:param>
                                                                                             <f:param name="vehiculoId" value="#{s.vehiculo.id}"></f:param>
@@ -126,14 +126,19 @@
                                                                                     <center>
                                                                                         <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                                                          action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 
-                                                                                                         title="Dar de baja" update="@form">
+                                                                                                         title="Dar de baja" update="@form" style="width: 35px; height: 35px">
                                                                                             <p:confirm header="Confirmación" message="¿Desea Realmente dar de baja \n la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
                                                                                         </p:commandButton>
                                                                                     </center>
-                                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" widgetVar="conf">
                                                                                         <center>
-                                                                                        <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                                                            <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                                                <p:ajax event="click" process="@form" update="@form" />
+                                                                                            </h:commandLink>
+                                                                                            #{' '}
+                                                                                            <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                                                            
+                                                                                           
                                                                                         </center>
                                                                                     </p:confirmDialog>
                                                                                 </p:column>
