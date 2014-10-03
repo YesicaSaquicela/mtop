@@ -95,7 +95,7 @@
                                                 <p:column headerText="Editar" style="width: 5%"> 
 
                                                     <p:button id="selectButton" styleClass="btn  btn-success"
-                                                              outcome="crear"
+                                                              outcome="crear" style="width: 35px; height: 35px"
                                                               icon="ui-icon-pencil" title="Editar">  
                                                         <f:param name="planMantenimientoId" value="#{pm.id}"></f:param>
                                                     </p:button>
@@ -107,7 +107,7 @@
                                                          <h:outputText value="Plan Activo" rendered="#{pm.activado eq true}" style="color: green;"></h:outputText>
                                                     <p:commandButton styleClass="btn  btn-success" rendered="#{pm.activado eq false}" id="confirmacion" icon="ui-icon-check"
                                                                      title="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}"
-                                                                     update="@form :form">
+                                                                     update="@form :form" style="width: 35px; height: 35px">
                                                    
                                                         <p:confirm header="Confirmación"
                                                                    message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
@@ -115,10 +115,13 @@
                                                         </p:commandButton>
                                                     </center>
 
-                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" widgetVar="conf">
                                                         <center>
-                                                        <p:commandButton value="Si" ajax="false" update=":form:visualizar" process="@form" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                                                        <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                            <h:commandLink value="Si" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                <p:ajax event="click" process="@form" update=":form:visualizar" />
+                                                            </h:commandLink>
+                                                             #{' '}
+                                                        <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
                                                    </center>
                                                     </p:confirmDialog>
                                                 </p:column>

@@ -127,12 +127,14 @@
                                                                                         <p:commandButton id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                                                                          action="#{controladorSolicitudReparacionMantenimiento.darDeBaja(s.id)}" 
                                                                                                          title="Dar de baja" update="@form">
-                                                                                            <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja ha la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
+                                                                                            <p:confirm header="Confirmación" message="¿Desea Realmente dar de baja \n la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />
                                                                                         </p:commandButton>
                                                                                     </center>
                                                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                                        <p:commandButton value="Si" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                                                        <center>
+                                                                                        <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                                                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                                                        </center>
                                                                                     </p:confirmDialog>
                                                                                 </p:column>
                                                                             </p:dataTable></tbody></div></div>
