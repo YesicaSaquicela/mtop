@@ -153,7 +153,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
                 System.out.println("ENTRO A ACTUALIZAR ItemRequisicion>>>>>" );
                 System.out.println("ENTRO A ACTUALIZAR KILOMETRAJE>>>>>" );
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Item deRequisicion" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Item de Requisición" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("ENTRO A crear ItemRequisicion>>>>>" );
@@ -161,7 +161,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo un nuevo Item de Requisicion" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creó un nuevo Item de Requisición" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {

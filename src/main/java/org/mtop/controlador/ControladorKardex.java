@@ -182,7 +182,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         save(sr);
         System.out.println("lista de requ no el" + listaSol);
         listasolNoAp.add(sr);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La SOLICITUD seleccionada seleccionada " + sr.getNumSolicitud() + " ha pasado al estado  ", "NO APROBADA"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La solicitud seleccionada " + sr.getNumSolicitud() + " ha pasado al estado  ", "NO APROBADA"));
 
     }
 
@@ -965,7 +965,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             if (getInstance().isPersistent()) {
                 save(getInstance());
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Kardex" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Kardex" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {

@@ -162,14 +162,14 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a Editar>>>>>>>>");
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Partida contabilidad" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Partida contabilidad" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("Entro a crear>>>>>>>>");
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creó una nueva Partida contabilidad" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {

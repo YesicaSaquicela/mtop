@@ -128,7 +128,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
             if (getInstance().isPersistent()) {
                 System.out.println("Entro a guradar>>>>>>>"+getInstance().isPersistent());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo Item deRequisicion" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Item de Solicitud" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("ENTRO A crear Item>>>>>");
@@ -136,7 +136,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Item de Requisicion" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creoó una nueva Item de Solicitud" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {

@@ -128,7 +128,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
                 System.out.println("ENTRO A ACTUALIZAR ACTIVIDAD>>>>>"+getInstance().getActividad());   
                 System.out.println("ENTRO A ACTUALIZAR KILOMETRAJE>>>>>"+getInstance().getKilometraje()); 
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizo actividad Plan de Mantenimiento" + getInstance().getId() + " con éxito", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó actividad Plan de Mantenimiento" + getInstance().getId() + " con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("ENTRO A crear ACTIVIDAD>>>>>"+getInstance().getActividad());   
@@ -136,7 +136,7 @@ public class ControladorActividadPlanMantenimiento extends BussinesEntityHome<Ac
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creo una nueva Actividad del plan de mantenimiento" + getInstance().getId() + " con éxito"," ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creó una nueva Actividad del plan de mantenimiento" + getInstance().getId() + " con éxito"," ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
         } catch (Exception e) {

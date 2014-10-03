@@ -115,11 +115,11 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
         if (lp.isEmpty()) {
 
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: No se ha encontrado", palabrab);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -297,7 +297,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
                 System.out.println("Entro a Editar>>>>>>>>");
                 save(getInstance());
                 ms = "false" + getInstance().getCodigo();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se ha actualizó vehiculo " + getInstance().getDescripcion() + "exitosamente ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se ha actualizó vehículo " + getInstance().getDescripcion() + "exitosamente ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
                 System.out.println("Entro a crear>>>>>>>>");
