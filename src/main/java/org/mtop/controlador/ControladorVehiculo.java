@@ -805,14 +805,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public boolean verificarPlan() {
         boolean ban = false;
         for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
+         
+            System.out.println("PLAN ACTIVO>>>>"+pm.getActivado());
+            System.out.println("PLAN ACTIVO>>>>"+pm.getId());
             if (pm.getActivado()) {
                 System.out.println("entro1111111111" + ban);
-
                 ban = true;
-            } else {
-                System.out.println("entro2222222222" + ban);
-                ban = false;
-            }
+                break;
+            } 
         }
         return ban;
     }

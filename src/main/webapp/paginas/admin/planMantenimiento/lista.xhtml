@@ -104,6 +104,7 @@
                                                 </p:column>
                                                 <p:column headerText="Activar Plan" style="width: 5%" >
                                                     <center>
+                                                        
                                                          <h:outputText value="Plan Activo" rendered="#{pm.activado eq true}" style="color: green;"></h:outputText>
                                                     <p:commandButton styleClass="btn  btn-success" rendered="#{pm.activado eq false}" id="confirmacion" icon="ui-icon-check"
                                                                      title="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}"
