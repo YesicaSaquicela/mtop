@@ -109,7 +109,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private List<Profile> listausuarios;
     private String estado;
     private List<Profile> listausuariosInactivos;
-    private String mensajei;
+    private String mensajei="";
    
     public String getMensajei() {
         return mensajei;
@@ -118,11 +118,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     public void setMensajei(String mensajei) {
         this.mensajei = mensajei;
     }
-
-
-    
-    
-    
 
     public List<Profile> getListausuariosInactivos() {
         return listausuariosInactivos;
