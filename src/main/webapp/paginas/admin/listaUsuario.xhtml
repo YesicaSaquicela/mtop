@@ -64,6 +64,7 @@
 
 
                                         <tbody>
+                                             #{profileHome.estado}
                                             <p:dataTable id="profileDataTable"  var="profile_" value="#{profileHome.listausuarios}" 
                                                          paginator="true" rows="5"                         
                                                          paginatorPosition="top"
@@ -107,12 +108,13 @@
                                                                    message="¿Desea Realmente habilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>
-
+                                                   
 
                                                     <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode" widgetVar="conf">
                                                         <center>
                                                             <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
-                                                                <p:ajax event="click" process="@form" update="profileDataTable" />
+                                                                <f:param name="estado" value="#{profileHome.estado}"/>
+                                                                <p:ajax event=""  update="@form" />
                                                             </h:commandLink>
                                                             #{' '}
                                                             <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />

@@ -125,10 +125,10 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     public void setEstado(String estado) {
        
-
+        this.estado=estado;
         if ("INACTIVO".equals(estado)) {
             System.out.println("entro a cambiar lista");
-
+            
             listausuarios = ps.findAllA(true);
             List<Profile> lu = new ArrayList<Profile>();
             for (Profile profile : listausuarios) {

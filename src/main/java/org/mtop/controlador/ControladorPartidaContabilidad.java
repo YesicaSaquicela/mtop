@@ -154,6 +154,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public String getMensaje() {
+     
+        System.out.println("mensaje a retornar"+mensaje);
         return mensaje;
     }
 
@@ -168,7 +170,6 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     public void setPartidaCId(Long partidaCId) {
         setId(partidaCId);
-
     }
 
     @TransactionAttribute   //
@@ -205,6 +206,9 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
         listaPartidaC2 = listaPartidaC;
         System.out.println("liata en init>>>>>>>>" + listaPartidaC);
+     
+        System.out.println("inicializo el mesaje en init"+mensaje);
+                
     }
 
     @Override
@@ -235,21 +239,17 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         System.out.println("lista antes de borrar" + lpc);
         //si viene de editar... comprueba que el ide se diferente de 
         System.out.println("ide antes de borrar del k llega>>>>" + getInstance().getId());
-        if (getInstance().getId() != null) {
-            System.out.println("ENTRO A BORRAR>>>>>>>");
-            lpc.remove(findById(PartidaContabilidad.class, getInstance().getId()));
-
-        }
-        System.out.println("lista despues de borrar" + lpc);
+        
         for (PartidaContabilidad partidaContabilidad : lpc) {
             System.out.println("ENTRANDO AL FOR>>>>.");
-            if (partidaContabilidad.concatenarPartida().equals(getInstance().concatenarPartida())) {
+            if (partidaContabilidad.concatenarPartida().equals(getInstance().concatenarPartida())
+                    && !partidaContabilidad.getId().equals(getInstance().getId())) {
                 System.out.println("entro a verificar>>>>>>>" + ban);
                 ban = false;
                 break;
             }
         }
-        System.out.println("salio del for>>>>>");
+        System.out.println("salio del for>>>>>" +ban);
         return ban;
 
     }
@@ -281,10 +281,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
 
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "La partida de contabilidad ya exite ");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-            mensaje = "La partida de contabilidad ya exite";
-
+            mensaje="La partida de contabilidad ya exite";
+            System.out.println("cambio mensaje "+mensaje);
             return "";
         }
 

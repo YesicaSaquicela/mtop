@@ -30,10 +30,20 @@
 
                         <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/partidaContabilidad/lista" styleClass="btn  btn-success"/>
                     </div><br/>
-                    <p:panel id="msj" rendered="#{controladorPartidaContabilidad.mensaje ne ''}">
-                        <p:messages id="mensaje" showDetail="true" autoUpdate="true" closable="true" />
+                    #{controladorPartidaContabilidad.mensaje}
+                    <h:panelGroup id="msj" rendered="#{controladorPartidaContabilidad.mensaje ne ''}"  >
+                        <div class="panel panel-danger"  > 
+                            <div class="panel-heading">
+                                 <span class="badge pull-left" >  </span>
+                                 
+                                <h:outputLabel  id="msg"  value="#{controladorPartidaContabilidad.mensaje}" style="color:red" />
+                            </div>
+                             
+                        </div>
+                        
+                          
 
-                    </p:panel>
+                    </h:panelGroup>
                     <div class="panel panel-primary">
                         <div class="panel-heading"><center>Datos Generales</center></div>
 
@@ -336,7 +346,7 @@
                     <div class="admin-actions " align="center" > 
                         <p:commandButton id="save" value="Guardar"  
                                          styleClass="btn  btn-success" action="#{controladorPartidaContabilidad.guardar()}"
-                                         icon="ui-icon-disk" update="panel" ajax="true"
+                                         icon="ui-icon-disk" update="@form" ajax="true"
                                          onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
 

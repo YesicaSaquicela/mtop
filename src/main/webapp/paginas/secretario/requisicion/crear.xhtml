@@ -106,9 +106,11 @@
                                                      disabled="#{controladorRequisicion.instance.id ne null}"
                                                      value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        
                                         <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
                                         <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
-                                        <p:ajax event="change" update=":form:numRequisicion :form:save111 tr" partialSubmit="true"/>
+                                        <f:ajax execute="tipoRequisicion" render="tr"/>
+                                        
                                     </p:selectOneMenu> <br></br>
                                    
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.tipoRequisicion !=null}" styleClass="validation-status" />
@@ -125,7 +127,7 @@
                                                      requiredMessage="Requerido necesita un valor">  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItems value="#{controladorRequisicion.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
-                                        <p:ajax event="change" update="pr" partialSubmit="true"  />
+                                        <f:ajax execute="personal1" render="pr"/>
 
                                         </p:selectOneMenu> <br></br>
 
@@ -139,7 +141,8 @@
                                                      disabled="#{controladorRequisicion.instance.id ne null}"
                                                      label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
                                                      value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
-                                        <p:ajax event="change" update="ta" partialSubmit="true" />
+                                     
+                                        <f:ajax execute="adquisicion" render="ta"/>
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                         <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
                                         <f:selectItem itemLabel="Compra" itemValue="compra" />  
@@ -157,7 +160,7 @@
                                                      value="#{controladorRequisicion.instance.observaciones}"
                                                      required="true" label="observación" 
                                                      requiredMessage="Observación requerida, necesita un valor">
-                                        <p:ajax event="blur" update="obs" partialSubmit="true"  />
+                                        <f:ajax execute="observacion1" render="obs"/>
                                     </p:inputTextarea>
                                     
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.observaciones != ''}" styleClass="validation-status" />
@@ -627,7 +630,7 @@
                                                         <div class="col-md-4"> 
                                                             <h:outputLabel class="navbar-text" value=" Descripción: "/>
 
-                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.descripcion}"/>
+                                                            <h:outputText  class="navbar-text" value="#{controladorRequisicion.pro.descripcion}"/>
 
 
                                                         </div>
