@@ -57,18 +57,20 @@
 
 
                             </div><br/>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <!--p:messages id="messages" showDetail="true" closable="true" /-->  
+                             <h:outputLabel id="msg"  value="#{profileHome.mensajei}" style="color:blue" /> 
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
 
 
                                         <tbody>
+                                            
                                             <p:dataTable id="profileDataTable"  var="profile_" value="#{profileHome.listausuarios}" 
                                                          paginator="true" rows="5"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20"
-                                                         >
+                                                         emptyMessage="No se encontraron coincidencias">
 
 
                                                 <p:column sortBy="#{profile_.username}">
@@ -101,7 +103,7 @@
                                                     <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
                                                                      title="Activar cuenta" icon="ui-icon-check"
                                                                      rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.deleted eq true }"
-                                                                     update="@form" style="margin-top:10px;"
+                                                                     style="margin-top:10px;"
                                                                      >
                                                         <p:confirm header="Confirmación"
                                                                    message="¿Desea Realmente habilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
@@ -112,10 +114,11 @@
                                                     <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode" widgetVar="conf">
                                                         <center>
                                                             <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
-                                                                <p:ajax event="click" process="@form" update="profileDataTable" />
+                                                                <p:ajax event="mouseup" process="@form" update="profileDataTable :form:msg" />
                                                             </h:commandLink>
                                                             #{' '}
                                                             <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                      
                                                         </center>
                                        
                                                     </p:confirmDialog>

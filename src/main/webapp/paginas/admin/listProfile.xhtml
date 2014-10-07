@@ -91,7 +91,8 @@
                                             <p:dataTable id="profileDataTable1"  var="profile_" value="#{controladorPersona.listaPersona}" 
                                                          paginator="true" rows="5"                         
                                                          paginatorPosition="top"
-                                                         rowsPerPageTemplate="5,10,15,20">
+                                                         rowsPerPageTemplate="5,10,15,20"
+                                                         emptyMessage="No se encontraron coincidencias">
 
 
                                                 <p:column sortBy="#{profile_.firstname}">
@@ -137,7 +138,7 @@
                                                 </p:column>
                                                 <p:column headerText="Crear/Editar Usuario" style="width: 10%">
                                                     <center>
-                                                        <p:button icon="ui-icon-person" 
+                                                        <p:button icon="ui-icon-person" rendered="#{profile_.deleted eq false}"
                                                                   title="Crear Usuario" styleClass="btn  btn-success"
 
                                                                   outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" 
@@ -145,6 +146,13 @@
                                                             <f:param name="profileId" value="#{profile_.id}"></f:param>
                                                             <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
                                                         </p:button>
+                                                      
+                                                        
+                                                          <p:commandButton icon="ui-icon-person" rendered="#{profile_.deleted eq true}" 
+                                                                             oncomplete="#{'carDialog1.show();'}" immediate="true" 
+                                                                             title="Crear Usuario1" >
+                                                                <p:ajax process="@this" update=":form-dialog1 "/> 
+                                                          </p:commandButton>
                                                     </center>
                                                 </p:column>
                                             </p:dataTable></tbody>  </div> </div> </div> 
@@ -155,5 +163,17 @@
                 </div>
             </div>
         </h:form>
+         <p:dialog id="form-dialog1" header="Mensaje" widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
+            <h:form id="v1"  >
+                <div class="container-fluid">
+                    <div class="row-fluid"  >
+                        <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                            <center> <h:outputText value="El usuario seleccionado se encuentra inactivado"/></center>
+                            
+                        </h:panelGroup>
+                    </div></div>
+
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>

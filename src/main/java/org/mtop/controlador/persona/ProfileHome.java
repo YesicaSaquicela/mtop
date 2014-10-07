@@ -109,6 +109,20 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     private List<Profile> listausuarios;
     private String estado;
     private List<Profile> listausuariosInactivos;
+    private String mensajei;
+   
+    public String getMensajei() {
+        return mensajei;
+    }
+
+    public void setMensajei(String mensajei) {
+        this.mensajei = mensajei;
+    }
+
+
+    
+    
+    
 
     public List<Profile> getListausuariosInactivos() {
         return listausuariosInactivos;
@@ -175,10 +189,12 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
                 listausuarios = lui;
                 FacesMessage msg = new FacesMessage("EL Usuario: " + selectedProfile.getFullName(), "ha sido deshabilitado");
                 FacesContext.getCurrentInstance().addMessage("", msg);
+                mensajei="EL Usuario: "+ selectedProfile.getFullName()+ " ha sido deshabilitado";
 
             } else {
                 FacesMessage msg = new FacesMessage("No se puede deshabilitar este usuario", "el usuario esta logeado");
                 FacesContext.getCurrentInstance().addMessage("", msg);
+                mensajei="No se puede deshabilitar este usuario porque se encuentra logeado";
             }
 
         } catch (IdentityException ex) {
@@ -696,6 +712,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             System.out.println("lista despues" + listausuarios);
             FacesMessage msg = new FacesMessage("EL Usuario: " + habilitar.getFullName(), "ha sido habilitado");
             FacesContext.getCurrentInstance().addMessage("", msg);
+            mensajei="EL Usuario: "+ habilitar.getFullName()+ " ha sido habilitado";
             System.out.println("PROFILE_________2");
         } catch (IdentityException ex) {
 

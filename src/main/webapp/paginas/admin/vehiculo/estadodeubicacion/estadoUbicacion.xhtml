@@ -34,7 +34,7 @@
                     </div><br/>
                     <div class="panel panel-primary">
                         <div class="panel-heading" align="center">Datos Generales</div>
-                        <p:panel id="p1" >
+                        <p:panel  >
 
                             <div class="container-fluid" align="center">
                                 <div class="row-fluid"  >
@@ -99,7 +99,14 @@
                             </div>
                             <br/>
 
-                            <div class="container-fluid">
+                          
+                        </p:panel>
+                    </div>
+
+<div class="panel panel-primary">
+                        <div class="panel-heading" align="center">Datos del Estado de Ubicación</div>
+                       <p:panel id="p1">
+                        <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row-fluid">
                                     <p:outputLabel value="Fecha Final*"/><br/>
@@ -150,10 +157,10 @@
 
                                 </div>
                             </div>
-                        </p:panel>
+                     </p:panel>
                     </div>
-
-
+                    
+                    
                     <center>
                         <p:commandButton id="save" value="Guardar"  icon="ui-icon-disk" 
                                          styleClass="btn  btn-success" action="#{controladorVehiculo.guardarEstadoVehiculo()}"
