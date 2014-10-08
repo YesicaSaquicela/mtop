@@ -46,7 +46,7 @@
 
             <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
             <h:outputScript name="bootstrap-3.1.1/js/bootstrap.min.js"/> 
-            
+
             <h:outputScript library="js" name="calendar_es.js" />
             <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -58,18 +58,21 @@
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                     
+
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" >
-                           
+
                             <h:panelGroup rendered="#{identity.loggedIn}">
 
- <br/><br/>
+                                <br/><br/>
                                 <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
 
                                     <h:graphicImage value="/resources/mtop.png" width="150" height="40" />
                                 </h:outputLink>
-                                
+
                                 <h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="Cerrar Sesión">
                                     <h:graphicImage value="/resources/imagenes2/logout1.png" width="30" height="30" />
                                 </h:outputLink>
@@ -82,12 +85,12 @@
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-               
+                        <ul class="nav navbar-nav" >
                         </ul>
                         <form class="navbar-form navbar-right">
                             <!--input type="text" class="form-control" placeholder="Search..."/-->
-                            <div class="form-group">
+
+                            <div class="form-group" >
 
                                 <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
                                     <ul class="nav navbar-nav navbar-right">
@@ -104,8 +107,8 @@
                                             <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" title="Solicitud Repración y Mantenimiento" >
                                                     <p:graphicImage value="/resources/imagenes2/docsol.png" width="50" height="50" />
                                                 </h:link></li>
-                                                    <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" title="Requisición" >
-                                                <p:graphicImage value="/resources/imagenes2/docs.png" width="50" height="50" />
+                                            <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" title="Requisición" >
+                                                    <p:graphicImage value="/resources/imagenes2/docs.png" width="50" height="50" />
                                                 </h:link></li>
 
                                             <li><h:link outcome="/paginas/secretario/producto/lista.xhtml" title="Producto" >
@@ -139,7 +142,7 @@
                                                     <li><h:link  outcome="/paginas/admin/listaUsuario.xhtml" value=" Usuarios "/> 
 
                                                     </li>
-                                                   
+
 
                                                 </ul>
                                             </li>
@@ -154,7 +157,7 @@
                                                         </h:link></li>        
                                                     <li><h:link  outcome="/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
                                                     <li><h:link outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml" value="Mantenimiento del Vehículo" /></li>
-                                                   
+
 
                                                 </ul>
                                             </li>
@@ -176,7 +179,7 @@
                                 </h:panelGroup>
 
                             </div>
-                            
+
                             <!--div class="form-group">
 
                                 <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
@@ -193,10 +196,10 @@
             <div class="jumbotron">
                 <div class="container" style="margin: -5% 0.5 -10% 30%; ">
                     <div class="row lf row-title" > 
-                             <ui:insert name="header">
+                        <ui:insert name="header">
 
-                            </ui:insert>
-                        
+                        </ui:insert>
+
                     </div>               
 
                     <!--Contenido-->
