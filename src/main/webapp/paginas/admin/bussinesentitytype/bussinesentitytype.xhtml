@@ -261,7 +261,7 @@ limitations under the License.
                                         <p:column headerText="Posición" sortBy="#{property.sequence}" style="width: 5%">
                                             <h:outputText value="#{property.sequence}" />
                                         </p:column>  
-                                        <p:column  headerText="Crear Entidad" style="width: 5%;text-align: center">
+                                        <p:column  headerText="Crear entidad" style="width: 5%;text-align: center">
                                            
                                                 <p:button icon="ui-icon-circle-check" styleClass="btn  btn-success"
                                                           rendered="#{propertyHome.ConvertirPropiedadesString(property) eq 'Estructura'  and bussinesEntityTypeHome.esTipoEntidad(property.name) eq false}" 
@@ -486,13 +486,13 @@ limitations under the License.
                 </h:panelGroup> 
                 <center>
                     <h:commandLink action="#{propertyHome.deleteProperty()}"  styleClass="ui-confirmdialog-yes" 
-                                   type="button" value="SÍ" class="btn btn-success"  style="width:20%" >
+                                   type="button" value="Sí" class="btn btn-success"  style="width:20%" >
                         <f:setPropertyActionListener target="#{bussinesEntityTypeHome.listaPropiedades}" value="#{propertyHome.propiedades}"/>
                     </h:commandLink>
                     #{' '}
 
 
-                    <h:commandLink class="btn btn-success" value="NO" type="button" onclick="dlg1.hide();"  style="width:20%"    styleClass="ui-confirmdialog-no"  
+                    <h:commandLink class="btn btn-success" value="No" type="button" onclick="dlg1.hide();"  style="width:20%"    styleClass="ui-confirmdialog-no"  
    
                                    />  
                 </center>

@@ -121,13 +121,13 @@
                                                                          action="#{controladorPartidaContabilidad.activarPartida(pc.id)}" 
                                                                          >
                                   
-                                                            <p:confirm header="Confirmación" message="¿Desea Realmente Activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
+                                                            <p:confirm header="Confirmación" message="¿Desea realmente activar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                         </p:commandButton>
                                                         <p:commandButton rendered="#{pc.estado eq true}" style="width: 35px; height: 35px"
                                                                          styleClass="btn  btn-success" update="@form"
                                                                          id="confirmacion1" title="Desactivar Partida" icon="ui-icon-closethick" 
                                                                          action="#{controladorPartidaContabilidad.inactivarPartida(pc.id)}" >
-                                                            <p:confirm header="Confirmación" message="¿Desea Realmente Inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
+                                                            <p:confirm header="Confirmación" message="¿Desea realmente inactivar la partida de contabilidad seleccionada?" icon="ui-icon-alert" />
                                                          </p:commandButton></center>
 
                                                     <p:confirmDialog global="true" showEffect="fade" widgetVar="conf" hideEffect="explode">

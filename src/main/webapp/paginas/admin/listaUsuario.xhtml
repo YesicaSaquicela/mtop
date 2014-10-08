@@ -27,10 +27,9 @@
                         <p:panel>
 
                             <div class="admin-actions" align="right">
-                                <h:panelGrid id="export" class="columns" >
+                                <h:panelGrid id="export" class="columns" title="Generar reporte">
                                     <p:panel>
-                                        <h:outputText value="Generar Reporte" />  
-
+                                        
                                         <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn"
                                                        target="_blank">                    
                                             <p:graphicImage value="/resources/pdf.png" width="50" height="40 "/>                          
@@ -89,7 +88,7 @@
                                                 </p:column>
                                                 <p:column headerText="Asignar Rol" style="width: 5%; text-align: center">
 
-                                                    <p:button title="Asignar Roles" icon="ui-icon-key" 
+                                                    <p:button title="Asignar roles" icon="ui-icon-key" 
                                                               rendered="#{profile_.deleted ne true}" style="margin-top:10px;"
                                                               outcome="/paginas/admin/security/authorization.xhtml?faces-redirect=true" 
                                                               >                          
@@ -114,7 +113,7 @@
                                                                      style="margin-top:10px;"
                                                                      >
                                                         <p:confirm header="Confirmación"
-                                                                   message="¿Desea Realmente habilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
+                                                                   message="¿Desea realmente habilitar la cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>
                                                    

@@ -45,7 +45,7 @@
 
                     </h:panelGroup>
                     <div class="panel panel-primary">
-                        <div class="panel-heading"><center>Datos Generales</center></div>
+                        <div class="panel-heading"><center>Datos generales</center></div>
 
 
                         <p:panel id="panel">
@@ -54,12 +54,13 @@
                                 <div class="row-fluid"  >
                                     <div class="col-md-6"> 
 
-                                        <p:outputLabel value="Número de Institución"/><br></br>
+                                        <p:outputLabel value="Número de institución"/><br></br>
                                         <p:inputText id="institucion" value="250" styleClass="form-control" disabled="true"/>
+                                        <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de institución<ocp:message forId="institucion" /></span>
                                         <br></br><br></br>
 
-                                        <p:outputLabel value="Número de Provincia"/><br></br>
+                                        <p:outputLabel value="Número de provincia"/><br></br>
                                         <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"
                                                      styleClass="form-control" requiredMessage="Número de provincia requerido, necesita un valor" >
                                             <f:validateLength minimum="4" />
@@ -68,17 +69,19 @@
                                         <h:panelGroup id="np" layout="block" class="clearfix">
 
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroProvincia != null}" styleClass="validation-status" />
-                                            <span class="help-inline text-muted">Numero de provincia. Ejm(0011)<ocp:message forId="provincia"/></span> 
+                                            <span class="help-inline text-muted">Número de provincia. Ejm(0011)<ocp:message forId="provincia"/></span> 
                                         </h:panelGroup>
 
-                                        <br></br><br></br>
+                                        <br></br>
 
                                         <p:outputLabel value="Número de unidad descentralizada"/><br></br>
                                         <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
                                                      />
-                                        <span class="help-inline text-muted">Ingrese el número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
+                                        
+                                        <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
 
-                                        <p:outputLabel value="Número de Programa"/><br></br>
+                                        <p:outputLabel value="Número de programa"/><br></br>
                                         <p:inputText id="programa" maxlength="2" value="#{controladorPartidaContabilidad.instance.numeroPrograma}"  styleClass="form-control" >
                                             <f:validateLength minimum="2"/>
                                             <p:ajax event="blur" update="np1" partialSubmit="true"  />
@@ -86,11 +89,11 @@
                                         <h:panelGroup id="np1" layout="block" class="clearfix">
 
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroPrograma != null}" styleClass="validation-status" />
-                                            <span class="help-inline text-muted">Numero de programa. Ejm(01)<ocp:message forId="programa"/></span>
+                                            <span class="help-inline text-muted">Número de programa. Ejm(01)<ocp:message forId="programa"/></span>
                                         </h:panelGroup>
-                                        <br></br><br></br>
+                                        <br></br>
 
-                                        <p:outputLabel value="Número de Proyecto"/><br></br>
+                                        <p:outputLabel value="Número de proyecto"/><br></br>
                                         <p:inputText id="proyecto" maxlength="5" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
                                             <f:validateLength minimum="5"/>
                                             <p:ajax event="blur" update="np2" partialSubmit="true"  />
@@ -98,7 +101,7 @@
                                         <h:panelGroup id="np2" layout="block" class="clearfix">
 
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroProyecto != null}" styleClass="validation-status" />
-                                            <span class="help-inline text-muted">Numero de proyecto. Ejm(00011)<ocp:message forId="proyecto"/></span>
+                                            <span class="help-inline text-muted">Número de proyecto. Ejm(00011)<ocp:message forId="proyecto"/></span>
                                         </h:panelGroup>
                                         <br></br><br></br>
 
@@ -111,9 +114,10 @@
 
                                         <p:outputLabel value="Número de actividad" /><br></br>
                                         <p:inputText id="actividad" value="001" styleClass="form-control" disabled="true" />
+                                        <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
 
-                                        <p:outputLabel value="Número de Item"/><br></br>
+                                        <p:outputLabel value="Número de ítem"/><br></br>
                                         <p:inputText id="item" maxlength="6" value="#{controladorPartidaContabilidad.instance.numeroItem}"  styleClass="form-control" >
                                             <f:validateLength minimum="6"/>
                                             <p:ajax event="blur" update="np3" partialSubmit="true"  />
@@ -128,9 +132,11 @@
                                         <p:outputLabel value="Número geográfico"/><br></br>
                                         <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
                                                      />
+                                        
+                                        <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
 
-                                        <p:outputLabel value="Número de Fuente Financiera"/><br></br>
+                                        <p:outputLabel value="Número de fuente financiera"/><br></br>
                                         <p:inputText id="fuenteFinanciera" maxlength="3" value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}"  styleClass="form-control" >
                                             <f:validateLength minimum="3"/>
                                             <p:ajax event="blur" update="np4" partialSubmit="true"  />
@@ -140,7 +146,7 @@
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera != null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Número de fuente financiera. Ejm(001)<ocp:message forId="fuenteFinanciera"/></span>
                                         </h:panelGroup>
-                                        <br></br><br></br>
+                                        <br></br>
 
                                         <h:panelGroup id="em1" layout="block" class="clearfix">
                                             <div class="input">

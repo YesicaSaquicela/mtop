@@ -79,10 +79,10 @@
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
 
                                                     </p:column>
-                                                    <p:column headerText="Kilometraje Actual" sortBy="#{v.kilometraje}">
+                                                    <p:column headerText="Kilometraje actual" sortBy="#{v.kilometraje}">
                                                         <h:outputText value="#{v.kilometraje}"></h:outputText>
                                                     </p:column>
-                                                    <p:column headerText="Próximo Kilometraje" sortBy="#{controladorVehiculo.actividadplan.kilometraje }">
+                                                    <p:column headerText="Próximo kilometraje" sortBy="#{controladorVehiculo.actividadplan.kilometraje }">
                                                         <h:outputText value="#{controladorVehiculo.obtenerKilometraje(v.kilometraje)}"></h:outputText>
                                                     </p:column>
                                                     <p:column headerText="Observación" sortBy="#{v.description}">
@@ -95,7 +95,7 @@
                                                         <h:outputText value="#{controladorVehiculo.obtenerAlerta(v.kilometraje)}" rendered="#{not empty controladorVehiculo.obtenerAlerta(v.kilometraje)}" style="color: red;"/><br/>
 
                                                     </p:column>
-                                                    <p:column headerText="Cambiar Kilometraje" style="width: 5%"> 
+                                                    <p:column headerText="Cambiar kilometraje" style="width: 5%"> 
                                                         <center>
                                                             <p:button  icon="ui-icon-pencil" outcome="cambiarKilometraje" title="Cambiar Kilometraje">
                                                                 <f:param name="vehiculoId" value="#{v.id}"></f:param>
@@ -135,7 +135,7 @@
                                                     </p:column>
                                                     <p:rowExpansion>
                                                         <div class="panel panel-primary">
-                                                            <div class="panel-heading"  align="center">Datos del Vehículo</div>
+                                                            <div class="panel-heading"  align="center">Datos del vehículo</div>
                                                             <p:panel id="v" >
                                                                 <div class="container-fluid" align="center">
                                                                     <div class="row-fluid"  >

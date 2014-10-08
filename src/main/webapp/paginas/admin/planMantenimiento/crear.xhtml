@@ -39,7 +39,7 @@
 
                         <p:panel id="p1">
 
-                            <p:outputLabel value="Número de Registro"/><br></br>
+                            <p:outputLabel value="Número de registro"/><br></br>
                             <p:inputText id="registro" value="#{controladorPlanMantenimiento.numeroPlanMantenimiento}"
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Número de Registro" 
@@ -48,7 +48,7 @@
                                             styleClass="validation-status" />
                             <span class="help-inline text-muted">Número de registro</span><br></br><br></br>
 
-                            <h:outputLabel value="Fecha de Creación" /> <br></br> 
+                            <h:outputLabel value="Fecha de creación" /> <br></br> 
                             <p:inputText id="fecha" value="#{controladorPlanMantenimiento.formato(controladorPlanMantenimiento.instance.createdOn)}"
                                          readonly="true" styleClass="form-control"
                                          required="true" label="Fecha de Creación" 
@@ -122,7 +122,7 @@
                                         <p:commandButton immediate="true" process="@this" id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
                                                          action="#{controladorPlanMantenimiento.darDeBaja(car)}" 
                                                          title="Dar de baja" update=":form:listaa">
-                                            <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja la actividad seleccionada?" icon="ui-icon-alert" />
+                                            <p:confirm header="Confirmación" message="¿Desea realmente dar de baja la actividad seleccionada?" icon="ui-icon-alert" />
                                         </p:commandButton></center>
                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                         <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
@@ -136,7 +136,7 @@
 
 
                         </p:panel>
-                        <p:dialog width="450" height="300" id="dialog"   header="Document Detail" showEffect="fade" 
+                        <p:dialog width="450" height="300" id="dialog"   header="Editar actividades" showEffect="fade" 
                                   widgetVar="documentDialog" modal="true" resizable="false" closable="true">
                                 <h:panelGroup id="documentPanel" style="width:100%">
                                     <h:outputLabel for="name" value="Kilometraje: " />

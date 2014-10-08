@@ -67,10 +67,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" align="right"> 
-                                        <h:panelGrid id="export" class="columns" >
-                                            <p:panel>
-                                                <h:outputText value="Generar Reporte" />  
-                                                <br/>
+                                        <h:panelGrid id="export" class="columns" title="Generar reporte">
+                                            <p:panel toggleTitle="Generar reporte">
+                                             
                                                 <h:commandLink action="#{reporteListas.renderProducto(controladorProducto.listaProducto)}" 
                                                                styleClass="btn" target="_blank">                    
                                                     <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
@@ -143,7 +142,7 @@
                                                                          action="#{controladorProducto.darDeBaja(pd.id)}" 
                                                                          title="Desactivar" update="@form" 
                                                                          rendered="#{controladorProducto.verificarPoducto(pd.id) eq true}">       
-                                                            <p:confirm header="Dar de baja" message="¿Desea Realmente dar de baja el producto?" icon="ui-icon-alert" />
+                                                            <p:confirm header="Confirmación" message="¿Desea realmente dar de baja el producto seleccionado?" icon="ui-icon-alert" />
 
                                                         </p:commandButton>
 
@@ -172,7 +171,7 @@
          <p:dialog id="alerts-dialog1" header="Mensaje" widgetVar="alertDlg1" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog1">
                 <h:panelGroup layout="block" style="padding:5px;">  
-                     <h:outputText value="El producto se encuentra asignado a una requisición, no se lo puede dar de baja."/>
+                     <h:outputText value="El producto seleccionado se encuentra asignado a una requisición, no se lo puede dar de baja."/>
                 </h:panelGroup>    
                 <center>
                 <h:commandLink value="Regresar" type="button" onclick="#{'alertDlg1.hide();'}" 

@@ -47,7 +47,7 @@
 
                                         <h:panelGroup id="num" layout="block" class="clearfix">
                                             <div class="input">
-                                                <h:outputLabel value="Número de Registro*"/>
+                                                <h:outputLabel value="Número de registro*"/>
                                                 <h:inputText id="registro"  value="#{controladorVehiculo.instance.numRegistro}" styleClass="form-control"
                                                              required="true" label="Número de Registro" 
                                                              requiredMessage="Número de registro requerido, necesita un valor"
@@ -118,7 +118,7 @@
 
 
 
-                                        <mtop:input id="numPasajeros" name="numPasajeros" type="decimal" label="Número de Pasajeros" 
+                                        <mtop:input id="numPasajeros" name="numPasajeros" type="decimal" label="Número de pasajeros" 
                                                     value="#{controladorVehiculo.instance.numPasajeros}" required="true" numDecimales="0"
                                                     inlinehelp="Ingrese el número de pasajeros del vehículo Ej(2)" maxValue="99"
                                                     render="numPasajeros"
@@ -139,7 +139,7 @@
                                                 <span class="help-inline text-muted">Elija la tracción del vehículo<ocp:message forId="traccion" /></span><br></br><br></br> 
                                             </div>
                                         </h:panelGroup >
-                                        <mtop:input id="numCilindros" name="numCilindros" type="decimal" label="Número de Cilindros" 
+                                        <mtop:input id="numCilindros" name="numCilindros" type="decimal" label="Número de cilindros" 
                                                     value="#{controladorVehiculo.instance.numCilindros}" required="true" numDecimales="0"
                                                     inlinehelp="Ingrese el número cilindros del vehículo Ej(2)" maxValue="9"
                                                     render="numCilindros" 
@@ -232,7 +232,7 @@
 
                                         <h:panelGroup id="tipoCombustible1" layout="block" class="clearfix">
                                             <div class="input">
-                                                <p:outputLabel  value="Tipo de Combustible*" /><br/>
+                                                <p:outputLabel  value="Tipo de combustible*" /><br/>
                                                 <p:selectOneMenu id="tipoCombustible" value="#{controladorVehiculo.instance.tipoCombustible}" 
                                                                  effect="fold" editable="true"  style="width: 100%" required="true"
                                                                  requiredMessage="Combustible requerido, necesita un valor"
@@ -248,7 +248,7 @@
 
                                         <h:panelGroup id="unm2" layout="block" class="clearfix">
                                             <div class="input">
-                                                <p:outputLabel value="Fecha Inicio del Soat:  "/><br/>
+                                                <p:outputLabel value="Fecha inicio del soat:  "/><br/>
                                                 <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.instance.fechainiciosoat}" 
                                                               style="width: 100%"
                                                              >   
@@ -264,7 +264,7 @@
                                         <h:panelGroup id="pm" layout="block" class="clearfix">
 
                                             <div class="input">
-                                                <p:outputLabel value="Fecha Fín del Soat:  " for="fechaSalida"/><br/>
+                                                <p:outputLabel value="Fecha fín del soat:  " for="fechaSalida"/><br/>
                                                 <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  
                                                              label="Fecha entrada de Taller " 
                                                              styleClass="xLarge" 

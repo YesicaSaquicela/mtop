@@ -62,11 +62,11 @@
                               backLabel="Atrás" nextLabel="Siguiente" >
                         <p:tab id="req"  title="Requisición">
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Datos Generales</center></div>
+                                <div class="panel-heading"><center>Datos generales</center></div>
                                 <p:panel >
 
 
-                                    <p:outputLabel value="Número de Requisición"/>
+                                    <p:outputLabel value="Número de requisición"/>
                                     <p:inputText id="numRequisicion"  value="#{controladorRequisicion.numeroRequisicion}"
                                                  readonly="true" styleClass="form-control"
                                                  required="true" label="Número de Requisición" 
@@ -74,21 +74,27 @@
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Número de requisición<ocp:message forId="numRequisicion" /></span><br></br><br></br> 
 
-                                    <h:outputLabel value="Fecha de Requisición" /> <br></br> 
+                                    <h:outputLabel value="Fecha de requisición" /> <br></br> 
                                     <p:inputText id="fechaRequisicion" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"  label="Fecha de Requisicion"
                                                  readonly="true" styleClass="form-control"
                                                  required="true" 
                                                  rendered="true" />
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
-                                    <span class="help-inline text-muted">Ingrese la fecha<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
+                                    <span class="help-inline text-muted">Fecha de creación de la requisición<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
 
-                                    <h:outputLabel value="Partida de Contabilidad*"/> <br></br> 
-
-                                    <h:panelGroup id="pt" layout="block" class="clearfix">
-                                        <p:selectOneMenu id="partida" style="width: 100%" value="#{controladorRequisicion.idPartidaC}" effect="fade"
+                                    <h:outputLabel value="Partida de contabilidad*"/> <br></br> 
+ <p:inputText id="ptt" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"  
+                                                     rendered="#{controladorRequisicion.instance.persistent}"
+                                                     readonly="true"
+                                                  styleClass="form-control"
+                                                 />
+                                    <h:panelGroup id="ptp" layout="block" class="clearfix">
+                                       
+                                        <p:selectOneMenu id="partida" style="width: 100%" value="#{controladorRequisicion.idPartidaC}" effect="fade" 
+                                                         rendered="#{controladorRequisicion.instance.persistent eq false}"
                                                          converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains"
                                                          requiredMessage="Partida de contabilidad requerida, necesita un valor">  
-                                            <f:ajax execute="partida" render="pt"/>
+                                            <f:ajax execute="partida" render="ptp"/>
                                             <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                             <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
                                             <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
@@ -147,7 +153,7 @@
                                         <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
                                         <f:selectItem itemLabel="Compra" itemValue="compra" />  
                                         <f:selectItem itemLabel="Pago" itemValue="pago" /> 
-                                        <f:selectItem itemLabel="Credito" itemValue="credito" />  
+                                        <f:selectItem itemLabel="Crédito" itemValue="credito" />  
 
                                         </p:selectOneMenu> <br></br>
 
@@ -355,7 +361,7 @@
 
                         <p:tab  id="address" title="Asignar Vehículo">
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Lista de Vehículos</center></div>
+                                <div class="panel-heading"><center>Lista de vehículos</center></div>
                             
                                 <p:panel>
                                     <div class="panel panel-info">
@@ -400,7 +406,7 @@
 
                                                                  rowsPerPageTemplate="5,10,15,20"
                                                                  >
-                                                        <p:column headerText="Nro Registro" sortBy="#{items.numRegistro}">
+                                                        <p:column headerText="Nro registro" sortBy="#{items.numRegistro}">
                                                             <h:outputText value="#{items.numRegistro}"></h:outputText>
                                                         </p:column>
                                                         <p:column headerText="Color" sortBy="#{items.color}">
@@ -413,7 +419,7 @@
                                                             <h:outputText value="#{items.placa}"></h:outputText>
                                                         </p:column>
 
-                                                        <p:column style="width:4%;text-align: center">
+                                                        <p:column style="width:4%;text-align: center" headerText="Agregar">
                                                             <p:commandButton update="@form"  
                                                                              process="@this" title="Agregar" icon="ui-icon-check" >
                                                                 <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.vehiculo}"  />
@@ -429,7 +435,7 @@
                                                         <br></br>
                                                         <div align="right" class="admin-actions">
 
-                                                            <p:commandButton value="Quitar Vehículo" update="@form" icon="ui-icon-closethick"
+                                                            <p:commandButton value="Quitar vehículo" update="@form" icon="ui-icon-closethick"
                                                                              process="@form" styleClass="btn btn-success" 
 
                                                                              >
@@ -440,7 +446,7 @@
 
                                                         </div><br/>
                                                         <div class="panel panel-primary">
-                                                            <div class="panel-heading"  align="center">Datos de Vehículo seleccionado</div>
+                                                            <div class="panel-heading"  align="center">Datos del vehículo seleccionado</div>
                                                             <p:panel >
                                                                 <div class="container-fluid" align="center">
                                                                     <div class="row-fluid"  >
@@ -450,7 +456,7 @@
 
                                                                         </div>
                                                                         <div class="col-md-4"> 
-                                                                            <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
+                                                                            <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
 
                                                                             <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                                                                 <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
@@ -485,7 +491,7 @@
 
                                                                         </div>
                                                                         <div class="col-md-4"> 
-                                                                            <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
+                                                                            <h:outputLabel class="navbar-text" value=" Número de motor:"/>
                                                                             <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                                                                 <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                                                                     <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
@@ -528,7 +534,7 @@
 
                         <p:tab id="items" title="Agregar Items">
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Items</center></div>
+                                <div class="panel-heading"><center>Lista de ítems de la requisición</center></div>
 
                                 <p:panel id="bodegas" rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
 
@@ -689,13 +695,13 @@
 
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.descripcion.trim() != ''}"
                                                         styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Descripción del item <ocp:message forId="descrip"/></span>
+                                        <span class="help-inline text-muted">Descripción del ítem <ocp:message forId="descrip"/></span>
                                     </h:panelGroup>
 
                                     <br></br>
 
                                     
-                                        <p:outputLabel value="Unidad de Medida*"/><br></br>
+                                        <p:outputLabel value="Unidad de medida*"/><br></br>
                                         <p:inputText style="width: 100%" id="unidadMedida" maxlength="50"
                                                      requiredMessage="Unidad de medida requerida, necesita un valor"
                                                      value="#{controladorRequisicion.cir.instance.unidadMedida}">
@@ -712,7 +718,7 @@
                                     <br></br>
                                     <div class="admin-actions">
                                         <p:commandLink  update=":form:p1" 
-                                                        styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  process=":form:p1"
+                                                        styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  process=":form:p1"
                                                         actionListener="#{controladorRequisicion.agregarItem()}">
 
                                         </p:commandLink>
@@ -742,7 +748,7 @@
                                                                 <h:outputText value="#{item2.cantidad}"></h:outputText>
                                                             </div>
                                                         </p:column>
-                                                        <p:column headerText="Unidad de Medida" sortBy="#{item2.unidadMedida}">
+                                                        <p:column headerText="Unidad de medida" sortBy="#{item2.unidadMedida}">
                                                             <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                         </p:column>
                                                         <p:column headerText="Descripción" sortBy="#{item2.descripcion}">
@@ -780,7 +786,7 @@
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
                                                                               process="@form" style="width: 35px; height: 35px">
 
-                                                                <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar el ítem de la requisición?" icon="ui-icon-alert" />
+                                                                <p:confirm header="Confirmación" message="¿Desea realmente dar de baja el ítem de la requisición seleccionado?" icon="ui-icon-alert" />
 
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton>
@@ -809,7 +815,7 @@
 
 
                                 </p:panel>
-                                <p:dialog width="450" height="390" id="dialog"   header="Document Detail" 
+                                <p:dialog width="450" height="390" id="dialog"   header="Editar ítems" 
                                           showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                                     <h:panelGroup id="documentPanel" style="width:100%">
                                         <h:panelGroup id="documentPanel1" style="width:100%">
@@ -825,7 +831,7 @@
                                                     
                                                     <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
                                                 </div>
-                                        </h:panelGroup>
+                                        </h:panelGroup><br/><br/>
                                         <h:panelGroup id="documentPanel2" style="width:100%">
                                                 <p:outputLabel value="Descripción*"/><br></br>
                                                 <p:inputTextarea id="descrip1" style="width: 100%"
@@ -834,9 +840,10 @@
                                                                  readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
                                                      <f:ajax execute="descrip1" render="documentPanel2"/>
                                                 </p:inputTextarea>
-                                         </h:panelGroup>     <br/>
+                                                <span class="help-inline text-muted">Descripción del ítem <ocp:message forId="unidadMedida1"/></span>
+                                         </h:panelGroup>     <br/><br/>
                                          <h:panelGroup id="documentPane3" style="width:100%">
-                                                <p:outputLabel value="Unidad de Medida*"/><br></br>
+                                                <p:outputLabel value="Unidad de medida*"/><br></br>
                                                 <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
                                                              value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
                                                       <f:ajax execute="unidadMedida1" render="documentPane3"/>
@@ -844,15 +851,12 @@
                                                 <br/>
                                             
                                                 <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
-
-                                            <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
-
                                         </h:panelGroup>
                                         <br></br><br/>
 
                                         <div class="admin-actions" align="center">
                                             <p:commandLink  update=":form:listai :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" 
-                                                            styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  oncomplete="PF('documentDialog').hide()" 
+                                                            styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  oncomplete="PF('documentDialog').hide()" 
                                                             action="#{controladorRequisicion.editar()}">
 
                                             </p:commandLink>
@@ -872,7 +876,7 @@
                         <p:tab id="solicitud" title="Asignar Solicitud"  
                                rendered="#{controladorRequisicion.vehiculo.id ne null}">
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Lista de Solicitudes de Reparación y Mantenimiento</center></div>
+                                <div class="panel-heading"><center>Lista de solicitudes de reparación y mantenimiento</center></div>
                                 <p:panel id="listaSol">
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
@@ -927,17 +931,17 @@
                                                                  paginator="true" rows="15"   paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20"  emptyMessage="No se han encontrado coincidencias"
                                                                  >
-                                                        <p:column headerText="Número" sortBy="#{items1.numSolicitud}">
+                                                        <p:column headerText="Número de solicitud" sortBy="#{items1.numSolicitud}">
                                                             <h:outputText value="#{items1.numSolicitud}" />
                                                         </p:column>
-                                                        <p:column headerText="Fecha de Requisición" sortBy="#{items1.fechaSolicitud}" >
+                                                        <p:column headerText="Fecha de requisición" sortBy="#{items1.fechaSolicitud}" >
                                                             <h:outputText value="#{controladorRequisicion.formato(items1.fechaSolicitud)}" />
                                                         </p:column>
                                                         <p:column headerText="Observación" sortBy="#{items1.observacion}">
                                                             <h:outputText value="#{items1.observacion}" />
                                                         </p:column>
 
-                                                        <p:column headerText="Registro Vehículo" sortBy="#{items1.vehiculo.numRegistro}">
+                                                        <p:column headerText="Registro vehículo" sortBy="#{items1.vehiculo.numRegistro}">
                                                             <h:outputText value="#{items1.vehiculo.numRegistro}" />
                                                         </p:column>
 
@@ -956,7 +960,7 @@
                                                         <br></br>
                                                         <div align="right" class="admin-actions">
 
-                                                            <p:commandButton value="Quitar Solicitud" update="@form" icon="ui-icon-closethick"
+                                                            <p:commandButton value="Quitar solicitud" update="@form" icon="ui-icon-closethick"
 
                                                                              process="@this" styleClass="btn btn-success" 
                                                                              >
@@ -978,7 +982,7 @@
                                                                         </div>
 
                                                                         <div class="col-md-4"> 
-                                                                            <h:outputLabel class="navbar-text" value=" Fecha de Solicitud: "/>
+                                                                            <h:outputLabel class="navbar-text" value=" Fecha de solicitud: "/>
                                                                             <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(controladorRequisicion.solicitudrep.fechaSolicitud)}"/>
 
                                                                         </div>
@@ -1035,7 +1039,7 @@
                                                 </h:panelGroup><br></br>
                                                 <h:panelGroup id="tipoReq" layout="block" class="clearfix">
                                                     <div class="input">
-                                                        <h:outputLabel value="Tipo de Requisición: " /><br/>
+                                                        <h:outputLabel value="Tipo de requisición: " /><br/>
                                                         <h:outputText value="#{controladorRequisicion.instance.tipoRequisicion}" styleClass="outputLabel"/>
 
                                                     </div>
@@ -1066,7 +1070,7 @@
 
                                                 <h:panelGroup id="numSols" rendered="#{controladorRequisicion.solicitudrep.id ne null}" layout="block" class="clearfix">
                                                     <div class="input">
-                                                        <h:outputLabel value="Número de Solicitud: " rendered="#{controladorRequisicion.solicitudrep.id ne null}" /><br/>
+                                                        <h:outputLabel value="Número de solicitud: " rendered="#{controladorRequisicion.solicitudrep.id ne null}" /><br/>
                                                         <h:outputText value="#{controladorRequisicion.solicitudrep.numSolicitud}" rendered="#{controladorRequisicion.solicitudrep.id ne null}" styleClass="outputLabel"/><br/>
 
                                                     </div>
@@ -1089,7 +1093,7 @@
                                                                 <h:outputText value="#{item2.cantidad}"></h:outputText>
                                                             </p:column>
 
-                                                            <p:column headerText="Unidad de Medida">
+                                                            <p:column headerText="Unidad de medida">
                                                                 <h:outputText value="#{item2.unidadMedida}"></h:outputText>
                                                             </p:column>
                                                             <p:column headerText="Descripción">
@@ -1159,7 +1163,7 @@
                             <p:panel>
 
 
-                                <p:outputLabel value="Número de Solicitud"/>
+                                <p:outputLabel value="Número de solicitud"/>
                                 <p:inputText id="registro"  value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"
                                              readonly="true" styleClass="form-control"
                                              required="true" label="Número de Solicitud" 
@@ -1167,7 +1171,7 @@
                                 <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                 <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
 
-                                <h:outputLabel value="Fecha de Solicitud" /> <br></br> 
+                                <h:outputLabel value="Fecha de solicitud" /> <br></br> 
                                 <p:inputText id="fecha" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"
                                              readonly="true" styleClass="form-control"
                                              required="true" label="Fecha de Solicitud" 
@@ -1176,7 +1180,7 @@
 
                                 </p:inputText>
                                 <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
-                                <span class="help-inline text-muted">Fecha actual de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
+                                <span class="help-inline text-muted">Fecha creación de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
 
                                 <h:panelGroup id="sp">
                                     <h:outputLabel value="Solicitado por*"/> <br></br>
@@ -1393,7 +1397,7 @@
                             </p:panel><br></br>
                                 <div class="admin-actions">
                                     <p:commandLink update="@form" 
-                                                   process="@form" value="Ir Crear Items" title="Items" type="button"
+                                                   process="@form" value="Agregar ítems" title="Ítems" type="button"
                                                    styleClass="btn  btn-success" immediate="false">
 
                                         <f:setPropertyActionListener value="solicitud2" target="#{controladorRequisicion.vista}" />
@@ -1406,11 +1410,11 @@
 
                     <p:panel id="itemssol" rendered="#{controladorRequisicion.vista eq 'solicitud2'}">
                         <div class="panel panel-primary">
-                            <div class="panel-heading"><center>Items de Solicitud</center></div>
+                            <div class="panel-heading"><center>Ítems de Solicitud</center></div>
 
                             <p:panel id="ps">
                                  <h:panelGroup id="er">
-                                <p:outputLabel value="Elemento a Revisar*"/><br></br>
+                                <p:outputLabel value="Elemento a revisar*"/><br></br>
                                 <p:inputTextarea id="elementoRevisar"  
                                                  styleClass="form-control" 
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}">
@@ -1422,7 +1426,7 @@
                                     <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar" /></span><br></br>
                                 </h:panelGroup><br/>
                                  <h:panelGroup id="df">
-                                <p:outputLabel value="Descripción de Falla*"/><br></br>
+                                <p:outputLabel value="Descripción de falla*"/><br></br>
                                 <p:inputTextarea id="descripcionFalla"  styleClass="form-control" 
                                                  value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
                                                  >
@@ -1435,7 +1439,7 @@
                                 </h:panelGroup><br/><br/>
                                 <div class="admin-actions">
                                     <p:commandLink update=":form:ps :form:pp2"
-                                                   process=":form:ps" value="Crear Item" type="button"
+                                                   process=":form:ps" value="Crear ítem" type="button"
                                                    styleClass="btn  btn-success" >
                                         <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" 
                                                                      target="#{controladorSolicitudReparacionMantenimiento.itemsr}" />
@@ -1456,14 +1460,14 @@
                                                              paginator="true" rows="15"    rowIndexVar="rowIndex"                     
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20"
-                                                             emptyMessage="No se han encontrado items">
+                                                             emptyMessage="No se han encontrado ítems">
 <p:column headerText="Nro.">
     <center>
         <h:outputText value="#{rowIndex + 1}" />
         </center>
       </p:column>
                                               
-                                                    <p:column headerText="Elemento a Revisar" sortBy="#{la.descripcionElementoRevisar}">
+                                                    <p:column headerText="Elemento a revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                         <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
                                                     </p:column>
 
@@ -1483,7 +1487,7 @@
                                                                              actionListener="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
                                                                              title="Dar de Bajar" process="@form" style="margin-top:10px;">
                                                                 <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance}" />
-                                                                <p:confirm header="Dar de Baja" message="¿Desea Realmente eliminar  el item de la solicitud de reparación y mantenimiento seleccionada?" icon="ui-icon-alert" />   
+                                                                <p:confirm header="Confirmación" message="¿Desea realmente dar de baja el ítem de la solicitud de reparación y mantenimiento seleccionado?" icon="ui-icon-alert" />   
                                                             </p:commandButton>
 
                                                             <p:confirmDialog global="true" showEffect="fade" widgetVar="conf1" hideEffect="explode">
@@ -1509,11 +1513,11 @@
 
 
                             </p:panel>
-   <p:dialog position="500,400" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar Items de Solcitud de Reparación y Mantenimiento" 
+   <p:dialog position="500,400" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
                                               widgetVar="documentDialog1" modal="true" resizable="false">
                                        <h:panelGroup id="documentPanelc" style="width:100%">
                        
-                                       <p:outputLabel value="Elemento a Revisar*"/><br></br>
+                                       <p:outputLabel value="Elemento a revisar*"/><br></br>
                                     
                                     <h:panelGroup id="er1">
                                         <p:inputTextarea id="elementoRevisar1" required="true"
@@ -1526,7 +1530,7 @@
                                         <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar1" /></span><br></br><br/>
                                     </h:panelGroup>
 
-                                    <p:outputLabel value="Descripción de Falla*"/><br></br>
+                                    <p:outputLabel value="Descripción de falla*"/><br></br>
                                     <h:panelGroup id="df2">
                                         <p:inputTextarea id="descripcionFalla1" required="true"
                                                          styleClass="form-control" 
@@ -1540,7 +1544,7 @@
                                     <center>
                                         <div class="admin-actions">
                                             <p:commandLink   update=":form:documentPanelc :form:listaa :form:elementoRevisar1 :form:descripcionFalla1" process=":form:documentPanelc"
-                                                             styleClass="btn  btn-success" value="Crear Item" title="Crear Item"  oncomplete="PF('documentDialog1').hide()" 
+                                                             styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  oncomplete="PF('documentDialog1').hide()" 
                                                              action="#{controladorSolicitudReparacionMantenimiento.editar()}">
 
                                             </p:commandLink>

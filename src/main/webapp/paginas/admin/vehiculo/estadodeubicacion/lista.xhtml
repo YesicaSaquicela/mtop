@@ -86,11 +86,11 @@
                                                             
                                                         </p:rowToggler>
                                                     </p:column>
-                                                <p:column headerText="Registro del Vehículo" sortBy="#{estado.vehiculo.numRegistro}">
+                                                <p:column headerText="Registro del vehículo" sortBy="#{estado.vehiculo.numRegistro}">
                                                     <h:outputText value="#{estado.vehiculo.numRegistro}"></h:outputText>
                                                 </p:column>
 
-                                                <p:column headerText="Fecha de Inicio actual" sortBy="#{estado.fechaEntrada}">
+                                                <p:column headerText="Fecha de inicio actual" sortBy="#{estado.fechaEntrada}">
                                                     <h:outputText value="#{controladorVehiculo.formato(estado.fechaEntrada)}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Estado actual" sortBy="#{estado.nombre}">
@@ -99,7 +99,7 @@
                                                 <p:column headerText="Ubicacion actual" sortBy="#{estado.ubicacion}">
                                                     <h:outputText value="#{estado.ubicacion}"></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Cambiar Estado" style="width: 5%"> 
+                                                <p:column headerText="Cambiar estado" style="width: 5%"> 
                                                     <center>
                                                     <p:button  icon="ui-icon-pencil" outcome="estadoUbicacion" title="Cambiar Estado Ubicación">
                                                         <f:param name="estadovId" value="#{estado.vehiculo.id}"></f:param>

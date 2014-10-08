@@ -46,8 +46,8 @@
                                         <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
 
                                     </div>
-                                    <div class="col-md-4"> 
-                                        <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
+                                    <div class="col-md-4"> isable
+                                        <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
 
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
@@ -82,7 +82,7 @@
 
                                     </div>
                                     <div class="col-md-4"> 
-                                        <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
+                                        <h:outputLabel class="navbar-text" value=" Número de motor:"/>
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
@@ -125,8 +125,11 @@
                                                             <div class="input">
 
 
-                                                                <p:selectOneMenu  value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
-                                                                                  rendered="#{a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}" >  
+                                                                <p:selectOneMenu  value="#{a.value}" effect="fade"  
+                                                                                  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                  requiredMessage="#{a.property.requiredMessage}" label="#{a.property.label}"
+                                                                                  rendered="#{a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}" 
+                                                                                  style="width: 100%">  
                                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                     <p:ajax event="change" update="@this"   />
                                                                 </p:selectOneMenu><br/>

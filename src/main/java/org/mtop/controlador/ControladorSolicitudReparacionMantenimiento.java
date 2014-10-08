@@ -155,6 +155,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setVista(String vista) {
         this.vista = vista;
+        
         System.out.println("retornando vista>>>>>" + vista);
         System.out.println("nueva requi en set vista" + nuevaRequisicion.getObservaciones());
         System.out.println("lista de solicitudes>>>>" + listaSolicitud);

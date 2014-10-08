@@ -57,7 +57,7 @@
 
                                     <p:column > 
 
-                                        #{controladorRequisicion.instance.tipoRequisicion}
+                                        <h4>#{controladorRequisicion.instance.tipoRequisicion}</h4>
 
                                     </p:column>
 
@@ -72,13 +72,13 @@
                             <h:outputLabel class="navbar-text" value="Requerido por"/>
 
                             <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.psolicita.concatenarNombre}"/>
-                            <h:outputLabel class="navbar-text" value="Fecha de Requisición"/>
+                            <h:outputLabel class="navbar-text" value="Fecha de requisición"/>
 
                             <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"/>
                             <h:outputLabel class="navbar-text" value="Partida"/>
 
                             <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"/>
-                            <h:outputLabel class="navbar-text" value="Tipo de Adquisición"/>
+                            <h:outputLabel class="navbar-text" value="Tipo de adquisición"/>
                             <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.tipoAdquisicion}"/>
 
 

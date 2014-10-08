@@ -64,10 +64,9 @@
 
                                 </div>
                                 <div class="admin-actions" align="right">
-                                    <h:panelGrid id="export" class="columns" >
+                                    <h:panelGrid id="export" class="columns" title="Generar reporte" >
                                         <p:panel>
-                                            <h:outputText value="Generar Reporte" />  
-                                            <br/>
+                                            
                                             <h:commandLink action="#{reporteListas.renderPersonal(controladorPersona.listaPersona)}" 
                                                            styleClass="btn" target="_blank" >                    
                                                 <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          

@@ -100,7 +100,7 @@
                                                              emptyMessage="No se han encontrado coincidencias">
 
                                              
-                                                    <p:column headerText="Nro Registro" sortBy="#{v.numRegistro}">
+                                                    <p:column headerText="Nro registro" sortBy="#{v.numRegistro}">
 
                                                         <h:outputText value="#{v.numRegistro}"></h:outputText>
 
@@ -131,7 +131,7 @@
                                                         </center>
 
                                                     </p:column>
-                                                    <p:column headerText="Estado Mecánico" style="width: 5%"> 
+                                                    <p:column headerText="Estado mecánico" style="width: 5%"> 
                                                         <center>
 
 
@@ -161,10 +161,10 @@
                 </div>
             </div>
 
-            <p:dialog id="dialog"  header="Detalles del Vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+            <p:dialog id="dialog"  header="Detalles del vehículo" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                 <p:outputPanel id="documentPanel">
                     <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty controladorVehiculo.instance}">
-                        <h:outputLabel for="name" value="Numero de Registro: " />
+                        <h:outputLabel for="name" value="Numero de registro: " />
                         <h:outputText id="name" value="#{controladorVehiculo.instance.numRegistro}" style="font-weight:bold" />
 
                         <h:outputLabel for="marca" value="Marca: " />

@@ -67,7 +67,7 @@
 
                                 </h:link>
                             </div>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <p:messages id="messages" showDetail="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -89,14 +89,14 @@
                                                             </h:link>
                                                             #{' '}
 
-                                                            <h:link id="Acc" value="Requisición de Reparación" 
+                                                            <h:link id="Acc" value="Requisición de reparación" 
                                                                     title="Requisiciones de tipo Reparación" 
                                                                     outcome="lista" styleClass="btn success">                                        
                                                                 <f:param name="tipo" value="repa"/>
                                                                 <p:ajax update=":form:infoFM:listap"/>
                                                             </h:link>  
                                                             #{' '}
-                                                            <h:link id="Acc1" value="Requisición de Bienes y Servicios" 
+                                                            <h:link id="Acc1" value="Requisición de bienes y servicios" 
                                                                     title="Requisiciones de tipo Requisición de Bienes y Servicios" 
                                                                     outcome="lista" styleClass="btn success" >                                        
                                                                 <f:param name="tipo" value="bien"/>
@@ -112,22 +112,22 @@
 
 
 
-                                                            <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
+                                                            <p:column headerText="Número de requisición" sortBy="#{r.numRequisicion}" >
                                                                 <h:outputText value="#{r.numRequisicion}"></h:outputText>
                                                             </p:column>
 
-                                                            <p:column  headerText="Tipo de Requisición" sortBy="#{r.tipoRequisicion}">
+                                                            <p:column  headerText="Tipo de requisición" sortBy="#{r.tipoRequisicion}">
 
 
                                                                 <h:outputText value="#{r.tipoRequisicion}"></h:outputText>
 
                                                             </p:column>
 
-                                                            <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
+                                                            <p:column headerText="Fecha de requisición" sortBy="#{r.fechaRequisicion}">
                                                                 <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
                                                             </p:column>
 
-                                                            <p:column headerText="Registro Solicitud" sortBy="#{r.solicitudReparacionId.numSolicitud}">
+                                                            <p:column headerText="Registro solicitud" sortBy="#{r.solicitudReparacionId.numSolicitud}">
                                                                 <h:outputText value="#{r.solicitudReparacionId.numSolicitud}"></h:outputText>
                                                             </p:column>
 
@@ -182,7 +182,7 @@
                                                                                      styleClass="btn  btn-success"
                                                                                      action="#{controladorRequisicion.darDeBaja(r)}" 
                                                                                      title="Dar de baja" update="@form">
-                                                                        <p:confirm header="Dar de Baja" message="¿Desea Realmente dar de baja a la requisición seleccionada?" icon="ui-icon-alert" />
+                                                                        <p:confirm header="Confirmación" message="¿Desea realmente dar de baja a la requisición seleccionada?" icon="ui-icon-alert" />
                                                                     </p:commandButton></center>
                                                                 <p:confirmDialog global="true" showEffect="fade" widgetVar="conf" hideEffect="explode">
                                                                     <center>
@@ -233,13 +233,13 @@
                                                                      rowsPerPageTemplate="5,10,15,20"
 
                                                                      >
-                                                            <p:column headerText="Número de Requisición" sortBy="#{r.numRequisicion}" >
+                                                            <p:column headerText="Número de requisición" sortBy="#{r.numRequisicion}" >
                                                                 <h:outputText value="#{r.numRequisicion}"></h:outputText>
                                                             </p:column>
-                                                            <p:column headerText="Tipo de Requisición" sortBy="#{r.tipoRequisicion}" >
+                                                            <p:column headerText="Tipo de requisición" sortBy="#{r.tipoRequisicion}" >
                                                                 <h:outputText value="#{r.tipoRequisicion}"></h:outputText>
                                                             </p:column>
-                                                            <p:column headerText="Fecha de Requisición" sortBy="#{r.fechaRequisicion}">
+                                                            <p:column headerText="Fecha de requisición" sortBy="#{r.fechaRequisicion}">
                                                                 <h:outputText value="#{controladorRequisicion.formato(r.fechaRequisicion)}"></h:outputText>
                                                             </p:column>
                                                             <p:column headerText="Vehículo" sortBy="#{r.vehiculo.numRegistro}">
@@ -248,7 +248,7 @@
                                                             <p:column headerText="Observación" sortBy="#{r.observaciones}">
                                                                 <h:outputText value="#{r.observaciones}"></h:outputText>
                                                             </p:column>
-                                                            <p:column headerText="Vizualizar" style="width: 5%"> 
+                                                            <p:column headerText="Visualizar" style="width: 5%"> 
 
                                                                 <p:button target="_blank" id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
                                                                           outcome="imprimirRequisicion" 

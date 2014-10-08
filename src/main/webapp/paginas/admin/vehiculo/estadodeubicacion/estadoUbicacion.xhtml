@@ -44,7 +44,7 @@
 
                                     </div>
                                     <div class="col-md-4"> 
-                                        <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
+                                        <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
 
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
@@ -79,7 +79,7 @@
 
                                     </div>
                                     <div class="col-md-4"> 
-                                        <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
+                                        <h:outputLabel class="navbar-text" value=" Número de motor:"/>
                                         <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
                                             <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                                 <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
@@ -104,12 +104,12 @@
                     </div>
 
 <div class="panel panel-primary">
-                        <div class="panel-heading" align="center">Datos del Estado de Ubicación</div>
+                        <div class="panel-heading" align="center">Datos del estado de ubicación</div>
                        <p:panel id="p1">
                         <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row-fluid">
-                                    <p:outputLabel value="Fecha Final*"/><br/>
+                                    <p:outputLabel value="Fecha final*"/><br/>
                                     <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.fechaFinal}" 
                                                  styleClass="xLarge" required="true" disabled="true"
                                                  >   
@@ -117,7 +117,7 @@
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Fecha del estado anterior del vehículo<ocp:message forId="fechaEntrada" /></span><br></br><br></br> 
 
-                                    <p:outputLabel value="Fecha Inicio*"/> <br/>
+                                    <p:outputLabel value="Fecha inicio*"/> <br/>
                                     <p:calendar  id="fechaSalida" value="#{controladorVehiculo.estado.fechaEntrada}"  label="Fecha entrada de Taller "
                                                  styleClass="xLarge" required="true" requiredMessage="Fecha de inicio requerida, necesita un valor." 
                                                  locale="es">   

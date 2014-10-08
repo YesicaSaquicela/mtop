@@ -86,7 +86,7 @@
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20"
                                                          emptyMessage="No se han encontrado coincidencias">
-                                                <p:column headerText="Número de Registro" sortBy="#{pm.registro}">
+                                                <p:column headerText="Número de registro" sortBy="#{pm.registro}">
                                                     <h:outputText value="#{pm.registro}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Fecha de creación" >
@@ -102,16 +102,16 @@
 
 
                                                 </p:column>
-                                                <p:column headerText="Activar Plan" style="width: 5%" >
+                                                <p:column headerText="Activar plan" style="width: 5%" >
                                                     <center>
                                                         
-                                                         <h:outputText value="Plan Activo" rendered="#{pm.activado eq true}" style="color: green;"></h:outputText>
+                                                         <h:outputText value="Plan activo" rendered="#{pm.activado eq true}" style="color: green;"></h:outputText>
                                                     <p:commandButton styleClass="btn  btn-success" rendered="#{pm.activado eq false}" id="confirmacion" icon="ui-icon-check"
                                                                      title="Activar Plan" action="#{controladorPlanMantenimiento.activarPlan(pm.id)}"
                                                                      update="@form :form" style="width: 35px; height: 35px">
                                                    
                                                         <p:confirm header="Confirmación"
-                                                                   message="¿Desea Realmente Activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
+                                                                   message="¿Desea realmente activar el Plantemantenimiento seleccionado?" icon="ui-icon-alert" />
 
                                                         </p:commandButton>
                                                     </center>
