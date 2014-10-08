@@ -884,12 +884,12 @@
             <h:form id="form-dialog-confirm-delete5">
 
                 <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                    <h:outputText value="Desea realmente dar de baja a la Requisición "/>
+                    <h:outputText value="Desea realmente dar de baja a la requisición "/>
                     <h:outputText value="#{controladorKardex.requisicion.numRequisicion}"/>  
 
                 </h:panelGroup> 
                 <center>
-                    <p:button id="dardebaja3" value="SI"  
+                    <p:button id="dardebaja3" value="Sí"  
                               outcome="/paginas/admin/kardex/crear"  
 
                               >
@@ -898,7 +898,7 @@
                         <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
                         <f:param name="valorVista" value="kardex"/>
                     </p:button>
-                    <p:commandButton value="NO" type="button" onclick="dlg1.hide();"  
+                    <p:commandButton value="No" type="button" onclick="dlg1.hide();"  
                                      style="margin-top:10px;"/>  
                 </center>
 
@@ -910,12 +910,12 @@
             <h:form id="form-dialog-confirm-delete1" >
 
                 <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                    <h:outputText value="Desea realmente dar de baja a la Solicitud "/>
+                    <h:outputText value="Desea realmente dar de baja a la solicitud de reparación y mantenimiento "/>
                     <h:outputText value="#{controladorKardex.solicitud.numSolicitud}"/>  
 
                 </h:panelGroup> 
                 <center>
-                    <p:button id="dardebaja1" value="SI"
+                    <p:button id="dardebaja1" value="Sí"
                               outcome="/paginas/admin/kardex/crear"  
 
                               >
@@ -924,7 +924,7 @@
                         <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
                         <f:param name="valorVista" value="kardex"/>
                     </p:button>
-                    <p:commandButton value="NO" type="button" onclick="dlg2.hide();"  
+                    <p:commandButton value="No" type="button" onclick="dlg2.hide();"  
                                      style="margin-top:10px;"/>  
                 </center>
 
