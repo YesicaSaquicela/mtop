@@ -72,10 +72,10 @@
 
 
                                             <h:panelGroup  id="typeP" layout="block" class="clearfix"  >
-                                                <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
+                                                <label for="type" class="control-label" >Tipo de dato*</label>
                                                 <div class="input">
                                                     <p:selectOneMenu disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" id="type" 
-                                                                     value="Tipo de dato" effect="fade" 
+                                                                     value="#{propertyHome.propertyType}" effect="fade" 
                                                                      converter="#{omnifaces.SelectItemsConverter}" required="true"  
                                                                      label="#{messages['common.property.type']}" rendered="true" 
                                                                       requiredMessage="Tipo de dato requerido, necesita un valor."
@@ -87,7 +87,7 @@
                                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{propertyHome.propertyType  != null}"
                                                                     styleClass="validation-status" />
                                                     <span class="help-inQline text-muted">#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
-#{propertyHome.propertyType}
+
                                                 </div><br></br>
                                             </h:panelGroup>
                                             
@@ -190,7 +190,7 @@
                                                         <p:outputLabel for="evaluacion" value="Porcentaje de evaluación  " />#{" "}
                                                         <p:selectOneRadio id="evaluacion" value="#{propertyHome.instance.evaluacionParte}" style="width:100%"
                                                                           requiredMessage="Porcentaje de evaluación requerida, necesita un valor." required="true"  >
-                                                            <f:selectItem itemLabel="Muy importante   " itemValue="100" /><br/>
+                                                            <f:selectItem itemLabel="Muy importante   " itemValue="100" /><br/><br/>
                                                             <f:selectItem itemLabel="Importante" itemValue="80" />
                                                         </p:selectOneRadio>
                                                     </div>
