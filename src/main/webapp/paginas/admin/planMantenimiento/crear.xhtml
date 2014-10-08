@@ -58,7 +58,7 @@
                             <span class="help-inline text-muted">Fecha de creación del plan de mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
                             <h:panelGroup id="ak">
                                 <p:outputLabel value="Actividad*"/><br></br>
-                                <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Actividad requerida, necesita un valor" 
+                                <p:inputTextarea  maxlength="600" label="actividad" requiredMessage="Actividad requerida, necesita un valor" 
                                                  id="actividad" required="true" styleClass="form-control"
                                                  value="#{controladorPlanMantenimiento.actividadPlanM.actividad}"
                                                  >
@@ -69,6 +69,8 @@
                                                 styleClass="validation-status" />
                                 <span class="help-inline text-muted">Descripción de actividades<ocp:message forId="actividad" /></span><br></br><br></br>
                             </h:panelGroup>
+                            
+
 
                             <h:panelGroup id="km">
                                 <h:outputLabel value="Kilometraje*"/> <br></br> 
