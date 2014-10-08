@@ -202,7 +202,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public void setAttributes(List<BussinesEntityAttribute> attributes) {
-        System.out.println("entro a set atributes");
+        
         for (BussinesEntityAttribute attr : attributes) {
             attr.setBussinesEntity(this);
         }
@@ -210,7 +210,6 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public void addBussinesEntityAttribute(BussinesEntityAttribute attribute) {
-        System.out.println("entro a set atributes add" +attribute);
         attribute.setBussinesEntity(this);
         this.getLastUpdate();
         this.attributes.add(attribute);
@@ -257,15 +256,13 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
      * Retrieve all attributes for strcuture name list
      */
     public List<BussinesEntityAttribute> getBussinessEntityAttributes(String... structureNames) {
-         System.out.println("entroa a contais bussines entity atribute con names" +structureNames);
-        List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
+         List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
       
         for (BussinesEntityAttribute a : getAttributes()) {
-            System.out.println("\n\n\n agrego a"+a.getName());
+         
             for (String sn : structureNames) {
               if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
                     _buffer.add(a);
-                    System.out.println("lo agrego a bufer");
                 }
             }
         }
@@ -316,8 +313,6 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         }
         for (Structure s : getType().getStructures()) {
             for (Property a : s.getProperties()) {
-                System.out.println("propiedad "+a);
-                System.out.println("nombre de la propiedad "+a.getName());
                 if (a.getType().equals(Group.class.getName())) {
                     buildGroup(a, bes);
                 } else if (a.getType().equals(Structure.class.getName())) {  //
@@ -348,8 +343,6 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     protected void loadStructure(Property a, BussinesEntityService bes) {
-        System.out.println("load estructura "+bes);
-        System.out.println("property "+a);
         BussinesEntityType _type = bes.findBussinesEntityTypeByName(a.getName());
         if (_type == null) {
             return;
@@ -384,12 +377,8 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         attribute.setName(p.getName());
         attribute.setType(p.getType());
         if ("java.lang.String[]".equals(p.getType())||"org.mtop.modelo.EstadoParteMecanica".equals(p.getType())) {
-            System.out.println("valor atributo para"+p.getName());
-            System.out.println("valor del atributo::::::."+p.getValue().toString());
-            System.out.println("jjjjj");
-                    
             attribute.setValue((Serializable) Lists.findDefaultValue(p.getValue().toString()));
-            System.out.println("jjjjj");
+            
         } else {
             attribute.setValue((Serializable) p.getValue());
         }

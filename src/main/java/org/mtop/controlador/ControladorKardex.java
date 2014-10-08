@@ -509,7 +509,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (lk.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
 
                 palabrab = " ";
@@ -553,13 +553,13 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (lsoli.isEmpty()) {
             FacesContext context = FacesContext.getCurrentInstance();
             if (palabrabs.equals("Ingrese algun valor a buscar")) {
-                  FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabs = " ";
             } else {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrabs);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrabs);
                 FacesContext.getCurrentInstance().addMessage("", msg);
-                
+
             }
 
         } else {
@@ -597,13 +597,13 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("LEeeee" + lrq);
 
         if (lrq.isEmpty()) {
-        
+
             if (palabrarna.equals("Ingrese algun valor a buscar")) {
-                  FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrarna = " ";
             } else {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrarna);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrarna);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -642,15 +642,15 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("LEeeee" + lsoli);
 
         if (lsoli.isEmpty()) {
-          
+
             if (palabrasna.equals("Ingrese algun valor a buscar")) {
-               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrasna = " ";
             } else {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrasna);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrasna);
                 FacesContext.getCurrentInstance().addMessage("", msg);
-               
+
             }
 
         } else {
@@ -688,15 +688,15 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("LEeeee" + lrq);
 
         if (lrq.isEmpty()) {
-            
+
             if (palabrabr.equals("Ingrese algun valor a buscar")) {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Ingrese algun valor a buscar ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrabr = " ";
             } else {
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrabr);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "No se ha encontrado " + palabrabr);
                 FacesContext.getCurrentInstance().addMessage("", msg);
-           
+
             }
 
         } else {
@@ -1008,62 +1008,72 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void setSolicitudId(Long id) {
-          List<SolicitudReparacionMantenimiento> lre = new ArrayList<SolicitudReparacionMantenimiento>();
+        List<SolicitudReparacionMantenimiento> lre = new ArrayList<SolicitudReparacionMantenimiento>();
         Date now = Calendar.getInstance().getTime();
 
         System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
         SolicitudReparacionMantenimiento sl = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, id);
+        System.out.println("estado en set soli " + estado);
+        if (estado != null) {
+            if (estado.equals("false")) {
+                for (SolicitudReparacionMantenimiento solicit : listaSol) {
+                    System.out.println("entro al for>>>");
+                    if (!solicit.getId().equals(sl.getId())) {
+                        System.out.println("entro al if ad");
+                        lre.add(solicit);
 
-        if (estado.equals("false")) {
-            for (SolicitudReparacionMantenimiento solicit : listaSol) {
-                System.out.println("entro al for>>>");
-                if (!solicit.getId().equals(sl.getId())) {
-                    System.out.println("entro al if ad");
-                    lre.add(solicit);
-
+                    }
                 }
-            }
-            listaSol = lre;
+                listaSol = lre;
 
-            System.out.println("rq" + sl);
-            System.out.println("num" + sl.getNumSolicitud());
-            sl.setLastUpdate(now);
-            sl.setAprobado(false);
-            System.out.println("cambio de estado aprobado" + sl.getAprobado());
-            sl.setKardex(null);
-            listasolNoAp.add(sl);
+                System.out.println("rq" + sl);
+                System.out.println("num" + sl.getNumSolicitud());
+                sl.setLastUpdate(now);
+                sl.setAprobado(false);
+                System.out.println("cambio de estado aprobado" + sl.getAprobado());
+                sl.setKardex(null);
+                listasolNoAp.add(sl);
 
-        } else {
-            for (SolicitudReparacionMantenimiento solicit : listasolNoAp) {
-                System.out.println("entro al for>>>");
-                if (!solicit.getId().equals(sl.getId())) {
-                    System.out.println("entro al if ad");
-                    lre.add(solicit);
+            } else {
+                for (SolicitudReparacionMantenimiento solicit : listasolNoAp) {
+                    System.out.println("entro al for>>>");
+                    if (!solicit.getId().equals(sl.getId())) {
+                        System.out.println("entro al if ad");
+                        lre.add(solicit);
 
+                    }
                 }
+                listasolNoAp = lre;
+
+                System.out.println("lista reuququ despues " + listasolNoAp);
+
+                System.out.println("recupero solicitud" + sl);
+                sl.setLastUpdate(now);
+                sl.setKardex(getInstance());
+
+                sl.setAprobado(true);
+                sl.setKardex(getInstance());
+
+                listaSol.add(sl);
+
             }
-            listasolNoAp = lre;
 
-            System.out.println("lista reuququ despues " + listasolNoAp);
+            save(sl);
 
-            System.out.println("recupero solicitud" + sl);
-            sl.setLastUpdate(now);
-            sl.setKardex(getInstance());
-
-            sl.setAprobado(true);
-            sl.setKardex(getInstance());
-
-            listaSol.add(sl);
-
+            getInstance().setLastUpdate(now);
+            getInstance().setListaSolicitudReparacion(listaSol);
+            System.out.println("instance de kardex "+getInstance());
+                    
+            try {
+                 save(getInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+           
+            System.out.println("lista de sol no el" + listaSol);
+            listakardex = findAll(Kardex.class);
         }
 
-        save(sl);
-
-        getInstance().setLastUpdate(now);
-        getInstance().setListaSolicitudReparacion(listaSol);
-        save(getInstance());
-        System.out.println("lista de sol no el" + listaSol);
-        listakardex = findAll(Kardex.class);
     }
 
     public String getVista() {
@@ -1096,57 +1106,57 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         List<Requisicion> lre = new ArrayList<Requisicion>();
         Date now = Calendar.getInstance().getTime();
         Requisicion rq = servgen.buscarPorId(Requisicion.class, id);
+        System.out.println("estado en set requisicion id " + estado);
+        if (estado != null) {
+            if (estado.equals("false")) {
+                for (Requisicion requisicio : listaReq) {
+                    System.out.println("entro al for>>>");
+                    if (!requisicio.getId().equals(rq.getId())) {
+                        System.out.println("entro al if ad");
+                        lre.add(requisicio);
 
-        if (estado.equals("false")) {
-            for (Requisicion requisicio : listaReq) {
-                System.out.println("entro al for>>>");
-                if (!requisicio.getId().equals(rq.getId())) {
-                    System.out.println("entro al if ad");
-                    lre.add(requisicio);
-
+                    }
                 }
-            }
-            listaReq = lre;
+                listaReq = lre;
 
-            System.out.println("rq" + rq);
-            System.out.println("num" + rq.getNumRequisicion());
-            rq.setLastUpdate(now);
-            rq.setAprobado(false);
-            System.out.println("cambio de estado aprobado" + rq.getAprobado());
-            rq.setKardex(null);
-            listareqNoAp.add(rq);
+                System.out.println("rq" + rq);
+                System.out.println("num" + rq.getNumRequisicion());
+                rq.setLastUpdate(now);
+                rq.setAprobado(false);
+                System.out.println("cambio de estado aprobado" + rq.getAprobado());
+                rq.setKardex(null);
+                listareqNoAp.add(rq);
 
-        } else {
-            for (Requisicion requisicio : listareqNoAp) {
-                System.out.println("entro al for>>>");
-                if (!requisicio.getId().equals(rq.getId())) {
-                    System.out.println("entro al if ad");
-                    lre.add(requisicio);
+            } else {
+                for (Requisicion requisicio : listareqNoAp) {
+                    System.out.println("entro al for>>>");
+                    if (!requisicio.getId().equals(rq.getId())) {
+                        System.out.println("entro al if ad");
+                        lre.add(requisicio);
 
+                    }
                 }
+                listareqNoAp = lre;
+
+                System.out.println("lista reuququ despues " + listareqNoAp);
+
+                System.out.println("recupero requisicion" + requisicion);
+                rq.setLastUpdate(now);
+                rq.setKardex(getInstance());
+
+                rq.setAprobado(true);
+                rq.setKardex(getInstance());
+
+                listaReq.add(rq);
+
             }
-            listareqNoAp = lre;
-
-            System.out.println("lista reuququ despues " + listareqNoAp);
-
-            System.out.println("recupero requisicion" + requisicion);
-            rq.setLastUpdate(now);
-            rq.setKardex(getInstance());
-
-            rq.setAprobado(true);
-            rq.setKardex(getInstance());
-
-            listaReq.add(rq);
-
+            save(rq);
+            getInstance().setLastUpdate(now);
+            getInstance().setListaRequisicion(listaReq);
+            save(getInstance());
+            System.out.println("lista de requ no el" + listaReq);
+            listakardex = findAll(Kardex.class);
         }
-
-        save(rq);
-
-        getInstance().setLastUpdate(now);
-        getInstance().setListaRequisicion(listaReq);
-        save(getInstance());
-        System.out.println("lista de requ no el" + listaReq);
-        listakardex = findAll(Kardex.class);
 
     }
 

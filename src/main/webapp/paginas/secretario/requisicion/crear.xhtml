@@ -27,28 +27,28 @@
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                     <div align="right">
-                                              
+
                         <p:button rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
                                   value="Regresar" style="width: 110px; height: 33px"
                                   outcome="/paginas/secretario/requisicion/lista" 
                                   styleClass="btn btn-success" />
-                         
-                    </div><br/>
-                 
-                               
-                        <h:panelGroup id="bt">
-                        <div class="row">
-                          <div class="col-md-4"> 
-                              <p:commandButton update="bt bt1" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
-                                               title="atras" rendered="#{controladorRequisicion.nombrew ne 'Requisicion' and controladorRequisicion.vista eq 'requisicion'}" 
-                                               onclick="PF('wizard').back();" >
 
-                              </p:commandButton></div>
-                          <div class="col-md-4 col-md-offset-4" >
-                           <p align="right">
-                               <p:commandButton update="bt bt1" process="@this bt" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
-                                                rendered="#{controladorRequisicion.nombrew ne 'Final' and controladorRequisicion.vista eq 'requisicion'}" 
-                                             title="siguiente" onclick="PF('wizard').next();" >
+                    </div><br/>
+
+
+                    <h:panelGroup id="bt">
+                        <div class="row">
+                            <div class="col-md-4"> 
+                                <p:commandButton update="bt bt1" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                                                 title="atras"  rendered="#{controladorRequisicion.nombrew ne 'Requisicion' and controladorRequisicion.vista eq 'requisicion'}" 
+                                                 onclick="PF('wizard').back();" >
+
+                                </p:commandButton></div>
+                            <div class="col-md-4 col-md-offset-4" >
+                                <p align="right">
+                                    <p:commandButton update="bt bt1" process="@this bt" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
+                                                     rendered="#{controladorRequisicion.nombrew ne 'Final' and controladorRequisicion.vista eq 'requisicion'}" 
+                                                     title="siguiente" onclick="PF('wizard').next();" >
 
                                     </p:commandButton>
                                 </p>
@@ -83,18 +83,18 @@
                                     <span class="help-inline text-muted">Fecha de creación de la requisición<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
 
                                     <h:outputLabel value="Partida de contabilidad*"/> <br></br> 
- <p:inputText id="ptt" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"  
-                                                     rendered="#{controladorRequisicion.instance.persistent}"
-                                                     readonly="true"
-                                                  styleClass="form-control"
+                                    <p:inputText id="ptt" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"  
+                                                 rendered="#{controladorRequisicion.instance.persistent}"
+                                                 readonly="true"
+                                                 styleClass="form-control"
                                                  />
                                     <h:panelGroup id="ptp" layout="block" class="clearfix">
-                                       
+
                                         <p:selectOneMenu id="partida" style="width: 100%" value="#{controladorRequisicion.idPartidaC}" effect="fade" 
-                                                         rendered="#{controladorRequisicion.instance.persistent eq false}"
+                                                         rendered="#{controladorRequisicion.instance.persistent eq false}" 
                                                          converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains"
                                                          requiredMessage="Partida de contabilidad requerida, necesita un valor">  
-                                            <f:ajax execute="partida" render="ptp"/>
+                                            <f:ajax execute="@this" render="ptp"  />
                                             <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                             <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
                                             <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
@@ -106,19 +106,19 @@
 
 
                                     <h:outputLabel value="Tipo de requisición*"/> <br></br> 
-                                     <h:panelGroup id="tr" layout="block" class="clearfix">
-                                    <p:selectOneMenu style="width: 100%" id="tipoRequisicion"
-                                                     requiredMessage="Tipo de requisición requerida,necesita un valor"
-                                                     disabled="#{controladorRequisicion.instance.id ne null}"
-                                                     value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
-                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                        
-                                        <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
-                                        <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
-                                        <f:ajax execute="tipoRequisicion" render="tr"/>
-                                        
-                                    </p:selectOneMenu> <br></br>
-                                   
+                                    <h:panelGroup id="tr" layout="block" class="clearfix">
+                                        <p:selectOneMenu style="width: 100%" id="tipoRequisicion"
+                                                         requiredMessage="Tipo de requisición requerida,necesita un valor"
+                                                         disabled="#{controladorRequisicion.instance.id ne null}"
+                                                         value="#{controladorRequisicion.instance.tipoRequisicion}" effect="fade" >  
+                                            <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+
+                                            <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
+                                            <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
+                                            <f:ajax execute="tipoRequisicion" render="tr"/>
+
+                                        </p:selectOneMenu> <br></br>
+
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.tipoRequisicion !=null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Elija el tipo de requisición
                                             <ocp:message forId="tipoRequisicion" />
@@ -126,14 +126,14 @@
                                     </h:panelGroup>
 
                                     <h:outputLabel value="Requerido por*"/> <br></br>
-                                     <h:panelGroup id="pr" layout="block" class="clearfix">
-                                    <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonal}" 
-                                                     effect="fade" label="requerido" filter="true" filterMatchMode="contains"
-                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                     requiredMessage="Requerido necesita un valor">  
-                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                        <f:selectItems value="#{controladorRequisicion.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
-                                        <f:ajax execute="personal1" render="pr"/>
+                                    <h:panelGroup id="pr" layout="block" class="clearfix">
+                                        <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonal}" 
+                                                         effect="fade" label="requerido" filter="true" filterMatchMode="contains"
+                                                         converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                         requiredMessage="Requerido necesita un valor">  
+                                            <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                            <f:selectItems value="#{controladorRequisicion.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                            <f:ajax execute="personal1" render="pr"/>
 
                                         </p:selectOneMenu> <br></br>
 
@@ -142,215 +142,226 @@
                                     </h:panelGroup>
                                     <h:outputLabel value="Tipo de adquisición*"/><br></br>
                                     <h:panelGroup id="ta" layout="block" class="clearfix">
-                                    <p:selectOneMenu style="width: 100%" id="adquisicion" 
-                                                     requiredMessage="Tipo de adquisición requerido, necesita un valor"
-                                                     disabled="#{controladorRequisicion.instance.id ne null}"
-                                                     label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
-                                                     value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
-                                     
-                                        <f:ajax execute="adquisicion" render="ta"/>
-                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                        <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
-                                        <f:selectItem itemLabel="Compra" itemValue="compra" />  
-                                        <f:selectItem itemLabel="Pago" itemValue="pago" /> 
-                                        <f:selectItem itemLabel="Crédito" itemValue="credito" />  
+                                        <p:selectOneMenu style="width: 100%" id="adquisicion" 
+                                                         requiredMessage="Tipo de adquisición requerido, necesita un valor"
+                                                         disabled="#{controladorRequisicion.instance.id ne null}"
+                                                         label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
+                                                         value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
+
+                                            <f:ajax execute="adquisicion" render="ta"/>
+                                            <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                            <f:selectItem itemLabel="Bodega" itemValue="bodega" />  
+                                            <f:selectItem itemLabel="Compra" itemValue="compra" />  
+                                            <f:selectItem itemLabel="Pago" itemValue="pago" /> 
+                                            <f:selectItem itemLabel="Crédito" itemValue="credito" />  
 
                                         </p:selectOneMenu> <br></br>
 
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.tipoAdquisicion != ''}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Elija el tipo de adquisición<ocp:message forId="adquisicion" /></span><br></br><br></br>
                                     </h:panelGroup>
+                                    <div class="form-group has-success has-feedback">
+                                        <label class="control-label" for="inputSuccess4">Input with success</label>
+                                        <input type="text" class="form-control" id="inputSuccess4">
+                                            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                                        </input>
+                                    </div>
                                     <p:outputLabel value="Observación*"/><br></br>
-                                    <h:panelGroup id="obs" layout="block" class="clearfix">
+
+
+
+
                                     <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                      value="#{controladorRequisicion.instance.observaciones}"
                                                      required="true" label="observación" 
                                                      requiredMessage="Observación requerida, necesita un valor">
-                                        <f:ajax execute="observacion1" render="obs"/>
+                                        <f:ajax execute="observacion1" render="obs"  />
+
+
                                     </p:inputTextarea>
-                                    
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.observaciones != ''}" styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion1" /></span>                                   
+                                    <h:panelGroup id="obs" layout="block" class="clearfix">
+                                        <h:graphicImage id="obs11" value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.observaciones != ''}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted"  >Ingrese una observación<ocp:message forId="observacion1" /></span>                                   
                                     </h:panelGroup>
 
                                 </p:panel>
                             </div>
-                                    <p:panel id="panel71" rendered="#{ui.tieneValores(controladorRequisicion.instance)}">    
+                            <p:panel id="panel71" rendered="#{ui.tieneValores(controladorRequisicion.instance)}">    
 
-                        <div class="panel panel-primary">
-                            <div class="panel-heading" align="center">
-                               DATOS ADICIONALES
-                            </div>
-                            <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
-                                <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
-                                    <div  class="panel panel-primary">
-                                        <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
-
-                                        <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
-                                            <c:choose>                        
-                                                <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
-
-                                                    <h:panelGroup  layout="block" class="clearfix">
-                                                        <ui:repeat value="#{controladorRequisicion.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
-
-
-                                                            <h:panelGroup layout="block" class="clearfix">
-                                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                                                <div class="input">
-                                                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                 rendered="#{a.property.type eq 'java.lang.String'}">
-
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                    </p:inputText>
-                                                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                                                 validator="realValidator" 
-                                                                                 validatorMessage="No se admiten letras "
-                                                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
-
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                    </p:inputText>
-                                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                                                    </p:calendar>
-
-                                                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                                                     label="#{a.property.label}"
-                                                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                                                    </p:selectOneMenu>
-                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                    </p:inputTextarea>  
-
-                                                                    <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                                                 label="#{a.property.label}"
-                                                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                                                 required="#{a.property.required}"
-                                                                                 > 
-                                                                        <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-
-
-                                                                    </p:inputText>
-
-                                                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                                                    </p:selectOneButton>
-                                                                    <br/>
-                                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
-                                                                                    styleClass="validation-status" />
-                                                                    <span class="help-inline text-muted">#{a.property.helpInline} 
-                                                                        <ocp:message forId="str" />
-                                                                        <ocp:message forId="str1" />
-                                                                        <ocp:message forId="str2" />
-                                                                        <ocp:message forId="str3" />
-                                                                        <ocp:message forId="str4" />
-                                                                        <ocp:message forId="str5" />
-
-                                                                    </span><br/><br/>
-
-                                                                </div>
-
-                                                            </h:panelGroup>  
-
-                                                        </ui:repeat>
-                                                    </h:panelGroup>
-
-                                                </c:when>
-                                            </c:choose>
-                                        </p:tab>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" align="center">
+                                        DATOS ADICIONALES
                                     </div>
-                                </c:forEach>
+                                    <p:tabView id="infoFM1" style="width: 99%; padding-bottom: 1.5%">
+                                        <c:forEach items="#{ui.getProperties(controladorRequisicion.instance)}" var="p" >
+                                            <div  class="panel panel-primary">
+                                                <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
+
+                                                <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
+                                                    <c:choose>                        
+                                                        <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
+
+                                                            <h:panelGroup  layout="block" class="clearfix">
+                                                                <ui:repeat value="#{controladorRequisicion.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
+
+
+                                                                    <h:panelGroup layout="block" class="clearfix">
+                                                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                        <div class="input">
+                                                                            <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                                         required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                         rendered="#{a.property.type eq 'java.lang.String'}">
+
+                                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                                            </p:inputText>
+                                                                            <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                                         validator="realValidator" 
+                                                                                         validatorMessage="No se admiten letras "
+                                                                                         required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                         rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+
+                                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                                            </p:inputText>
+                                                                            <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                                        rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                                                <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
+                                                                            </p:calendar>
+
+                                                                            <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                             label="#{a.property.label}"
+                                                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                                <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                                <p:ajax event="change" update="@this" partialSubmit="true"/>
+                                                                            </p:selectOneMenu>
+                                                                            <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                             rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                                            </p:inputTextarea>  
+
+                                                                            <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
+                                                                                         label="#{a.property.label}"
+                                                                                         rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                                         required="#{a.property.required}"
+                                                                                         > 
+                                                                                <f:validator validatorId="validadorDigitosDinamic"  />
+                                                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
+
+
+                                                                            </p:inputText>
+
+                                                                            <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                                <f:selectItem itemLabel="true" itemValue="true" />
+                                                                                <f:selectItem itemLabel="false" itemValue="false" />
+                                                                            </p:selectOneButton>
+                                                                            <br/>
+                                                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
+                                                                                            styleClass="validation-status" />
+                                                                            <span class="help-inline text-muted">#{a.property.helpInline} 
+                                                                                <ocp:message forId="str" />
+                                                                                <ocp:message forId="str1" />
+                                                                                <ocp:message forId="str2" />
+                                                                                <ocp:message forId="str3" />
+                                                                                <ocp:message forId="str4" />
+                                                                                <ocp:message forId="str5" />
+
+                                                                            </span><br/><br/>
+
+                                                                        </div>
+
+                                                                    </h:panelGroup>  
+
+                                                                </ui:repeat>
+                                                            </h:panelGroup>
+
+                                                        </c:when>
+                                                    </c:choose>
+                                                </p:tab>
+                                            </div>
+                                        </c:forEach>
 
 
 
-                                <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 2 }" closable="false"  titleStyleClass="clearfix"  >
+                                        <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 2 }" closable="false"  titleStyleClass="clearfix"  >
 
-                                    <ui:repeat  value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
+                                            <ui:repeat  value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
 
-                                        <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" 
-                                                       class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
-                                        </p:outputLabel>
+                                                <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" 
+                                                               class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
+                                                </p:outputLabel>
 
-                                        <div class="input">
+                                                <div class="input">
 
-                                            <p:inputText id="str"  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
-                                                         rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}">
+                                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                 rendered="#{a.property.type eq 'java.lang.String'  and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}">
 
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                            </p:inputText>
+                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                    </p:inputText>
 
-                                            <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                         validator="realValidator" 
-                                                         validatorMessage="No se admiten letras "
-                                                         required="#{a.property.required}" label="#{a.property.label}" 
-                                                         rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+                                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                 validator="realValidator" 
+                                                                 validatorMessage="No se admiten letras "
+                                                                 required="#{a.property.required}" label="#{a.property.label}" 
+                                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
 
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                            </p:inputText>
-                                            <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                        rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                            </p:calendar>
+                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                    </p:inputText>
+                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
+                                                    </p:calendar>
 
-                                            <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                             label="#{a.property.label}"
-                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                                <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                            </p:selectOneMenu>
-                                            <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                             rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                            </p:inputTextarea>  
+                                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                     label="#{a.property.label}"
+                                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
+                                                    </p:selectOneMenu>
+                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                    </p:inputTextarea>  
 
-                                            <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
-                                                         label="#{a.property.label}"
-                                                         rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                         required="#{a.property.required}"
-                                                         > 
-                                                <f:validator validatorId="validadorDigitosDinamic"  />
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-
-
-                                            </p:inputText>
-
-                                            <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                                <f:selectItem itemLabel="true" itemValue="true" />
-                                                <f:selectItem itemLabel="false" itemValue="false" />
-                                            </p:selectOneButton>
-                                            <br/>
-                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}"
-                                                            styleClass="validation-status" />
-                                            <span class="help-inline text-muted"><p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" value="#{a.property.helpInline}"></p:outputLabel>  
-                                                <ocp:message forId="str" />
-                                                <ocp:message forId="str1" />
-                                                <ocp:message forId="str2" />
-                                                <ocp:message forId="str3" />
-                                                <ocp:message forId="str4" />
-                                                <ocp:message forId="str5" />
-
-                                            </span><br/><br/>
+                                                    <p:inputText id="str5" value="#{a.value}" styleClass="xLarge"
+                                                                 label="#{a.property.label}"
+                                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                 required="#{a.property.required}"
+                                                                 > 
+                                                        <f:validator validatorId="validadorDigitosDinamic"  />
+                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
 
 
+                                                    </p:inputText>
 
-                                        </div>
+                                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                        <f:selectItem itemLabel="true" itemValue="true" />
+                                                        <f:selectItem itemLabel="false" itemValue="false" />
+                                                    </p:selectOneButton>
+                                                    <br/>
+                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null and a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}"
+                                                                    styleClass="validation-status" />
+                                                    <span class="help-inline text-muted"><p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" value="#{a.property.helpInline}"></p:outputLabel>  
+                                                        <ocp:message forId="str" />
+                                                        <ocp:message forId="str1" />
+                                                        <ocp:message forId="str2" />
+                                                        <ocp:message forId="str3" />
+                                                        <ocp:message forId="str4" />
+                                                        <ocp:message forId="str5" />
+
+                                                    </span><br/><br/>
 
 
-                                    </ui:repeat>
 
-                                </p:tab>
-                                <br/>
+                                                </div>
 
-                            </p:tabView>
-                        </div>
-                                    </p:panel><br></br>
+
+                                            </ui:repeat>
+
+                                        </p:tab>
+                                        <br/>
+
+                                    </p:tabView>
+                                </div>
+                            </p:panel><br></br>
 
 
 
@@ -362,7 +373,7 @@
                         <p:tab  id="address" title="Asignar Vehículo">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de vehículos</center></div>
-                            
+
                                 <p:panel>
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
@@ -536,13 +547,13 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Lista de ítems de la requisición</center></div>
 
-                                <p:panel id="bodegas" rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
+                                <p:panel id="bodegas"  rendered="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
 
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
 
                                             <center >
-                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+                                                <h:outputLabel value="Buscar Producto:  " />     #{' '} 
 
                                                 <p:autoComplete styleClass="xLarge" placeholder="Criterio a buscar"
                                                                 id="acSimple1" 
@@ -553,7 +564,8 @@
 
                                                 <p:commandButton value="Buscar" 
                                                                  update=":form:basicoDT3 :form:acSimple1" 
-                                                                 process="@form" action="#{controladorRequisicion.buscarp()}" styleClass="btn btn-success" >
+                                                                 process="@form" action="#{controladorRequisicion.buscarp()}" 
+                                                                 styleClass="btn btn-success" >
 
                                                 </p:commandButton>
 
@@ -590,6 +602,10 @@
                                                                  rowsPerPageTemplate="5,10,15,20"
 
                                                                  >
+
+                                                        <f:facet name="header" class="panel-heading" >
+                                                            Lista de productos
+                                                        </f:facet>
                                                         <p:column headerText="Código" sortBy="#{itemp.codigo}">
                                                             <h:outputText value="#{itemp.codigo}" />
                                                         </p:column>
@@ -607,7 +623,7 @@
                                                             </div>
                                                         </p:column>
                                                         <p:column style="width:4%;text-align: center" headerText="Agregar">
-                                                            <p:commandButton icon="ui-icon-check" update=":form:productosel :form:cantidad :form:descrip :form:unm5 :form:unm :form:unidadMedida" 
+                                                            <p:commandButton icon="ui-icon-check" update=":form:cantidad :form:descrip :form:unm5 :form:unm :form:unidadMedida" 
                                                                              title="Agregar" immediate="true" process="@form">
                                                                 <f:setPropertyActionListener value="#{itemp}" target="#{controladorRequisicion.pro}" />
                                                             </p:commandButton>
@@ -621,40 +637,6 @@
                                     </div>
 
 
-
-                                    <p:panel id="productosel" rendered="#{controladorRequisicion.pro.codigo ne ''}" >
-                                        <div class="panel panel-primary">
-                                            <div class="panel-heading"  align="center">Datos del Producto seleccionado</div>
-                                            <p:panel >
-                                                <div class="container-fluid" align="center">
-                                                    <div class="row-fluid"  >
-                                                        <div class="col-md-4"> 
-                                                            <h:outputLabel class="navbar-text" value=" Código:"/>
-                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.codigo}"/>
-
-                                                        </div>
-                                                        <div class="col-md-4"> 
-                                                            <h:outputLabel class="navbar-text" value=" Descripción: "/>
-
-                                                            <h:outputText  class="navbar-text" value="#{controladorRequisicion.pro.descripcion}"/>
-
-
-                                                        </div>
-                                                        <div class="col-md-4"> 
-                                                            <h:outputLabel class="navbar-text" value=" Cantidad: "/>
-                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.pro.cantidad}"/>
-
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                            </p:panel>
-                                        </div>
-
-                                    </p:panel>
-
-
                                 </p:panel>
 
 
@@ -664,34 +646,34 @@
                                     <br/>
 
 
-                                   
 
-                                        <div class="input">
-                                            <p:outputLabel value="Cantidad*"/><br></br>
-                                            <p:spinner  id="cantidad" required="true"  
-                                                        requiredMessage="Cantidad requerida, necesita un valor"
-                                                        value="#{controladorRequisicion.cir.instance.cantidad}" min="1" 
-                                                        max="#{controladorRequisicion.maximo}" >
-                                               <p:ajax event="blur" update="unm" partialSubmit="true"  />
-                                            </p:spinner >   <br/>
-                                    <h:panelGroup id="unm" layout="block"  class="clearfix">
+
+                                    <div class="input">
+                                        <p:outputLabel value="Cantidad*"/><br></br>
+                                        <p:spinner  id="cantidad" required="true"  
+                                                    requiredMessage="Cantidad requerida, necesita un valor"
+                                                    value="#{controladorRequisicion.cir.instance.cantidad}" min="1" 
+                                                    max="#{controladorRequisicion.maximo}" >
+                                            <p:ajax event="blur" update="unm" partialSubmit="true"  />
+                                        </p:spinner >   <br/>
+                                        <h:panelGroup id="unm" layout="block"  class="clearfix">
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.cantidad != '0'}"
                                                             styleClass="validation-status" />
                                             <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad"/></span>
-                                      </h:panelGroup>
-                                        </div>
-                                   
+                                        </h:panelGroup>
+                                    </div>
+
                                     <br></br>
-                                    
-                                        <p:outputLabel value="Descripción*"/><br></br>
-                                        <p:inputTextarea id="descrip" style="width: 100%" maxlength="150"
-                                                         value="#{controladorRequisicion.cir.instance.descripcion}"
-                                                         requiredMessage="Descipción requerida, necesita un valor"
-                                                         readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                            <p:ajax event="blur" update="unm5" partialSubmit="true"  />
-                                        </p:inputTextarea>
-                                        <br/>
-                                        <h:panelGroup id="unm5" layout="block"  class="clearfix">
+
+                                    <p:outputLabel value="Descripción*"/><br></br>
+                                    <p:inputTextarea id="descrip" style="width: 100%" maxlength="150"
+                                                     value="#{controladorRequisicion.cir.instance.descripcion}"
+                                                     requiredMessage="Descipción requerida, necesita un valor"
+                                                     readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
+                                        <p:ajax event="blur" update="unm5" partialSubmit="true"  />
+                                    </p:inputTextarea>
+                                    <br/>
+                                    <h:panelGroup id="unm5" layout="block"  class="clearfix">
 
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.descripcion.trim() != ''}"
                                                         styleClass="validation-status" />
@@ -700,16 +682,16 @@
 
                                     <br></br>
 
-                                    
-                                        <p:outputLabel value="Unidad de medida*"/><br></br>
-                                        <p:inputText style="width: 100%" id="unidadMedida" maxlength="50"
-                                                     requiredMessage="Unidad de medida requerida, necesita un valor"
-                                                     value="#{controladorRequisicion.cir.instance.unidadMedida}">
-                                            <p:ajax event="blur" update="unm6" partialSubmit="true"  />
-                                        </p:inputText>
-                                        <br/>
 
-                                        <h:panelGroup id="unm6" layout="block"  class="clearfix">
+                                    <p:outputLabel value="Unidad de medida*"/><br></br>
+                                    <p:inputText style="width: 100%" id="unidadMedida" maxlength="50"
+                                                 requiredMessage="Unidad de medida requerida, necesita un valor"
+                                                 value="#{controladorRequisicion.cir.instance.unidadMedida}">
+                                        <p:ajax event="blur" update="unm6" partialSubmit="true"  />
+                                    </p:inputText>
+                                    <br/>
+
+                                    <h:panelGroup id="unm6" layout="block"  class="clearfix">
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.cir.instance.unidadMedida.trim() != ''}"
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida"/></span>
@@ -717,32 +699,32 @@
 
                                     <br></br>
                                     <div class="admin-actions">
-                                        <p:commandLink  update=":form:p1" 
+                                        <p:commandLink  update=":form:p1 :form:bodegas" 
                                                         styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  process=":form:p1"
                                                         actionListener="#{controladorRequisicion.agregarItem()}">
 
                                         </p:commandLink>
                                     </div><br/>
 
-                                    
+
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="todas">
                                             <div class="table-responsive">
 
 
                                                 <tbody>
-                                                    
+
                                                     <p:messages id="mensaje2" showDetail="true" closable="true" />
                                                     <p:dataTable id="listai" value="#{controladorRequisicion.listaItemsRequisicion}" var="item2"
                                                                  paginator="true" rows="15" rowIndexVar="rowIndex"                         
                                                                  paginatorPosition="top"
                                                                  rowsPerPageTemplate="5,10,15,20"
                                                                  emptyMessage="No se han encontrado items" >
-  <p:column headerText="Nro.">
-      <center>
-        <h:outputText value="#{rowIndex + 1}" />
-        </center>
-      </p:column>
+                                                        <p:column headerText="Nro.">
+                                                            <center>
+                                                                <h:outputText value="#{rowIndex + 1}" />
+                                                            </center>
+                                                        </p:column>
                                                         <p:column headerText="Cantidad" sortBy="#{item2.cantidad}">
                                                             <div class="input" align="right">
                                                                 <h:outputText value="#{item2.cantidad}"></h:outputText>
@@ -791,15 +773,15 @@
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton>
                                                             <p:confirmDialog global="true" widgetVar="conf" showEffect="fade" hideEffect="explode">
-                                                                        <center>
-                                                                        <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
-                                                                            <p:ajax event="click" update=":form:listai" />
-                                                                        </h:commandLink>
+                                                                <center>
+                                                                    <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                        <p:ajax event="click" update=":form:listai" />
+                                                                    </h:commandLink>
 
-                                                                        #{' '}
-                                                                        <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
-                                                                    </center>
-                                                             
+                                                                    #{' '}
+                                                                    <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                                </center>
+
                                                             </p:confirmDialog>
 
                                                         </p:column>
@@ -821,36 +803,36 @@
                                         <h:panelGroup id="documentPanel1" style="width:100%">
 
 
-                                               <div class="input">
-                                                    <p:outputLabel value="Cantidad*"/><br></br>
-                                                    <p:spinner  id="cantidad1" required="true"  
-                                                                requiredMessage="Cantidad requerida, necesita un valor"
-                                                                value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
-                                                        <f:ajax event="blur" execute="cantidad1" render="documentPanel1"/>
-                                                    </p:spinner >   <br/>
-                                                    
-                                                    <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
-                                                </div>
+                                            <div class="input">
+                                                <p:outputLabel value="Cantidad*"/><br></br>
+                                                <p:spinner  id="cantidad1" required="true"  
+                                                            requiredMessage="Cantidad requerida, necesita un valor"
+                                                            value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
+                                                    <f:ajax event="blur" execute="cantidad1" render="documentPanel1"/>
+                                                </p:spinner >   <br/>
+
+                                                <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
+                                            </div>
                                         </h:panelGroup><br/><br/>
                                         <h:panelGroup id="documentPanel2" style="width:100%">
-                                                <p:outputLabel value="Descripción*"/><br></br>
-                                                <p:inputTextarea id="descrip1" style="width: 100%"
-                                                                 value="#{controladorRequisicion.it.descripcion}"
-                                                                 required="true" requiredMessage="Descipción requerida, necesita un valor"
-                                                                 readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                                     <f:ajax execute="descrip1" render="documentPanel2"/>
-                                                </p:inputTextarea>
-                                                <span class="help-inline text-muted">Descripción del ítem <ocp:message forId="unidadMedida1"/></span>
-                                         </h:panelGroup>     <br/><br/>
-                                         <h:panelGroup id="documentPane3" style="width:100%">
-                                                <p:outputLabel value="Unidad de medida*"/><br></br>
-                                                <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
-                                                             value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
-                                                      <f:ajax execute="unidadMedida1" render="documentPane3"/>
-                                                </p:inputText>
-                                                <br/>
-                                            
-                                                <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
+                                            <p:outputLabel value="Descripción*"/><br></br>
+                                            <p:inputTextarea id="descrip1" style="width: 100%"
+                                                             value="#{controladorRequisicion.it.descripcion}"
+                                                             required="true" requiredMessage="Descipción requerida, necesita un valor"
+                                                             readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
+                                                <f:ajax execute="descrip1" render="documentPanel2"/>
+                                            </p:inputTextarea>
+                                            <span class="help-inline text-muted">Descripción del ítem <ocp:message forId="unidadMedida1"/></span>
+                                        </h:panelGroup>     <br/><br/>
+                                        <h:panelGroup id="documentPane3" style="width:100%">
+                                            <p:outputLabel value="Unidad de medida*"/><br></br>
+                                            <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
+                                                         value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
+                                                <f:ajax execute="unidadMedida1" render="documentPane3"/>
+                                            </p:inputText>
+                                            <br/>
+
+                                            <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
                                         </h:panelGroup>
                                         <br></br><br/>
 
@@ -1137,19 +1119,19 @@
 
                         <h:panelGroup>
 
-                        <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud1' or controladorRequisicion.vista eq 'solicitud2' }"
-                                         id="regresar1" value="Regresar" style="width: 110px; height: 33px"
-                                         styleClass="btn  btn-success"  process="@this" update="@form "
-                                         actionListener="#{controladorSolicitudReparacionMantenimiento.init()}"
+                            <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud1' or controladorRequisicion.vista eq 'solicitud2' }"
+                                           id="regresar1" value="Regresar" style="width: 110px; height: 33px"
+                                           styleClass="btn  btn-success"  process="@this" update="@form "
+                                           actionListener="#{controladorSolicitudReparacionMantenimiento.init()}"
 
 
-                                         >
+                                           >
 
-                            <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}"/>
-                            <f:setPropertyActionListener value="#{null}" 
-                                                         target="#{controladorSolicitudReparacionMantenimiento.instance}"/>
-                        </p:commandLink>
-                            </h:panelGroup>
+                                <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}"/>
+                                <f:setPropertyActionListener value="#{null}" 
+                                                             target="#{controladorSolicitudReparacionMantenimiento.instance}"/>
+                            </p:commandLink>
+                        </h:panelGroup>
 
                     </div><br/>
 
@@ -1217,184 +1199,184 @@
                                     <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>
 
                                 </h:panelGroup><br/><br/>
-                                
-                                
-                                        <p:panel id="panel7" rendered="#{ui.tieneValores(controladorSolicitudReparacionMantenimiento.instance)}">    
-
-                        <div class="panel panel-primary">
-                            <div class="panel-heading" align="center">
-                               DATOS ADICIONALES
-                            </div>
-
-                            <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
-                                <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.instance)}" var="p" >
-                                    <div  class="panel panel-primary">
-                                        <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
-
-                                        <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
-                                            <c:choose>                        
-                                                <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
-
-                                                    <h:panelGroup  layout="block" class="clearfix">
-                                                        <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
 
-                                                            <h:panelGroup layout="block" class="clearfix">
-                                                                <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
-                                                                    #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
-                                                                <div class="input">
-                                                                    <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                 rendered="#{a.property.type eq 'java.lang.String'}">
+                                <p:panel id="panel7" rendered="#{ui.tieneValores(controladorSolicitudReparacionMantenimiento.instance)}">    
 
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                    </p:inputText>
-                                                                    <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                                                 validator="realValidator" 
-                                                                                 validatorMessage="No se admiten letras "
-                                                                                 required="#{a.property.required}" label="#{a.property.label}" 
-                                                                                 rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
-
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                    </p:inputText>
-                                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                                                rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                                        <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                                                    </p:calendar>
-
-                                                                    <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                                                     label="#{a.property.label}" style="width: 100%"
-                                                                                     rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                                                        <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                                        <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                                                    </p:selectOneMenu>
-                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" 
-                                                                                     label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                                                     rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                                                    </p:inputTextarea>  
-
-                                                                    <p:inputText id="str5" value="#{a.value}" style="width: 100%"
-                                                                                 label="#{a.property.label}"
-                                                                                 rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                                                 required="#{a.property.required}"
-                                                                                 > 
-                                                                        <f:validator validatorId="validadorDigitosDinamic"  />
-                                                                        <p:ajax event="blur" update="@this" partialSubmit="true"/>
-
-
-                                                                    </p:inputText>
-
-                                                                    <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                                                    </p:selectOneButton>
-                                                                    <br/>
-                                                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
-                                                                                    styleClass="validation-status" />
-                                                                    <span class="help-inline text-muted">#{a.property.helpInline} 
-                                                                        <ocp:message forId="str" />
-                                                                        <ocp:message forId="str1" />
-                                                                        <ocp:message forId="str2" />
-                                                                        <ocp:message forId="str3" />
-                                                                        <ocp:message forId="str4" />
-                                                                        <ocp:message forId="str5" />
-
-                                                                    </span><br/><br/>
-                                                                </div>
-
-                                                            </h:panelGroup>  
-
-                                                        </ui:repeat>
-                                                    </h:panelGroup>
-
-                                                </c:when>
-                                            </c:choose>
-                                        </p:tab>
-                                    </div>
-                                </c:forEach>
-
-
-
-                                <p:tab title="Otros" rendered="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento').size() ne 1 }"
-                                       closable="false"  titleStyleClass="clearfix"  >
-
-                                    <ui:repeat  value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento')}" var="a" varStatus="status"> 
-                                        
-                                        <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
-                                        </p:outputLabel>
-
-                                        <div class="input">
-
-                                            <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
-                                                         required="#{a.property.required}" label="#{a.property.label}" 
-                                                         rendered="#{a.property.type eq 'java.lang.String' and a.property.name ne 'viNumSolicitud'}">
-
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                            </p:inputText>
-                                            <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
-                                                         validator="realValidator" 
-                                                         validatorMessage="No se admiten letras "
-                                                         required="#{a.property.required}" label="#{a.property.label}" 
-                                                         rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
-
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                            </p:inputText>
-                                            <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
-                                                        rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
-                                                <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
-                                            </p:calendar>
-
-                                            <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
-                                                             label="#{a.property.label}" style="width: 100%"
-                                                             rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
-                                                <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
-                                                <p:ajax event="change" update="@this" partialSubmit="true"/>
-                                            </p:selectOneMenu>
-                                            <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
-                                                             rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-                                            </p:inputTextarea>  
-
-                                            <p:inputText id="str5" value="#{a.value}" style="width: 100%"
-                                                         label="#{a.property.label}"
-                                                         rendered="#{a.property.type eq 'java.lang.Integer'}" 
-                                                         required="#{a.property.required}"
-                                                         > 
-                                                <f:validator validatorId="validadorDigitosDinamic"  />
-                                                <p:ajax event="blur" update="@this" partialSubmit="true"/>
-
-
-                                            </p:inputText>
-
-                                            <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
-                                                <f:selectItem itemLabel="true" itemValue="true" />
-                                                <f:selectItem itemLabel="false" itemValue="false" />
-                                            </p:selectOneButton>
-                                            <br/>
-                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null and a.property.name ne 'viNumSolicitud'}"
-                                                            styleClass="validation-status" />
-                                            <span  class="help-inline text-muted"> 
-                                                <h:outputText value="#{a.property.helpInline}" rendered="#{a.property.name ne 'viNumSolicitud'}" /> 
-                                                <ocp:message forId="str" />
-                                                <ocp:message forId="str1" />
-                                                <ocp:message forId="str2" />
-                                                <ocp:message forId="str3" />
-                                                <ocp:message forId="str4" />
-                                                <ocp:message forId="str5" />
-
-                                            </span><br /><br/>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" align="center">
+                                            DATOS ADICIONALES
                                         </div>
 
+                                        <p:tabView id="infoFM" style="width: 99%; padding-bottom: 1.5%">
+                                            <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.instance)}" var="p" >
+                                                <div  class="panel panel-primary">
+                                                    <div  class="panel-heading"><center><h:outputLabel value="#{p.label}"></h:outputLabel></center></div>  
 
-                                    </ui:repeat>
+                                                    <p:tab title="#{p.label}" closable="false"  titleStyleClass="clearfix" rendered="#{p.type == 'org.mtop.modelo.dinamico.Structure'}" >
+                                                        <c:choose>                        
+                                                            <c:when test="#{p.type == 'org.mtop.modelo.dinamico.Structure'}"> 
 
-                                </p:tab>
-                                <br/>
+                                                                <h:panelGroup  layout="block" class="clearfix">
+                                                                    <ui:repeat value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
-                            </p:tabView>
-                        </div>
-                            </p:panel><br></br>
+
+                                                                        <h:panelGroup layout="block" class="clearfix">
+                                                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
+                                                                                #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                            <div class="input">
+                                                                                <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                             rendered="#{a.property.type eq 'java.lang.String'}">
+
+                                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                                                </p:inputText>
+                                                                                <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                                             validator="realValidator" 
+                                                                                             validatorMessage="No se admiten letras "
+                                                                                             required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                             rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+
+                                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                                                </p:inputText>
+                                                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                                            rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                                                    <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
+                                                                                </p:calendar>
+
+                                                                                <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                                                 label="#{a.property.label}" style="width: 100%"
+                                                                                                 rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                                                    <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                                                    <p:ajax event="change" update="@this" partialSubmit="true"/>
+                                                                                </p:selectOneMenu>
+                                                                                <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" 
+                                                                                                 label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                                                 rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                                                </p:inputTextarea>  
+
+                                                                                <p:inputText id="str5" value="#{a.value}" style="width: 100%"
+                                                                                             label="#{a.property.label}"
+                                                                                             rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                                             required="#{a.property.required}"
+                                                                                             > 
+                                                                                    <f:validator validatorId="validadorDigitosDinamic"  />
+                                                                                    <p:ajax event="blur" update="@this" partialSubmit="true"/>
+
+
+                                                                                </p:inputText>
+
+                                                                                <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                                                    <f:selectItem itemLabel="true" itemValue="true" />
+                                                                                    <f:selectItem itemLabel="false" itemValue="false" />
+                                                                                </p:selectOneButton>
+                                                                                <br/>
+                                                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null}"
+                                                                                                styleClass="validation-status" />
+                                                                                <span class="help-inline text-muted">#{a.property.helpInline} 
+                                                                                    <ocp:message forId="str" />
+                                                                                    <ocp:message forId="str1" />
+                                                                                    <ocp:message forId="str2" />
+                                                                                    <ocp:message forId="str3" />
+                                                                                    <ocp:message forId="str4" />
+                                                                                    <ocp:message forId="str5" />
+
+                                                                                </span><br/><br/>
+                                                                            </div>
+
+                                                                        </h:panelGroup>  
+
+                                                                    </ui:repeat>
+                                                                </h:panelGroup>
+
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </p:tab>
+                                                </div>
+                                            </c:forEach>
+
+
+
+                                            <p:tab title="Otros" rendered="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento').size() ne 1 }"
+                                                   closable="false"  titleStyleClass="clearfix"  >
+
+                                                <ui:repeat  value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento')}" var="a" varStatus="status"> 
+
+                                                    <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
+                                                    </p:outputLabel>
+
+                                                    <div class="input">
+
+                                                        <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
+                                                                     required="#{a.property.required}" label="#{a.property.label}" 
+                                                                     rendered="#{a.property.type eq 'java.lang.String' and a.property.name ne 'viNumSolicitud'}">
+
+                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                        </p:inputText>
+                                                        <p:inputText id="str1"  value="#{a.value}" styleClass="form-control" 
+                                                                     validator="realValidator" 
+                                                                     validatorMessage="No se admiten letras "
+                                                                     required="#{a.property.required}" label="#{a.property.label}" 
+                                                                     rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">
+
+                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                        </p:inputText>
+                                                        <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                    rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
+                                                            <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
+                                                        </p:calendar>
+
+                                                        <p:selectOneMenu id="str3" value="#{a.value}" effect="fade"  converter="#{omnifaces.SelectItemsConverter}" required="#{a.property.required}" 
+                                                                         label="#{a.property.label}" style="width: 100%"
+                                                                         rendered="#{a.property.type eq 'java.lang.String[]' or a.property.type eq 'org.mtop.modelo.EstadoParteMecanica'}">  
+                                                            <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                                                            <p:ajax event="change" update="@this" partialSubmit="true"/>
+                                                        </p:selectOneMenu>
+                                                        <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                         rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
+                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
+                                                        </p:inputTextarea>  
+
+                                                        <p:inputText id="str5" value="#{a.value}" style="width: 100%"
+                                                                     label="#{a.property.label}"
+                                                                     rendered="#{a.property.type eq 'java.lang.Integer'}" 
+                                                                     required="#{a.property.required}"
+                                                                     > 
+                                                            <f:validator validatorId="validadorDigitosDinamic"  />
+                                                            <p:ajax event="blur" update="@this" partialSubmit="true"/>
+
+
+                                                        </p:inputText>
+
+                                                        <p:selectOneButton value="#{a.value}" rendered="#{a.property.type eq 'java.lang.Boolean'}" >
+                                                            <f:selectItem itemLabel="true" itemValue="true" />
+                                                            <f:selectItem itemLabel="false" itemValue="false" />
+                                                        </p:selectOneButton>
+                                                        <br/>
+                                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{a.value != null and a.property.name ne 'viNumSolicitud'}"
+                                                                        styleClass="validation-status" />
+                                                        <span  class="help-inline text-muted"> 
+                                                            <h:outputText value="#{a.property.helpInline}" rendered="#{a.property.name ne 'viNumSolicitud'}" /> 
+                                                            <ocp:message forId="str" />
+                                                            <ocp:message forId="str1" />
+                                                            <ocp:message forId="str2" />
+                                                            <ocp:message forId="str3" />
+                                                            <ocp:message forId="str4" />
+                                                            <ocp:message forId="str5" />
+
+                                                        </span><br /><br/>
+                                                    </div>
+
+
+                                                </ui:repeat>
+
+                                            </p:tab>
+                                            <br/>
+
+                                        </p:tabView>
+                                    </div>
+                                </p:panel><br></br>
                                 <div class="admin-actions">
                                     <p:commandLink update="@form" 
                                                    process="@form" value="Agregar ítems" title="Ítems" type="button"
@@ -1413,26 +1395,26 @@
                             <div class="panel-heading"><center>Ítems de Solicitud</center></div>
 
                             <p:panel id="ps">
-                                 <h:panelGroup id="er">
-                                <p:outputLabel value="Elemento a revisar*"/><br></br>
-                                <p:inputTextarea id="elementoRevisar"  
-                                                 styleClass="form-control" 
-                                                 value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}">
-                                      <p:ajax event="blur" update="er" partialSubmit="true"  />        
-                                </p:inputTextarea>
-                               
+                                <h:panelGroup id="er">
+                                    <p:outputLabel value="Elemento a revisar*"/><br></br>
+                                    <p:inputTextarea id="elementoRevisar"  
+                                                     styleClass="form-control" 
+                                                     value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar}">
+                                        <p:ajax event="blur" update="er" partialSubmit="true"  />        
+                                    </p:inputTextarea>
+
                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionElementoRevisar.trim() != ''}"
                                                     styleClass="validation-status"/>
                                     <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar" /></span><br></br>
                                 </h:panelGroup><br/>
-                                 <h:panelGroup id="df">
-                                <p:outputLabel value="Descripción de falla*"/><br></br>
-                                <p:inputTextarea id="descripcionFalla"  styleClass="form-control" 
-                                                 value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
-                                                 >
-                                      <p:ajax event="blur" update="df" partialSubmit="true"  /> 
-                                </p:inputTextarea>
-                               
+                                <h:panelGroup id="df">
+                                    <p:outputLabel value="Descripción de falla*"/><br></br>
+                                    <p:inputTextarea id="descripcionFalla"  styleClass="form-control" 
+                                                     value="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla}"
+                                                     >
+                                        <p:ajax event="blur" update="df" partialSubmit="true"  /> 
+                                    </p:inputTextarea>
+
                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.citemsolicitud.instance.descripcionFalla.trim() != ''}"
                                                     styleClass="validation-status"/>
                                     <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla" /></span><br></br>
@@ -1447,7 +1429,7 @@
                                     </p:commandLink>
 
                                 </div><br/>
-                              
+
                                 <p:messages  id="mensaje1" showDetail="true" closable="true" />
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="todas">
@@ -1461,12 +1443,12 @@
                                                              paginatorPosition="top"
                                                              rowsPerPageTemplate="5,10,15,20"
                                                              emptyMessage="No se han encontrado ítems">
-<p:column headerText="Nro.">
-    <center>
-        <h:outputText value="#{rowIndex + 1}" />
-        </center>
-      </p:column>
-                                              
+                                                    <p:column headerText="Nro.">
+                                                        <center>
+                                                            <h:outputText value="#{rowIndex + 1}" />
+                                                        </center>
+                                                    </p:column>
+
                                                     <p:column headerText="Elemento a revisar" sortBy="#{la.descripcionElementoRevisar}">
                                                         <h:outputText value="#{la.descripcionElementoRevisar}"></h:outputText>
                                                     </p:column>
@@ -1491,17 +1473,17 @@
                                                             </p:commandButton>
 
                                                             <p:confirmDialog global="true" showEffect="fade" widgetVar="conf1" hideEffect="explode">
-                                                                                  <center>
-                                                                        <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
-                                                                            <p:ajax event="click" update=":form:listaa" />
-                                                                        </h:commandLink>
+                                                                <center>
+                                                                    <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                                        <p:ajax event="click" update=":form:listaa" />
+                                                                    </h:commandLink>
 
-                                                                        #{' '}
-                                                                        <h:commandLink value="No" type="button" onclick="conf1.hide()" styleClass="btn btn-success"  style="width:10%"  >
-                                                                             <p:ajax event="click" update=":form:listaa" />
-                                                                        </h:commandLink>
-                                                                    </center>
-                                                               
+                                                                    #{' '}
+                                                                    <h:commandLink value="No" type="button" onclick="conf1.hide()" styleClass="btn btn-success"  style="width:10%"  >
+                                                                        <p:ajax event="click" update=":form:listaa" />
+                                                                    </h:commandLink>
+                                                                </center>
+
                                                             </p:confirmDialog>
                                                         </center> 
                                                     </p:column>
@@ -1513,12 +1495,12 @@
 
 
                             </p:panel>
-   <p:dialog position="500,400" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
-                                              widgetVar="documentDialog1" modal="true" resizable="false">
-                                       <h:panelGroup id="documentPanelc" style="width:100%">
-                       
-                                       <p:outputLabel value="Elemento a revisar*"/><br></br>
-                                    
+                            <p:dialog position="500,400" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
+                                      widgetVar="documentDialog1" modal="true" resizable="false">
+                                <h:panelGroup id="documentPanelc" style="width:100%">
+
+                                    <p:outputLabel value="Elemento a revisar*"/><br></br>
+
                                     <h:panelGroup id="er1">
                                         <p:inputTextarea id="elementoRevisar1" required="true"
                                                          styleClass="form-control" 
@@ -1562,25 +1544,25 @@
                             <div class="admin-actions " align="center"> 
 
                                 <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() eq 0}" 
-                                                 id="save1" value="Guardar" 
-                                                 update="@form :form:basicDT12 :form:mensaje1" 
-                                                 process="@form" style="width: 110px; height: 33px"
-                                                 styleClass="btn  btn-success" 
-                                                 actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
+                                               id="save1" value="Guardar" 
+                                               update="@form :form:basicDT12 :form:mensaje1" 
+                                               process="@form" style="width: 110px; height: 33px"
+                                               styleClass="btn  btn-success" 
+                                               actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
 
-                                                 >
+                                               >
 
 
                                 </p:commandLink>
 
                                 <p:commandLink rendered="#{controladorRequisicion.vista eq 'solicitud2' and controladorSolicitudReparacionMantenimiento.listaItemsSolicitud.size() ne 0}" 
-                                                 id="save134" value="Guardar" 
-                                                 update="@form :form:basicDT12"  style="width: 110px; height: 33px"
-                                                 process="@form"  
-                                                 styleClass="btn  btn-success" 
-                                                 actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
-                                                 ajax="false" immediate="false"
-                                                 >
+                                               id="save134" value="Guardar" 
+                                               update="@form :form:basicDT12"  style="width: 110px; height: 33px"
+                                               process="@form"  
+                                               styleClass="btn  btn-success" 
+                                               actionListener="#{controladorSolicitudReparacionMantenimiento.guardarSol()}"
+                                               ajax="false" immediate="false"
+                                               >
 
                                     <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}" />
 
@@ -1596,23 +1578,23 @@
 
                     </p:panel>
 
-   <h:panelGroup id="bt1">
+                    <h:panelGroup id="bt1">
                         <div class="row">
-                          <div class="col-md-4"> 
-                              <p:commandButton update="bt1 bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
-                                               title="atras" rendered="#{controladorRequisicion.nombrew ne 'Requisicion' and controladorRequisicion.vista eq 'requisicion'}" 
-                                               onclick="PF('wizard').back();" >
+                            <div class="col-md-4"> 
+                                <p:commandButton update="bt1 bt" value="Atrás" icon="ui-icon-arrowthick-1-w" process="@this" 
+                                                 title="atras" rendered="#{controladorRequisicion.nombrew ne 'Requisicion' and controladorRequisicion.vista eq 'requisicion'}" 
+                                                 onclick="PF('wizard').back();" >
 
-                              </p:commandButton></div>
-                          <div class="col-md-4 col-md-offset-4" >
-                           <p align="right">
-                               <p:commandButton update="bt1 bt" process="@this bt" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
-                                                rendered="#{controladorRequisicion.nombrew ne 'Final' and controladorRequisicion.vista eq 'requisicion'}" 
-                                             title="siguiente" onclick="PF('wizard').next();" >
+                                </p:commandButton></div>
+                            <div class="col-md-4 col-md-offset-4" >
+                                <p align="right">
+                                    <p:commandButton update="bt1 bt" process="@this bt" icon="ui-icon-arrowthick-1-e"    value="Siguiente" 
+                                                     rendered="#{controladorRequisicion.nombrew ne 'Final' and controladorRequisicion.vista eq 'requisicion'}" 
+                                                     title="siguiente" onclick="PF('wizard').next();" >
 
-                             </p:commandButton>
-                           </p>
-                          </div>
+                                    </p:commandButton>
+                                </p>
+                            </div>
                         </div>
                     </h:panelGroup>
                 </div>

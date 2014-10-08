@@ -95,10 +95,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String palabrabs = "";
     private String valorTipo;
     private ItemRequisicion itemr;
-
+    private Integer contadorInit=1;
     private List<SolicitudReparacionMantenimiento> listaSolicitudes;
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2;
     private SolicitudReparacionMantenimiento solicitudrep;
+    
+    
+    
+   
     List<ItemRequisicion> listaItemsRequisicion = new ArrayList<ItemRequisicion>();
     Producto pro;
     List<Requisicion> listaRequisicionAprobada = new ArrayList<Requisicion>();
@@ -158,6 +162,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public void setIt(ItemRequisicion it) {
+        this.it=it;
         System.out.println("llego a it>>");
         System.out.println("fijando iten de descripcion>>>>>>" + it.getDescripcion());
         System.out.println("cantidad>>>>>>" + it.getCantidad());
@@ -166,14 +171,19 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             pro = it.getProducto();
             int j = 0;
             for (Producto p : listaProductos) {
+                System.out.println("cantidad "+p.getCantidad());
                 if (p.getId().equals(pro.getId())) {
-                    j++;
+                   
                     break;
                 }
+                 j++;
             }
+            System.out.println("j"+j);
+            System.out.println("cantidad de it "+it.getCantidad());
+                    
             pro.setCantidad(it.getCantidad() + listaProductos.get(j).getCantidad());
             listaProductos.set(j, pro);
-
+            System.out.println("pro.getcantidad "+pro.getCantidad());
             pro = listaProductos.get(j);
             maximo = pro.getCantidad();
             System.out.println("maximo en set it" + maximo);
@@ -347,11 +357,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String getVista() {
-        System.out.println("recueperando vista " + this.vista);
-        System.out.println("presentar instance" + getInstance().getId());
-        System.out.println("presenta solicitud" + solicitudReparacionMantenimiento);
-        System.out.println("lista de requisisicones>>>>>" + listaRequisicion);
-        System.out.println("lista de solicitudes de la requisisicon" + listaSolicitudes);
         return vista;
 
     }
@@ -1278,16 +1283,24 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     Producto p = new Producto();
                     List<Producto> lp = new ArrayList<Producto>();
                     for (Producto prod : listaProductos) {
-                        System.out.println("prod+prod" + prod);
+                        System.out.println("prod+prod" + prod.getDescripcion());
                         if (!prod.getId().equals(pro.getId())) {
-                            System.out.println("a aniadir" + prod);
+                            System.out.println("a aniadir" + prod.getDescripcion());
                             lp.add(prod);
 
                         }
                     }
                     listaProductos = lp;
+                    System.out.println("cantidad anterior "+pro.getCantidad());
+                    System.out.println("cantidad del instance "+cir.getInstance().getCantidad());
                     pro.setCantidad(pro.getCantidad() - cir.getInstance().getCantidad());
                     listaProductos.add(pro);
+                    System.out.println("cantidad nueva "+pro.getCantidad());
+                    System.out.println("lista de productos");
+                    for (Producto producto : listaProductos) {
+                        System.out.println("aniadido "+producto.getDescripcion());
+                        System.out.println("con entidad "+producto.getCantidad());
+                    }
                 }
             }
 
@@ -1714,6 +1727,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
+        System.out.println("\n\n entro init \n\n"+contadorInit);
         listaRequisicion = new ArrayList<Requisicion>();
         listaSolicitudes = new ArrayList<SolicitudReparacionMantenimiento>();
         List<Requisicion> lrqn = findAll(Requisicion.class);
@@ -1730,13 +1744,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         }
-        System.out.println("lista de rquisiciones" + lrqn);
         List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
         listaSolicitudes.clear();
         for (SolicitudReparacionMantenimiento sol : ls) {
-            System.out.println("iddddddddddddddd" + sol);
             if (sol.getRequisicionId() == null && sol.isEstado()) {
-                System.out.println("entro" + sol);
 
                 listaSolicitudes.add(sol);
 
@@ -1744,9 +1755,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         }
         listaSolicitudes2 = listaSolicitudes;
-        System.out.println("lsiat de solicitudes" + listaSolicitudes);
         vehiculo = new Vehiculo();
-        System.out.println("en init vehiculo::::::" + vehiculo);
         idVehiculo = 0l;
         getInstance().setTipoRequisicion("Requisición de Reparación");
         listaPartida = findAll(PartidaContabilidad.class);
@@ -1781,21 +1790,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         List<Producto> lproductos = new ArrayList<Producto>();
         listaProductos = findAll(Producto.class);
         for (Producto pd : listaProductos) {
-            System.out.println("entroa al for cone l estado" + pd.isEstado());
             if (pd.isEstado()) {
                 lproductos.add(pd);
             }
         }
         listaProductos = lproductos;
         listaproductos2 = listaProductos;
-        System.out.println("lsita de productos222" + listaProductos);
         it = new ItemRequisicion();
         it.setCantidad(0);
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
         nombrew = "Requisicion";
-        System.out.println("nombre en el init" + nombrew);
-
     }
 
     @Override

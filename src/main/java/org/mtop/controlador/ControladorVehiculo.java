@@ -993,18 +993,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public Long getVehiculoId() {
-        System.out.println("IIIIDEE" + getId());
-
         return (Long) getId();
     }
 
     public void setVehiculoId(Long vehiculoId) {
-
-        System.out.println("id a fijar" + vehiculoId);
         setId(vehiculoId);
         if (vehiculoId != 0) {
-            System.out.println("get instance vehiculo" + getInstance().getId());
-            System.out.println("gent instance persona" + getInstance().getPersona());
             idPersona = getInstance().getPersona().getId();
         } else {
             System.out.println("entro a no");

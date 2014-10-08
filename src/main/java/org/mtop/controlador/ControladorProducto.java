@@ -240,21 +240,15 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
+          System.out.println("\n\n\n entro init \n\n\n" );
         crequisicion = new ControladorRequisicion();
         listaProducto = new ArrayList<Producto>();
         List<Producto> lp = servgen.buscarTodos(Producto.class);
         listaProducto.clear();
-        System.out.println("lppp" + lp);
 
         for (Producto produ : lp) {
-            System.out.println("iddddd" + produ.getId());
-            System.out.println("entro a for lista>>>>" + produ.isEstado());
             if (produ.isEstado()) {
-                System.out.println("listatesssa" + listaProducto);
                 listaProducto.add(produ);
-
-                System.out.println("Entro a remover>>>>");
-                System.out.println("a;iadia" + listaProducto);
 
             }
 

@@ -889,17 +889,17 @@
 
                 </h:panelGroup> 
                 <center>
-                    <p:button id="dardebaja3" value="Sí"  
-                              outcome="/paginas/admin/kardex/crear"  
-
-                              >
-                        <f:param name="estado" value="false"/>
+                    
+                     <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:15%"  >
+                         <p:ajax event="click" process="@form" update="@form" />
+                         <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
                         <f:param name="valorVista" value="kardex"/>
-                    </p:button>
-                    <p:commandButton value="No" type="button" onclick="dlg1.hide();"  
-                                     style="margin-top:10px;"/>  
+                     </h:commandLink>
+       
+                    <h:commandLink value="No" type="button" onclick="dlg1.hide()" styleClass="btn btn-success"  style="width:15%"  />
+                    
                 </center>
 
             </h:form>
@@ -915,17 +915,19 @@
 
                 </h:panelGroup> 
                 <center>
-                    <p:button id="dardebaja1" value="Sí"
-                              outcome="/paginas/admin/kardex/crear"  
-
-                              >
+                    
+                    
+                    <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:15%"  >
+                        <p:ajax event="click" process="@form" update="@form" />
                         <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
                         <f:param name="valorVista" value="kardex"/>
-                    </p:button>
-                    <p:commandButton value="No" type="button" onclick="dlg2.hide();"  
-                                     style="margin-top:10px;"/>  
+                    
+                    </h:commandLink>
+                    <h:commandLink value="No" type="button" onclick="dlg2.hide()" 
+                                   styleClass="btn btn-success"  style="width:15%"  />
+                    
                 </center>
 
             </h:form>
