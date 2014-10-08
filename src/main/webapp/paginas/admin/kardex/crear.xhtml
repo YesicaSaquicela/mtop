@@ -890,8 +890,9 @@
                 </h:panelGroup> 
                 <center>
                     
-                     <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:15%"  >
-                         <p:ajax event="click" process="@form" update="@form" />
+                     <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes"
+                                    onclick="dlg1.hide()" style="width:15%"  >
+                        
                          <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
@@ -917,8 +918,9 @@
                 <center>
                     
                     
-                    <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:15%"  >
-                        <p:ajax event="click" process="@form" update="@form" />
+                    <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" 
+                                   style="width:15%"  >
+                        
                         <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
