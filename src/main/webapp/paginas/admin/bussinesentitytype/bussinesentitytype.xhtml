@@ -45,7 +45,7 @@ limitations under the License.
                     <div role="main">
                         <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
                             <div class="panel panel-primary">
-                                <div class="panel-heading"><center>Datos Generales</center></div>
+                                <div class="panel-heading"><center>Datos generales</center></div>
                                 <div class="container-fluid">
                                     <h:panelGroup layout="block" class="clearfix" rendered="true">
                                         <!--TODO: revisar <ui:include >-->
@@ -109,7 +109,7 @@ limitations under the License.
 
                         <div class="panel panel-primary">
 
-                            <div class="panel-heading"><center>Datos Generales</center></div>
+                            <div class="panel-heading"><center>Datos generales</center></div>
                             <p:panel id="pb">
                                 <div class="container-fluid">
                                     <!--TODO: revisar <ui:include >-->
@@ -218,7 +218,7 @@ limitations under the License.
                                         </div>
                                     </div> 
                                     <div class="admin-actions">
-                                        <h:link styleClass="btn btn-success"  value="Crear Propiedad" type="button" rendered="#{true}" outcome="property" >
+                                        <h:link styleClass="btn btn-success"  value="Crear propiedad" type="button" rendered="#{true}" outcome="property" >
                                             <f:param name="propertyId"></f:param>
                                             <f:param name="structureId" value ="#{e.id}"></f:param>
                                             <f:param name="nombreGrupo" value ="#{bussinesEntityTypeHome.instance.name}"></f:param>
@@ -240,17 +240,17 @@ limitations under the License.
                                                  emptyMessage="No se han encontrado coincidencias"
                                                  > 
 
-                                        <p:column  headerText="#{messages['BussinesEntity.name']}" sortBy="#{property.name}" style="width: 12%">
+                                        <p:column  headerText="Nombre" sortBy="#{property.name}" style="width: 12%">
                                             <h:outputText value="#{property.name}" />
                                         </p:column>
 
-                                        <p:column  headerText="#{messages['common.property.label']}" sortBy="#{property.label}" style="width: 13%">
+                                        <p:column  headerText="Etiqueta de vista" sortBy="#{property.label}" style="width: 13%">
                                             <h:outputText value="#{property.label}" />
                                         </p:column>                        
-                                        <p:column  headerText="#{messages['common.property.type']}" sortBy="#{property.type}" style="width: 5%">
+                                        <p:column  headerText="Tipo de dato" sortBy="#{property.type}" style="width: 5%">
                                             <h:outputText value="#{propertyHome.ConvertirPropiedadesString(property)}" styleClass="span1"/>
                                         </p:column>                                 
-                                        <p:column  headerText="#{messages['common.property.value']}" sortBy="#{property.value}" style="width: 15%">
+                                        <p:column  headerText="Valor" sortBy="#{property.value}" style="width: 15%">
                                             <h:outputText value="#{property.value}" styleClass="span3" rendered="#{property.type ne 'java.util.Date'}"/>
                                             <h:outputText value="#{propertyHome.formato(property.value)}" styleClass="span3" rendered="#{property.type eq 'java.util.Date'}"/>
                                         </p:column>                                 

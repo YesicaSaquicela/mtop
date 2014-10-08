@@ -66,7 +66,7 @@ limitations under the License.
    </h:link>-->
                             #{' '}
 
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                            <p:messages id="messages" showDetail="true" closable="true" />  
                             <div class="tab-content">
                                 <div class="tab-pane active" id="todas">
                                     <div class="table-responsive">
@@ -82,21 +82,21 @@ limitations under the License.
                                                          rendered="true"
                                                          >
 
-                                                <p:column headerText="#{messages['module.BussinesEntityType.name']}" style="width: 10%"
+                                                <p:column headerText="Nombre" style="width: 10%"
                                                           sortBy="#{bussinesEntityType.name}"  >
                                                     <h:outputText value="#{bussinesEntityType.name}" style="width: 10%"></h:outputText>
                                                 </p:column>
 
-                                                <p:column headerText="#{messages['module.BussinesEntityType.label']}" sortBy="#{bussinesEntityType.name}">
+                                                <p:column headerText="Etiqueta" sortBy="#{bussinesEntityType.name}">
                                                     <h:outputText value="#{bussinesEntityType.label}" style="width: 10%"></h:outputText>
                                                 </p:column>
 
-                                                <p:column headerText="#{messages['module.BussinesEntityType.structureAccount']}" sortBy="#{bussinesEntityType.name}">
+                                                <p:column headerText="Estructura" sortBy="#{bussinesEntityType.name}">
                                                     <h:outputText value="#{bussinesEntityType.structures.size()}" style="width: 10%"></h:outputText>
                                                 </p:column> 
 
 
-                                                <p:column headerText="#{messages['module.BussinesEntityType.attributeAccount']}" sortBy="#{bussinesEntityType.name}">
+                                                <p:column headerText="Atributos de estructura" sortBy="#{bussinesEntityType.name}">
                                                     <h:outputText value="#{bussinesEntityType.structures[0].properties.size()}" style="width: 10%"></h:outputText>
                                                 </p:column> 
                                                 <p:column headerText="Editar" style="width: 5%;text-align: center">

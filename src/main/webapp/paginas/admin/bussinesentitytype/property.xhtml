@@ -44,7 +44,7 @@
                                         <div class="col-md-6"> 
 
 
-                                            <p:outputLabel  value="Nombre del Grupo"/><br/>
+                                            <p:outputLabel  value="Nombre del grupo"/><br/>
                                             <p:inputText id="groupn" type="text" label="#{messages['common.property.groupName']}" 
                                                          value="#{propertyHome.instance.groupName}" disabled="true" style="width:100%"  /><br/>
                                             <h:graphicImage value="#{resource['visto.png']}" 
@@ -75,26 +75,27 @@
                                                 <label for="type" class="control-label" >#{messages['common.property.type']} *</label>
                                                 <div class="input">
                                                     <p:selectOneMenu disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" id="type" 
-                                                                     value="#{propertyHome.propertyType}" effect="fade" 
+                                                                     value="Tipo de dato" effect="fade" 
                                                                      converter="#{omnifaces.SelectItemsConverter}" required="true"  
                                                                      label="#{messages['common.property.type']}" rendered="true" 
                                                                       requiredMessage="Tipo de dato requerido, necesita un valor."
                                                                       style="width:100%">
                                                         <f:selectItem  itemLabel = "#{messages['common.choice']}" />  
                                                         <f:selectItems  value="#{propertyHome.tiposDatos}" var="tipos" itemLabel="#{tipos}" itemValue="#{tipos}"/>
-                                                       <f:ajax execute="type" render="typeP pvaluep" />
+                                                        <p:ajax event="change" update="typeP pvaluep"/>
                                                     </p:selectOneMenu><br></br> 
                                                     <h:graphicImage value="#{resource['visto.png']}" rendered="#{propertyHome.propertyType  != null}"
                                                                     styleClass="validation-status" />
                                                     <span class="help-inQline text-muted">#{messages['common.property.type.help']} <ocp:message forId="type" /></span>
-
+#{propertyHome.propertyType}
                                                 </div><br></br>
                                             </h:panelGroup>
+                                            
                                             <h:panelGroup  id="pvaluep" layout="block" class="clearfix"  >
-                                                <label >#{messages['common.property.value']}</label>
+                                                <label >Valor</label>
                                                 <div class="input" >
                                                     <p:inputText id="in1"  value="#{propertyHome.propertyStringValue}" style="width:100%"
-                                                                 label="#{messages['common.property.value']}" 
+                                                                 label="Valor" 
                                                                  rendered="#{propertyHome.propertyType ne 'Fecha'
                                                                              and propertyHome.propertyType ne 'AreaTexto'
                                                                              and propertyHome.propertyType ne 'EnteroMayor'
@@ -182,7 +183,7 @@
 
                                                 </div>
 
-                                                <h:panelGrid columns="1" rendered="#{propertyHome.propertyType eq 'EstadoParteMecanica'}" style="margin-bottom:10px" cellpadding="5"  >
+                                                <h:panelGrid id="pm" columns="1" rendered="#{propertyHome.propertyType eq 'EstadoParteMecanica'}" style="margin-bottom:10px" cellpadding="5"  >
 
                                                     <br></br>
                                                     <div class="input">
@@ -203,26 +204,23 @@
                                             <p:selectBooleanCheckbox value="#{propertyHome.instance.required}" required="false" >
                                            
                                             </p:selectBooleanCheckbox>
-                                                <span class="help-inline text-muted">Selecciones si es requerida esta propiedad</span>
+                                                <span class="help-inline text-muted">Seleccione si es requerida esta propiedad</span>
                                            <br/>
                                            <br/>
                                          
-                                            <!--mtop:input id="rqd" name="requerid" type="checkbox" 
-                                                        label="#{messages['common.property.required']}" render="rqd"
-                                                        value="#{propertyHome.instance.required}" required="false" 
-                                                        inlinehelp="#{messages['common.property.required.help']}" execute="@this save" /--><br></br>                                   
+                                                
 
                                             <mtop:input id="secuencia" name="sequence" type="java.lang.Long" 
-                                                        label="#{messages['common.property.sequence']}" 
+                                                        label="Posición en la vista" 
                                                         numDecimales="0"
                                                         value="#{propertyHome.instance.sequence}" required="false" 
-                                                        inlinehelp="#{messages['common.property.sequence.help']}" 
+                                                        inlinehelp="Valor de secuencia, ejemplo (0,1,2)" 
                                                         execute="@this save" /><br></br>
                                             <mtop:input id="label" name="label" type="text" 
-                                                        label="#{messages['common.property.label']}" 
+                                                        label="Etiqueta de vista" 
                                                         value="#{propertyHome.instance.label}" render="label" 
                                                         validador="stringValidator" 
-                                                        required="true" inlinehelp="#{messages['common.property.label.help']}" 
+                                                        required="true" inlinehelp="Valor que se mostrará en la vista, ejemplo (Nombre, Datos personales)" 
                                                         execute="@this save" 
                                                         requiredMessage="Etiqueta de vista requerida, necesita un valor."/><br></br>
 
@@ -230,9 +228,9 @@
 
                                             <!--mtop:input id="converter" name="converter" type="text" label="# {messages['common.property.converter']}" 
                                                         value="# {propertyHome.instance.converter}" required="false" inlinehelp="# {messages['common.property.converter.help']}" execute="@this save" /><br></br-->
-                                            <mtop:input id="hpline" name="helpInline" type="textarea" label="#{messages['common.property.helpinline']}" 
+                                            <mtop:input id="hpline" name="helpInline" type="textarea" label="Línea de ayuda" 
                                                         value="#{propertyHome.instance.helpInline}" required="true" 
-                                                        inlinehelp="Ingrese una descripción de la linea" execute="@this save"
+                                                        inlinehelp="Ingrese una descripción de la línea" execute="@this save"
                                                         requiredMessage="Línea de ayuda requerida, necesita un valor."/><br></br>
                                         </div>
 

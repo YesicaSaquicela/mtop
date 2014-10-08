@@ -403,6 +403,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
+        System.out.println("entro a setProperty");
         if (this.propertyType != null) {
 
             System.out.println("Entor a tipo>>>>>>" + this.propertyType);
