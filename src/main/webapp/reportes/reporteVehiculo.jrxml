@@ -24,8 +24,8 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="0" y="-4" width="538" height="132" uuid="b7bcf7ba-be8b-4e5c-af19-abe27e3a98ed"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/lvehiculos.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="552" height="128" uuid="872bc59a-d932-4a14-81b3-674288921c64"/>
+				<imageExpression><![CDATA["/home/carlis/lvehiculos.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

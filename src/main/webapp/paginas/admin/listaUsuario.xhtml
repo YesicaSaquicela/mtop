@@ -86,7 +86,7 @@
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.username}" />
                                                 </p:column>
-                                                <p:column headerText="Asignar Rol" style="width: 5%; text-align: center">
+                                                <p:column headerText="Asignar rol" style="width: 5%; text-align: center">
 
                                                     <p:button title="Asignar roles" icon="ui-icon-key" 
                                                               rendered="#{profile_.deleted ne true}" style="margin-top:10px;"
@@ -103,7 +103,7 @@
                                                                      action="#{profileHome.inavilitarCuenta(profile_)}"
                                                                      update="@form" rendered="#{profile_.username ne null and profile_.deleted ne true }">
                                                         <p:confirm header="Confirmación"
-                                                                   message="¿Desea Realmente desabilitar la Cuenta de usuario seleccionado?" icon="ui-icon-alert" />
+                                                                   message="¿Desea realmente desabilitar la cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>   #{" "}
 

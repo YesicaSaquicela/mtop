@@ -402,7 +402,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public void setPropertyType(String propertyType) {
+        
         this.propertyType = propertyType;
+       
         if (this.propertyType != null) {
 
             System.out.println("Entor a tipo>>>>>>" + this.propertyType);
@@ -425,7 +427,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
 
         }
-        System.out.println("valor de tipo fijado " + propertyType);
+        System.out.println("valor de tipo fijado" + propertyType);
 
     }
 
