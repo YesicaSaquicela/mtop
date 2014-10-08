@@ -120,7 +120,7 @@
                                                 </p:column>
                                                 <p:column sortBy="#{profile_.tipo}">
                                                     <f:facet name="header">  
-                                                        <h:outputText value="Tipo de Persona" />  
+                                                        <h:outputText value="Tipo de persona" />  
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.tipo}" />
                                                 </p:column>
@@ -135,10 +135,10 @@
                                                     </center>
 
                                                 </p:column>
-                                                <p:column headerText="Crear/Editar Usuario" style="width: 10%">
+                                                <p:column headerText="Crear/Editar usuario" style="width: 10%">
                                                     <center>
                                                         <p:button icon="ui-icon-person" rendered="#{profile_.deleted eq false}"
-                                                                  title="Crear Usuario" styleClass="btn  btn-success"
+                                                                  title="Crear usuario" styleClass="btn  btn-success"
 
                                                                   outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" 
                                                                   >
@@ -149,7 +149,7 @@
                                                         
                                                           <p:commandButton icon="ui-icon-person" rendered="#{profile_.deleted eq true}" 
                                                                              oncomplete="#{'carDialog1.show();'}" immediate="true" 
-                                                                             title="Crear Usuario1" >
+                                                                             title="Crear usuario" >
                                                                 <p:ajax process="@this" update=":form-dialog1 "/> 
                                                           </p:commandButton>
                                                     </center>

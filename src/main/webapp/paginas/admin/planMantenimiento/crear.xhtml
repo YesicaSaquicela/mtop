@@ -35,7 +35,7 @@
                                   styleClass="btn  btn-success"/>
                     </div><br/>
                     <div class="panel panel-primary">
-                        <div class="panel-heading"><center>Asignar Actividades</center></div>
+                        <div class="panel-heading"><center>Asignar actividades</center></div>
 
                         <p:panel id="p1">
 
@@ -58,7 +58,7 @@
                             <span class="help-inline text-muted">Fecha de creación del plan de mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
                             <h:panelGroup id="ak">
                                 <p:outputLabel value="Actividad*"/><br></br>
-                                <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Se necesita un actividad" 
+                                <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Actividad requerida, necesita un valor" 
                                                  id="actividad" required="true" styleClass="form-control"
                                                  value="#{controladorPlanMantenimiento.actividadPlanM.actividad}"
                                                  >
@@ -67,7 +67,7 @@
 
                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPlanMantenimiento.actividadPlanM.actividad != null}"
                                                 styleClass="validation-status" />
-                                <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
+                                <span class="help-inline text-muted">Descripción de actividades<ocp:message forId="actividad" /></span><br></br><br></br>
                             </h:panelGroup>
 
                             <h:panelGroup id="km">
@@ -88,11 +88,11 @@
 
                             </h:panelGroup>
                             <div class="admin-actions">
-                                <p:commandButton  process=":form:p1 :form:msg" update=":form:p1 :form:msg"  
+                                <p:commandLink  process=":form:p1 :form:msg" update=":form:p1 :form:msg"  
                                                   styleClass="btn  btn-success" value="Crear Actividad" title="Crear Actividad"  
                                                   actionListener="#{controladorPlanMantenimiento.agregarActividad()}">
                                      <p:ajax immediate="true" event="click" rendered="p1 msg" update=":form:msg" />  
-                                </p:commandButton>
+                                </p:commandLink>
                             </div><br/>
                            
                          <h:outputLabel id="msg"  value="#{controladorPlanMantenimiento.s}" style="color:red" /> 
@@ -141,9 +141,9 @@
                                 <h:panelGroup id="documentPanel" style="width:100%">
                                     <h:outputLabel for="name" value="Kilometraje: " />
                                     <h:outputText id="name"  value="#{controladorPlanMantenimiento.it.kilometraje}"  >  
-
-
-                                    </h:outputText><br></br>
+                                    </h:outputText><br/>
+                                    <span class="help-inline text-muted">Kilometraje del vehículo<ocp:message forId="name" /></span>
+                                    <br></br><br/>
                                     <h:panelGroup id="ak1">
                                         <p:outputLabel value="Actividad*"/><br></br>
                                         <p:inputTextarea maxlength="600" label="actividad" requiredMessage="Se necesita un actividad" 
@@ -153,11 +153,11 @@
                                         </p:inputTextarea>
 
 
-                                        <span class="help-inline text-muted">Descripción de actividad<ocp:message forId="actividad1" /></span><br></br><br></br>
+                                        <span class="help-inline text-muted">Descripción de actividades<ocp:message forId="actividad1" /></span><br></br><br></br>
                                     </h:panelGroup><br/>
                                           <div class="admin-actions" align="center">
                                                     <p:commandLink  update=":form:listaa :form:actividad1" process=":form:dialog"
-                                                                    styleClass="btn  btn-success" value="GUARDAR" title="Crear Item"  oncomplete="PF('documentDialog').hide()" 
+                                                                    styleClass="btn  btn-success" value="Crear actividad" title="Crear actividad"  oncomplete="PF('documentDialog').hide()" 
                                                                     action="#{controladorPlanMantenimiento.editar()}">
 
                                                     </p:commandLink>
