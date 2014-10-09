@@ -197,6 +197,7 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
     }
     
     public List<BussinesEntityAttribute> getAttributes() {
+        System.out.println("atributes"+attributes);
         Collections.sort(attributes);
         return attributes;
     }
@@ -257,7 +258,10 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
      */
     public List<BussinesEntityAttribute> getBussinessEntityAttributes(String... structureNames) {
          List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
+         System.out.println("unoooo");
         System.out.println("bussinessEntity"+structureNames);
+        System.out.println("unoooo");
+        System.out.println("get aytr"+getAttributes());
         for (BussinesEntityAttribute a : getAttributes()) {
             System.out.println("entroa afor bussines");
             for (String sn : structureNames) {

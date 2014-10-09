@@ -47,12 +47,12 @@
 
 
 
-                                        <p:commandLink value="Buscar" type="button" update=":form:infoFM:listap form:infoFM:listap1" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
+                                        <p:commandLink value="Buscar" type="button" update=":form:infoFM:listap form:infoFM:listap1 form:messages" id="buscar" action="#{controladorRequisicion.buscar()}" styleClass="btn btn-success" >
 
                                         </p:commandLink>
 
                                         #{' '}  #{' '} 
-                                        <p:commandLink value="Limpiar" type="button" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
+                                        <p:commandLink value="Limpiar" type="button" update=":form:infoFM:listap form:infoFM:listap1 :form:acSimple form:messages" action="#{controladorRequisicion.limpiar()}" styleClass="btn btn-success" >
 
                                         </p:commandLink>
                                     </center>
