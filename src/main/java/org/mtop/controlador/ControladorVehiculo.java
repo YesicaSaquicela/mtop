@@ -134,8 +134,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.tiposCombustible = tiposCombustible;
     }
     
-    
-    
 
     public String getMensajef() {
         return mensajef;
@@ -614,7 +612,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             System.out.println("presenta propieedades " + bea);
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                if (bussinesEntityAttribute.getName().equals("serie")) {
+                if (bussinesEntityAttribute.getName().equals("serieMotor")) {
                     if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)) {
                         Boolean ban = false;
                         for (Vehiculo v : lvs) {
@@ -632,7 +630,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
             bea = getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                if (bussinesEntityAttribute.getName().equals("serie")) {
+                if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
                     if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)) {
                         Boolean ban = false;
@@ -694,8 +692,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             bea = getInstance().findBussinesEntityAttribute("Motor");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                if (bussinesEntityAttribute.getName().equals("serie")) {
-                    if (((String) bussinesEntityAttribute.getValue()).contains(query)
+                if (bussinesEntityAttribute.getName().equals("serieMotor")) {
+                    if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase())
                             && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
                         System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
@@ -705,8 +703,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
             bea = getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                if (bussinesEntityAttribute.getName().equals("serie")) {
-                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                if (bussinesEntityAttribute.getName().equals("serieChasis")) {
+                    if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase()) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
                         System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                     }

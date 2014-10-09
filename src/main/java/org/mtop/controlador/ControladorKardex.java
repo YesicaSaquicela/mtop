@@ -1014,7 +1014,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
         SolicitudReparacionMantenimiento sl = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, id);
         System.out.println("estado en set soli " + estado);
-        if (estado != null) {
+
             if (estado.equals("false")) {
                 for (SolicitudReparacionMantenimiento solicit : listaSol) {
                     System.out.println("entro al for>>>");
@@ -1072,7 +1072,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
            
             System.out.println("lista de sol no el" + listaSol);
             listakardex = findAll(Kardex.class);
-        }
+        
 
     }
 
@@ -1107,7 +1107,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         Date now = Calendar.getInstance().getTime();
         Requisicion rq = servgen.buscarPorId(Requisicion.class, id);
         System.out.println("estado en set requisicion id " + estado);
-        if (estado != null) {
+     
             if (estado.equals("false")) {
                 for (Requisicion requisicio : listaReq) {
                     System.out.println("entro al for>>>");
@@ -1156,7 +1156,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             save(getInstance());
             System.out.println("lista de requ no el" + listaReq);
             listakardex = findAll(Kardex.class);
-        }
+        
 
     }
 

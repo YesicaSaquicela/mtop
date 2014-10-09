@@ -767,7 +767,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     System.out.println("presenta propieedades " + bea);
                     for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                        if (bussinesEntityAttribute.getName().equals("serie")) {
+                        if (bussinesEntityAttribute.getName().equals("serieMotor")) {
                             if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lrq.contains(r.getId())) {
 
                                 lrq.add(r.getId());
@@ -776,9 +776,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                         }
                     }
-                    bea = getInstance().findBussinesEntityAttribute("Chasis");
+                    bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
                     for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                        if (bussinesEntityAttribute.getName().equals("serie")) {
+                        if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
                             if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lrq.contains(r.getId())) {
 
@@ -890,8 +890,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 System.out.println("presenta propieedades " + bea);
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
-                        if (((String) bussinesEntityAttribute.getValue()).contains(query)
+                    if (bussinesEntityAttribute.getName().equals("serieMotor")) {
+                        if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase())
                                 && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                             ced.add((String) bussinesEntityAttribute.getValue());
                             System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
@@ -899,10 +899,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     }
                 }
-                bea = getInstance().findBussinesEntityAttribute("Chasis");
+                bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
-                        if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                    if (bussinesEntityAttribute.getName().equals("serieChasis")) {
+                        if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase()) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                             ced.add((String) bussinesEntityAttribute.getValue());
                             System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                         }
