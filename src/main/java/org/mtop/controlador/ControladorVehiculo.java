@@ -604,11 +604,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
         }
         System.out.println("entro a buscar");
+        ControladorVehiculo cv=new ControladorVehiculo();
+        cv.setBussinesEntity(bussinesEntity);
+        cv.setEntityManager(em);
 
         List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
         for (Vehiculo vehiculo : listVehiculos2) {
-            setId(vehiculo.getId());
-            bea = getInstance().findBussinesEntityAttribute("Motor");
+             cv.setId(vehiculo.getId());
+            bea =  cv.getInstance().findBussinesEntityAttribute("Motor");
             System.out.println("presenta propieedades " + bea);
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
@@ -628,7 +631,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
                 }
             }
-            bea = getInstance().findBussinesEntityAttribute("Chasis");
+            bea =  cv.getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
                 if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
@@ -686,10 +689,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 ced.add(vh.getPlaca());
             }
         }
+         ControladorVehiculo cv=new ControladorVehiculo();
+        cv.setBussinesEntity(bussinesEntity);
+        cv.setEntityManager(em);
         List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
         for (Vehiculo vehiculo : listVehiculos2) {
-            setId(vehiculo.getId());
-            bea = getInstance().findBussinesEntityAttribute("Motor");
+            cv.setId(vehiculo.getId());
+            bea = cv.getInstance().findBussinesEntityAttribute("Motor");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serieMotor")) {
@@ -701,7 +707,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
                 }
             }
-            bea = getInstance().findBussinesEntityAttribute("Chasis");
+            bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
                 if (bussinesEntityAttribute.getName().equals("serieChasis")) {
                     if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase()) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
@@ -713,6 +719,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         }
+       
+        System.out.println("vehiculoooo "+getInstance());
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
@@ -1001,8 +1009,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         } else {
             System.out.println("entro a no");
             setInstance(new Vehiculo());
-            System.out.println(""
-                    + "vehiculo en no" + getInstance());
         }
 
     }

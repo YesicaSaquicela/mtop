@@ -756,7 +756,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 }
             }
         }
-        System.out.println("lista de soli desp for>>>>>" + listaSol);
         if (listaReq == null) {
             System.out.println("entro a listaSol");
             for (Kardex kardex : listakardex) {
@@ -769,7 +768,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
         System.out.println("lista de req desp for>>" + listaReq);
         listareqNoAp = findAll(Requisicion.class);
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
+        List<Requisicion> lr = findAll(Requisicion.class);
         listareqNoAp.clear();
         for (Requisicion rnp : lr) {
             if (rnp.getVehiculo() != null && getInstance().getVehiculo() != null) {

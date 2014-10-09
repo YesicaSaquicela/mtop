@@ -105,10 +105,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setMensajeS(String mensajeS) {
         this.mensajeS = mensajeS;
     }
-    
-       
+
     public String getNombrew() {
         System.out.println("obtien en get" + nombrew);
+        System.out.println("dsfsdfs " + getInstance().getRequisicionId());
         return nombrew;
     }
 
@@ -146,6 +146,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setReqSolicitud(Requisicion reqSolicitud) {
+        System.out.println("\n\n\n\n\n entra sett requi" + reqSolicitud);
+
         this.reqSolicitud = reqSolicitud;
     }
 
@@ -155,7 +157,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setVista(String vista) {
         this.vista = vista;
-        
+
         System.out.println("retornando vista>>>>>" + vista);
         System.out.println("nueva requi en set vista" + nuevaRequisicion.getObservaciones());
         System.out.println("lista de solicitudes>>>>" + listaSolicitud);
@@ -364,7 +366,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
                 System.out.println("presenta propieedades chasis " + bea);
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                    System.out.println("entra a for chais"+bussinesEntityAttribute.getName());
+                    System.out.println("entra a for chais" + bussinesEntityAttribute.getName());
                     if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
                         if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lsoli.contains(sol.getId())) {
@@ -479,10 +481,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
                 if (bussinesEntityAttribute.getName().equals("serieChasis")) {
-                    
+
                     if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase()) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
-                       
+
                     }
 
                 }
@@ -500,13 +502,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setRequisicion(Requisicion requisicion) {
-        System.out.println("llega requisicion>>>>" + requisicion);
+        if (requisicion != null) {
+            System.out.println("llega requisicion>>>>" + requisicion);
         this.requisicion = requisicion;
         getInstance().setRequisicionId(requisicion);
         System.out.println("ide de requisicion>>>>>>" + requisicion);
         System.out.println("instance requi>>>>" + getInstance().getRequisicionId());
-   
-    
+        } else {
+            this.requisicion = new Requisicion();
+        }
+        
     }
 
     public List<Requisicion> getListaRequisiciones() {
@@ -571,7 +576,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         System.out.println("Entro getOld" + event.getOldStep());
         System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
         System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
-        System.out.println("otro retorna");
+        System.out.println("otro retorna" + getInstance().getRequisicionId());
         System.out.println("nombre wizard111" + nombrew);
         if (skip) {
 
@@ -655,7 +660,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         // for para poder cambiar el id del vehiculo y las requisiciones
         if (requisicion != null) {
-            if (requisicion.getVehiculo() != getInstance().getVehiculo() && getInstance().getRequisicionId() != null) {
+            if (requisicion.getVehiculo() != getInstance().getVehiculo()
+                    && getInstance().getRequisicionId() != null) {
+                System.out.println("fijo null");
 
                 getInstance().setRequisicionId(null);
                 requisicion = new Requisicion();
@@ -716,8 +723,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         if (getInstance().getRequisicionId() != null) {
                   
             requisicion = getInstance().getRequisicionId();
-            reqSolicitud = requisicion;
+            reqSolicitud = new Requisicion();
+            reqSolicitud.setId(requisicion.getId());
             reqSolicitud.setSolicitudReparacionId(null);
+
         }
     
         idPersona = getInstance().getPsolicita().getId();
@@ -752,6 +761,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
         listaRequisiciones = lrq;
         System.out.println("lista despues set soli" + listaRequisiciones);
+        System.out.println("requi" + getInstance().getRequisicionId());
 
     }
 
@@ -869,6 +879,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
         listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
         listaSolicitud.clear();
+        System.out.println("requisicion en init 11" + requisicion);
         System.out.println("cslistaaaaa solicituddd" + listaSolicitud);
         for (SolicitudReparacionMantenimiento sol : ls) {
 
@@ -919,7 +930,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setObservacion("");
         nombrew = "Solicitud";
         System.out.println("nombre en el init" + nombrew);
-
+        System.out.println("requisicion en init 2222" + requisicion);
     }
 
     @Override
@@ -953,7 +964,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("ENtro a editar>>>>>");
                 guardarItem();
                 if (requisicion != null) {
-                    System.out.println("entro requisicion.....");
+                    System.out.println("llega requisicion....");
                     System.out.println("entri fijar requisicion" + requisicion);
                     if (requisicion.getId() != null) {
                         getInstance().setRequisicionId(requisicion);
@@ -969,16 +980,23 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                         getInstance().setRequisicionId(requisicion);
                         System.out.println("presentando requi >>>" + requisicion);
+                    } else {
+                        System.out.println(" " + getInstance().getRequisicionId());
+                        System.out.println("entro a fijar null req " + getInstance().getRequisicionId());
+                        getInstance().setRequisicionId(null);
                     }
                 }
                 System.out.println("antes del 2do if");
                 System.out.println("volvio a guardar soli" + reqSolicitud);
                 if (reqSolicitud != null) {
                     if (reqSolicitud.getId() != null) {
+
                         System.out.println("entro reSoli.....");
                         System.out.println("diferente de null" + reqSolicitud.isPersistent());
-                        if (reqSolicitud != requisicion) {
-                            System.out.println("entro al if resolicitud");
+                        if (reqSolicitud.getId() != requisicion.getId()) {
+                            System.out.println("entro al if resolicitud"+reqSolicitud.getSolicitudReparacionId());
+                            reqSolicitud=findById(Requisicion.class, reqSolicitud.getId());
+                            reqSolicitud.setSolicitudReparacionId(null);
                             reqSolicitud.setLastUpdate(now);
                             save(reqSolicitud);
                             System.out.println("paso save reqsolicitud");
@@ -987,7 +1005,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                     }
                 }
 
-                System.out.println("antes de l LISTA,,,,");
+                System.out.println("antes de l LISTA,,,,"+getInstance().getRequisicionId());
                 System.out.println("lista items" + getInstance().getListaItemSR());
                 save(getInstance());
 
@@ -1053,7 +1071,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         if (this.listaItemsSolicitud.isEmpty()) {
             System.out.println("estas vaciaaaaaa");
-            mensajeS="debe ingresar al menos un item a la solicitud";
+            mensajeS = "debe ingresar al menos un item a la solicitud";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Debe ingresar al menos un item a la solicitud"));
 
         } else {

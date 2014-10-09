@@ -557,7 +557,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
         }
 
-        System.out.println("listaaaaa autocompletar" + ced);
+        System.out.println("listaaaaa rretorn lista" + ced);
         return ced;
 
     }
@@ -653,6 +653,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         System.out.println("paso de if");
         System.out.println("rretorn lista de items"+listaItemsRequisicion);
+        System.out.println("get vehiculo "+getInstance().getVehiculo());
+        System.out.println("get vehiculo "+vehiculo);
         return listaItemsRequisicion;
     }
 
@@ -870,8 +872,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 ced.add(requisicion.getFechaRequisicion().toString());
             }
         }
-
-
+        
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
@@ -1309,7 +1310,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String onFlowProcess(FlowEvent event) {
         nombrew = "soli";
      
-
+        System.out.println("vehiculo en flowproce"+getInstance().getVehiculo());
+        System.out.println("vehiculo en flowproce"+vehiculo);
         if (skip) {
             skip = false;   //reset in case user goes back  
             nombrew = "Final";
@@ -1389,8 +1391,14 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         vehiculo = getInstance().getVehiculo();
         if (getInstance().getSolicitudReparacionId() != null) {
             solicitudrep = getInstance().getSolicitudReparacionId();
+            
             solRequisicion = getInstance().getSolicitudReparacionId();
             solRequisicion.setRequisicionId(null);
+            System.out.println("requi en set"+solicitudrep);
+            System.out.println("sol de esta req"+solicitudrep.getRequisicionId());
+            
+            System.out.println("otra req "+solRequisicion);
+            System.out.println("sol de la otra q "+solRequisicion.getRequisicionId());
         }
         idPersonal = getInstance().getPsolicita().getId();
 
@@ -1478,14 +1486,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         } else {
-
             vehiculo = new Vehiculo();
-            System.out.println("en set volivo cuando es diferente de null" + vehiculo);
             getInstance().setVehiculo(vehiculo);
-            System.out.println("vevevevev" + vehiculo);
-            System.out.println("getinstancevehiculo en set>>>>>>>>" + getInstance().getVehiculo());
             if (solicitudrep != null) {
-                System.out.println("solicitud.vehiculo " + solicitudrep.getVehiculo());
                 if (getInstance().getSolicitudReparacionId() != null) {
 
                     getInstance().setSolicitudReparacionId(null);
