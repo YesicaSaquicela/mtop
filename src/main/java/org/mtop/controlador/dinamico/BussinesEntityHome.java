@@ -183,8 +183,10 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
      * @return a List of BussinesEntityAttribute for structure names
      */
     public List<BussinesEntityAttribute> findAttributes(final String... names) {
-
+System.out.println("entro a finAttribute"+names);
         List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
+        
+        System.out.println("buffeer"+_buffer);
         for (String name : names) {
             if (attrs.containsKey(name)) {
                 _buffer.addAll(attrs.get(name));

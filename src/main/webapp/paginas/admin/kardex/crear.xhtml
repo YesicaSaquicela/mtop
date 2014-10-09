@@ -52,7 +52,7 @@
 
                                         </div>
                                         <div class="col-md-4"> 
-                                            <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
+                                            <h:outputLabel class="navbar-text" value=" Número de Chasis: "/>
 
                                             <c:forEach items="#{ui.getProperties(controladorKardex.instance.vehiculo)}" var="p" >
                                                 <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
@@ -87,7 +87,7 @@
 
                                         </div>
                                         <div class="col-md-4"> 
-                                            <h:outputLabel class="navbar-text" value=" Número de motor:"/>
+                                            <h:outputLabel class="navbar-text" value=" Número de Motor:"/>
                                             <c:forEach items="#{ui.getProperties(controladorKardex.instance.vehiculo)}" var="p" >
                                                 <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                                     <ui:repeat value="#{controladorKardex.instance.vehiculo.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">
@@ -125,7 +125,7 @@
                                     <div  class="panel panel-primary">
                                         <div  class="panel-heading"><center><h:outputLabel value="AGREGAR SOLICITUDES Y REQUISICIÓN"></h:outputLabel></center></div>  
 
-                                        <p:tab id="ts" title="Solicitudes de reparación y mantenimiento" closable="false"  titleStyleClass="clearfix" >
+                                        <p:tab id="ts" title="Solicitudes de Reparación y Mantenimiento" closable="false"  titleStyleClass="clearfix" >
 
                                             <div class="panel panel-info">
                                                 <div class="panel-heading">
@@ -177,16 +177,16 @@
                                                                 <f:facet name="header">
                                                                     Lista de solicitudes aprobadas
                                                                 </f:facet>
-                                                                <p:column headerText="Número de solicitud" sortBy="#{s.numSolicitud}">
+                                                                <p:column headerText="Número de Solicitud" sortBy="#{s.numSolicitud}">
                                                                     <h:outputText value="#{s.numSolicitud}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Fecha de solicitud" sortBy="#{s.fechaSolicitud}">
+                                                                <p:column headerText="Fecha de Solicitud" sortBy="#{s.fechaSolicitud}">
                                                                     <h:outputText value="#{controladorKardex.formato(s.fechaSolicitud)}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Registro del vehículo" sortBy="#{s.vehiculo.numRegistro}">
                                                                     <h:outputText value="#{s.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Dar de Baja" style="width: 5%"> 
+                                                                <p:column headerText="Opciones" style="width: 5%"> 
                                                                     <p:commandButton icon="ui-icon-trash" title="Dar de baja"  
                                                                                      actionListener="#{controladorKardex.fijarSoli(s)}" 
                                                                                      oncomplete="dlg2.show();" update=":dia2" process="@this"
@@ -239,7 +239,7 @@
                                             </div>
 
                                             <br/>
-                                            <p:commandLink type="button" update="@form :form:formr:pp2 :form:formr:saveg :form:formr:saveg2" process="@this" value="Aprobar requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
+                                            <p:commandLink type="button" update="@form :form:formr:pp2 :form:formr:saveg :form:formr:saveg2" process="@this" value="Aprobar Requisición"  action="#{controladorKardex.irARequisicion()}" styleClass="btn btn-success" >
                                                 <f:param name="kardexId"  value="#{controladorKardex.instance.id}"></f:param>
                                                 <f:param name="valorVista" value="requisicion"></f:param>
                                                 <f:setPropertyActionListener value="#{null}" target="#{controladorKardex.requisicion}"/>
@@ -261,17 +261,17 @@
                                                                 <f:facet name="header">
                                                                     Lista de requisiciones aprobadas
                                                                 </f:facet>
-                                                                <p:column headerText="Número de requisición" sortBy="#{item.numRequisicion}" >
+                                                                <p:column headerText="Número de Requisición" sortBy="#{item.numRequisicion}" >
                                                                     <h:outputText value="#{item.numRequisicion}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Fecha de requisición" sortBy="#{item.fechaRequisicion}">
+                                                                <p:column headerText="Fecha de Requisición" sortBy="#{item.fechaRequisicion}">
                                                                     <h:outputText value="#{controladorRequisicion.formato(item.fechaRequisicion)}"></h:outputText>
                                                                 </p:column>
                                                                 
                                                                 <p:column headerText="Registro del vehículo" sortBy="#{item.vehiculo.numRegistro}">
                                                                     <h:outputText value="#{item.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Dar de baja" style="width: 5%"> 
+                                                                <p:column headerText="Opciones" style="width: 5%"> 
 
                                                                     <p:commandButton icon="ui-icon-trash" title="Dar de baja"   
                                                                                      actionListener="#{controladorKardex.fijarRequi(item)}" 
@@ -564,16 +564,16 @@
                                                                     Lista de solicitudes no aprobadas
                                                                 </f:facet>
 
-                                                                <p:column headerText="Número de solicitud" sortBy="#{s1.numSolicitud}">
+                                                                <p:column headerText="Número de Solicitud" sortBy="#{s1.numSolicitud}">
                                                                     <h:outputText value="#{s1.numSolicitud}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Fecha de solicitud" sortBy="#{s1.fechaSolicitud}">
+                                                                <p:column headerText="Fecha de Solicitud" sortBy="#{s1.fechaSolicitud}">
                                                                     <h:outputText value="#{controladorKardex.formato(s1.fechaSolicitud)}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Registro del vehículo" sortBy="#{s1.vehiculo.numRegistro}">
                                                                     <h:outputText value="#{s1.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Aprobar" style="width: 5%"> 
+                                                                <p:column headerText="Opción" style="width: 5%"> 
 
 
                                                                     <p:commandButton update=":form:forms:sol :form:forms:savesm :form:forms:saves :form:forms:gsol" process="@this" title="Aprobar" icon="ui-icon-check">
@@ -586,18 +586,18 @@
 
                                                             <p:panel id="sol" >
                                                                 <div class="panel panel-primary">
-                                                                    <div class="panel-heading"  align="center">Datos de solicitud de reparación y mantenimiento seleccionada</div>
+                                                                    <div class="panel-heading"  align="center">Datos de Solicitud de Reparación y Mantenimiento seleccionada</div>
                                                                     <p:panel >
                                                                         <div class="container-fluid" align="center">
                                                                             <div class="row-fluid"  >
                                                                                 <div class="col-md-4"> 
-                                                                                    <h:outputLabel class="navbar-text" value=" Número de solicitud:"/>
+                                                                                    <h:outputLabel class="navbar-text" value=" Número de Solicitud:"/>
                                                                                     <h:outputText class="navbar-text" value="#{controladorKardex.solicitud.numSolicitud}"/>
 
                                                                                 </div>
 
                                                                                 <div class="col-md-4"> 
-                                                                                    <h:outputLabel class="navbar-text" value=" Fecha de solicitud: "/>
+                                                                                    <h:outputLabel class="navbar-text" value=" Fecha de Solicitud: "/>
                                                                                     <h:outputText class="navbar-text" 
                                                                                                   value="#{controladorKardex.formato(controladorKardex.solicitud.fechaSolicitud)}"/>
 
@@ -744,11 +744,11 @@
                                                                 <f:facet name="header">
                                                                     Lista de requisiciones no aprobadas
                                                                 </f:facet>
-                                                                <p:column headerText="Número de requisición" sortBy="#{itemr.numRequisicion}" >
+                                                                <p:column headerText="Número de Requisición" sortBy="#{itemr.numRequisicion}" >
 
                                                                     <h:outputText value="#{itemr.numRequisicion}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Fecha de requisición" sortBy="#{itemr.fechaRequisicion}">
+                                                                <p:column headerText="Fecha de Requisición" sortBy="#{itemr.fechaRequisicion}">
                                                                     <h:outputText value="#{controladorRequisicion.formato(itemr.fechaRequisicion)}"></h:outputText>
                                                                 </p:column>
                                                                 <p:column headerText="Observación" sortBy="#{itemr.observaciones}">
@@ -757,7 +757,7 @@
                                                                 <p:column headerText="Registro del vehículo" sortBy="#{itemr.vehiculo.numRegistro}">
                                                                     <h:outputText value="#{itemr.vehiculo.numRegistro}"></h:outputText>
                                                                 </p:column>
-                                                                <p:column headerText="Aprobar" style="width: 5%"> 
+                                                                <p:column headerText="Opción" style="width: 5%"> 
                                                                     <p:commandButton update=":form:formr:req :form:formr:pp2 :form:formr:saveg2 :form:formr:saveg" process="@this" title="Aprobar" icon="ui-icon-check">
                                                                         <f:setPropertyActionListener value="#{itemr}" target="#{controladorKardex.requisicion}" />
 
@@ -767,18 +767,18 @@
                                                             </p:dataTable> <br/>
                                                             <p:panel id="req" >
                                                                 <div class="panel panel-primary">
-                                                                    <div class="panel-heading"  align="center">Datos de requisición seleccionada</div>
+                                                                    <div class="panel-heading"  align="center">Datos de Requisición seleccionada</div>
                                                                     <p:panel >
                                                                         <div class="container-fluid" align="center">
                                                                             <div class="row-fluid"  >
                                                                                 <div class="col-md-4"> 
-                                                                                    <h:outputLabel class="navbar-text" value=" Número de requisición:"/>
+                                                                                    <h:outputLabel class="navbar-text" value=" Número de Requisición:"/>
                                                                                     <h:outputText class="navbar-text" value="#{controladorKardex.requisicion.numRequisicion}"/>
 
                                                                                 </div>
 
                                                                                 <div class="col-md-4"> 
-                                                                                    <h:outputLabel class="navbar-text" value=" Fecha de requisición: "/>
+                                                                                    <h:outputLabel class="navbar-text" value=" Fecha de Requisición: "/>
                                                                                     <h:outputText class="navbar-text" 
                                                                                                   value="#{controladorKardex.formato(controladorKardex.requisicion.fechaRequisicion)}"/>
 
@@ -880,56 +880,52 @@
             </h:form>
         </p:dialog-->
 
-        <p:dialog id="dia" header="Confirmación" widgetVar="dlg1"  resizable="false" modal="true">
+        <p:dialog id="dia" header="Dar de baja" widgetVar="dlg1"  resizable="false" modal="true">
             <h:form id="form-dialog-confirm-delete5">
 
                 <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                    <h:outputText value="Desea realmente dar de baja a la requisición "/>
+                    <h:outputText value="Desea realmente dar de baja a la Requisición "/>
                     <h:outputText value="#{controladorKardex.requisicion.numRequisicion}"/>  
 
                 </h:panelGroup> 
                 <center>
-                    
-                     <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes"
-                                    action="/paginas/admin/kardex/crear"   style="width:15%"  onclick="dlg1.hide()"   >
-                        
-                         <f:param name="estado" value="false"/>
+                    <p:button id="dardebaja3" value="SI"  
+                              outcome="/paginas/admin/kardex/crear"  
+
+                              >
+                        <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="requisicionId" value="#{controladorKardex.requisicion.id}"/>
                         <f:param name="valorVista" value="kardex"/>
-                     </h:commandLink>
-       
-                    <h:commandLink value="No" type="button" onclick="dlg1.hide()" styleClass="btn btn-success"  style="width:15%"  />
-                    
+                    </p:button>
+                    <p:commandButton value="NO" type="button" onclick="dlg1.hide();"  
+                                     style="margin-top:10px;"/>  
                 </center>
 
             </h:form>
 
 
         </p:dialog>
-        <p:dialog id="dia2" header="Confirmación" widgetVar="dlg2"  resizable="false" modal="true">
+        <p:dialog id="dia2" header="Dar de Baja" widgetVar="dlg2"  resizable="false" modal="true">
             <h:form id="form-dialog-confirm-delete1" >
 
                 <h:panelGroup layout="block" id="dial" style="padding:5px;">  
-                    <h:outputText value="Desea realmente dar de baja a la solicitud de reparación y mantenimiento "/>
+                    <h:outputText value="Desea realmente dar de baja a la Solicitud "/>
                     <h:outputText value="#{controladorKardex.solicitud.numSolicitud}"/>  
 
                 </h:panelGroup> 
                 <center>
-                    
-                    
-                    <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" 
-                                   style="width:15%"  action="/paginas/admin/kardex/crear"  onclick="dlg2.hide()" >
-                       
+                    <p:button id="dardebaja1" value="SI"
+                              outcome="/paginas/admin/kardex/crear"  
+
+                              >
                         <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
                         <f:param name="valorVista" value="kardex"/>
-                    
-                    </h:commandLink>
-                    <h:commandLink value="No" type="button" onclick="dlg2.hide()" 
-                                   styleClass="btn btn-success"  style="width:15%"  />
-                    
+                    </p:button>
+                    <p:commandButton value="NO" type="button" onclick="dlg2.hide();"  
+                                     style="margin-top:10px;"/>  
                 </center>
 
             </h:form>

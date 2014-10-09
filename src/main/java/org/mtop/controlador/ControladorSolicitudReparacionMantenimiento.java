@@ -352,7 +352,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 System.out.println("presenta propieedades " + bea);
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
+                    if (bussinesEntityAttribute.getName().equals("serieMotor")) {
                         if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lsoli.contains(sol.getId())) {
 
                             lsoli.add(sol.getId());
@@ -361,9 +361,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                     }
                 }
-                bea = getInstance().findBussinesEntityAttribute("Chasis");
+                bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
+                System.out.println("presenta propieedades chasis " + bea);
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
+                    System.out.println("entra a for chais"+bussinesEntityAttribute.getName());
+                    if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
                         if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lsoli.contains(sol.getId())) {
 
@@ -449,9 +451,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         ControladorVehiculo cv = new ControladorVehiculo();
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
-
         for (SolicitudReparacionMantenimiento soli : listaSolicitudes2) {
-
+            System.out.println("lista de soli entro>>..");
             if (soli.getNumSolicitud().contains(query)) {
                 System.out.println("econtro uno " + soli.getNumSolicitud());
                 ced.add(soli.getNumSolicitud());
@@ -465,26 +466,23 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 ced.add(soli.getVehiculo().getNumRegistro());
             }
             cv.setId(soli.getVehiculo().getId());
-            System.out.println("entro a antes de obtener busnes entity con" + query);
             bea = cv.getInstance().findBussinesEntityAttribute("Motor");
-            System.out.println("presenta propieedades " + bea);
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-
-                if (bussinesEntityAttribute.getName().equals("serie")) {
-                    if (((String) bussinesEntityAttribute.getValue()).contains(query)
+                if (bussinesEntityAttribute.getName().equals("serieMotor")) {
+                    if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase())
                             && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
-                        System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
                     }
 
                 }
             }
-            bea = getInstance().findBussinesEntityAttribute("Chasis");
+            bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                if (bussinesEntityAttribute.getName().equals("serie")) {
-                    if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                if (bussinesEntityAttribute.getName().equals("serieChasis")) {
+                    
+                    if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase()) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                         ced.add((String) bussinesEntityAttribute.getValue());
-                        System.out.println("aniadiosrie" + (String) bussinesEntityAttribute.getValue());
+                       
                     }
 
                 }

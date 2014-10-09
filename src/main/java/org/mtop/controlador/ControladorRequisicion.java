@@ -718,7 +718,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     bea = cv.getInstance().findBussinesEntityAttribute("Motor");
                      for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                        if (bussinesEntityAttribute.getName().equals("serie")) {
+                        if (bussinesEntityAttribute.getName().equals("serieMotor")) {
                             if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lrq.contains(r.getId())) {
 
                                 lrq.add(r.getId());
@@ -727,9 +727,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                         }
                     }
-                    bea = getInstance().findBussinesEntityAttribute("Chasis");
+                    bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
                     for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                        if (bussinesEntityAttribute.getName().equals("serie")) {
+                        if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
                             if (((String) bussinesEntityAttribute.getValue()).equals(palabrab) && !lrq.contains(r.getId())) {
 
@@ -840,8 +840,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
-                        if (((String) bussinesEntityAttribute.getValue()).contains(query)
+                    if (bussinesEntityAttribute.getName().equals("serieMotor")) {
+                        if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase())
                                 && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                             ced.add((String) bussinesEntityAttribute.getValue());
                             
@@ -849,10 +849,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     }
                 }
-                bea = getInstance().findBussinesEntityAttribute("Chasis");
+                bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
                 for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
-                    if (bussinesEntityAttribute.getName().equals("serie")) {
-                        if (((String) bussinesEntityAttribute.getValue()).contains(query) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
+                    if (bussinesEntityAttribute.getName().equals("serieChasis")) {
+                        if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(query.toLowerCase()) && !ced.contains((String) bussinesEntityAttribute.getValue())) {
                             ced.add((String) bussinesEntityAttribute.getValue());
                            
                         }
@@ -1808,25 +1808,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
-    @Transactional
-    public String borrarEntidad() {
-
-        try {
-            if (getInstance() == null) {
-                throw new NullPointerException("Servicio is null");
-            }
-            if (getInstance().isPersistent()) {
-                delete(getInstance());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
-        }
-        return "/paginas/secretario/requisicion/lista.xhtml?faces-redirect=true";
-    }
+  
 
 }
