@@ -116,7 +116,7 @@
                                         
                                     </p:inputTextarea>
                                     
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != ''}" 
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != null}" 
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>
                                     </h:panelGroup><br/>
