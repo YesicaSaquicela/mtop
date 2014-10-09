@@ -93,6 +93,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void setEstado(String estado) {
+        System.out.println("fijo estado "+estado);
+                
         this.estado = estado;
     }
 
@@ -1014,7 +1016,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
         SolicitudReparacionMantenimiento sl = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, id);
         System.out.println("estado en set soli " + estado);
-
+        
             if (estado.equals("false")) {
                 for (SolicitudReparacionMantenimiento solicit : listaSol) {
                     System.out.println("entro al for>>>");
@@ -1072,16 +1074,12 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
            
             System.out.println("lista de sol no el" + listaSol);
             listakardex = findAll(Kardex.class);
-        
+
 
     }
 
     public String getVista() {
-        System.out.println("retornando vistaaaaa" + vista);
-        System.out.println("lista reqs" + listaReq);
-        System.out.println("lista reqs no apr" + listareqNoAp);
-        System.out.println("lista sols" + listaSol);
-        System.out.println("lista sol no apr" + listasolNoAp);
+        
         System.out.println("requisicion actual" + requisicion);
         return vista;
     }
@@ -1107,7 +1105,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         Date now = Calendar.getInstance().getTime();
         Requisicion rq = servgen.buscarPorId(Requisicion.class, id);
         System.out.println("estado en set requisicion id " + estado);
-     
+       
             if (estado.equals("false")) {
                 for (Requisicion requisicio : listaReq) {
                     System.out.println("entro al for>>>");
@@ -1156,7 +1154,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
             save(getInstance());
             System.out.println("lista de requ no el" + listaReq);
             listakardex = findAll(Kardex.class);
-        
+
 
     }
 
