@@ -93,8 +93,8 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void setEstado(String estado) {
-        System.out.println("fijo estado "+estado);
-                
+        System.out.println("fijo estado " + estado);
+
         this.estado = estado;
     }
 
@@ -758,7 +758,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
                 }
             }
         }
-        System.out.println("lista de soli desp for>>>>>" + listaSol);
         if (listaReq == null) {
             System.out.println("entro a listaSol");
             for (Kardex kardex : listakardex) {
@@ -771,7 +770,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         }
         System.out.println("lista de req desp for>>" + listaReq);
         listareqNoAp = findAll(Requisicion.class);
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
+        List<Requisicion> lr = findAll(Requisicion.class);
         listareqNoAp.clear();
         for (Requisicion rnp : lr) {
             if (rnp.getVehiculo() != null && getInstance().getVehiculo() != null) {
@@ -1016,70 +1015,66 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         System.out.println("\n\n\n\n\n\n\n\nfijando SOlidituuuuud en guardar\n\n\n\n");
         SolicitudReparacionMantenimiento sl = servgen.buscarPorId(SolicitudReparacionMantenimiento.class, id);
         System.out.println("estado en set soli " + estado);
-        
-            if (estado.equals("false")) {
-                for (SolicitudReparacionMantenimiento solicit : listaSol) {
-                    System.out.println("entro al for>>>");
-                    if (!solicit.getId().equals(sl.getId())) {
-                        System.out.println("entro al if ad");
-                        lre.add(solicit);
 
-                    }
+        if (estado.equals("false")) {
+            for (SolicitudReparacionMantenimiento solicit : listaSol) {
+                System.out.println("entro al for>>>");
+                if (!solicit.getId().equals(sl.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(solicit);
+
                 }
-                listaSol = lre;
+            }
+            listaSol = lre;
 
-                System.out.println("rq" + sl);
-                System.out.println("num" + sl.getNumSolicitud());
-                sl.setLastUpdate(now);
-                sl.setAprobado(false);
-                System.out.println("cambio de estado aprobado" + sl.getAprobado());
-                sl.setKardex(null);
-                listasolNoAp.add(sl);
+            System.out.println("rq" + sl);
+            System.out.println("num" + sl.getNumSolicitud());
+            sl.setLastUpdate(now);
+            sl.setAprobado(false);
+            System.out.println("cambio de estado aprobado" + sl.getAprobado());
+            sl.setKardex(null);
+            listasolNoAp.add(sl);
 
-            } else {
-                for (SolicitudReparacionMantenimiento solicit : listasolNoAp) {
-                    System.out.println("entro al for>>>");
-                    if (!solicit.getId().equals(sl.getId())) {
-                        System.out.println("entro al if ad");
-                        lre.add(solicit);
+        } else {
+            for (SolicitudReparacionMantenimiento solicit : listasolNoAp) {
+                System.out.println("entro al for>>>");
+                if (!solicit.getId().equals(sl.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(solicit);
 
-                    }
                 }
-                listasolNoAp = lre;
-
-                System.out.println("lista reuququ despues " + listasolNoAp);
-
-                System.out.println("recupero solicitud" + sl);
-                sl.setLastUpdate(now);
-                sl.setKardex(getInstance());
-
-                sl.setAprobado(true);
-                sl.setKardex(getInstance());
-
-                listaSol.add(sl);
-
             }
+            listasolNoAp = lre;
 
-            save(sl);
+            System.out.println("lista reuququ despues " + listasolNoAp);
 
-            getInstance().setLastUpdate(now);
-            getInstance().setListaSolicitudReparacion(listaSol);
-            System.out.println("instance de kardex "+getInstance());
-                    
-            try {
-                 save(getInstance());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-           
-            System.out.println("lista de sol no el" + listaSol);
-            listakardex = findAll(Kardex.class);
+            System.out.println("recupero solicitud" + sl);
+            sl.setLastUpdate(now);
+            sl.setKardex(getInstance());
 
+            sl.setAprobado(true);
+            sl.setKardex(getInstance());
+
+            listaSol.add(sl);
+
+        }
+        save(sl);
+        getInstance().setListaSolicitudReparacion(listaSol);
+        getInstance().setLastUpdate(now);
+        System.out.println("instance de kardex " + getInstance());
+        try {
+            save(getInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("lista de sol no el" + listaSol);
+        listakardex = findAll(Kardex.class);
 
     }
 
     public String getVista() {
-        
+
         System.out.println("requisicion actual" + requisicion);
         return vista;
     }
@@ -1105,56 +1100,60 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         Date now = Calendar.getInstance().getTime();
         Requisicion rq = servgen.buscarPorId(Requisicion.class, id);
         System.out.println("estado en set requisicion id " + estado);
-       
-            if (estado.equals("false")) {
-                for (Requisicion requisicio : listaReq) {
-                    System.out.println("entro al for>>>");
-                    if (!requisicio.getId().equals(rq.getId())) {
-                        System.out.println("entro al if ad");
-                        lre.add(requisicio);
 
-                    }
+        if (estado.equals("false")) {
+            for (Requisicion requisicio : listaReq) {
+                System.out.println("entro al for>>>");
+                if (!requisicio.getId().equals(rq.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(requisicio);
+
                 }
-                listaReq = lre;
-
-                System.out.println("rq" + rq);
-                System.out.println("num" + rq.getNumRequisicion());
-                rq.setLastUpdate(now);
-                rq.setAprobado(false);
-                System.out.println("cambio de estado aprobado" + rq.getAprobado());
-                rq.setKardex(null);
-                listareqNoAp.add(rq);
-
-            } else {
-                for (Requisicion requisicio : listareqNoAp) {
-                    System.out.println("entro al for>>>");
-                    if (!requisicio.getId().equals(rq.getId())) {
-                        System.out.println("entro al if ad");
-                        lre.add(requisicio);
-
-                    }
-                }
-                listareqNoAp = lre;
-
-                System.out.println("lista reuququ despues " + listareqNoAp);
-
-                System.out.println("recupero requisicion" + requisicion);
-                rq.setLastUpdate(now);
-                rq.setKardex(getInstance());
-
-                rq.setAprobado(true);
-                rq.setKardex(getInstance());
-
-                listaReq.add(rq);
-
             }
-            save(rq);
-            getInstance().setLastUpdate(now);
-            getInstance().setListaRequisicion(listaReq);
-            save(getInstance());
-            System.out.println("lista de requ no el" + listaReq);
-            listakardex = findAll(Kardex.class);
+            listaReq = lre;
 
+            System.out.println("rq" + rq);
+            System.out.println("num" + rq.getNumRequisicion());
+            rq.setLastUpdate(now);
+            rq.setAprobado(false);
+            System.out.println("cambio de estado aprobado" + rq.getAprobado());
+            rq.setKardex(null);
+            listareqNoAp.add(rq);
+
+        } else {
+            for (Requisicion requisicio : listareqNoAp) {
+                System.out.println("entro al for>>>");
+                if (!requisicio.getId().equals(rq.getId())) {
+                    System.out.println("entro al if ad");
+                    lre.add(requisicio);
+
+                }
+            }
+            listareqNoAp = lre;
+
+            System.out.println("lista reuququ despues " + listareqNoAp);
+
+            System.out.println("recupero requisicion" + requisicion);
+            rq.setLastUpdate(now);
+            rq.setKardex(getInstance());
+
+            rq.setAprobado(true);
+            rq.setKardex(getInstance());
+
+            listaReq.add(rq);
+
+        }
+
+        save(rq);
+        getInstance().setLastUpdate(now);
+        getInstance().setListaRequisicion(listaReq);
+        try {
+            save(getInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("lista de requ no el" + listaReq);
+        listakardex = findAll(Kardex.class);
 
     }
 

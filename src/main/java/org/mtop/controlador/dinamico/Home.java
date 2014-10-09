@@ -238,13 +238,12 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
     }
     
     protected <E> void save(final E entity) {
-        
-     
+        System.out.println("entra a guadra");
+        System.out.println("entity a guardar"+entity);
+        System.out.println("gett entyty mahnage"+getEntityManager());
         if (getEntityManager() == null) {
             throw new IllegalStateException("Must initialize EntityManager before using Services!");
         }
-        
-        
         getEntityManager().merge(entity);
     }
 

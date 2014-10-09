@@ -891,7 +891,7 @@
                 <center>
                     
                      <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes"
-                                    onclick="dlg1.hide()" style="width:15%"  >
+                                    action="/paginas/admin/kardex/crear"   style="width:15%"  onclick="dlg1.hide()"   >
                         
                          <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
@@ -919,8 +919,8 @@
                     
                     
                     <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" 
-                                   style="width:15%"  >
-                        
+                                   style="width:15%"  action="/paginas/admin/kardex/crear"  onclick="dlg2.hide()" >
+                       
                         <f:param name="estado" value="false"/>
                         <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
                         <f:param name="solicitudId" value="#{controladorKardex.solicitud.id}"/>
