@@ -452,8 +452,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (!lr1.isEmpty()) {
             listaRequisicionAprobada = lr1;
         }
-        System.out.println("devuenlve en aprobadad" + lr);
-        System.out.println("devuenlve en no aprobadad" + lr1);
 
     }
 
@@ -640,8 +638,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public List<ItemRequisicion> getListaItemsRequisicion() {
-       
         if (getInstance().getTipoAdquisicion() != null) {
+                
             if (getInstance().getTipoAdquisicion().equals("bodega")) {
                 List<ItemRequisicion> lirq = listaItemsRequisicion;
                 for (ItemRequisicion itemRequisicion : lirq) {
@@ -653,7 +651,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             }
         }
-
+        System.out.println("paso de if");
+        System.out.println("rretorn lista de items"+listaItemsRequisicion);
         return listaItemsRequisicion;
     }
 
@@ -984,14 +983,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             } else {
                 System.out.println("entro a fijar 101");
-                setMaximo(100);
+                maximo=100;
+                System.out.println("paso a fijar 101");
             }
 
         } else {
             System.out.println("entro a caso contario");
             setMaximo(100);
         }
-        System.out.println("lista itemmmm" + listaItemsRequisicion);
+        
         System.out.println("maaaaaaaximo" + maximo);
         return maximo;
 
@@ -1026,10 +1026,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public List<Producto> getListaProductos() {
         if (listaProductos.isEmpty()) {
-
-            listaProductos = findAll(Producto.class);
+           
+            listaProductos = servgen.buscarTodos(Producto.class);
         }
-        System.out.println("lista de productos" + listaProductos);
         return listaProductos;
     }
 
@@ -1066,7 +1065,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public String getNumeroRequisicion() {
-        System.out.println("antes\n\n\n" + numeroRequisicion);
         if (getId() == null) {
             List<BussinesEntityAttribute> bea = getInstance().findBussinesEntityAttribute("org.mtop.modelo.Requisicion");
            
@@ -1090,7 +1088,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     // List<Requisicion> lr=servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Bienes y Servicios");
                     t = lr.size() + Integer.parseInt(valorInicialBien);
-                    System.out.println("tttttt" + t);
+                
                 } else {
                     lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Reparación");
                     t = lr.size() + Integer.parseInt(valorInicialReparacion);
@@ -1138,7 +1136,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         if (!listaProductos.isEmpty()) {
             for (Producto pr : listaProductos) {
-                System.out.println("guaradndo" + pr);
                 Date now = Calendar.getInstance().getTime();
                 pr.setLastUpdate(now);
                 save(pr);
@@ -1253,7 +1250,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     //private static Logger logger = Logger.getLogger(UserWizard.class.getName());
 
     public String formato(Date fecha) {
-        System.out.println("\n\n\n\n\n\n\nhsadhjsdj" + fecha);
         String fechaFormato = "";
         if (fecha != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -1288,7 +1284,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             return "confirm";
         } else {
-            System.out.println("pasoooo");
             if (getInstance().getId() != null) {
                 this.cir.setListaItemsRequisicion(getInstance().getListaItems());
             }
@@ -1313,13 +1308,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public String onFlowProcess(FlowEvent event) {
         nombrew = "soli";
-        System.out.println("\n\n\n\n\n\nENRTRO FLOWPROCESS" + event.getNewStep());
-        System.out.println("Entro getOld" + event.getOldStep());
-        System.out.println("\nn\n\n\nentro flow proces \nn\n\n\n" + this.vehiculo);
-        System.out.println("mac¿ximo" + cir.getInstance().getCantidad());
-        System.out.println("maximo" + getMaximo());
-        System.out.println("antessss " + event.getOldStep());
-        System.out.println("nuevoooo " + event.getNewStep());
+     
 
         if (skip) {
             skip = false;   //reset in case user goes back  
@@ -1329,7 +1318,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             nombrew = "soli";
             if (event.getNewStep().equals("confirm") && (event.getOldStep().equals("solicitud") || event.getOldStep().equals("items"))) {
                 nombrew = "Final";//reset in case user goes back
-                System.out.println("nombre wizard111skip dfdsfds" + nombrew);
             }
             if (getInstance().getId() != null) {
                 this.cir.setListaItemsRequisicion(getInstance().getListaItems());
@@ -1337,7 +1325,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
             if (event.getNewStep().equals("req") && event.getOldStep().equals("address")) {
                 nombrew = "Requisicion";
-                System.out.println("nombre en re adres" + nombrew);
                 return event.getNewStep();
             } else {
                 if (event.getNewStep().equals("address") && event.getOldStep().equals("items")) {
@@ -1408,7 +1395,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         idPersonal = getInstance().getPsolicita().getId();
 
         if (getInstance().isPersistent()) {
+            System.out.println("entro a obtener lista de items de la requie"+listaItemsRequisicion);
             listaItemsRequisicion = getInstance().getListaItems();
+            System.out.println("entro a obtener lista de items de la requie despies"+listaItemsRequisicion);
         }
 
         List<SolicitudReparacionMantenimiento> lr = findAll(SolicitudReparacionMantenimiento.class);
@@ -1581,7 +1570,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         listaPartida = lpc;
 
-        listaProductos = new ArrayList<Producto>();
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
         cir.getInstance().setCantidad(0);
@@ -1615,6 +1603,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         it.setUnidadMedida(" ");
         it.setDescripcion(" ");
         nombrew = "Requisicion";
+        System.out.println("salio de init con lista de items"+listaItemsRequisicion);
     }
 
     @Override

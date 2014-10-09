@@ -244,8 +244,8 @@ public class UI {
         System.out.println("valor de ban"+ban);
                 
         if (ban) {
-
-            System.out.println("busines entity atribute" + lbea);
+            
+                    
             if (lbea.isEmpty()) {
                 System.out.println("retorna falso");
                 return false;
@@ -254,6 +254,7 @@ public class UI {
                 return true;
             }
         } else {
+            System.out.println("valor de ban false ?? "+ban);
             return ban;
         }
 
