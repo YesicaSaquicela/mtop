@@ -505,6 +505,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         getInstance().setRequisicionId(requisicion);
         System.out.println("ide de requisicion>>>>>>" + requisicion);
         System.out.println("instance requi>>>>" + getInstance().getRequisicionId());
+   
+    
     }
 
     public List<Requisicion> getListaRequisiciones() {
@@ -712,11 +714,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         vehiculo = getInstance().getVehiculo();
         if (getInstance().getRequisicionId() != null) {
+                  
             requisicion = getInstance().getRequisicionId();
             reqSolicitud = requisicion;
             reqSolicitud.setSolicitudReparacionId(null);
         }
-
+    
         idPersona = getInstance().getPsolicita().getId();
         System.out.println("entro a obtener la lista de solicitudes>>>>>." + getInstance().getListaItemSR());
         if (getInstance().isPersistent()) {
