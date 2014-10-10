@@ -20,212 +20,211 @@
             <meta http-equiv="Pragma" content="no-cache" />
             <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
             <link href="/javax.faces.resource/primefaces.css.jsf?ln=primefaces" rel="stylesheet" type="text/css"/>
-          
-            <!-- Bootstrap -->
+ 
 
-            <!--<h:outputScript name="jquery.js" />--> <!-- this loads the jquery bundled with richFaces -->
-            <!--<h:outputScript name="jquery-tableSorter-min.js" />
-            <h:outputStylesheet name="bootstrap/bootstrap.css" />
-            <h:outputScript name="bootstrap/dropdown.js" />-
-            <h:outputScript name="bootstrap/scrollspy.js" />
-            <h:outputScript name="bootstrap/tabs.js" />
-            <h:outputScript name="bootstrap/modal.js" />
-            <h:outputScript name="bootstrap/twipsy.js" />
-            <h:outputScript name="bootstrap/popover.js" />
-            <h:outputScript name="bootstrap/alerts.js" /-->
+                    <!--<h:outputScript name="jquery.js" />--> <!-- this loads the jquery bundled with richFaces -->
+                    <!--<h:outputScript name="jquery-tableSorter-min.js" />
+                    <h:outputStylesheet name="bootstrap/bootstrap.css" />
+                    <h:outputScript name="bootstrap/dropdown.js" />-
+                    <h:outputScript name="bootstrap/scrollspy.js" />
+                    <h:outputScript name="bootstrap/tabs.js" />
+                    <h:outputScript name="bootstrap/modal.js" />
+                    <h:outputScript name="bootstrap/twipsy.js" />
+                    <h:outputScript name="bootstrap/popover.js" />
+                    <h:outputScript name="bootstrap/alerts.js" /-->
 
-            <!-- Our customizations -->
-            <h:outputStylesheet name="application.css" />
-            <h:outputScript name="application.js" />
+                    <!-- Our customizations -->
+                    <h:outputStylesheet name="application.css" />
+                    <h:outputScript name="application.js" />
 
-            <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.min.css"/>
-            <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.css"/>
-            <h:outputStylesheet name="bootstrap-3.1.1/css/jumbotron.css"/>
+                    <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.min.css"/>
+                    <h:outputStylesheet name="bootstrap-3.1.1/css/bootstrap.css"/>
+                    <h:outputStylesheet name="bootstrap-3.1.1/css/jumbotron.css"/>
 
-            <h:outputStylesheet name="bootstrap-3.1.1/css/sticky-footer.css"/>
+                    <h:outputStylesheet name="bootstrap-3.1.1/css/sticky-footer.css"/>
 
-            <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
-            <h:outputScript name="bootstrap-3.1.1/js/bootstrap.min.js"/> 
+                    <h:outputScript name="bootstrap-3.1.1/js/bootstrap.js"/>
+                    <h:outputScript name="bootstrap-3.1.1/js/bootstrap.min.js"/> 
 
-            <h:outputScript library="js" name="calendar_es.js" />
-            <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+                    <h:outputScript library="js" name="calendar_es.js" />
+                    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-            <ui:insert name="head"></ui:insert>
-        </h:head>
-        <body>
+                    <ui:insert name="head"></ui:insert>
+                    </h:head>
+                    <body>
 
-            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" >
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a class="navbar-brand" >
 
-                            <h:panelGroup rendered="#{identity.loggedIn}">
+                                        <h:panelGroup rendered="#{identity.loggedIn}">
 
-                                <br/><br/>
-                                <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
+                                            <br/><br/>
+                                            <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
 
-                                    <h:graphicImage value="/resources/mtop.png" width="150" height="40" />
-                                </h:outputLink>
+                                                <h:graphicImage value="/resources/mtop.png" width="150" height="40" />
+                                            </h:outputLink>
 
-                                <h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="Cerrar Sesión">
-                                    <h:graphicImage value="/resources/imagenes2/logout1.png" width="30" height="30" />
-                                </h:outputLink>
-                            </h:panelGroup>
-
-                            <!--h:panelGroup rendered="# {!identity.loggedIn}">
-                                <h:link value="# {'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
-                            </h:panelGroup-->
-
-                        </a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav" >
-                        </ul>
-                        <form class="navbar-form navbar-right">
-                            <!--input type="text" class="form-control" placeholder="Search..."/-->
-
-                            <div class="form-group" >
-
-                                <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
-                                    <ul class="nav navbar-nav navbar-right">
-
-                                        <li><h:link outcome="/paginas/reset" title="Cambiar Contraseña">                                        
-                                                <f:param name="profileId" value="#{account.loggedId}"/>
-                                                <p:graphicImage value="/resources/imagenes2/clave.png" width="50" height="50" />
-
-                                            </h:link>                                    
-                                        </li>
-
-
-                                        <h:panelGroup  rendered="#{account.tienePermiso('SECRETARIO')}" >
-                                            <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" title="Solicitud Repración y Mantenimiento" >
-                                                    <p:graphicImage value="/resources/imagenes2/docsol.png" width="50" height="50" />
-                                                </h:link></li>
-                                            <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" title="Requisición" >
-                                                    <p:graphicImage value="/resources/imagenes2/docs.png" width="50" height="50" />
-                                                </h:link></li>
-
-                                            <li><h:link outcome="/paginas/secretario/producto/lista.xhtml" title="Producto" >
-                                                    <p:graphicImage value="/resources/imagenes2/prod1.png" width="50" height="50" />
-                                                </h:link></li>
-                                            <li><h:link outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" title="Partida de Contabilidad" >
-                                                    <p:graphicImage value="/resources/imagenes2/partid.png" width="50" height="50" />
-                                                </h:link></li>
+                                            <h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="Cerrar Sesión">
+                                                <h:graphicImage value="/resources/imagenes2/logout1.png" width="30" height="30" />
+                                            </h:outputLink>
                                         </h:panelGroup>
 
+                                        <!--h:panelGroup rendered="# {!identity.loggedIn}">
+                                            <h:link value="# {'Mtop, Software'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                                        </h:panelGroup-->
 
-                                        <h:panelGroup  rendered="#{account.tienePermiso('ADMIN')}" >
-                                            <li> <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml" title="  Configuraciones" >
-                                                    <p:graphicImage value="/resources/imagenes2/config1.png" width="40" height="40" />
-                                                </h:link>
-                                            </li>
-                                            <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" title="Kardex" >
-                                                    <p:graphicImage value="/resources/imagenes2/kardex.png" width="50" height="50" />
-                                                </h:link></li>
-                                            <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" title="Plan de Mantenimiento" >
-                                                    <p:graphicImage value="/resources/imagenes2/doc4.png" width="50" height="50" />
-                                                </h:link></li>
-                                            <li class="dropdown">
-                                                <a href="paginas/admin/listProfile.xhtml" title="Personal" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <p:graphicImage value="/resources/imagenes2/persona.png" width="50" height="50" /> <b class="caret"></b>
-                                                </a>
+                                    </a>
+                                </div>
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav" >
+                                    </ul>
+                                    <form class="navbar-form navbar-right">
+                                        <!--input type="text" class="form-control" placeholder="Search..."/-->
 
+                                        <div class="form-group" >
 
-                                                <ul class="dropdown-menu">
-                                                    <li><h:link  outcome="/paginas/admin/listProfile.xhtml" value="Personal" /></li>        
-                                                    <li><h:link  outcome="/paginas/admin/listaUsuario.xhtml" value=" Usuarios "/> 
+                                            <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
+                                                <ul class="nav navbar-nav navbar-right">
 
+                                                    <li><h:link outcome="/paginas/reset" title="Cambiar Contraseña">                                        
+                                                            <f:param name="profileId" value="#{account.loggedId}"/>
+                                                            <p:graphicImage value="/resources/imagenes2/clave.png" width="50" height="50" />
+
+                                                        </h:link>                                    
                                                     </li>
 
 
+                                                    <h:panelGroup  rendered="#{account.tienePermiso('SECRETARIO')}" >
+                                                        <li><h:link outcome="/paginas/secretario/solicitud/lista.xhtml" title="Solicitud Repración y Mantenimiento" >
+                                                                <p:graphicImage value="/resources/imagenes2/docsol.png" width="50" height="50" />
+                                                            </h:link></li>
+                                                        <li><h:link outcome="/paginas/secretario/requisicion/lista.xhtml" title="Requisición" >
+                                                                <p:graphicImage value="/resources/imagenes2/docs.png" width="50" height="50" />
+                                                            </h:link></li>
+
+                                                        <li><h:link outcome="/paginas/secretario/producto/lista.xhtml" title="Producto" >
+                                                                <p:graphicImage value="/resources/imagenes2/prod1.png" width="50" height="50" />
+                                                            </h:link></li>
+                                                        <li><h:link outcome="/paginas/secretario/partidaContabilidad/lista.xhtml" title="Partida de Contabilidad" >
+                                                                <p:graphicImage value="/resources/imagenes2/partid.png" width="50" height="50" />
+                                                            </h:link></li>
+                                                    </h:panelGroup>
+
+
+                                                    <h:panelGroup  rendered="#{account.tienePermiso('ADMIN')}" >
+                                                        <li> <h:link outcome="/paginas/admin/bussinesentitytype/list.xhtml" title="  Configuraciones" >
+                                                                <p:graphicImage value="/resources/imagenes2/config1.png" width="40" height="40" />
+                                                            </h:link>
+                                                        </li>
+                                                        <li><h:link outcome="/paginas/admin/kardex/lista.xhtml" title="Kardex" >
+                                                                <p:graphicImage value="/resources/imagenes2/kardex.png" width="50" height="50" />
+                                                            </h:link></li>
+                                                        <li><h:link outcome="/paginas/admin/planMantenimiento/lista.xhtml" title="Plan de Mantenimiento" >
+                                                                <p:graphicImage value="/resources/imagenes2/doc4.png" width="50" height="50" />
+                                                            </h:link></li>
+                                                        <li class="dropdown">
+                                                            <a href="paginas/admin/listProfile.xhtml" title="Personal" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <p:graphicImage value="/resources/imagenes2/persona.png" width="50" height="50" /> <b class="caret"></b>
+                                                            </a>
+
+
+                                                            <ul class="dropdown-menu">
+                                                                <li><h:link  outcome="/paginas/admin/listProfile.xhtml" value="Personal" /></li>        
+                                                                <li><h:link  outcome="/paginas/admin/listaUsuario.xhtml" value=" Usuarios "/> 
+
+                                                                </li>
+
+
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a href="paginas/admin/vehiculo/lista.xhtml" title="Vehículo" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <p:graphicImage value="/resources/imagenes2/vehiculo.png" width="50" height="50" /><b class="caret"></b>
+
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><h:link  outcome="/paginas/admin/vehiculo/lista.xhtml" value="Vehículo" >
+
+                                                                    </h:link></li>        
+                                                                <li><h:link  outcome="/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
+                                                                <li><h:link outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml" value="Mantenimiento del Vehículo" /></li>
+
+
+                                                            </ul>
+                                                        </li>
+
+                                                    </h:panelGroup>
+
+
+
                                                 </ul>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="paginas/admin/vehiculo/lista.xhtml" title="Vehículo" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <p:graphicImage value="/resources/imagenes2/vehiculo.png" width="50" height="50" /><b class="caret"></b>
+                                                <!--div class="form-group">
+                                                    <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
+                                                </div-->
+                                                <!--div class="form-group">                                    
+                                                    <li><h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
+                                                            <h:graphicImage value="/resources/refresh.png" width="30" height="25" style="margin: -4px 0 -9px 0;"/>
+                                                        </h:outputLink>
+                                                    </li> 
+                                                </div-->
+                                            </h:panelGroup>
 
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><h:link  outcome="/paginas/admin/vehiculo/lista.xhtml" value="Vehículo" >
+                                        </div>
 
-                                                        </h:link></li>        
-                                                    <li><h:link  outcome="/paginas/admin/vehiculo/estadodeubicacion/lista.xhtml" value="  Estado ubicación Vehículo" /></li>
-                                                    <li><h:link outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista.xhtml" value="Mantenimiento del Vehículo" /></li>
+                                        <!--div class="form-group">
+            
+                                            <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
+                                                <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
+                                            </h:panelGroup>
+                                        </div-->
 
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
-                                                </ul>
-                                            </li>
+                        <!--Cuerpo-->
+                        <div class="jumbotron">
+                            <div class="container" style="margin: -5% 0.5 -10% 30%; ">
+                                <div class="row lf row-title" > 
+                                    <ui:insert name="header">
 
-                                        </h:panelGroup>
+                                    </ui:insert>
 
+                                </div>               
 
+                                <!--Contenido-->
+                            </div>
+                        </div>
 
-                                    </ul>
-                                    <!--div class="form-group">
-                                        <h:outputText value="#{account.loggedIn.fullName}" styleClass="form-control"/>    
-                                    </div-->
-                                    <!--div class="form-group">                                    
-                                        <li><h:outputLink value="${request.contextPath}/logout" rendered="#{identity.loggedIn}" title="#{messages['common.logout']}">
-                                                <h:graphicImage value="/resources/refresh.png" width="30" height="25" style="margin: -4px 0 -9px 0;"/>
-                                            </h:outputLink>
-                                        </li> 
-                                    </div-->
-                                </h:panelGroup>
-
+                        <div class="table-responsive">
+                            <div class="container-fluid">
+                                <ocp:messages id="messages" globalOnly="true" />
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#messages\\:messages li').attr("data-alert", "alert");
+                                        $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
+                                        $('.alert-message').alert();
+                                        $('.alert-message').click().alert('close');
+                                    });
+                                </script>
                             </div>
 
-                            <!--div class="form-group">
-
-                                <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
-                                    <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
-                                </h:panelGroup>
-                            </div-->
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!--Cuerpo-->
-            <div class="jumbotron">
-                <div class="container" style="margin: -5% 0.5 -10% 30%; ">
-                    <div class="row lf row-title" > 
-                        <ui:insert name="header">
-
-                        </ui:insert>
-
-                    </div>               
-
-                    <!--Contenido-->
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <div class="container-fluid">
-                    <ocp:messages id="messages" globalOnly="true" />
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#messages\\:messages li').attr("data-alert", "alert");
-                            $('#messages\\:messages li').append('<a href="#" class="close">×</a>');
-                            $('.alert-message').alert();
-                            $('.alert-message').click().alert('close');
-                        });
-                    </script>
-                </div>
-
-            </div>   
-            <ui:insert name="content" ></ui:insert>
+                        </div>   
+                        <ui:insert name="content" ></ui:insert>
 
 
 
-        </body>
+                    </body>
 
-    </html>
+                    </html>
 
-</f:view>
+                    </f:view>
