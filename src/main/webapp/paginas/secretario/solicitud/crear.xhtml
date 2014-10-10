@@ -116,7 +116,7 @@
                                         
                                     </p:inputTextarea>
                                     
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != ''}" 
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != null}" 
                                                         styleClass="validation-status" />
                                         <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>
                                     </h:panelGroup><br/>
@@ -368,13 +368,13 @@
                                                                     <div class="row-fluid"  >
                                                                         <div class="col-md-4"> 
                                                                             <h:outputLabel class="navbar-text" value=" Registro:"/>
-                                                                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.numRegistro}"/>
 
                                                                             </div>
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
 
-                                                                                <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                                                                <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.vehiculo)}" var="p" >
                                                                                     <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
                                                                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
                                                                                             <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
@@ -385,30 +385,30 @@
                                                                             </div>
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Placa: "/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.placa}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.placa}"/>
 
                                                                             </div>
 
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Tipo:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipo}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.tipo}"/>
                                                                             </div>
 
                                                                         </div>
                                                                         <div class="row-fluid"  >
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Modelo:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.modelo}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.modelo}"/>
                                                                             </div>
                                                                             <div class="col-md-4"> 
 
                                                                                 <h:outputLabel class="navbar-text" value=" Color:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.color}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.color}"/>
 
                                                                             </div>
                                                                             <div class="col-md-4"> 
                                                                                 <h:outputLabel class="navbar-text" value=" Número de motor:"/>
-                                                                                <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                                                                <c:forEach items="#{ui.getProperties(controladorSolicitudReparacionMantenimiento.vehiculo)}" var="p" >
                                                                                     <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                                                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
                                                                                             <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
@@ -421,7 +421,7 @@
                                                                             <div class="col-md-4"> 
 
                                                                                 <h:outputLabel class="navbar-text" value=" Marca:"/>
-                                                                                <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
                                                                             </div>
                                                                         </div>
                                                                     </div>

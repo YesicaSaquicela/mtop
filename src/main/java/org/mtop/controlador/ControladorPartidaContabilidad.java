@@ -75,7 +75,6 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         //buscando por coincidencia
         List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
         //buscando por numero de partidalistaPartidaC
-        System.out.println("entro a buscar>>>>>>>>>>>" + palabrab);
         for (PartidaContabilidad p : listaPartidaC2) {
             String resultado = p.concatenarPartida();
             if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase())) {
@@ -110,8 +109,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public ArrayList<String> autocompletar(String query) {
-        System.out.println("QUEryyyyy" + query);
-
+      
         ArrayList<String> ced = new ArrayList<String>();
 
         for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
@@ -129,24 +127,10 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
                 }
             }
         }
-
-        System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
     }
 
-    public void vistaC(ActionEvent event) {
-        System.out.println("entro a evento>>>>>>>");
-        final Long id = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("partidaId"));
-        getInstance().setId(id);
-        System.out.println("se fijo el id>>>>>" + getInstance().getId());
-
-    }
-
-    public String vistaC() {
-        System.out.println("retornando vista crear>>>>>>");
-        return "/paginas/secretario/partidaContabilidad/crear.xhtml?faces-redirect=true";
-    }
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -197,10 +181,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
-         *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
-         */
-
+      
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
@@ -221,7 +202,6 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         partidaC.setLastUpdate(now);
         partidaC.setActivationTime(now);
 
-        //fichaMedic.setResponsable(null);    //cambiar atributo a 
         partidaC.setType(_type);
         partidaC.buildAttributes(bussinesEntityService);  //
         return partidaC;
@@ -234,22 +214,20 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     public boolean verificarPartida() {
         List<PartidaContabilidad> lpc = findAll(PartidaContabilidad.class);
-        System.out.println("LISTA PARTIDA>>>>>>." + lpc);
+;
         boolean ban = true;
-        System.out.println("lista antes de borrar" + lpc);
         //si viene de editar... comprueba que el ide se diferente de 
-        System.out.println("ide antes de borrar del k llega>>>>" + getInstance().getId());
+      
         
         for (PartidaContabilidad partidaContabilidad : lpc) {
-            System.out.println("ENTRANDO AL FOR>>>>.");
+     
             if (partidaContabilidad.concatenarPartida().equals(getInstance().concatenarPartida())
                     && !partidaContabilidad.getId().equals(getInstance().getId())) {
-                System.out.println("entro a verificar>>>>>>>" + ban);
+               
                 ban = false;
                 break;
             }
         }
-        System.out.println("salio del for>>>>>" +ban);
         return ban;
 
     }
@@ -264,11 +242,9 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             try {
 
                 if (getInstance().isPersistent()) {
-                    System.out.println("Entro a Editar>>>>>>>>");
                     save(getInstance());
 
                 } else {
-                    System.out.println("Entro a crear>>>>>>>>");
                     getInstance().setEstado(true);
                     create(getInstance());
                     save(getInstance());
@@ -282,7 +258,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
         } else {
             mensaje="La partida de contabilidad ya exite";
-            System.out.println("cambio mensaje "+mensaje);
+         
             return "";
         }
 

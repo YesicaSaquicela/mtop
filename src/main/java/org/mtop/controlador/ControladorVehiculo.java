@@ -84,7 +84,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     private ActividadPlanMantenimiento actividadplan;
     private ControladorKardex ck;
-    private String mensaje = "";
+    
     private ControladorPlanMantenimiento cplanMantenimiento;
     private String palabrab = "";
     private EstadoVehiculo estado = new EstadoVehiculo();
@@ -107,9 +107,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<EstadoVehiculo> listaEstadoV = new ArrayList<EstadoVehiculo>();
     private String palabrabe;
     private List<EstadoVehiculo> listaEstadoV2 = new ArrayList<EstadoVehiculo>();
-    String msj = "";
-    String msj1 = "";
-    private String msj2 = "";
     private String mensajef = "";
     private List<String> tiposCombustible=new ArrayList<String>(Arrays.asList("Gasolina", "Diesel"));
     private List<String> tiposCabina=new ArrayList<String>(Arrays.asList("Simple", "Doble"));
@@ -121,9 +118,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setTiposCabina(List<String> tiposCabina) {
         this.tiposCabina = tiposCabina;
     }
-    
-    
-    
+       
     
     public List<String> getTiposCombustible() {
         
@@ -143,23 +138,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.mensajef = mensajef;
     }
 
-    public String getMsj2() {
-        return msj2;
-    }
 
-    public void setMsj2(String msj2) {
-        if (msj2.substring(0, 2).equals("tr")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj2.substring(4, msj2.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el estado de ubicación del vehículo " + msj2.substring(5, msj2.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-
-        }
-
-        System.out.println("fijo msj+" + msj2);
-        this.msj2 = msj2;
-    }
 
     public String getMensaje1() {
         return mensaje1;
@@ -169,43 +148,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.mensaje1 = mensaje1;
     }
 
-    public String getMsj1() {
-        return msj1;
-    }
-
-    public void setMsj1(String msj1) {
-        if (msj1.substring(0, 2).equals("tr")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el mantenimiento del Vehículo " + msj1.substring(3, msj1.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó el mantenimiento del Vehículo " + msj1.substring(5, msj1.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-
-        }
-
-        System.out.println("fijo msj+" + msj1);
-        this.msj1 = msj1;
-    }
-
-    public String getMsj() {
-        return msj;
-    }
-
-    public void setMsj(String msj) {
-        System.out.println("llego a mensaje");
-        if (msj.substring(0, 2).equals("tr")) {
-            System.out.println("debe entrar en true");
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó Vehículo " + msj.substring(4, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó Vehículo " + msj.substring(5, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-
-        }
-
-        System.out.println("fijo msj+" + msj);
-        this.msj = msj;
-    }
+ 
 
     public String getPalabrabe() {
         return palabrabe;
@@ -216,7 +159,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String formato(Date fecha) {
-        System.out.println("\n\n\n\n\n\n\nhsadhjsdj" + fecha);
         String fechaFormato = "";
         if (fecha != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -249,24 +191,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public void setVista(String vista) {
-        System.out.println("redirecciono vista>>>" + vista);
         this.vista = vista;
     }
 
     public String obtenerAlerta(Integer kma) {
         Integer kmt = kma + 1000;
-        System.out.println("kilometraje actual +1000" + kmt);
         Integer proKmj = obtenerKilometraje(kma);
-        System.out.println("prokilometra" + proKmj);
         if (kmt.equals(proKmj)) {
-            System.out.println("entro a 1if");
             return "Atención..! Necesita acercarse a realizar el mantenimiento del vehículo";
         } else {
             if (kmt > proKmj) {
-                System.out.println("entro a obtener 2oif");
                 return "Urgente...! Necesita realizar el mantenimiento del vehículo";
             } else {
-                System.out.println("3 if");
                 return "";
             }
         }
@@ -305,7 +241,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public boolean placaUnica(String placa) {
         List<Vehiculo> listav = findAll(Vehiculo.class);
         if (getInstance().getId() == null) {
-            System.out.println("entro>>>>>>>>v null");
             try {
                 obtenerPlacaVehiculo(placa);
                 return false;
@@ -313,9 +248,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 return true;
             }
         } else {
-            System.out.println("cual envia a elim" + getInstance().getId());
-            System.out.println("lista v antes" + listav);
-
             List<Vehiculo> lv = new ArrayList<Vehiculo>();
             for (Vehiculo v : listav) {
                 if (!v.getPlaca().equals(findById(Vehiculo.class, getInstance().getId()).getPlaca())) {
@@ -323,39 +255,33 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
             listav = lv;
-            System.out.println("lista v" + listav);
-            System.out.println("ide instance" + getInstance().getId());
             for (Vehiculo v : listav) {
-                System.out.println("entro al for" + v.getId());
-
                 if (v.getPlaca().equals(getInstance().getPlaca())) {
-                    System.out.println("entro al if>>>");
+          
                     obtenerPlacaVehiculo(placa);
                     return false;
                 }
             }
-            System.out.println("nunca entro al for");
             return true;
         }
 
     }
 
     public Vehiculo obtenerNumRegistro(final String numregistro) throws NoResultException {
-        System.out.println("obtener numregisto");
+       
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numRegistro = :numregistro", Vehiculo.class);
-        System.out.println("query" + query);
+  
         query.setParameter("numregistro", numregistro);
-        System.out.println("query.getSingleResult()" + query.getSingleResult());
+      
         Vehiculo result = query.getSingleResult();
-        System.out.println("resultdo" + result);
+     
         return result;
     }
 
     public boolean numRegistroUnico(String numregistro) {
-        System.out.println("entro al validador");
+
         List<Vehiculo> listavs = findAll(Vehiculo.class);
         if (getInstance().getId() == null) {
-            System.out.println("entro>>>>>>>>>>");
             try {
                 obtenerNumRegistro(numregistro);
                 return false;
@@ -363,9 +289,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 return true;
             }
         } else {
-            System.out.println("cual envia a elim" + getInstance().getId());
-            System.out.println("lista v antes" + listavs);
-
             List<Vehiculo> lv = new ArrayList<Vehiculo>();
             for (Vehiculo v : listavs) {
                 if (!v.getNumRegistro().equals(findById(Vehiculo.class, getInstance().getId()).getNumRegistro())) {
@@ -373,18 +296,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
             listavs = lv;
-            System.out.println("lista v" + listavs);
-            System.out.println("ide instance" + getInstance().getId());
             for (Vehiculo v : listavs) {
-                System.out.println("entro al for" + v.getId());
-
                 if (v.getNumRegistro().equals(getInstance().getNumRegistro())) {
-                    System.out.println("entro al if>>>");
+      
                     obtenerNumRegistro(numregistro);
                     return false;
                 }
             }
-            System.out.println("nunca entro al if");
             return true;
         }
 
@@ -392,76 +310,64 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public boolean verificarFechaSolicitud(Date fFinal) {
         Boolean ban = true;
-        System.out.println("vehiculooooo a buscar" + getInstance());
+               Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
 
-        Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
-
-        System.out.println("fecha a entrada" + fEntrada);
-        System.out.println("fecha a final" + fFinal);
-       
         if (!fEntrada.before(fFinal)) {  //metodo que compara si una fecha es anterior a la otra
 //               
-            System.out.println("entro a if");
             ban = false;
         }
-        System.out.println("bandera devuelve" + ban);
         return ban;
     }
 
     public boolean verificarPlaca(String placa) {
-        System.out.println("placa ingresada" + placa);
         String l1 = "ABUCXHOEWGILRMVNSPQYJKTZ";
         String l2 = "ABCDEFGHIFKLMNOPQRSTUWXYZ";
         String l3 = "ABCDEFGHIFKLMNOPQRSTUWXYZ";
         String n = "1234567890";
         String t = "CDOIAT";
-        System.out.println("placa ingersa fuera>>>" + placa);
 
         if (placa.length() >= 7) {
 
             if (placa.length() == 8) {
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
-                    System.out.println("placa ingresada" + placa);
+                  
                     return true;
                 } else {
-                    System.out.println("entro 1false");
                     return false;
                 }
 
             } else {
-                System.out.println("entro al no");
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                    System.out.println("placa ingresada" + placa);
+              
                     return true;
                 } else {
                     if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                             && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
-                        System.out.println("placa ingresada" + placa);
+                      
                         return true;
                     } else {
                         if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                            System.out.println("placa ingresada" + placa);
+                        
                             return true;
                         } else {
                             if (placa.substring(0, 2).equals("CD") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                System.out.println("placa ingresada" + placa);
+                              
                                 return true;
                             } else {
                                 if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                    System.out.println("placa ingresada" + placa);
+                                    
                                     return true;
                                 } else {
                                     if (placa.substring(0, 2).equals("AT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                        System.out.println("placa ingresada" + placa);
+                                     
                                         return true;
                                     } else {
                                         if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                            System.out.println("placa ingresada" + placa);
+                                  
                                             return true;
                                         } else {
-                                            System.out.println("entro 2dofalse");
                                             return false;
                                         }
                                     }
@@ -472,7 +378,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
         } else {
-            System.out.println("entra 3 false");
             return false;
         }
 
@@ -490,8 +395,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public Date getFechaFinal() {
 
         fechaFinal = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
-        // calendario=Calendar.class.cast(fechaFinal);
-//        calendario.setTime(fechaFinal);
+ 
         System.out.println("fecha final" + fechaFinal);
         return fechaFinal;
     }
@@ -514,11 +418,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Date fEntrada = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy");
         fechaFormato = formatter.format(fEntrada);
-        System.out.println("fecha antes>>>" + fechaFormato);
         Integer fa = Integer.parseInt(fechaFormato);
         Integer fv = Integer.parseInt(fanio);
-        System.out.println("fecha k llega" + fv);
-        System.out.println("fecha formato" + fa);
         if (fv <= fa && fv >= 1950) {
             System.out.println("entro a true");
             return true;
@@ -540,13 +441,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String obtenerUltimaUbicacionV2(Vehiculo vehiculo, List<EstadoVehiculo> list) {
-        System.out.println("lista estadoooos\n\n\n" + list);
+   
         for (EstadoVehiculo ev : list) {
             System.out.println("ev" + ev.getVehiculo().getListaEstados());
 
         }
-        System.out.println("vehiculo" + vehiculo);
-        System.out.println("vehiculoestados" + vehiculo.getListaEstados().get(0));
+      
         String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
         return ubicacion;
     }
@@ -569,21 +469,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public Boolean obtenerAtributoDinamico(String tipo) {
         Boolean ban = false;
-        System.out.println("llaga tipo" + tipo);
         List<BussinesEntityAttribute> la = new ArrayList<BussinesEntityAttribute>();
 
         la = getInstance().findBussinesEntityAttribute(tipo);
         for (BussinesEntityAttribute ba : la) {
-            System.out.println("entro for con ba" + ba);
-            System.out.println("entro al for con nombre" + ba.getName());
-            System.out.println("entro al for con tipo" + ba.getType());
+            
             if (!ba.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
                 System.out.println("entro al if" + ban);
                 ban = true;
                 break;
             }
         }
-        System.out.println("a retornar " + ban);
         return ban;
     }
 
@@ -603,7 +499,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
         }
-        System.out.println("entro a buscar");
         ControladorVehiculo cv=new ControladorVehiculo();
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
@@ -612,7 +507,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         for (Vehiculo vehiculo : listVehiculos2) {
              cv.setId(vehiculo.getId());
             bea =  cv.getInstance().findBussinesEntityAttribute("Motor");
-            System.out.println("presenta propieedades " + bea);
+          
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serieMotor")) {
@@ -720,8 +615,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         }
        
-        System.out.println("vehiculoooo "+getInstance());
-        System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
     }
@@ -737,7 +630,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             palabrabe = "Ingrese algun valor a buscar";
         }
         //buscando por coincidencia descripciion
-        System.out.println("ingreso a buscar la palabra" + palabrabe);
         List<EstadoVehiculo> lv1 = new ArrayList<EstadoVehiculo>();
         for (EstadoVehiculo ev : listaEstadoV) {
             //EstadoVehiculo ev = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1);
@@ -753,7 +645,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 lv1.add(ev);
             }
             String s = ev.getFechaEntrada().toString();
-            System.out.println("valor de SSSSSSSSSSSS" + s);
             if (s.contains(palabrabe)) {
                 lv1.add(ev);
             }
@@ -774,7 +665,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         } else {
-            System.out.println("lista que presenta>>>" + lv1);
             listaEstadoV = lv1;
         }
 
@@ -797,7 +687,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 ced.add(ev.getUbicacion());
             }
             String s = ev.getFechaEntrada().toString();
-            System.out.println("valor de SSSSSSSSSSSS" + s);
             if (s.contains(query) && !ced.contains(s)) {
                 ced.add(ev.getFechaEntrada().toString());
             }
@@ -812,10 +701,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         boolean ban = false;
         for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
          
-            System.out.println("PLAN ACTIVO>>>>"+pm.getActivado());
-            System.out.println("PLAN ACTIVO>>>>"+pm.getId());
             if (pm.getActivado()) {
-                System.out.println("entro1111111111" + ban);
                 ban = true;
                 break;
             } 
@@ -824,19 +710,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public boolean vizualizarActividades(Long vehiculoid) {
-        System.out.println("antes de los view");
-        
-        System.out.println("entro a vizualiza>>>>>>>." + vehiculoid);
+
         Vehiculo v = findById(Vehiculo.class, vehiculoid);
         Integer proKilometraje = obtenerKilometraje(v.getKilometraje());
-        System.out.println("prokilooooooooo" + proKilometraje);
+
         actividadplan = new ActividadPlanMantenimiento();
-        System.out.println("plan de mantenimiento del vehiculo" + v.getPlanM());
-
-        System.out.println("vehiculo iddddddd" + v.getId());
-
-        actividadplan.setKilometraje(proKilometraje);
-        System.out.println("actividad plan:::::"+actividadplan.getKilometraje());
+              actividadplan.setKilometraje(proKilometraje);
+       
         if (v.getPlanM() != null) {
             PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
             List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
@@ -846,12 +726,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     la.add(actividadPlanMantenimiento);
                 }
             }
-            System.out.println("lsiat de actividades" + la);
             //encontrar kilometraje de cada lista del plan
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
-                System.out.println("kilometraje de actvidad " + actividadPlanMantenimiento.getKilometraje());
-
-                System.out.println("proximo kilometraje>>>>>>" + actividadplan.getKilometraje());
+                
                 if (actividadPlanMantenimiento.getKilometraje().equals(actividadplan.getKilometraje())) {
                     System.out.println("entro..... a comparar");
                     actividadplan.setActividad(actividadPlanMantenimiento.getActividad());
@@ -1007,7 +884,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         if (vehiculoId != 0) {
             idPersona = getInstance().getPersona().getId();
         } else {
-            System.out.println("entro a no");
             setInstance(new Vehiculo());
         }
 
@@ -1015,7 +891,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public void fijarNullVehiculo() {
         setInstance(new Vehiculo());
-        System.out.println("fijando::::::::::::: " + getInstance());
     }
 
     @TransactionAttribute
@@ -1048,14 +923,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
         ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
-        System.out.println("entra init" + getInstance());
+       
        
         listVehiculos2 = listaVehiculos;
         idPersona = 0l;
         listaPersonas = findAll(Profile.class);
         List<Profile> lp = new ArrayList<Profile>();
         for (Profile persona : findAll(Profile.class)) {
-            System.out.println("personas>>>>" + persona.getTipo());
             if (persona.getTipo() != null) {
                 if (persona.getTipo().equals("Conductor")) {
                     getInstance().setPersona(persona);
@@ -1066,49 +940,41 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         }
 
         listaPersonas = lp;
-        System.out.println("lista de personas>>>>" + listaPersonas);
         listaEstados = findAll(EstadoVehiculo.class);
         desabilitar = false;
         for (Vehiculo vehiculo : listaVehiculos) {
             EstadoVehiculo estadov = obtenerUltimoEstadoVehiculo(vehiculo);
-            System.out.println("entro al for" + vehiculo);
-            System.out.println("estado +" + estadov);
-
+          
             listaEstadoV.add(estadov);
         }
         listaEstadoV2 = listaEstadoV;
 
-        System.out.println("obtiene lista" + listaEstadoV);
         verificarPlan();
 
     }
 
     public void fijarPlan(PlanMantenimiento pmat, List<Vehiculo> lv) {
-        System.out.println("entro fijar plan");
-        System.out.println("listallega" + lv);
+     
 //        System.out.println("listarecuperaaaada"+findAll(Vehiculo.class));
         for (Vehiculo v : lv) {
             if (null != pmat.getId()) {
-                System.out.println("forr vehiculo>>>>>>>>");
+ 
                 setId(v.getId());
-                System.out.println("iddd" + getId());
+          
                 setInstance(v);
                 getInstance().setPlanM(pmat);
 
-                System.out.println("se actualizo con id del plan" + getInstance().getPlanM().getId());
                 save(getInstance());
                 System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
             }
 
         }
-        System.out.println("llllllllllllllll");
     }
 
     @Override
     protected Vehiculo createInstance() {
         //prellenado estable para cualquier clase 
-        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Vehiculo.class
-                .getName());
+        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Vehiculo.class.getName());
         Date now = Calendar.getInstance().getTime();
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setCreatedOn(now);
@@ -1119,19 +985,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return vehiculo;
     }
 
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        System.out.println("fijando mensaje");
-        if (!mensaje.equals("")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Vehículo" + getInstance().getId() + " con éxito", "");
-            FacesContext.getCurrentInstance().addMessage("Informaciónn", msg);
-        }
-        this.mensaje = mensaje;
-    }
-
     @Override
     public Class<Vehiculo> getEntityClass() {
         return Vehiculo.class;
@@ -1140,9 +993,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void crearEstadoUbicacion() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("\n\n\n entro crear estado\n\n\n\n");
         EstadoVehiculo estadoU = new EstadoVehiculo();
-        System.out.println("\n\n\n entro crear nuevo\n\n\n\n");
         estadoU.setFechaEntrada(now);
         estadoU.setNombre("Equipo trabajando normal");
         estadoU.setUbicacion("Taller Mtop Loja");
@@ -1151,23 +1002,17 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         estadoU.setLastUpdate(now);
         estadoU.setActivationTime(now);
         estadoU.setVehiculo(getInstance());
-        System.out.println("\n\n\n entro crear estado AnTES\n\n\n\n" + estadoU);
         save(estadoU);
-        System.out.println("\n\n\n entro crear estado despues\n\n\n\n" + estadoU);
     }
 
     public void crearEstadoUbicacion2() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("\n\n\n entro crear estado\n\n\n\n");
-        System.out.println("\n\n\n entro crear nuevo\n\n\n\n");
         estado.setCreatedOn(now);
         estado.setLastUpdate(now);
         estado.setActivationTime(now);
         estado.setVehiculo(getInstance());
-        System.out.println("\n\n\n entro crear estado AnTES\n\n\n\n" + estado);
         servgen.actualizar(estado);
-        System.out.println("\n\n\n entro crear estado despues\n\n\n\n" + estado);
     }
 
 
@@ -1198,9 +1043,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
-        System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
-        System.out.println("IIIIDEEEntro>>>>>>" + getInstance().getId());
-        System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
         getInstance().setPersona(psolicita);
         System.out.println("persona conductor" + getInstance().getPersona());
@@ -1216,14 +1058,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                         break;
                     }
                 }
-                System.out.println("salio for>>>");
                 k.setLastUpdate(now);
                 k.setNumero(getInstance().getNumRegistro());
-                System.out.println("antes de actualizar");
                 save(k);
                 save(getInstance());
-                System.out.println("guarrrrrrrrrrrrrrrrrrrrrddadd");
-            //    ms = "false" + getInstance().getNumRegistro();
 
             } else {
 
@@ -1236,19 +1074,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     }
                 }
 
-                System.out.println("guardando Vehiculoooooooo");
                 getInstance().setEstado(true);
-                getInstance().setDescription("Kilometraje inicial");
                 create(getInstance());
                 save(getInstance());
                 crearKardex();
                 crearEstadoUbicacion();
-                System.out.println("volcio a guardar");
-
-                
-             //   ms = "true" + getInstance().getNumRegistro();
-                System.out.println("presenta mensaje>??>"+ms);
-                System.out.println("finalizo");
 
                 
             }
@@ -1271,9 +1101,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (getInstance().isPersistent()) {
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizó Vehículo" + getInstance().getId() + " con éxito");
-//                RequestContext.getCurrentInstance().showMessageInDialog(msg);
-             //   msjm = "false" + getInstance().getNumRegistro();
-            }
+           }
 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -1283,26 +1111,18 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String guardarEstadoVehiculo() {
-        System.out.println("entro metodo a guardarEstado::::::.");
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String ms1 = "";
-        System.out.println("persistente" + getInstance().isPersistent());
+      
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("entro apersistente");
                 if (verificarFechaSolicitud(estado.getFechaEntrada())) {
-                    System.out.println("entro a editar estado:::::: ");
-                    System.out.println("ante");
+                    
                     crearEstadoUbicacion2();
-                    System.out.println("finalizo");
-                    System.out.println("\n\n\n\n estado\n\n\n\n " + estado);
 
                     getInstance().getListaEstados().add(estado);
-                    System.out.println("lista de estado de l vehiculo" + getInstance().getListaEstados());
-                    
-                 //   ms1 = "false" + getInstance().getNumRegistro();
-                    System.out.println("paso de guardar al presentar mensaje::::"+ms1); 
+        
                     save(getInstance());
          
                    
@@ -1325,12 +1145,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     @TransactionAttribute
     public String editarEstado() {
-//        getInstance().findBussinesEntityAttribute(numeroRegistro).size();
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        System.out.println("PRESENTAR ANTES>>>>>" + getInstance().getNumRegistro());
-        System.out.println("IIIIDEEEntro>>>>>>" + getVehiculoId());
-        System.out.println("PRESENTAR persisten>>>>>" + getInstance().isPersistent());
+       
         try {
             save(getInstance());
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Vehículo" + getInstance().getId() + " con éxito", " ");
@@ -1346,42 +1163,20 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     @Transactional
     public String darDeBaja(Long idvehiculo) {
         ControladorEstadoVehiculo cestado = new ControladorEstadoVehiculo();
-        System.out.println("Entro a dar de baja>>>>>>" + idvehiculo);
+
         setId(idvehiculo);
         setInstance(servgen.buscarPorId(Vehiculo.class, idvehiculo));
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         getInstance().setEstado(false);
-        //    ck.getInstance().setEstado(false);
+
         save(getInstance());
-//        cestado.getInstance().setEstado(false);
-//        crearEstadoUbicacion();
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El vehículo seleccionado ha sido dada de baja ", "exitosamente"));
         return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
-    @Transactional
-    public String borrarEntidad() {
-        //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
-        try {
-            if (getInstance() == null) {
-                throw new NullPointerException("Servicio is null");
-            }
-            if (getInstance().isPersistent()) {
-                delete(getInstance());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡No existe una entidad para ser borrada!", ""));
 
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.toString()));
-        }
-        return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
-    }
 
     public boolean tieneEstadosEstructura(Property propiedad) {
         System.out.println("propiedades "+propiedad.getStructure().getProperties());
@@ -1390,9 +1185,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (p.getGroupName()
                     != null) {
                 if (p.getGroupName().equals(propiedad.getName())) {
-                    System.out.println("encontro su propiedad>>>>> " + p.getName());
+                 
                     if (p.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-                        System.out.println("retornara true");
+                  
                         return true;
                     }
                 }
@@ -1412,19 +1207,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String[] getTipoSeleccionados() {
-        System.out.println("tipos seleccionados en vehiculo" + tipoSeleccionados);
 
         if (tipoSeleccionados != null) {
-            System.out.println("entro for en get" + tipoSeleccionados.length);
 
             for (String s : tipoSeleccionados) {
-                System.out.println("valor de s " + s);
             }
             if (tipoSeleccionados.length == 0) {
-                System.out.println("fijando null en forr");
-
                 tipoSeleccionados = null;
-                System.out.println("tipos seleccionados despues de fijar null" + tipoSeleccionados);
+               
             }
         }
 
@@ -1493,10 +1283,9 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String[] getMesyanioSeleccionados() {
-        System.out.println("mesyanioSeleccionados seleccionados en vehiculo" + mesyanioSeleccionados);
+        
 
         if (mesyanioSeleccionados != null) {
-            System.out.println("entro for en get" + mesyanioSeleccionados.length);
 
             for (String s : mesyanioSeleccionados) {
                 System.out.println("valor de s " + s);
@@ -1505,7 +1294,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 System.out.println("fijando null en forr");
 
                 mesyanioSeleccionados = null;
-                System.out.println("tipos seleccionados despues de fijar null" + mesyanioSeleccionados);
+               
             }
         }
 
@@ -1520,7 +1309,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         Calendar fechamayor = Calendar.getInstance();
         Calendar fechamenor = Calendar.getInstance();
-        System.out.println("fecha ahora geyt time>>>" + fechamayor.getTime());
 
         for (EstadoVehiculo ev : listaEstados) {
             if (ev.getFechaEntrada().compareTo(fechamayor.getTime()) > 0) {
@@ -1543,33 +1331,28 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         if (anioMenor < anioMayor) {
 
             cantMeses = 12 - mesMenor;
-            System.out.println("entro a menor anio presentando cant meses antes for" + cantMeses);
+           
             for (int i = anioMenor; i < anioMayor; i++) {
 
                 aux = aux + 12;
-                System.out.println("aumento dose presentando aux" + aux);
             }
             aux = aux - (12 - mesMayor);
-            System.out.println("restando aux desde mes uno sigueinte total meses" + aux);
+          
             cantMeses = cantMeses + aux;
 
         } else {
-            System.out.println("NOOOO entro a anio menor");
+            
             cantMeses = mesMayor - mesMenor;
         }
-        System.out.println("total meses a presentar" + cantMeses);
+       
         for (int i = 1; i <= cantMeses; i++) {
             fechamenor.add(Calendar.MONTH, 1);
             mesMenor = fechamenor.get(Calendar.MONTH) + 1;
-            System.out.println("siginete fecha menor" + sdf.format(fechamenor.getTime()));
+            
             listaFechas.add(sdf.format(fechamenor.getTime()));
         }
 
-//        while (mesMenor < mesMayor) {
-//// Haces lo que tu quieres, para ese dia;
-//// Incrementas una semana (86400000 es un dia en milisegundos)
-//           
-//        }
+//  
         return listaFechas;
     }
 
@@ -1592,9 +1375,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String obtenerEvaluacion() {
-        System.out.println("eval");
-
-//        List<Property> propiedades=ui.getProperties(getInstance());
+     
         List<Property> propiedades = servgen.buscarTodoscoincidencia(Property.class, Property.class.getSimpleName(), Property_.type.getName(), "org.mtop.modelo.dinamico.Structure");
         List<BussinesEntityAttribute> bea;
         Integer suma = 0;
@@ -1669,10 +1450,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         }
         if (!evaluacion.equals("Malo")) {
 
-            System.out.println("suma" + suma);
-            System.out.println("contador" + contador);
             suma = suma / contador;
-            System.out.println("suma fdfespues" + suma);
             if (suma >= 90) {
                 evaluacion = "Bueno";
             } else {
@@ -1680,7 +1458,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         }
-        System.out.println("valor a retornar" + evaluacion);
         return evaluacion;
 
     }
