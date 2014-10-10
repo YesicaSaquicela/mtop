@@ -28,13 +28,16 @@
 
                     <div class="admin-actions " align="right" > 
 
-                        <p:button icon="ui-icon-arrowreturnthick-1-w" value="Regresar" rendered="#{true}" outcome="/paginas/secretario/partidaContabilidad/lista" styleClass="btn  btn-success"/>
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" 
+                                  value="Regresar" rendered="#{true}" 
+                                  outcome="/paginas/secretario/partidaContabilidad/lista"
+                                  styleClass="btn  btn-success"/>
                     </div><br/>
-                    #{controladorPartidaContabilidad.mensaje}
+                
                     <h:panelGroup id="msj" rendered="#{controladorPartidaContabilidad.mensaje ne ''}"  >
                         <div class="panel panel-danger"  > 
                             <div class="panel-heading">
-                                 <span class="badge pull-left" >  </span>
+                                
                                  
                                 <h:outputLabel  id="msg"  value="#{controladorPartidaContabilidad.mensaje}" style="color:red" />
                             </div>
@@ -208,7 +211,7 @@
                                                                         <f:ajax execute="str" render="panel1"/>
                                                                     </p:inputText>
                                                                     
-                                                                    <pe:inputNumber id="str1" value="#{a.value}" styleClass="xLarge" 
+                                                                    <pe:inputNumber id="str1" value="#{a.value}" style="width:100%" 
                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
                                                                                     decimalPlaces="2"  rendered="#{a.property.type eq 'java.lang.Double' or a.property.type eq 'java.lang.Long' or type eq 'java.lang.Float'}">  
                                                                        <f:ajax execute="str1" render="panel1"/>
@@ -225,12 +228,12 @@
                                                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                         <f:ajax execute="str3" event="change" render="panel1"/>
                                                                     </p:selectOneMenu>
-                                                                    <p:inputTextarea id="str4" value="#{a.value}" styleClass="form-control" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
+                                                                    <p:inputTextarea id="str4" value="#{a.value}" style="width:100%" required="#{a.property.required}" label="#{a.property.label}" style="width: 400px; height: 100px;" 
                                                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                                        <f:ajax execute="str4" render="panel1"/>
                                                                     </p:inputTextarea>  
 
-                                                                    <pe:inputNumber id="str5" value="#{a.value}" styleClass="xLarge" 
+                                                                    <pe:inputNumber id="str5" value="#{a.value}" style="width:100%" 
                                                                                     required="#{a.property.required}" label="#{a.property.label}" 
                                                                                     decimalPlaces="0"    rendered="#{a.property.type eq 'java.lang.Integer'}">
                                                                         <f:ajax execute="str5" render="panel1"/>

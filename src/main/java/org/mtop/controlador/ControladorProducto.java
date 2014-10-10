@@ -58,26 +58,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     private String codigo;
     private String palabrab = "";
     private List<Producto> listaproductos2 = new ArrayList<Producto>();
-    private List<String> images;
-    private String msj = "";
-
-    public String getMsj() {
-        return msj;
-    }
-
-    public void setMsj(String msj) {
-        if (msj.substring(0, 2).equals("tr")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se creó  producto de código " + msj.substring(4, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se actualizó producto de código " + msj.substring(5, msj.length()) + " con éxito");
-            FacesContext.getCurrentInstance().addMessage("", msg);
-
-        }
-
-        System.out.println("fijo msj+" + msj);
-        this.msj = msj;
-    }
+  
 
     public List<Producto> getListaproductos2() {
         return listaproductos2;
@@ -137,8 +118,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     }
 
     public ArrayList<String> autocompletar(String query) {
-        System.out.println("QUEryyyyy" + query);
-
+   
         ArrayList<String> ced = new ArrayList<String>();
 
         for (Producto producto : listaproductos2) {
@@ -153,26 +133,15 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             }
         }
 
-        System.out.println("listaaaaa autocompletar" + ced);
         return ced;
 
     }
 
-    public ControladorRequisicion getCrequisicion() {
-        return crequisicion;
-    }
-
-    public void setCrequisicion(ControladorRequisicion crequisicion) {
-        this.crequisicion = crequisicion;
-    }
-    private ControladorRequisicion crequisicion;
-
+ 
     public String getCodigo() {
         if (getId() == null) {
-            System.out.println("numero" + getInstance().getCodigo());
             List<Producto> lista = findAll(Producto.class);
             int t = lista.size();
-            System.out.println("valor de t :::::::::::" + t);
             if (t < 9) {
                 setCodigo("000".concat(String.valueOf(t + 1)));
             } else {
@@ -234,14 +203,11 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     @PostConstruct
     public void init() {
         setEntityManager(em);
-        /*el bussinesEntityService.setEntityManager(em) solo va si la Entidad en este caso (ConsultaMedia)
-         *hereda de la Entidad BussinesEntity...  caso contrario no se lo agrega
-         */
-
+    
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
           System.out.println("\n\n\n entro init \n\n\n" );
-        crequisicion = new ControladorRequisicion();
+       
         listaProducto = new ArrayList<Producto>();
         List<Producto> lp = servgen.buscarTodos(Producto.class);
         listaProducto.clear();
@@ -284,21 +250,17 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-        String ms = "";
+ 
 
         try {
             if (getInstance().isPersistent()) {
-                System.out.println("Entro a Editar>>>>>>>>");
                 save(getInstance());
-                ms = "false" + getInstance().getCodigo();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se ha actualizó vehículo " + getInstance().getDescripcion() + "exitosamente ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
             } else {
-                System.out.println("Entro a crear>>>>>>>>");
                 getInstance().setEstado(true);
                 create(getInstance());
                 save(getInstance());
-                ms = "true" + getInstance().getCodigo();
 
             }
         } catch (Exception e) {
@@ -310,7 +272,6 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
 
     public boolean verificarPoducto(Long idproducto) {
         boolean ban = true;
-        System.out.println("Entro a dar de baja>>>>>>" + idproducto);
         List<ItemRequisicion> listaItems = findAll(ItemRequisicion.class);
         for (ItemRequisicion itemreq : listaItems) {
             if (itemreq.getProducto() != null) {
@@ -334,15 +295,11 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
     @Transactional
     public void darDeBaja(Long idproducto) {
         boolean ban = true;
-        System.out.println("Entro a dar de baja>>>>>>" + idproducto);
         List<ItemRequisicion> listaItems = findAll(ItemRequisicion.class);
-        System.out.println("lista de itens>>..." + listaItems);
+      
         for (ItemRequisicion itemreq : listaItems) {
-            System.out.println("entro al for>>>>>");
-            System.out.println("producto k llega" + idproducto);
 
             if (itemreq.getProducto() != null) {
-                System.out.println("producto que obtiene" + itemreq.getProducto().getId());
                 if (itemreq.getProducto().getId().equals(idproducto)) {
                     ban = false;
                     break;
@@ -350,7 +307,6 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             }
 
         }
-        System.out.println("retornando ban" + ban);
         if (ban) {
             setId(idproducto);
             setInstance(servgen.buscarPorId(Producto.class, idproducto));
@@ -363,7 +319,6 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
             listaProducto.clear();
             for (Producto produ : lp) {
                 if (produ.isEstado()) {
-                    System.out.println("listatesssa" + listaProducto);
                     listaProducto.add(produ);
 
                 }
