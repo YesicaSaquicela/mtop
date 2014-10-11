@@ -41,12 +41,14 @@
                                 <!-- Example row of columns -->
                                 <div class="row">
 
+                                    <mtop:input id="kilometraje" name="kilometraje" type="decimal" label="Kilometraje" numDecimales="0"
+                                                    value="#{controladorVehiculo.instance.kilometraje}" required="true" 
+                                                    inlinehelp="Ingrese el kilometraje del vehículo Ej(5000)" maxValue="150000"
+                                                    symbol=" km" symbolPosition="s"
+                                                   render="kilometraje" 
+                                                    requiredMessage="Kilometraje requerido, necesita un valor"/><br></br>
 
-
-                                    <mtop:input id="kilometraje" name="kilometraje" type="text" label="Kilometraje" 
-                                                value="#{controladorVehiculo.instance.kilometraje}" required="true" 
-                                                inlinehelp="Ingrese el kilometraje del vehículo" requiredMessage="Kilometraje requerido, nesecita un valor"
-                                                execute ="@this save" render="kilometraje"/><br></br>
+                                   
 
                                
                                     <h:panelGroup id="em1" layout="block" class="clearfix">

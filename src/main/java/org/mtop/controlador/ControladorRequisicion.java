@@ -1550,7 +1550,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
 
         }
-        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
         listaSolicitudes.clear();
         for (SolicitudReparacionMantenimiento sol : ls) {
             if (sol.getRequisicionId() == null && sol.isEstado()) {

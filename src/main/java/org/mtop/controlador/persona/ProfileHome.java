@@ -521,6 +521,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
 
         getInstance().setEstado(true);
+        getInstance().setEstado1(true);
 
         if (getInstance().isPersistent()) {
             try {
