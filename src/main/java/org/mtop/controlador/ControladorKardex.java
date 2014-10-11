@@ -831,7 +831,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         bussinesEntityService.setEntityManager(em);
         System.out.println("despues de fija em en kardex");
         servgen.setEm(em);
-        listakardex = servgen.buscarTodos(Kardex.class);
+        listakardex = findAll(Kardex.class);
         listakardex2 = listakardex;
         //solicitud = new SolicitudReparacionMantenimiento();
         listasolNoAp = findAll(SolicitudReparacionMantenimiento.class);

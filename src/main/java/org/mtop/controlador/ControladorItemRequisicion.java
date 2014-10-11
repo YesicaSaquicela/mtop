@@ -116,7 +116,7 @@ public class ControladorItemRequisicion extends BussinesEntityHome<ItemRequisici
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaItemsRequisicion = servgen.buscarTodos(ItemRequisicion.class);
+        listaItemsRequisicion = findAll(ItemRequisicion.class);
        
         getInstance().setProducto(new Producto());
         

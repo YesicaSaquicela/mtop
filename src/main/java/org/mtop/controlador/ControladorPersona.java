@@ -219,7 +219,7 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         bussinesEntityService.setEntityManager(em);
         // pservicio.setEntityManager(em);
         servgen.setEm(em);
-        listaPersona = servgen.buscarTodos(Profile.class);
+        listaPersona = findAll(Profile.class);
         listaPersona1 = listaPersona;
     }
 
