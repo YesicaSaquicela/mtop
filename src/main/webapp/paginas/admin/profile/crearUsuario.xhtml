@@ -47,22 +47,23 @@
                                     <h:panelGrid id="unm"  class="clearfix" rendered="#{profileHome.instance.username == null}">
                                         <label for="username">Usuario*</label>
                                         <div class="input">
-                                            <p:inputText id="username" value="#{profileHome.instance.username}" 
-                                                         styleClass="form-control" required="true" 
+                                            <p:inputText id="username" value="#{profileHome.instance.username}" validator="signupUsernameAvailabilityValidator"
+                                                         styleClass="form-control" required="true" readonly="#{profileHome.instance.estado1 eq true}"
                                                          requiredMessage="Usuario requerido, necesita un valor" label="#{messages['common.username']}">
 
 
-                                                <p:ajax event="blur" process="username signupUsernameAvailabilityValidator1" update="us"/>
+                                                <p:ajax event="blur"  update="unm a"/>
                                             </p:inputText>
+                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.username != null}"
+                                                            styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Ingrese el nombre de usuario. Ej.:<b>carla, yesica21</b>.
+                                                <ocp:message forId="username" id="a" /></span>
                                             
                                         </div>
 
                                     </h:panelGrid>
-                                    <h:panelGrid id="us" rendered="#{profileHome.instance.username == null}">
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.username != null}"
-                                                            styleClass="validation-status" />
-                                            <span class="help-inline text-muted">Ingrese el nombre de usuario. Ej.:<b>carla, yesica21</b>.<ocp:message forId="username" /></span>
-                                            <s:validateForm id="signupUsernameAvailabilityValidator1" validatorId="signupUsernameAvailabilityValidator" />
+                                    <h:panelGrid id="us" >
+                                       
                                     </h:panelGrid>
                                     <br/>
 

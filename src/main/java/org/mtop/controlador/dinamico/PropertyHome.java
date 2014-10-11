@@ -114,27 +114,16 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         setId(propertyId);
         if (getInstance().getType() != null) {
             propertyType = convertirPropiedadPresentar(getInstance().getType());
-            System.out.println("lfijo" + propertyType);
-//            if (propertyType.equals("java.util.Date")) {
-//
-//                Date fecha = Date.class.cast(getInstance().getValue());
-//                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-//                //String fecha=sdf.format(getInstance().getValue());
-//                //String fecha = sdf.format(getInstance().getValue());
-//                System.out.println(sdf.format(fecha));
-//                //setPropertyStringValue(fecha);
-//
-//                setPropertyDateValue(fecha);
-//            }
+           
         }
         if (getInstance().getValue() != null) {
             if (getInstance().getType().equals("java.lang.Integer")) {
                 propertyNumberValue = getInstance().getValue().toString();
             } else {
                 if (getInstance().getType().equals("java.util.Date")) {
-                    System.out.println("hacer casting fecha");
+                   
                     propertyDateValue = Date.class.cast(getInstance().getValue());
-                    System.out.println("paso hacer casting fecha");
+                  
                 } else {
                     if (getInstance().getType().equals("java.lang.String[]")) {
 
@@ -176,7 +165,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public void setPropertyDateValue(Date propertyDateValue) {
-        System.out.println("entro a fijar fecja" + propertyDateValue);
+       
         if (propertyDateValue == null) {
             System.out.println("fijo nulll a fecha");
             this.propertyDateValue = null;
@@ -188,7 +177,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             this.propertyDateValue = propertyDateValue;
 
         }
-        System.out.println("fijo fecha" + this.propertyDateValue);
+       
 
     }
 
@@ -198,7 +187,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public void setPropertyStringValue(String propertyStringValue) {
-        System.out.println("kkkkkkkk" + propertyStringValue);
+    
         this.propertyStringValue = propertyStringValue;
         /// getInstance().setValue(this.propertyStringValue);
     }
@@ -260,14 +249,13 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
 
         }
-        System.out.println("p.name" + p.getName());
-        System.out.println("p.getGroupName " + p.getGroupName());
+       
         if (p.getGroupName() != null) {
-            System.out.println("get group name" + p.getGroupName());
+           
             if (p.getGroupName().equals("org.mtop.modelo.Vehiculo")) {
                 //  tipos.add("org.mtop.modelo.EstadoParteMecanica");
                 tipos.add("EstadoParteMecanica");
-                System.out.println("si entro a grupo");
+               
                 // setPropertyStringValue("Bueno,Malo");
             }
 
@@ -361,7 +349,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                                         return "EstadoParteMecanica";
                                     } else {
                                         if (nombre.equals("java.util.Date")) {
-                                            System.out.println("fue fecha" + propertyDateValue);
+                                           
                                             return "Fecha";
                                         } else {
                                             return "Estructura";
@@ -378,13 +366,10 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String getPropertyType() {
-        System.out.println("get instance" + getInstance());
-        System.out.println("property typw" + propertyType);
+        
         if (getInstance().getId() != null) {
-            System.out.println("tiene valor " + hasValuesBussinesEntity());
+            
             if (!hasValuesBussinesEntity()) {
-                System.out.println("entro");
-                System.out.println("tipo" + getInstance().getType());
                 propertyType = convertirPropiedadPresentar(getInstance().getType());
 
             }
@@ -407,17 +392,14 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
        
         if (this.propertyType != null) {
 
-            System.out.println("Entor a tipo>>>>>>" + this.propertyType);
             if (this.propertyType.equals("EstadoParteMecanica")) {
                 setPropertyStringValue("Bueno,Malo*");
             } else {
 
                 if (this.propertyType.equals("Fecha")) {
-                    System.out.println("entro a fecha");
                     Date date = Calendar.getInstance().getTime();
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
                     String fecha = sdf.format(date);
-                    System.out.println(fecha);
                     setPropertyStringValue(fecha);
                     setPropertyDateValue(date);
                 } else {
@@ -473,7 +455,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public String formato(Date fecha) {
-        System.out.println("\n\n\n\n\n\n\nhsadhjsdj" + fecha);
         String fechaFormato = "";
         if (fecha != null) {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -674,18 +655,16 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
             //log.info("eqaula --> property tiene valores : " + ban);
 
-            System.out.println("fijando p.name a intance" + getInstance().getName());
-            System.out.println("valor de bandera" + ban);
             if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
 
                 BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
-                System.out.println("\n\n\nbet" + bet);
+               
                 if (bet != null) {
                     ban = false;
                 }
 
             }
-            System.out.println("ban2" + ban);
+           
             return ban;
 
 //            if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
@@ -727,12 +706,11 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
         //log.info("eqaula --> property tiene valores : " + ban);
 
-        System.out.println("fijando p.name a intance" + p.getName());
-        System.out.println("valor de bandera" + ban);
+      
         if (p.getType().equals("org.mtop.modelo.dinamico.Structure")) {
 
             BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(p.getName());
-            System.out.println("\n\n\nbet" + bet);
+
             if (bet != null) {
                 ban = false;
             }
@@ -803,8 +781,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
 
     public String cargarValidador() {
         //log.info("ingreso a validador value");
-        System.out.println("ingresa cargar validador");
-        System.out.println("ingresa cargar validador" + getInstance().getType());
+      
         if ("java.lang.String[]".equals(getInstance().getType().toString())) {
             log.info("ingreso a validador value valueTextPropertyValidator");
             return "valueTextPropertyValidator";
@@ -822,23 +799,19 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public Property obtenerNombre(final String nombre) throws NoResultException {
-        System.out.println("obtener nombre");
+       
         TypedQuery<Property> query = em.createQuery("SELECT p FROM Property p WHERE p.name = :nombre", Property.class);
-        System.out.println("query" + query);
+       
         query.setParameter("nombre", nombre);
-        System.out.println("query.getSingleResult()" + query.getSingleResult());
         Property result = query.getSingleResult();
-        System.out.println("resultdo" + result);
         return result;
     }
 
     public boolean nombreUnico(String nombre) {
-        System.out.println("entro al validador" + getInstance().getId());
 
         List<Property> listaps = findAllPropiedades();
 
         if (getInstance().getId() == null) {
-            System.out.println("entro>>>>>>>>>>");
             try {
                 obtenerNombre(nombre);
                 return false;
@@ -846,8 +819,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 return true;
             }
         } else {
-            System.out.println("cual envia a elim" + getInstance().getId());
-            System.out.println("lista v antes" + listaps);
 
             List<Property> lp = new ArrayList<Property>();
             for (Property p : listaps) {
@@ -856,13 +827,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                 }
             }
             listaps = lp;
-            System.out.println("lista v" + listaps);
-            System.out.println("ide instance" + getInstance().getId());
             for (Property v : listaps) {
-                System.out.println("entro al for" + v.getId());
 
                 if (v.getName().equals(getInstance().getName())) {
-                    System.out.println("entro al if>>>");
                     obtenerNombre(nombre);
                     return false;
                 }

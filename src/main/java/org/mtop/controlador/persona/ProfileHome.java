@@ -136,8 +136,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
        
         this.estado=estado;
         if ("INACTIVO".equals(estado)) {
-            System.out.println("entro a cambiar lista");
-            
             listausuarios = ps.findAllA(true);
             List<Profile> lu = new ArrayList<Profile>();
             for (Profile profile : listausuarios) {
@@ -174,7 +172,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
                 System.out.println("PROFILE_________0lista antes" + listausuarios);
 
-                System.out.println("paso a remover de la lista");
                 List<Profile> lui = new ArrayList<Profile>();
                 for (Profile profile : listausuarios) {
                     if (!selectedProfile.getId().equals(profile.getId())) {
@@ -217,15 +214,12 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     }
 
     public Long getProfileId() {
-        System.out.println("obtiene objetoget::::::::::::: " + getInstance().getFirstname());
-
         return (Long) getId();
 
     }
 
     public void setProfileId(Long profileId) {
         setId(profileId);
-        System.out.println("obtiene objeto::::::::::::: " + getInstance().getFirstname());
     }
 
     public String getStructureName() {
@@ -330,7 +324,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     @TransactionAttribute
     public String register() throws IdentityException {
 
-        System.out.println("entro 2");
         createUser();
         //BasicPasswordEncryptor().encryptPassword(password)
         credentials.setUsername(getInstance().getUsername());
@@ -456,42 +449,29 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         credentials.setCredential(new PasswordCredential(getPassword()));
         oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
         identity.setAuthenticatorClass(IdmAuthenticator.class);
-//        String result = identity.login();
-//        if (Identity.RESPONSE_LOGIN_EXCEPTION.equals(result)) {
-//            result = identity.login();
-//        }
+
         return "/paginas/inicio.xhtml?faces-redirect=true";
     }
 
     @TransactionAttribute
     private void createUser() throws IdentityException {
-        // TODO validate username, email address, and user existenceP
-//        BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Profile.class
-//                .getName());
+
         PersistenceManager identityManager = security.getPersistenceManager();
         System.out.println("entro a create user" + getInstance().getUsername());
-//        IdentityObject io=ps.findIdentityObjectByName(getInstance().getUsername());
         Set<String> ik = getInstance().getIdentityKeys();
         System.out.println("size " + ik.size());
         User user = identityManager.findUser(getInstance().getUsername());
         for (String oik : ik) {
-            System.out.println("ik" + oik);
             user = identityManager.findUser(oik);
-            System.out.println("user" + user);
         }
 
         if (user == null) {
-            System.out.println("entro a null");
             user = identityManager.createUser(getInstance().getUsername());
-            System.out.println("nuevo usuario ccreao");
         }
 
-        System.out.println("\n\\n\ncreando el usuerrrr\n\n\n" + getInstance().getUsername());
         AttributesManager attributesManager = security.getAttributesManager();
 
         PasswordCredential p = new PasswordCredential(getPassword());
-        System.out.println("usuario crear" + user);
-        System.out.println("contrase;a crearu>>>>>>>>" + p);
 
         attributesManager.updatePassword(user, p.getValue());
 
@@ -535,17 +515,16 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     @TransactionAttribute
     public String saveUsuario() {
-        System.out.println("entro a guardaranrtes");
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         String salida = "/paginas/admin/listProfile.xhtml?faces-redirect=true";
-        System.out.println("entro a guardar");
+
 
         getInstance().setEstado(true);
+        getInstance().setEstado1(true);
 
         if (getInstance().isPersistent()) {
             try {
-                System.out.println("\n\n\n\nentra registroo\n\n\n");
                 register();
             } catch (IdentityException ex) {
                 ex.printStackTrace();
@@ -555,7 +534,6 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             save(getInstance());
         } else {
             try {
-                System.out.println("\n\n\n\nentra registroo\n\n\n");
                 register();
             } catch (IdentityException ex) {
                 ex.printStackTrace();
@@ -579,12 +557,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
         try {
             if (getInstance().isPersistent()) {
-//                try {
-//                    changeEmail();
-//                } catch (IdentityException ex) {
-//                    Logger.getLogger(ProfileHome.class.getName()).log(Level.SEVERE, null, ex);
-//                    ex.printStackTrace();
-//                }
+
                 save(getInstance());
             } else {
 
@@ -684,10 +657,8 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     @TransactionAttribute
     public void activarCuenta(Profile habilitar) {
         try {
-            System.out.println("antes de ida>>>>>>>>>>>>>");
             IdentityObjectAttribute ida = ps.getAttributos(habilitar.getUsername(), "estado").get(0);
-            //securityRol.disassociate(getInstance().getUsername());
-            System.out.println("despues de ida");
+
             ida.setValue("ACTIVO");
             habilitar.setEstado(true);
             habilitar.getLastUpdate();
@@ -695,16 +666,13 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
             em.merge(ida);
             em.flush();
             habilitar.setDeleted(false);
-            System.out.println("paso a remover de la lista");
             List<Profile> lui = new ArrayList<Profile>();
-            System.out.println("lista de usuarios inactivos:::::"+listausuariosInactivos);
             for (Profile profile :listausuarios) {
                 if (!habilitar.getId().equals(profile.getId())) {
                     lui.add(profile);
                 }
             }
             listausuarios = lui;
-            System.out.println("lista despues" + listausuarios);
             FacesMessage msg = new FacesMessage("EL Usuario: " + habilitar.getFullName(), "ha sido habilitado");
             FacesContext.getCurrentInstance().addMessage("", msg);
             mensajei="EL Usuario: "+ habilitar.getFullName()+ " ha sido habilitado";

@@ -781,7 +781,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         servgen.setEm(em);
         listaSolicitud = findAll(SolicitudReparacionMantenimiento.class);
         listaRequisiciones = findAll(Requisicion.class);
-        List<SolicitudReparacionMantenimiento> ls = servgen.buscarTodos(SolicitudReparacionMantenimiento.class);
+        List<SolicitudReparacionMantenimiento> ls = findAll(SolicitudReparacionMantenimiento.class);
         listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
         listaSolicitud.clear();
         for (SolicitudReparacionMantenimiento sol : ls) {

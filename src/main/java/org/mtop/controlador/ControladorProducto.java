@@ -209,7 +209,7 @@ public class ControladorProducto extends BussinesEntityHome<Producto> implements
           System.out.println("\n\n\n entro init \n\n\n" );
        
         listaProducto = new ArrayList<Producto>();
-        List<Producto> lp = servgen.buscarTodos(Producto.class);
+        List<Producto> lp = findAll(Producto.class);
         listaProducto.clear();
 
         for (Producto produ : lp) {

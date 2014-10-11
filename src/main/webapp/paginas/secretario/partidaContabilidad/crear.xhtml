@@ -228,7 +228,8 @@
                                                                         <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                                         <f:ajax execute="str3" event="change" render="panel1"/>
                                                                     </p:selectOneMenu>
-                                                                    <p:inputTextarea id="str4" value="#{a.value}" style="width:100%" required="#{a.property.required}" label="#{a.property.label}"  
+                                                                    <p:inputTextarea id="str4" value="#{a.value}" style="width:100%" required="#{a.property.required}" label="#{a.property.label}" 
+                                                                                     
                                                                                      rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                                        <f:ajax execute="str4" render="panel1"/>
                                                                     </p:inputTextarea>  
@@ -306,7 +307,8 @@
                                                     <f:selectItems value="#{ui.getValuesAsSelectItem(a.property.values)}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                                                     <f:ajax execute="str3" event="change" render="otro"/>
                                                 </p:selectOneMenu>
-                                                <p:inputTextarea id="str4" value="#{a.value}" style="width: 100%; height: 100px;" required="#{a.property.required}" label="#{a.property.label}" 
+                                                <p:inputTextarea id="str4" value="#{a.value}" style="width: 100%; height: 100px;" required="#{a.property.required}" 
+                                                                 label="#{a.property.label}" 
                                                                  rendered="#{a.property.type eq 'java.lang.MultiLineString'}">
                                                    <f:ajax execute="str4" render="otro"/>
                                                 </p:inputTextarea>  

@@ -37,15 +37,13 @@ public class SignupUsernameAvailabilityValidator implements Validator {
     @Current
     private Profile profile;
 
-    @Inject
-    private InputElement<String> username;
 
     @Override
     public void validate(final FacesContext context, final UIComponent comp, final Object value)
             throws ValidatorException {
-        System.out.println("username"+username);
-        if (username != null) {
-            String valor = username.getValue();
+        System.out.println("username"+value);
+        if (value != null) {
+            String valor = value.toString();
 
             ps.setEntityManager(em);
             String usuario = "";
@@ -67,7 +65,9 @@ public class SignupUsernameAvailabilityValidator implements Validator {
                     System.out.println("valor.equals(profile.getUsername())"+valor.equals(profile.getUsername()));
                     if (!ps.isUsernameAvailable(valor) && !(valor.equals(profile.getUsername()))) {
                         System.out.println("no debe entrar mensjae");
-                       context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "El nombre de usuario no esta disponible. ¡Pertenece a otro usuario!", null));
+                          throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El nombre de usuario no esta disponible. ¡Pertenece a otro usuario!",
+                  null));
+//                       context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "El nombre de usuario no esta disponible. ¡Pertenece a otro usuario!", null));
                     }
 
                 }
