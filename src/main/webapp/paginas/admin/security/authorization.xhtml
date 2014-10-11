@@ -98,7 +98,7 @@
                     </div>  </div>
 
             </h:form>    
-            <p:dialog id="delete-dialog" header="#{messages['common.delete.confirm']}" 
+            <p:dialog id="delete-dialog" header="Confirmación" 
                       widgetVar="deletedDlg" resizable="false" modal="true" >  <!--dynamic="true"-->
                 <h:form id="form-dialog-confirm-delete">
 
@@ -107,13 +107,13 @@
                         <h:outputText value="#{messages['common.delete.confirm.message']} #{securityHome.group.name}"/>  
                     </h:panelGroup>  
                     <center>
-                    <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"  
+                    <p:commandLink value="Sí" oncomplete="deletedDlg.hide();"  
                                      actionListener="#{securityHome.disassociate()}"                                         
-                                     ajax="true" process="@this" update=":form:groupTable" icon="ui-icon-check"
-                                     style="margin-top:10px;">
-                    </p:commandButton>  
-                    <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"                                       
-                                     style="margin-top:10px;" icon="ui-icon-close"/>  
+                                     ajax="true" process="@this" update=":form:groupTable" 
+                                     styleClass="btn btn-success" style="width:20%">
+                    </p:commandLink>  #{''}
+                    <p:commandLink value="No" type="button" onclick="deletedDlg.hide();"                                       
+                                     styleClass="btn btn-success" style="width:20%" />  
                </center>
                 </h:form>
             </p:dialog> 

@@ -109,16 +109,20 @@
                                     </h:panelGroup><br/><br/>
                                     
                                     <p:outputLabel value="Observación*"/><br></br>
-                                    <h:panelGroup id="obs">
-                                    <p:inputTextarea maxlength="150" id="observacion" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
-                                                     required="true" requiredMessage="Observación requerida, necesita un valor">
-                                        <f:ajax execute="observacion" render="obs"/>
-                                        
+                                                                  
+                                    
+<h:panelGroup id="obs" layout="block" class="clearfix">
+                                    <p:inputTextarea id="observacion" maxlength="150" styleClass="form-control" 
+                                                     value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
+                                                     required="true" label="observación" 
+                                                     requiredMessage="Observación requerida, necesita un valor">
+                                        <f:ajax execute="observacion" render="obs"  />
+
+
                                     </p:inputTextarea>
                                     
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != null}" 
-                                                        styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Ingrese una observación<ocp:message forId="observacion" /></span>
+                                        <h:graphicImage id="obs11" value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != ''}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted"  >Ingrese una observación<ocp:message forId="observacion" /></span>                                   
                                     </h:panelGroup><br/>
                                 </p:panel>
                             </div>  

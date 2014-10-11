@@ -165,7 +165,7 @@
 
 
 
-
+<h:panelGroup id="obs" layout="block" class="clearfix">
                                     <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                      value="#{controladorRequisicion.instance.observaciones}"
                                                      required="true" label="observación" 
@@ -174,7 +174,7 @@
 
 
                                     </p:inputTextarea>
-                                    <h:panelGroup id="obs" layout="block" class="clearfix">
+                                    
                                         <h:graphicImage id="obs11" value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.observaciones != ''}" styleClass="validation-status" />
                                         <span class="help-inline text-muted"  >Ingrese una observación<ocp:message forId="observacion1" /></span>                                   
                                     </h:panelGroup>
