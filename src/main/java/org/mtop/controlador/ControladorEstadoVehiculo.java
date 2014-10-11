@@ -116,7 +116,7 @@ public class ControladorEstadoVehiculo extends BussinesEntityHome<EstadoVehiculo
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaEstadoVehiculo = servgen.buscarTodos(EstadoVehiculo.class);
+        listaEstadoVehiculo = findAll(EstadoVehiculo.class);
 //        List<EstadoVehiculo> le= servgen.buscarTodos(EstadoVehiculo.class);
 //        listaEstadoVehiculo.clear();
 ////

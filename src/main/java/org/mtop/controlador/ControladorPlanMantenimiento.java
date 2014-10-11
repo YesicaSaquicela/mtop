@@ -591,7 +591,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaPlanMantenimiento = servgen.buscarTodos(PlanMantenimiento.class);
+        listaPlanMantenimiento = findAll(PlanMantenimiento.class);
         listaPlanM2 = listaPlanMantenimiento;
         cv.setEntityManager(em);
 

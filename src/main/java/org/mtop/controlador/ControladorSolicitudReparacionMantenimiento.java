@@ -797,7 +797,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
 
-        List<Requisicion> lr = servgen.buscarTodos(Requisicion.class);
+        List<Requisicion> lr = findAll(Requisicion.class);
         listaRequisiciones.clear();
         //for para presentar lsita de solicitudes sin requisicion
         for (Requisicion req : lr) {

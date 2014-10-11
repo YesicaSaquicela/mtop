@@ -184,7 +184,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
       
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC = findAll(PartidaContabilidad.class);
         listaPartidaC2 = listaPartidaC;
         System.out.println("liata en init>>>>>>>>" + listaPartidaC);
      

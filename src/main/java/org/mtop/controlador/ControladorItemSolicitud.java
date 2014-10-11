@@ -94,7 +94,7 @@ public class ControladorItemSolicitud extends BussinesEntityHome<ItemSolicitudRe
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        listaItemsSolicitud = servgen.buscarTodos(ItemSolicitudReparacion.class);
+        listaItemsSolicitud = findAll(ItemSolicitudReparacion.class);
 
     }
 
