@@ -27,8 +27,8 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="1" y="0" width="554" height="128" uuid="2bd52e9f-f0ea-4990-8266-ed38bd859413"/>
-				<imageExpression><![CDATA["/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/lusuario.jpg"]]></imageExpression>
+				<reportElement x="1" y="0" width="551" height="128" uuid="c809a3a9-dd83-40fc-b24a-3535c93e42a0"/>
+				<imageExpression><![CDATA["/home/carlis/lusuario.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

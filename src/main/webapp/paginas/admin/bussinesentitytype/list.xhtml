@@ -147,7 +147,7 @@ limitations under the License.
 
         </h:form>
 
-        <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+        <p:dialog id="alerts-dialog" header="Confirmación" widgetVar="alertDlg" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog1">
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="Esta entidad tiene propiedades."/>
@@ -155,8 +155,9 @@ limitations under the License.
                     <h:outputText value="Para poder desactivar la entidad primero desactive sus propiedades."/>  
                 </h:panelGroup>  
                 <center>
-                    <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="Regresar" type="button" onclick="alertDlg.hide();"                                           
-                                     styleClass="ui-confirmdialog-yes" />  
+                    <h:commandLink value="Regresar" type="button" onclick="alertDlg.hide();" class="btn btn-success"  style="width:20%" 
+                                   />
+                   
                 </center>
             </h:form>
         </p:dialog>

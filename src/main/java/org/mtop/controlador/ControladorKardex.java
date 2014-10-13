@@ -429,7 +429,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
     }
 
     public void buscar() {
-
+//busca numero Kardex ,motor,chasis ,placA
         List<Kardex> le = new ArrayList<Kardex>();
         le.clear();
         palabrab = palabrab.trim();
@@ -445,6 +445,9 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         List<Kardex> lk = new ArrayList<Kardex>();
         for (Kardex kd : listakardex2) {
             if (kd.getNumero().toLowerCase().contains(palabrab.toLowerCase())) {
+                lk.add(kd);
+            }
+               if (kd.getVehiculo().getPlaca().toLowerCase().contains(palabrab.toLowerCase()) && !lk.contains(kd)) {
                 lk.add(kd);
             }
             cv.setId(kd.getVehiculo().getId());

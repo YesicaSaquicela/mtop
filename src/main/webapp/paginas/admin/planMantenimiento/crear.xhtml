@@ -74,8 +74,8 @@
 
                             <h:panelGroup id="km">
                                 <h:outputLabel value="Kilometraje*"/> <br></br> 
-                                <p:selectOneMenu  maxlength="50" required="true" label="kilometraje" 
-                                                  requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"  
+                                <p:selectOneMenu  maxlength="50" required="true" label="kilometraje" style="width:100%"
+                                                  requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"     
                                                   value="#{controladorPlanMantenimiento.actividadPlanM.kilometraje}" effect="fade" >  
 
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
@@ -107,7 +107,8 @@
                                 </p:column>
 
                                 <p:column headerText="Kilometraje">
-                                    <h:outputText value="#{la.kilometraje}"></h:outputText>
+                                    <h:outputText value="#{la.kilometraje} km"  ></h:outputText>
+                                      
                                 </p:column>
                                 <p:column headerText="Editar" style="width: 3%"> 
                                     <center>
@@ -122,13 +123,15 @@
                                     <center>
 
                                         <p:commandButton immediate="true" process="@this" id="dardebaja" icon="ui-icon-trash" styleClass="btn  btn-success"
-                                                         action="#{controladorPlanMantenimiento.darDeBaja(car)}" 
+                                                         action="#{controladorPlanMantenimiento.darDeBaja(la)}" 
                                                          title="Dar de baja" update=":form:listaa">
                                             <p:confirm header="Confirmación" message="¿Desea realmente dar de baja la actividad seleccionada?" icon="ui-icon-alert" />
                                         </p:commandButton></center>
                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                       <center>
                                         <p:commandButton value="Sí" ajax="false" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                                         <p:commandButton value="No" type="button" onclick="confirmation.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                   </center>
                                     </p:confirmDialog>
                                 </p:column>
                             </p:dataTable><br></br>

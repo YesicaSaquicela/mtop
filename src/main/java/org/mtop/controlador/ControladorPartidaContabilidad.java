@@ -273,7 +273,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         getInstance().setLastUpdate(now);
         getInstance().setEstado(false);
         servgen.actualizar(getInstance());
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se inactivo exitosamente:  ");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se desactivo exitosamente ");
         FacesContext.getCurrentInstance().addMessage("", msg);
         listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
         listaPartidaC2 = listaPartidaC;

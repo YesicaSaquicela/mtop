@@ -30,7 +30,7 @@
                                 <h:panelGrid id="export" class="columns" title="Generar reporte">
                                     <p:panel>
                                         
-                                        <h:commandLink action="#{reporteListas.renderProfile()}" styleClass="btn"
+                                        <h:commandLink action="#{reporteListas.renderUsuario(profileHome.listausuarios)}" styleClass="btn"
                                                        target="_blank">                    
                                             <p:graphicImage value="/resources/pdf.png" width="50" height="40 "/>                          
                                             <f:setPropertyActionListener target="#{reporteListas.estado}" value="#{profileListService.estado eq 'inactivo'? true: false}" />

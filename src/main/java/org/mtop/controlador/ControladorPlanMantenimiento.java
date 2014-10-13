@@ -490,20 +490,20 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     }
 
     public void darDeBaja(ActividadPlanMantenimiento act) {
+        List<ActividadPlanMantenimiento> lact=new ArrayList<ActividadPlanMantenimiento>();
         System.out.println("lista actividades antes");
         for (ActividadPlanMantenimiento ac : listaActividades) {
+            System.out.println("kilometraje k llega"+act.getKilometraje());
+            System.out.println("kilometraje a compRARA"+ac.getKilometraje());
+            if(!act.getKilometraje().equals(ac.getKilometraje())){
+                lact.add(ac);
+                System.out.println("enro>>>>>");
+            }
             System.out.println("kilo" + ac.getKilometraje());
             System.out.println("act" + ac.getActividad());
         }
-        listaActividades.remove(act);
-        System.out.println("lista actividades despues");
-        for (ActividadPlanMantenimiento ac : listaActividades) {
-            System.out.println("kilo" + ac.getKilometraje());
-            System.out.println("act" + ac.getActividad());
-        }
-//        for (ActividadPlanMantenimiento ac : listaActividades) {
-//            listaActividades2.add(ac);
-//        }
+        listaActividades=lact;
+
     }
 
     public Long getPlanMantenimientoId() {

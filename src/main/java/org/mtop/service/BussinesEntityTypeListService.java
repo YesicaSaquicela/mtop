@@ -182,6 +182,9 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
             if (bet.getName().toLowerCase().contains(query.toLowerCase())) {
                 ced.add(bet.getName());
             }
+             if (bet.getLabel().toLowerCase().contains(query.toLowerCase()) && !ced.contains(bet.getLabel())) {
+                ced.add(bet.getLabel());
+            }
 
         }
         System.out.println("listaaaaa autocompletar" + ced);
@@ -201,6 +204,10 @@ public class BussinesEntityTypeListService extends LazyDataModel<BussinesEntityT
         for (BussinesEntityType bussinesEntityType : listaEntiidades) {
 
             if (bussinesEntityType.getName().toLowerCase().contains(palabrab.toLowerCase())) {
+                le.add(bussinesEntityType);
+            }
+            
+             if (bussinesEntityType.getLabel().toLowerCase().contains(palabrab.toLowerCase()) && !le.contains(bussinesEntityType)) {
                 le.add(bussinesEntityType);
             }
         }

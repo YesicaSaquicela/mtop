@@ -567,7 +567,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
                     boolean mensaje = s.removeProperty(getInstance());
                     delete(getInstance());
                     save(s);
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se desactivo exitosamente:  " + getInstance().getName(), ""));
                     RequestContext.getCurrentInstance().execute("deletedDlg.hide()"); //cerrar el popup si se grabo correctamente
                     //  outcome = "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
 

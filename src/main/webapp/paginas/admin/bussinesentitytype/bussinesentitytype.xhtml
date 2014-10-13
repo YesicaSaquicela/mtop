@@ -414,43 +414,11 @@ limitations under the License.
 
 
         </h:form>
-        <p:dialog id="cancel-dialog" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
-            <h:form id="form-dialog-confirm-delete">
-                <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
-                </h:panelGroup>  
-                <center>
-                <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"  
-                                 action="#{bussinesEntityTypeHome.deleteBussinesEntityType()}"                                          
-                                 ajax="true" process="@this"  
-                                 style="margin-top:10px;">  
-                </p:commandButton>  
-                <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                 style="margin-top:10px;"/>  </center>
-            </h:form>
-        </p:dialog> 
-
-
-
-        <p:dialog id="cancel-dialog1" header="#{messages['common.delete.confirm']}" widgetVar="deletedDlg" resizable="false" modal="true">  
-            <h:form id="form-dialog-confirm-delete1">
-                <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="#{messages['common.delete.confirm.message']}"/>  
-                </h:panelGroup>  
-                <center>
-                <p:commandButton value="#{messages['common.yes']}" oncomplete="deletedDlg.hide();"                                           
-                                 action="#{propertyHome.deleteProperty()}"                                          
-                                 ajax="true" process="@this"  
-                                 style="margin-top:10px;">  
-                </p:commandButton>  
-                <p:commandButton value="#{messages['common.no']}" type="button" onclick="deletedDlg.hide();"  
-                                 style="margin-top:10px;"/>  </center>
-            </h:form>
-        </p:dialog>
-        <p:dialog id="alerts-dialog" header="#{messages['common.alert']}" widgetVar="alertDlg" resizable="false" modal="true">  
+       
+        <p:dialog id="alerts-dialog" header="Confirmación" widgetVar="alertDlg" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog">
                 <h:panelGroup layout="block" style="padding:5px;">  
-                    <h:outputText value="No se puede eliminar la propiedad ya que está creada como entidad"/> 
+                    <h:outputText value="No se puede desactivar la propiedad ya que está creada como entidad"/> 
                     <br/>
                     <h:outputText value="o tiene un objeto creado con esta propiedad"/> 
                 </h:panelGroup>  
@@ -461,12 +429,12 @@ limitations under the License.
                 </center>
             </h:form>
         </p:dialog>
-        <p:dialog id="alerts-dialog1" header="#{messages['common.alert']}" widgetVar="alertDlg1" resizable="false" modal="true">  
+        <p:dialog id="alerts-dialog1" header="Confirmación" widgetVar="alertDlg1" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog1">
                 <h:panelGroup layout="block" style="padding:5px;">  
                     <h:outputText value="Solamente se pueden crear como entidad a las propiedades tipo Estructura "/>
                     <br/>
-                    <h:outputText value="O esta propiedad ya a sido creada como Entidad "/>  
+                    <h:outputText value="O esta propiedad ya ha sido creada como Entidad "/>  
                 </h:panelGroup>    
                 <center>
                 <h:commandLink value="Regresar" type="button" onclick="alertDlg1.hide();" 

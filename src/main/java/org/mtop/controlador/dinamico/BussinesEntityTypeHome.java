@@ -251,12 +251,12 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         if (le.isEmpty()) {
            
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:", " Ingrese algun valor a buscar");
+               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
                 listaPropiedades=le;
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION:No se ha encontrado", palabrab);
+                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:No se ha encontrado", palabrab);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -412,12 +412,12 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
             if (getInstance().isPersistent()) {
                 delete(getInstance());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se borró exitosamente:  " + getInstance().getName(), ""));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se desactivo exitosamente:  " + getInstance().getName(), ""));
                 //RequestContext.getCurrentInstance().execute("editDlg.hide()"); //cerrar el popup si se grabo correctamente
 
             } else {
                 //remover de la lista, si aún no esta persistido
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se puede borrar este tipo de entidad de negocio", ""));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se puede desactivarse este tipo de entidad de negocio", ""));
             }
 
         } catch (Exception e) {

@@ -128,16 +128,6 @@ public class ReporteListas {
     }
 
   
-//    public ResultadoExamenLabClinico getResultadoExamen() {
-//        return resultadoExamen;
-//    }
-//
-//    public void setResultadoExamen(ResultadoExamenLabClinico resultadoExamen) {
-//        this.resultadoExamen = resultadoExamen;
-//    }
-//    
-//    
-    
     
     @PostConstruct
     public void init() {
@@ -160,84 +150,13 @@ public class ReporteListas {
         return context.getRealPath(path);
     }
 
-    /**
-     * public void render() { if (log.isDebugEnabled()) { log.debug("export as
-     * pdf"); } final String mimeType = "application/pdf"; final String
-     * attachFileName = "usuarios.pdf"; final String reportTemplate =
-     * "/reportes/Reporte.jasper";
-     *
-     * if (log.isDebugEnabled()) { log.debug("mimeType@" + mimeType);
-     * log.debug("attachFileName@" + attachFileName); }
-     *
-     * ExternalContext externalContext = facesContext.getExternalContext();
-     *
-     * externalContext.setResponseContentType(mimeType);
-     * externalContext.addResponseHeader("Content-Disposition",
-     * "attachment;filename=" + attachFileName + "");
-     *
-     * InputStream sourceTemplate = resourceProvider
-     * .loadResourceStream(reportTemplate); String pathTemplate =
-     * getRealPath(reportTemplate);
-     *
-     * Map<String, Object> _values = new HashMap<String, Object>();
-     * _values.put("contacts", profileListService); _values.put("usd", "$");
-     *
-     * String stringReport = new VelocityTemplate(sourceTemplate,
-     * velocityContext).merge(_values);
-     *
-     * if (log.isDebugEnabled()) { log.debug("report source file content@" +
-     * stringReport); } // source ReportDefinition report; try { report =
-     * compiler.compile(new ByteArrayInputStream(stringReport
-     * .getBytes("UTF-8"))); //JasperPrint reporte =
-     * JasperFillManager.fillReport(sourceTemplate, _values, new
-     * JREmptyDataSource()); Report reportInstance = report.fill(new
-     * JREmptyDataSource(), null);
-     *
-     * pdfRenderer.render(reportInstance,
-     * externalContext.getResponseOutputStream());
-     * //JasperExportManager.exportReportToPdf(reporte); } catch
-     * (ReportException e) { e.printStackTrace(); } catch
-     * (UnsupportedEncodingException e) { e.printStackTrace(); } catch
-     * (IOException e) { e.printStackTrace(); }
-     *
-     * facesContext.responseComplete();
-     *
-     * }
-     *
-     * public void render1() { if (log.isDebugEnabled()) { log.debug("export as
-     * pdf without apache velocity"); } final String mimeType =
-     * "application/pdf"; final String attachFileName = "usuarios.pdf"; final
-     * String reportTemplate = "/reportes/Reporte.jrxml";
-     *
-     * if (log.isDebugEnabled()) { log.debug("mimeType@" + mimeType);
-     * log.debug("attachFileName@" + attachFileName); }
-     *
-     * ExternalContext externalContext = facesContext.getExternalContext();
-     *
-     * externalContext.setResponseContentType(mimeType);
-     * externalContext.addResponseHeader("Content-Disposition",
-     * "attachment;filename=" + attachFileName + "");
-     *
-     * InputStream sourceTemplate = resourceProvider
-     * .loadResourceStream(reportTemplate);
-     *
-     * // source ReportDefinition report; try { report =
-     * compiler.compile(sourceTemplate); Report reportInstance = report.fill(new
-     * JRBeanCollectionDataSource( profileListService.getResultList()), null);
-     *
-     * pdfRenderer.render(reportInstance,
-     * externalContext.getResponseOutputStream()); } catch (ReportException e) {
-     * e.printStackTrace(); } catch (UnsupportedEncodingException e) {
-     * e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); }
-     *
-     * facesContext.responseComplete(); }
-     *
-     *
-     */
-    public void renderProfile() {
+  
+
+    
+      public void renderUsuario(List<Profile> pf) {
 
         final String attachFileName = "usuarios.pdf";
-        List<Profile> p = profileService.findAllA(estado);
+        
         Map<String, Object> _values = new HashMap<String, Object>();
 //        _values.put("numeroP", p.size());
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -246,13 +165,12 @@ public class ReporteListas {
 //        _values.put("usuarioResponsable", pLoggeado.getFullName());
 //        _values.put("usd", "$");
         //Exportar a pdf 
-        JasperReportAction.exportToPdf(REPORTE_USUARIOS, p, _values, attachFileName);
+        JasperReportAction.exportToPdf(REPORTE_USUARIOS, pf, _values, attachFileName);
 
         if (log.isDebugEnabled()) {
             log.debug("export as pdf");
         }
     }
-
     public void renderProducto(List<Producto> pd) {
 
         final String attachFileName = "productos.pdf";
@@ -309,218 +227,6 @@ public class ReporteListas {
         }
     }
     
-//    public void renderPedido() {
-//
-//        final String attachFileName = "pacientes.pdf";
-//        List<Vehiculo> pacientes = servgen.buscarTodos(Vehiculo.class);
-////        if (parametroBusqued != null) {
-////            pacientes = pacienteServicio.getPacientesPorParametros(parametroBusqued);
-////        }
-//        //parametros 
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numeroPacientes", pacientes.size());
-//        //_values.put("numeroPacientes", pacientes.size());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        System.out.println("context"+context.getServerInfo());
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//        _values.put("logo", logo);
-//        _values.put("usd", "$");
-//
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_PACIENTES, pacientes, _values, attachFileName);
-//
-//        if (log.isDebugEnabled()) {
-//            log.debug("export as pdf");
-//        }
-//    }
-
-//    public void renderFichasMedicas() {
-//
-//        final String attachFileName = "fichasMedicas.pdf";
-//        List<FichaMedica> fichaMed = fichaMedicaServicio.getFichasMedicas();
-//        if (fechaInf != null && fechaSup != null) {
-//            fichaMed = fichaMedicaServicio.getFichaMedicaPorFechas(fechaInf, fechaSup);
-//        }
-//        //parametros 
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numero", fichaMed.size());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        _values.put("logo", logo);
-//        _values.put("fechaDesde", FechasUtil.getFecha(fechaInf));
-//        _values.put("fechaHasta", FechasUtil.getFecha(fechaSup));
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_FICHASMEDICAS, fichaMed, _values, attachFileName);
-//    }
-//
-//    public void renderConsultasMedicas() {
-//        final String attachFileName = "consultasMedicas.pdf";
-//        List<ConsultaMedica> consulMed = consultaMedicaServicio.getConsulasMedicas();
-//        if (fechaInf != null && fechaSup != null) {
-//            System.out.println("INGRESO A BUSCAR POR FECHAS ");
-//            consulMed = consultaMedicaServicio.buscarPorRangoFechas(fechaInf, fechaSup);
-//        }
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numero", consulMed.size());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//        _values.put("logo", logo);
-//        _values.put("fechaDesde", fechaInf);
-//        _values.put("fechaHasta", fechaSup);
-//        //_values.put("usd", "$");
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_CONSULTASMEDICAS, consulMed, _values, attachFileName);
-//    }
-//
-//    public void renderConsultasOdont() {
-//        final String attachFileName = "consultasOdontológicas.pdf";
-//        List<ConsultaOdontologica> consulOdont = consultaOdontologicaServicio.TodasConsulasOdontologica();
-//        if (fechaInf != null && fechaSup != null) {
-//            consulOdont = consultaOdontologicaServicio.buscarPorFechas(fechaInf, fechaSup);
-//        }
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numero", consulOdont.size());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        _values.put("logo", logo);
-//        _values.put("fechaDesde", fechaInf);
-//        _values.put("fechaHasta", fechaSup);
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//        //_values.put("usd", "$");
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_CONSULTAS_ODONT, consulOdont, _values, attachFileName);
-//    }
-//
-//    public void renderMedicamentos() {
-//
-//        try {
-//            final String attachFileName = "medicamentos.pdf";
-//            List<Medicamento> medicamentos = medService.buscarTodos();
-//            //parametros 
-//            Map<String, Object> _values = new HashMap<String, Object>();
-//            _values.put("nMedicamentos", medicamentos.size());
-//            ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//            String logo = context.getRealPath("/reportes/unl.png");
-//            _values.put("usuarioResponsable", pLoggeado.getFullName());
-//            _values.put("logo", logo);
-//            _values.put("usd", "$");
-//            //Exportar a pdf 
-//            JasperReportAction.exportToPdf(REPORTE_MEDICAMENTOS, medicamentos, _values, attachFileName);
-//        } catch (Exception e) {
-////            System.out.println("Error:____________________________________");
-////            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public void renderExamenes() {
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        final String attachFileName = "examenesLaboratorio.pdf";
-//        List<ExamenLabClinico> examenes = examenesService.getExamenesLab();
-//        //parametros 
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numero", examenes.size());
-//        _values.put("logo", logo);
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//        _values.put("usd", "$");
-//
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_EXAMENES, examenes, _values, attachFileName);
-//    }
-//
-//    public void renderRecetas() {
-//        final String attachFileName = "recetas.pdf";
-//        List<Receta> receta = recetaServicio.getRecetas();
-//        if (fechaInf != null && fechaSup != null) {
-//            receta = recetaServicio.buscarRecetaPorFechas(fechaInf, fechaSup);
-//        }
-//
-//        //parametros 
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numero", receta.size());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        _values.put("logo", logo);
-//        _values.put("fechaDesde", fechaInf);
-//        _values.put("fechaHasta", fechaSup);
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_RECETAS, receta, _values, attachFileName);
-//    }
-//
-//    public void renderPedido() {
-//        final String attachFileName = "pedidoExamen.pdf";
-//
-//        List<ExamenLabClinico> examenes = new ArrayList<ExamenLabClinico>();
-//        List<ResultadoExamenLabClinico> listR = resultadoEService.getResultadosExamenPorPedidoExamen(pedido);
-//        if (!listR.isEmpty()) {
-//            for (ResultadoExamenLabClinico r : listR) {
-//                examenes.add(r.getExamenLab());
-//            }
-//        }
-//        System.out.println("examenes _______-" + examenes.toString());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        //parametros 
-//        Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("nombres", pedido.getPaciente().getNombres() + " " + pedido.getPaciente().getApellidos());
-//        _values.put("fechaE", pedido.getFechaPedido());
-//        _values.put("logo", logo);
-//        _values.put("medico", pedido.getResponsableEmision().getFullName());
-//        //_values.put("usd", "$");
-//        //Exportar a pdf 
-//        JasperReportAction.exportToPdf(REPORTE_PEDIDO, examenes, _values, attachFileName);
-//    }
-//
-//    public void renderResultadoExamen() {
-//        final String attachFileName = "resultdoExamen.pdf";
-//        //System.out.println("examenes _______-"+examenes.toString());
-//        ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-//        String logo = context.getRealPath("/reportes/unl.png");
-//        if (resultadoExamen.isPersistent()) {
-//            //List<String> categorias = Arrays.asList(resultadoExamen.getExamenLab().getCategorias().split(","));
-//
-//            Map<String, Object> _values = new HashMap<String, Object>();
-//            String nombres = resultadoExamen.getPedidoExamenLab().getPaciente().getCedula() + " " + resultadoExamen.getPedidoExamenLab().getPaciente().getNombres() + " " + resultadoExamen.getPedidoExamenLab().getPaciente().getApellidos();
-//
-//            System.out.println("RESULTADO " + resultadoExamen.toString() + " " + nombres);
-//            _values.put("nombres", nombres);
-//            _values.put("nombreExamen", resultadoExamen.getExamenLab().getName());
-//            _values.put("logo", logo);
-//            _values.put("medico", ("Dr. " + resultadoExamen.getResponsableEntrega().getFullName()));
-//            _values.put("usd", "$");
-//            /*if (categorias.isEmpty()) {
-//             _values.put("cat1", "");
-//             _values.put("cat2", "");
-//             _values.put("cat3", "");
-//             } else if (categorias.size() == 1) {
-//             _values.put("cat1", categorias.get(0));            
-//             } else if (categorias.size() == 2) {
-//             _values.put("cat1", categorias.get(0));
-//             _values.put("cat2", categorias.get(1));            
-//             } else if (categorias.size() == 3) {
-//             _values.put("cat1", categorias.get(0));
-//             _values.put("cat2", categorias.get(1));
-//             _values.put("cat3", categorias.get(2));
-//             }*/
-//            List<ResultadoParametro> listaP = resultadoEService.getResultadoParametros(resultadoExamen);
-//            System.out.println("RESULTADO PARAMETROS" + listaP.toString());
-//            //FALTA ORGANIZAR EL REPORT
-//            //_values.put("usd", "$");
-//            //Exportar a pdf 
-//            JasperReportAction.exportToPdf(REPORTE_RESULTADO_EXAMEN, listaP, _values, attachFileName);
-//        }
-//
-//    }
-
-    //FALTA 
-    // Examenes entregados
-    // 
         
     
     public Date getFechaInf() {
