@@ -37,6 +37,7 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.ActividadPlanMantenimiento;
+import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.PlanMantenimiento_;
 import org.mtop.modelo.Vehiculo;
@@ -74,8 +75,18 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
     private List<ActividadPlanMantenimiento> listaactividadesPlan = new ArrayList<ActividadPlanMantenimiento>();
     private List<PlanMantenimiento> listaPlanM2 = new ArrayList<PlanMantenimiento>();
     private PlanMantenimiento planMantvisualizar = new PlanMantenimiento();
+    private List<ActividadPlanMantenimiento> itemsEliminar;
     String s = "";
 
+    public List<ActividadPlanMantenimiento> getItemsEliminar() {
+        return itemsEliminar;
+    }
+
+    public void setItemsEliminar(List<ActividadPlanMantenimiento> itemsEliminar) {
+        this.itemsEliminar = itemsEliminar;
+    }
+    
+    
     public String getS() {
         return s;
     }
@@ -164,7 +175,10 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
                 String s = formato(pm.getCreatedOn());
                 System.out.println("entro al forrrrrmmm" + s);
-                if (pm.getRegistro().contains(palabrab) || s.contains(palabrab)) {
+                if (pm.getRegistro().toLowerCase().contains(palabrab.toLowerCase()) ) {
+                    lplan.add(pm.getId());
+                }
+                if(s.contains(palabrab) && !lplan.contains(pm.getId())){
                     lplan.add(pm.getId());
                 }
 
@@ -482,8 +496,13 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
 
         for (ActividadPlanMantenimiento apm : listaActividades) {
             apm.setPlanMantenimiento(getInstance());//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+             System.out.println("entro a agregar"+apm);
             cactividadpm.setInstance(apm);//fija la actividad del plan de mantenimiento al controlador de actividad de plan de mantenimiento
             cactividadpm.guardar();
+        }
+        for (ActividadPlanMantenimiento isr : itemsEliminar) {
+            System.out.println("entro a eliminar"+isr);
+            delete(isr);
         }
         getInstance().setListaActividadpm(listaActividades);//fija la lista de actividades al plan de mantenimietno
 
@@ -494,15 +513,22 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         System.out.println("lista actividades antes");
         for (ActividadPlanMantenimiento ac : listaActividades) {
             System.out.println("kilometraje k llega"+act.getKilometraje());
-            System.out.println("kilometraje a compRARA"+ac.getKilometraje());
+            System.out.println("act que llega"+act.getActividad());
+            System.out.println("kilo recorre" + ac.getKilometraje());
+            System.out.println("act recorrer" + ac.getActividad());
             if(!act.getKilometraje().equals(ac.getKilometraje())){
                 lact.add(ac);
                 System.out.println("enro>>>>>");
+            }else{
+                if(ac.isPersistent()){
+                    System.out.println("agreg[o a eliminar"+ac);
+                    itemsEliminar.add(ac);
+                }
             }
-            System.out.println("kilo" + ac.getKilometraje());
-            System.out.println("act" + ac.getActividad());
+            
         }
         listaActividades=lact;
+        getInstance().setListaActividadpm(listaActividades);
 
     }
 
@@ -611,6 +637,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         listaActividades = new ArrayList<ActividadPlanMantenimiento>();
 //        listaActividades2 = new ArrayList<ActividadPlanMantenimiento>();
         System.out.println("lista de actividades en el inirt" + listaActividades);
+        itemsEliminar=new ArrayList<ActividadPlanMantenimiento>();
 
     }
 
@@ -643,6 +670,10 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "La Lista de activiades se encuentra vacia"));
             return "";
         } else {
+            for (ActividadPlanMantenimiento planMantenimiento : listaActividades) {
+                System.out.println("en guardar kil"+planMantenimiento.getKilometraje());
+                System.out.println("en guadar act"+planMantenimiento.getActividad());
+            }
             try {
                 if (getInstance().isPersistent()) {
                     System.out.println("entro actualizar>>>>>>>>>>>>>>>>>>>>.");

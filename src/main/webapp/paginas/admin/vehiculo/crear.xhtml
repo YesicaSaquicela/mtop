@@ -193,7 +193,7 @@
                                                     value="#{controladorVehiculo.instance.peso}" required="true" 
                                                     inlinehelp="Ingrese el peso del vehículo en toneladas Ej(1.5 TON)" symbol=" TON" symbolPosition="s"  
                                                     requiredMessage="Peso requerido, necesita un valor"
-                                                    render="peso" maxValue="999" /><br></br>
+                                                    render="peso" maxValue="99" /><br></br>
 
 
                                         <h:panelGroup id="t" layout="block" class="clearfix">
@@ -240,7 +240,7 @@
                                                     <f:selectItems value="#{controladorVehiculo.tiposCombustible}" />
                                                     <f:ajax  render="tipoCombustible1"  />
                                                 </p:selectOneMenu><br/>
-                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.tipo != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.tipoCombustible != null}"
                                                                 styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Ingrese el tipo de combustible del vehículo Ej(Gasolina)<ocp:message forId="tipoCombustible" /></span>
                                             </div>
@@ -461,9 +461,8 @@
                                     </ui:repeat>
 
                                 </p:tab>
-                                <br></br><br></br>
-
-                            </p:tabView><br></br><br></br> 
+                              
+                            </p:tabView>
 
                         </div>
 

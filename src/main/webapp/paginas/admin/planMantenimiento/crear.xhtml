@@ -354,7 +354,7 @@
 
                     <div class="admin-actions " align="center"> 
                         <p:commandButton id="save"  value="Guardar" action="#{controladorPlanMantenimiento.guardar()}"  styleClass="btn  btn-success"  icon="ui-icon-disk" 
-                                         update="p1" process="@this" ajax="true"
+                                         update="p1"  immediate="true"
                                          onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()"/>
 
                     </div>

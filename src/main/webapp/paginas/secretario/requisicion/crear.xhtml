@@ -115,8 +115,8 @@
 
                                             <f:selectItem itemLabel="Requisición de Reparación" itemValue="Requisición de Reparación" />  
                                             <f:selectItem itemLabel="Requisición de Bienes y Servicios" itemValue="Requisición de Bienes y Servicios" />  
-                                            <f:ajax execute="tipoRequisicion" render="tr"/>
-
+                                            
+                                             <p:ajax event="change" update=":form:tr :form:numRequisicion" partialSubmit="true"/>
                                         </p:selectOneMenu> <br></br>
 
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.tipoRequisicion !=null}" styleClass="validation-status" />

@@ -705,7 +705,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (r.isEstado() && !lrq.contains(r.getId())) {
                 String s = r.getFechaRequisicion().toString();
 
-                if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)) {
+                if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)
+                        ||r.getVehiculo().getPlaca().toLowerCase().contains(palabrab.toLowerCase())) {
                     lrq.add(r.getId());
                 }
                 if (r.getVehiculo() != null) {
@@ -835,6 +836,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             if (requisicion.getVehiculo() != null) {
                 if (requisicion.getVehiculo().getNumRegistro().contains(query) && !ced.contains(requisicion.getVehiculo().getNumRegistro())) {
                     ced.add(requisicion.getVehiculo().getNumRegistro());
+                }
+                if (requisicion.getVehiculo().getPlaca().toLowerCase().contains(query.toLowerCase()) && !ced.contains(requisicion.getVehiculo().getPlaca())) {
+                    ced.add(requisicion.getVehiculo().getPlaca());
                 }
                 List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
                 cv.setId(requisicion.getVehiculo().getId());
@@ -1086,12 +1090,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             int t;
             if (!getInstance().getTipoRequisicion().equals("")) {
                 if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
-
+        
+                    System.out.println("lr en tipo bienes y servicios \n\n\n" + lr.size()); 
+                    System.out.println("Integer.parseInt(valorInicialBien"+Integer.parseInt(valorInicialBien));
                     // List<Requisicion> lr=servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Bienes y Servicios");
                     t = lr.size() + Integer.parseInt(valorInicialBien);
                 
                 } else {
                     lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Reparación");
+                    System.out.println("lr  en tipo reparacion\n\n\n" + lr.size()); 
+                    System.out.println("Integer.parseInt(valorInicialReparacion) "+Integer.parseInt(valorInicialReparacion));
                     t = lr.size() + Integer.parseInt(valorInicialReparacion);
                 }
             } else {
