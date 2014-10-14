@@ -196,7 +196,7 @@ public class ReporteListas {
         Map<String, Object> _values = new HashMap<String, Object>();
 //        _values.put("numeroP", p.size());
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String logo = context.getRealPath("/reportes/unl.png");
+//        String logo = context.getRealPath("/reportes/unl.png");
 //        _values.put("logo", logo);
 //        _values.put("usuarioResponsable", pLoggeado.getFullName());
 //        _values.put("usd", "$");

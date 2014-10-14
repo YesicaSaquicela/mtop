@@ -934,7 +934,6 @@ public class GeneradorPdf {
                         }
                         document.add(table1);
                         document.newPage();
-                        document.setPageCount(1);
                     }else{
 //                        parrafo = new Paragraph(
 //                                " \n \n \n  No existe registro del tipo "+s+" y mes seleccionado "+mesSeleccionado); 
@@ -1104,9 +1103,9 @@ public class GeneradorPdf {
 //                }
 //                document.newPage();
 //            }
-            System.out.println("pagina"+document.getPageNumber());
+            System.out.println("pagina"+writer.getPageNumber());
             
-            if(document.getPageNumber()==0){
+            if(writer.getPageNumber()==1){
                  parrafo = new Paragraph(
                                 " \n \n \n  No existe registro del tipo  y mes seleccionado "); 
 

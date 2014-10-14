@@ -206,9 +206,9 @@
 
 
                         <p:button id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                  outcome="verestadoMecanico" value="Ver Estado Mecánico"
-                                  title="Visualizar" onclick="ajaxStatusDialog.show()" escape="ajaxStatusDialog.hide()">  
-                            <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                  outcome="verestadoMecanico" value="Ver Estado Mecánico" target="_blank" 
+                                  title="Visualizar" onclick="ajaxStatusDialog.show()" >  
+                            <p:ajax event="click" oncomplete="ajaxStatusDialog.hide()" partialSubmit="true" update="@this"/>
                             <f:param name="vehiculoId" value="#{controladorVehiculo.instance.id}"></f:param>
                             <f:param name="evaluacion" value="#{controladorVehiculo.obtenerEvaluacion()}"></f:param>
                             
@@ -216,7 +216,7 @@
                        
   
                      
-                        <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
+                        <p:dialog modal="true"  widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..." resizable="false"  draggable="false" closable="false" > 
                             
                             <p:graphicImage value="/resources/ajax-loader.gif" /> 
                         </p:dialog>
