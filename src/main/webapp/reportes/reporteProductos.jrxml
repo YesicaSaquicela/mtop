@@ -25,7 +25,7 @@
 		<band height="128">
 			<image>
 				<reportElement x="4" y="0" width="552" height="128" uuid="51f76e0a-8641-4c51-87bd-f17eaa71a80c"/>
-				<imageExpression><![CDATA["/home/carlis/lproductos.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/home/yesica/lproductos.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
