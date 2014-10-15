@@ -54,7 +54,7 @@ public class ValidarNomPropiedad implements Validator {
             System.out.println("entro>> validador"+propiedad.getName());
             if (!ph.nombreUnico((String) value)) {
                 System.out.println("entroa presentar mensjae");
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El nombre de la propiedad no esta disponible. ¡Pertenece a otra propiedad! ", " ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El nombre de la propiedad no está disponible. ¡Pertenece a otra propiedad! ", " ");
 
                 throw new ValidatorException(msg);
             }

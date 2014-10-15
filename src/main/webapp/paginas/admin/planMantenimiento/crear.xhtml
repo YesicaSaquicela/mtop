@@ -102,11 +102,11 @@
 
                             <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.listaActividades}" var="la">
 
-                                <p:column headerText="Actividad">
+                                <p:column headerText="Actividad" sortBy="#{la.actividad}">
                                     <h:outputText style="width: 70%" value="#{la.actividad}"></h:outputText>
                                 </p:column>
 
-                                <p:column headerText="Kilometraje">
+                                <p:column headerText="Kilometraje" sortBy="#{la.kilometraje}">
                                     <h:outputText value="#{la.kilometraje} km"  ></h:outputText>
                                       
                                 </p:column>

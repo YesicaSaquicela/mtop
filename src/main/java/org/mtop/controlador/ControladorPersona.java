@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -145,10 +146,10 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         ArrayList<String> ced = new ArrayList<String>();
 
         for (Profile p : listaPersona1) {
-            if (p.getFullName().contains(query)) {
+            if (p.getFullName().toLowerCase(Locale.FRENCH).contains(query.toLowerCase())) {
                 ced.add(p.getFullName());
             }
-            if (p.getTipo().contains(query) && !ced.contains(p.getTipo())) {
+            if (p.getTipo().toLowerCase().contains(query.toLowerCase()) && !ced.contains(p.getTipo())) {
                 ced.add(p.getTipo());
             }
             System.out.println("p.getcode"+p.getCode());

@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM profile;]]>
 	</queryString>
@@ -27,8 +28,8 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="1" y="0" width="551" height="128" uuid="c809a3a9-dd83-40fc-b24a-3535c93e42a0"/>
-				<imageExpression><![CDATA["/home/yesica/lusuario.jpg"]]></imageExpression>
+				<reportElement x="40" y="0" width="515" height="128" uuid="11469553-db49-4840-b649-d039c8767908"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>

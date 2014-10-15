@@ -543,7 +543,7 @@ public class InitializeDatabase {
             attributes.add(buildPropertyParteMecanica("Transmision", "embrague", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Embrague", "Ingrese valor para embrague", false, 1L, 100));
             attributes.add(buildPropertyParteMecanica("Transmision", "cajaCambios", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de Cambios", " Ingrese valor para caja de cambios", false, 2L, 100));
             attributes.add(buildPropertyParteMecanica("Transmision", "diferenciales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Diferenciales", "Ingrese valor para diferenciales", false, 3L, 100));
-
+            //como ejemplo agregar marca, tipo, traccion embrague
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -579,7 +579,7 @@ public class InitializeDatabase {
             attributes.add(buildPropertyParteMecanica("Suspension", "muelles-amortiguador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Muelles-amortiguador", "Ingrese valor para muelles-amortiguador", false, 1L, 80));
             attributes.add(buildPropertyParteMecanica("Suspension", "ejeDelantero", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje delantero", " Ingrese valor para eje delantero", false, 2L, 100));
             attributes.add(buildPropertyParteMecanica("Suspension", "ejePosterior", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje posterior", "Ingrese valor para eje posterior", false, 3L, 100));
-
+            // agregar eje delantero eje posterior
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -616,7 +616,7 @@ public class InitializeDatabase {
             attributes.add(buildPropertyParteMecanica("Direccion", "articulacionesTerminales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Articulaciones y terminales", " Ingrese valor para articulaciones y terminales", false, 2L, 100));
             attributes.add(buildPropertyParteMecanica("Direccion", "pinesBocines", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Pines bocines y rótulas", "Ingrese valor para pines bocines y rótulas", false, 3L, 100));
             attributes.add(buildPropertyParteMecanica("Direccion", "bombaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Bomba de la dirección", "Ingrese valor para bomba de la dirección", false, 4L, 100));
-
+            // falta tipo y radio no parte mecanica 
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -652,7 +652,7 @@ public class InitializeDatabase {
             attributes.add(buildPropertyParteMecanica("Frenos", "cilindroPrincipal", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindro principal", "Ingrese valor para cilindro principal", false, 1L, 100));
             attributes.add(buildPropertyParteMecanica("Frenos", "cilindroSecundario", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Cilindros secundarios", " Ingrese valor para cilindros secundarios", false, 2L, 100));
             attributes.add(buildPropertyParteMecanica("Frenos", "forros", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forros de freno", "Ingrese valor para forros de freno", false, 3L, 80));
-
+            //falta agregar tipo, delantero y posterior
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 cesar.
+ * Copyright 2014 yesica.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ import org.mtop.util.UI;
 
 /**
  *
- * @author cesar
+ * @author yesica
+ * @author carla
  */
 @RequestScoped
 @FacesValidator("ciAvailabilityValidator")
@@ -63,7 +64,7 @@ public class CIAvailabilityValidator implements Validator {
 
                 if (value instanceof String) {
                     ps.setEntityManager(em);
-                    System.out.println("dni ingresada diferente al valor en la base de datos: ");
+                    System.out.println("Número de cédula ingresada es diferente al valor en la base de datos: ");
 
                     if (!ps.isDniAviable((String) value)) {
                         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, UI.getMessages("validator.dni"), null));

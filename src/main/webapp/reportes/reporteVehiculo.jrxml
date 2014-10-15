@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="94365385-e087-4dcf-ac9d-3ce1a3554f93">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<style name="style1">
+		<conditionalStyle>
+			<style/>
+		</conditionalStyle>
+	</style>
+	<parameter name="logo" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM vehiculo;]]>
 	</queryString>
@@ -22,10 +28,10 @@
 		<band/>
 	</background>
 	<title>
-		<band height="128">
+		<band height="129">
 			<image>
-				<reportElement x="0" y="0" width="552" height="128" uuid="872bc59a-d932-4a14-81b3-674288921c64"/>
-				<imageExpression><![CDATA["/home/yesica/lvehiculos.jpg"]]></imageExpression>
+				<reportElement x="37" y="0" width="519" height="128" uuid="f57aede4-3f49-4272-9cb7-b070b1f9609c"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -33,32 +39,32 @@
 		<band/>
 	</pageHeader>
 	<columnHeader>
-		<band height="34">
+		<band height="40">
 			<staticText>
 				<reportElement mode="Opaque" x="270" y="0" width="157" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="52933b18-e69e-4e59-a0f5-e95850d89eef"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MARCA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="1" y="0" width="124" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="30d18ccb-2772-457a-b28c-11fa62a78f2c"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NÚMERO DE REGISTRO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="125" y="0" width="145" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="f3c0dd3b-1ef0-4576-a602-d8602158d40c"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[COLOR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="427" y="0" width="128" height="34" forecolor="#FFFFFF" backcolor="#206B86" uuid="afbf144b-474e-42d0-8729-f2fae162e2b9"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PLACA]]></text>
 			</staticText>

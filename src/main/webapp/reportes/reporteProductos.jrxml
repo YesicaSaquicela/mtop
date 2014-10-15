@@ -3,6 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{logo}]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM producto;]]>
 	</queryString>
@@ -24,8 +27,8 @@
 	<title>
 		<band height="128">
 			<image>
-				<reportElement x="4" y="0" width="552" height="128" uuid="51f76e0a-8641-4c51-87bd-f17eaa71a80c"/>
-				<imageExpression><![CDATA["/home/yesica/lproductos.jpg"]]></imageExpression>
+				<reportElement x="38" y="0" width="517" height="128" uuid="48f42722-820f-44b2-a0e2-34da95e506d1"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>

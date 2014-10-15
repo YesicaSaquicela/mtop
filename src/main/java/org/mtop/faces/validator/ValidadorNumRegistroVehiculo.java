@@ -64,7 +64,7 @@ public class ValidadorNumRegistroVehiculo implements Validator {
                 cv.setEntityManager(em);
                 System.out.println("entro>> validador");
                 if (!cv.numRegistroUnico((String) value)) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El número de registro ingresado no esta disponible. ¡Pertenece a otro vehículo! ", " ");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El número de registro ingresado no está disponible. ¡Pertenece a otro vehículo! ", " ");
 
                     throw new ValidatorException(msg);
                 }
