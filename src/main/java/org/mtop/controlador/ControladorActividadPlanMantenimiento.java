@@ -18,14 +18,10 @@ package org.mtop.controlador;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
-import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -35,11 +31,9 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
-import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.dinamico.Property;
 import org.mtop.modelo.ActividadPlanMantenimiento;
-import org.mtop.modelo.Vehiculo;
 import org.mtop.servicios.ServicioGenerico;
 
 /**

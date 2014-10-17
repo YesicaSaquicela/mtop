@@ -36,9 +36,6 @@ import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.Producto;
-import org.mtop.modelo.Producto_;
-import org.mtop.modelo.Requisicion;
-import org.mtop.modelo.dinamico.PersistentObject_;
 import org.mtop.servicios.ServicioGenerico;
 
 /**

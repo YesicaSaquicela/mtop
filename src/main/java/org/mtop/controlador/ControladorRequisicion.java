@@ -15,7 +15,6 @@
  */
 package org.mtop.controlador;
 
-import com.sun.imageio.plugins.jpeg.JPEG;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +29,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import javax.persistence.EntityManager;
-import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
@@ -51,13 +49,9 @@ import javax.inject.Named;
 import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.Producto;
-import org.mtop.modelo.Producto_;
 import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
-import org.mtop.modelo.SolicitudReparacionMantenimiento_;
-import org.mtop.modelo.Vehiculo_;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
-import org.mtop.modelo.dinamico.PersistentObject_;
 
 import org.mtop.modelo.profile.Profile;
 //import javax.faces.context.FacesContext;

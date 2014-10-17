@@ -6,13 +6,9 @@
 package org.mtop.modelo;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -68,13 +64,6 @@ public class EstadoVehiculo extends BussinesEntity implements Serializable {
         this.ubicacion = ubicacion;
     }
 
-//    public Vehiculo getVehiculo() {
-//        return vehiculo;
-//    }
-//
-//    public void setVehiculo(Vehiculo vehiculo) {
-//        this.vehiculo = vehiculo;
-//    }
     public String getNombre() {
         return nombre;
     }
