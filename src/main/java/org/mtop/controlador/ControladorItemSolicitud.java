@@ -31,11 +31,8 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
-import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.ItemSolicitudReparacion;
-import org.mtop.modelo.Producto;
 import org.mtop.modelo.dinamico.BussinesEntityType;
-import org.mtop.modelo.dinamico.Property;
 import org.mtop.servicios.ServicioGenerico;
 
 /**

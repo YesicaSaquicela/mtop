@@ -16,11 +16,9 @@
 package org.mtop.controlador;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,34 +28,22 @@ import javax.ejb.TransactionAttribute;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
-import org.jfree.chart.block.Arrangement;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
-import org.mtop.modelo.ActividadPlanMantenimiento;
-import org.mtop.modelo.ItemRequisicion;
 import org.mtop.modelo.ItemSolicitudReparacion;
-import org.mtop.modelo.PartidaContabilidad;
-import org.mtop.modelo.Producto;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
-import org.mtop.modelo.SolicitudReparacionMantenimiento_;
-import static org.mtop.modelo.SolicitudReparacionMantenimiento_.vehiculo;
 import org.mtop.modelo.Vehiculo;
-import org.mtop.modelo.Vehiculo_;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.profile.Profile;
 import org.mtop.servicios.ServicioGenerico;
-import org.mtop.util.UI;
 import org.primefaces.event.FlowEvent;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 /**
  *

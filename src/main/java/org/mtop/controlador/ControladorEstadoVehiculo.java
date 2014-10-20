@@ -16,8 +16,6 @@
 package org.mtop.controlador;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,7 +33,6 @@ import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
 import org.mtop.modelo.dinamico.BussinesEntityType;
 import org.mtop.modelo.EstadoVehiculo;
-import org.mtop.modelo.EstadoVehiculo_;
 
 import org.mtop.servicios.ServicioGenerico;
 
