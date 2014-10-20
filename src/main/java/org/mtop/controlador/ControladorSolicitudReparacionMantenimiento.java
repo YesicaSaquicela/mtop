@@ -835,7 +835,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         SolicitudReparacionMantenimiento solicitudRepMant = new SolicitudReparacionMantenimiento();
         solicitudRepMant.setCreatedOn(now);
         solicitudRepMant.setLastUpdate(now);
-        solicitudRepMant.setFechaSolicitud(now);
+      //  solicitudRepMant.setFechaSolicitud(now);
         solicitudRepMant.setActivationTime(now);
         solicitudRepMant.setType(_type);
         solicitudRepMant.buildAttributes(bussinesEntityService);  //

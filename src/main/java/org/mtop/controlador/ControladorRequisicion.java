@@ -1624,7 +1624,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         Date now = Calendar.getInstance().getTime();
         Requisicion requisicion = new Requisicion();
         requisicion.setCreatedOn(now);
-        requisicion.setFechaRequisicion(now);
+   //     requisicion.setFechaRequisicion(now);
         requisicion.setLastUpdate(now);
         requisicion.setActivationTime(now);
 

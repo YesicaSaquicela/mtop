@@ -54,7 +54,7 @@
                                             <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                              value="#{controladorProducto.instance.descripcion}"
                                                              required="true" label="observación" requiredMessage="Descripción requerida, necesita un valor" >
-                                                <f:ajax execute="@this" render="em1"  />
+                                                <f:ajax  execute="@this" render="em1"  />
                                             </p:inputTextarea>
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorProducto.instance.descripcion !=null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese una descripción para el producto<ocp:message forId="observacion1" /></span>                                   

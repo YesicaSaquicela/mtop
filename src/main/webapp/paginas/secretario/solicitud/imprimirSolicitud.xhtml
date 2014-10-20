@@ -147,28 +147,9 @@
                         </ui:repeat>
 
 
-                        <p:panelGrid style="width:100%" >
-                            <f:facet name="header">
-                                <p:row>
-                                    <p:column style="width:50%">
-                                        Recibido por 
-                                    </p:column>
-                                    <p:column>
-                                        Solicitado por
-                                    </p:column>
-                                </p:row>
-                            </f:facet>
-
-                            <p:row>
-                                <p:column style="width:50%" >
-                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"/>
-                                </p:column>
-                                <p:column>
-                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.concatenarNombre}"/>
-                                </p:column>
-                            </p:row>
-
-                        </p:panelGrid>
+                        
+                         
+                        
 
                         <p:panelGrid style="width:100%" >
 
@@ -190,6 +171,111 @@
                             </p:row>
 
 
+                  
+                        </p:panelGrid>
+                        
+                         <p:panelGrid style="width:100%" >
+                            <f:facet name="header">
+                                <p:row>
+                                
+                                     <p:column>
+                                        Operador o chofer
+                                     </p:column>
+                                      <p:column>
+                                        Firma
+                                      </p:column>
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                         
+                               
+                                <p:column style="width:50%">
+                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.persona.fullName}"/>
+                                </p:column>
+                                 <p:column>
+                                   <center> ---------------------------------</center>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+                        <p:panelGrid style="width:100%" >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        Recibido por 
+                                    </p:column>
+                                     <p:column>
+                                        Firma
+                                     </p:column>
+                                  
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                                <p:column style="width:50%" >
+                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"/>
+                                </p:column>
+                                <p:column>
+                                    <center> ---------------------------------</center>
+                                </p:column>
+                            
+                            </p:row>
+
+                        </p:panelGrid>
+                        
+                             <p:panelGrid style="width:100%" >
+                            <f:facet name="header">
+                                <p:row>
+                                
+                                     <p:column>
+                                        Solicitado por
+                                     </p:column>
+                                      <p:column>
+                                        Firma
+                                      </p:column>
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                         
+                               
+                                <p:column style="width:50%">
+                                    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.psolicita.concatenarNombre}"/>
+                                </p:column>
+                                 <p:column>
+                                   <center> ---------------------------------</center>
+                                </p:column>
+                            </p:row>
+                                 
+                          
+
+                        </p:panelGrid>
+                        
+                        <p:panelGrid style="width:100%" >
+                            <f:facet name="header">
+                                <p:row>
+                                
+                                     <p:column>
+                                        Aprobado por
+                                     </p:column>
+                                      <p:column>
+                                        Firma
+                                      </p:column>
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                         
+                               
+                                <p:column style="width:50%">
+                                  dsf
+                                </p:column>
+                                 <p:column>
+                                   <center> ---------------------------------</center>
+                                </p:column>
+                            </p:row>
+                                 
                             <f:facet name="footer">
                                      <p:row>
                                          <p:column style="width:50%">
@@ -203,7 +289,49 @@
                                 </p:row>
                               
                             </f:facet>
+
                         </p:panelGrid>
+                        
+                         <p:panelGrid style="width:100%" >
+                            <f:facet name="header">
+                                <p:row>
+                                
+                                     <p:column>
+                                        Aprobado por
+                                     </p:column>
+                                      <p:column>
+                                        Firma
+                                      </p:column>
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                         
+                               
+                                <p:column style="width:50%">
+                                  dsf
+                                </p:column>
+                                 <p:column>
+                                   <center> ---------------------------------</center>
+                                </p:column>
+                            </p:row>
+                                 
+                            <f:facet name="footer">
+                                     <p:row>
+                                         <p:column style="width:50%">
+                                        <div class="admin-actions " align="right" >
+                                    <p:commandButton  type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                        <p:printer target=":p2" />  
+                                    </p:commandButton>
+                                </div> 
+                                    </p:column>
+
+                                </p:row>
+                              
+                            </f:facet>
+
+                        </p:panelGrid>
+                        
 
                     </div>
                 </div></div>

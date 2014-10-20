@@ -72,14 +72,20 @@
 
 
 
-                                    <h:outputLabel value="Fecha de solicitud" /> <br></br> 
-                                    <p:inputText id="fecha" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"
-                                                 readonly="true" styleClass="form-control"
-                                                 required="true" label="Fecha de Solicitud" 
-                                                 rendered="true" />
-                                    <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
-                                    <span class="help-inline text-muted">Fecha creación de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span><br></br><br></br> 
-
+                                    
+                                 <h:outputLabel value="Fecha de solicitud*" /> <br></br> 
+                                 <h:panelGrid id="p12">
+                                    <p:calendar  id="fecha" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  
+                                                 styleClass="xLarge" required="true" requiredMessage="Fecha de inicio requerida, necesita un valor." 
+                                                 locale="es">   
+                                        <f:ajax event="dateSelect" execute="fecha" render="p12"/>  
+                                        
+                                    </p:calendar>
+                                    
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud !=null}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Ingrese la fecha de creación de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span>
+                                    </h:panelGrid><br/>
+                                    
                                     <h:outputLabel value="Solicitado por*"/> <br></br>
                                    <h:panelGroup id="srq" layout="block" class="clearfix">
                                     <p:selectOneMenu id="personal" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersona}"
@@ -426,6 +432,11 @@
 
                                                                                 <h:outputLabel class="navbar-text" value=" Marca:"/>
                                                                                 <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
+                                                                            </div>
+                                                                                                                                       <div class="col-md-4"> 
+
+                                                                                <h:outputLabel class="navbar-text" value=" Conductor:"/>
+                                                                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.persona.fullName}"/>
                                                                             </div>
                                                                         </div>
                                                                     </div>
