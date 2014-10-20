@@ -200,7 +200,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
     List<Profile> listaPersonal;
 
-
+//    public long getIdPersona() {
+//        return idPersona;
+//    }
+//
+//    public void setIdPersona(long idPersona) {
+//        this.idPersona = idPersona;
+//        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
+//        getInstance().setPsolicita(psolicita);
+//       
+//    }
 
     public String getPalabrab() {
         return palabrab;

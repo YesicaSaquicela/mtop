@@ -75,7 +75,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Long idVehiculo;
     private Vehiculo vehiculo;
     private long idPartidaC = 0l;
-    private long idPersonal = 0l;
+    private long idPersonals = 0l;
+    private long idPersonala = 0l;
+
+    
     private PartidaContabilidad partidaC;
     private List<PartidaContabilidad> listaPartida;
     private String numeroRequisicion;
@@ -694,17 +697,32 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         ControladorVehiculo cv = new ControladorVehiculo();
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
-
         for (Requisicion r : listaRequisicion2) {
+            System.out.println("r.id"+r.getId());
+            System.out.println("contaisns"+!lrq.contains(r.getId()));
             if (r.isEstado() && !lrq.contains(r.getId())) {
                 String s = r.getFechaRequisicion().toString();
-
+                
                 if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)
-                        ||r.getVehiculo().getPlaca().toLowerCase().contains(palabrab.toLowerCase())) {
+                       ) {
                     lrq.add(r.getId());
                 }
                 if (r.getVehiculo() != null) {
-                    if (r.getVehiculo().getNumRegistro().equals(palabrab) && !lrq.contains(r.getId())) {
+                    
+        System.out.println("lista de lrq"+lrq);
+                    System.out.println("numero de requistro del vehiculo"+r.getVehiculo().getNumRegistro());
+                    System.out.println("no lo contiene "+!lrq.contains(r.getId()));
+                    System.out.println("palabrab"+palabrab);
+                    if (r.getVehiculo().getNumRegistro().equals(palabrab)
+                            && !lrq.contains(r.getId())
+                             ) {
+                        System.out.println("agrego "+r.getId());
+                        lrq.add(r.getId());
+
+                    }
+                    if (r.getVehiculo().getPlaca().toLowerCase().contains(palabrab.toLowerCase())
+                            && !lrq.contains(r.getId())
+                             ) {
 
                         lrq.add(r.getId());
 
@@ -1047,21 +1065,32 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.idPartidaC = idPartidaC;
     }
 
-    public long getIdPersonal() {
-        if (getRequisicionId() != null && idPersonal == 0l) {
-            idPartidaC = getInstance().getPartidaContabilidad().getId();
-        }
-        return idPersonal;
+    public long getIdPersonals() {
+        
+        return idPersonals;
     }
 
-    public void setIdPersonal(long idPersonal) {
-        this.idPersonal = idPersonal;
-        if (idPersonal != 0l) {
-            getInstance().setPsolicita(findById(Profile.class, idPersonal));
+    public void setIdPersonals(long idPersonals) {
+        this.idPersonals = idPersonals;
+        if (idPersonals != 0l) {
+            getInstance().getListaPersonas().set(0, findById(Profile.class, idPersonals));
 
         }
 
     }
+
+    public long getIdPersonala() {
+        return idPersonala;
+    }
+
+    public void setIdPersonala(long idPersonala) {
+        this.idPersonala = idPersonala;
+         if (idPersonala != 0l) {
+            getInstance().getListaPersonas().set(1, findById(Profile.class, idPersonala));
+
+        }
+    }
+    
 
     public String getNumeroRequisicion() {
         if (getId() == null) {
@@ -1402,8 +1431,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             System.out.println("otra req "+solRequisicion);
             System.out.println("sol de la otra q "+solRequisicion.getRequisicionId());
         }
-        idPersonal = getInstance().getPsolicita().getId();
-
+        idPersonals = getInstance().getListaPersonas().get(0).getId();
+        idPersonala = getInstance().getListaPersonas().get(1).getId();
         if (getInstance().isPersistent()) {
             System.out.println("entro a obtener lista de items de la requie"+listaItemsRequisicion);
             listaItemsRequisicion = getInstance().getListaItems();
@@ -1589,7 +1618,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         listaItemsRequisicion = new ArrayList<ItemRequisicion>();
         idPartidaC = 0l;
-        idPersonal = 0l;
+        idPersonala = 0l;
+        idPersonals = 0l;
         getInstance().setTipoAdquisicion("");
         getInstance().setObservaciones("");
         itemsEliminar = new ArrayList<ItemRequisicion>();
@@ -1649,9 +1679,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
 
         PartidaContabilidad p = servgen.buscarPorId(PartidaContabilidad.class, idPartidaC);
-        Profile psolicita = servgen.buscarPorId(Profile.class, idPersonal);
+//        Profile psolicita = servgen.buscarPorId(Profile.class, idPersonal);
         getInstance().setPartidaContabilidad(p);
-        getInstance().setPsolicita(psolicita);
+//        getInstance().setPsolicita(psolicita);
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
@@ -1730,9 +1760,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         if (!this.listaItemsRequisicion.isEmpty()) {
            
             PartidaContabilidad p = servgen.buscarPorId(PartidaContabilidad.class, idPartidaC);
-            Profile psolicita = servgen.buscarPorId(Profile.class, idPersonal);
+//            Profile psolicita = servgen.buscarPorId(Profile.class, idPersonal);
             getInstance().setPartidaContabilidad(p);
-            getInstance().setPsolicita(psolicita);
+//            getInstance().setPsolicita(psolicita);
             String observacion = getInstance().getObservaciones();
             getInstance().setObservaciones(observacion);
            

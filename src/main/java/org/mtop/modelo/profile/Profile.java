@@ -47,6 +47,8 @@ import org.hibernate.validator.constraints.Email;
 
 import org.hibernate.annotations.Index;
 import org.jboss.solder.logging.Logger;
+import org.mtop.modelo.Requisicion;
+import org.mtop.modelo.SolicitudReparacionMantenimiento;
 
 @Entity
 @Table(name = "Profile", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -71,6 +73,13 @@ public class Profile extends BussinesEntity implements Serializable {
     private String firstname;
     //@Column(nullable = true)
     private String surname;
+    @ManyToOne
+    @JoinColumn(name = "requisicionId")
+    public Requisicion requisicionP;
+     @ManyToOne()
+    @JoinColumn(name = "solicitudReparacionId")
+    private SolicitudReparacionMantenimiento solicitudReparacionP;
+    
     //@NotEmpty
     @Column( unique = true)
     private String username;
@@ -106,12 +115,29 @@ public class Profile extends BussinesEntity implements Serializable {
     private String cedula;
     private Boolean estado1=false;
 
+    public SolicitudReparacionMantenimiento getSolicitudReparacionP() {
+        return solicitudReparacionP;
+    }
+
+    public void setSolicitudReparacionP(SolicitudReparacionMantenimiento solicitudReparacionP) {
+        this.solicitudReparacionP = solicitudReparacionP;
+    }
+
+    
     public Boolean getEstado1() {
         return estado1;
     }
 
     public void setEstado1(Boolean estado1) {
         this.estado1 = estado1;
+    }
+
+    public Requisicion getRequisicionP() {
+        return requisicionP;
+    }
+
+    public void setRequisicionP(Requisicion requisicionP) {
+        this.requisicionP = requisicionP;
     }
     
     

@@ -8,7 +8,6 @@
  */
 
 import java.io.Serializable;
-import java.util.AbstractSet;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -63,12 +62,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.hibernate.internal.util.collections.IdentityMap;
-import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.BussinesEntityType;
-import org.mtop.modelo.security.IdentityObject;
 import org.mtop.service.ProfileListService;
-import org.mtop.util.UI;
 
 /**
  *
@@ -83,7 +78,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
     @Inject
     @Web
     private EntityManager em;
-    private Messages msg;
+
     @Inject
     private Identity identity;
     @Inject
