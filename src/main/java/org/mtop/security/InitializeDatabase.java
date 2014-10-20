@@ -223,7 +223,7 @@ public class InitializeDatabase {
             p.setSurname("Software de Vehiculos");
             p.setTipo("administrador");
          
-           p.setEstado1(true);
+            p.setEstado1(true);
             p.setEstado(true);
             p.setCreatedOn(now);
             p.setLastUpdate(now);

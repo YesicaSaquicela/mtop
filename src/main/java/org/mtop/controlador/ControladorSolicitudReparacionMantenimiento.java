@@ -69,7 +69,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<ItemSolicitudReparacion> listaItemsSolicitud;
     private String palabrabv = "";
     private String palabrab = "";
-    private long idPersona = 0l;
+    private long idPersonas = 0l;
+    private long idPersonar = 0l;
+    private long idPersonaa = 0l;
     private String palabrabr = "";
     private List<SolicitudReparacionMantenimiento> listaSolicitudAprobadas = new ArrayList<SolicitudReparacionMantenimiento>();
     private String vista;
@@ -82,8 +84,41 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
     private List<Requisicion> listaRequisicion2 = new ArrayList<Requisicion>();
     private String nombrew = "";
+
+    public long getIdPersonas() {
+        return idPersonas;
+    }
+
+    public void setIdPersonas(long idPersonas) {
+        this.idPersonas = idPersonas;
+        Profile psolicita = servgen.buscarPorId(Profile.class, idPersonas);
+        getInstance().getListapersonas().add(0, psolicita);
+    }
+
   
 
+    public long getIdPersonar() {
+        return idPersonar;
+    }
+
+    public void setIdPersonar(long idPersonar) {
+        this.idPersonar = idPersonar;
+         Profile precibe = servgen.buscarPorId(Profile.class, idPersonar);
+        getInstance().getListapersonas().add(1, precibe);
+    }
+
+    public long getIdPersonaa() {
+        return idPersonaa;
+    }
+
+    public void setIdPersonaa(long idPersonaa) {
+        this.idPersonaa = idPersonaa;
+        Profile paprueba = servgen.buscarPorId(Profile.class, idPersonar);
+        getInstance().getListapersonas().add(2, paprueba);
+    }
+  
+   
+    
      public String getNombrew() {
         return nombrew;
     }
@@ -165,16 +200,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
     List<Profile> listaPersonal;
 
-    public long getIdPersona() {
-        return idPersona;
-    }
 
-    public void setIdPersona(long idPersona) {
-        this.idPersona = idPersona;
-        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
-        getInstance().setPsolicita(psolicita);
-       
-    }
 
     public String getPalabrab() {
         return palabrab;
@@ -632,8 +658,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
     
-        idPersona = getInstance().getPsolicita().getId();
-        
+        idPersonas = getInstance().getListapersonas().get(0).getId();
+        idPersonar = getInstance().getListapersonas().get(1).getId();
+         idPersonaa = getInstance().getListapersonas().get(2).getId();
         if (getInstance().isPersistent()) {
 
             System.out.println("entro111111111111");
@@ -807,8 +834,10 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaPersonal = findAll(Profile.class);
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         itemsEliminar = new ArrayList<ItemSolicitudReparacion>();
-        idPersona = 0l;
-        getInstance().setRecibidor("");
+        idPersonas = 0l;
+        idPersonar = 0l;
+        idPersonaa = 0l;
+      //  getInstance().setRecibidor("");
         getInstance().setObservacion("");
         nombrew = "Solicitud";
     }

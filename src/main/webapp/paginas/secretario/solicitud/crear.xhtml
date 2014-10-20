@@ -88,7 +88,7 @@
                                     
                                     <h:outputLabel value="Solicitado por*"/> <br></br>
                                    <h:panelGroup id="srq" layout="block" class="clearfix">
-                                    <p:selectOneMenu id="personal" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersona}"
+                                    <p:selectOneMenu id="personal" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonas}"
                                                      effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
                                                      converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                      filter="true" filterMatchMode="contains">  
@@ -102,17 +102,42 @@
                                         <span class="help-inline text-muted">Elija la persona que solicita<ocp:message forId="personal" /></span>
                                     </h:panelGroup>
                                     <br></br>
-       
-                                      <p:outputLabel value="Recibe*"/><br></br>
-                                    <h:panelGroup id="obs1">
-                                      <p:inputText maxlength="50" id="recibe" styleClass="form-control" value="#{controladorSolicitudReparacionMantenimiento.instance.recibidor}"
-                                                     required="true" requiredMessage="Recibe requerido, necesita un valor">
-                                        <f:ajax execute="recibe" render="obs1"/>
-                                    </p:inputText>
                                     
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.recibidor != ''}" styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Ingrese el nombre de la persona quien recibe la solicitud<ocp:message forId="recibe" /></span>
-                                    </h:panelGroup><br/><br/>
+                                     <h:outputLabel value="Recibe por*"/> <br></br>
+                                   <h:panelGroup id="srq1" layout="block" class="clearfix">
+                                    <p:selectOneMenu id="personalr" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonar}"
+                                                     effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
+                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                     filter="true" filterMatchMode="contains">  
+                                        <f:ajax execute="personalr" render="srq1"/>
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+
+                                    </p:selectOneMenu> <br></br>
+                                    
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.idPersonar != ''}" styleClass="validation-status"/>                                                    
+                                        <span class="help-inline text-muted">Elija la persona que recibe<ocp:message forId="personalr" /></span>
+                                    </h:panelGroup>
+                                    <br></br>
+                                    
+                                     <h:outputLabel value="Aprobado por*"/> <br></br>
+                                   <h:panelGroup id="srq2" layout="block" class="clearfix">
+                                    <p:selectOneMenu id="personala" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonaa}"
+                                                     effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
+                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                     filter="true" filterMatchMode="contains">  
+                                        <f:ajax execute="personala" render="srq2"/>
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+
+                                    </p:selectOneMenu> <br></br>
+                                    
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.idPersonaa != ''}" styleClass="validation-status"/>                                                    
+                                        <span class="help-inline text-muted">Elija la persona que aprueba<ocp:message forId="personala" /></span>
+                                    </h:panelGroup>
+                                    <br></br>
+       
+                                   
                                     
                                     <p:outputLabel value="Observación*"/><br></br>
                                                                   
