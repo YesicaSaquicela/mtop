@@ -120,6 +120,21 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.numr = numr;
     }
     
+     public String obtenernombre(long idP){
+     Profile nombrePersona;
+     System.out.println("nllegas id>"+idP);
+     String nombPersona;
+     
+     nombrePersona =servgen.buscarPorId(Profile.class, idP);
+     nombPersona= nombrePersona.concatenarNombre();
+    
+     return nombPersona;
+ }
+     
+   public Integer obtenernumero(){
+     numr=numr+1;
+     return numr;
+ }
 
     private List<PartidaContabilidad> listaPartidaAgregar;
 
