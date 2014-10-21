@@ -44,33 +44,20 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "vehiculoId1")
     private Vehiculo vehiculo;
-    @OneToOne
-    private PartidaContabilidad partidaContabilidad;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PartidaContabilidad> listaPartidas=new ArrayList<PartidaContabilidad>();
     @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
-//    @OneToMany(mappedBy = "requisicionP", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Profile> listaPersonas = new ArrayList<Profile>();
-    
+  
     
     @OneToOne(fetch = FetchType.LAZY)
     private SolicitudReparacionMantenimiento solicitudReparacionId;
 
-    
-//    @ManyToOne
-//    @JoinColumn(name = "personaId")
-//    private Profile psolicita;
     @ManyToOne
     @JoinColumn(name = "kardexId")
     private Kardex kardex;
 
-//    public List<Profile> getListaPersonas() {
-//        return listaPersonas;
-//    }
-//
-//    public void setListaPersonas(List<Profile> listaPersonas) {
-//        this.listaPersonas = listaPersonas;
-//    }
-    
+
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -94,15 +81,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
     public void setSolicitudReparacionId(SolicitudReparacionMantenimiento solicitudReparacionId) {
         this.solicitudReparacionId = solicitudReparacionId;
     }
-//
-//    public Profile getPsolicita() {
-//        return psolicita;
-//    }
-//
-//    public void setPsolicita(Profile psolicita) {
-//        this.psolicita = psolicita;
-//    }
-// 
 
     public List<ItemRequisicion> getListaItems() {
         return listaItems;
@@ -116,13 +94,14 @@ public class Requisicion extends BussinesEntity implements Serializable {
         this.listaItems = listaItems;
     }
 
-    public PartidaContabilidad getPartidaContabilidad() {
-        return partidaContabilidad;
+    public List<PartidaContabilidad> getListaPartidas() {
+        return listaPartidas;
     }
 
-    public void setPartidaContabilidad(PartidaContabilidad partidaContabilidad) {
-        this.partidaContabilidad = partidaContabilidad;
+    public void setListaPartidas(List<PartidaContabilidad> listaPartidas) {
+        this.listaPartidas = listaPartidas;
     }
+
 
     public String getNumRequisicion() {
         return numRequisicion;
