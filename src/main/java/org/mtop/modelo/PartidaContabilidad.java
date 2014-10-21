@@ -47,15 +47,7 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     private String numeroFuenteFinanciera;
     private String descripcion;
 
-//    @OneToOne(mappedBy = "partidaC")
-//    private PartidaContabilidad pContabilidad;
-//    public PartidaContabilidad getpContabilidad() {
-//        return pContabilidad;
-//    }
-//
-//    public void setpContabilidad(PartidaContabilidad pContabilidad) {
-//        this.pContabilidad = pContabilidad;
-//    }
+
     public String getDescripcion() {
         return descripcion;
     }
