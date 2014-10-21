@@ -569,21 +569,15 @@
 
                                                                         </div>
                                                                         <div class="col-md-4"> 
-                                                                            <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
-                                                                            
-                                                                            <c:forEach items="#{ui.getProperties(controladorRequisicion.vehiculo)}" var="p" >
-                                                                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
-                                                                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
-                                                                                        <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
-                                                                                    </ui:repeat>
-                                                                                </c:if>
-                                                                            </c:forEach>
-
-                                                                        </div>
-                                                                        <div class="col-md-4"> 
                                                                             <h:outputLabel class="navbar-text" value=" Placa: "/>
                                                                             <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.placa}"/>
 
+
+                                                                        </div>
+                                                                        <div class="col-md-4"> 
+                                                                            <h:outputLabel class="navbar-text" value=" Marca:"/>
+                                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.marca}"/>
+                                                                           
                                                                         </div>
 
                                                                         <div class="col-md-4"> 
@@ -616,9 +610,16 @@
                                                                         </div>
 
                                                                         <div class="col-md-4"> 
-
-                                                                            <h:outputLabel class="navbar-text" value=" Marca:"/>
-                                                                            <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.marca}"/>
+                                                                             <h:outputLabel class="navbar-text" value=" Número de chasís: "/>
+                                                                            
+                                                                            <c:forEach items="#{ui.getProperties(controladorRequisicion.vehiculo)}" var="p" >
+                                                                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
+                                                                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
+                                                                                        <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                                                                    </ui:repeat>
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>
