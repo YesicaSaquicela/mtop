@@ -11,7 +11,7 @@
 
     <f:metadata>
         <f:viewParam id="sol" name="reqId" value="#{controladorRequisicion.requisicionId}"/>
-
+        <f:viewParam name="profileId" value="#{profileHome.profileId}"/>
     </f:metadata>
     <ui:param name="titulo" value="#{controladorRequisicion.instance.tipoRequisicion}"/>
     <ui:define name="header">
@@ -39,7 +39,7 @@
                             <f:facet name="header">
                                 <p:row>
                                     <p:column style="width:50%">
-                                        <img src="../../../resources/membrete.png" width="900" height="142" alt="membrete"/>
+                                        <img src="../../../resources/membrete.png" width="900" height="100" alt="membrete"/>
                                     </p:column>
                                 </p:row>
                             </f:facet>
@@ -47,20 +47,14 @@
                         <p:panelGrid  id="imp1"                                                  
                                       style="width:100%" columns="4" >
                             <f:facet   name="header" class="panel-heading" >
-
                                 <p:row>
+                               
 
-                                    <p:column  > 
-
-                                     
-                                    </p:column  >
-
-                                    <p:column > 
+                                    <p:column> 
 
                                         <h4>#{controladorRequisicion.instance.tipoRequisicion}</h4>
 
                                     </p:column>
-
 
                                 </p:row>
                                 <p:row></p:row>
@@ -69,29 +63,35 @@
                             </f:facet>
 
 
-                            <h:outputLabel class="navbar-text" value="Requerido por"/>
-
-                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.psolicita.concatenarNombre}"/>
-                            <h:outputLabel class="navbar-text" value="Fecha de requisición"/>
-
+                           
+                            <h:outputLabel class="navbar-text" value="Fecha de requisición" />
                             <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"/>
-                            <h:outputLabel class="navbar-text" value="Partida"/>
-
-                            <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"/>
+                        
                             <h:outputLabel class="navbar-text" value="Tipo de adquisición"/>
                             <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.tipoAdquisicion}"/>
 
 
+
                         </p:panelGrid>
 
+                         <p:panelGrid                                                 
+                                      style="width:100%" columns="2" >
+                                                   
+                            <h:outputLabel class="navbar-text" value="Partida" style="width:50%"/>
 
+                            <h:outputText class="navbar-text" style="width:50%" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"/>
+                          
+                        </p:panelGrid>
                         <p:panelGrid id="imp" style="width:100%"  >
                             <f:facet name="header">
                                 <p:row>
+                                    <p:column style="width:15%">
+                                        Nro.
+                                    </p:column>
                                     <p:column style="width:20%">
                                         CANTIDAD
                                     </p:column>
-                                    <p:column style="width:30%">
+                                    <p:column style="width:25%">
                                         UNIDAD DE MEDIDA 
                                     </p:column>
                                     <p:column style="width:50%">
@@ -104,10 +104,13 @@
                         <ui:repeat value="#{controladorRequisicion.listaItemsRequisicion}" var="a" varStatus="status">  
                             <p:panelGrid  style="width:100%"  >
                                 <p:row>
+                                    <p:column style="width:15%">
+                                        <h:outputText class="navbar-text" value="#{controladorRequisicion.obtenerNumero()}"/>
+                                    </p:column>
                                     <p:column style="width:20%" >
                                         <h:outputText class="navbar-text" value="#{a.cantidad}"/>
                                     </p:column>
-                                    <p:column style="width:30%">
+                                    <p:column style="width:25%">
                                         <h:outputText class="navbar-text" value="#{a.unidadMedida}"/>
                                     </p:column>
                                     <p:column style="width:50%">
@@ -127,7 +130,7 @@
                             <f:facet name="header">
                                 <p:row>
 
-                                    <p:column style="width:50%">
+                                    <p:column style="width:50%;text-align: left">
                                         OBSERVACIONES
                                     </p:column>
 
@@ -144,23 +147,103 @@
                             </p:row>
 
 
-                            <f:facet name="footer">
+                            
+                        </p:panelGrid>
+                          <p:panelGrid style="width:100%" >
+
+
+                            <f:facet name="header">
                                 <p:row>
-                                    <p:column style="width:50%">
-                                        <div class="admin-actions " align="right" >
-                                            <p:commandButton  type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                                                <p:printer target=":p2" />  
-                                            </p:commandButton>
-                                        </div> 
+                                    <p:column style="width:50%;text-align: left" >
+                                        Solicitado por
+                                    </p:column>
+                                     <p:column style="width:50%;height:100%">
+                                  
+                                        Firma
                                     </p:column>
 
                                 </p:row>
-
                             </f:facet>
+
+
+                            <p:row>
+                                <p:column style="width:50%">
+                                    <h:outputText class="navbar-text" value="#{controladorRequisicion.obtenernombre(controladorRequisicion.idPersonals)}"/>
+                                </p:column>
+                                   <p:column style="width:50%;height:100%">
+                                    <p style="color:white"></p>
+                                    <center> ---------------------------------</center>
+                                </p:column>
+
+                            </p:row>
+
+                        </p:panelGrid>
+                        <p:panelGrid style="width:100%" >
+
+
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%;text-align: left" >
+                                        Aprobado por
+                                    </p:column>
+                                     <p:column style="width:50%;height:100%">
+                                  
+                                        Firma
+                                    </p:column>
+
+                                </p:row>
+                            </f:facet>
+
+
+                            <p:row>
+                                <p:column style="width:50%">
+                                   <h:outputText class="navbar-text" value="#{controladorRequisicion.obtenernombre(controladorRequisicion.idPersonala)}"/>
+                                </p:column>
+   <p:column style="width:50%;height:100%">
+                                    <p style="color:white"></p>
+                                    <center> ---------------------------------</center>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+                        
+                        <p:panelGrid style="width:100%" >
+
+
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%;text-align: left" >
+                                        Elaborado por
+                                    </p:column>
+
+                                </p:row>
+                            </f:facet>
+
+
+                            <p:row>
+                                <p:column style="width:50%">
+                                    <h:outputText class="navbar-text" value="#{profileHome.instance.concatenarNombre()}"/>
+                                </p:column>
+
+                            </p:row>
+
                         </p:panelGrid>
 
                     </div>
                 </div></div>
+        </h:form>
+               <h:form >
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="right">
+                       <p:commandButton  type="button" value="Imprimir" icon="ui-icon-print" 
+                                         styleClass="btn  btn-success">
+                                           <p:printer target=":p2" />  
+                       </p:commandButton>
+                 
+                    </div>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -121,6 +121,36 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String mensaje = "";
     private String nombrew = "";
     private String aprobada;
+    private Integer numr=0;
+
+    public Integer getNumr() {
+        return numr;
+    }
+
+    public void setNumr(Integer numr) {
+        this.numr = numr;
+    }
+    
+    
+    
+    
+     public String obtenernombre(long idP){
+     Profile nombrePersona;
+     System.out.println("nllegas id>"+idP);
+     String nombPersona;
+     
+     nombrePersona =servgen.buscarPorId(Profile.class, idP);
+     nombPersona= nombrePersona.concatenarNombre();
+    
+     return nombPersona;
+ }
+ 
+     public Integer obtenerNumero(){
+     
+     numr=numr+1;
+     System.out.println("num++++"+numr);
+     return numr;
+     }
 
     public List<Profile> getListadePersonas() {
         return listadePersonas;
@@ -1590,7 +1620,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
          */
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
-        System.out.println("\n\n entro init \n\n" + contadorInit);
+      
         listaRequisicion = new ArrayList<Requisicion>();
         listaSolicitudes = new ArrayList<SolicitudReparacionMantenimiento>();
         List<Requisicion> lrqn = findAll(Requisicion.class);

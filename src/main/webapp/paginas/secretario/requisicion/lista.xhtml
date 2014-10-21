@@ -197,6 +197,21 @@
                                                                 </p:confirmDialog>
 
                                                             </p:column>
+                                                         <p:column headerText="Visualizar" style="width: 5%"> 
+
+                                                                <p:button target="_blank"   icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                                                          outcome="imprimirRequisicion" 
+                                                                          title="Visualizar">  
+                                                                    <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                                                    <f:param name="reqId" value="#{r.id}"></f:param>
+                                                                     <f:param name="profileId" value="#{account.loggedId}"/>
+
+
+                                                                </p:button>
+
+
+
+                                                            </p:column>
                                                         </p:dataTable>
                                                     </p:tab>
                                                     <p:tab id="ts1" title="Requisiciones aprobadas" closable="false"  titleStyleClass="clearfix" >
@@ -255,6 +270,7 @@
                                                                           title="Visualizar">  
                                                                     <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                     <f:param name="reqId" value="#{r.id}"></f:param>
+                                                                     <f:param name="profileId" value="#{account.loggedId}"/>
 
 
                                                                 </p:button>

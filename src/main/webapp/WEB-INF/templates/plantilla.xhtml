@@ -65,7 +65,7 @@
                                     <a class="navbar-brand" >
 
                                         <h:panelGroup rendered="#{identity.loggedIn}">
-
+Bienvenido: #{account.loggedIn.concatenarNombre()}
                                             <br/><br/>
                                             <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" rendered="#{identity.loggedIn}" title="Inicio, Mtop-Software">
 
@@ -93,7 +93,7 @@
 
                                             <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
                                                 <ul class="nav navbar-nav navbar-right">
-
+   
                                                     <li><h:link outcome="/paginas/reset" title="Cambiar Contraseña">                                        
                                                             <f:param name="profileId" value="#{account.loggedId}"/>
                                                             <p:graphicImage value="/resources/imagenes2/clave.png" width="50" height="50" />
@@ -179,13 +179,7 @@
 
                                         </div>
 
-                                        <!--div class="form-group">
-            
-                                            <h:panelGroup rendered="#{!identity.loggedIn}" class="form-group">
-                                                <h:link value="#{'Ingresar'}" outcome="/paginas/login.xhtml?faces-redirect=true" styleClass="btn btn-success"/>
-                                            </h:panelGroup>
-                                        </div-->
-
+                                     
                                     </form>
                                 </div>
                             </div>
@@ -196,7 +190,7 @@
                             <div class="container" style="margin: -5% 0.5 -10% 30%; ">
                                 <div class="row lf row-title" > 
                                     <ui:insert name="header">
-
+                                      
                                     </ui:insert>
 
                                 </div>               
@@ -219,7 +213,9 @@
                             </div>
 
                         </div>   
-                        <ui:insert name="content" ></ui:insert>
+                        <ui:insert name="content" >
+                            
+                        </ui:insert>
 
 
 

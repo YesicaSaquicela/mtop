@@ -53,6 +53,7 @@
                           </div>
                         </div>
                     </h:panelGroup>
+                       
                     <p:wizard widgetVar="wizard" showNavBar="false"  showStepStatus="false" 
                                 rendered="#{controladorSolicitudReparacionMantenimiento.vista eq 'solicitud'}" id="p" 
                                 flowListener="#{controladorSolicitudReparacionMantenimiento.onFlowProcess}"
@@ -61,19 +62,18 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos generales</center></div>
                                 <p:panel >
-                                    
-                                    <p:outputLabel value="Número de solicitud"/>
+                                <div class="container-fluid">
+                               
+                                <div class="row">
+                                    <div class="col-md-6"> 
+                                        <p:outputLabel value="Número de solicitud"/>
                                     <p:inputText  id="registro"  value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"
                                                   readonly="true" styleClass="form-control"
                                                   required="true" label="Número de Solicitud" 
                                                   rendered="true" ></p:inputText>
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
-
-
-
-                                    
-                                 <h:outputLabel value="Fecha de solicitud*" /> <br></br> 
+                                       <h:outputLabel value="Fecha de solicitud*" /> <br></br> 
                                  <h:panelGrid id="p12">
                                     <p:calendar  id="fecha" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  
                                                  styleClass="xLarge" required="true" requiredMessage="Fecha de solicitud requerida, necesita un valor." 
@@ -85,8 +85,26 @@
                                         <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud !=null}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Ingrese la fecha de creación de solicitud de reparación y mantenimiento<ocp:message forId="fecha" /></span>
                                     </h:panelGrid><br/>
+                                       <p:outputLabel value="Observación*"/><br></br>
+                                        <h:panelGroup id="obs" layout="block" class="clearfix">
                                     
-                                    <h:outputLabel value="Solicitado por*"/> <br></br>
+                                            <p:inputTextarea id="observacion" maxlength="150" styleClass="form-control" 
+                                                     value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
+                                                     required="true" label="observación" 
+                                                     requiredMessage="Observación requerida, necesita un valor">
+                                        <f:ajax execute="observacion" render="obs"  />
+
+
+                                    </p:inputTextarea>
+                                    
+                                        <h:graphicImage id="obs11" value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != ''}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted"  >Ingrese una observación<ocp:message forId="observacion" /></span>                                   
+                                    </h:panelGroup><br/>
+                                         </div> 
+                                    
+                                    
+                                    <div class="col-md-6"> 
+                                          <h:outputLabel value="Solicitado por*"/> <br></br>
                                    <h:panelGroup id="srq" layout="block" class="clearfix">
                                     <p:selectOneMenu id="personal" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonas}"
                                                      effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
@@ -102,7 +120,24 @@
                                         <span class="help-inline text-muted">Elija la persona que solicita<ocp:message forId="personal" /></span>
                                     </h:panelGroup>
                                     <br></br>
+                                   <h:outputLabel value="Aprobado por*"/> <br></br>
+                                   <h:panelGroup id="srq2" layout="block" class="clearfix">
+                                    <p:selectOneMenu id="personala" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonaa}"
+                                                     effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
+                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                     filter="true" filterMatchMode="contains">  
+                                        <f:ajax execute="personala" render="srq2"/>
+                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+
+                                    </p:selectOneMenu> <br></br>
                                     
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.idPersonaa != ''}" styleClass="validation-status"/>                                                    
+                                        <span class="help-inline text-muted">Elija la persona que aprueba<ocp:message forId="personala" /></span>
+                                    </h:panelGroup>
+                                    <br></br>
+                                                
+                                        
                                      <h:outputLabel value="Recibe por*"/> <br></br>
                                    <h:panelGroup id="srq1" layout="block" class="clearfix">
                                     <p:selectOneMenu id="personalr" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonar}"
@@ -119,42 +154,25 @@
                                         <span class="help-inline text-muted">Elija la persona que recibe<ocp:message forId="personalr" /></span>
                                     </h:panelGroup>
                                     <br></br>
+                                     
+                                                                  
                                     
-                                     <h:outputLabel value="Aprobado por*"/> <br></br>
-                                   <h:panelGroup id="srq2" layout="block" class="clearfix">
-                                    <p:selectOneMenu id="personala" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonaa}"
-                                                     effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
-                                                     converter="#{omnifaces.GenericEnumConverter}" required="true"
-                                                     filter="true" filterMatchMode="contains">  
-                                        <f:ajax execute="personala" render="srq2"/>
-                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                
+                                         </div> 
+                                     </div> 
+                                 </div> 
+                                    
 
-                                    </p:selectOneMenu> <br></br>
                                     
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.idPersonaa != ''}" styleClass="validation-status"/>                                                    
-                                        <span class="help-inline text-muted">Elija la persona que aprueba<ocp:message forId="personala" /></span>
-                                    </h:panelGroup>
-                                    <br></br>
+                      
+                          
+                                
+                                    
+                           
        
                                    
                                     
-                                    <p:outputLabel value="Observación*"/><br></br>
-                                                                  
-                                    
-<h:panelGroup id="obs" layout="block" class="clearfix">
-                                    <p:inputTextarea id="observacion" maxlength="150" styleClass="form-control" 
-                                                     value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"
-                                                     required="true" label="observación" 
-                                                     requiredMessage="Observación requerida, necesita un valor">
-                                        <f:ajax execute="observacion" render="obs"  />
-
-
-                                    </p:inputTextarea>
-                                    
-                                        <h:graphicImage id="obs11" value="#{resource['visto.png']}" rendered="#{controladorSolicitudReparacionMantenimiento.instance.observacion != ''}" styleClass="validation-status" />
-                                        <span class="help-inline text-muted"  >Ingrese una observación<ocp:message forId="observacion" /></span>                                   
-                                    </h:panelGroup><br/>
+                                
                                 </p:panel>
                             </div>  
                             <p:panel id="panel7" rendered="#{ui.tieneValores(controladorSolicitudReparacionMantenimiento.instance)}">    
@@ -772,7 +790,7 @@
 
                             <p:tab id="confirm" title="Confirmación">
 
-#{controladorSolicitudReparacionMantenimiento.nombrew}
+
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><center>Datos de la solicitud de reparación y mantenimiento a crear</center></div>
                                     <p:panel>
@@ -806,7 +824,8 @@
                                                      <h:panelGroup id="perSol" layout="block" class="clearfix">
                                                         <div class="input">
                                                             <h:outputLabel value="Persona que solicita: " /><br/>
-                                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.listaPersonas.get(0).concatenarNombre}" styleClass="outputLabel"/><br/>
+                                                            
+                                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonas)}" styleClass="outputLabel"/><br/>
 
                                                         </div>
                                                     </h:panelGroup><br/>
@@ -815,14 +834,14 @@
                                                     <h:panelGroup id="perRec2" layout="block" class="clearfix">
                                                         <div class="input">
                                                             <h:outputLabel value="Persona que recibe: " /><br/>
-                                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.listaPersonas.get(1).concatenarNombre}" styleClass="outputLabel"/><br/>
+                                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonar)}" styleClass="outputLabel"/><br/>
 
                                                         </div>
                                                     </h:panelGroup><br/>
                                                      <h:panelGroup id="perReca" layout="block" class="clearfix">
                                                         <div class="input">
                                                             <h:outputLabel value="Persona que aprueba: " /><br/>
-                                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.instance.listaPersonas.get(2).concatenarNombre}" styleClass="outputLabel"/><br/>
+                                                            <h:outputText value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonaa)}" styleClass="outputLabel"/><br/>
 
                                                         </div>
                                                     </h:panelGroup><br/>

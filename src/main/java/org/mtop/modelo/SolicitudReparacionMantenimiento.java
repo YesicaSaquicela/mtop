@@ -46,10 +46,6 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaSolicitud;
   
-//    @ManyToOne
-//    @JoinColumn(name = "personaId")
-//     private Profile psolicita;
-  //  private String recibidor;
     @ManyToOne
     @JoinColumn(name = "kardexId")
     private Kardex kardex;
@@ -59,27 +55,10 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
     @OneToMany(mappedBy = "solicitudReparacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemSolicitudReparacion> listaItemSR = new ArrayList<ItemSolicitudReparacion>();
     
-    @OneToMany(mappedBy = "solicitudReparacionP", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Profile> listaPersonas = new ArrayList<Profile>();
- 
     @OneToOne(fetch = FetchType.LAZY,mappedBy = "solicitudReparacionId")
     private Requisicion requisicionId;
 
-    public SolicitudReparacionMantenimiento() {
     
-    
-    }
-
-    public List<Profile> getListaPersonas() {
-        return listaPersonas;
-    }
-
-    public void setListaPersonas(List<Profile> listaPersonas) {
-        this.listaPersonas = listaPersonas;
-    }
-    
-        
- 
 
     public Requisicion getRequisicionId() {
         return requisicionId;
@@ -127,14 +106,6 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
         this.aprobado = aprobado;
     }
 
-//    public Profile getPsolicita() {
-//        return psolicita;
-//    }
-//
-//    public void setPsolicita(Profile psolicita) {
-//        this.psolicita = psolicita;
-//    }
-    
 
     public Vehiculo getVehiculo() {
         return vehiculo;
