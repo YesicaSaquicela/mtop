@@ -97,9 +97,7 @@
                                                                                 <p:column headerText="Fecha de solicitud" sortBy="#{s.fechaSolicitud}">
                                                                                     <h:outputText value="#{controladorSolicitudReparacionMantenimiento.formato(s.fechaSolicitud)}"></h:outputText>
                                                                                 </p:column>
-                                                                                <p:column headerText="Recibidor" sortBy="#{s.recibidor}">
-                                                                                    <h:outputText value="#{s.recibidor}"></h:outputText>
-                                                                                </p:column>
+                                                                              
                                                                                 <p:column headerText="Observación" sortBy="#{s.observacion}">
                                                                                     <h:outputText value="#{s.observacion}"></h:outputText>
                                                                                 </p:column>
@@ -141,6 +139,19 @@
                                                                                            
                                                                                         </center>
                                                                                     </p:confirmDialog>
+                                                                                </p:column>
+                                                                               <p:column headerText="Visualizar" style="width: 5%"> 
+                                                                                    <p:button target="_blank" id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
+                                                                                              outcome="imprimirSolicitud" 
+                                                                                              title="Visualizar">  
+                                                                                        <p:ajax event="click" partialSubmit="true" update="@this"/>
+                                                                                        <f:param name="solId" value="#{s.id}"></f:param>
+                                                                                         <f:param name="profileId" value="#{account.loggedId}"/>
+
+
+                                                                                    </p:button>
+
+
                                                                                 </p:column>
                                                                             </p:dataTable></tbody></div></div>
                                                             </div></div>
@@ -185,7 +196,7 @@
                                                                                               title="Visualizar">  
                                                                                         <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                                         <f:param name="solId" value="#{sa.id}"></f:param>
-
+                                                                                         <f:param name="profileId" value="#{account.loggedId}"/>
 
                                                                                     </p:button>
 

@@ -8,6 +8,8 @@ package org.mtop.modelo;
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.mtop.modelo.dinamico.BussinesEntity;
 
@@ -32,8 +34,10 @@ public class Persona extends BussinesEntity implements Serializable {
     private Integer Edad;
     private String tipo;
 
-//    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<SolicitudReparacion> listaSolicitud=new ArrayList<SolicitudReparacion>();
+    @ManyToOne
+    @JoinColumn(name = "personaId")
+    private SolicitudReparacionMantenimiento SolicitudRM=new SolicitudReparacionMantenimiento();
+    
     public String getTipo() {
         return tipo;
     }

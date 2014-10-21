@@ -27,7 +27,7 @@ import org.mtop.modelo.dinamico.BussinesEntity;
 public class ItemSolicitudReparacion extends BussinesEntity implements Serializable{
     private String descripcionElementoRevisar;
     private String descripcionFalla;
-   @ManyToOne()
+    @ManyToOne()
     @JoinColumn(name = "solicitudReparacionId")
     private SolicitudReparacionMantenimiento solicitudReparacion;
 

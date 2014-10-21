@@ -677,4 +677,5 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
         }
 
     }
+
 }

@@ -210,6 +210,23 @@ public class ServicioGenerico {
 
         //builder.equal(objeto.get(at), true)
     }
+     
+      public List<Auxiliar> buscarAuxiliarPorIdSolicitud(String nombreatributo, final Object valoratributo) {
+        List<Auxiliar> l = new ArrayList<Auxiliar>();
+        String s = "";
+        l.clear();
+        for (Auxiliar t : buscarTodos(Auxiliar.class, nombreatributo)) {
+          
+            if (t.getSoliciudId().getId().equals((Long)valoratributo)) {
+                System.out.println("anado un)ang fecha>>>>"+s);
+                l.add(t);
+            }
+        }
+        System.out.println("retornando>>>>>fechas>>>>"+l);
+        return l;
+
+    }
+     
      public List<Auxiliar> buscarAuxiliarPorIdSol(String nombreatributo, final Object valoratributo) {
         List<Auxiliar> l = new ArrayList<Auxiliar>();
         

@@ -34,6 +34,8 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.transaction.Transactional;
 import org.mtop.cdi.Web;
 import org.mtop.controlador.dinamico.BussinesEntityHome;
+import org.mtop.modelo.Auxiliar;
+import org.mtop.modelo.Auxiliar_;
 import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.Requisicion_;
@@ -69,7 +71,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<ItemSolicitudReparacion> listaItemsSolicitud;
     private String palabrabv = "";
     private String palabrab = "";
-    private long idPersona = 0l;
+    private long idPersonas = 0l;
+    private long idPersonar = 0l;
+    private long idPersonaa = 0l;
     private String palabrabr = "";
     private List<SolicitudReparacionMantenimiento> listaSolicitudAprobadas = new ArrayList<SolicitudReparacionMantenimiento>();
     private String vista;
@@ -82,9 +86,51 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
     private List<Requisicion> listaRequisicion2 = new ArrayList<Requisicion>();
     private String nombrew = "";
-  
+    private List<Profile> listadepersonas;
+    private List<Profile> listaPersonal;
+ 
+    
+           
+    public List<Profile> getListadepersonas() {
+        return listadepersonas;
+    }
 
+    public void setListadepersonas(List<Profile> listadepersonas) {
+        this.listadepersonas = listadepersonas;
+    }
+    
+    
+    public long getIdPersonas() {
+        return idPersonas;
+    }
+
+    public void setIdPersonas(long idPersonas) {
+        this.idPersonas = idPersonas;
+        
+    }
+
+  
+    public long getIdPersonar() {
+        return idPersonar;
+    }
+
+    public void setIdPersonar(long idPersonar) {
+        this.idPersonar = idPersonar;
+
+    }
+
+    public long getIdPersonaa() {
+        return idPersonaa;
+    }
+
+    public void setIdPersonaa(long idPersonaa) {
+        this.idPersonaa = idPersonaa;
+     
+    }
+     
+    
      public String getNombrew() {
+         System.out.println("nombre en get"+nombrew);
         return nombrew;
     }
 
@@ -163,18 +209,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setListaPersonal(List<Profile> listaPersonal) {
         this.listaPersonal = listaPersonal;
     }
-    List<Profile> listaPersonal;
 
-//    public long getIdPersona() {
-//        return idPersona;
-//    }
-//
-//    public void setIdPersona(long idPersona) {
-//        this.idPersona = idPersona;
-//        Profile psolicita = servgen.buscarPorId(Profile.class, idPersona);
-//        getInstance().setPsolicita(psolicita);
-//       
-//    }
+
 
     public String getPalabrab() {
         return palabrab;
@@ -191,7 +227,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setPalabrabv(String palabrabv) {
         this.palabrabv = palabrabv;
     }
-
+    
+ public String obtenernombre(long idP){
+     Profile nombrePersona;
+     System.out.println("nllegas id>"+idP);
+     String nombPersona;
+     
+     nombrePersona =servgen.buscarPorId(Profile.class, idP);
+     nombPersona= nombrePersona.concatenarNombre();
+    
+     return nombPersona;
+ }
+ 
     public void buscarr() {
         palabrabr = palabrabr.trim();
         
@@ -278,6 +325,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return ced;
 
     }
+    
+    
 
     public void buscar() {
         palabrab = palabrab.trim();
@@ -515,16 +564,23 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public String onFlowProcess(FlowEvent event) {
         nombrew = "req";
-       
+          System.out.println("\n\n\n\n\n\nENRTRO FLOWPROCESS" + event.getNewStep());
+        System.out.println("Entro getOld" + event.getOldStep());
+        System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
+        System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
+        System.out.println("otro retorna");
+        System.out.println("nombre wizard111" + nombrew);
         if (skip) {
 
             skip = false;
             nombrew = "Final";
             return "confirm";
         } else {
-            nombrew = "req";
+            
             if (event.getNewStep().equals("confirm") && event.getOldStep().equals("requi")) {
+                 
                 nombrew = "Final";//reset in case user goes back
+                 System.out.println("nombre wizard111skip dfdsfds" + nombrew);
             }
             if (getInstance().getId() != null) {
                 this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
@@ -572,7 +628,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public Vehiculo getVehiculo() {
-        nombrew = "req";
+       
         if (getSolicitudReparacionMantenimientoId() != null) {
             vehiculo = getInstance().getVehiculo();
         }
@@ -581,7 +637,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
-        nombrew = "req";
+       
         this.vehiculo = vehiculo;
         getInstance().setVehiculo(vehiculo);
 
@@ -632,8 +688,23 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
     
-//        idPersona = getInstance().getPsolicita().getId();
-        
+    
+        List<Auxiliar> listaaux = servgen.buscarAuxiliarPorIdSolicitud( Auxiliar_.soliciudId.getName(),getInstance().getId());
+        System.out.println("size" + listaaux.size());
+        for (Auxiliar auxiliar : listaaux) {
+            if (auxiliar.getTipoRelacion().equals("solicitadoS")) {
+                idPersonas = auxiliar.getPersonalId().getId();
+              
+            }
+            if (auxiliar.getTipoRelacion().equals("aprobadoS")) {
+                idPersonaa = auxiliar.getPersonalId().getId();
+              System.out.println("nombreee apr"+auxiliar.getPersonalId().concatenarNombre());
+            }
+             if (auxiliar.getTipoRelacion().equals("recibeS")) {
+                idPersonar = auxiliar.getPersonalId().getId();
+           
+            }
+        }
         if (getInstance().isPersistent()) {
 
             System.out.println("entro111111111111");
@@ -807,10 +878,16 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         listaPersonal = findAll(Profile.class);
         listaItemsSolicitud = new ArrayList<ItemSolicitudReparacion>();
         itemsEliminar = new ArrayList<ItemSolicitudReparacion>();
-        idPersona = 0l;
-        getInstance().setRecibidor("");
+        idPersonas = 0l;
+        idPersonar = 0l;
+        idPersonaa = 0l;
+      //  getInstance().setRecibidor("");
         getInstance().setObservacion("");
         nombrew = "Solicitud";
+        listadepersonas= new ArrayList<Profile>();
+        listadepersonas.add(new Profile());
+        listadepersonas.add(new Profile());
+        listadepersonas.add(new Profile());
     }
 
     @Override
@@ -833,6 +910,30 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         return SolicitudReparacionMantenimiento.class;
     }
 
+    public void guardarRelacion() {
+
+        Auxiliar auxiliar = new Auxiliar();
+        auxiliar.setSoliciudId(getInstance());
+        auxiliar.setPersonalId(servgen.buscarPorId(Profile.class, idPersonas));
+        auxiliar.setTipoRelacion("solicitadoS");
+        save(auxiliar);
+        auxiliar.setSoliciudId(getInstance());
+        auxiliar.setPersonalId(servgen.buscarPorId(Profile.class, idPersonaa));
+        auxiliar.setTipoRelacion("aprobadoS");
+
+        
+        save(auxiliar);
+
+        auxiliar.setSoliciudId(getInstance());
+        auxiliar.setPersonalId(servgen.buscarPorId(Profile.class, idPersonar));
+        auxiliar.setTipoRelacion("recibeS");
+        save(auxiliar);
+
+        
+        System.out.println("termino de guardar relaciones");
+
+    }
+    
     @TransactionAttribute
     public String guardar() {
 
@@ -876,12 +977,31 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                 }
 
                 save(getInstance());
+             
+                List<Auxiliar> listaaux = servgen.buscarAuxiliarPorIdSolicitud( Auxiliar_.soliciudId.getName(),getInstance().getId());
+                System.out.println("size" + listaaux.size());
+                for (Auxiliar auxiliar : listaaux) {
+                    if (auxiliar.getTipoRelacion().equals("solicitadoS")) {
+                        auxiliar.setPersonalId(servgen.buscarPorId(Profile.class, idPersonas));
+                        save(auxiliar);
+                    }
+                    if (auxiliar.getTipoRelacion().equals("aprobadoS")) {
+                        auxiliar.setPersonalId(servgen.buscarPorId(Profile.class, idPersonaa));
+                        save(auxiliar);
+                    }
+                    
+                     if (auxiliar.getTipoRelacion().equals("recibeS")) {
+                        auxiliar.setPersonalId(servgen.buscarPorId(Profile.class, idPersonar));
+                        save(auxiliar);
+                    }
+                }
 
             } else {
                 getInstance().setEstado(true);
                 guardarItem();
                 create(getInstance());
                 save(getInstance());
+                guardarRelacion();
                 if (requisicion != null) {
                 
                     if (requisicion.getId() != null) {
