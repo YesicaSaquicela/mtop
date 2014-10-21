@@ -110,6 +110,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String nombrew = "";
     private String aprobada;
     private List<PartidaContabilidad> listaPartida;
+    private Integer numr=0;
+
+    public Integer getNumr() {
+        return numr;
+    }
+
+    public void setNumr(Integer numr) {
+        this.numr = numr;
+    }
+    
 
     private List<PartidaContabilidad> listaPartidaAgregar;
 
