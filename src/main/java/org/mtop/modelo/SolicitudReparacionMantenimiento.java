@@ -49,7 +49,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 //    @ManyToOne
 //    @JoinColumn(name = "personaId")
 //     private Profile psolicita;
-    private String recibidor;
+  //  private String recibidor;
     @ManyToOne
     @JoinColumn(name = "kardexId")
     private Kardex kardex;
@@ -134,13 +134,7 @@ public class SolicitudReparacionMantenimiento extends BussinesEntity implements 
 //    public void setPsolicita(Profile psolicita) {
 //        this.psolicita = psolicita;
 //    }
-    public String getRecibidor() {
-        return recibidor;
-    }
-
-    public void setRecibidor(String recibidor) {
-        this.recibidor = recibidor;
-    }
+    
 
     public Vehiculo getVehiculo() {
         return vehiculo;

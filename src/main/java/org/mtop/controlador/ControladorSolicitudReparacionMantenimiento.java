@@ -84,6 +84,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<SolicitudReparacionMantenimiento> listaSolicitudes2 = new ArrayList<SolicitudReparacionMantenimiento>();
     private List<Requisicion> listaRequisicion2 = new ArrayList<Requisicion>();
     private String nombrew = "";
+    
 
     public long getIdPersonas() {
         return idPersonas;
@@ -92,7 +93,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setIdPersonas(long idPersonas) {
         this.idPersonas = idPersonas;
         Profile psolicita = servgen.buscarPorId(Profile.class, idPersonas);
-        getInstance().getListapersonas().add(0, psolicita);
+        getInstance().getListaPersonas().add(0, psolicita);
     }
 
   
@@ -104,7 +105,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setIdPersonar(long idPersonar) {
         this.idPersonar = idPersonar;
          Profile precibe = servgen.buscarPorId(Profile.class, idPersonar);
-        getInstance().getListapersonas().add(1, precibe);
+        getInstance().getListaPersonas().add(1, precibe);
     }
 
     public long getIdPersonaa() {
@@ -114,12 +115,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setIdPersonaa(long idPersonaa) {
         this.idPersonaa = idPersonaa;
         Profile paprueba = servgen.buscarPorId(Profile.class, idPersonar);
-        getInstance().getListapersonas().add(2, paprueba);
+        getInstance().getListaPersonas().add(2, paprueba);
     }
-  
-   
+     
     
      public String getNombrew() {
+         System.out.println("nombre en get"+nombrew);
         return nombrew;
     }
 
@@ -550,7 +551,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public String onFlowProcess(FlowEvent event) {
         nombrew = "req";
-       
+          System.out.println("\n\n\n\n\n\nENRTRO FLOWPROCESS" + event.getNewStep());
+        System.out.println("Entro getOld" + event.getOldStep());
+        System.out.println("Lista de itemmSSSS" + this.listaItemsSolicitud);
+        System.out.println("vehiculo>>>>>" + getInstance().getVehiculo());
+        System.out.println("otro retorna");
+        System.out.println("nombre wizard111" + nombrew);
         if (skip) {
 
             skip = false;
@@ -559,7 +565,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         } else {
             nombrew = "req";
             if (event.getNewStep().equals("confirm") && event.getOldStep().equals("requi")) {
+                 
                 nombrew = "Final";//reset in case user goes back
+                 System.out.println("nombre wizard111skip dfdsfds" + nombrew);
             }
             if (getInstance().getId() != null) {
                 this.citemsolicitud.setListaItemsSolicitud(getInstance().getListaItemSR());
@@ -667,9 +675,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
     
-        idPersonas = getInstance().getListapersonas().get(0).getId();
-        idPersonar = getInstance().getListapersonas().get(1).getId();
-         idPersonaa = getInstance().getListapersonas().get(2).getId();
+        idPersonas = getInstance().getListaPersonas().get(0).getId();
+        idPersonar = getInstance().getListaPersonas().get(1).getId();
+         idPersonaa = getInstance().getListaPersonas().get(2).getId();
         if (getInstance().isPersistent()) {
 
             System.out.println("entro111111111111");
