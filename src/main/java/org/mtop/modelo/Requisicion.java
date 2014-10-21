@@ -48,9 +48,9 @@ public class Requisicion extends BussinesEntity implements Serializable {
     private PartidaContabilidad partidaContabilidad;
     @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
-    @OneToMany(mappedBy = "requisicionP", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Profile> listaPersonas = new ArrayList<Profile>();
-
+//    @OneToMany(mappedBy = "requisicionP", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Profile> listaPersonas = new ArrayList<Profile>();
+    
     
     @OneToOne(fetch = FetchType.LAZY)
     private SolicitudReparacionMantenimiento solicitudReparacionId;
@@ -63,13 +63,13 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @JoinColumn(name = "kardexId")
     private Kardex kardex;
 
-    public List<Profile> getListaPersonas() {
-        return listaPersonas;
-    }
-
-    public void setListaPersonas(List<Profile> listaPersonas) {
-        this.listaPersonas = listaPersonas;
-    }
+//    public List<Profile> getListaPersonas() {
+//        return listaPersonas;
+//    }
+//
+//    public void setListaPersonas(List<Profile> listaPersonas) {
+//        this.listaPersonas = listaPersonas;
+//    }
     
     public Vehiculo getVehiculo() {
         return vehiculo;

@@ -75,10 +75,17 @@
                                     <span class="help-inline text-muted">Número de requisición<ocp:message forId="numRequisicion" /></span><br></br><br></br> 
 
                                     <h:outputLabel value="Fecha de requisición" /> <br></br> 
-                                    <p:inputText id="fechaRequisicion" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"  label="Fecha de Requisicion"
-                                                 readonly="true" styleClass="form-control"
-                                                 required="true" 
-                                                 rendered="true" />
+                                     <h:panelGrid id="p12">
+                                        <p:calendar  id="fecha1" value="#{controladorRequisicion.instance.fechaRequisicion}"  
+                                                     styleClass="xLarge" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
+                                                     locale="es">   
+                                            <f:ajax event="dateSelect" execute="fecha1" render="p12"/>  
+
+                                        </p:calendar>
+                                    
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.instance.fechaRequisicion !=null}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Ingrese la fecha de creación de requisición<ocp:message forId="fecha1" /></span>
+                                    </h:panelGrid><br/>
                                     <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                     <span class="help-inline text-muted">Fecha de creación de la requisición<ocp:message forId="fechaRequisicion" /></span><br></br><br></br> 
 
@@ -125,9 +132,9 @@
                                         </span><br></br><br></br> 
                                     </h:panelGroup>
 
-                                    <h:outputLabel value="Requerido por*"/> <br></br>
+                                    <h:outputLabel value="Solicitado por*"/> <br></br>
                                     <h:panelGroup id="pr" layout="block" class="clearfix">
-                                        <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonal}" 
+                                        <p:selectOneMenu style="width: 100%" id="personal1"  value="#{controladorRequisicion.idPersonals}" 
                                                          effect="fade" label="requerido" filter="true" filterMatchMode="contains"
                                                          converter="#{omnifaces.GenericEnumConverter}" required="true"
                                                          requiredMessage="Requerido necesita un valor">  
@@ -137,9 +144,27 @@
 
                                         </p:selectOneMenu> <br></br>
 
-                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.idPersonal != ''}" styleClass="validation-status" />
-                                        <span class="help-inline text-muted">Elija el personal que requiere<ocp:message forId="personal1" /></span><br></br><br></br> 
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.idPersonals != ''}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Elija el personal que solicita<ocp:message forId="personal1" /></span><br></br><br></br> 
                                     </h:panelGroup>
+                                    
+                                       <h:outputLabel value="Aprobado por*"/> <br></br>
+                                    <h:panelGroup id="pr1" layout="block" class="clearfix">
+                                        <p:selectOneMenu style="width: 100%" id="personala"  value="#{controladorRequisicion.idPersonala}" 
+                                                         effect="fade" label="requerido" filter="true" filterMatchMode="contains"
+                                                         converter="#{omnifaces.GenericEnumConverter}" required="true"
+                                                         requiredMessage="Requerido necesita un valor">  
+                                            <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                            <f:selectItems value="#{controladorRequisicion.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                            <f:ajax execute="personala" render="pr1"/>
+
+                                        </p:selectOneMenu> <br></br>
+
+                                        <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.idPersonala != ''}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Elija el personal que aprueba<ocp:message forId="personala" /></span><br></br><br></br> 
+                                    </h:panelGroup>
+                                       
+                                       
                                     <h:outputLabel value="Tipo de adquisición*"/><br></br>
                                     <h:panelGroup id="ta" layout="block" class="clearfix">
                                         <p:selectOneMenu style="width: 100%" id="adquisicion" 
@@ -1021,22 +1046,31 @@
 
                                                     </div>
                                                 </h:panelGroup><br></br>
-                                                <h:panelGroup id="fechaReq" layout="block" class="clearfix">
+                                                <h:panelGroup id="reqReq" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Solicitado por: " /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.idPersonals}" styleClass="outputLabel"/><br/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                                <h:panelGroup id="reqReq3" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Aprobado por: " /><br/>
+                                                        <h:outputText value="#{controladorRequisicion.idPersonala}" styleClass="outputLabel"/><br/>
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                               
+                                            </div>
+                                            <div class="col-md-6"> 
+                                                 <h:panelGroup id="fechaReq" layout="block" class="clearfix">
                                                     <div class="input">
                                                         <h:outputLabel value="Fecha de requisición: " /><br/>
                                                         <h:outputText value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}" styleClass="outputLabel"/>
 
                                                     </div>
                                                 </h:panelGroup><br></br>
-                                            </div>
-                                            <div class="col-md-6"> 
-                                                <h:panelGroup id="reqReq" layout="block" class="clearfix">
-                                                    <div class="input">
-                                                        <h:outputLabel value="Requerido por: " /><br/>
-                                                        <h:outputText value="#{controladorRequisicion.instance.psolicita.concatenarNombre}" styleClass="outputLabel"/><br/>
-
-                                                    </div>
-                                                </h:panelGroup><br></br>
+                                                
                                                 <h:panelGroup id="plVeh" rendered="#{controladorRequisicion.vehiculo.id ne null}" layout="block" class="clearfix">
                                                     <div class="input">
                                                         <h:outputLabel value="Placa del vehículo : " rendered="#{controladorRequisicion.vehiculo.id ne null}" /><br/>
