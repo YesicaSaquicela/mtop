@@ -21,13 +21,12 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
-import javax.persistence.metamodel.MapAttribute;
+import org.mtop.modelo.Auxiliar;
 import org.mtop.modelo.EstadoVehiculo;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
-import org.mtop.modelo.Vehiculo;
+
 //import org.mtop.model.EntidadAbstracta_;
 //import org.mtop.model.Persona;
 //import org.mtop.model.Persona_;
@@ -162,18 +161,24 @@ public class ServicioGenerico {
      * @return
      */
     public <T> List<T> buscarTodoscoincidencia(final Class<T> objetoTipo, String tabla, String nombreatributo, final Object valoratributo) {
-
+        System.out.println("entro a busacra "+valoratributo);
+           
         TypedQuery<T> query = em.createQuery(
                 "select e from " + tabla + " e where"
                 + " lower(e." + nombreatributo + ") like lower(concat('%',:clave,'%')) ", objetoTipo);
 
         query.setParameter("clave", valoratributo);
+        System.out.println("size en serivicio generico"+query.getResultList().size());
+        for (Object object : query.getResultList()) {
+            System.out.println("objeto"+object);
+        }
 //       
         return query.getResultList();
 
         //builder.equal(objeto.get(at), true)
     }
-
+    
+    
     public <T> List<T> find(final Class<T> objetoTipo, String criterio, int maxresults, int firstresult) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -189,7 +194,38 @@ public class ServicioGenerico {
         return em.createQuery(query).setMaxResults(maxresults)
                 .setFirstResult(firstresult).getResultList();
     }
+     public List<Auxiliar> buscarAuxiliarPorIdReq(String nombreatributo, final Object valoratributo) {
+        List<Auxiliar> l = new ArrayList<Auxiliar>();
+        String s = "";
+        l.clear();
+        for (Auxiliar t : buscarTodos(Auxiliar.class, nombreatributo)) {
+          
+            if (t.getRequisicionId().getId().equals((Long)valoratributo)) {
+                System.out.println("anado un)ang fecha>>>>"+s);
+                l.add(t);
+            }
+        }
+        System.out.println("retornando>>>>>fechas>>>>"+l);
+        return l;
 
+        //builder.equal(objeto.get(at), true)
+    }
+     public List<Auxiliar> buscarAuxiliarPorIdSol(String nombreatributo, final Object valoratributo) {
+        List<Auxiliar> l = new ArrayList<Auxiliar>();
+        
+        l.clear();
+        for (Auxiliar t : buscarTodos(Auxiliar.class, nombreatributo)) {
+          
+            if (t.getSoliciudId().getId().equals((Long)valoratributo)) {
+
+                l.add(t);
+            }
+        }
+        System.out.println("retornando>>>>>fechas>>>>"+l);
+        return l;
+
+        //builder.equal(objeto.get(at), true)
+    }
     public List<Requisicion> buscarRequisicionporFecha(String nombreatributo, final Object valoratributo) {
         List<Requisicion> l = new ArrayList<Requisicion>();
         String s = "";
@@ -209,6 +245,7 @@ public class ServicioGenerico {
 
         //builder.equal(objeto.get(at), true)
     }
+    
 
     public List<EstadoVehiculo> buscarEstadoVporFecha(String nombreatributo, final Object valoratributo) {
         List<EstadoVehiculo> l = new ArrayList<EstadoVehiculo>();
