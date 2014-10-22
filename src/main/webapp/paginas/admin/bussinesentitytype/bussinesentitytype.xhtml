@@ -365,35 +365,65 @@ limitations under the License.
 
 
 
-
-                                                <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                            <div class="container-fluid">
+                    <!-- Example row of columns -->
+                                <div class="row">
+                                    <div class="col-md-6"> 
+                                        
+                                         <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
                                                                value="Valor inicial para numero de requisición de Bienes y Servicios" />
                                                 <div class="input">
                                                     <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
                                                                  id="vi1" styleClass="xLarge span4" label="valor inicial bienes y servicios"
                                                                  value="#{bussinesEntityTypeHome.viNumRequisicionBie}">
-                                                        <f:ajax execute="@this" render="save1"  />
+                                                        <f:ajax execute="@this" render="saveg"  />
                                                     </p:inputText>
+                                                    
                                                     <br/><br/>
                                                 </div>
-                                                <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                           <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
                                                                value="Valor inicial para numero de requisición de Reparación" />
                                                 <div class="input">
                                                     <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
                                                                  id="vi2" styleClass="xLarge span4" label="valor inicial reparación"
                                                                  value="#{bussinesEntityTypeHome.viNumRequisicionRep}">
-                                                        <f:ajax execute="@this" render="save1"  />
+                                                        <f:ajax execute="@this" render="save2"  />
                                                     </p:inputText>
                                                     <br/><br/>
                                                 </div>
-                                                <div class="actions" align="center">
-                                                    <p:commandButton styleClass="btn  btn-success" id="save1" 
-                                                                     action="#{bussinesEntityTypeHome.fijarValorRequisicion()}"
-                                                                     value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
-                                                                     rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
-                                                                     />
+                                    </div>
+                                    <div class="col-md-6"> 
+                                       <div class="actions" align="center">
+                                           <h:panelGroup id="saveg">
+                                               #{bussinesEntityTypeHome.propiedadbienB.value}
+                                                <p:commandButton styleClass="btn  btn-success" id="save1" 
+                                                                 action="#{bussinesEntityTypeHome.fijarValorRequisicionBien()}"
+                                                                 value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
+                                                                 rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                                 />
+                                           </h:panelGroup>
+                                           
+                                            
 
-                                                </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="actions" align="center">
+                                            <p:commandButton styleClass="btn  btn-success" id="save2" 
+                                                             action="#{bussinesEntityTypeHome.fijarValorRequisicionRepa()}"
+                                                             value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
+                                                             rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
+                                                             />
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                               
+                                               
+                                                
 
 
 

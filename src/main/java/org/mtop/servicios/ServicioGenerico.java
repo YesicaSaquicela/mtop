@@ -22,6 +22,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.mtop.modelo.Auxiliar;
+import org.mtop.modelo.AuxiliarParReq;
 import org.mtop.modelo.EstadoVehiculo;
 import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.Requisicion;
@@ -206,6 +207,22 @@ public class ServicioGenerico {
             }
         }
         System.out.println("retornando>>>>>fechas>>>>"+l);
+        return l;
+
+        //builder.equal(objeto.get(at), true)
+    }
+     public List<AuxiliarParReq> buscarAuxiliarPorIdReqPa(String nombreatributo, final Object valoratributo) {
+        List<AuxiliarParReq> l = new ArrayList<AuxiliarParReq>();
+        String s = "";
+        l.clear();
+        for (AuxiliarParReq t : buscarTodos(AuxiliarParReq.class, nombreatributo)) {
+          
+            if (t.getRequisicionId().getId().equals((Long)valoratributo)) {
+                System.out.println("anado un)ang req>>>>"+t);
+                l.add(t);
+            }
+        }
+        System.out.println("retornando>>>>>req>>>>"+l);
         return l;
 
         //builder.equal(objeto.get(at), true)

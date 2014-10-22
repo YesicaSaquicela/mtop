@@ -277,7 +277,7 @@
 
                                     <ui:repeat  value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento')}" var="a" varStatus="status"> 
                                         
-                                        <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
+                                        <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud' and a.property.name ne 'esInicialviNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
                                         </p:outputLabel>
 
                                         <div class="input">
@@ -476,7 +476,7 @@
                                                                                 <h:outputLabel class="navbar-text" value=" Marca:"/>
                                                                                 <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
                                                                             </div>
-                                                                                                                                       <div class="col-md-4"> 
+                                                                           <div class="col-md-4"> 
 
                                                                                 <h:outputLabel class="navbar-text" value=" Conductor:"/>
                                                                                 <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.persona.fullName}"/>
@@ -1151,7 +1151,7 @@
 
 
 
-                                <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 2 }" closable="false"  titleStyleClass="clearfix"  >
+                                <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 4 }" closable="false"  titleStyleClass="clearfix"  >
 
                                     <ui:repeat  value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
 

@@ -24,15 +24,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.mtop.modelo.profile.Profile;
 
 /**
  *
  * @author yesica
  */
 @Entity
-@Table(name = "Auxiliar")
-public class Auxiliar implements Serializable {
+@Table(name = "AuxiliarParReq")
+public class AuxiliarParReq implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -40,12 +39,8 @@ public class Auxiliar implements Serializable {
     @JoinColumn(name = "requisicionId")
     private Requisicion requisicionId;
     @ManyToOne
-    @JoinColumn(name = "soliciudId")
-    private SolicitudReparacionMantenimiento soliciudId;
-    @ManyToOne
-    @JoinColumn(name = "personalId")
-    private Profile personalId;
-    private String tipoRelacion;
+    @JoinColumn(name = "partidaId")
+    private PartidaContabilidad partidaId;
 
     public Long getId() {
         return id;
@@ -63,30 +58,14 @@ public class Auxiliar implements Serializable {
         this.requisicionId = requisicionId;
     }
 
-    public SolicitudReparacionMantenimiento getSoliciudId() {
-        return soliciudId;
+    public PartidaContabilidad getPartidaId() {
+        return partidaId;
     }
 
-    public void setSoliciudId(SolicitudReparacionMantenimiento soliciudId) {
-        this.soliciudId = soliciudId;
+    public void setPartidaId(PartidaContabilidad partidaId) {
+        this.partidaId = partidaId;
     }
-
-    public Profile getPersonalId() {
-        return personalId;
-    }
-
-    public void setPersonalId(Profile personalId) {
-        this.personalId = personalId;
-    }
-
     
-    public String getTipoRelacion() {
-        return tipoRelacion;
-    }
-
-    public void setTipoRelacion(String tipoRelacion) {
-        this.tipoRelacion = tipoRelacion;
-    }
     
     
 }

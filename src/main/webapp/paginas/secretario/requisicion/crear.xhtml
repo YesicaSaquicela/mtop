@@ -247,7 +247,7 @@
                                             <div class="col-md-6">
                                                 <br/>
                                                  <p:commandButton  update=":form:dialogP"   oncomplete="PF('documentDialogP').show()"
-                                                                  icon="ui-icon-pencil" style="width: 130px; height: 35px" id="agregarPar"
+                                                                  icon="ui-icon-pencil" style="width: 150px; height: 35px" id="agregarPar"
                                                                   title="Agregar más" value="Agregar más"
                                                                   process="@this">
                                                 </p:commandButton> #{" "}
@@ -308,7 +308,8 @@
 
 
                                                                     <h:panelGroup layout="block" class="clearfix">
-                                                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                                                        <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
+                                                                            #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                                         <div class="input">
                                                                             <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
                                                                                          required="#{a.property.required}" label="#{a.property.label}" 
@@ -383,11 +384,12 @@
 
 
 
-                                        <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 2 }" closable="false"  titleStyleClass="clearfix"  >
+                                        <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 4 }" closable="false"  titleStyleClass="clearfix"  >
 
                                             <ui:repeat  value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
 
-                                                <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" 
+                                                <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'
+                                                                           and a.property.name ne 'esInicialviNumRequisicionBienes'  and a.property.name ne 'esInicialviNumRequisicionReparacion'}" 
                                                                class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
                                                 </p:outputLabel>
 
@@ -1139,14 +1141,14 @@
                                                 <h:panelGroup id="reqReq" layout="block" class="clearfix">
                                                     <div class="input">
                                                         <h:outputLabel value="Solicitado por: " /><br/>
-                                                        <h:outputText value="#{controladorRequisicion.idPersonals}" styleClass="outputLabel"/><br/>
+                                                        <h:outputText value="#{controladorRequisicion.obtenernombre(controladorRequisicion.idPersonals)}" styleClass="outputLabel"/><br/>
 
                                                     </div>
                                                 </h:panelGroup><br></br>
                                                 <h:panelGroup id="reqReq3" layout="block" class="clearfix">
                                                     <div class="input">
                                                         <h:outputLabel value="Aprobado por: " /><br/>
-                                                        <h:outputText value="#{controladorRequisicion.idPersonala}" styleClass="outputLabel"/><br/>
+                                                        <h:outputText value="#{controladorRequisicion.obtenernombre(controladorRequisicion.idPersonala)}" styleClass="outputLabel"/><br/>
 
                                                     </div>
                                                 </h:panelGroup><br></br>
@@ -1165,6 +1167,13 @@
                                                     <div class="input">
                                                         <h:outputLabel value="Placa del vehículo : " rendered="#{controladorRequisicion.vehiculo.id ne null}" /><br/>
                                                         <h:outputText value="#{controladorRequisicion.vehiculo.placa}" styleClass="outputLabel" rendered="#{controladorRequisicion.vehiculo.id ne null}" />
+
+                                                    </div>
+                                                </h:panelGroup><br></br>
+                                                <h:panelGroup id="cond" rendered="#{controladorRequisicion.vehiculo.id ne null}" layout="block" class="clearfix">
+                                                    <div class="input">
+                                                        <h:outputLabel value="Conductor: " rendered="#{controladorRequisicion.vehiculo.id ne null}" /><br/>
+                                                        <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.persona.fullName.trim()}" rendered="#{controladorRequisicion.vehiculo.id ne null}"/>
 
                                                     </div>
                                                 </h:panelGroup><br></br>

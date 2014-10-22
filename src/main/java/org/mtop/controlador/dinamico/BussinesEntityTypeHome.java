@@ -67,9 +67,21 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     private Property propiedad;
     private Property propiedadbien;
     private Property propiedadrepa;
+    private Property propiedadB;
+    private Property propiedadbienB;
+    private Property propiedadrepaB;
     private String mensaje2;
+
+    public Property getPropiedadbienB() {
+        return propiedadbienB;
+    }
+
+    public void setPropiedadbienB(Property propiedadbienB) {
+        this.propiedadbienB = propiedadbienB;
+    }
     
-   
+    
+
     public String getMensaje2() {
         return mensaje2;
     }
@@ -77,8 +89,6 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     public void setMensaje2(String mensaje2) {
         this.mensaje2 = mensaje2;
     }
-    
-    
 
     public String getValorIniSolicitud() {
         return valorIniSolicitud;
@@ -114,6 +124,9 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
             propiedad.setValue((Serializable) o);
             save(propiedad);
+            o = true;
+            propiedadB.setValue((Serializable) o);
+            save(propiedadB);
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valor inicial de numero de solicitud necesita un valor"));
         }
@@ -121,21 +134,48 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     }
 
     @TransactionAttribute
-    public void fijarValorRequisicion() {
+    public void fijarValorRequisicionBien() {
         viNumRequisicionBie = viNumRequisicionBie.trim();
-        viNumRequisicionRep = viNumRequisicionRep.trim();
-                
+
         if (!viNumRequisicionRep.equals("") && !viNumRequisicionBie.equals("")) {
-           
+
             Object o = new Object();
             o = viNumRequisicionBie;
             propiedadbien.setValue((Serializable) o);
             save(propiedadbien);
-            
+
+            o = true;
+            System.out.println("propiedad bien " + propiedadbienB.getValue().toString());
+            propiedadbienB.setValue((Serializable) o);
+            System.out.println("propiedad bien " + propiedadbienB.getValue().toString());
+            save(propiedadbienB);
+
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valores iniciales de requisición necesitan un valores"));
+        }
+
+    }
+
+    @TransactionAttribute
+    public void fijarValorRequisicionRepa() {
+        viNumRequisicionRep = viNumRequisicionRep.trim();
+
+        if (!viNumRequisicionRep.equals("") && !viNumRequisicionBie.equals("")) {
+
+            Object o = new Object();
+
             o = viNumRequisicionRep;
+            System.out.println("propiedad bien " + propiedadbienB.getValue().toString());
             propiedadrepa.setValue((Serializable) o);
+
             save(propiedadrepa);
-            
+
+            o = true;
+            System.out.println("propiedad propiedadrepaB " + propiedadrepaB.getValue().toString());
+            propiedadrepaB.setValue((Serializable) o);
+            System.out.println("propiedad propiedadrepaB " + propiedadrepaB.getValue().toString());
+            save(propiedadrepaB);
+
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valores iniciales de requisición necesitan un valores"));
         }
@@ -148,10 +188,10 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     public void setListaPropiedades(List<Property> listaPropiedades) {
         try {
-            
+
             if (getInstance().getLabel() != null) {
                 if (getInstance().getLabel().equals("Solicitud Reparación y Mantenimiento")) {
-                 
+
                     List<Property> lp = new ArrayList<Property>();
                     if (listaPropiedades != null) {
                         for (Property p : listaPropiedades) {
@@ -159,7 +199,12 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                                 valorIniSolicitud = p.getValue().toString();
                                 propiedad = p;
                             } else {
-                                lp.add(p);
+                                if (p.getName().equals("esInicialviNumSolicitud")) {
+                                    propiedadB = p;
+                                } else {
+                                    lp.add(p);
+                                }
+
                             }
                         }
                         if (valorIniSolicitud != null) {
@@ -170,7 +215,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                     }
 
                 }
-              
+
                 if (getInstance().getLabel().equals("Requisición")) {
                     List<Property> lp = new ArrayList<Property>();
                     if (listaPropiedades != null) {
@@ -180,13 +225,24 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                                 propiedadrepa = p;
                             } else {
                                 if (p.getName().equals("viNumRequisicionBienes")) {
-                                    viNumRequisicionBie=p.getValue().toString();
-                                    propiedadbien=p;
+                                    viNumRequisicionBie = p.getValue().toString();
+                                    propiedadbien = p;
                                 } else {
-                                    lp.add(p);
+                                    if (p.getName().equals("esInicialviNumRequisicionReparacion")) {
+                                        propiedadrepaB = p;
+                                        
+                                    } else {
+                                        if (p.getName().equals("esInicialviNumRequisicionBienes")) {
+                                            propiedadbienB = p;
+                                        } else {
+
+                                            lp.add(p);
+                                        }
+                                    }
+
                                 }
                             }
-                         
+
                         }
                         if (valorIniSolicitud != null) {
                             listaPropiedades = lp;
@@ -244,14 +300,14 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         }
 
         if (le.isEmpty()) {
-           
+
             if (palabrab.equals("Ingrese algun valor a buscar")) {
-               FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
                 palabrab = " ";
             } else {
-                listaPropiedades=le;
-                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:No se ha encontrado", palabrab);
+                listaPropiedades = le;
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:No se ha encontrado", palabrab);
                 FacesContext.getCurrentInstance().addMessage("", msg);
             }
 
@@ -279,14 +335,14 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         setId(bussinesEntityTypeId);
 
     }
+
     public void fijaEntidad(Long bussinesEntityTypeId) {
         System.out.println("enro a fija e la entidad ");
-                
+
         setId(bussinesEntityTypeId);
-        System.out.println("fijo "+getInstance().getName());
+        System.out.println("fijo " + getInstance().getName());
 
     }
-    
 
     public String getName() {
         return name;
@@ -343,9 +399,9 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         setEntityManager(em);
         bussinesEntityTypeService.setEntityManager(em);
         bussinesEntityService.setEntityManager(em);
-        valorIniSolicitud="";
-        viNumRequisicionBie="";
-        viNumRequisicionRep="";
+        valorIniSolicitud = "";
+        viNumRequisicionBie = "";
+        viNumRequisicionRep = "";
 
     }
 
@@ -399,7 +455,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
     @Transactional
     public String deleteBussinesEntityType() {
-        System.out.println("ento a borrar entidad"+getInstance().getLabel());
+        System.out.println("ento a borrar entidad" + getInstance().getLabel());
         try {
             if (getInstance() == null) {
                 throw new NullPointerException("property is null");
@@ -421,7 +477,6 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         }
         return "/paginas/admin/bussinesentitytype/list";
     }
-    
 
     @TransactionAttribute
     public void displayBootcampAjax() {

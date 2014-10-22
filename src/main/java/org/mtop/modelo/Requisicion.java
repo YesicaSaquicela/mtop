@@ -44,8 +44,7 @@ public class Requisicion extends BussinesEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "vehiculoId1")
     private Vehiculo vehiculo;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PartidaContabilidad> listaPartidas=new ArrayList<PartidaContabilidad>();
+
     @OneToMany(mappedBy = "requisicion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemRequisicion> listaItems = new ArrayList<ItemRequisicion>();
   
@@ -92,14 +91,6 @@ public class Requisicion extends BussinesEntity implements Serializable {
             itemRequisicion.setRequisicion(this);
         }
         this.listaItems = listaItems;
-    }
-
-    public List<PartidaContabilidad> getListaPartidas() {
-        return listaPartidas;
-    }
-
-    public void setListaPartidas(List<PartidaContabilidad> listaPartidas) {
-        this.listaPartidas = listaPartidas;
     }
 
 
