@@ -341,33 +341,33 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.limpiar();
     }
 
-    @TransactionAttribute
-    public void guardarSol(SolicitudReparacionMantenimiento solis) {
-        Date now = Calendar.getInstance().getTime();
-        List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
-        for (ItemSolicitudReparacion apm : solis.getListaItemSR()) {
-
-            apm.setSolicitudReparacion(solis);//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
-
-            lir.add(apm);
-            servgen.actualizar(apm);
-
-        }
-
-        solis.setListaItemSR(lir);//fija la lista de actividades a la solicitud
-
-        BussinesEntityType _type1 = bussinesEntityService.findBussinesEntityTypeByName(SolicitudReparacionMantenimiento.class.getName());
-
-        solis.setCreatedOn(now);
-        solis.setLastUpdate(now);
-        solis.setActivationTime(now);
-        solis.setType(_type1);
-        solis.buildAttributes(bussinesEntityService);  //
-        create(solis);
-        save(solis);
-        listaSolicitudes.add(solis);
-
-    }
+//    @TransactionAttribute
+//    public void guardarSol(SolicitudReparacionMantenimiento solis) {
+//        Date now = Calendar.getInstance().getTime();
+//        List<ItemSolicitudReparacion> lir = new ArrayList<ItemSolicitudReparacion>();
+//        for (ItemSolicitudReparacion apm : solis.getListaItemSR()) {
+//
+//            apm.setSolicitudReparacion(solis);//fijarle un plan de mantenimiento a cada actividad de plan de mantenimiento
+//
+//            lir.add(apm);
+//            servgen.actualizar(apm);
+//
+//        }
+//
+//        solis.setListaItemSR(lir);//fija la lista de actividades a la solicitud
+//
+//        BussinesEntityType _type1 = bussinesEntityService.findBussinesEntityTypeByName(SolicitudReparacionMantenimiento.class.getName());
+//
+//        solis.setCreatedOn(now);
+//        solis.setLastUpdate(now);
+//        solis.setActivationTime(now);
+//        solis.setType(_type1);
+//        solis.buildAttributes(bussinesEntityService);  //
+//        create(solis);
+//        save(solis);
+//        listaSolicitudes.add(solis);
+//
+//    }
 
     public ItemRequisicion getItemr() {
         return itemr;
@@ -1982,6 +1982,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                 create(getInstance());
                 save(getInstance());
+                guardarRelacion();
+                if (getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
+                    Integer t = Integer.parseInt(propertyRepa.getValue().toString());
+                    t++;
+                    propertyRepa.setValue((Serializable) t);
+                    System.out.println("nuevo valor a guardar de repra" + propertyRepa.getValue().toString());
+
+                    save(propertyRepa);
+                }
+                if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
+                    Integer t = Integer.parseInt(propertyBien.getValue().toString());
+                    t++;
+                    propertyBien.setValue((Serializable) t);
+                    System.out.println("valor a guardar de bien" + propertyBien.getValue().toString());
+                    save(propertyBien);
+
+                }
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se creó una nueva Requisición  " + getInstance().getNumRequisicion() + "  con éxito", " ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
