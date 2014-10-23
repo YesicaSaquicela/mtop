@@ -67,20 +67,8 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     private Property propiedad;
     private Property propiedadbien;
     private Property propiedadrepa;
-    private Property propiedadB;
-    private Property propiedadbienB;
-    private Property propiedadrepaB;
+
     private String mensaje2;
-
-    public Property getPropiedadbienB() {
-        return propiedadbienB;
-    }
-
-    public void setPropiedadbienB(Property propiedadbienB) {
-        this.propiedadbienB = propiedadbienB;
-    }
-    
-    
 
     public String getMensaje2() {
         return mensaje2;
@@ -124,9 +112,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
 
             propiedad.setValue((Serializable) o);
             save(propiedad);
-            o = true;
-            propiedadB.setValue((Serializable) o);
-            save(propiedadB);
+
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valor inicial de numero de solicitud necesita un valor"));
         }
@@ -144,12 +130,6 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
             propiedadbien.setValue((Serializable) o);
             save(propiedadbien);
 
-            o = true;
-            System.out.println("propiedad bien " + propiedadbienB.getValue().toString());
-            propiedadbienB.setValue((Serializable) o);
-            System.out.println("propiedad bien " + propiedadbienB.getValue().toString());
-            save(propiedadbienB);
-
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valores iniciales de requisición necesitan un valores"));
         }
@@ -163,18 +143,9 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         if (!viNumRequisicionRep.equals("") && !viNumRequisicionBie.equals("")) {
 
             Object o = new Object();
-
             o = viNumRequisicionRep;
-            System.out.println("propiedad bien " + propiedadbienB.getValue().toString());
             propiedadrepa.setValue((Serializable) o);
-
             save(propiedadrepa);
-
-            o = true;
-            System.out.println("propiedad propiedadrepaB " + propiedadrepaB.getValue().toString());
-            propiedadrepaB.setValue((Serializable) o);
-            System.out.println("propiedad propiedadrepaB " + propiedadrepaB.getValue().toString());
-            save(propiedadrepaB);
 
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "Valores iniciales de requisición necesitan un valores"));
@@ -199,11 +170,8 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                                 valorIniSolicitud = p.getValue().toString();
                                 propiedad = p;
                             } else {
-                                if (p.getName().equals("esInicialviNumSolicitud")) {
-                                    propiedadB = p;
-                                } else {
-                                    lp.add(p);
-                                }
+
+                                lp.add(p);
 
                             }
                         }
@@ -228,29 +196,21 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
                                     viNumRequisicionBie = p.getValue().toString();
                                     propiedadbien = p;
                                 } else {
-                                    if (p.getName().equals("esInicialviNumRequisicionReparacion")) {
-                                        propiedadrepaB = p;
-                                        
-                                    } else {
-                                        if (p.getName().equals("esInicialviNumRequisicionBienes")) {
-                                            propiedadbienB = p;
-                                        } else {
 
-                                            lp.add(p);
-                                        }
-                                    }
+                                    lp.add(p);
 
                                 }
+
                             }
+                        }
 
-                        }
-                        if (valorIniSolicitud != null) {
-                            listaPropiedades = lp;
-                            listaPropiedades2 = listaPropiedades;
-                        }
                     }
-
+                    if (valorIniSolicitud != null) {
+                        listaPropiedades = lp;
+                        listaPropiedades2 = listaPropiedades;
+                    }
                 }
+
             }
 
         } catch (Exception e) {

@@ -277,7 +277,7 @@
 
                                     <ui:repeat  value="#{controladorSolicitudReparacionMantenimiento.instance.findBussinesEntityAttribute('org.mtop.modelo.SolicitudReparacionMantenimiento')}" var="a" varStatus="status"> 
                                         
-                                        <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud' and a.property.name ne 'esInicialviNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
+                                        <p:outputLabel rendered="#{a.property.name ne 'viNumSolicitud'}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
                                         </p:outputLabel>
 
                                         <div class="input">

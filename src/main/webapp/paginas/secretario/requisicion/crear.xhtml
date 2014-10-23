@@ -247,8 +247,8 @@
                                             <div class="col-md-6">
                                                 <br/>
                                                  <p:commandButton  update=":form:dialogP"   oncomplete="PF('documentDialogP').show()"
-                                                                  icon="ui-icon-pencil" style="width: 150px; height: 35px" id="agregarPar"
-                                                                  title="Agregar más" value="Agregar más"
+                                                                  icon="ui-icon-pencil" style="width: 170px; height: 35px" id="agregarPar"
+                                                                  title="Agregar partida" value="Agregar partida"
                                                                   process="@this">
                                                 </p:commandButton> #{" "}
                                             </div>
@@ -384,12 +384,11 @@
 
 
 
-                                        <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 4 }" closable="false"  titleStyleClass="clearfix"  >
+                                        <p:tab title="Otros" rendered="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion').size() ne 2 }" closable="false"  titleStyleClass="clearfix"  >
 
                                             <ui:repeat  value="#{controladorRequisicion.instance.findBussinesEntityAttribute('org.mtop.modelo.Requisicion')}" var="a" varStatus="status"> 
 
-                                                <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'
-                                                                           and a.property.name ne 'esInicialviNumRequisicionBienes'  and a.property.name ne 'esInicialviNumRequisicionReparacion'}" 
+                                                <p:outputLabel rendered="#{a.property.name ne 'viNumRequisicionReparacion' and a.property.name ne 'viNumRequisicionBienes'}" 
                                                                class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}
                                                 </p:outputLabel>
 

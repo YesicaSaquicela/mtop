@@ -1106,82 +1106,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     }
 
-    public String getNumeroRequisicion() {
-        if (getId() == null) {
-            List<BussinesEntityAttribute> bea = getInstance().findBussinesEntityAttribute("org.mtop.modelo.Requisicion");
-
-            String valorInicialReparacion = "900";
-            String valorInicialBien = "200";
-
-            for (BussinesEntityAttribute a : bea) {
-
-                if (a.getProperty().getName().equals("viNumRequisicionReparacion")) {
-
-                    valorInicialReparacion = a.getValue().toString();
-                }
-                if (a.getProperty().getName().equals("viNumRequisicionBienes")) {
-
-                    valorInicialBien = a.getValue().toString();
-                }
-                if (a.getProperty().getName().equals("esInicialviNumRequisicionReparacion")) {
-                    propertyRepa = a.getProperty();
-                    System.out.println("valor guardado de repra" + propertyRepa.getValue().toString());
-
-                    b = Boolean.valueOf(propertyRepa.getValue().toString());
-
-                }
-                if (a.getProperty().getName().equals("esInicialviNumRequisicionBienes")) {
-
-                    propertyBien = a.getProperty();
-                    System.out.println("valor guardado de bien" + propertyBien.getValue().toString());
-
-                    b1 = Boolean.valueOf(propertyBien.getValue().toString());
-
-                }
-            }
-
-            List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Bienes y Servicios");
-            int t;
-
-            if (!getInstance().getTipoRequisicion().equals("")) {
-                if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
-                    //si el valor inicial fue cambiado
-                    if (b == true) {
-                        t = Integer.parseInt(valorInicialBien);
-                    } else {
-                        //sino se suman las anteriores
-                        System.out.println("lr en tipo bienes y servicios \n\n\n" + lr.size());
-                        System.out.println("Integer.parseInt(valorInicialBien" + Integer.parseInt(valorInicialBien));
-                        // List<Requisicion> lr=servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Bienes y Servicios");
-                        t = lr.size() + Integer.parseInt(valorInicialBien);
-                    }
-
-                } else {
-                    //si el valor inicial fue cambiado
-                    if (b1 == true) {
-                        t = Integer.parseInt(valorInicialReparacion);
-                    } else {
-                        //sino se suman las anteriores
-                        lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.tipoRequisicion.getName(), "Requisición de Reparación");
-                        System.out.println("lr  en tipo reparacion\n\n\n" + lr.size());
-                        System.out.println("Integer.parseInt(valorInicialReparacion) " + Integer.parseInt(valorInicialReparacion));
-                        t = lr.size() + Integer.parseInt(valorInicialReparacion);
-                    }
-
-                }
-            } else {
-                t = lr.size() + Integer.parseInt(valorInicialReparacion);
-            }
-            setNumeroRequisicion(String.valueOf(t + 1));
-
-        } else {
-            setNumeroRequisicion(getInstance().getNumRequisicion());
-        }
-        System.out.println("cambio a \n\n\n" + numeroRequisicion);
-        return numeroRequisicion;
-
-    }
-
     public void guardarItem() {
         listaProductos.clear();
         for (ItemRequisicion apm : listaItemsRequisicion) {
@@ -1895,19 +1819,21 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     }
                 }
-                //volver a false el valor de si es inicial el numero de requisicion
-                if (b) {
-                    propertyRepa.setValue((Serializable) b);
-                    System.out.println("valor a guardar de repra" + propertyRepa.getValue().toString());
+                //volver aumentar en uno el valor inicial de la requisicion
+                if (getInstance().getTipoRequisicion().equals("Requisición de Reparación")) {
+                    Integer t = Integer.parseInt(propertyRepa.getValue().toString());
+                    t++;
+                    propertyRepa.setValue((Serializable) t);
+                    System.out.println("nuevo valor a guardar de repra" + propertyRepa.getValue().toString());
 
-//                    save(propertyRepa);
-//                    System.out.println("guardao repa" + propertyRepa.getValue());
+                    save(propertyRepa);
                 }
-                if (b1) {
-                    propertyBien.setValue((Serializable) b1);
+                if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
+                    Integer t = Integer.parseInt(propertyBien.getValue().toString());
+                    t++;
+                    propertyBien.setValue((Serializable) t);
                     System.out.println("valor a guardar de bien" + propertyBien.getValue().toString());
-//                    save(propertyBien);
-//                    System.out.println("guardao bein" + propertyBien.getValue());
+                    save(propertyBien);
 
                 }
             }
@@ -1919,6 +1845,40 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
 
         return "/paginas/secretario/requisicion/lista.xhtml?faces-redirect=true";
+
+    }
+
+    public String getNumeroRequisicion() {
+        if (getId() == null) {
+            List<BussinesEntityAttribute> bea = getInstance().findBussinesEntityAttribute("org.mtop.modelo.Requisicion");
+
+            if (!getInstance().getTipoRequisicion().equals("")) {
+                for (BussinesEntityAttribute a : bea) {
+                    if (getInstance().getTipoRequisicion().equals("Requisición de Bienes y Servicios")) {
+                        if (a.getProperty().getName().equals("viNumRequisicionBienes")) {
+
+                            propertyBien = a.getProperty();
+                            setNumeroRequisicion(a.getValue().toString());
+                            return a.getValue().toString();
+                        }
+                    } else {
+                        if (a.getProperty().getName().equals("viNumRequisicionReparacion")) {
+
+                            propertyRepa = a.getProperty();
+                            setNumeroRequisicion(a.getValue().toString());
+                            return a.getValue().toString();
+                        }
+                    }
+
+                }
+
+            }
+
+        } else {
+            setNumeroRequisicion(getInstance().getNumRequisicion());
+        }
+        System.out.println("cambio a \n\n\n" + numeroRequisicion);
+        return numeroRequisicion;
 
     }
 

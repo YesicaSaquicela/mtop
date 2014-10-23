@@ -830,8 +830,7 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildGroupTypeProperty()]
             // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
             attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "viNumSolicitud", String.class.getName(), "8000", false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 50L));
-            attributes.add(buildProperty(SolicitudReparacionMantenimiento.class.getName(), "esInicialviNumSolicitud", String.class.getName(), "8000", false, "Valor Inicial para numero de solicitud", "Ingrese el valor inicial para el número de la solicitud", false, 50L));
-
+          
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
@@ -868,9 +867,7 @@ public class InitializeDatabase {
             // attributes.add(buildStructureTypeProperty("Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 1L));
             attributes.add(buildProperty(Requisicion.class.getName(), "viNumRequisicionReparacion", String.class.getName(), "900", false, "Valor Inicial para numero de requisición tipo reparación", "Ingrese el valor inicial para el número de requisición tipo reparación", false, 50L));
             attributes.add(buildProperty(Requisicion.class.getName(), "viNumRequisicionBienes", String.class.getName(), "200", false, "Valor Inicial para numero de requisición tipo bienes y servicios", "Ingrese el valor inicial para el número de requisición tipo bienes y servicios", false, 50L));
-            attributes.add(buildProperty(Requisicion.class.getName(), "esInicialviNumRequisicionReparacion", Boolean.class.getName(), "true", false, "Valor para saber si es inicial el numero de req de reparación", "numero de req de reparación", false, 50L));
-            attributes.add(buildProperty(Requisicion.class.getName(), "esInicialviNumRequisicionBienes", Boolean.class.getName(), "true", false, "Valor para saber si es inicial el numero de req de bienes", "numero de req de bienes", false, 50L));
-            
+           
 //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);
