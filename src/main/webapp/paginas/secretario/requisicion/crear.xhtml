@@ -247,7 +247,7 @@
                                             <div class="col-md-6">
                                                 <br/>
                                                  <p:commandButton  update=":form:dialogP"   oncomplete="PF('documentDialogP').show()"
-                                                                  icon="ui-icon-pencil" style="width: 170px; height: 35px" id="agregarPar"
+                                                                  style="width: 170px; height: 35px" id="agregarPar"
                                                                   title="Agregar partida" value="Agregar partida"
                                                                   process="@this">
                                                 </p:commandButton> #{" "}
@@ -256,11 +256,37 @@
                                      </div>
 
                                 </p:panel>
-                                 <p:dialog width="450" height="390" id="dialogP"   header="Agregar Partida de Contabilidad" 
+                                 <p:dialog width="800" height="390" id="dialogP"   header="Agregar Partida de Contabilidad" 
                                           showEffect="fade" widgetVar="documentDialogP" modal="true" resizable="false">
                                     <h:panelGroup id="documentPanelP" style="width:100%">
                                         
+                                        
+                                <div class="panel panel-info">
+                                <div class="panel-heading">
 
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="limpiar" value="#{controladorRequisicion.palbpartida}"   
+                                                        completeMethod="#{controladorRequisicion.autocompletarpartida}"/> 
+                                        
+
+#{' '} 
+
+                                        <p:commandLink value="Buscar" type="button" update=":form:basicDT10P :form:messagesp" id="buscar" action="#{controladorRequisicion.buscarpartida()}" styleClass="btn btn-success" >
+
+                                        </p:commandLink>
+
+                                        #{' '}  #{' '} 
+                                        <p:commandLink value="Limpiar" type="button" update=":form:basicDT10P :form:limpiar form:messagesp" action="#{controladorRequisicion.limpiarpartida()}" styleClass="btn btn-success" >
+
+                                        </p:commandLink>
+                                    </center>
+                                </div>
+
+                            </div>
+                                        
+  <p:messages id="messagesp" showDetail="true" closable="true" />  
                                          <p:dataTable id="basicDT10P" var="items" value="#{controladorRequisicion.listaPartida}"
 
                                                                  paginator="true" rows="5"                         

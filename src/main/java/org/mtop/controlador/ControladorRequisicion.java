@@ -115,6 +115,19 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Boolean b1 = false;
     private Property propertyRepa;
     private Property propertyBien;
+    private String palbpartida="";
+    private List<PartidaContabilidad> listapartida2;
+
+    public String getPalbpartida() {
+        return palbpartida;
+    }
+
+    public void setPalbpartida(String palbpartida) {
+        this.palbpartida = palbpartida;
+    }
+
+       
+    
 
     public List<AuxiliarParReq> getListaAuxParReq() {
         return listaAuxParReq;
@@ -194,6 +207,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public ItemRequisicion getIt() {
         return it;
     }
+    
+    
+    
 
     public void setIt(ItemRequisicion it) {
         this.it = it;
@@ -220,14 +236,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.it = it;
     }
 
-//    public void fijarIt(ItemRequisicion itemn)
-//    {
-//         System.out.println("llega itemnuevo>>>>>>"+itemn);
-//          System.out.println("fijando iten de descripcion en metodo fijar>>>>>>"+itemn.getDescripcion());
-//        System.out.println("metodo cantidad>>>>>>"+itemn.getCantidad());
-//        System.out.println("u metodo nidad>>>>>>"+itemn.getUnidadMedida());
-//        it=itemn;
-//    }
+    
+    
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
 
@@ -538,22 +548,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         setRequisicionId(requisicion.getId());
 
         getInstance().setSolicitudReparacionId(null);
-        //  listaItemsRequisicion=getInstance().getListaItems();
-//
-//        for (ItemRequisicion itemr : listaItemsRequisicion) {
-//            System.out.println("sdhhfds" + itemr);
-//            System.out.println("el prodc" + itemr.getProducto());
-//
-//            if (itemr.getProducto() != null) {
-//                System.out.println("canti anterior" + itemr.getProducto().getCantidad());
-//                Producto p = itemr.getProducto();
-//                p.setCantidad(itemr.getCantidad() + itemr.getProducto().getCantidad());
-//                System.out.println("cantidad despues " + p.getCantidad());
-//                p.setLastUpdate(now);
-//                servgen.actualizar(p);
-//            }
-//
-//        }
+
         getInstance().setEstado(false);
         getInstance().setLastUpdate(now);
         servgen.actualizar(getInstance());
@@ -598,6 +593,48 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("listaaaaa rretorn lista" + ced);
         return ced;
 
+    }
+    
+      public void buscarpartida() {
+
+        palbpartida= palbpartida.trim();
+        if (palbpartida == null || palbpartida.equals("")) {
+            palbpartida = "Ingrese algun valor a buscar";
+        }
+        //buscando por coincidencia
+        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
+        //buscando por numero de partidalistaPartidaC
+        for (PartidaContabilidad p : listaPartida) {
+            String resultado = p.concatenarPartida();
+            if (p.getDescripcion().toLowerCase().contains(palbpartida.toLowerCase())) {
+                lp.add(p);
+            } else {
+                if (resultado.contains(palbpartida)) {
+                    lp.add(p);
+                }
+            }
+        }
+
+        if (lp.isEmpty()) {
+       
+            if (palbpartida.equals("Ingrese algun valor a buscar")) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
+                FacesContext.getCurrentInstance().addMessage("", msg);
+                palbpartida = " ";
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:No se ha encontrado", palbpartida);
+                FacesContext.getCurrentInstance().addMessage("", msg);
+            }
+
+        } else {
+            listaPartida = lp;
+        }
+
+    }
+      
+    public void limpiarpartida() {
+        palbpartida = "";
+        listaPartida = listapartida2;
     }
 
     public ArrayList<String> autocompletarp(String query) {
@@ -739,6 +776,15 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
         for (Requisicion r : listaRequisicion2) {
+             List<AuxiliarParReq> lpc = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), r.getId());
+            for (AuxiliarParReq ar : lpc) {
+                if(ar.getPartidaId().concatenarPartida().contains(palabrab)&& !lrq.contains(r.getId())){
+                    lrq.add(r.getId());
+                }
+            }      
+            
+            
+            
             System.out.println("r.id" + r.getId());
             System.out.println("contaisns" + !lrq.contains(r.getId()));
             if (r.isEstado() && !lrq.contains(r.getId())) {
@@ -747,6 +793,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)) {
                     lrq.add(r.getId());
                 }
+              
                 if (r.getVehiculo() != null) {
 
                     System.out.println("lista de lrq" + lrq);
@@ -879,6 +926,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         for (Requisicion requisicion : listaRequisicion2) {
 
+             List<AuxiliarParReq> lpc = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), requisicion.getId());
+            for (AuxiliarParReq ar : lpc) {
+                if(ar.getPartidaId().concatenarPartida().contains(query)&& !ced.contains(ar.getPartidaId().concatenarPartida())){
+                    ced.add(ar.getPartidaId().concatenarPartida());
+                }
+            }    
+            
             if (requisicion.isEstado() && requisicion.getNumRequisicion().contains(query)) {
                 ced.add(requisicion.getNumRequisicion());
             }
@@ -1630,6 +1684,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
         }
         listaPartida = lpc;
+        listapartida2=listaPartida;
 
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
