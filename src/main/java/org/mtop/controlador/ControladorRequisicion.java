@@ -115,7 +115,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Boolean b1 = false;
     private Property propertyRepa;
     private Property propertyBien;
-    private String palbpartida="";
+    private String palbpartida;
     private List<PartidaContabilidad> listapartida2;
 
     public String getPalbpartida() {
@@ -572,6 +572,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public ArrayList<String> autocompletarpartida(String query) {
         System.out.println("QUEryyyyy" + query);
+        System.out.println("palbpartida" + palbpartida);
 
         ArrayList<String> ced = new ArrayList<String>();
         for (PartidaContabilidad partidaContabilidad : listaPartida) {
@@ -596,7 +597,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
     
       public void buscarpartida() {
-
+         System.out.println("entro a buscar patida" + palbpartida);
+                
         palbpartida= palbpartida.trim();
         if (palbpartida == null || palbpartida.equals("")) {
             palbpartida = "Ingrese algun valor a buscar";
@@ -604,6 +606,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         //buscando por coincidencia
         List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
         //buscando por numero de partidalistaPartidaC
+        System.out.println("lista partida" + listaPartida);
         for (PartidaContabilidad p : listaPartida) {
             String resultado = p.concatenarPartida();
             if (p.getDescripcion().toLowerCase().contains(palbpartida.toLowerCase())) {
@@ -614,7 +617,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
             }
         }
-
+        
+        System.out.println("lp" + lp);
         if (lp.isEmpty()) {
        
             if (palbpartida.equals("Ingrese algun valor a buscar")) {
@@ -629,6 +633,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         } else {
             listaPartida = lp;
         }
+        System.out.println("salio de buscar" + listaPartida);
 
     }
       
@@ -1729,6 +1734,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         mensaje = "";
         listaPartidaAgregar = new ArrayList<PartidaContabilidad>();
         listaAuxParReq = new ArrayList<AuxiliarParReq>();
+        palbpartida="";
 
     }
 
