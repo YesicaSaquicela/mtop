@@ -198,9 +198,9 @@
 
                                                             </p:column>
                                                          <p:column headerText="Visualizar" style="width: 5%"> 
-
+<center>
                                                                 <p:button target="_blank"   icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                          outcome="imprimirRequisicion" 
+                                                                          outcome="imprimirRequisicion" style="width: 35px; height: 35px"
                                                                           title="Visualizar">  
                                                                     <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                     <f:param name="reqId" value="#{r.id}"></f:param>
@@ -209,7 +209,7 @@
 
                                                                 </p:button>
 
-
+</center>
 
                                                             </p:column>
                                                         </p:dataTable>
@@ -264,9 +264,9 @@
                                                                 <h:outputText value="#{r.observaciones}"></h:outputText>
                                                             </p:column>
                                                             <p:column headerText="Visualizar" style="width: 5%"> 
-
+<center>
                                                                 <p:button target="_blank" id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                          outcome="imprimirRequisicion" 
+                                                                          outcome="imprimirRequisicion" style="width: 35px; height: 35px"
                                                                           title="Visualizar">  
                                                                     <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                     <f:param name="reqId" value="#{r.id}"></f:param>
@@ -274,7 +274,7 @@
 
 
                                                                 </p:button>
-
+</center>
 
 
                                                             </p:column>

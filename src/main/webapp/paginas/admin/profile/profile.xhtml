@@ -37,29 +37,50 @@
                             <div class="panel-heading" align="center">Datos generales</div>
                          
                             <p:panel id="p1" >
-                                <!--div class="row">
-                                    <div class="col-md-6"--> 
+                                <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6"> 
+                                            <h:panelGroup id="tp" layout="block" class="clearfix">
+                                            <div class="input">
+                                                <p:outputLabel  value="Tipo de persona* " /><br/>
+                                                <p:selectOneMenu id="tipo" value="#{profileHome.tipopersona}"   style="width: 100%"
+                                                                 effect="fold" required="true"
+                                                                 requiredMessage="Tipo de persona requerido, necesita un valor">
+                                              
+                                                       <f:selectItem itemLabel="Selecione uno" itemValue="" />  
+                                                        <f:selectItem itemLabel="Natural" itemValue="Natural" />  
+                                                        <f:selectItem itemLabel="Jurídica" itemValue="Juridica" />
+                                                        <!--p:ajax event="change" update="p1"/-->
+                                                         <f:ajax event="change" rendered="tp p1" render="p1"/> 
+                                                    
+                                                </p:selectOneMenu><br/>
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.tipopersona != ''}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Seleccione el tipo de persona<ocp:message forId="tipo" /></span>
+                                            </div>
+                                        </h:panelGroup><br/>
+                                        
 
                                         <mtop:input id="fstn" name="firstname" type="text" 
-                                                    label="#{messages['common.firstname']}"
+                                                    label="Nombres de la persona/entidad"
                                                     value="#{profileHome.instance.firstname}" 
                                                     required="true" inlinehelp="Ingrese el nombre" requiredMessage="Nombre requerido, necesita un valor"
                                                     execute="@this save" render="fstn" validator="stringValidator"/><br/>
 
                                         <mtop:input id="srn" name="surname" type="text" 
-                                                    label="#{messages['common.surname']}"
+                                                    label="#{messages['common.surname']}" disabled="#{profileHome.requerido == false}" 
                                                     value="#{profileHome.instance.surname}"
-                                                    required="true" requiredMessage="Apellido requerido, necesita un valor" 
+                                                    required="#{profileHome.requerido}" requiredMessage="Apellido requerido, necesita un valor" 
                                                     inlinehelp="Ingrese apellidos"
                                                     execute="@this save" validator="stringValidator"/><br/>
+                                        
+                                   
 
                                         <h:panelGroup id="fn" layout="block" class="clearfix">
-                                            <h:outputLabel value="Fecha de nacimiento*" /> <br></br> 
-                                            <!--h:outputText id="fechan" value="#{profileHome.instance.fechanacimiento}">
-                                                <f:convertDateTime pattern="dd-MMM-yyyy" />
-                                            </h:outputText-->
-                                            <p:calendar  id="fechan" value="#{profileHome.instance.fechanacimiento}" 
-                                                         styleClass="xLarge"  navigator="true" required="true" 
+                                            <p:outputLabel for="fechan" value="Fecha de nacimiento" /> <br></br> 
+                                          
+                                            <p:calendar  id="fechan" value="#{profileHome.instance.fechanacimiento}" disabled="#{profileHome.requerido == false}" 
+                                                         styleClass="xLarge"  navigator="true" required="#{profileHome.requerido}" 
                                                          requiredMessage="Fecha de nacimiento requerido, necesita un valor">   
                                                 <f:ajax event="dateSelect" rendered="save fn" render="fn"/> 
 
@@ -67,14 +88,17 @@
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.fechanacimiento != null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
                                         </h:panelGroup>
-
+                                              </div>
+                                   
+    
+                                    <div class="col-md-6"> 
                                         <h:panelGroup id="cod" layout="block" class="clearfix" rendered="true">
-                                            <label for="dni">Número de cédula*</label>
+                                            <label >Número de cédula/RUC*</label>
                                             <div class="input">
                                                 <h:inputText class="form-control" id="dni" value="#{profileHome.instance.cedula}" 
                                                              styleClass="xLarge" required="true" label="#{messages['profile.dni']}"
                                                              requiredMessage="Cédula de identidad requerido, necesita un valor"
-                                                             maxlength="10" >
+                                                             maxlength="13" >
                                                     <f:validator validatorId="ciValidator" />
                                                     <f:validator validatorId="ciAvailabilityValidator" />
                                                     <f:ajax execute="@this" render="cod"  />
@@ -85,25 +109,25 @@
                                             </div>
                                         </h:panelGroup><br/>
 
-                                        <h:panelGroup id="em1" layout="block" class="clearfix">
+                                        <h:panelGroup id="cargo" layout="block" class="clearfix">
                                             <div class="input">
-                                                <p:outputLabel for="tipop" value="Tipo de persona* " /><br/>
-                                                <p:selectOneMenu id="tipop" value="#{profileHome.instance.tipo}"   style="width: 100%"
-                                                                 effect="fold" editable="true" filter="true" filterMatchMode="contains" 
-                                                                 requiredMessage="Tipo de persona requerido, necesita un valor">
+                                                <p:outputLabel for="cg" value="Cargo de la persona " /><br/>
+                                                <p:selectOneMenu id="cg" value="#{profileHome.instance.cargo}" disabled="#{profileHome.requerido == false}"   style="width: 100%"
+                                                                 effect="fold" required="#{profileHome.requerido}" editable="true" filter="true" filterMatchMode="contains" 
+                                                                 requiredMessage="Cargo de persona requerido, necesita un valor">
                                                     <f:selectItem itemLabel="Seleccione uno" itemValue="" />
                                                     <f:selectItems value="#{profileHome.tipos}" />
-                                                    <f:ajax execute="@this" render="em1"  />
+                                                    <f:ajax execute="@this" render="cargo"  />
+                                                    <f:validator validatorId="stringValidator" />
                                                 </p:selectOneMenu><br/>
-                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.tipo != null}"
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.cargo != null}"
                                                                 styleClass="validation-status" />
-                                                <span class="help-inline text-muted">Ingrese el tipo de persona<ocp:message forId="tipop" /></span>
+                                                <span class="help-inline text-muted">Ingrese/seleccione el cargo de la persona<ocp:message forId="cg" /></span>
                                             </div>
                                         </h:panelGroup><br/>
 
-
                                         <h:panelGroup id="eml" layout="block" class="clearfix">
-                                            <label for="email">#{messages['common.email']}*</label>
+                                            <label for="email">Correo electrónico*</label>
                                             <div class="input">
                                                 <h:inputText class="form-control" id="email" value="#{profileHome.instance.email}" 
                                                              requiredMessage="Email requerido, necesita un valor"
@@ -117,8 +141,9 @@
                                                 <span class="help-inline text-muted">Ingrese el correo electrónico<ocp:message forId="email" /></span>
                                             </div>
                                         </h:panelGroup>
-                                    <!--/div>
-                                </div-->
+                                                </div>
+                                        </div>
+                                    </div>
                             </p:panel>
                         </div>
                       

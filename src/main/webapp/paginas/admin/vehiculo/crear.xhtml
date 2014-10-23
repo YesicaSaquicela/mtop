@@ -76,11 +76,26 @@
                                                 <span class="help-inline text-muted">Elija el conductor del vehículo<ocp:message forId="personal" /></span>
                                             </div>
                                         </h:panelGroup ><br></br> 
-                                        <mtop:input id="marca" name="marca" type="text" label="Marca" 
-                                                    value="#{controladorVehiculo.instance.marca}" required="true" 
-                                                    inlinehelp=" ingrese la marca Vehículo Ej(Chevrolet)" 
-                                                    render="marca"
-                                                    requiredMessage="Marca requerida, necesita un valor"/><br></br>
+                                     
+                                        <p:outputLabel value="Marca*" /><br/>
+                                         <h:panelGroup id="marca" layout="block" class="clearfix">
+                                            <div class="input">
+                                                
+                                                <p:selectOneMenu id="marca1" value="#{controladorVehiculo.instance.marca}" 
+                                                                 effect="fold" editable="true" 
+                                                                 filter="true" filterMatchMode="contains"
+                                                                 style="width: 100%" required="true"
+                                                                 requiredMessage="Marca requerida, necesita un valor"
+                                                                 label="Marca" >
+                                                    <f:selectItems value="#{controladorVehiculo.marcasv}" />
+                                                    <f:ajax render="marca" />
+                                                </p:selectOneMenu><br/>
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.marca != null}"
+                                                                styleClass="validation-status" />
+                                                <span class="help-inline text-muted">ingrese la marca Vehículo Ej(Chevrolet)<ocp:message forId="marca1" /></span>
+                                            </div>
+                                        </h:panelGroup><br></br> 
+
                                         <mtop:input id="color" name="color" type="text" label="Color" 
                                                     value="#{controladorVehiculo.instance.color}" required="true" 
                                                     inlinehelp="Ingrese el color del vehículo Ej(Azul)" 
@@ -99,7 +114,7 @@
                                                     render="modelo" 
                                                     requiredMessage="Modelo requerido, necesita un valor"/><br></br>
 
-
+                                        
                                         <h:panelGroup id="unm" layout="block" class="clearfix">
                                             <div class="input">
                                                 <h:outputLabel value="Placa*"/>

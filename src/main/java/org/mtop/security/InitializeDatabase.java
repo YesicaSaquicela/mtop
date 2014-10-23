@@ -220,8 +220,8 @@ public class InitializeDatabase {
             p.setName("Administrador");
             p.setFirstname("Mtop");
             p.setSurname("Software de Vehiculos");
-            p.setTipo("administrador");
-         
+            p.setTipo("Natural");
+            p.setCargo("administrador");
             p.setEstado1(true);
             p.setEstado(true);
             p.setCreatedOn(now);
