@@ -2038,7 +2038,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
 
     }
+    public String obtenercargo(long idP) {
+        Profile nombrePersona;
+        System.out.println("nllegas id>" + idP);
+        String nombPersona;
 
+        nombrePersona = servgen.buscarPorId(Profile.class, idP);
+        nombPersona = nombrePersona.getCargo();
+
+        return nombPersona;
+    }
     public PartidaContabilidad getPartidaC() {
         return partidaC;
     }
