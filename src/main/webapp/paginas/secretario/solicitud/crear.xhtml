@@ -1079,24 +1079,137 @@
                                                 
                                                 
                                          </div>
+                                    </div>
                                 </div>
 
-                               
-                               
-                                <h:outputLabel value="Partida de contabilidad*"/> <br></br> 
-                                <h:panelGroup id="pc">
-                                    <p:selectOneMenu id="partida"  value="#{controladorRequisicion.idPartidaC}" effect="fade" style="width: 100%"
-                                                     converter="#{omnifaces.GenericEnumConverter}" required="true" filter="true" filterMatchMode="contains" 
-                                                     requiredMessage="Partida de contabilidad requerida, necesita un valor">  
-                                        <f:ajax execute="partida" render="pc" />
-                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                        <f:selectItems value="#{controladorRequisicion.listaPartida}" var="item" itemLabel="#{item.concatenarPartida}" itemValue="#{item.id}"/>  
-                                        <!--p:ajax event="change" update="@parent" partialSubmit="true"/-->
-                                    </p:selectOneMenu> <br></br>
+                                   <div class="container-fluid">
+                                    
+                                  
+                                       
+                                        <div class="row">
+                                            <div class="col-md-6"> 
+                                                <h:outputLabel value="Partida de contabilidad*"/> <br></br> 
+                                  
+                                             <h:panelGroup id="ptp" layout="block" class="clearfix">
 
-                                    <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.idPartidaC != ''}" styleClass="validation-status" />
-                                    <span class="help-inline text-muted">Elija una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
-                                </h:panelGroup>
+                                               <p:dataTable id="basicDT10Pa" var="items" value="#{controladorRequisicion.listaPartidaAgregar}"
+                                                 paginator="true" rows="3"                         
+                                                 paginatorPosition="top"
+                                                 rowsPerPageTemplate="3,5,10"
+                                                 >
+                                                 <p:column headerText="Partida" sortBy="#{items.concatenarPartida}">
+                                                    <h:outputText value="#{items.concatenarPartida}"></h:outputText>
+                                                 </p:column>
+                                                 <p:column headerText="Descripción" sortBy="#{items.descripcion}">
+                                                    <h:outputText value="#{items.descripcion}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Dar de baja" style="width: 3%"> 
+                                                    
+                                                    <p:commandButton id="dardebaja" icon="ui-icon-trash"
+                                                                 style="width: 35px; height: 35px" immediate="true"
+                                                                 styleClass="btn  btn-success" process="@this" ajax="false"
+                                                                 actionListener="#{controladorRequisicion.eliminarPartida(items)}" 
+                                                                 title="Dar de baja" update=":form:basicDT10Pa :form:listaVacia">
+                                                        <p:confirm message="¿Desea realmente dar de baja a la partida seleccionada?" 
+                                                                   icon="ui-icon-alert" header="Confirmación" />
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" widgetVar="confpar" hideEffect="explode">
+                                                        <center>
+                                                            <h:commandLink value="Sí" type="button" 
+                                                                           styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+
+                                                            </h:commandLink>
+
+                                                            #{' '}
+                                                            <h:commandLink value="No" type="button" onclick="confpar.hide()" 
+                                                                           styleClass="btn btn-success"  style="width:10%"  />
+                                                        </center>
+
+                                                    </p:confirmDialog>
+                                                    
+                                                </p:column>
+                                            </p:dataTable>
+
+
+                                           </h:panelGroup>
+                                            <h:panelGroup id="listaVacia">
+                                                <br/> 
+                                               <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorRequisicion.listaPartidaAgregar.size() ne 0}" styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Elija al menos una partida de contabilidad<ocp:message forId="partida" /></span><br></br><br></br> 
+
+                                            <h:outputLabel id="msg"  value="#{controladorRequisicion.mensaje}" style="color:red" /> 
+                                            </h:panelGroup>
+                                        
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br/>
+                                                 <p:commandButton  update=":form:dialogP"   oncomplete="PF('documentDialogP').show()"
+                                                                  style="width: 170px; height: 35px" id="agregarPar"
+                                                                  title="Agregar partida" value="Agregar partida"
+                                                                  process="@this">
+                                                </p:commandButton> #{" "}
+                                            </div>
+                                        </div>
+                                     </div>
+
+                                </p:panel>
+                                 <p:dialog width="800" height="390" id="dialogP"   header="Agregar Partida de Contabilidad" 
+                                          showEffect="fade" widgetVar="documentDialogP" modal="true" resizable="false">
+                                    <h:panelGroup id="documentPanelP" style="width:100%">
+                                        
+                                        
+                                <div class="panel panel-info">
+                                <div class="panel-heading">
+
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
+
+                                        <p:autoComplete placeholder="Criterio a buscar" styleClass="xLarge" id="limpiar" value="#{controladorRequisicion.palbpartida}"   
+                                                        completeMethod="#{controladorRequisicion.autocompletarpartida}"/> 
+                                        
+
+#{' '} 
+
+                                        <p:commandLink value="Buscar" type="button" update=":form:basicDT10P :form:messagesp" id="buscar" action="#{controladorRequisicion.buscarpartida()}" styleClass="btn btn-success" >
+
+                                        </p:commandLink>
+
+                                        #{' '}  #{' '} 
+                                        <p:commandLink value="Limpiar" type="button" update=":form:basicDT10P :form:limpiar form:messagesp" action="#{controladorRequisicion.limpiarpartida()}" styleClass="btn btn-success" >
+
+                                        </p:commandLink>
+                                    </center>
+                                </div>
+
+                            </div>
+                                        
+  <p:messages id="messagesp" showDetail="true" closable="true" />  
+                                         <p:dataTable id="basicDT10P" var="items" value="#{controladorRequisicion.listaPartida}"
+
+                                                                 paginator="true" rows="5"                         
+                                                                 paginatorPosition="top"
+                                                                 rowsPerPageTemplate="5,10,15,20"
+                                                                 >
+                                             <p:column headerText="Partida" sortBy="#{items.concatenarPartida}">
+                                                <h:outputText value="#{items.concatenarPartida}"></h:outputText>
+                                             </p:column>
+                                             <p:column headerText="Descripción" sortBy="#{items.descripcion}">
+                                                <h:outputText value="#{items.descripcion}"></h:outputText>
+                                            </p:column>
+                                                        
+
+                                            <p:column style="width:4%;text-align: center" headerText="Agregar">
+                                                <p:commandButton update="@form"  
+                                                                 process="@this" title="Agregar" icon="ui-icon-check" >
+                                                    <f:setPropertyActionListener value="#{items}" target="#{controladorRequisicion.partidaC}"  />
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+
+                                        <br/>
+                                    </h:panelGroup>
+
+                                </p:dialog>
                               
 
                            
