@@ -1126,8 +1126,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (a.getProperty().getName().equals("esInicialviNumRequisicionReparacion")) {
                     propertyRepa = a.getProperty();
                     System.out.println("valor guardado de repra" + propertyRepa.getValue().toString());
-                    propertyRepa.setValue((Serializable) b);
-                    System.out.println("valor a guardar de repra" + propertyRepa.getValue().toString());
 
                     b = Boolean.valueOf(propertyRepa.getValue().toString());
 
@@ -1136,8 +1134,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                     propertyBien = a.getProperty();
                     System.out.println("valor guardado de bien" + propertyBien.getValue().toString());
-                    propertyBien.setValue((Serializable) b1);
-                    System.out.println("valor a guardar de bien" + propertyBien.getValue().toString());
+
                     b1 = Boolean.valueOf(propertyBien.getValue().toString());
 
                 }
@@ -1900,12 +1897,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
                 //volver a false el valor de si es inicial el numero de requisicion
                 if (b) {
-                    save(propertyRepa);
-                    System.out.println("guardao repa" + propertyRepa.getValue());
+                    propertyRepa.setValue((Serializable) b);
+                    System.out.println("valor a guardar de repra" + propertyRepa.getValue().toString());
+
+//                    save(propertyRepa);
+//                    System.out.println("guardao repa" + propertyRepa.getValue());
                 }
                 if (b1) {
-                    save(propertyBien);
-                    System.out.println("guardao bein" + propertyBien.getValue());
+                    propertyBien.setValue((Serializable) b1);
+                    System.out.println("valor a guardar de bien" + propertyBien.getValue().toString());
+//                    save(propertyBien);
+//                    System.out.println("guardao bein" + propertyBien.getValue());
 
                 }
             }
