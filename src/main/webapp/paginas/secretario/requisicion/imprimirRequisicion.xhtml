@@ -73,15 +73,53 @@
 
 
                         </p:panelGrid>
-
-                         <p:panelGrid                                                 
-                                      style="width:100%" columns="2" >
-                                                   
-                            <h:outputLabel class="navbar-text" value="Partida" style="width:50%"/>
-
-                            <h:outputText class="navbar-text" style="width:50%" value="#{controladorRequisicion.instance.partidaContabilidad.concatenarPartida}"/>
-                          
+                      
+                        <p:panelGrid rendered="#{controladorRequisicion.vehiculo != null}"
+                                       style="width:100%"  >
+                              <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%;text-align: left" >
+                                       Datos del vehículo
+                                    </p:column>
+                             
+                                </p:row>
+                                </f:facet>
                         </p:panelGrid>
+                        <p:panelGrid  rendered="#{controladorRequisicion.vehiculo != null}"                                                  
+                                      style="width:100%" columns="4" >
+                                               
+                            <h:outputLabel class="navbar-text" value="Número de registro" />
+                            <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.numRegistro}"/>
+                        
+                            <h:outputLabel class="navbar-text" value="Conductor"/>
+                            <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.persona.fullName}"/>
+
+                           
+                        </p:panelGrid>
+
+                                               
+                        <p:panelGrid  style="width:100%"  >
+                              <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%;text-align: left" >
+                                       Partida de contabilidad
+                                    </p:column>
+                             
+                                </p:row>
+                                </f:facet>
+                        </p:panelGrid>
+                        
+                        <ui:repeat value="#{controladorRequisicion.instance.listaPartidas}" var="p" varStatus="status">  
+                            <p:panelGrid  style="width:100%"  >
+                                <p:row>
+                                   
+                                    <p:column style="width:20%" >
+                                        <h:outputText class="navbar-text" value="#{p.concatenarPartida}"/>
+                                    </p:column>
+                                  </p:row>
+                            </p:panelGrid>
+
+                        </ui:repeat>
                         <p:panelGrid id="imp" style="width:100%"  >
                             <f:facet name="header">
                                 <p:row>
@@ -105,7 +143,7 @@
                             <p:panelGrid  style="width:100%"  >
                                 <p:row>
                                     <p:column style="width:15%">
-                                        <h:outputText class="navbar-text" value="#{controladorRequisicion.obtenerNumero()}"/>
+                                        <h:outputText class="navbar-text" value="#{controladorRequisicion.obtenernumero()}"/>
                                     </p:column>
                                     <p:column style="width:20%" >
                                         <h:outputText class="navbar-text" value="#{a.cantidad}"/>

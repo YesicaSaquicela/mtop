@@ -96,25 +96,21 @@
 
                                                 <p:column sortBy="#{profile_.firstname}">
                                                     <f:facet name="header">  
-                                                        <h:outputText value="#{messages['common.firstname']}" />  
+                                                        <h:outputText value="Nombres/Entidad" />  
                                                     </f:facet> 
-                                                    <h:outputText value="#{profile_.firstname}" />
+                                                    <h:outputText value="#{profile_.concatenarNombre}" />
                                                 </p:column>
-                                                <p:column sortBy="#{profile_.surname}">
-                                                    <f:facet name="header">  
-                                                        <h:outputText value="#{messages['profile.surname']}" />  
-                                                    </f:facet> 
-                                                    <h:outputText value="#{profile_.surname}" />
-                                                </p:column>
+                                             
                                                 <p:column sortBy="#{profile_.cedula}">
                                                     <f:facet name="header">  
-                                                        <h:outputText value="#{messages['profile.dni']}" />  
+                                                        <h:outputText value="Número de cedula/RUC" />  
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.cedula}" />
                                                 </p:column>
+                                               
                                                 <p:column sortBy="#{profile_.email}">
                                                     <f:facet name="header">  
-                                                        <h:outputText value="#{messages['common.email']}" />  
+                                                        <h:outputText value="Correo electrónico" />  
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.email}" />
                                                 </p:column>
@@ -123,6 +119,12 @@
                                                         <h:outputText value="Tipo de persona" />  
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.tipo}" />
+                                                </p:column>
+                                                 <p:column sortBy="#{profile_.cargo}">
+                                                    <f:facet name="header">  
+                                                        <h:outputText value="Cargo de persona" />  
+                                                    </f:facet> 
+                                                    <h:outputText value="#{profile_.cargo}" />
                                                 </p:column>
                                                 <p:column headerText="Editar" style="width: 10%">     
                                                     <center>
@@ -137,7 +139,7 @@
                                                 </p:column>
                                                 <p:column headerText="Crear/Editar usuario" style="width: 10%">
                                                     <center>
-                                                        <p:button icon="ui-icon-person" rendered="#{profile_.deleted eq false}"
+                                                        <p:button icon="ui-icon-person" rendered="#{profile_.deleted eq false and profile_.tipo eq 'Natural'}"
                                                                   title="Crear usuario" styleClass="btn  btn-success"
 
                                                                   outcome="/paginas/admin/profile/crearUsuario.xhtml?faces-redirect=true" 
@@ -147,10 +149,16 @@
                                                         </p:button>
                                                       
                                                         
-                                                      <p:commandButton icon="ui-icon-person" rendered="#{profile_.deleted eq true}" 
+                                                      <p:commandButton icon="ui-icon-person" rendered="#{profile_.deleted eq true and profile_.tipo eq 'Natural'}" 
                                                                          oncomplete="#{'carDialog1.show();'}" immediate="true" 
                                                                          title="Crear usuario" >
                                                             <p:ajax process="@this" update=":form-dialog1 "/> 
+                                                      </p:commandButton>
+                                                        
+                                                        <p:commandButton icon="ui-icon-person" rendered="#{profile_.tipo eq 'Juridica'}" 
+                                                                         oncomplete="#{'carDialog2.show();'}" immediate="true" 
+                                                                         title="Crear usuario" >
+                                                            <p:ajax process="@this" update=":form-dialog2 "/> 
                                                       </p:commandButton>
                                                     </center>
                                                 </p:column>
@@ -168,6 +176,20 @@
                     <div class="row-fluid"  >
                         <h:panelGroup layout="block" id="dial" style="padding:5px;">  
                             <center> <h:outputText value="El usuario seleccionado se encuentra inactivado"/></center>
+                            
+                        </h:panelGroup>
+                    </div></div>
+
+            </h:form>
+        </p:dialog>
+        
+         <p:dialog id="form-dialog2" header="Mensaje" widgetVar="carDialog2"  modal="true" resizable="true" dynamic="true" width="550">
+            <h:form id="v2"  >
+                <div class="container-fluid">
+                    <div class="row-fluid"  >
+                        <h:panelGroup layout="block" id="dial" style="padding:5px;">  
+                            <center> <h:outputText value="La persona seleccionada es de tipo jurídica
+                                                   no puede crear el usuario "/></center>
                             
                         </h:panelGroup>
                     </div></div>

@@ -45,24 +45,19 @@
                                 </p:row>
                             </f:facet>
                         </p:panelGrid>
-                        <p:panelGrid  id="imp1"                                                  
-                                      style="width:100%" columns="2" >
+                        
+                           <p:panelGrid  id="imp1"                                                  
+                                      style="width:100%" columns="4" >
                             <f:facet   name="header" class="panel-heading" >
-
                                 <p:row>
+                               
 
-                                    <p:column  > 
+                                    <p:column> 
 
-
-                                    </p:column  >
-
-                                    <p:column  > 
-
-                                        <h5>Solicitud de Reparación y Mantenimiento 
+                                       <h5>Solicitud de Reparación y Mantenimiento 
                                             de Equipos</h5>
 
                                     </p:column>
-
 
                                 </p:row>
                                 <p:row></p:row>
@@ -71,55 +66,37 @@
                             </f:facet>
 
 
-                            <p:panelGrid  id="imp12343"  style="margin-top:20px" columns="2" >
-                                <f:facet   name="header" class="panel-heading" >
-                                    <p:row >
-                                        <p:column colspan="20"  rowspan="40"> 
-                                            Detalle
-                                        </p:column>
-                                    </p:row>
-                                </f:facet>
+                           
                                 <h:outputLabel class="navbar-text" value="Número de solicitud"/>
-                                <h:outputLabel class="navbar-text" value="Fecha de solicitud"/>
-
+                                
                                 <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"/>
-
+                                <h:outputLabel class="navbar-text" value="Fecha de solicitud"/>
                                 <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"/>
-                            </p:panelGrid>
-
-
-
-
-                            <p:panelGrid  id="imp123"  style="margin-top:20px" 
-                                          columns="3" 
-                                          >
-                                <f:facet   name="header" class="panel-heading" >
-
-                                    <p:row >
-                                        <p:column colspan="20"  rowspan="40"> 
-                                            Datos del Vehículo
-                                        </p:column>
-                                    </p:row>
-
+                        </p:panelGrid>
+                      
+                        <p:panelGrid 
+                                       style="width:100%"  >
+                              <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%;text-align: left" >
+                                       Datos del vehículo
+                                    </p:column>
+                             
+                                </p:row>
                                 </f:facet>
-                                <h:outputLabel class="navbar-text" value="Registro del vehículo"/>
-                                <h:outputLabel class="navbar-text" value="Tipo de equipo"/>
-                                <h:outputLabel class="navbar-text" value="Marca"/>
-
-                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.numRegistro}"/>
-                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.tipo}"/>
-                                <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
-                            </p:panelGrid>
-
-
-
-
-
-
-
+                        </p:panelGrid>
+                        
+                        <p:panelGrid                                                
+                                      style="width:100%" columns="4" >
+                                               
+                            <h:outputLabel class="navbar-text" value="Número de registro" />
+                           <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.numRegistro}"/>
+                           <h:outputLabel class="navbar-text" value="Tipo de equipo" />    
+                           <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.tipo}"/>
+                           
                         </p:panelGrid>
 
-
+               
                         <p:panelGrid id="imp" style="width:100%"  >
                             <f:facet name="header">
                                 <p:row>

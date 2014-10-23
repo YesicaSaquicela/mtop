@@ -38,22 +38,7 @@ public class PlanMantenimiento extends BussinesEntity implements Serializable {
      @OneToMany(mappedBy = "planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ActividadPlanMantenimiento> listaActividadpm=new ArrayList<ActividadPlanMantenimiento>();
 
-//    public String getAlerta() {
-//        Date now = Calendar.getInstance().getTime();
-//        int dias = FechasUtil.getFechaLimite(now, fechaCaducidad);
-//        if (dias >= 0 && dias < 90) {
-//            return "POR CADUCARSE";
-//        } else {
-//            return "";
-//        }
-//        
-//    }
-//
-//    public void setAlerta(String alerta) {
-//        this.alerta = alerta;
-//    }
 
-   
      
      
      public Boolean getActivado() {

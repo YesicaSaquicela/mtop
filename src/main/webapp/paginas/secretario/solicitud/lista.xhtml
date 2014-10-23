@@ -142,7 +142,7 @@
                                                                                 </p:column>
                                                                                <p:column headerText="Visualizar" style="width: 5%"> 
                                                                                     <p:button target="_blank" id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                                              outcome="imprimirSolicitud" 
+                                                                                              outcome="imprimirSolicitud" style="width: 35px; height: 35px"
                                                                                               title="Visualizar">  
                                                                                         <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                                         <f:param name="solId" value="#{s.id}"></f:param>
@@ -190,15 +190,17 @@
                                                                                 <p:column headerText="Registro vehículo" sortBy="#{sa.vehiculo.numRegistro}">
                                                                                     <h:outputText value="#{sa.vehiculo.numRegistro}"></h:outputText>
                                                                                 </p:column>
-                                                                                <p:column headerText="Visualizar" style="width: 5%"> 
+                                                                                <p:column headerText="Visualizar" style="width: 5%">
+                                                                                    <center>
                                                                                     <p:button target="_blank" id="selectButton1"  icon="ui-icon-zoomin" styleClass="btn  btn-success"
-                                                                                              outcome="imprimirSolicitud" 
+                                                                                              outcome="imprimirSolicitud" style="width: 35px; height: 35px"
                                                                                               title="Visualizar">  
                                                                                         <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                                         <f:param name="solId" value="#{sa.id}"></f:param>
                                                                                          <f:param name="profileId" value="#{account.loggedId}"/>
 
                                                                                     </p:button>
+                                                                                    </center>
 
 
                                                                                 </p:column>

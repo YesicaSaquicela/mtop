@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
@@ -54,6 +56,7 @@ import org.mtop.modelo.dinamico.Property_;
 import org.mtop.servicios.ServicioGenerico;
 
 import org.mtop.modelo.profile.Profile;
+
 /**
  *
  * @author jesica
@@ -71,7 +74,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     private ActividadPlanMantenimiento actividadplan;
     private ControladorKardex ck;
-    
+
     private ControladorPlanMantenimiento cplanMantenimiento;
     private String palabrab = "";
     private EstadoVehiculo estado = new EstadoVehiculo();
@@ -95,8 +98,26 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private String palabrabe;
     private List<EstadoVehiculo> listaEstadoV2 = new ArrayList<EstadoVehiculo>();
     private String mensajef = "";
-    private List<String> tiposCombustible=new ArrayList<String>(Arrays.asList("Gasolina", "Diesel"));
-    private List<String> tiposCabina=new ArrayList<String>(Arrays.asList("Simple", "Doble"));
+    private List<String> tiposCombustible = new ArrayList<String>(Arrays.asList("Gasolina", "Diesel"));
+    private List<String> tiposCabina = new ArrayList<String>(Arrays.asList("Simple", "Doble"));
+
+    private List<String> marcasv = new ArrayList<String>(Arrays.asList("Abarth", 
+            "Alfa Romeo", "Aston Martin", "Audi","Bentley", "Citroen","Chevrolet", "Dacia", 
+            "Dfsk", "Ferrari", "Fiat", "Honda", "Hyundai","Infinity", "Isuzu", "Iveco", 
+            "Jaguar","Kia", "Lada", "Lamborghini", "Lancia","Land-Rover", "Lexus", "Ldv", 
+            "Mazda", "Mercedes-Benz", "Mini", "Nissan", "Porsche","Renault", "Suzuki", 
+            "Toyota", "Volkswagen"));
+
+    public List<String> getMarcasv() {
+        return marcasv;
+    }
+
+    public void setMarcasv(List<String> marcasv) {
+        this.marcasv = marcasv;
+    }
+
+    
+    
 
     public List<String> getTiposCabina() {
         return tiposCabina;
@@ -105,17 +126,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setTiposCabina(List<String> tiposCabina) {
         this.tiposCabina = tiposCabina;
     }
-       
-    
+
     public List<String> getTiposCombustible() {
-        
+
         return tiposCombustible;
     }
 
     public void setTiposCombustible(List<String> tiposCombustible) {
         this.tiposCombustible = tiposCombustible;
     }
-    
 
     public String getMensajef() {
         return mensajef;
@@ -125,8 +144,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         this.mensajef = mensajef;
     }
 
-
-
     public String getMensaje1() {
         return mensaje1;
     }
@@ -134,8 +151,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setMensaje1(String mensaje1) {
         this.mensaje1 = mensaje1;
     }
-
- 
 
     public String getPalabrabe() {
         return palabrabe;
@@ -244,7 +259,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             listav = lv;
             for (Vehiculo v : listav) {
                 if (v.getPlaca().equals(getInstance().getPlaca())) {
-          
+
                     obtenerPlacaVehiculo(placa);
                     return false;
                 }
@@ -255,13 +270,13 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public Vehiculo obtenerNumRegistro(final String numregistro) throws NoResultException {
-       
+
         TypedQuery<Vehiculo> query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numRegistro = :numregistro", Vehiculo.class);
-  
+
         query.setParameter("numregistro", numregistro);
-      
+
         Vehiculo result = query.getSingleResult();
-     
+
         return result;
     }
 
@@ -285,7 +300,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             listavs = lv;
             for (Vehiculo v : listavs) {
                 if (v.getNumRegistro().equals(getInstance().getNumRegistro())) {
-      
+
                     obtenerNumRegistro(numregistro);
                     return false;
                 }
@@ -297,7 +312,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
     public boolean verificarFechaSolicitud(Date fFinal) {
         Boolean ban = true;
-               Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
+        Date fEntrada = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
 
         if (!fEntrada.before(fFinal)) {  //metodo que compara si una fecha es anterior a la otra
 //               
@@ -318,7 +333,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (placa.length() == 8) {
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
-                  
+
                     return true;
                 } else {
                     return false;
@@ -327,32 +342,32 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             } else {
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-              
+
                     return true;
                 } else {
                     if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                             && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
-                      
+
                         return true;
                     } else {
                         if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                        
+
                             return true;
                         } else {
                             if (placa.substring(0, 2).equals("CD") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                              
+
                                 return true;
                             } else {
                                 if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                    
+
                                     return true;
                                 } else {
                                     if (placa.substring(0, 2).equals("AT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                     
+
                                         return true;
                                     } else {
                                         if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-                                  
+
                                             return true;
                                         } else {
                                             return false;
@@ -382,7 +397,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public Date getFechaFinal() {
 
         fechaFinal = getInstance().getListaEstados().get(getInstance().getListaEstados().size() - 1).getFechaEntrada();
- 
+
         System.out.println("fecha final" + fechaFinal);
         return fechaFinal;
     }
@@ -428,12 +443,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String obtenerUltimaUbicacionV2(Vehiculo vehiculo, List<EstadoVehiculo> list) {
-   
+
         for (EstadoVehiculo ev : list) {
             System.out.println("ev" + ev.getVehiculo().getListaEstados());
 
         }
-      
+
         String ubicacion = vehiculo.getListaEstados().get(vehiculo.getListaEstados().size() - 1).getUbicacion();
         return ubicacion;
     }
@@ -460,7 +475,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         la = getInstance().findBussinesEntityAttribute(tipo);
         for (BussinesEntityAttribute ba : la) {
-            
+
             if (!ba.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
                 System.out.println("entro al if" + ban);
                 ban = true;
@@ -486,15 +501,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 }
             }
         }
-        ControladorVehiculo cv=new ControladorVehiculo();
+        ControladorVehiculo cv = new ControladorVehiculo();
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
 
         List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
         for (Vehiculo vehiculo : listVehiculos2) {
-             cv.setId(vehiculo.getId());
-            bea =  cv.getInstance().findBussinesEntityAttribute("Motor");
-          
+            cv.setId(vehiculo.getId());
+            bea = cv.getInstance().findBussinesEntityAttribute("Motor");
+
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serieMotor")) {
@@ -513,7 +528,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
                 }
             }
-            bea =  cv.getInstance().findBussinesEntityAttribute("Chasis");
+            bea = cv.getInstance().findBussinesEntityAttribute("Chasis");
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
                 if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
@@ -536,7 +551,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         }
 
         if (lvs.isEmpty()) {
-           
+
             if (palabrab.equals("Ingrese algun valor a buscar")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -571,7 +586,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 ced.add(vh.getPlaca());
             }
         }
-         ControladorVehiculo cv=new ControladorVehiculo();
+        ControladorVehiculo cv = new ControladorVehiculo();
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
         List<BussinesEntityAttribute> bea = new ArrayList<BussinesEntityAttribute>();
@@ -601,7 +616,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
 
         }
-       
+
         return ced;
 
     }
@@ -687,11 +702,11 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public boolean verificarPlan() {
         boolean ban = false;
         for (PlanMantenimiento pm : findAll(PlanMantenimiento.class)) {
-         
+
             if (pm.getActivado()) {
                 ban = true;
                 break;
-            } 
+            }
         }
         return ban;
     }
@@ -702,8 +717,8 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Integer proKilometraje = obtenerKilometraje(v.getKilometraje());
 
         actividadplan = new ActividadPlanMantenimiento();
-              actividadplan.setKilometraje(proKilometraje);
-       
+        actividadplan.setKilometraje(proKilometraje);
+
         if (v.getPlanM() != null) {
             PlanMantenimiento pMantenimiento = findById(PlanMantenimiento.class, v.getPlanM().getId());
             List<ActividadPlanMantenimiento> la = new ArrayList<ActividadPlanMantenimiento>();
@@ -715,7 +730,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
             //encontrar kilometraje de cada lista del plan
             for (ActividadPlanMantenimiento actividadPlanMantenimiento : la) {
-                
+
                 if (actividadPlanMantenimiento.getKilometraje().equals(actividadplan.getKilometraje())) {
                     System.out.println("entro..... a comparar");
                     actividadplan.setActividad(actividadPlanMantenimiento.getActividad());
@@ -910,15 +925,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
         ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
-       
-       
+
         listVehiculos2 = listaVehiculos;
         idPersona = 0l;
         listaPersonas = findAll(Profile.class);
         List<Profile> lp = new ArrayList<Profile>();
         for (Profile persona : findAll(Profile.class)) {
-            if (persona.getTipo() != null) {
-                if (persona.getTipo().equals("Conductor")) {
+            if (persona.getCargo() != null) {
+                if (persona.getCargo().equals("Conductor")) {
                     getInstance().setPersona(persona);
                     lp.add(persona);
                 }
@@ -931,23 +945,24 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         desabilitar = false;
         for (Vehiculo vehiculo : listaVehiculos) {
             EstadoVehiculo estadov = obtenerUltimoEstadoVehiculo(vehiculo);
-          
+
             listaEstadoV.add(estadov);
         }
         listaEstadoV2 = listaEstadoV;
 
         verificarPlan();
 
+        
     }
 
     public void fijarPlan(PlanMantenimiento pmat, List<Vehiculo> lv) {
-     
+
 //        System.out.println("listarecuperaaaada"+findAll(Vehiculo.class));
         for (Vehiculo v : lv) {
             if (null != pmat.getId()) {
- 
+
                 setId(v.getId());
-          
+
                 setInstance(v);
                 getInstance().setPlanM(pmat);
 
@@ -1002,7 +1017,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         servgen.actualizar(estado);
     }
 
-
     public void crearKardex() {
         BussinesEntityType _type = bussinesEntityService.findBussinesEntityTypeByName(Kardex.class
                 .getName());
@@ -1026,7 +1040,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public String guardar() {
         String ms = "";
         Kardex k = new Kardex();
-        
+
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
 
@@ -1067,7 +1081,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 crearKardex();
                 crearEstadoUbicacion();
 
-                
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -1088,7 +1101,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             if (getInstance().isPersistent()) {
                 save(getInstance());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Se actualizó Vehículo" + getInstance().getId() + " con éxito");
-           }
+            }
 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al guardar: " + getInstance().getId(), " ");
@@ -1100,23 +1113,20 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public String guardarEstadoVehiculo() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-      
+
         try {
             if (getInstance().isPersistent()) {
                 System.out.println("entro apersistente");
                 if (verificarFechaSolicitud(estado.getFechaEntrada())) {
-                    
+
                     crearEstadoUbicacion2();
 
                     getInstance().getListaEstados().add(estado);
-        
+
                     save(getInstance());
-         
-                   
-                    
+
                 } else {
-                    
-                    
+
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR! ", "la fecha de inicio es incorrecta");
                     FacesContext.getCurrentInstance().addMessage("", msg);
                 }
@@ -1134,7 +1144,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public String editarEstado() {
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
-       
+
         try {
             save(getInstance());
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se actualizó Vehículo" + getInstance().getId() + " con éxito", " ");
@@ -1163,18 +1173,16 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         return "/paginas/admin/vehiculo/lista.xhtml?faces-redirect=true";
     }
 
-
-
     public boolean tieneEstadosEstructura(Property propiedad) {
-        System.out.println("propiedades "+propiedad.getStructure().getProperties());
-        
+        System.out.println("propiedades " + propiedad.getStructure().getProperties());
+
         for (Property p : findAll(Property.class)) {
             if (p.getGroupName()
                     != null) {
                 if (p.getGroupName().equals(propiedad.getName())) {
-                 
+
                     if (p.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-                  
+
                         return true;
                     }
                 }
@@ -1201,7 +1209,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             }
             if (tipoSeleccionados.length == 0) {
                 tipoSeleccionados = null;
-               
+
             }
         }
 
@@ -1270,7 +1278,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String[] getMesyanioSeleccionados() {
-        
 
         if (mesyanioSeleccionados != null) {
 
@@ -1281,7 +1288,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                 System.out.println("fijando null en forr");
 
                 mesyanioSeleccionados = null;
-               
+
             }
         }
 
@@ -1318,24 +1325,24 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         if (anioMenor < anioMayor) {
 
             cantMeses = 12 - mesMenor;
-           
+
             for (int i = anioMenor; i < anioMayor; i++) {
 
                 aux = aux + 12;
             }
             aux = aux - (12 - mesMayor);
-          
+
             cantMeses = cantMeses + aux;
 
         } else {
-            
+
             cantMeses = mesMayor - mesMenor;
         }
-       
+
         for (int i = 1; i <= cantMeses; i++) {
             fechamenor.add(Calendar.MONTH, 1);
             mesMenor = fechamenor.get(Calendar.MONTH) + 1;
-            
+
             listaFechas.add(sdf.format(fechamenor.getTime()));
         }
 
@@ -1362,7 +1369,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public String obtenerEvaluacion() {
-     
+
         List<Property> propiedades = servgen.buscarTodoscoincidencia(Property.class, Property.class.getSimpleName(), Property_.type.getName(), "org.mtop.modelo.dinamico.Structure");
         List<BussinesEntityAttribute> bea;
         Integer suma = 0;

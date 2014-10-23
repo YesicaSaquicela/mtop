@@ -114,6 +114,17 @@ public class Profile extends BussinesEntity implements Serializable {
     private Date fechanacimiento;
     private String cedula;
     private Boolean estado1=false;
+    private String cargo;
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+    
+    
 
     public SolicitudReparacionMantenimiento getSolicitudReparacionP() {
         return solicitudReparacionP;
