@@ -505,6 +505,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void setListaRequisiciones(List<Requisicion> listaRequisiciones) {
+        System.out.println("fijando lista de requisiciones>>>>>>" + listaRequisiciones);
+                
         this.listaRequisiciones = listaRequisiciones;
     }
 

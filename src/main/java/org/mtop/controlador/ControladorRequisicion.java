@@ -1630,6 +1630,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public List<Requisicion> getListaRequisicion() {
+        System.out.println("lista de requisicion" + listaRequisicion);
+                
         return listaRequisicion;
     }
 
@@ -2025,7 +2027,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
 
             }
-            listaRequisicion.add(getInstance());
+//            listaRequisicion.add(getInstance());
             listaItemsRequisicion = null;
 
         } else {
