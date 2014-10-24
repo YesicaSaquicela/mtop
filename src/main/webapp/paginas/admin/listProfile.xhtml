@@ -94,18 +94,14 @@
                                                          emptyMessage="No se encontraron coincidencias">
 
 
-                                                <p:column sortBy="#{profile_.firstname}" rendered="#{profile_.tipo eq 'Natural'}">
+                                                <p:column sortBy="#{profile_.firstname}" >
                                                     <f:facet name="header">  
                                                         <h:outputText value="Nombres/Entidad" />  
                                                     </f:facet> 
-                                                    <h:outputText value="#{profile_.concatenarNombre()}" />
+                                                <h:outputText value="#{profile_.concatenarNombre()}" />
+                                                
                                                 </p:column>
-                                                 <p:column sortBy="#{profile_.firstname}" rendered="#{profile_.tipo eq 'Juridica'}">
-                                                    <f:facet name="header">  
-                                                        <h:outputText value="Nombres/Entidad" />  
-                                                    </f:facet> 
-                                                     <h:outputText value="#{profile_.firstname}" />
-                                                </p:column>
+                                                 
                                              
                                                 <p:column sortBy="#{profile_.cedula}">
                                                     <f:facet name="header">  
