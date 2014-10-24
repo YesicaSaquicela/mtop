@@ -368,7 +368,10 @@ public class Profile extends BussinesEntity implements Serializable {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
     public String concatenarNombre(){
-        String resultado = getFirstname() + " " + getSurname();
+        String resultado = getFirstname();
+        if(getSurname()!=null){
+            resultado = getFirstname() + " " + getSurname();
+        }
         return resultado;
     }
 }

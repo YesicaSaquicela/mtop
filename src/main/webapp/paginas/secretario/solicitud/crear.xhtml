@@ -112,7 +112,7 @@
                                                                      filter="true" filterMatchMode="contains">  
                                                         <f:ajax execute="personal" render="srq"/>
                                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                                        <f:selectItems  value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
 
                                                     </p:selectOneMenu> <br></br>
 
@@ -138,7 +138,7 @@
                                                 <br></br>
 
 
-                                                <h:outputLabel value="Recibe por*"/> <br></br>
+                                                <h:outputLabel value="Recibido por*"/> <br></br>
                                                 <h:panelGroup id="srq1" layout="block" class="clearfix">
                                                     <p:selectOneMenu id="personalr" style="width: 100%" value="#{controladorSolicitudReparacionMantenimiento.idPersonar}"
                                                                      effect="fade" requiredMessage="Se requiere elegir una persona que solicite la solicitud "
@@ -146,7 +146,7 @@
                                                                      filter="true" filterMatchMode="contains">  
                                                         <f:ajax execute="personalr" render="srq1"/>
                                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                                        <f:selectItems value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
+                                                        <f:selectItems  value="#{controladorSolicitudReparacionMantenimiento.listaPersonal}" var="item" itemLabel="#{item.concatenarNombre}" itemValue="#{item.id}"/>  
 
                                                     </p:selectOneMenu> <br></br>
 

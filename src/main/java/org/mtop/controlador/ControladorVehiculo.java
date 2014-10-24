@@ -102,10 +102,14 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<String> tiposCabina = new ArrayList<String>(Arrays.asList("Simple", "Doble"));
 
     private List<String> marcasv = new ArrayList<String>(Arrays.asList("Abarth", 
-            "Alfa Romeo", "Aston Martin", "Audi","Bentley", "Citroen","Chevrolet", "Dacia", 
-            "Dfsk", "Ferrari", "Fiat", "Honda", "Hyundai","Infinity", "Isuzu", "Iveco", 
+            "Alfa Romeo", "Aston Martin", "Audi","Bentley","Caterpillar",
+            "Case","Cifali", "Citroen","Chevrolet", 
+            "Dacia", "Dfsk","Dresser"," Dynapac", "Faco",
+            "Ferrari", "Fiat","Ford","Galión","Hino", "Honda",
+            "Hyundai","Infinity", "Internacional","Isuzu", "Iveco", 
             "Jaguar","Kia", "Lada", "Lamborghini", "Lancia","Land-Rover", "Lexus", "Ldv", 
-            "Mazda", "Mercedes-Benz", "Mini", "Nissan", "Porsche","Renault", "Suzuki", 
+            "Mazda", "Mercedes-Benz", "Mini","Mitsubishi","Muller", "Nissan", "Porsche","Scania",
+            "Renault","Rosco", "Suzuki", 
             "Toyota", "Volkswagen"));
 
     public List<String> getMarcasv() {
@@ -1226,6 +1230,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         tipos = new ArrayList<String>();
         tipos.add("Bachadora");
         tipos.add("Buses");
+        tipos.add("Camioneta");
         tipos.add("Camión");
         tipos.add("Cargadora");
         tipos.add("Carro Taller");
@@ -1236,6 +1241,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         tipos.add("Fresadora");
         tipos.add("Gabarra");
         tipos.add("Grua");
+        tipos.add("Jeep");
         tipos.add("Minicargadora");
         tipos.add("Mononiveladora");
         tipos.add("Planta asfaltica");
@@ -1255,6 +1261,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         tipos.add("Trituradora 2da");
         tipos.add("Vehículo");
         tipos.add("Volquete");
+        
 
         return tipos;
     }
