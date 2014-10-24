@@ -145,10 +145,11 @@
                                                                  converter="#{omnifaces.GenericEnumConverter}" required="true" style="width: 100%"
                                                                  requiredMessage="Tracción requerido, necesita un valor">  
                                                     <p:ajax event="change" update="p1" />
-                                                    <f:selectItem itemLabel="Selecione uno" itemValue="" />  
-                                                    <f:selectItem itemLabel="4x4" itemValue="4x4" />  
-                                                    <f:selectItem itemLabel="4x2" itemValue="4x2" /> 
+                                                    <f:selectItem itemLabel="Selecione uno" itemValue="" /> 
                                                     <f:selectItem itemLabel="4x1" itemValue="4x1" />
+                                                    <f:selectItem itemLabel="4x2" itemValue="4x2" /> 
+                                                    <f:selectItem itemLabel="4x4" itemValue="4x4" />  
+                                                    <f:selectItem itemLabel="6X4" itemValue="6X4" />
                                                 </p:selectOneMenu> <br></br>
                                                 <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorVehiculo.instance.traccion != null}" styleClass="validation-status" />
                                                 <span class="help-inline text-muted">Elija la tracción del vehículo<ocp:message forId="traccion" /></span><br></br><br></br> 
