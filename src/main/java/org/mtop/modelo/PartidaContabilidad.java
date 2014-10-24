@@ -46,6 +46,16 @@ public class PartidaContabilidad extends BussinesEntity implements Serializable 
     @Pattern(regexp = "[0-9]+", message = "Error: solo puede ingresar números")
     private String numeroFuenteFinanciera;
     private String descripcion;
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
 
 
     public String getDescripcion() {
