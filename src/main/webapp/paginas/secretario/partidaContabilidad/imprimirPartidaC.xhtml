@@ -54,7 +54,17 @@
                         </p:panelGrid>
 
                       
+                        <p:panelGrid style="width:100%" rendered="#{controladorPartidaContabilidad.instance.tipo eq 'Inversion'}"  >
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column style="width:50%">
+                                        #{controladorPartidaContabilidad.instance.tipo}
+                                    </p:column>
 
+                                                                     
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
                       
                         <p:panelGrid style="width:100%"  >
                             <f:facet name="header">
@@ -66,6 +76,7 @@
                                     <p:column style="width:50%">
                                         DESCRIPCIÓN 
                                     </p:column>
+                                    
                                 </p:row>
                             </f:facet>
                         </p:panelGrid>
