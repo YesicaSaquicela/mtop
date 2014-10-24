@@ -56,7 +56,23 @@
                             <div class="container-fluid">
                                 <div class="row-fluid"  >
                                     <div class="col-md-6"> 
-
+                                        <h:panelGroup id="p1" layout="block" class="clearfix">
+                                            <div class="input">
+                                                <h:outputLabel value="Tipo*"/> <br></br>
+                                                <p:selectOneMenu id="tipo"  value="#{controladorPartidaContabilidad.instance.tipo}" effect="fade"
+                                                                 converter="#{omnifaces.GenericEnumConverter}" required="true" style="width: 100%"
+                                                                 requiredMessage="Tipo requerido, necesita un valor">  
+                                                    <p:ajax event="change" update="p1" />
+                                                    <f:selectItem itemLabel="Selecione uno" itemValue="" /> 
+                                                    <f:selectItem itemLabel="Inversión" itemValue="Inversión" />
+                                                    <f:selectItem itemLabel="Gasto corriente" itemValue="Gasto corriente" /> 
+                                                   
+                                                </p:selectOneMenu> <br></br>
+                                                <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.tipo != null}" styleClass="validation-status" />
+                                                <span class="help-inline text-muted">Elija el tipo de partida<ocp:message forId="tipo" /></span><br></br><br></br> 
+                                            </div>
+                                        </h:panelGroup >
+                                        <br/>
                                         <p:outputLabel value="Número de institución"/><br></br>
                                         <p:inputText id="institucion" value="250" styleClass="form-control" disabled="true"/>
                                         <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
@@ -96,16 +112,14 @@
                                         </h:panelGroup>
                                         <br></br>
 
-                                        <p:outputLabel value="Número de proyecto"/><br></br>
-                                        <p:inputText id="proyecto" maxlength="5" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
-                                            <f:validateLength minimum="5"/>
-                                            <p:ajax event="blur" update="np2" partialSubmit="true"  />
-                                        </p:inputText>
-                                        <h:panelGroup id="np2" layout="block" class="clearfix">
+                                     
+                                         <p:outputLabel value="Número de subprograma"/><br></br>
+                                        <p:inputText id="subprograma" value="00" styleClass="form-control" disabled="true"
+                                                     />
+                                        
+                                        <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
+                                        <span class="help-inline text-muted">Número de subprograma<ocp:message forId="subprograma" /></span><br></br><br></br>
 
-                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroProyecto != null}" styleClass="validation-status" />
-                                            <span class="help-inline text-muted">Número de proyecto. Ejm(00011)<ocp:message forId="proyecto"/></span>
-                                        </h:panelGroup>
                                         <br></br><br></br>
 
 
@@ -113,7 +127,18 @@
                                     </div>
 
                                     <div class="col-md-6"> 
+                                        <p:outputLabel value="Número de proyecto"/><br></br>
+                                        <p:inputText id="proyecto1" maxlength="3" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
+                                            <f:validateLength minimum="3"/>
+                                            <p:ajax event="blur" update="np21" partialSubmit="true"  />
+                                        </p:inputText>
+                                        <h:panelGroup id="np21" layout="block" class="clearfix">
 
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{controladorPartidaContabilidad.instance.numeroProyecto != null}" styleClass="validation-status" />
+                                            <span class="help-inline text-muted">Número de proyecto. Ejm(011)<ocp:message forId="proyecto1"/></span>
+                                        </h:panelGroup>
+                                        
+                                        <br/>
 
                                         <p:outputLabel value="Número de actividad" /><br></br>
                                         <p:inputText id="actividad" value="001" styleClass="form-control" disabled="true" />
