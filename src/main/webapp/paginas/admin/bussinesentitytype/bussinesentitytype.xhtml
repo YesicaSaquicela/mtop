@@ -230,7 +230,7 @@ limitations under the License.
 
                                     </div><br/>
                                      <!--resizableColumns="true" liveResize="true"--> 
-                                    <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
+                                    <p:messages id="messages1" showDetail="true" closable="true" />  
                                     <p:dataTable var="property" value="#{bussinesEntityTypeHome.listaPropiedades}" 
                                                  editable="false" 
                                                  id="properties"
@@ -342,15 +342,18 @@ limitations under the License.
                                             <div class="panel-body">
 
 
-                                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                                               
 
                                                 <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento' or bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
                                                                value="Valor inicial para numero de solicitud" />
                                                 <div class="input">
+                                                     <h:panelGroup id="sols">
                                                     <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}" id="vi" styleClass="xLarge span4" label="valor inicial"
-                                                                 value="#{bussinesEntityTypeHome.valorIniSolicitud}">
-                                                        <f:ajax execute="@this" render="save"  />
+                                                                 value="#{bussinesEntityTypeHome.valorIniSolicitud}" requiredMessage="Valor inicial para numero de solicitud requerido">
+                                                        <f:ajax execute="@this" render="save sols"  />
                                                     </p:inputText>
+                                                     <ocp:message forId="vi" id="msjvi"/>
+                                                     </h:panelGroup>
                                                     <br/><br/>
                                                 </div>
                                                 <div class="actions" align="center">
@@ -369,28 +372,31 @@ limitations under the License.
                     <!-- Example row of columns -->
                                 <div class="row">
                                     <div class="col-md-6"> 
-                                        
+                                        <h:panelGroup id="reqs">
                                          <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
-                                                               value="Valor inicial para numero de requisición de Bienes y Servicios" />
+                                                               value="Valor inicial para número de requisición de Bienes y Servicios" />
                                                 <div class="input">
                                                     <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
-                                                                 id="vi1" styleClass="xLarge span4" label="valor inicial bienes y servicios"
-                                                                 value="#{bussinesEntityTypeHome.viNumRequisicionBie}">
-                                                        <f:ajax execute="@this" render="saveg"  />
+                                                                 id="vi1" styleClass="xLarge span4" label="valor inicial bienes y servicios" required="true"
+                                                                 value="#{bussinesEntityTypeHome.viNumRequisicionBie}" requiredMessage="Valor inicial para número de requisición de Bienes y Servicios requerido">
+                                                        <f:ajax execute="@this" render="saveg reqs"  />
                                                     </p:inputText>
-                                                    
+                                                    <ocp:message forId="vi1"  />
+                                                   
                                                     <br/><br/>
                                                 </div>
                                            <p:outputLabel rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
-                                                               value="Valor inicial para numero de requisición de Reparación" />
+                                                               value="Valor inicial para número de requisición de Reparación" />
                                                 <div class="input">
                                                     <p:inputText validator="digitValidator" rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}" 
-                                                                 id="vi2" styleClass="xLarge span4" label="valor inicial reparación"
-                                                                 value="#{bussinesEntityTypeHome.viNumRequisicionRep}">
-                                                        <f:ajax execute="@this" render="save2"  />
+                                                                 id="vi2" styleClass="xLarge span4" label="valor inicial reparación" required="true"
+                                                                 value="#{bussinesEntityTypeHome.viNumRequisicionRep}" requiredMessage="Valor inicial para número de requisición de Reparación requerido">
+                                                        <f:ajax execute="@this" render="save2 reqs"  />
                                                     </p:inputText>
+                                                     <ocp:message forId="vi2" />
                                                     <br/><br/>
                                                 </div>
+                                           </h:panelGroup>
                                     </div>
                                     <div class="col-md-6"> 
                                        <div class="actions" align="center">
@@ -482,7 +488,7 @@ limitations under the License.
 
                 </h:panelGroup> 
                 <center>
-                    <h:commandLink action="#{propertyHome.deleteProperty()}"  styleClass="ui-confirmdialog-yes" 
+                    <h:commandLink action="#{propertyHome.deleteProperty()}" update="messages1"  styleClass="ui-confirmdialog-yes" 
                                    type="button" value="Sí" class="btn btn-success"  style="width:20%" >
                         <f:setPropertyActionListener target="#{bussinesEntityTypeHome.listaPropiedades}" value="#{propertyHome.propiedades}"/>
                     </h:commandLink>

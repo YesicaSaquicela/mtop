@@ -130,8 +130,8 @@
                                             <label for="email">Correo electrónico*</label>
                                             <div class="input">
                                                 <h:inputText class="form-control" id="email" value="#{profileHome.instance.email}" 
-                                                             requiredMessage="Email requerido, necesita un valor"
-                                                             styleClass="xLarge" required="true" label="#{messages['common.email']}">
+                                                           
+                                                             styleClass="xLarge" required="false" label="#{messages['common.email']}">
                                                     <f:validator validatorId="emailValidator" />
                                                     <f:validator validatorId="signupEmailAvailabilityValidator" />
                                                     <f:ajax execute="@this" render="eml"  />

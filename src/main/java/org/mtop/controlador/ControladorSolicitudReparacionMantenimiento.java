@@ -90,7 +90,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<Profile> listadepersonas;
     private List<Profile> listaPersonal;
     private Property propiedadNum;
+    
+    public String obtenercargo(long idP) {
+        Profile nombrePersona;
+        System.out.println("nllegas id>" + idP);
+        String nombPersona = "";
+        if (idP != 0) {
+            nombrePersona = servgen.buscarPorId(Profile.class, idP);
+            nombPersona = nombrePersona.getCargo();
+        }
 
+        return nombPersona;
+    }
     public List<Profile> getListadepersonas() {
         return listadepersonas;
     }
@@ -491,10 +502,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setRequisicion(Requisicion requisicion) {
         if (requisicion != null) {
+            
             this.requisicion = requisicion;
             getInstance().setRequisicionId(requisicion);
             System.out.println("ide de requisicion>>>>>>" + requisicion);
         } else {
+            listaRequisiciones.add(getInstance().getRequisicionId());
             this.requisicion = new Requisicion();
         }
 

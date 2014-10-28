@@ -78,6 +78,10 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             } else {
                 if (resultado.contains(palabrab)) {
                     lp.add(p);
+                }else{
+                    if(p.getTipo().toLowerCase().contains(palabrab.toLowerCase())){
+                        lp.add(p);
+                    }
                 }
             }
         }
@@ -120,6 +124,10 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             } else {
                 if (partidaContabilidad.getDescripcion().toLowerCase().contains(query.toLowerCase()) && !ced.contains(partidaContabilidad.getDescripcion().toLowerCase())) {
                     ced.add(partidaContabilidad.getDescripcion());
+                }else{
+                    if(partidaContabilidad.getTipo().toLowerCase().contains(query.toLowerCase())){
+                         ced.add(partidaContabilidad.getTipo());
+                    }
                 }
             }
         }

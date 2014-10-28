@@ -237,6 +237,7 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     public void setProfileId(Long profileId) {
         setId(profileId);
+        tipopersona=getInstance().getTipo();
     }
 
     public String getStructureName() {

@@ -48,9 +48,7 @@ import org.mtop.modelo.AuxiliarParReq;
 import org.mtop.modelo.AuxiliarParReq_;
 import org.mtop.modelo.Auxiliar_;
 import org.mtop.modelo.ItemRequisicion;
-import org.mtop.modelo.ItemSolicitudReparacion;
 import org.mtop.modelo.Producto;
-import org.mtop.modelo.Requisicion_;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 import org.mtop.modelo.dinamico.BussinesEntityAttribute;
 import org.mtop.modelo.dinamico.Property;
@@ -76,7 +74,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private Vehiculo vehiculo;
     private long idPersonals = 0l;
     private long idPersonala = 0l;
-    private PartidaContabilidad partidaC;
     private String numeroRequisicion;
     private Integer maximo;
     private ControladorItemRequisicion cir = new ControladorItemRequisicion();
@@ -110,13 +107,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     private String aprobada;
     private List<PartidaContabilidad> listaPartida;
     private Integer numr = 0;
-    private List<AuxiliarParReq> listaAuxParReq;
-    private Boolean b = false;
-    private Boolean b1 = false;
+
     private Property propertyRepa;
     private Property propertyBien;
     private String palbpartida;
     private List<PartidaContabilidad> listapartida2;
+//    private String mensajei="";
+    private List<String> listaPartidaAgregar;
 
     public String getPalbpartida() {
         return palbpartida;
@@ -124,17 +121,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void setPalbpartida(String palbpartida) {
         this.palbpartida = palbpartida;
-    }
-
-       
-    
-
-    public List<AuxiliarParReq> getListaAuxParReq() {
-        return listaAuxParReq;
-    }
-
-    public void setListaAuxParReq(List<AuxiliarParReq> listaAuxParReq) {
-        this.listaAuxParReq = listaAuxParReq;
     }
 
     public Integer getNumr() {
@@ -148,10 +134,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String obtenernombre(long idP) {
         Profile nombrePersona;
         System.out.println("nllegas id>" + idP);
+        String nombPersona = "";
+        if (idP != 0) {
+            nombrePersona = servgen.buscarPorId(Profile.class, idP);
+            nombPersona = nombrePersona.concatenarNombre();
+
+        }
+
+        return nombPersona;
+    }
+
+    public String obtenerpartida(String idP) {
+        PartidaContabilidad nombrePersona;
+        System.out.println("nllegas id>" + idP);
         String nombPersona;
 
-        nombrePersona = servgen.buscarPorId(Profile.class, idP);
-        nombPersona = nombrePersona.concatenarNombre();
+        nombrePersona = servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(idP));
+        nombPersona = nombrePersona.concatenarPartida();
 
         return nombPersona;
     }
@@ -161,17 +160,38 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         return numr;
     }
 
-    private List<PartidaContabilidad> listaPartidaAgregar;
+    public List<PartidaContabilidad> obtenerListaPar() {
+        System.out.println("entro al metodo con lista" + listaPartidaAgregar);
+        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
+        if (!listaPartidaAgregar.isEmpty()) {
 
-    public List<PartidaContabilidad> getListaPartidaAgregar() {
+            System.out.println("entro al metodo al if" + listaPartidaAgregar);
+
+            for (String partida1 : listaPartidaAgregar) {
+                System.out.println("patida a presentar");
+                System.out.println("patida a presentar" + partida1);
+                System.out.println("patida a presentar" + servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(partida1)).concatenarPartida().toString());
+                lp.add(servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(partida1)));
+            }
+
+            return lp;
+        } else {
+            System.out.println("retorna sss vacio");
+            return lp;
+        }
+    }
+
+    public List<String> getListaPartidaAgregar() {
         return listaPartidaAgregar;
     }
 
-    public void setListaPartidaAgregar(List<PartidaContabilidad> listaPartidaAgregar) {
+    public void setListaPartidaAgregar(List<String> listaPartidaAgregar) {
+        System.out.println("setpatida agregar" + listaPartidaAgregar);
         this.listaPartidaAgregar = listaPartidaAgregar;
     }
 
     public List<Profile> getListadePersonas() {
+        System.out.println("getpatida agregar" + listaPartidaAgregar);
         return listadePersonas;
     }
 
@@ -207,9 +227,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public ItemRequisicion getIt() {
         return it;
     }
-    
-    
-    
 
     public void setIt(ItemRequisicion it) {
         this.it = it;
@@ -236,8 +253,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         this.it = it;
     }
 
-    
-    
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
 
@@ -368,7 +383,6 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 //        listaSolicitudes.add(solis);
 //
 //    }
-
     public ItemRequisicion getItemr() {
         return itemr;
     }
@@ -572,8 +586,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public ArrayList<String> autocompletarpartida(String query) {
         System.out.println("QUEryyyyy" + query);
-        System.out.println("palbpartida" + palbpartida);
-
+        System.out.println("QUEryyyyy" + palbpartida);
         ArrayList<String> ced = new ArrayList<String>();
         for (PartidaContabilidad partidaContabilidad : listaPartida) {
 
@@ -595,11 +608,11 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         return ced;
 
     }
-    
-      public void buscarpartida() {
-         System.out.println("entro a buscar patida" + palbpartida);
-                
-        palbpartida= palbpartida.trim();
+
+    public void buscarpartida() {
+        System.out.println("entro a buscar patida" + palbpartida);
+
+        palbpartida = palbpartida.trim();
         if (palbpartida == null || palbpartida.equals("")) {
             palbpartida = "Ingrese algun valor a buscar";
         }
@@ -617,10 +630,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 }
             }
         }
-        
+
         System.out.println("lp" + lp);
         if (lp.isEmpty()) {
-       
+
             if (palbpartida.equals("Ingrese algun valor a buscar")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -636,7 +649,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         System.out.println("salio de buscar" + listaPartida);
 
     }
-      
+
     public void limpiarpartida() {
         palbpartida = "";
         listaPartida = listapartida2;
@@ -754,6 +767,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             this.solicitudrep = solicitudrep;
             getInstance().setSolicitudReparacionId(solicitudrep);
         } else {
+            listaSolicitudes.add(getInstance().getSolicitudReparacionId());
             this.solicitudrep = new SolicitudReparacionMantenimiento();
         }
 
@@ -781,15 +795,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         cv.setBussinesEntity(bussinesEntity);
         cv.setEntityManager(em);
         for (Requisicion r : listaRequisicion2) {
-             List<AuxiliarParReq> lpc = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), r.getId());
+            List<AuxiliarParReq> lpc = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), r.getId());
             for (AuxiliarParReq ar : lpc) {
-                if(ar.getPartidaId().concatenarPartida().contains(palabrab)&& !lrq.contains(r.getId())){
+                if (ar.getPartidaId().concatenarPartida().contains(palabrab) && !lrq.contains(r.getId())) {
                     lrq.add(r.getId());
                 }
-            }      
-            
-            
-            
+            }
+
             System.out.println("r.id" + r.getId());
             System.out.println("contaisns" + !lrq.contains(r.getId()));
             if (r.isEstado() && !lrq.contains(r.getId())) {
@@ -798,7 +810,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                 if (r.getNumRequisicion().contains(palabrab) || s.contains(palabrab)) {
                     lrq.add(r.getId());
                 }
-              
+
                 if (r.getVehiculo() != null) {
 
                     System.out.println("lista de lrq" + lrq);
@@ -931,13 +943,13 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         for (Requisicion requisicion : listaRequisicion2) {
 
-             List<AuxiliarParReq> lpc = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), requisicion.getId());
+            List<AuxiliarParReq> lpc = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), requisicion.getId());
             for (AuxiliarParReq ar : lpc) {
-                if(ar.getPartidaId().concatenarPartida().contains(query)&& !ced.contains(ar.getPartidaId().concatenarPartida())){
+                if (ar.getPartidaId().concatenarPartida().contains(query) && !ced.contains(ar.getPartidaId().concatenarPartida())) {
                     ced.add(ar.getPartidaId().concatenarPartida());
                 }
-            }    
-            
+            }
+
             if (requisicion.isEstado() && requisicion.getNumRequisicion().contains(query)) {
                 ced.add(requisicion.getNumRequisicion());
             }
@@ -998,7 +1010,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         List<Long> lsoli = new ArrayList<Long>();
         for (SolicitudReparacionMantenimiento sol : listaSolicitudes2) {
-            if (sol.isEstado() && !lsoli.contains(sol)) {
+            if (sol.isEstado() && !lsoli.contains(sol.getId())) {
                 String s = sol.getFechaSolicitud().toString();
                 if (sol.getNumSolicitud().contains(palabrabs) || s.contains(palabrabs)) {
                     lsoli.add(sol.getId());
@@ -1220,9 +1232,10 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         auxiliar.setTipoRelacion("aprobadoR");
         save(auxiliar);
         AuxiliarParReq auxpr = new AuxiliarParReq();
-        for (PartidaContabilidad partida : listaPartidaAgregar) {
+        System.out.println("lista part" + listaPartidaAgregar);
+        for (String partida : listaPartidaAgregar) {
             System.out.println("id de relacion en guardar" + auxpr.getId());
-            auxpr.setPartidaId(partida);
+            auxpr.setPartidaId(servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(partida)));
             auxpr.setRequisicionId(getInstance());
             save(auxpr);
         }
@@ -1390,8 +1403,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String onFlowProcess(FlowEvent event) {
         nombrew = "soli";
         mensaje = "";
-        System.out.println("vehiculo en flowproce" + getInstance().getVehiculo());
-        System.out.println("vehiculo en flowproce" + vehiculo);
+
+        System.out.println("lista part" + listaPartidaAgregar);
         if (skip) {
             skip = false;   //reset in case user goes back  
             nombrew = "Final";
@@ -1490,29 +1503,21 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         List<AuxiliarParReq> listaAuxParReq = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), getInstance().getId());
         listaPartidaAgregar.clear();
         for (AuxiliarParReq parreq : listaAuxParReq) {
+
             System.out.println("id de relacion" + parreq.getId());
-            listaPartidaAgregar.add(servgen.buscarPorId(PartidaContabilidad.class, parreq.getPartidaId().getId()));
-        }
-
-        listaPartida.clear();
-        for (PartidaContabilidad partida : findAll(PartidaContabilidad.class)) {
-
-            Boolean b = true;
-            for (PartidaContabilidad partidaContabilidad : listaPartidaAgregar) {
-                if (partidaContabilidad.getId().equals(partida.getId())) {
-                    b = false;
-                }
+            listaPartidaAgregar.add(parreq.getPartidaId().getId().toString());
+            if (!parreq.getPartidaId().isEstado()) {
+                listaPartida.add(parreq.getPartidaId());
             }
-
-            if (partida.isEstado() && b) {
-                listaPartida.add(partida);
-            }
-
         }
+        System.out.println("lista de listaPartidaAgregar" + listaPartidaAgregar);
+        System.out.println("lista de patidas" + listaPartida);
 
         List<Auxiliar> listaaux = servgen.buscarAuxiliarPorIdReq(Auxiliar_.requisicionId.getName(), getInstance().getId());
+        System.out.println("lista aux" + listaaux);
 
         for (Auxiliar auxiliar : listaaux) {
+            System.out.println("tipo de relacion " + auxiliar.getTipoRelacion());
             if (auxiliar.getTipoRelacion().equals("solicitadoR")) {
                 idPersonals = auxiliar.getPersonalId().getId();
             }
@@ -1531,9 +1536,12 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         List<SolicitudReparacionMantenimiento> lrq = new ArrayList<SolicitudReparacionMantenimiento>();
         //mosttrar lista de requisiciones con igual vehiculo ,estado true
 
-        for (SolicitudReparacionMantenimiento sol : lr) {
-
-            if (sol.isEstado() && sol.getRequisicionId() == null) {
+        for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
+            System.out.println("id sol" + sol);
+            System.out.println("nun sol" + sol.getNumSolicitud());
+                     System.out.println("nun sol" + sol.getRequisicionId());
+            if (sol.isEstado() && sol.getRequisicionId() == null && sol!=getInstance().getSolicitudReparacionId()) {
+           System.out.println("anidaio" +sol.getNumSolicitud());
                 if (getInstance().getVehiculo() != null) {
                     if ((sol.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
 
@@ -1636,7 +1644,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public List<Requisicion> getListaRequisicion() {
         System.out.println("lista de requisicion" + listaRequisicion);
-                
+
         return listaRequisicion;
     }
 
@@ -1691,7 +1699,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             }
         }
         listaPartida = lpc;
-        listapartida2=listaPartida;
+        listapartida2 = listaPartida;
 
         cir = new ControladorItemRequisicion();
         cir.setInstance(new ItemRequisicion());
@@ -1732,9 +1740,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         nombrew = "Requisicion";
         System.out.println("salio de init con lista de items" + listaItemsRequisicion);
         mensaje = "";
-        listaPartidaAgregar = new ArrayList<PartidaContabilidad>();
-        listaAuxParReq = new ArrayList<AuxiliarParReq>();
-        palbpartida="";
+        listaPartidaAgregar = new ArrayList<String>();
+
+        palbpartida = "";
 
     }
 
@@ -1778,7 +1786,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
-
+                
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {
 
@@ -1794,13 +1802,23 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         }
                         getInstance().setSolicitudReparacionId(solicitudrep);
 
+                    }else{
+                         System.out.println("fijo null en 1");
+                         getInstance().setSolicitudReparacionId(null);
                     }
+                }else{
+                     System.out.println("fijo null en 2");
+                    getInstance().setSolicitudReparacionId(null);
                 }
+                System.out.println("solRequisicion en gusradra"+solRequisicion);
                 if (solRequisicion.getId() != null) {
+                    System.out.println("solicitudrep en gusradra"+solicitudrep);
                     if (!solRequisicion.getId().equals(solicitudrep.getId())) {
                         solRequisicion.setLastUpdate(now);
                         try {
                             System.out.println("guaradar solRequisicion sin reqqq" + solRequisicion);
+                            System.out.println("guaradar req sin reqqq" + solRequisicion.getRequisicionId());
+                            System.out.println("solicitud  del instance" + getInstance().getSolicitudReparacionId());
                             servgen.actualizar(solRequisicion);
                         } catch (Exception e) {
                             System.out.println("errorrrrr solRequisicion");
@@ -1823,6 +1841,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         save(auxiliar);
                     }
                 }
+
+                System.out.println("lista part" + listaPartidaAgregar);
                 List<AuxiliarParReq> lp = servgen.buscarAuxiliarPorIdReqPa(AuxiliarParReq_.requisicionId.getName(), getInstance().getId());
 
                 if (lp.size() > listaPartidaAgregar.size()) {
@@ -1830,8 +1850,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     //partidas de las que se agregan, entonces se editan y las restantes
                     //las elimina
                     for (int i = 0; i < listaPartidaAgregar.size(); i++) {
-                        if (!lp.get(i).getPartidaId().equals(listaPartidaAgregar.get(i))) {
-                            lp.get(i).setPartidaId(listaPartidaAgregar.get(i));
+                        if (!lp.get(i).getPartidaId().getId().equals(Long.valueOf(listaPartidaAgregar.get(i)))) {
+                            lp.get(i).setPartidaId(servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(listaPartidaAgregar.get(i))));
                             servgen.actualizar(lp.get(i));
                         }
 
@@ -1844,8 +1864,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     //que las que ya habian en la base de datos, entonces se editan y las restantes
                     //las crea
                     for (int i = 0; i < lp.size(); i++) {
-                        if (!lp.get(i).getPartidaId().equals(listaPartidaAgregar.get(i))) {
-                            lp.get(i).setPartidaId(listaPartidaAgregar.get(i));
+                        if (!lp.get(i).getPartidaId().getId().equals(listaPartidaAgregar.get(i))) {
+                            lp.get(i).setPartidaId(servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(listaPartidaAgregar.get(i))));
                             servgen.actualizar(lp.get(i));
                         }
 
@@ -1853,7 +1873,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     AuxiliarParReq aux = new AuxiliarParReq();
                     aux.setRequisicionId(getInstance());
                     for (int i = lp.size(); i < listaPartidaAgregar.size(); i++) {
-                        aux.setPartidaId(listaPartidaAgregar.get(i));
+                        aux.setPartidaId(servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(listaPartidaAgregar.get(i))));
                         save(aux);
                     }
 
@@ -2044,45 +2064,55 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
 
     }
+
     public String obtenercargo(long idP) {
         Profile nombrePersona;
         System.out.println("nllegas id>" + idP);
-        String nombPersona;
-
-        nombrePersona = servgen.buscarPorId(Profile.class, idP);
-        nombPersona = nombrePersona.getCargo();
+        String nombPersona = "";
+        if (idP != 0) {
+            nombrePersona = servgen.buscarPorId(Profile.class, idP);
+            nombPersona = nombrePersona.getCargo();
+        }
 
         return nombPersona;
     }
-    public PartidaContabilidad getPartidaC() {
-        return partidaC;
-    }
-
-    public void setPartidaC(PartidaContabilidad partidaC) {
-        listaPartidaAgregar.add(partidaC);
-        //remover de listaPartida
-        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
-        for (PartidaContabilidad partidaContabilidad : listaPartida) {
-            if (!partidaContabilidad.getId().equals(partidaC.getId())) {
-                lp.add(partidaContabilidad);
-            }
-        }
-        listaPartida = lp;
-        this.partidaC = partidaC;
-    }
-
-    public void eliminarPartida(PartidaContabilidad partida) {
-        System.out.println("entro A ELIMINAR PARTIDA  " + partida);
-        listaPartida.add(partida);
-        //remover de listaPartidaAgregar
-        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
-        for (PartidaContabilidad partidaContabilidad : listaPartidaAgregar) {
-            if (!partidaContabilidad.getId().equals(partidaC.getId())) {
-                lp.add(partidaContabilidad);
-            }
-        }
-        listaPartidaAgregar = lp;
-        System.out.println("li  " + listaPartida);
-    }
+//    public PartidaContabilidad getPartidaC() {
+//        return partidaC;
+//    }
+//
+//    public void setPartidaC(PartidaContabilidad partidaC) {
+//        listaPartidaAgregar.add(partidaC);
+//        //remover de listaPartida
+//        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
+//        for (PartidaContabilidad partidaContabilidad : listaPartida) {
+//            if (!partidaContabilidad.getId().equals(partidaC.getId())) {
+//                lp.add(partidaContabilidad);
+//            }
+//        }
+//        listaPartida = lp;
+//        this.partidaC = partidaC;
+//    }
+//
+//    public void eliminarPartida(PartidaContabilidad partida) {
+//        System.out.println("entro A ELIMINAR PARTIDA  " + partida);
+//        listaPartida.add(partida);
+//        //remover de listaPartidaAgregar
+//        List<PartidaContabilidad> lp = new ArrayList<PartidaContabilidad>();
+//        for (PartidaContabilidad partidaContabilidad : listaPartidaAgregar) {
+//            if (!partidaContabilidad.getId().equals(partidaC.getId())) {
+//                lp.add(partidaContabilidad);
+//            }
+//        }
+//        listaPartidaAgregar = lp;
+//        System.out.println("li  " + listaPartida);
+//    }
+//
+//    public String getMensajei() {
+//        return mensajei;
+//    }
+//
+//    public void setMensajei(String mensajei) {
+//        this.mensajei = mensajei;
+//    }
 
 }
