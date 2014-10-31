@@ -73,11 +73,15 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         //buscando por numero de partidalistaPartidaC
         for (PartidaContabilidad p : listaPartidaC2) {
             String resultado = p.concatenarPartida();
-            if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase())) {
+            if (p.getDescripcion().toLowerCase().contains(palabrab.toLowerCase()) && !lp.contains(p)) {
                 lp.add(p);
             } else {
-                if (resultado.contains(palabrab)) {
+                if (resultado.contains(palabrab) && !lp.contains(p)) {
                     lp.add(p);
+                }else{
+                    if(p.getTipo().toLowerCase().contains(palabrab.toLowerCase()) && !lp.contains(p)){
+                        lp.add(p);
+                    }
                 }
             }
         }
@@ -120,6 +124,10 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             } else {
                 if (partidaContabilidad.getDescripcion().toLowerCase().contains(query.toLowerCase()) && !ced.contains(partidaContabilidad.getDescripcion().toLowerCase())) {
                     ced.add(partidaContabilidad.getDescripcion());
+                }else{
+                    if(partidaContabilidad.getTipo().toLowerCase().contains(query.toLowerCase())){
+                         ced.add(partidaContabilidad.getTipo());
+                    }
                 }
             }
         }

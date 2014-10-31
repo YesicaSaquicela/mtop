@@ -217,9 +217,9 @@ public class Authentication {
 
         } else {
             System.out.println("entro a us no correcto");
-//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "! Nombre de usuario  ", "o contraseña incorrectos. Intentelo de nuevo¡");
-//            FacesContext.getCurrentInstance().addMessage("", msg);
-            messages.warn(UI.getMessages("¡Nombre de usuario o contraseña incorrectos. Intentelo de nuevo1!"));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "! Nombre de usuario o contraseña incorrectos. Intentelo de nuevo! ", "");
+            FacesContext.getCurrentInstance().addMessage("", msg);
+//            messages.warn(UI.getMessages("¡Nombre de usuario o contraseña incorrectos. Intentelo de nuevo!"));
         }
         //buscar   /*
     }

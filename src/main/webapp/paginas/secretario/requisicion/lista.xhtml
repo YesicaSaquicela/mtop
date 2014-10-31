@@ -205,7 +205,8 @@
                                                                     <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                     <f:param name="reqId" value="#{r.id}"></f:param>
                                                                      <f:param name="profileId" value="#{account.loggedId}"/>
-
+                                                                     
+                                                                     <f:param rendered="#{r.vehiculo ne null}" name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
 
                                                                 </p:button>
 
@@ -271,7 +272,7 @@
                                                                     <p:ajax event="click" partialSubmit="true" update="@this"/>
                                                                     <f:param name="reqId" value="#{r.id}"></f:param>
                                                                      <f:param name="profileId" value="#{account.loggedId}"/>
-
+                                                                       <f:param  name="vehiculoId" value="#{r.vehiculo.id}"></f:param>
 
                                                                 </p:button>
 </center>

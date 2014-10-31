@@ -41,8 +41,9 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import org.jboss.seam.faces.validation.InputElement;
-
+import org.mtop.controlador.ControladorPersona;
 @RequestScoped
 @FacesValidator("passwordConfirm")
 public class PasswordConfirmValidator implements Validator
@@ -52,6 +53,11 @@ public class PasswordConfirmValidator implements Validator
 
    @Inject
    private InputElement<String> passwordConfirm;
+    @Inject
+    private EntityManager em;
+
+    @Inject
+    private ControladorPersona cp;
 
    @Override
    public void validate(final FacesContext context, final UIComponent comp, final Object values)
@@ -59,7 +65,9 @@ public class PasswordConfirmValidator implements Validator
    {
       String passwordValue = password.getValue();
       String passwordConfirmValue = passwordConfirm.getValue();
-
+       cp.setEntityManager(em);
+       cp.setMensaje1("");
+      
       boolean ignore = false;
       if ((passwordValue == null) || "".equals(passwordValue))
       {
@@ -73,10 +81,17 @@ public class PasswordConfirmValidator implements Validator
          ignore = true;
       }
 
-      if (!ignore && !passwordValue.equals(passwordConfirmValue))
+      if (!ignore && !passwordValue.equals(passwordConfirmValue) 
+              && !passwordValue.equals("")
+              && !passwordConfirmValue.equals(""))
       {
+          System.out.println("tiene que presentar mensaje en passwordConfirm");
+          
+          cp.setMensaje1("Las contraseñas no coinciden");
          throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Las contraseñas no coinciden.",
                   null));
+      }else{
+          cp.setMensaje1("");
       }
    }
 }

@@ -91,6 +91,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     private List<Profile> listaPersonal;
     private Property propiedadNum;
 
+    public String obtenercargo(long idP) {
+        Profile nombrePersona;
+        System.out.println("nllegas id>" + idP);
+        String nombPersona = "";
+        if (idP != 0) {
+            nombrePersona = servgen.buscarPorId(Profile.class, idP);
+            nombPersona = nombrePersona.getCargo();
+        }
+
+        return nombPersona;
+    }
+
     public List<Profile> getListadepersonas() {
         return listadepersonas;
     }
@@ -242,9 +254,12 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         }
         List<Long> lrq = new ArrayList<Long>();
         for (Requisicion r : listaRequisicion2) {
-            if (r.isEstado() && !lrq.contains(r)) {
+
+            if (!lrq.contains(r.getId())) {
                 String s = r.getFechaRequisicion().toString();
-                if (r.getNumRequisicion().contains(palabrabr) || s.contains(palabrabr)) {
+                if (r.getNumRequisicion().contains(palabrabr) 
+                        || s.contains(palabrabr) 
+                        || r.getTipoRequisicion().toLowerCase().contains(palabrabr)) {
                     lrq.add(r.getId());
                 }
 
@@ -270,11 +285,15 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
             Requisicion re = new Requisicion();
             for (Long r : lrq) {
                 re = findById(Requisicion.class, r);
-                if (re.getSolicitudReparacionId() == null && re.isEstado() && re.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
+                if (re.getVehiculo() != null) {
+                    if (re.getSolicitudReparacionId() == null && re.isEstado() && re.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
 
-                    listaRequisiciones.add(re);
+                        listaRequisiciones.add(re);
+
+                    }
 
                 }
+
             }
 
             palabrabr = "";
@@ -301,16 +320,23 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         ArrayList<String> ced = new ArrayList<String>();
 
-        List<Requisicion> lr = servgen.buscarTodoscoincidencia(Requisicion.class, Requisicion.class.getSimpleName(), Requisicion_.numRequisicion.getName(), query);
-
-        for (Requisicion requisicion : listaRequisicion2) {
-            if (requisicion.getVehiculo().getId().equals(getInstance().getVehiculo().getId()) && requisicion.isEstado() && requisicion.getSolicitudReparacionId() == null) {
-                if (!ced.contains(requisicion.getNumRequisicion())) {
-                    ced.add(requisicion.getNumRequisicion());
+        for (Requisicion requisicion1 : listaRequisicion2) {
+            if (requisicion1.getVehiculo() != null) {
+                if (requisicion1.getVehiculo().getId().equals(getInstance().getVehiculo().getId())) {
+                    if (requisicion1.getNumRequisicion().contains(query)
+                            && !ced.contains(requisicion1.getNumRequisicion())) {
+                        ced.add(requisicion1.getNumRequisicion());
+                    }
+                    if (requisicion1.getFechaRequisicion().toString().contains(query)
+                            && !ced.contains(requisicion1.getFechaRequisicion().toString())) {
+                        ced.add(requisicion1.getFechaRequisicion().toString());
+                    }
+                     if (requisicion1.getTipoRequisicion().toString().contains(query)
+                            && !ced.contains(requisicion1.getTipoRequisicion())) {
+                        ced.add(requisicion1.getTipoRequisicion());
+                    }
                 }
-                if (!ced.contains(requisicion.getFechaRequisicion().toString())) {
-                    ced.add(requisicion.getFechaRequisicion().toString());
-                }
+//
             }
 
         }
@@ -491,10 +517,24 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setRequisicion(Requisicion requisicion) {
         if (requisicion != null) {
+
             this.requisicion = requisicion;
             getInstance().setRequisicionId(requisicion);
             System.out.println("ide de requisicion>>>>>>" + requisicion);
         } else {
+            Boolean ban=true;
+            for (Requisicion req : listaRequisiciones) {
+               if(req.getId().equals(getInstance().getRequisicionId().getId())){
+                    ban=false;
+                }
+            }
+            if(ban){
+             
+                listaRequisiciones.add(getInstance().getRequisicionId());
+           
+            }
+           
+
             this.requisicion = new Requisicion();
         }
 
@@ -506,7 +546,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
     public void setListaRequisiciones(List<Requisicion> listaRequisiciones) {
         System.out.println("fijando lista de requisiciones>>>>>>" + listaRequisiciones);
-                
+
         this.listaRequisiciones = listaRequisiciones;
     }
 
@@ -658,6 +698,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
         listaRequisiciones = lrs;
+        listaRequisicion2 = lrs;
     }
 
     public Long getSolicitudReparacionMantenimientoId() {
@@ -667,8 +708,9 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     public void setSolicitudReparacionMantenimientoId(Long solicitudReparacionMantenimientoId) {
 
         setId(solicitudReparacionMantenimientoId);
+
         vehiculo = getInstance().getVehiculo();
-        System.out.println("requi en sol>>"+ getInstance().getRequisicionId());
+        System.out.println("requi en sol>>" + getInstance().getRequisicionId());
         if (getInstance().getRequisicionId() != null) {
 
             requisicion = getInstance().getRequisicionId();
@@ -930,6 +972,8 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
+
+                System.out.println("requisicion a asignar" + requisicion);
                 if (requisicion != null) {
                     if (requisicion.getId() != null) {
                         getInstance().setRequisicionId(requisicion);
@@ -948,7 +992,11 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
                         getInstance().setRequisicionId(null);
                     }
+                } else {
+                    getInstance().setRequisicionId(null);
+
                 }
+                System.out.println("reqSolicitud" + reqSolicitud);
                 if (reqSolicitud != null) {
                     if (reqSolicitud.getId() != null) {
 
@@ -957,11 +1005,13 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
                             reqSolicitud = findById(Requisicion.class, reqSolicitud.getId());
                             reqSolicitud.setSolicitudReparacionId(null);
                             reqSolicitud.setLastUpdate(now);
+                            System.out.println("guardao requis in soli" + reqSolicitud.getSolicitudReparacionId());
                             save(reqSolicitud);
 
                         }
                     }
                 }
+                System.out.println("va a guardar con requi " + getInstance().getRequisicionId());
 
                 save(getInstance());
 

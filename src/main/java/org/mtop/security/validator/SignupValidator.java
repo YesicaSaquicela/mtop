@@ -62,6 +62,7 @@ public class SignupValidator implements Validator
       {
          passwordConfirm.getComponent().setValid(false);
          passwordConfirm.getComponent().setValidatorMessage("Confirme la contraseña");
+          System.out.println("tiene que presentar mensaje en signupValidator");
          throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Por favor confirme su contraseña.",
                   null));
       }

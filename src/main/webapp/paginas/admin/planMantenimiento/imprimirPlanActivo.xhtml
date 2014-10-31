@@ -34,21 +34,21 @@
         <h:form id="p2">
             <div role="main">
                 <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                    <div align="center" class="table-responsive">
-                      <p:panelGrid  style="width:100%"   >
+                    <div align="center">
+                        <p:panelGrid  style="width:100%"   >
                             <f:facet name="header">
                                 <p:row>
                                     <p:column style="width:50%">
-                                       
+
                                         <img src="../../../resources/membrete.png" width="900" height="142" alt="membrete"/>
 
                                     </p:column>
-                                   
+
                                 </p:row>
                             </f:facet>
                         </p:panelGrid>
                         <p:panelGrid  id="imp1"                                                  
-                                      style="width:100%" columns="2" >
+                                      style="width:100%"  >
                             <f:facet   name="header" class="panel-heading" >
 
                                 <p:row>
@@ -66,73 +66,65 @@
 
 
                             </f:facet>
-
-
-                            <h:outputLabel class="navbar-text" value="Número de Registro"/>
-
-                            <h:outputText class="navbar-text" value="#{controladorPlanMantenimiento.planMantvisualizar.registro}"/>
-
-                            <h:outputLabel class="navbar-text" value="Fecha de Creación"/>
-                            <h:outputText class="navbar-text" value="#{controladorPlanMantenimiento.formato(controladorPlanMantenimiento.planMantvisualizar.createdOn)}"/>
-
-
-
                         </p:panelGrid>
-
-
-                        <p:panelGrid id="imp" style="width:100%"  >
-                            <f:facet name="header">
-                                <p:row>
-                                    <p:column style="width:50%">
-                                        KILOMETRAJE
-                                    </p:column>
-                                    <p:column style="width:50%">
-                                        ACTIVIDADES 
-                                    </p:column>
-                                </p:row>
-                            </f:facet>
-                        </p:panelGrid>
-
-                        <ui:repeat value="#{controladorPlanMantenimiento.listaactividadesPlan}" var="a" varStatus="status">  
-                            <p:panelGrid  style="width:100%"  >
-                                <p:row>
-                                    <p:column style="width:50%" >
-                                        <h:outputText class="navbar-text" value="#{a.kilometraje}"/>
-                                    </p:column>
-                                    <p:column style="width:50%">
-                                        <h:outputText class="navbar-text" value="#{a.actividad}"/>
-                                    </p:column>
-                                  
-                                </p:row>
-                            </p:panelGrid>
-
-
-                        </ui:repeat>
-
-
-
-
                         <p:panelGrid style="width:100%" >
+                            <p:row >
+                                <p:column>
+                                    Número de Registro
+                                </p:column>
+                                <p:column>
+                                      <h:outputText class="navbar-text" value="#{controladorPlanMantenimiento.planMantvisualizar.registro}"/>
+
+                                </p:column>
+                                 <p:column>
+                                    Fecha de Creación
+                                </p:column>
+                                <p:column>
+                                      <h:outputText class="navbar-text" value="#{controladorPlanMantenimiento.formato(controladorPlanMantenimiento.planMantvisualizar.createdOn)}"/>
+
+                                </p:column>
+                            </p:row>
+                           
+                          
+                           
 
 
-                            <f:facet name="footer">
-                                <p:row>
-                                    <p:column style="width:50%">
-                                        <div class="admin-actions " align="right" >
-                                            <p:commandButton  type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                                                <p:printer target=":p2" />  
-                                            </p:commandButton>
-                                              
-                                        </div> 
-                                    </p:column>
-
-                                </p:row>
-
-                            </f:facet>
                         </p:panelGrid>
+
+
+                        <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.listaactividadesPlan}" var="la">
+
+                            <p:column headerText="Kilometraje" sortBy="#{la.kilometraje}">
+                                 <div class="input" align="right">
+                                <h:outputText value="#{la.kilometraje} km"  ></h:outputText>
+                                 </div>
+
+                            </p:column>
+                            <p:column headerText="Actividad" sortBy="#{la.actividad}">
+                                <h:outputText style="width: 70%" value="#{la.actividad}"></h:outputText>
+                            </p:column>
+
+
+
+                        </p:dataTable><br></br>
+
+                    
 
                     </div>
                 </div></div>
+        </h:form>
+         <h:form >
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="right">
+                        <p:commandButton  type="button" value="Imprimir" icon="ui-icon-print" 
+                                          styleClass="btn  btn-success">
+                            <p:printer target=":p2" />  
+                        </p:commandButton>
+
+                    </div>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -84,6 +84,18 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     @Pattern(regexp = "[0-9]*", message = "Error: solo puede ingresar números")
     private String propertyNumberValue;
     private String mensaje;
+    private Boolean desabilidato=false;
+
+    public Boolean getDesabilidato() {
+        System.out.println("obtien desavilitado "+desabilidato);
+        return desabilidato;
+    }
+
+    public void setDesabilidato(Boolean desabilidato) {
+        
+        this.desabilidato = desabilidato;
+    }
+    
 
     public String getMensaje() {
         return mensaje;
@@ -502,7 +514,8 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         } else {
             try {
 
-                Structure s = bussinesEntityTypeService.getStructure(getStructureId()); //Retornar la estrucura.
+                Structure s = bussinesEntityTypeService.getStructure(getStructureId()); 
+                //Retornar la estrucura.
                 //convierte en valor a serializable para poderlo guardar a la bases de datos
                 getInstance().setValue(converterToType(propertyStringValue));
                 s.addProperty(this.getInstance());
@@ -651,15 +664,18 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public boolean hasValuesBussinesEntity() {
+        System.out.println("entro a evaluar disabled");
+                
         if (getInstance().getId() != null) {
+            
             boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
             //log.info("eqaula --> property tiene valores : " + ban);
 
             if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
 
-                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
-               
-                if (bet != null) {
+                List<BussinesEntityAttribute> bet = bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance());
+                System.out.println("valor de bet"+bet);
+                if (!bet.isEmpty()) {
                     ban = false;
                 }
 
@@ -808,28 +824,34 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
     }
 
     public boolean nombreUnico(String nombre) {
-
-        List<Property> listaps = findAllPropiedades();
+        System.out.println("nombre que llega"+nombre); 
+       List<Property> listaps = findAllPropiedades();
+       
 
         if (getInstance().getId() == null) {
             try {
                 obtenerNombre(nombre);
+                System.out.println("retorna false");
                 return false;
             } catch (NoResultException e) {
+                 System.out.println("retorna true");
                 return true;
             }
         } else {
 
             List<Property> lp = new ArrayList<Property>();
+            
             for (Property p : listaps) {
-                if (!p.getName().equals(findById(Property.class, getInstance().getId()).getName())) {
+                if (!p.getName().toLowerCase().equals(getInstance().getName().toLowerCase())) {
                     lp.add(p);
                 }
             }
             listaps = lp;
+            System.out.println("lista a recorrer"+listaps);
             for (Property v : listaps) {
-
-                if (v.getName().equals(getInstance().getName())) {
+                System.out.println("nombre de la bd "+v.getName());
+                System.out.println("nomvre del instance"+ nombre);
+                if (v.getName().toLowerCase().equals(nombre.toLowerCase())) {
                     obtenerNombre(nombre);
                     return false;
                 }

@@ -49,9 +49,14 @@ public class EmailAddressValidator implements Validator {
     public void validate(final FacesContext context, final UIComponent comp, final Object value)
             throws ValidatorException {
         String address = value.toString();
-        if (!StringValidations.isEmailAddress(address)) {
+        System.out.println("value "+value);
+        System.out.println("adress "+address);
+        if(!address.equals("")){
+             if (!StringValidations.isEmailAddress(address)) {
              throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, UI.getMessages("common.email.novalid"),
                        null));
         }
+        }
+       
     }
 }

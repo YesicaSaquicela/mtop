@@ -15,7 +15,6 @@
  */
 package org.mtop.faces.validator;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -24,12 +23,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import org.jboss.seam.faces.validation.InputElement;
-import org.mtop.controlador.ControladorVehiculo;
 import org.mtop.controlador.dinamico.PropertyHome;
-import org.mtop.modelo.Vehiculo;
 import org.mtop.modelo.dinamico.Property;
-import org.mtop.util.UI;
 
 @FacesValidator("validarNomPropiedad")
 public class ValidarNomPropiedad implements Validator {
@@ -46,7 +41,7 @@ public class ValidarNomPropiedad implements Validator {
     @Override
     public void validate(final FacesContext context, final UIComponent comp, final Object value)
             throws ValidatorException {
-        System.out.println("validador nombrePropiedad");
+        System.out.println("validador nombrePropiedad"+value);
         //
 
         if (value instanceof String && !value.equals(propiedad.getName())) {
