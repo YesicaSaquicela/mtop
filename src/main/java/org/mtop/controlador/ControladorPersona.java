@@ -74,7 +74,17 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
     List<Profile> listaPersona = new ArrayList<Profile>();
     List<Profile> listaPersona1;
     private String palabrab;
-      private String nombusuario;
+    private String nombusuario;
+    private String mensaje1="";
+
+    public String getMensaje1() {
+        return mensaje1;
+    }
+
+    public void setMensaje1(String mensaje1) {
+        this.mensaje1 = mensaje1;
+    }
+    
 
     public String getNombusuario() {
         return nombusuario;
@@ -103,17 +113,20 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
         for (Profile p : listaPersona1) {
             if (p.getFullName().contains(palabrab)) {
                 lp.add(p);
-               
+
             } else {
                 if (p.getTipo().contains(palabrab)) {
                     lp.add(p);
                 } else {
                     if (p.getCedula().contains(palabrab)) {
                         lp.add(p);
-                    }else{
-                    if(p.getCargo().contains(palabrab)){
-                        lp.add(p);
-                    }
+                    } else {
+                        if (p.getCargo() != null) {
+                            if (p.getCargo().contains(palabrab)) {
+                                lp.add(p);
+                            }
+                        }
+
                     }
                 }
             }
@@ -152,13 +165,18 @@ public class ControladorPersona extends BussinesEntityHome<Profile> implements S
             if (p.getTipo().toLowerCase().contains(query.toLowerCase()) && !ced.contains(p.getTipo())) {
                 ced.add(p.getTipo());
             }
-            System.out.println("p.getcode"+p.getCode());
-                if (p.getCedula().contains(query)) {
-                    ced.add(p.getCedula());
-                } 
-                if(p.getCargo().toLowerCase().contains(query.toLowerCase())&& !ced.contains(p.getCargo())){
-                        ced.add(p.getCargo());
-                    }
+            System.out.println("p.getcode" + p.getCode());
+            if (p.getCedula().contains(query)) {
+                ced.add(p.getCedula());
+            }
+            System.out.println("cargo " + p.getCargo());
+            if (p.getCargo() != null) {
+                if (p.getCargo().toLowerCase().contains(query.toLowerCase()) && !ced.contains(p.getCargo())) {
+                    ced.add(p.getCargo());
+                }
+
+            }
+
         }
         System.out.println("listaaaaa autocompletar" + ced);
         return ced;

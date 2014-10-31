@@ -610,6 +610,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaPlanMantenimiento = findAll(PlanMantenimiento.class);
+        
         listaPlanM2 = listaPlanMantenimiento;
         cv.setEntityManager(em);
 
@@ -628,7 +629,7 @@ public class ControladorPlanMantenimiento extends BussinesEntityHome<PlanManteni
         it = new ActividadPlanMantenimiento();
         listaActividades = new ArrayList<ActividadPlanMantenimiento>();
 //        listaActividades2 = new ArrayList<ActividadPlanMantenimiento>();
-        System.out.println("lista de actividades en el inirt" + listaActividades);
+        System.out.println("lista de actividades en el inirt" + listaactividadesPlan);
         itemsEliminar=new ArrayList<ActividadPlanMantenimiento>();
 
     }

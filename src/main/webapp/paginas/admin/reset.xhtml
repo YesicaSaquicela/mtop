@@ -34,14 +34,14 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading" align="center">Cambio de contraseña</div>
                             <p:panel id="p1" >
-                            
+                                              
 
                                 <div class="clearfix">
                                     <label for="password">#{messages['common.password.new']}</label>
                                     <div class="input">
                                         <h:inputSecret class="form-control" id="password" value="#{profileHome.password}" redisplay="true" 
                                                        style="width:100%" required="true" requiredMessage="Contraseña requerida, necesita un valor" label="#{messages['common.password']}">
-                                            <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg"/>
+                                            <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg p1"/>
                                             <f:validator validatorId="passwordValidator" />
                                         </h:inputSecret>
                                         <h:panelGroup id="pwg">
@@ -56,12 +56,14 @@
                                     <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
                                     <div class="input">
                                         <h:inputSecret id="passwordConfirm" class="form-control" value="#{profileHome.passwordConfirm}" 
-                                                       requiredMessage="Contraseña requerida, necesita un valor"
+                                                       requiredMessage="Contraseña requerida, necesita un valor" required="true"
                                                        redisplay="true" style="width:100%" label="#{messages['common.confirmPassword']}">
-                                            <f:ajax execute="password passwordConfirm passwordValidator signup:signupValidator" render="password passwordConfirm pwg pwcg"/>
+                                            <f:ajax  execute="password passwordConfirm passwordValidator signup:signupValidator" render="password passwordConfirm pwg pwcg p1"/>
                                             <f:validator validatorId="passwordValidator" />
                                         </h:inputSecret>
+                                        
                                         <h:panelGroup id="pwcg">
+                                          
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.passwordConfirm != null}"
                                                             styleClass="validation-status"/>
                                             <span class="help-inline text-muted">Confirme la nueva contraseña<ocp:message forId="passwordConfirm" /></span>
@@ -71,6 +73,8 @@
 
                                 <s:validateForm id="passwordValidator" validatorId="passwordConfirm" />
                                 <s:validateForm id="signupValidator" validatorId="signupValidator" />
+                                <h:outputLabel id="msg"  value="#{controladorPersona.mensaje1}" style="color:red" /> 
+
 
                              
 

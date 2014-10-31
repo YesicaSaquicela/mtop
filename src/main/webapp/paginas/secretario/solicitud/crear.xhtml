@@ -395,15 +395,25 @@
                                                                  rowsPerPageTemplate="5,10,15,20" emptyMessage="No se han encontrado coincidencias">
 
 
-                                                        <p:column headerText="Número de registro" sortBy="#{v.numRegistro}">
-                                                            <h:outputText value="#{v.numRegistro}" />
-                                                        </p:column>
-                                                        <p:column headerText="Placa" sortBy="#{v.placa}">
-                                                            <h:outputText value="#{v.placa}" />
-                                                        </p:column>
-                                                        <p:column headerText="Color" sortBy="#{v.color}">
-                                                            <h:outputText value="#{v.color}" />
-                                                        </p:column>
+                                <p:column headerText="Nro registro" sortBy="#{v.numRegistro}">
+
+                                                        <h:outputText value="#{v.numRegistro}"></h:outputText>
+
+                                                    </p:column>
+                                                    <p:column headerText="Color" sortBy="#{v.color}">
+                                                        <h:outputText value="#{v.color}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Marca" sortBy="#{v.marca}">
+                                                        <h:outputText value="#{v.marca}"></h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Placa" sortBy="#{v.placa}">
+                                                        <h:outputText value="#{v.placa}"></h:outputText>
+                                                    </p:column>
+                                                    
+                                                    <p:column headerText="Conductor" sortBy="#{v.persona.fullName}">
+                                                        <h:outputText value="#{v.persona.fullName}"></h:outputText>
+                                                    </p:column>
+
 
                                                         <p:column style="width:4%;text-align: center" headerText="Agregar">
                                                             <p:commandButton update=":form" process="@this" title="Agregar" icon="ui-icon-check">
@@ -578,7 +588,7 @@
                                                         <p:column headerText="Dar de baja" style="width: 3%"> 
                                                             <p:commandButton id="dardebaja" icon="ui-icon-trash" process="@form"
                                                                              action="#{controladorSolicitudReparacionMantenimiento.eliminarItemS(la)}" 
-                                                                             title="Eliminar" update=":form:listaa" style="margin-top:10px;">
+                                                                             title="Dar de baja" update=":form:listaa" style="margin-top:10px;">
 
                                                                 <p:confirm header="Confirmación" message="¿Desea realmente dar de baja el ítem de la solicitud de reparación y mantenimiento seleccionado?" icon="ui-icon-alert" />
                                                             </p:commandButton>
@@ -632,7 +642,7 @@
                                             <center>
                                                 <div class="admin-actions">
                                                     <p:commandLink   update=":form:listaa :form:elementoRevisar1 :form:descripcionFalla1" 
-                                                                     styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  oncomplete="PF('documentDialog').hide()" 
+                                                                     styleClass="btn  btn-success" value="Grabar" title="Grabar"  oncomplete="PF('documentDialog').hide()" 
                                                                      action="#{controladorSolicitudReparacionMantenimiento.editar()}">
 
                                                     </p:commandLink>
@@ -1623,7 +1633,7 @@
                                                     <center>
                                                         <p:commandButton process="@form" id="dardebaja" icon="ui-icon-trash"
                                                                          actionListener="#{controladorRequisicion.eliminarItem(item2)}" 
-                                                                         title="Eliminar" update=":form:listai" >
+                                                                         title="Dar de Baja" update=":form:listai" >
 
                                                             <p:confirm header="Confirmación" message="¿Desea realmente dar de baja el ítem de la requisición seleccionado?" icon="ui-icon-alert" />
                                                         </p:commandButton>
@@ -1693,7 +1703,7 @@
 
                                 <div class="admin-actions" align="center">
                                     <p:commandLink  update=":form:documentPanelc :form:listai :form:pi :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" process=":form:documentPanelc" 
-                                                    styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  oncomplete="PF('documentDialog1').hide()" 
+                                                    styleClass="btn  btn-success" value="Grabar" title="Grabar"  oncomplete="PF('documentDialog1').hide()" 
                                                     action="#{controladorRequisicion.editar()}" id="editarI">
 
                                     </p:commandLink>

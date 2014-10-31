@@ -94,11 +94,24 @@ Bienvenido: #{account.loggedIn.concatenarNombre()}
                                             <h:panelGroup rendered="#{identity.loggedIn}" class="form-group">
                                                 <ul class="nav navbar-nav navbar-right">
    
-                                                    <li><h:link outcome="/paginas/reset" title="Cambiar Contraseña">                                        
+                                                    <li><h:link rendered="#{account.tienePermiso('SECRETARIO') and account.tienePermiso('ADMIN') eq false}"
+                                                                outcome="/paginas/secretario/reset" title="Cambiar Contraseña">                                        
                                                             <f:param name="profileId" value="#{account.loggedId}"/>
                                                             <p:graphicImage value="/resources/imagenes2/clave.png" width="50" height="50" />
 
-                                                        </h:link>                                    
+                                                        </h:link>         
+                                                        <h:link rendered="#{account.tienePermiso('ADMIN') and account.tienePermiso('SECRETARIO') eq false}" 
+                                                                outcome="/paginas/admin/reset" title="Cambiar Contraseña">                                        
+                                                            <f:param name="profileId" value="#{account.loggedId}"/>
+                                                            <p:graphicImage value="/resources/imagenes2/clave.png" width="50" height="50" />
+
+                                                        </h:link>   
+                                                        <h:link rendered="#{account.tienePermiso('ADMIN') and account.tienePermiso('SECRETARIO')}" 
+                                                                outcome="/paginas/admin/reset" title="Cambiar Contraseña">                                        
+                                                            <f:param name="profileId" value="#{account.loggedId}"/>
+                                                            <p:graphicImage value="/resources/imagenes2/clave.png" width="50" height="50" />
+
+                                                        </h:link>  
                                                     </li>
 
 

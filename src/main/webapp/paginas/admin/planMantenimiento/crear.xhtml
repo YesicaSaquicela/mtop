@@ -101,19 +101,20 @@
 
 
                             <p:dataTable id="listaa"  value="#{controladorPlanMantenimiento.listaActividades}" var="la">
-
+                                <p:column headerText="Kilometraje" sortBy="#{la.kilometraje}">
+                                     <div class="input" align="right">
+                                    <h:outputText value="#{la.kilometraje} km"  ></h:outputText>
+                                     </div>
+                                </p:column>
                                 <p:column headerText="Actividad" sortBy="#{la.actividad}">
                                     <h:outputText style="width: 70%" value="#{la.actividad}"></h:outputText>
                                 </p:column>
 
-                                <p:column headerText="Kilometraje" sortBy="#{la.kilometraje}">
-                                    <h:outputText value="#{la.kilometraje} km"  ></h:outputText>
-                                      
-                                </p:column>
+                                
                                 <p:column headerText="Editar" style="width: 3%"> 
                                     <center>
                                     <p:commandButton process="@this" type="utton" update=":form:dialog" 
-                                                    oncomplete="PF('documentDialog').show()" title="View Detail" icon="ui-icon-pencil">
+                                                    oncomplete="PF('documentDialog').show()" title="Editar" icon="ui-icon-pencil">
                                         <f:setPropertyActionListener value="#{la}" target="#{controladorPlanMantenimiento.it}" />
                                     </p:commandButton>
                                         </center>
@@ -162,7 +163,7 @@
                                     </h:panelGroup><br/>
                                           <div class="admin-actions" align="center">
                                                     <p:commandLink  update=":form:listaa :form:actividad1" process=":form:dialog"
-                                                                    styleClass="btn  btn-success" value="Crear actividad" title="Crear actividad"  oncomplete="PF('documentDialog').hide()" 
+                                                                    styleClass="btn  btn-success" value="Grabar" title="Crear actividad"  oncomplete="PF('documentDialog').hide()" 
                                                                     action="#{controladorPlanMantenimiento.editar()}">
 
                                                     </p:commandLink>

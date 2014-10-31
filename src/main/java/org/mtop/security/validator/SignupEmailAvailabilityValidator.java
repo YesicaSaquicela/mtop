@@ -45,7 +45,6 @@ import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 import org.mtop.util.UI;
 
-
 @RequestScoped
 @FacesValidator("signupEmailAvailabilityValidator")
 public class SignupEmailAvailabilityValidator implements Validator {
@@ -63,19 +62,24 @@ public class SignupEmailAvailabilityValidator implements Validator {
             throws ValidatorException {
         ps.setEntityManager(em);
         String currentEmail = "";
-        if (profile.isPersistent()) {
-            System.out.println("entroa correo persisten");
-            currentEmail = ps.find(profile.getId()).getEmail();
-        }
-        System.out.println("currente"+currentEmail);
-        System.out.println("value"+value);
-        if (!currentEmail.equals(value)) {
-            if (value instanceof String) {
-                if (!ps.isEmailAddressAvailable((String) value) && !(value.equals(profile.getEmail()))) {
-                    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, UI.getMessages("common.email.noavailable"),
-                            null));
+        System.out.println("value " + value);
+        System.out.println("email de la persona" + profile.getEmail());
+        if (!value.equals("")) {
+            if (profile.isPersistent()) {
+                System.out.println("entroa correo persisten");
+                currentEmail = ps.find(profile.getId()).getEmail();
+            }
+            System.out.println("currente" + currentEmail);
+            System.out.println("value" + value);
+            if (!currentEmail.equals(value)) {
+                if (value instanceof String) {
+                    if (!ps.isEmailAddressAvailable((String) value) && !(value.equals(profile.getEmail()))) {
+                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, UI.getMessages("common.email.noavailable"),
+                                null));
+                    }
                 }
             }
-        }        
+        }
+
     }
 }

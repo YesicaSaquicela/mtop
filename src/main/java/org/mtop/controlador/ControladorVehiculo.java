@@ -517,7 +517,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
 
                 if (bussinesEntityAttribute.getName().equals("serieMotor")) {
-                    if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)) {
+                    if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(palabrab.toLowerCase())) {
                         Boolean ban = false;
                         for (Vehiculo v : lvs) {
                             if (v.getId().equals(vehiculo.getId())) {
@@ -536,7 +536,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
             for (BussinesEntityAttribute bussinesEntityAttribute : bea) {
                 if (bussinesEntityAttribute.getName().equals("serieChasis")) {
 
-                    if (((String) bussinesEntityAttribute.getValue()).equals(palabrab)) {
+                    if (((String) bussinesEntityAttribute.getValue()).toLowerCase().contains(palabrab)) {
                         Boolean ban = false;
                         for (Vehiculo v : lvs) {
                             if (v.getId().equals(vehiculo.getId())) {
@@ -928,8 +928,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-        ActividadPlanMantenimiento actividadplan = new ActividadPlanMantenimiento();
-
+    
         listVehiculos2 = listaVehiculos;
         idPersona = 0l;
         listaPersonas = findAll(Profile.class);

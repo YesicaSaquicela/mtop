@@ -67,14 +67,14 @@
                                     </h:panelGrid>
                                     <br/>
 
-                                    <h:panelGrid >
+                                    <h:panelGrid  id="pass">
 
                                         <label for="password">Contraseña*</label>
                                         <div class="input">
                                             <h:inputSecret id="password" value="#{profileHome.password}" redisplay="true" 
                                                            styleClass="form-control" style="text-transform: uppercase;"
                                                            required="true" requiredMessage="Constraseña requerida, necesita un valor" label="#{messages['common.password']}">
-                                                <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
+                                                <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg pass"/>
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
                                             <h:panelGroup id="pwg" >
@@ -84,14 +84,13 @@
                                             </h:panelGroup>
                                         </div>
                                         <br/>
-                                    </h:panelGrid>
-                                    <h:panelGrid >
+                                 
                                         <label for="passwordConfirm">Confirme la contraseña*</label>
                                         <div class="input">
                                             <h:inputSecret  id="passwordConfirm" value="#{profileHome.passwordConfirm}"
                                                             redisplay="true" styleClass="form-control" style="text-transform: uppercase;" 
                                                             required="true" requiredMessage="Constraseña requerida, necesita un valor" label="#{messages['common.confirmPassword']}">
-                                                <f:ajax execute="password passwordConfirm passwordValidator signupValidator" render="password passwordConfirm pwg pwcg :messages:messages"/>
+                                                <f:ajax execute="password passwordConfirm passwordValidator signupValidator" render="password passwordConfirm pwg pwcg  pass"/>
                                                 <f:validator validatorId="passwordValidator" />
                                             </h:inputSecret>
                                             <h:panelGroup id="pwcg">
@@ -100,10 +99,11 @@
                                                 <span class="help-inline text-muted">Vuelva a ingresar la contraseña<ocp:message forId="passwordConfirm" /></span>
                                             </h:panelGroup>
                                         </div>
-                                    </h:panelGrid>
+                                   
                                     <s:validateForm id="passwordValidator" validatorId="passwordConfirm" />
                                     <s:validateForm id="signupValidator" validatorId="signupValidator" />
-
+                                     <h:outputLabel id="msg"  value="#{controladorPersona.mensaje1}" style="color:red" /> 
+                                      </h:panelGrid>
                                 </div>
                             </div>
 

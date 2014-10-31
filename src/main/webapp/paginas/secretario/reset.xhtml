@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:s="http://jboss.org/seam/faces"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:mtop="http://mtop.org/jsf/facelets"
+      xmlns:ocp="http://java.sun.com/jsf/composite/ocpcommon">
+
+    <f:metadata>
+        <f:viewParam name="profileId" value="#{profileHome.profileId}"/>
+    </f:metadata>
+
+    <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
+
+        <ui:param name="titulo" value="Bienvenido: #{profileHome.instance.concatenarNombre()}" />
+<ui:define name="header">
+
+    </ui:define>
+        <ui:define name="content">
+            <h:form id="signup" acceptcharset="UTF-8">
+                <div role="main">
+                    <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                                      <div class="admin-actions " align="right">  
+
+                        <p:button icon="ui-icon-arrowreturnthick-1-w" 
+                                  outcome="/paginas/inicio.xhtml?faces-redirect=true"
+                                  value="Regresar" styleClass="btn  btn-success" rendered="#{true}"/>
+                    </div><br/>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">Cambio de contraseña</div>
+                            <p:panel id="p1" >
+                                              
+
+                                <div class="clearfix">
+                                    <label for="password">#{messages['common.password.new']}</label>
+                                    <div class="input">
+                                        <h:inputSecret class="form-control" id="password" value="#{profileHome.password}" redisplay="true" 
+                                                       style="width:100%" required="true" requiredMessage="Contraseña requerida, necesita un valor" label="#{messages['common.password']}">
+                                            <f:ajax execute="password passwordConfirm passwordValidator" render="password passwordConfirm pwg pwcg p1"/>
+                                            <f:validator validatorId="passwordValidator" />
+                                        </h:inputSecret>
+                                        <h:panelGroup id="pwg">
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.password != null}"
+                                                            styleClass="validation-status"/>
+                                            <span class="help-inline text-muted">Ingrese la nueva contraseña<ocp:message id="pm"  forId="password" /></span>
+                                        </h:panelGroup>
+                                    </div>
+                                </div><br/>
+
+                                <div class="clearfix">
+                                    <label for="passwordConfirm">#{messages['common.confirmPassword']}</label>
+                                    <div class="input">
+                                        <h:inputSecret id="passwordConfirm" class="form-control" value="#{profileHome.passwordConfirm}" 
+                                                       requiredMessage="Contraseña requerida, necesita un valor" required="true"
+                                                       redisplay="true" style="width:100%" label="#{messages['common.confirmPassword']}">
+                                            <f:ajax  execute="password passwordConfirm passwordValidator signup:signupValidator" render="password passwordConfirm pwg pwcg p1"/>
+                                            <f:validator validatorId="passwordValidator" />
+                                        </h:inputSecret>
+                                        
+                                        <h:panelGroup id="pwcg">
+                                          
+                                            <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.passwordConfirm != null}"
+                                                            styleClass="validation-status"/>
+                                            <span class="help-inline text-muted">Confirme la nueva contraseña<ocp:message forId="passwordConfirm" /></span>
+                                        </h:panelGroup>
+                                    </div>
+                                </div>
+
+                                <s:validateForm id="passwordValidator" validatorId="passwordConfirm" />
+                                <s:validateForm id="signupValidator" validatorId="signupValidator" />
+                                <h:outputLabel id="msg"  value="#{controladorPersona.mensaje1}" style="color:red" /> 
+
+
+                             
+
+                            </p:panel>
+                            
+                        </div>
+                           <div class="actions" align="center">
+                                    <p:commandButton action="#{profileHome.changePassword()}" value="#{messages['common.save']}"
+                                                     styleClass="btn  btn-success" 
+                                                     update="p1" ajax="true"
+                                                     onclick="ajaxStatusDialog.show()" oncomplete="ajaxStatusDialog.hide()">
+                                        
+                                    </p:commandButton>
+
+                                </div>
+                    
+                    
+                    <p:dialog modal="true" widgetVar="ajaxStatusDialog" header="Por favor espere, Cargando..."  resizable="false"  draggable="false" closable="false" > 
+                        
+                        <p:graphicImage value="/resources/ajax-loader.gif" /> 
+                    </p:dialog>
+                    </div></div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

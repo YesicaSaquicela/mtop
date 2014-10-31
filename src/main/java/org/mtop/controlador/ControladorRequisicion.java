@@ -767,7 +767,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             this.solicitudrep = solicitudrep;
             getInstance().setSolicitudReparacionId(solicitudrep);
         } else {
-            listaSolicitudes.add(getInstance().getSolicitudReparacionId());
+           Boolean ban=true;
+            for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
+               if(sol.getId().equals(getInstance().getSolicitudReparacionId().getId())){
+                    ban=false;
+                }
+            }
+            if(ban){
+             
+                listaSolicitudes.add(getInstance().getSolicitudReparacionId());
+           
+            }
             this.solicitudrep = new SolicitudReparacionMantenimiento();
         }
 
@@ -1539,9 +1549,9 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
             System.out.println("id sol" + sol);
             System.out.println("nun sol" + sol.getNumSolicitud());
-                     System.out.println("nun sol" + sol.getRequisicionId());
-            if (sol.isEstado() && sol.getRequisicionId() == null && sol!=getInstance().getSolicitudReparacionId()) {
-           System.out.println("anidaio" +sol.getNumSolicitud());
+            System.out.println("nun sol" + sol.getRequisicionId());
+            if (sol.isEstado() && sol.getRequisicionId() == null && sol != getInstance().getSolicitudReparacionId()) {
+                System.out.println("anidaio" + sol.getNumSolicitud());
                 if (getInstance().getVehiculo() != null) {
                     if ((sol.getVehiculo().getId() == getInstance().getVehiculo().getId())) {
 
@@ -1786,7 +1796,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         try {
             if (getInstance().isPersistent()) {
                 guardarItem();
-                
+
                 if (solicitudrep != null) {
                     if (solicitudrep.getId() != null) {
 
@@ -1802,17 +1812,17 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                         }
                         getInstance().setSolicitudReparacionId(solicitudrep);
 
-                    }else{
-                         System.out.println("fijo null en 1");
-                         getInstance().setSolicitudReparacionId(null);
+                    } else {
+                        System.out.println("fijo null en 1");
+                        getInstance().setSolicitudReparacionId(null);
                     }
-                }else{
-                     System.out.println("fijo null en 2");
+                } else {
+                    System.out.println("fijo null en 2");
                     getInstance().setSolicitudReparacionId(null);
                 }
-                System.out.println("solRequisicion en gusradra"+solRequisicion);
+                System.out.println("solRequisicion en gusradra" + solRequisicion);
                 if (solRequisicion.getId() != null) {
-                    System.out.println("solicitudrep en gusradra"+solicitudrep);
+                    System.out.println("solicitudrep en gusradra" + solicitudrep);
                     if (!solRequisicion.getId().equals(solicitudrep.getId())) {
                         solRequisicion.setLastUpdate(now);
                         try {

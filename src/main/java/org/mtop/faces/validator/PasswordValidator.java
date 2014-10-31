@@ -38,6 +38,9 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import org.mtop.controlador.ControladorPersona;
 
 import org.mtop.util.StringValidations;
 import org.mtop.util.UI;
@@ -45,21 +48,33 @@ import org.mtop.util.UI;
 @FacesValidator("passwordValidator")
 @RequestScoped
 public class PasswordValidator implements Validator {
+      @Inject
+    private EntityManager em;
+
+    @Inject
+    private ControladorPersona cp;
 
     @Override
     public void validate(final FacesContext context, final UIComponent component, final Object value)
             throws ValidatorException {
-        System.out.println("valro en validado de passw "+value);
-                
+        System.out.println("lor en validador " + value);
+          cp.setEntityManager(em);
         if (value != null) {
-            String field = value.toString();
+            if (!value.equals("")) {
+                String field = value.toString();
+                System.out.println("entro a diferentte d enull");
+                if (value instanceof String && ((String) value).length() > 0 && !StringValidations.isPassword(field)) {
+                   cp.setMensaje1("");
+                    System.out.println("tiene que pesenta mensaje");
+                    FacesMessage msg = new FacesMessage(UI.getMessages("common.password.validator"));
+                    throw new ValidatorException(msg);
+                    
+                    
+                }
 
-            if (value instanceof String && ((String) value).length() > 0 && !StringValidations.isPassword(field)) {
-                FacesMessage msg = new FacesMessage(UI.getMessages("common.password.validator"));
-                throw new ValidatorException(msg);
+                System.out.println("eqaula --> passwordValidator " + field);
             }
 
-            System.out.println("eqaula --> passwordValidator " + field);
         }
 
     }
