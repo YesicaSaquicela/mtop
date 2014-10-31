@@ -668,6 +668,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         setId(solicitudReparacionMantenimientoId);
         vehiculo = getInstance().getVehiculo();
+        System.out.println("requi en sol>>"+ getInstance().getRequisicionId());
         if (getInstance().getRequisicionId() != null) {
 
             requisicion = getInstance().getRequisicionId();
