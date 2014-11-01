@@ -845,8 +845,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                                                                                                                     if (kilometaje < 150000) {
                                                                                                                         proKilometraje = 150000;
                                                                                                                     } else {
-                                                                                                                        if (kilometaje < 15000) {
+                                                                                                                        if (kilometaje == 150000) {
+                                                                                                                            proKilometraje = 5000;
+                                                                                                                        }else{
+                                                                                                                         if (kilometaje < 15000) {
                                                                                                                             proKilometraje = 15000;
+                                                                                                                        }
                                                                                                                         }
                                                                                                                     }
                                                                                                                 }
