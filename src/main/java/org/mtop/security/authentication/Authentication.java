@@ -190,24 +190,11 @@ public class Authentication {
         System.out.println("usuario" + user);
         if (user != null) {
             IdentityObjectAttribute ida = profileService.getAttributos(user.getKey(), "estado").get(0);
-            //Profile userP = profileService.getProfileByUsername(credencials.getUsername());
-            //Paciente p = pacienteServic.getPacientePorNombreUsuario(credencials.getUsername());
-            if (ida != null && "ACTIVO".equals(ida.getValue())) {
+              if (ida != null && "ACTIVO".equals(ida.getValue())) {
                 System.out.println("entro a loguear");
-                //try {
+
                 this.login();
-//                } catch (Exception ex) {
-//                    System.out.println("ERROR_");
-//                    String pass = ((PasswordCredential) credencials.getCredential()).getValue();
-////                    boolean autenticacion = conexionSGA.autenticarUsuariosWSSGA(credencials.getUsername(), pass);
-//                    //System.out.println("autenticado sga  " + autenticacion);
-////                    if (autenticacion) {
-////                        this.actualizarPass(pass, user);
-////                        //identity.login();
-////                        System.out.println("Ingreso");
-////                    }
-//                    this.login();
-//                }
+
             } else {
                 System.out.println(" no entro a loguear");
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "! El usuario ", "esta inactivo o no existe¡");

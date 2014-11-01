@@ -315,6 +315,7 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
 
         }
     }
+    
 
     public ArrayList<String> autocompletarr(String query) {
 
