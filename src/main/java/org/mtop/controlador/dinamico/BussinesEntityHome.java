@@ -136,7 +136,7 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
     protected E loadInstance() {
         return getEntityManager().find(getEntityClass(), getId());
     }
-
+//----
     @Override
     protected String getPersistenceContextName() {
         return "entityManager";
@@ -147,11 +147,12 @@ public abstract class BussinesEntityHome<E> extends Home<EntityManager, E> imple
         //return PersistenceProvider.instance().getName(getInstance(), getEntityManager());
         return "empty";
     }
-    
+//----
     public void setCambiarNombre(String nombre) {
         System.out.println("Entro nombre");
         bussinesEntity.setName(nombre);
     }
+//----
     public String getCambiarNombre() {
         System.out.println("Entro nombre");
         return bussinesEntity.getName();

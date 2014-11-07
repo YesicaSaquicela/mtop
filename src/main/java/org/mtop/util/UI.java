@@ -94,6 +94,7 @@ public class UI {
         System.out.println("collections" + q.getResultList());
         return q.getResultList();
     }
+//----
 
     public List<BussinesEntityAttribute> getAttributes(BussinesEntity entity, String names) {
         List<String> types = Lists.stringToList(names);
@@ -122,6 +123,7 @@ public class UI {
 //
 //        return columns;
 //    }   
+//----
     public BussinesEntity makeBussinessEntity(Group g) {
         Date now = Calendar.getInstance().getTime();
         //TODO internacionalizar cadenas estáticas
@@ -138,6 +140,7 @@ public class UI {
         entity.buildAttributes(g.getName(), bussinesEntityService); //Construir atributos de grupos
         return entity;
     }
+//----
 
     public Group getGroup(BussinesEntity entity, Property p) {
         Query q = em.createNamedQuery("Group.findByBussinesEntityIdAndPropertyId");
@@ -146,6 +149,7 @@ public class UI {
         return q.getResultList().isEmpty() ? new Group() : (Group) q.getResultList().get(0);
 
     }
+//----
 
     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();
@@ -164,7 +168,7 @@ public class UI {
     public List<SelectItem> getValuesAsSelectItem(List<Object> values) {
         List<SelectItem> items = new ArrayList<SelectItem>();
         SelectItem item = null;
-        item = new SelectItem(null, UI.getMessages("common.choice"));
+        item = new SelectItem(null, "Seleccione uno...");
         items.add(item);
         for (Object o : values) {
             item = new SelectItem(cleanValue(o), cleanValue(o).toString());
@@ -202,8 +206,6 @@ public class UI {
 
     public boolean tieneValores(BussinesEntity entity) {
         List<Property> lp = getProperties(entity);
-//        boolean ban = bussinesEntityService.findBussinesEntityForProperty(p).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p).isEmpty();
-        //log.info("eqaula --> property tiene valores : " + ban);
         List<BussinesEntityAttribute> lbea = new ArrayList<BussinesEntityAttribute>();
 
         System.out.println("label " + entity.getType().getLabel());
@@ -230,22 +232,21 @@ public class UI {
 
         } else {
             for (Property property : lp) {
-                System.out.println(" nombre de la estructura "+property.getStructure().getName());
-                System.out.println("nombre del tiepo en de la entidad "+entity.getType().getName());
-                if(property.getType().equals("org.mtop.modelo.dinamico.Structure")){
+                System.out.println(" nombre de la estructura " + property.getStructure().getName());
+                System.out.println("nombre del tiepo en de la entidad " + entity.getType().getName());
+                if (property.getType().equals("org.mtop.modelo.dinamico.Structure")) {
                     lbea = entity.findBussinesEntityAttribute(property.getName());
-                }else{
-                     lbea = entity.findBussinesEntityAttribute(property.getStructure().getName());
+                } else {
+                    lbea = entity.findBussinesEntityAttribute(property.getStructure().getName());
                 }
-                
+
                 break;
             }
         }
-        System.out.println("valor de ban"+ban);
-                
+        System.out.println("valor de ban" + ban);
+
         if (ban) {
-            
-                    
+
             if (lbea.isEmpty()) {
                 System.out.println("retorna falso");
                 return false;
@@ -254,7 +255,7 @@ public class UI {
                 return true;
             }
         } else {
-            System.out.println("valor de ban false ?? "+ban);
+            System.out.println("valor de ban false ?? " + ban);
             return ban;
         }
 

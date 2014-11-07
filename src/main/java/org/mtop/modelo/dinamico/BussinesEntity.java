@@ -257,20 +257,20 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
      * Retrieve all attributes for strcuture name list
      */
     public List<BussinesEntityAttribute> getBussinessEntityAttributes(String... structureNames) {
-         List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
-        
+        List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
+
         for (BussinesEntityAttribute a : getAttributes()) {
             System.out.println("entroa afor bussines");
             for (String sn : structureNames) {
-                System.out.println("sn"+sn);
-                System.out.println("nombre ssstruct"+a.getProperty().getStructure().getBussinesEntityType().getName());
-              if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
+                System.out.println("sn" + sn);
+                System.out.println("nombre ssstruct" + a.getProperty().getStructure().getBussinesEntityType().getName());
+                if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())) {
                     _buffer.add(a);
                     System.out.println("entro anadir");
                 }
             }
         }
-        System.out.println("bufer"+_buffer);
+        System.out.println("bufer" + _buffer);
         return _buffer;
     }
     

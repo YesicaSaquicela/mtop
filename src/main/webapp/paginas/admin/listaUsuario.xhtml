@@ -97,18 +97,18 @@
                                                     </p:button> #{" "}
                                                 </p:column>
 
-                                                <p:column  headerText="Cuenta de usuario" style="width: 5%; text-align: center"  >
-                                                    <p:commandButton title="Desactivar Cuenta" icon="ui-icon-closethick" 
+                                                <p:column  headerText="Habilitar / Inhabilitar Cuenta de usuario" style="width: 5%; text-align: center"  >
+                                                    <p:commandButton title="Inhabilitar Cuenta" icon="ui-icon-closethick" 
                                                                      style="margin-top:10px;" id="confirmacion" 
                                                                      action="#{profileHome.inavilitarCuenta(profile_)}"
                                                                      update="@form" rendered="#{profile_.username ne null and profile_.deleted ne true }">
                                                         <p:confirm header="Confirmación"
-                                                                   message="¿Desea realmente desabilitar la cuenta de usuario seleccionado?" icon="ui-icon-alert" />
+                                                                   message="¿Desea realmente Inhabilitar la cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>   #{" "}
 
                                                     <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
-                                                                     title="Activar cuenta" icon="ui-icon-check"
+                                                                     title="Habilitar cuenta" icon="ui-icon-check"
                                                                      rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.deleted eq true }"
                                                                      style="margin-top:10px;"
                                                                      >

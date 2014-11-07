@@ -106,7 +106,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
     public void fijarValorSolicitud() {
         valorIniSolicitud = valorIniSolicitud.trim();
         if (!valorIniSolicitud.equals("")) {
-            propiedad.setValidator("sdf");
+
             Object o = new Object();
             o = valorIniSolicitud;
 
@@ -391,7 +391,7 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         }
         return "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
-
+//----
     @Transactional
     public void saveBussinesEntity() {
         try {

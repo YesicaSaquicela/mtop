@@ -405,7 +405,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         if (this.propertyType != null) {
 
             if (this.propertyType.equals("EstadoParteMecanica")) {
-                setPropertyStringValue("Bueno,Malo*");
+                setPropertyStringValue("Malo,Bueno*");
             } else {
 
                 if (this.propertyType.equals("Fecha")) {
@@ -527,25 +527,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             }
         }
 
-        //crear un entity type atribute para una propiedad
-        // que sea de tipo estadoParteMecanica
-//        if (getInstance().getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-//            BussinesEntityAttribute beta = new BussinesEntityAttribute();
-//            for (Property p : findAll(Property.class)) {
-//                if (p.getName().equals(this.getInstance().getName())) {
-//                    beta.setProperty(p);
-//                    beta.setType(p.getType());
-//                    beta.setName(p.getLabel());
-//                    beta.setValue("");
-//                    //save(beta);
-//                    break;
-//                }
-//            }
-//            for (Vehiculo v : findAll(Vehiculo.class)) {
-//                beta.setBussinesEntity(findById(BussinesEntity.class, v.getId()));
-//                save(beta);
-//            }
-//        }
+     
         return "/paginas/admin/bussinesentitytype/bussinesentitytype?faces-redirect=true&bussinesEntityTypeId=" + getBussinesEntityTypeId();
     }
 
@@ -683,34 +665,6 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
            
             return ban;
 
-//            if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
-//                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
-//                System.out.println("\n\n\nbet" + bet);
-//                if (bet != null) {
-//                    Structure s = getInstance().getStructure();
-//                    for (Structure object : bet.getStructures()) {
-//                        System.out.println("nombre de estructura" + object.getName());
-//                        System.out.println("nombre de la propiedad" + getInstance().getName());
-//                        if (object.getName().equals(getInstance().getName())) {
-//                            s = object;
-//                        }
-//                    }
-//
-//                    System.out.println("valor de la structura" + s.getName());
-//                    if (s.getProperties().isEmpty()) {
-//                        System.out.println("no tiene propiedades");
-//                        return true;
-//
-//                    } else {
-//
-//                        return false;
-//                    }
-//                } else {
-//
-//                    return true;
-//                }
-//
-//            }
         } else {
             return true;
         }
@@ -734,67 +688,9 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
         System.out.println("ban2" + ban);
         return ban;
-//        if (ban == false) {
-//            setStructureId(p.getStructure().getId());
-//            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
-//            setInstance(p);
-//            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
-//            System.out.println("retornando la evaluciaon");
-//            return ban;
-//        } else {
-//            if (p.getType().equals("org.mtop.modelo.dinamico.Structure")) {
-//                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(p.getName());
-//                System.out.println("\n\n\nbet" + bet);
-//                if (bet != null) {
-//                    Structure s = p.getStructure();
-//                    for (Structure object : bet.getStructures()) {
-//                        System.out.println("nombre de estructura" + object.getName());
-//                        System.out.println("nombre de la propiedad" + p.getName());
-//                        if (object.getName().equals(p.getName())) {
-//                            s = object;
-//                        }
-//                    }
-//
-//                    System.out.println("valor de la structura" + s.getName());
-//                    if (!s.getProperties().isEmpty()) {
-//                        System.out.println("presento propiedades");
-//                        boolean b = false;
-//                        for (Property p1 : s.getProperties()) {
-//                            if (bussinesEntityService.findBussinesEntityForProperty(p1).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(p1).isEmpty()) {
-//                                b = true;
-//                                System.out.println("encontro entidad llenba" + p1);
-//                                break;
-//                            }
-//
-//                        }
-//                        if (b) {
-//                            setStructureId(p.getStructure().getId());
-//                            setBussinesEntityTypeId(bussinesEntityService.findBussinesEntityTypeByName(p.getStructure().getName()).getId());
-//                            setInstance(p);
-//                            System.out.println("Esta propiedad no es una Entidad con propiedades \n que tiene registros de una Entidad de Negocio");
-//                            return b;
-//                        } else {
-//                            System.out.println("retornando false de nooo");
-//                            mensaje = "Esta propiedad tiene registros de una Entidad de Negocio";
-//
-//                            return b;
-//                        }
-//                    } else {
-//                        System.out.println("no tiene propiedades");
-//                        return true;
-//                    }
-//                } else {
-//
-//                    return true;
-//                }
-//
-//            } else {
-//                return ban;
-//            }
-//
-//        }
-    }
 
+    }
+//----
     public String cargarValidador() {
         //log.info("ingreso a validador value");
       
@@ -808,7 +704,7 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
         }
         return "";
     }
-
+//----
     public List<Property> findAllPropiedades() {
         return findAll(Property.class
         );

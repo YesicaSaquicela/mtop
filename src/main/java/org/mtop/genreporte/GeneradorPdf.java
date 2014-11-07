@@ -1,11 +1,7 @@
 package org.mtop.genreporte;
 
-import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
-import static com.itextpdf.text.BaseColor.BLUE;
-import static com.itextpdf.text.BaseColor.GREEN;
-import static com.itextpdf.text.BaseColor.RED;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -17,13 +13,10 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import static com.itextpdf.text.pdf.BidiOrder.PDF;
 import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
-import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import java.io.ByteArrayInputStream;
@@ -40,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.IOUtils;
+import java.text.ParseException;
 import org.mtop.controlador.ControladorVehiculo;
 import org.mtop.modelo.EstadoVehiculo;
 import org.mtop.modelo.Vehiculo;
@@ -62,286 +55,18 @@ public class GeneradorPdf {
         return baus.toByteArray();
     }
 
-    public static void createPDF(String[] tipoSeleccionados, List<Vehiculo> listaVehiculos, List<EstadoVehiculo> listaEstados, String[] mesyanioSeleccionados)
+    public static void createPDF(String[] tipoSeleccionados, 
+            List<Vehiculo> listaVehiculos, List<EstadoVehiculo> listaEstados, 
+            String[] mesyanioSeleccionados)
             throws IOException, DocumentException {
         ControladorVehiculo cv = new ControladorVehiculo();
-
-        System.out.println("lista vehiculos" + listaVehiculos);
-        System.out.println("lista vehiculos" + cv.getListaVehiculos());
-
-        System.out.println("lsiata despie sd eeliminar" + listaVehiculos);
-//        StringBuilder buf = new StringBuilder();
-//        StringBuilder buf1 = new StringBuilder();
-//        buf1.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-//        buf1.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
-//        buf1.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-//        buf1.append("<head>");
-//        // buf.append("<div id='page-header' class='header'>" + "<img  "
-//        // + "height='" + parameters.get("templateHeaderHeight")
-//        // + "' width='" + parameters.get("templateHeaderWidth") + "' "
-//        // + "src='" + parameters.get("templateHeader") + "'/>" + "</div>");
-//        buf1.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
-//        buf1.append("<title>Ppless PDF Document</title> ");
-//        buf1.append("<style type='text/css' media='print'> ");
-//        buf1.append("* {font-family: Arial, 'sans-serif'  !important; font-size:12pt !important; }");
-//        // buf.append("@page { size:8.5in 11in; margin: 0.25in; padding:1em; @bottom-left { content: element(footer); } } ");
-//
-//        buf1.append("@page { size: landscape;"
-//                + "	margin: 0.5cm;"
-//                + "; padding:0.5em"
-//                + "; margin-top:"
-//                + "50"
-//                + "px;margin-bottom:"
-//                + "50"
-//                + "px;@bottom-left{ content: element(footer); };background-image: url('"
-//                + ""
-//                + "');background-repeat: no-repeat;background-position: 0px 0px; }");
-//        // buf.append("#footer { font-size: 80%; font-style: italic;  position: running(footer); top: 0; left: 0;  background-image: url(http://localhost:8080/assets/img/fondo.jpg); background-repeat: no-repeat; left bottom;}");
-//        buf1.append("#footer { font-size: 20%; font-style: italic;  padding:0em;position: running(footer); top: 0; right:0;background-image: url('"
-//                + "" + "')}");
-//        buf1.append("#header { font-size: 30%; font-style: italic;  margin:0px;padding:0em;position: running(page-header); top: 0; right:0;}");
-//        buf1.append("#pagenumber:before { content: counter(page); } ");
-//        buf1.append("#pagecount:before { content: counter(pages); }"
-//                + "H1.SaltoDePagina{PAGE-BREAK-AFTER: always} "
-//                + ".page-number:before {content: counter(page); }"
-//                + ".page-count:before {content: counter(pages); }");
-//        buf1.append("</style></head>");
-//        buf1.append("<body><div style=\"text-align:center;\">"
-//                + "<table style=\"text-align:center;\" width=\"9800\" border=\"0\" cellspacing=\"0\"  cellpadding=\"0\">"
-//                + "<tr>"
-//                + "  <td ><p>Page <span class=\"page-number\"/> of <span class=\"page-count\"/></p></td>\n"
-//                + "</tr>"
-//                + "<tr>"
-//                + "  <td rowspan=\"2\"><IMG SRC=\"/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg\" WIDTH=120 HEIGHT=70 ALT=\"Obra de K. Haring\"></td>"
-//                + " <td height=30 width=500 ><h3 align=\"center\">MINISTERIO DE TRANSPORTE Y OBRAS P&Uacute;BLICAS: DIRECCI&Oacute;N PROVINCIAL DE LOJA</h3></td>"
-//                + "</tr>"
-//                + "<tr><td width=500><h3 align=\"center\">CONTROL DE ESTADO DE EQUIPO CAMINERO</h3></td></tr></table>"
-//                + "<table style=\"text-align:center;\"  height=5 ><tr><td  width=150 ><h6>CLAVE DE N&Uacute;MERO Y COLOR -></h6>"
-//                + "</td><td style=\"background-color:#3333FF\" width=20 VALIGN=TOP ><h5>1</h5></td>"
-//                + "<td width=150 rowspan=\"2\" ><h6>EQUIPO BUENO INACTIVO</h6></td><td style=\"background-color:#669900\" width=20 VALIGN=TOP ><h4>2</h4></td>"
-//                + "<td width=150 rowspan=\"2\" ><h6>EQUIPO TRABAJANDO NORMAL</h6></td><td style=\"background-color:#FFFF00\" width=20 VALIGN=TOP> <h4>3</h4></td>"
-//                + "<td width=150 rowspan=\"2\" ><h6>EQUIPO TRABAJANDO CON FALLAS</h6></td><td  style=\"background-color:red\" width=20 VALIGN=TOP><h4>4</h4></td>"
-//                + "<td width=150 rowspan=\"2\"><h6>EQUIPO EN REPARACI&Oacute;N</h6></td><td style=\"background-color:#993300\" width=20 VALIGN=TOP><h4>5</h4></td>"
-//                + "<td width=150 rowspan=\"2\"><h6>EQUIPO PARA BAJA O REMATE</h6></td></tr>"
-//                + "<tr><td></td></tr>"
-//                + "</table></div>");
-//
-//        buf1.append("</body>");
-//        buf1.append("</html>");
-//
-//        buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-//        buf.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
-//        buf.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-//        buf.append("<head>");
-//        // buf.append("<div id='page-header' class='header'>" + "<img  "
-//        // + "height='" + parameters.get("templateHeaderHeight")
-//        // + "' width='" + parameters.get("templateHeaderWidth") + "' "
-//        // + "src='" + parameters.get("templateHeader") + "'/>" + "</div>");
-//        buf.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
-//        buf.append("<title>Ppless PDF Document</title> ");
-//        buf.append("<style type='text/css' media='print'> ");
-//        buf.append("* {font-family: Arial, 'sans-serif'  !important; font-size:12pt !important; }");
-//        // buf.append("@page { size:8.5in 11in; margin: 0.25in; padding:1em; @bottom-left { content: element(footer); } } ");
-//
-//        buf.append("@page { size: landscape;"
-//                + "	margin: 0.5cm;"
-//                + "; padding:0.5em"
-//                + "; margin-top:"
-//                + "50"
-//                + "px;margin-bottom:"
-//                + "50"
-//                + "px;@bottom-left{ content: element(footer); };background-image: url('"
-//                + ""
-//                + "');background-repeat: no-repeat;background-position: 0px 0px; }");
-//        // buf.append("#footer { font-size: 80%; font-style: italic;  position: running(footer); top: 0; left: 0;  background-image: url(http://localhost:8080/assets/img/fondo.jpg); background-repeat: no-repeat; left bottom;}");
-//        buf.append("#footer { font-size: 20%; font-style: italic;  padding:0em;position: running(footer); top: 0; right:0;background-image: url('"
-//                + "" + "')}");
-//        buf.append("#header { font-size: 30%; font-style: italic;  margin:0px;padding:0em;position: running(page-header); top: 0; right:0;}");
-//        buf.append("#pagenumber:before { content: counter(page); } ");
-//        buf.append("#pagecount:before { content: counter(pages); }"
-//                + "H1.SaltoDePagina{PAGE-BREAK-AFTER: always} "
-//                + ".page-number:before {content: counter(page); }"
-//                + ".page-count:before {content: counter(pages); }");
-//        buf.append("</style></head>");
-//        buf.append("<body><div style=\"text-align:center;\">"
-//                + "<table style=\"text-align:center;\" width=\"9800\" border=\"0\" cellspacing=\"0\"  cellpadding=\"0\">"
-//                + "<tr>"
-//                + "  <td ><p>Page <span class=\"page-number\"/> of <span class=\"page-count\"/></p></td>\n"
-//                + "</tr>"
-//                + "<tr>"
-//                + "  <td rowspan=\"2\"><IMG SRC=\"/home/yesica/NetBeansProjects/mtop/src/main/webapp/resources/mtop1.jpg\" WIDTH=120 HEIGHT=70 ALT=\"Obra de K. Haring\"></td>"
-//                + " <td height=30 width=500 ><h3 align=\"center\">MINISTERIO DE TRANSPORTE Y OBRAS P&Uacute;BLICAS: DIRECCI&Oacute;N PROVINCIAL DE LOJA</h3></td>"
-//                + "</tr>"
-//                + "<tr><td width=500><h3 align=\"center\">CONTROL DE ESTADO DE EQUIPO CAMINERO</h3></td></tr></table>"
-//                + "<table style=\"text-align:center;\"  height=5 ><tr><td  width=150 ><h6>CLAVE DE N&Uacute;MERO Y COLOR -></h6>"
-//                + "</td><td style=\"background-color:#3333FF\" width=20 VALIGN=TOP ><h5>1</h5></td>"
-//                + "<td width=150 rowspan=\"2\" ><h6>EQUIPO BUENO INACTIVO</h6></td><td style=\"background-color:#669900\" width=20 VALIGN=TOP ><h4>2</h4></td>"
-//                + "<td width=150 rowspan=\"2\" ><h6>EQUIPO TRABAJANDO NORMAL</h6></td><td style=\"background-color:#FFFF00\" width=20 VALIGN=TOP> <h4>3</h4></td>"
-//                + "<td width=150 rowspan=\"2\" ><h6>EQUIPO TRABAJANDO CON FALLAS</h6></td><td  style=\"background-color:red\" width=20 VALIGN=TOP><h4>4</h4></td>"
-//                + "<td width=150 rowspan=\"2\"><h6>EQUIPO EN REPARACI&Oacute;N</h6></td><td style=\"background-color:#993300\" width=20 VALIGN=TOP><h4>5</h4></td>"
-//                + "<td width=150 rowspan=\"2\"><h6>EQUIPO PARA BAJA O REMATE</h6></td></tr>"
-//                + "<tr><td></td></tr>"
-//                + "</table></div>");
-
-//        for (String s : tipoSeleccionados) {
-//            buf.append("<table border=\"1\" cellspacing=\"0\"  cellpadding=\"0\"> <tr><td>EQUIPO: ");
-//            buf.append(s);
-//            buf.append("</td></tr></table>");
-//            buf.append("<table border=\"0\" cellspacing=\"0\"  cellpadding=\"0\">"
-//                    + "<tr><td width=10 ><h6>N&#176;</h6></td><td width=50 ><h6>REGISTRO</h6></td> <td width=50 VALIGN=TOP><h6>MARCA</h6></td><td width=50 VALIGN=TOP><h6>MODELO</h6></td><td width=50><h6>OPERADOR</h6></td><td width=50><h6>LOCALIZACI&Oacute;N</h6></td></tr>");
-//
-//            System.out.println("valor de s" + s);
-//            Integer c = 0;
-//            for (Vehiculo v : listaVehiculos) {
-//                c++;
-//                buf.append("<tr>");
-//                //1
-//                buf.append("<td align='left'>");
-//                buf.append("<h6>");
-//                buf.append(c);
-//                buf.append("</h6>");
-//                buf.append("</td>");
-//                //1
-//                buf.append("<td align='left' >");
-//                buf.append("<h6>");
-//                buf.append(v.getNumRegistro());
-//                buf.append("</h6>");
-//                buf.append("</td>");
-//
-//                //2
-//                buf.append("<td align='left'  >");
-//                buf.append("<h6>");
-//                buf.append(v.getMarca());
-//                buf.append("</h6>");
-//                buf.append("</td>");
-//                //3
-//                buf.append("<td align='left' >");
-//                buf.append("<h6>");
-//                buf.append(v.getModelo());
-//                buf.append("</h6>");
-//                buf.append("</td>");
-//                //4
-//                buf.append("<td align='left' >");
-//                buf.append("<h6>");
-//                buf.append(v.getPersona().concatenarNombre());
-//                buf.append("</h6>");
-//                buf.append("</td>");
-//                buf.append("<td align='left'  >");
-//                buf.append("<h6>");
-//                buf.append(cv.obtenerUltimaUbicacionV(v));
-//                buf.append("</h6>");
-//                buf.append("</td>");
-//
-//                buf.append("<td align='right'>");
-//                buf.append("<span style='font-size:10pt !important; font-style: \"italic\"; float:right'>");
-//                buf.append("TR: ");
-//                buf.append("CJ");
-//                buf.append("</span>");
-//                buf.append("</td>");
-//                buf.append("</tr>");
-//
-//            }
-//
-//            buf.append("<tr>");
-//            buf.append("<td align='left'>");
-//            buf.append("<p>");
-//            buf.append("2014");
-//            buf.append("</p>");
-//            buf.append("</td>");
-//            buf.append("<td></td>");
-//            buf.append("</tr>");
-//            buf.append("</table>");
-//        }
-//
-//        buf.append("<p>&nbsp;</p>\n"
-//                + "<table border=\"0\" cellspacing=\"0\"  cellpadding=\"3\">\n"
-//                + "<tr>\n"
-//                + "<td><strong> <span>PARA:                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </strong></td>\n"
-//                + "<td>\n"
-//                + "<p><span>Dr. Gustavo Jalkh               <span>(respetar orden jer&aacute;rquico seg&uacute;n               organigrama)</span></span></p>\n"
-//                + "</td>\n"
-//                + "</tr>\n"
-//                + "<tr>\n"
-//                + "<td>&nbsp;</td>\n"
-//                + "<td>\n"
-//                + "<p><strong> <span>PRESIDENTE</span> </strong></p>\n"
-//                + "</td>\n"
-//                + "</tr>\n"
-//                + "</table>\n"
-//                + "<table border=\"0\" cellspacing=\"0\" cellpadding=\"3\">\n"
-//                + "<tr>\n"
-//                + "<td>\n"
-//                + "<p><strong> <span>DE:                  <span>&nbsp;&nbsp;&nbsp;</span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </strong></p>\n"
-//                + "</td>\n"
-//                + "<td><span> Karina Paola Logro&ntilde;o Santill&aacute;n</span></td>\n"
-//                + "</tr>\n"
-//                + "<tr>\n"
-//                + "<td>&nbsp;</td>\n"
-//                + "<td>\n"
-//                + "<p><strong> <span>Secretario</span> </strong></p>\n"
-//                + "</td>\n"
-//                + "</tr>\n"
-//                + "</table>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n"
-//                + "<tbody>\n"
-//                + "<tr>\n"
-//                + "<td><strong> <span>ASUNTO:               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </strong></td>\n"
-//                + "<td><span>PRUEBA 3</span></td>\n"
-//                + "<td>&nbsp;</td>\n"
-//                + "</tr>\n"
-//                + "</tbody>\n"
-//                + "</table>\n"
-//                + "<p>&nbsp;&nbsp;<strong>&nbsp;</strong><span>&nbsp;</span></p>\n"
-//                + "<p><strong> <span>Se expone el tema directamente, conciso y         claro.</span> </strong></p>\n"
-//                + "<p><span>&nbsp;</span></p>\n"
-//                + "<p><span>Solicito que todas las unidades utilicen las siglas de      "
-//                + " identificaci&oacute;n aprobadas, a partir del d&iacute;a lunes 13       "
-//                + "de mayo de 2013, con car&aacute;cter obligatorio en los       "
-//                + "memorandos y oficios, de las unidades administrativas del     "
-//                + "  Consejo de la Judicatura.</span></p>\n"
-//                + "<p><span>&nbsp;</span></p>\n"
-//                + "<p><span>&nbsp;</span></p>\n"
-//                + "<p><span>Atentamente,</span></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n"
-//                + "<tbody>\n"
-//                + "<tr>\n"
-//                + "<td><span> Karina Paola Logro&ntilde;o Santill&aacute;n</span></td>\n"
-//                + "</tr>\n"
-//                + "<tr>\n"
-//                + "<td><strong> <span>Secretario</span> </strong></td>\n"
-//                + "</tr>\n"
-//                + "</tbody>\n"
-//                + "</table>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>&nbsp;</span> </strong></p>\n"
-//                + "<p><strong> <span>C.C.:</span> </strong> <strong> <span>Si se requiere que m&aacute;s unidades reciban el         documento detallar el nombre y cargo</span> </strong></p>");
-//
-//        buf.append("</body>");
-//        buf.append("</html>");
-//
-//        ByteArrayInputStream bais = new ByteArrayInputStream(buf.toString()
-//                .getBytes());
-//        ByteArrayInputStream bais1 = new ByteArrayInputStream(buf1.toString()
-//                .getBytes());
-        System.out.println("\n\n\n\n tipos seleccionados" + tipoSeleccionados.length);
-        System.out.println("\n\n\n\n " + mesyanioSeleccionados.length);
         OutputStream os = new FileOutputStream("controlEstado.pdf");
 
         try {
             //2 lineas para hacerlo horizontal
             Rectangle a4 = PageSize.A4;
             Rectangle a4Landscape = a4.rotate();
-            // Document document = new Document();
-
+            
             Document document = new Document(a4Landscape);
 
             PdfWriter writer = PdfWriter.getInstance(document, os);
@@ -350,13 +75,7 @@ public class GeneradorPdf {
             writer.setBoxSize("art", rct);
 
             HeaderFooter event = new HeaderFooter();
-//            StringBuilder s=new StringBuilder(getValidHtmlDocument(bais1).length);
-//            for(int i=0 ;i<getValidHtmlDocument(bais1).length;i++){
-//               s.append((char)getValidHtmlDocument(bais)[i]);
-//            }
-////            String valueOf = IOUtils.toString(getValidHtmlDocument(bais1), "UTF-8");
-////            bais1 = new ByteArrayInputStream(getValidHtmlDocument(bais1));
-//            event.setEncabezado(s.toString());
+
             writer.setPageEvent(event);
             Paragraph parrafo;
             int i;
@@ -366,23 +85,16 @@ public class GeneradorPdf {
 
             document.open();
             document.setMargins(20, 20, 60, 20);
-////            PdfPTable table = new PdfPTable(4);
-//            table.setWidths(new int[]{1, 3, 3, 3});
-//            table.setWidthPercentage(10F);
-//
-//            PdfPCell cell;
 
-//
-//            bais = new ByteArrayInputStream(getValidHtmlDocument(bais));
-//            XMLWorkerHelper.getInstance().parseXHtml(writer, document, bais);
-            //Creamos una cantidad significativa de paginas para probar el encabezado
             int val = 15;
             String mes = "";
             String anio = "";
             Boolean bandera = false;
+            //definimos un formato para recibir la s fechas
             SimpleDateFormat sdf = new SimpleDateFormat("MMMMM/yyyy");
             Calendar f = Calendar.getInstance().getInstance();
             Calendar cal = Calendar.getInstance();
+            //recorre los meses selccionados 
             for (String mesSeleccionado : mesyanioSeleccionados) {
 
                 mes = "";
@@ -399,22 +111,21 @@ public class GeneradorPdf {
                 System.out.println("mes" + mes);
                 System.out.println("anio" + anio);
                 val = 15;
-
+                //recorrre los tipos seleccionados
                 for (String s : tipoSeleccionados) {
                     bandera = false;
+                    //recorre la lista de vehiculos
                     for (Vehiculo v : listaVehiculos) {
+                        //se verifica si el tipo es del tipo seleccionado
                         if (v.getTipo().equals(s)) {
                             f = Calendar.getInstance().getInstance();
                             cal = Calendar.getInstance().getInstance();
+                            // se recorre la lsiat de estados de este vehiculo
                             for (EstadoVehiculo ev : v.getListaEstados()) {
                                 f.setTime(ev.getFechaEntrada());
                                 cal = Calendar.getInstance();
                                 cal.add(Calendar.MONTH, 1);
-
-                                System.out.println("ffff" + sdf.format(f.getTime()));
-                                System.out.println("cal" + sdf.format(cal.getTime()));
-
-                                System.out.println("del vehiculo" + v + " fechas a aniadir" + sdf.format(ev.getFechaEntrada().getTime()));
+                                //se compara si tiene estados en los meses seleccionados
                                 if (mesSeleccionado.equals(sdf.format(ev.getFechaEntrada().getTime())) || f.compareTo(cal) > 0) {
                                     bandera = true;
                                 }
@@ -424,16 +135,24 @@ public class GeneradorPdf {
                         }
                     }
                     System.out.println("valor de la bandera+"+bandera);
-                            
+                    // si existen estados a presentar se procede a construir el documento
                     if (bandera == true) {
-                        System.out.println("ssssssss" + s);
-//                    document.newPage();
+                        //se crea la fecha  segun el mes secleccionado
+                        Date date1 = new Date();
+                        try {
+                            date1 = sdf.parse(mesSeleccionado);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Calendar fechaFinalMesSeleccionado1 = Calendar.getInstance();
+                        fechaFinalMesSeleccionado1.setTime(date1);
+                        Integer numeroDeDiasMes1 = fechaFinalMesSeleccionado1.getActualMaximum(Calendar.DAY_OF_MONTH);
                         PdfPTable table = new PdfPTable(4);
                         table.setWidths(new int[]{1, 3, 3, 3});
                         table.setWidthPercentage(10F);
                         PdfPCell cell;
                         PdfPCell cell1;
-                        //             row 1, cell 1
+                        //row 1, cell 1
                         cell = new PdfPCell(new Phrase(" "));
                         cell.setBorder(Rectangle.NO_BORDER);
                         cell.setFixedHeight(72f);
@@ -520,9 +239,29 @@ public class GeneradorPdf {
                         table1.addCell(cell1);
 
                         document.add(table1);
-
-                        table1 = new PdfPTable(38);
-                        table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                        Integer numColumnas=7+numeroDeDiasMes1;
+                        System.out.println("numero de comulmnas"+numColumnas);
+                        table1 = new PdfPTable(7+numeroDeDiasMes1);
+                        //si el mes tiene 31 días
+                        if(numColumnas==38){
+                            table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                        
+                        }
+                        //si el mes tiene 30 días
+                        if(numColumnas==37){
+                            table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                        
+                        }
+                        //si el mes tiene 29 días
+                        if(numColumnas==36){
+                            table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                        
+                        }
+                        //si el mes tiene 28 días
+                        if(numColumnas==35){
+                            table1.setWidths(new int[]{30, 100, 80, 100, 110, 140, 80, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30});
+                        
+                        }
                         table1.setWidthPercentage(100F);
                         cell1 = new PdfPCell(new Phrase("Nº", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
                         cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -546,7 +285,7 @@ public class GeneradorPdf {
                         cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
                         table1.addCell(cell1);
 
-                        for (int j = 1; j <= 31; j++) {
+                        for (int j = 1; j <= numeroDeDiasMes1; j++) {
                             cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
                             cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
                             table1.addCell(cell1);
@@ -568,8 +307,6 @@ public class GeneradorPdf {
                                     cal.add(Calendar.MONTH, 1);
 
                                     Integer mes1 = f.get(Calendar.MONTH) + 1;
-                                    System.out.println("ffff" + sdf.format(f.getTime()));
-                                    System.out.println("cal" + sdf.format(cal.getTime()));
 
                                     System.out.println("del vehiculo" + v + " fechas a aniadir" + sdf.format(ev.getFechaEntrada().getTime()));
                                     if (mesSeleccionado.equals(sdf.format(ev.getFechaEntrada().getTime())) || f.compareTo(cal) > 0) {
@@ -578,9 +315,6 @@ public class GeneradorPdf {
 
                                     }
                                 }
-                                System.out.println("mes seleccionado" + mesSeleccionado);
-                                System.out.println("del vehiculo " + v);
-                                System.out.println("lista de estado"+listaFechasyEstados);
                                 if (!listaFechasyEstados.isEmpty()) {
                                     c++;
 
@@ -708,7 +442,7 @@ public class GeneradorPdf {
 
                                         table1.addCell(cell1);
 
-                                        for (int j = 1; j <= 31; j++) {
+                                        for (int j = 1; j <= numeroDeDiasMes1; j++) {
                                             cell1 = new PdfPCell(new Phrase(String.valueOf(j), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD)));
                                             cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
                                             table1.addCell(cell1);
@@ -784,10 +518,11 @@ public class GeneradorPdf {
                                         fechamayor.setTime(listaFechasyEstados.get(aux).getFechaEntrada());
                                         System.out.println("fecha mayor noooo 31" + fechamayor);
                                     } else {
-                                        fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                        fechamayor.setTime(date1);
+                                        fechamayor.set(Calendar.DAY_OF_MONTH, numeroDeDiasMes1);
                                         System.out.println("fecha mayor 31" + fechamayor);
                                     }
-                                    for (int j = 1; j <= 31; j++) {
+                                    for (int j = 1; j <= numeroDeDiasMes1; j++) {
                                         System.out.println("jjjjjj" + j);
                                         System.out.println("dia del mes de cambio sumar 1" + fechamayor.get(Calendar.DAY_OF_MONTH));
                                         if (j <= fechamayor.get(Calendar.DAY_OF_MONTH)) {
@@ -846,7 +581,8 @@ public class GeneradorPdf {
                                                 aux--;
                                                 System.out.println("fecha mayor del antigup estado" + fechamayor);
                                                 fechamayor = Calendar.getInstance();
-                                                fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                                fechamayor.setTime(date1);
+                                                fechamayor.set(Calendar.DAY_OF_MONTH, numeroDeDiasMes1);
 //                                                fechamayor.add(Calendar.DAY_OF_MONTH, 30 - Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
                                                 System.out.println("fecha mayor del siguiente estado" + fechamayor);
                                             }
@@ -864,9 +600,10 @@ public class GeneradorPdf {
                                     if (sdf.format(fechamayor.getTime()).equals(mesSeleccionado)) {
                                         fechamayor.setTime(listaFechasyEstados.get(aux).getFechaEntrada());
                                     } else {
-                                        fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                        fechamayor.setTime(date1);
+                                        fechamayor.set(Calendar.DAY_OF_MONTH, numeroDeDiasMes1);
                                     }
-                                    for (int j = 1; j <= 31; j++) {
+                                    for (int j = 1; j <= numeroDeDiasMes1; j++) {
                                         if (j <= fechamayor.get(Calendar.DAY_OF_MONTH) ) {
                                             System.out.println("vehiculo de id" + v + "nombreeee" + listaFechasyEstados.get(aux).getNombre());
                                             if (listaFechasyEstados.get(aux).getNombre().equals("Equipo bueno inactivo")) {
@@ -922,8 +659,9 @@ public class GeneradorPdf {
                                             } else {
                                                 aux--;
                                                 fechamayor = Calendar.getInstance();
+                                                fechamayor.setTime(date1);
 //                                                fechamayor.add(Calendar.DAY_OF_MONTH, 30 - Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                                                fechamayor.set(Calendar.DAY_OF_MONTH, 31);
+                                                fechamayor.set(Calendar.DAY_OF_MONTH, numeroDeDiasMes1);
                                             }
                                         }
                                     }
@@ -934,175 +672,11 @@ public class GeneradorPdf {
                         }
                         document.add(table1);
                         document.newPage();
-                    }else{
-//                        parrafo = new Paragraph(
-//                                " \n \n \n  No existe registro del tipo "+s+" y mes seleccionado "+mesSeleccionado); 
-//
-//                        parrafo.setAlignment(Element.ALIGN_CENTER);
-//
-//                        document.add(parrafo);
                     }
 
                 }
             }
 
-//            table = new PdfPTable(4);
-//            table.setWidths(new int[]{1, 3, 3, 3});
-//            table.setWidthPercentage(100);
-//           
-//            // row 1, cell 1
-//            cell = new PdfPCell(new Phrase("COLOR"));
-//            cell.setRotation(90);
-//            cell.setVerticalAlignment(Element.ALIGN_TOP);
-//            table.addCell(cell);
-//            // row 1, cell 2
-//            cell = new PdfPCell(new Phrase("red / no borders"));
-//            cell.setBorder(Rectangle.NO_BORDER);
-//            cell.setBackgroundColor(BaseColor.RED);
-//            table.addCell(cell);
-//            // row 1, cell 3
-//            cell = new PdfPCell(new Phrase("green / black bottom border"));
-//            cell.setBorder(Rectangle.BOTTOM);
-//            cell.setBorderColorBottom(BaseColor.BLACK);
-//            cell.setBorderWidthBottom(10f);
-//            cell.setBackgroundColor(BaseColor.GREEN);
-//            table.addCell(cell);
-//            // row 1, cell 4
-//            cell = new PdfPCell(new Phrase(
-//                    "cyan / blue top border + padding"));
-//            cell.setBorder(Rectangle.TOP);
-//            cell.setUseBorderPadding(true);
-//            cell.setBorderWidthTop(5f);
-//            cell.setBorderColorTop(BaseColor.BLUE);
-//            cell.setBackgroundColor(BaseColor.CYAN);
-//            table.addCell(cell);
-//            // row 2, cell 1
-//            cell = new PdfPCell(new Phrase("GRAY"));
-//            cell.setRotation(90);
-//            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-//            table.addCell(cell);
-//            // row 2, cell 2
-//            cell = new PdfPCell(new Phrase("0.6"));
-//            cell.setBorder(Rectangle.NO_BORDER);
-//            cell.setGrayFill(0.6f);
-//            table.addCell(cell);
-//            // row 2, cell 3
-//            cell = new PdfPCell(new Phrase("0.75"));
-//            cell.setBorder(Rectangle.NO_BORDER);
-//            cell.setGrayFill(0.75f);
-//            table.addCell(cell);
-//            // row 2, cell 4
-//            cell = new PdfPCell(new Phrase("0.9"));
-//            cell.setBorder(Rectangle.NO_BORDER);
-//            cell.setGrayFill(0.9f);
-//            table.addCell(cell);
-//            // row 3, cell 1
-//            cell = new PdfPCell(new Phrase("BORDERS"));
-//            cell.setRotation(90);
-//            cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-//            table.addCell(cell);
-//            // row 3, cell 2
-//            cell = new PdfPCell(new Phrase("different borders"));
-//            cell.setBorderWidthLeft(16f);
-//            cell.setBorderWidthBottom(12f);
-//            cell.setBorderWidthRight(8f);
-//            cell.setBorderWidthTop(4f);
-//            cell.setBorderColorLeft(BaseColor.RED);
-//            cell.setBorderColorBottom(BaseColor.ORANGE);
-//            cell.setBorderColorRight(BaseColor.YELLOW);
-//            cell.setBorderColorTop(BaseColor.GREEN);
-//            table.addCell(cell);
-//            // row 3, cell 3
-//            cell = new PdfPCell(new Phrase("with correct padding"));
-//            cell.setUseBorderPadding(true);
-//            cell.setBorderWidthLeft(16f);
-//            cell.setBorderWidthBottom(12f);
-//            cell.setBorderWidthRight(8f);
-//            cell.setBorderWidthTop(4f);
-//            cell.setBorderColorLeft(BaseColor.RED);
-//            cell.setBorderColorBottom(BaseColor.ORANGE);
-//            cell.setBorderColorRight(BaseColor.YELLOW);
-//            cell.setBorderColorTop(BaseColor.GREEN);
-//            table.addCell(cell);
-//            // row 3, cell 4
-//            cell = new PdfPCell(new Phrase("red border"));
-//            cell.setBorderWidth(8f);
-//            cell.setBorderColor(BaseColor.RED);
-//            table.addCell(cell);
-//            document.add(table);
-//            document.newPage();
-//            for (i = 0; i < 10; i++) {
-//
-//                parrafo = new Paragraph(
-//                        "Esta es una de las paginas de prueba de nuestro programa, es la pagina numero 0x" + String.format("%03X", i + 42
-//                        ));
-//
-//                parrafo.setAlignment(Element.ALIGN_CENTER);
-//
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//                document.add(parrafo);
-//
-//                if (document.isInline()) {
-//                    parrafo = new Paragraph(
-//                            "nuevo documento" + String.format("%03X", i + 42
-//                            ));
-//
-//                }
-//                document.newPage();
-//            }
             System.out.println("pagina"+writer.getPageNumber());
             
             if(writer.getPageNumber()==1){

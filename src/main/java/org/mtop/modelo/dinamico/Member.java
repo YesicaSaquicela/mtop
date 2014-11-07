@@ -19,7 +19,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-@Table(name = "Registrant", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+//@Table(name = "Registrant", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "Registrant")
 public class Member implements Serializable {
    /** Default value included to remove warning. Remove or modify at will. **/
    private static final long serialVersionUID = 1L;
@@ -33,8 +34,8 @@ public class Member implements Serializable {
    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
    private String name;
 
-   @NotNull
-   @NotEmpty
+//   @NotNull
+//   @NotEmpty
    @Email
    private String email;
 

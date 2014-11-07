@@ -1385,6 +1385,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         Integer suma = 0;
         Integer contador = 0;
         evaluacion = "Bueno";
+        //rompe el bucle del primer for
         fuera:
         for (Property p : propiedades) {
             System.out.println("propiedadesss " + p.getName());
@@ -1394,50 +1395,23 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     System.out.println("nombre propiedad " + p.getName());
                     System.out.println("nombre de la propiedad de la propiedad " + a.getName());
                     System.out.println("valor" + a.getValue());
-                    if (p.getName().equals("Motor") && a.getValue().equals("Malo")) {
+                    //si la evaluacion parte es muy importante =100 y la evaluacion es mala
+                    //inmediatamente se evalua como malo y sale del ciclo
+                    if(a.getProperty().getEvaluacionParte().equals(100) && a.getValue().equals("Malo")){
                         evaluacion = "Malo";
+                        //para romper los bucles anidados
                         break fuera;
                     }
-                    if (p.getName().equals("SistemaElectrico") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    if (p.getName().equals("Transmision") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    if (p.getName().equals("Direccion") && a.getName().equals("articulacionesTerminales") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    if (p.getName().equals("Direccion") && a.getName().equals("pinesBocines") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    if (p.getName().equals("Direccion") && a.getName().equals("bombaDireccion") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    //cajaDireccion 80
-                    if (p.getName().equals("Frenos") && a.getName().equals("cilindroPrincipal") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    if (p.getName().equals("Frenos") && a.getName().equals("cilindroSecundario") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    //forros 80
-                    if (p.getName().equals("Suspension") && a.getName().equals("ejeDelantero") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-                    if (p.getName().equals("Suspension") && a.getName().equals("ejePosterior") && a.getValue().equals("Malo")) {
-                        evaluacion = "Malo";
-                        break fuera;
-                    }
-
                     //muelles-amortiguador 80
+                    //forros 80
+                    //todos parte motor 100
+                    //todos parte SistemaElectrico 100
+                    //todos parte transmision 100
+                    //articulacionesTerminales 100
+                    //ejeDelantero 100
+                    //ejePosterior 100
+                    //pinesBocines 100
+                    // bombaDireccion 100
                     System.out.println("nombre " + a.getName() + "valor: " + a.getValue());
                     if (a.getValue().equals("Bueno")) {
                         suma += 100;

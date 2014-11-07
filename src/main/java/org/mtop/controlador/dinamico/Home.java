@@ -205,20 +205,20 @@ public abstract class Home<T, E> extends MutableController<T> implements Seriali
     protected String getCreatedMessageKey() {
         return getMessageKeyPrefix() + "created";
     }
-
+//----
     protected String getUpdatedMessageKey() {
         return getMessageKeyPrefix() + "updated";
     }
-
+//----
     protected String getDeletedMessageKey() {
         return getMessageKeyPrefix() + "deleted";
     }
-
+//----
     protected String getSimpleEntityName() {
         String name = getEntityName();
         return name.lastIndexOf(".") > 0 && name.lastIndexOf(".") < name.length() ? name.substring(name.lastIndexOf(".") + 1, name.length()) : name;
     }
-
+//----
     protected abstract String getEntityName();
     private static final long serialVersionUID = 7520839069908084915L;
     
