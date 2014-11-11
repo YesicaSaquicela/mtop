@@ -821,9 +821,18 @@ public class ControladorSolicitudReparacionMantenimiento extends BussinesEntityH
     }
 
     public void editar() {
-        it = new ItemSolicitudReparacion();
+        if(it.getDescripcionElementoRevisar().trim().equals("") || 
+                it.getDescripcionFalla().trim().equals("")){
+            System.out.println("editar va a presentar mensaje");
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", " Campos abligatorios, descripción falla y elemento a revisar"));
+
+            
+        }else{
+             it = new ItemSolicitudReparacion();
         it.setDescripcionElementoRevisar(" ");
         it.setDescripcionFalla(" ");
+        }
+       
 
     }
 
