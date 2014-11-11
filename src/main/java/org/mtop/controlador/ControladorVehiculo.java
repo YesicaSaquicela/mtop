@@ -101,15 +101,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     private List<String> tiposCombustible = new ArrayList<String>(Arrays.asList("Gasolina", "Diesel"));
     private List<String> tiposCabina = new ArrayList<String>(Arrays.asList("Simple", "Doble"));
 
-    private List<String> marcasv = new ArrayList<String>(Arrays.asList("Abarth", 
-            "Alfa Romeo", "Aston Martin", "Audi","Bentley","Caterpillar",
-            "Case","Cifali", "Citroen","Chevrolet", 
-            "Dacia", "Dfsk","Dresser"," Dynapac", "Faco",
-            "Ferrari", "Fiat","Ford","Galión","Hino", "Honda",
-            "Hyundai","Infinity", "Internacional","Isuzu", "Iveco", 
-            "Jaguar","Kia", "Lada", "Lamborghini", "Lancia","Land-Rover", "Lexus", "Ldv", 
-            "Mazda", "Mercedes-Benz", "Mini","Mitsubishi","Muller", "Nissan", "Porsche","Scania",
-            "Renault","Rosco", "Suzuki", 
+    private List<String> marcasv = new ArrayList<String>(Arrays.asList("Abarth",
+            "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "Caterpillar",
+            "Case", "Cifali", "Citroen", "Chevrolet",
+            "Dacia", "Dfsk", "Dresser", " Dynapac", "Faco",
+            "Ferrari", "Fiat", "Ford", "Galión", "Hino", "Honda",
+            "Hyundai", "Infinity", "Internacional", "Isuzu", "Iveco",
+            "Jaguar", "Kia", "Lada", "Lamborghini", "Lancia", "Land-Rover", "Lexus", "Ldv",
+            "Mazda", "Mercedes-Benz", "Mini", "Mitsubishi", "Muller", "Nissan", "Porsche", "Scania",
+            "Renault", "Rosco", "Suzuki",
             "Toyota", "Volkswagen"));
 
     public List<String> getMarcasv() {
@@ -119,9 +119,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     public void setMarcasv(List<String> marcasv) {
         this.marcasv = marcasv;
     }
-
-    
-    
 
     public List<String> getTiposCabina() {
         return tiposCabina;
@@ -331,10 +328,15 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         String l3 = "ABCDEFGHIFKLMNOPQRSTUWXYZ";
         String n = "1234567890";
         String t = "CDOIAT";
+        System.out.println("tama;o de la placa " + placa.length());
 
-        if (placa.length() >= 7) {
-
-            if (placa.length() == 8) {
+        if (placa.length() == 8) {
+            System.out.println("tama;o de la placa entro a 8 " + placa.length());
+            if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
+                    && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
+                System.out.println("devuelve placa" + placa);
+                return true;
+            } else {
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
 
@@ -343,48 +345,50 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     return false;
                 }
 
-            } else {
+            }
+
+        } else {
+            System.out.println("tama;o de la placa entro no iguala  8 " + placa.length());
+            if (placa.length() == 7) {
+                System.out.println("ENTRO AL NO" + placa);
+
                 if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
                         && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
 
                     return true;
                 } else {
-                    if (l1.contains(placa.charAt(0) + "") && l2.contains(placa.charAt(1) + "") && l3.contains(placa.charAt(2) + "")
-                            && placa.charAt(3) == '-' && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "") && n.contains(placa.charAt(7) + "")) {
+                    if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
 
                         return true;
                     } else {
-                        if (placa.substring(0, 2).equals("CC") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                        if (placa.substring(0, 2).equals("CD") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
 
                             return true;
                         } else {
-                            if (placa.substring(0, 2).equals("CD") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                            if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
 
                                 return true;
                             } else {
-                                if (placa.substring(0, 2).equals("OI") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                if (placa.substring(0, 2).equals("AT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
 
                                     return true;
                                 } else {
-                                    if (placa.substring(0, 2).equals("AT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
+                                    if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
 
                                         return true;
                                     } else {
-                                        if (placa.substring(0, 2).equals("IT") && placa.charAt(2) == '-' && n.contains(placa.charAt(3) + "") && n.contains(placa.charAt(4) + "") && n.contains(placa.charAt(5) + "") && n.contains(placa.charAt(6) + "")) {
-
-                                            return true;
-                                        } else {
-                                            return false;
-                                        }
+                                        return false;
                                     }
                                 }
+
                             }
                         }
                     }
                 }
+            } else {
+                return false;
             }
-        } else {
-            return false;
+
         }
 
     }
@@ -847,10 +851,10 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                                                                                                                     } else {
                                                                                                                         if (kilometaje == 150000) {
                                                                                                                             proKilometraje = 5000;
-                                                                                                                        }else{
-                                                                                                                         if (kilometaje < 15000) {
-                                                                                                                            proKilometraje = 15000;
-                                                                                                                        }
+                                                                                                                        } else {
+                                                                                                                            if (kilometaje < 15000) {
+                                                                                                                                proKilometraje = 15000;
+                                                                                                                            }
                                                                                                                         }
                                                                                                                     }
                                                                                                                 }
@@ -932,7 +936,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaVehiculos = servgen.buscarTodos(Vehiculo.class);
-    
+
         listVehiculos2 = listaVehiculos;
         idPersona = 0l;
         listaPersonas = findAll(Profile.class);
@@ -959,7 +963,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
 
         verificarPlan();
 
-        
     }
 
     public void fijarPlan(PlanMantenimiento pmat, List<Vehiculo> lv) {
@@ -1264,7 +1267,6 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
         tipos.add("Trituradora 2da");
         tipos.add("Vehículo");
         tipos.add("Volquete");
-        
 
         return tipos;
     }
@@ -1397,7 +1399,7 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
                     System.out.println("valor" + a.getValue());
                     //si la evaluacion parte es muy importante =100 y la evaluacion es mala
                     //inmediatamente se evalua como malo y sale del ciclo
-                    if(a.getProperty().getEvaluacionParte().equals(100) && a.getValue().equals("Malo")){
+                    if (a.getProperty().getEvaluacionParte().equals(100) && a.getValue().equals("Malo")) {
                         evaluacion = "Malo";
                         //para romper los bucles anidados
                         break fuera;

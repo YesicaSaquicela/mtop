@@ -80,10 +80,10 @@
                                             <p:outputLabel for="fechan" value="Fecha de nacimiento" /> <br></br> 
                                           
                                             <p:calendar  id="fechan" value="#{profileHome.instance.fechanacimiento}" disabled="#{profileHome.requerido == false}" 
-                                                         styleClass="xLarge"  navigator="true" required="#{profileHome.requerido}" 
+                                                         styleClass="xLarge" readonlyInput="true" navigator="true" required="#{profileHome.requerido}" 
                                                          requiredMessage="Fecha de nacimiento requerido, necesita un valor">   
                                                 <f:ajax event="dateSelect" rendered="save fn" render="fn"/> 
-
+                                              
                                             </p:calendar> <br/>                     
                                             <h:graphicImage value="#{resource['visto.png']}" rendered="#{profileHome.instance.fechanacimiento != null}" styleClass="validation-status" />
                                             <span class="help-inline text-muted">Ingrese la fecha de nacimiento<ocp:message forId="fechan" /></span><br></br><br></br> 
