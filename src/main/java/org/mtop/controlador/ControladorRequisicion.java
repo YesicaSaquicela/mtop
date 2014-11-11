@@ -255,30 +255,39 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
+        String des = it.getDescripcion().trim();
+        String uni = it.getUnidadMedida().trim();
 
-        if (pro != null) {
+        if (it.getCantidad().equals(0) || des.equals("") || uni.equals("")) {
+             System.out.println("llego a editar va a presentar mensaje");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", " Campos abligatorios, cantidad, descripción y unidad de medida"));
 
-            if (!pro.getCodigo().equals("")) {
+        } else {
+            if (pro != null) {
 
-                Producto p = new Producto();
-                List<Producto> lp = new ArrayList<Producto>();
-                for (Producto prod : listaProductos) {
-                    if (!prod.getId().equals(pro.getId())) {
-                        lp.add(prod);
+                if (!pro.getCodigo().equals("")) {
 
+                    Producto p = new Producto();
+                    List<Producto> lp = new ArrayList<Producto>();
+                    for (Producto prod : listaProductos) {
+                        if (!prod.getId().equals(pro.getId())) {
+                            lp.add(prod);
+
+                        }
                     }
+                    listaProductos = lp;
+                    pro.setCantidad(pro.getCantidad() - it.getCantidad());
+
+                    listaProductos.add(pro);
                 }
-                listaProductos = lp;
-                pro.setCantidad(pro.getCantidad() - it.getCantidad());
-
-                listaProductos.add(pro);
             }
-        }
-        it = new ItemRequisicion();
+            it = new ItemRequisicion();
 
-        it.setCantidad(0);
-        it.setUnidadMedida(" ");
-        it.setDescripcion(" ");
+            it.setCantidad(0);
+            it.setUnidadMedida(" ");
+            it.setDescripcion(" ");
+
+        }
 
     }
 
@@ -767,16 +776,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             this.solicitudrep = solicitudrep;
             getInstance().setSolicitudReparacionId(solicitudrep);
         } else {
-           Boolean ban=true;
+            Boolean ban = true;
             for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
-               if(sol.getId().equals(getInstance().getSolicitudReparacionId().getId())){
-                    ban=false;
+                if (sol.getId().equals(getInstance().getSolicitudReparacionId().getId())) {
+                    ban = false;
                 }
             }
-            if(ban){
-             
+            if (ban) {
+
                 listaSolicitudes.add(getInstance().getSolicitudReparacionId());
-           
+
             }
             this.solicitudrep = new SolicitudReparacionMantenimiento();
         }
