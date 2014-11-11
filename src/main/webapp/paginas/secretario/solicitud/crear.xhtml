@@ -1040,7 +1040,7 @@
                                         <h:outputLabel value="Fecha de requisición*" /> <br></br> 
                                         <h:panelGrid id="p121">
                                             <p:calendar  id="fechaRequisicion" value="#{controladorRequisicion.instance.fechaRequisicion}"  
-                                                         styleClass="xLarge" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
+                                                         styleClass="xLarge" readonlyInput="true" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
                                                          locale="es">   
                                                 <f:ajax event="dateSelect" execute="fechaRequisicion" render="p121"/>  
 
@@ -1115,7 +1115,7 @@
                                                          paginator="true" rows="3"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="3,5,10"
-                                                         >
+                                                          emptyMessage="No se han encontrado coincidencias">
                                                          <p:column headerText="Partida" sortBy="#{items.concatenarPartida}">
                                                             <h:outputText value="#{items.concatenarPartida}"></h:outputText>
                                                          </p:column>
@@ -1180,7 +1180,7 @@
 
                                                                     <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                 </p:inputText>
-                                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
                                                                             rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                                     <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                 </p:calendar>
@@ -1263,7 +1263,7 @@
 
                                             <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                         </p:inputText>
-                                        <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                        <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
                                                     rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                             <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                         </p:calendar>

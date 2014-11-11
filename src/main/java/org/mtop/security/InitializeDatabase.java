@@ -218,8 +218,8 @@ public class InitializeDatabase {
            
             p.setFechanacimiento(d);
             p.setName("Administrador");
-            p.setFirstname("Mtop");
-            p.setSurname("Software de Vehiculos");
+            p.setFirstname("Juan Carlos");
+            p.setSurname("Vinueza");
             p.setTipo("Natural");
             p.setCargo("administrador");
             p.setEstado1(true);

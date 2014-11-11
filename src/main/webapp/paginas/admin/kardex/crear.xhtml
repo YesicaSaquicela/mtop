@@ -636,9 +636,9 @@
 
 
                                                         <p:commandButton rendered="#{controladorKardex.solicitud == null}" id="savesm" value="Guardar" 
-                                                                         update=":form:forms:msg" 
+                                                                         update=":form:forms:msg" style="color:#009ACD" styleClass="btn-success"
                                                                          process="@form" icon="ui-icon-disk" 
-                                                                         styleClass="btn  btn-success" 
+                                                                         
                                                                          actionListener="#{controladorKardex.guardarSolicitud()}"
 
                                                                          >
@@ -646,7 +646,7 @@
 
                                                         </p:commandButton>
                                                         <p:button rendered="#{controladorKardex.solicitud ne null}" id="saves"  value="Guardar" 
-                                                                  styleClass="btn  btn-success" icon="ui-icon-disk" 
+                                                                  style="color:#009ACD" styleClass="btn-success" icon="ui-icon-disk" 
                                                                   outcome="/paginas/admin/kardex/crear" >
                                                             <f:param name="estado" value="true"/>
                                                             <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>
@@ -815,7 +815,7 @@
                                                         <p:commandButton rendered="#{controladorKardex.requisicion == null}" id="saveg" value="Guardar" 
                                                                          update=":form:formr:mensajes" 
                                                                          process="@form" icon="ui-icon-disk" 
-                                                                         styleClass="btn  btn-success" 
+                                                                         style="color:#009ACD" styleClass="btn-success" 
                                                                          actionListener="#{controladorKardex.guardarRequisicion()}"
 
                                                                          >
@@ -825,7 +825,7 @@
 
 
                                                         <p:button rendered="#{controladorKardex.requisicion ne null}" id="saveg2"  value="Guardar" 
-                                                                  styleClass="btn  btn-success" icon="ui-icon-disk" 
+                                                                  style="color:#009ACD" styleClass="btn-success" icon="ui-icon-disk" 
                                                                   outcome="/paginas/admin/kardex/crear">
                                                             <f:param name="estado" value="true"/>
                                                             <f:param name="kardexId" value="#{controladorKardex.instance.id}"/>

@@ -1359,7 +1359,7 @@
 
                                                                                     <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                                 </p:inputText>
-                                                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                                                <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
                                                                                             rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                                                     <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                                 </p:calendar>
@@ -1442,7 +1442,7 @@
 
                                                             <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                         </p:inputText>
-                                                        <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
+                                                        <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
                                                                     rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                             <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                         </p:calendar>
