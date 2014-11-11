@@ -267,7 +267,7 @@
                                             <div class="input">
                                                 <p:outputLabel value="Fecha inicio del soat:  "/><br/>
                                                 <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.instance.fechainiciosoat}" 
-                                                              style="width: 100%"
+                                                              style="width: 100%" readonlyInput="true"
                                                              >   
                                                     <p:ajax immediate="true" event="dateSelect" rendered="save unm2" /> 
 
@@ -283,7 +283,7 @@
                                             <div class="input">
                                                 <p:outputLabel value="Fecha fín del soat:  " for="fechaSalida"/><br/>
                                                 <p:calendar  id="fechaSalida" value="#{controladorVehiculo.instance.fechafinsoat}"  
-                                                             label="Fecha entrada de Taller " 
+                                                             label="Fecha entrada de Taller " readonlyInput="true"
                                                              styleClass="xLarge" 
                                                               style="width: 100%"
                                                              >   
@@ -354,7 +354,7 @@
                                                                        <f:ajax execute="str1" render="panel1"/>
                                                                     </pe:inputNumber>  
 
-                                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                                    <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"  style="width: 100%"
                                                                                 rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
                                                                         <f:ajax execute="str2" render="panel1"/>
                                                                     </p:calendar>
@@ -431,7 +431,7 @@
                                                    <f:ajax execute="str1" render="otro"/>
                                                 </pe:inputNumber>  
 
-                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"  style="width: 100%"
                                                             rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
                                                     <f:ajax execute="str2" render="otro"/>
                                                 </p:calendar>

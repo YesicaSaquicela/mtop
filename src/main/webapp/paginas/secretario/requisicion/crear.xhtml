@@ -134,7 +134,7 @@
                                                  <h:outputLabel value="Fecha de requisición*" /> <br></br> 
                                                  <h:panelGrid id="p12">
                                                     <p:calendar  id="fecha1" value="#{controladorRequisicion.instance.fechaRequisicion}"  
-                                                                 styleClass="xLarge" editable="false" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
+                                                                 styleClass="xLarge" readonlyInput="true" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
                                                                  locale="es">   
                                                         <f:ajax event="dateSelect" execute="fecha1" render="p12"/>  
 
