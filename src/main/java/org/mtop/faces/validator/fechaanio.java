@@ -60,7 +60,7 @@ public class fechaanio implements Validator {
                     if (!cv.obtenerAñoV((String) value)) {
                         System.out.println("entro a presentar mensaje");
 
-                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1980-añoActual).", null));
+                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El año ingresado se encuentra fuera de rango (1950-añoActual).", null));
                     }
                 }
             } else {

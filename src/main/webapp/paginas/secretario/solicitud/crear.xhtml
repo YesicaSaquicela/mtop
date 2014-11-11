@@ -76,7 +76,7 @@
                                                 <h:outputLabel value="Fecha de solicitud*" /> <br></br> 
                                                 <h:panelGrid id="p12">
                                                     <p:calendar  id="fecha" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  
-                                                                 styleClass="xLarge" required="true" requiredMessage="Fecha de solicitud requerida, necesita un valor." 
+                                                                 styleClass="xLarge" editable="false" required="true" requiredMessage="Fecha de solicitud requerida, necesita un valor." 
                                                                  locale="es">   
                                                         <f:ajax event="dateSelect" execute="fecha" render="p12"/>  
 
