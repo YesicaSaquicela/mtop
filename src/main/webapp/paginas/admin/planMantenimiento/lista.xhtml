@@ -51,7 +51,8 @@
                                     </center>
                                 </div>
                             </div>
-                            <div class="admin-actions">
+                            <div class="row">
+                                <div class="col-md-6" align="left"> 
 
                                 <h:link styleClass="btn btn-success" value="Crear" 
                                         outcome="crear" type="button" >
@@ -59,10 +60,8 @@
 
                                 </h:link>
 
-                            </div>
-
-                            <div class="admin-actions" align="right">
-
+                                </div>
+                                <div class="col-md-6" align="left"> 
                                 <p:button id="visualizar" rendered="#{controladorPlanMantenimiento.listaactividadesPlan.size() ne 0}" icon="ui-icon-zoomin" styleClass="btn  btn-success"
                                           outcome="imprimirPlanActivo" target="_blank"
                                           title="Visualizar Plan activo">  
@@ -70,6 +69,7 @@
                                 </p:button>
 
 
+                            </div>
                             </div><br/><br/>
 
                       

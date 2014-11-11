@@ -73,13 +73,13 @@
                                             </div>
                                         </h:panelGroup >
                                       
-                                        <p:outputLabel value="Número de institución"/><br></br>
+                                        <p:outputLabel value="Número de institución(INST)*"/><br></br>
                                         <p:inputText id="institucion" value="250" styleClass="form-control" disabled="true"/>
                                         <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de institución<ocp:message forId="institucion" /></span>
                                         <br></br><br></br>
 
-                                        <p:outputLabel value="Número de provincia"/><br></br>
+                                        <p:outputLabel value="Número de provincia(PROV)*"/><br></br>
                                         <p:inputText id="provincia" maxlength="4" value="#{controladorPartidaContabilidad.instance.numeroProvincia}"
                                                      styleClass="form-control" requiredMessage="Número de provincia requerido, necesita un valor" >
                                             <f:validateLength minimum="4" />
@@ -93,14 +93,14 @@
 
                                         <br></br>
 
-                                        <p:outputLabel value="Número de unidad descentralizada"/><br></br>
+                                        <p:outputLabel value="Número de unidad descentralizada(UDES)*"/><br></br>
                                         <p:inputText id="unidadDescentralizada" value="0000" styleClass="form-control" disabled="true"
                                                      />
                                         
                                         <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de unidad descentralizada<ocp:message forId="unidadDescentralizada" /></span><br></br><br></br>
 
-                                        <p:outputLabel value="Número de programa"/><br></br>
+                                        <p:outputLabel value="Número de programa(PG)*"/><br></br>
                                         <p:inputText id="programa" maxlength="2" value="#{controladorPartidaContabilidad.instance.numeroPrograma}"  styleClass="form-control" >
                                             <f:validateLength minimum="2"/>
                                             <p:ajax event="blur" update="np1" partialSubmit="true"  />
@@ -113,7 +113,7 @@
                                         <br></br>
 
                                      
-                                         <p:outputLabel value="Número de subprograma"/><br></br>
+                                         <p:outputLabel value="Número de subprograma(SPG)*"/><br></br>
                                         <p:inputText id="subprograma" value="00" styleClass="form-control" disabled="true"
                                                      />
                                         
@@ -127,7 +127,7 @@
                                     </div>
 
                                     <div class="col-md-6"> 
-                                        <p:outputLabel value="Número de proyecto"/><br></br>
+                                        <p:outputLabel value="Número de proyecto(PROY)*"/><br></br>
                                         <p:inputText id="proyecto1" maxlength="3" value="#{controladorPartidaContabilidad.instance.numeroProyecto}"  styleClass="form-control" >
                                             <f:validateLength minimum="3"/>
                                             <p:ajax event="blur" update="np21" partialSubmit="true"  />
@@ -140,12 +140,12 @@
                                         
                                         <br/>
 
-                                        <p:outputLabel value="Número de actividad" /><br></br>
+                                        <p:outputLabel value="Número de actividad(ACT)*" /><br></br>
                                         <p:inputText id="actividad" value="001" styleClass="form-control" disabled="true" />
                                         <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de actividad<ocp:message forId="actividad" /></span><br></br><br></br>
 
-                                        <p:outputLabel value="Número de ítem"/><br></br>
+                                        <p:outputLabel value="Número de ítem(ÍTEM)*"/><br></br>
                                         <p:inputText id="item" maxlength="6" value="#{controladorPartidaContabilidad.instance.numeroItem}"  styleClass="form-control" >
                                             <f:validateLength minimum="6"/>
                                             <p:ajax event="blur" update="np3" partialSubmit="true"  />
@@ -157,14 +157,14 @@
                                         </h:panelGroup>
                                         <br></br><br></br>
 
-                                        <p:outputLabel value="Número geográfico"/><br></br>
+                                        <p:outputLabel value="Número geográfico(UBG)*"/><br></br>
                                         <p:inputText id="ngeografico" value="1100" styleClass="form-control" disabled="true"
                                                      />
                                         
                                         <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de geográfico<ocp:message forId="ngeografico" /></span><br></br><br></br>
 
-                                        <p:outputLabel value="Número de fuente financiera"/><br></br>
+                                        <p:outputLabel value="Número de fuente financiera(FTE)*"/><br></br>
                                         <p:inputText id="fuenteFinanciera" maxlength="3" value="#{controladorPartidaContabilidad.instance.numeroFuenteFinanciera}"  styleClass="form-control" >
                                             <f:validateLength minimum="3"/>
                                             <p:ajax event="blur" update="np4" partialSubmit="true"  />
@@ -178,7 +178,7 @@
 
                                         <h:panelGroup id="em1" layout="block" class="clearfix">
                                             <div class="input">
-                                                <p:outputLabel value="Descripción"/><br></br>
+                                                <p:outputLabel value="Descripción*"/><br></br>
                                                 <p:inputTextarea id="observacion1" maxlength="150" styleClass="form-control" 
                                                                  value="#{controladorPartidaContabilidad.instance.descripcion}"
                                                                  required="true" label="observación" requiredMessage="Descripción requerida, necesita un valor" >

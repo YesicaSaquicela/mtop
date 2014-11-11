@@ -24,33 +24,47 @@
     <ui:define name="content">
 
         <h:form id="form">
-            <div role="main">
-                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
-                     <p:layout style="min-width:400px;min-height:300px;">
-                            <p:layoutUnit position="west" resizable="true"  size="800" minSize="40" maxSize="300">
-                           <p:menu style="min-width:300px;min-height:50px;">
-                                    <p:submenu label="Quienes Somos" >
-                                        <p:menuitem value="Misión" outcome="mision"  />
-                                        <p:menuitem value="Visión" outcome="vision" />
-                                    </p:submenu>
-                                    <p:submenu label="Otros">
-                                        <p:menuitem value="Inicio"   outcome="/paginas/inicio.xhtml?faces-redirect=true" icon="ui-icon-close"/>
-                                    </p:submenu>
-                               
-                                </p:menu>
-                            </p:layoutUnit>
+            
+              <div role="main">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3" align="center"> 
+                            <div class="span3 bs-docs-sidebar" style="margin: 1em 15em 6em 1em; " align="left">
+                                <ul class="nav nav-list bs-docs-sidenav" style="width:200px;height:50px;" >
+                                    <li>QUIENES SOMOS</li>
+                                    <li><a href="mision.xhtml"><i class="icon-chevron-right"></i> MISIÓN </a></li>
+                                    <li><a href="vision.xhtml"><i class="icon-chevron-right"></i> VISIÓN</a></li>
+                                    <li>OTROS</li>
+                                    <li><a href="/paginas/inicio.xhtml?faces-redirect=true"><i class="icon-chevron-right"></i> INICIO </a></li>
 
-                            <p:layoutUnit position="center" >
-                                <h:panelGroup id="d">
-                                    
-Visión
-                                </h:panelGroup>
-                            </p:layoutUnit>
-                        </p:layout>
-                   
-                   </div></div> 
-   </h:form>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3" align="left"> 
+                            <p:graphicImage value="/resources/images/mision_vision_ministerio_transporte.jpg" width="250" height="250" />
 
+                        </div>
+                        <div class="col-md-6"> 
+                            <div class="bs-docs-section">
+                                <h1 id="dropdowns" class="page-header">VISIÓN</h1>
+
+                                <p class="lead">
+                                   Ser el eje del desarrollo nacional y regional mediante la Gestión del 
+                                   Transporte Intermodal y Multimodal y su Infraestructura con estándares 
+                                   de eficiencia y Calidad.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+
+                    </div> 
+                </div>
+            </div>
+        </h:form>
+            
+            
 
     </ui:define>
 </ui:composition>

@@ -29,7 +29,7 @@
                             <div class="admin-actions" align="right">
                                 <h:panelGrid id="export" class="columns" title="Generar reporte">
                                     <p:panel>
-                                        
+
                                         <h:commandLink action="#{reporteListas.renderUsuario(profileHome.listausuarios)}" styleClass="btn"
                                                        target="_blank">                    
                                             <p:graphicImage value="/resources/pdf.png" width="50" height="40 "/>                          
@@ -61,7 +61,7 @@
                             <h:panelGroup id="msg1" rendered="#{profileHome.mensajei !=''}" >
                                 <div class="panel panel-info" >
                                     <div class="panel-heading" >
-                                     <h:outputLabel id="msg"  value="#{profileHome.mensajei}" style="color: #0591ba" /> 
+                                        <h:outputLabel id="msg"  value="#{profileHome.mensajei}" style="color: #0591ba" /> 
                                     </div></div>
                             </h:panelGroup>
 
@@ -108,7 +108,7 @@
                                                     </p:commandButton>   #{" "}
 
                                                     <p:commandButton id="active" action="#{profileHome.activarCuenta(profile_)}" 
-                                                                     title="Habilitar cuenta" icon="ui-icon-check"
+                                                                     title="Habilitar cuenta" icon="ui-icon-check" update="@form"
                                                                      rendered="#{profile_.persistent and account.tienePermiso('ADMIN') and profile_.deleted eq true }"
                                                                      style="margin-top:10px;"
                                                                      >
@@ -116,15 +116,23 @@
                                                                    message="¿Desea realmente habilitar la cuenta de usuario seleccionado?" icon="ui-icon-alert" />
 
                                                     </p:commandButton>
-                                                   
+
 
                                                     <p:confirmDialog id="c1" global="true" showEffect="fade" hideEffect="explode" widgetVar="conf">
                                                         <center>
-                                                            <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
-                                                                <p:ajax event="mouseup" process="@form" update="profileDataTable :form:msg1" />
-                                                            </h:commandLink>
+                                                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"  />
+                                                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+
+                                                            <!--p:commandButton value="Si" ajax="false" onclick="conf.hide()" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                                       <p:commandButton value="No" type="button" onclick="conf.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                                                       
+                                                       
+                                                       
+                                                           <h:commandLink value="Sí" type="button" styleClass="btn btn-success ui-confirmdialog-yes" style="width:10%"  >
+                                                               <p:ajax event="mouseup" process="@form" update="profileDataTable :form:msg1" />
+                                                           </h:commandLink>
                                                             #{' '}
-                                                            <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  />
+                                                            <h:commandLink value="No" type="button" onclick="conf.hide()" styleClass="btn btn-success"  style="width:10%"  /-->
 
                                                         </center>
 
@@ -144,7 +152,7 @@
             </div>
 
         </h:form>
-       
+
 
     </ui:define>
 </ui:composition>

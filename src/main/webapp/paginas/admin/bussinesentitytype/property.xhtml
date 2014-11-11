@@ -54,7 +54,8 @@
                                             <h:panelGroup id="num" layout="block" class="clearfix">
                                                 <div class="input">
                                                     <h:outputLabel value="Nombre de propiedad *"/>
-                                                    <h:inputText validator="validarNomPropiedad" disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" id="registro" value="#{propertyHome.instance.name}" styleClass="form-control"
+                                                    <h:inputText validator="validarNomPropiedad" disabled="#{propertyHome.hasValuesBussinesEntity() eq false}" 
+                                                                 id="registro" value="#{propertyHome.instance.name}" styleClass="form-control"
                                                                  required="true" label="Nombre de Propiedad" 
                                                                  requiredMessage="Nombre de la propiedad requerida, necesita un valor."
                                                                  >
@@ -210,11 +211,13 @@
 
 
 
-                                            <mtop:input id="secuencia" name="sequence" type="java.lang.Long" 
+                                            <mtop:input id="secuencia" name="secuencia" type="java.lang.Long" 
                                                         label="Posición en la vista" 
-                                                        numDecimales="0"
-                                                        value="#{propertyHome.instance.sequence}" required="false" 
+                                                        numDecimales="0" render="secuencia"
+                                                        value="#{propertyHome.instance.sequence}" required="true" 
                                                         inlinehelp="Valor de secuencia, ejemplo (0,1,2)" 
+                                                        requiredMessage="Posición de vista requerida, necesita un valor."
+
                                                         execute="@this save" /><br></br>
                                             <mtop:input id="label" name="label" type="text" 
                                                         label="Etiqueta de vista" 
