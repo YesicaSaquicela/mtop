@@ -202,7 +202,9 @@
                                                         <ui:repeat value="#{controladorPlanMantenimiento.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
 
-                                                            <h:panelGroup id="panel1" layout="block" class="clearfix">
+                                                             <h:panelGroup id="panel1" 
+                                                                          rendered="#{a.property.type ne 'org.mtop.modelo.dinamico.Structure'}"  
+                                                                          layout="block" class="clearfix">
 
                                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
                                                                     #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>

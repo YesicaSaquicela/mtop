@@ -21,52 +21,50 @@
                         <div class="panel-heading"><center>LISTA DEL PERSONAL</center></div>
                         <p:panel>
 
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                
-                                                            <center>
-                                                                <h:outputLabel value="Buscar:  " />     #{' '} 
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
 
-                                                                <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge"
-                                                                                 id="acSimple" value="#{controladorPersona.palabrab}"   
-                                                                                 completeMethod="#{controladorPersona.autocompletar}"/> 
+                                    <center>
+                                        <h:outputLabel value="Buscar:  " />     #{' '} 
 
-
-#{' '} 
-                                                                <p:commandLink type="button" value="Buscar" 
-                                                                                 update=":form:profileDataTable1"
-                                                                                 action="#{controladorPersona.buscar()}" 
-                                                                                 styleClass="btn btn-success" >
-
-                                                                </p:commandLink>
-#{' '} #{' '} 
-                                                                <p:commandLink type="button"
-                                                                                 value="Limpiar" update=":form:profileDataTable1 :form:acSimple" 
-                                                                                 action="#{controladorPersona.limpiar()}"
-                                                                                 styleClass="btn btn-success" >
-
-                                                                </p:commandLink>
-                                                            </center>
-                                                     </div>
-                                      </div>
-
-                            
+                                        <p:autoComplete  placeholder="Criterio a buscar" styleClass="xLarge"
+                                                         id="acSimple" value="#{controladorPersona.palabrab}"   
+                                                         completeMethod="#{controladorPersona.autocompletar}"/> 
 
 
-                                <div class="admin-actions">
+                                        #{' '} 
+                                        <p:commandLink type="button" value="Buscar" 
+                                                       update=":form:profileDataTable1"
+                                                       action="#{controladorPersona.buscar()}" 
+                                                       styleClass="btn btn-success" >
 
+                                        </p:commandLink>
+                                        #{' '} #{' '} 
+                                        <p:commandLink type="button"
+                                                       value="Limpiar" update=":form:profileDataTable1 :form:acSimple" 
+                                                       action="#{controladorPersona.limpiar()}"
+                                                       styleClass="btn btn-success" >
+
+                                        </p:commandLink>
+                                    </center>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6" align="left"> 
                                     <h:link styleClass="btn btn-success"
                                             outcome="/paginas/admin/profile/profile.xhtml?faces-redirect=true"
                                             value="Crear"
                                             type="button">  
                                         <f:param name="profileId"></f:param>
                                     </h:link>
-
                                 </div>
-                                <div class="admin-actions" align="right">
+                                <div class="col-md-6" align="right"> 
                                     <h:panelGrid id="export" class="columns" title="Generar reporte" >
                                         <p:panel>
-                                            
+
                                             <h:commandLink action="#{reporteListas.renderPersonal(controladorPersona.listaPersona)}" 
                                                            styleClass="btn" target="_blank" >                    
                                                 <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
@@ -74,10 +72,11 @@
                                             </h:commandLink>                    
                                         </p:panel>
                                     </h:panelGrid>
+                                </div>
 
-                                </div><br/><br/>
 
-                          
+                            </div>
+
 
 
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
@@ -98,18 +97,18 @@
                                                     <f:facet name="header">  
                                                         <h:outputText value="Nombres/Entidad" />  
                                                     </f:facet> 
-                                                <h:outputText value="#{profile_.concatenarNombre()}" />
-                                                
+                                                    <h:outputText value="#{profile_.concatenarNombre()}" />
+
                                                 </p:column>
-                                                 
-                                             
+
+
                                                 <p:column sortBy="#{profile_.cedula}">
                                                     <f:facet name="header">  
                                                         <h:outputText value="Número de cedula/RUC" />  
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.cedula}" />
                                                 </p:column>
-                                               
+
                                                 <p:column sortBy="#{profile_.email}">
                                                     <f:facet name="header">  
                                                         <h:outputText value="Correo electrónico" />  
@@ -122,7 +121,7 @@
                                                     </f:facet> 
                                                     <h:outputText value="#{profile_.tipo}" />
                                                 </p:column>
-                                                 <p:column sortBy="#{profile_.cargo}">
+                                                <p:column sortBy="#{profile_.cargo}">
                                                     <f:facet name="header">  
                                                         <h:outputText value="Cargo de persona" />  
                                                     </f:facet> 
@@ -149,19 +148,19 @@
                                                             <f:param name="profileId" value="#{profile_.id}"></f:param>
                                                             <f:param name="backView" value="/paginas/admin/listProfile"></f:param>
                                                         </p:button>
-                                                      
-                                                        
-                                                      <p:commandButton icon="ui-icon-person" rendered="#{profile_.deleted eq true and profile_.tipo eq 'Natural'}" 
+
+
+                                                        <p:commandButton icon="ui-icon-person" rendered="#{profile_.deleted eq true and profile_.tipo eq 'Natural'}" 
                                                                          oncomplete="#{'carDialog1.show();'}" immediate="true" 
                                                                          title="Crear usuario" >
                                                             <p:ajax process="@this" update=":form-dialog1 "/> 
-                                                      </p:commandButton>
-                                                        
+                                                        </p:commandButton>
+
                                                         <p:commandButton icon="ui-icon-person" rendered="#{profile_.tipo eq 'Juridica'}" 
                                                                          oncomplete="#{'carDialog2.show();'}" immediate="true" 
                                                                          title="Crear usuario" >
                                                             <p:ajax process="@this" update=":form-dialog2 "/> 
-                                                      </p:commandButton>
+                                                        </p:commandButton>
                                                     </center>
                                                 </p:column>
                                             </p:dataTable></tbody>  </div> </div> </div> 
@@ -172,27 +171,27 @@
                 </div>
             </div>
         </h:form>
-         <p:dialog id="form-dialog1" header="Mensaje" widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
+        <p:dialog id="form-dialog1" header="Mensaje" widgetVar="carDialog1"  modal="true" resizable="true" dynamic="true" width="550">
             <h:form id="v1"  >
                 <div class="container-fluid">
                     <div class="row-fluid"  >
                         <h:panelGroup layout="block" id="dial" style="padding:5px;">  
                             <center> <h:outputText value="El usuario seleccionado se encuentra inactivado"/></center>
-                            
+
                         </h:panelGroup>
                     </div></div>
 
             </h:form>
         </p:dialog>
-        
-         <p:dialog id="form-dialog2" header="Mensaje" widgetVar="carDialog2"  modal="true" resizable="true" dynamic="true" width="550">
+
+        <p:dialog id="form-dialog2" header="Mensaje" widgetVar="carDialog2"  modal="true" resizable="true" dynamic="true" width="550">
             <h:form id="v2"  >
                 <div class="container-fluid">
                     <div class="row-fluid"  >
                         <h:panelGroup layout="block" id="dial" style="padding:5px;">  
                             <center> <h:outputText value="La persona seleccionada es de tipo jurídica
                                                    no puede crear el usuario "/></center>
-                            
+
                         </h:panelGroup>
                     </div></div>
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 cesar.
+ * Copyright 2014 yesica.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -444,22 +444,6 @@ public class BussinesEntityTypeHome extends BussinesEntityHome<BussinesEntityTyp
         update();
     }
 
-    @TransactionAttribute
-    public void dismissBootcampAjax() {
-//        getInstance().setShowBootcamp(false);
-        update();
-    }
-
-    public boolean isAssociatedToBussinesEntity() {
-        if (!isIdDefined()) {
-            return false;
-        }
-        boolean b = false;
-        List<BussinesEntity> bussinesEntityList = bussinesEntityService.findBussinesEntityForType(getInstance());
-        b = (!bussinesEntityList.isEmpty() || isPropertyAssociatedBussinesEntityAttributes());
-        log.info("mtop --> Ingreso a verificar entidadGeneral: " + b);  //true si esta asociado 
-        return b;
-    }
 
     public boolean isPropertyAssociatedBussinesEntityAttributes() {
         if (!isIdDefined()) {

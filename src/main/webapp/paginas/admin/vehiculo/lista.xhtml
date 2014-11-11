@@ -55,9 +55,8 @@
 
 
                             </div><br/>
-
-
-                            <div class="admin-actions">
+                            <div class="row">
+                            <div class="col-md-6" align="left"> 
                                 <h:link styleClass="btn btn-success"
                                         outcome="crear"
                                         value="Crear"
@@ -65,9 +64,8 @@
                                     <f:param name="vehiculoId" ></f:param>
                                 </h:link>
 
-
                             </div>
-                            <div class="admin-actions" align="right">
+                            <div class="col-md-6" align="right"> 
                                 <h:panelGrid id="export" class="columns" title="Generar Reporte">
                                     <p:panel>
                                        
@@ -78,10 +76,9 @@
                                         </h:commandLink>                    
                                     </p:panel>
                                 </h:panelGrid>
-
-                            </div>        
+                            </div>
+                                </div>
                             <br/>
-
 
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
                                 <div class="tab-content" >

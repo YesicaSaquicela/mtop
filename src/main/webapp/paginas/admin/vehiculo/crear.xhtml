@@ -336,7 +336,9 @@
                                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                               
 
 
-                                                            <h:panelGroup id="panel1" rendered="#{a.property.type ne 'org.mtop.modelo.EstadoParteMecanica'}"  layout="block" class="clearfix">
+                                                            <h:panelGroup id="panel1" 
+                                                                          rendered="#{a.property.type ne 'org.mtop.modelo.EstadoParteMecanica' and a.property.type ne 'org.mtop.modelo.dinamico.Structure'}"  
+                                                                          layout="block" class="clearfix">
 
                                                                 <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                                                 <div class="input">
@@ -414,8 +416,10 @@
                                 <p:tab title="Otros" rendered="#{controladorVehiculo.instance.findBussinesEntityAttribute('org.mtop.modelo.Vehiculo').size() ne 0 }" closable="false"  titleStyleClass="clearfix"  >
 
                                     <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute('org.mtop.modelo.Vehiculo')}" var="a" varStatus="status"> 
-                                         <h:panelGroup id="otro" layout="block" class="clearfix">
-                                            <label for="#{a.name}" class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">#{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
+                                        <h:panelGroup id="otro" layout="block" class="clearfix" >
+                                            <label for="#{a.name}" 
+                                                   class="#{(not empty a.property.required and a.property.required) ? 'required' : ''}">
+                                                #{a.property.label}#{(not empty a.property.required and a.property.required) ? '*&#160;' : ''}</label>
                                             <div class="input">
 
                                                 <p:inputText id="str"  value="#{a.value}" styleClass="form-control" 
