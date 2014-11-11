@@ -122,7 +122,7 @@
                                                                        <f:ajax execute="str1" render="panel1"/>
                                                                     </pe:inputNumber>  
 
-                                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                                    <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"  style="width: 100%"
                                                                                 rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
                                                                         <f:ajax execute="str2" render="panel1"/>
                                                                     </p:calendar>
@@ -200,7 +200,7 @@
                                                    <f:ajax execute="str1" render="otro"/>
                                                 </pe:inputNumber>  
 
-                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"  style="width: 100%"
+                                                <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"  style="width: 100%"
                                                             rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}"  >
                                                     <f:ajax execute="str2" render="otro"/>
                                                 </p:calendar>

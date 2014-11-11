@@ -169,7 +169,8 @@
                                                                             <p:dataTable id="listasa" value="#{controladorSolicitudReparacionMantenimiento.listaSolicitudAprobadas}" var="sa"
                                                                                          paginator="true" rows="15"                         
                                                                                          paginatorPosition="top"
-                                                                                         rowsPerPageTemplate="5,10,15,20">
+                                                                                         rowsPerPageTemplate="5,10,15,20" 
+                                                                                         emptyMessage="No se han encontrado coincidencias">
 
 
                                                                                 <p:column headerText="Número de solicitud" sortBy="#{sa.numSolicitud}">
