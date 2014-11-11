@@ -751,7 +751,7 @@
                                                     <p:panel id="req" rendered="#{controladorSolicitudReparacionMantenimiento.requisicion.id ne null}" >
                                                         <div class="admin-actions" align="right">
                                                             <p:commandButton id="save3" value="Quitar requisición" 
-                                                                             icon="ui-icon-closethick"  styleClass="btn  btn-success" 
+                                                                             icon="ui-icon-closethick"  style="color:#009ACD" styleClass="btn-success" 
                                                                              process="@this" update="@form" >
                                                                 <f:setPropertyActionListener value="#{null}" target="#{controladorSolicitudReparacionMantenimiento.requisicion}" />
                                                             </p:commandButton>
@@ -1550,7 +1550,7 @@
                                                         </p:commandButton> 
                                                     </center>
                                                 </p:column>
-                                                <p:column headerText="Dar de Baja" style="width: 10%"> 
+                                                <p:column headerText="Dar de Baja" style="width: 15%"> 
                                                     <center>
                                                         <p:commandButton process="@form" id="dardebaja" icon="ui-icon-trash"
                                                                          actionListener="#{controladorRequisicion.eliminarItem(item2)}" 
