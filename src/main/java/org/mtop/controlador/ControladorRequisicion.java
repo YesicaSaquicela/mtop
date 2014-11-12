@@ -170,8 +170,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             for (String partida1 : listaPartidaAgregar) {
                 System.out.println("patida a presentar");
                 System.out.println("patida a presentar" + partida1);
-                System.out.println("patida a presentar" + servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(partida1)).concatenarPartida().toString());
-                lp.add(servgen.buscarPorId(PartidaContabilidad.class, Long.valueOf(partida1)));
+                System.out.println("patida a presentar" + findById(PartidaContabilidad.class, Long.valueOf(partida1)).concatenarPartida().toString());
+                lp.add(findById(PartidaContabilidad.class, Long.valueOf(partida1)));
             }
 
             return lp;
@@ -252,42 +252,38 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
         }
         this.it = it;
     }
-
+//public void fijarString(){
+//            System.out.println("entro a fijar it vacios " );
+//            it.setCantidad(0);
+//            it.setUnidadMedida(" ");
+//            it.setDescripcion(" ");
+//    }
     public void editar() {
         System.out.println("llego a editar " + it.getDescripcion());
-        String des = it.getDescripcion().trim();
-        String uni = it.getUnidadMedida().trim();
 
-        if (it.getCantidad().equals(0) || des.equals("") || uni.equals("")) {
-             System.out.println("llego a editar va a presentar mensaje");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", " Campos abligatorios, cantidad, descripción y unidad de medida"));
+        if (pro != null) {
 
-        } else {
-            if (pro != null) {
+            if (!pro.getCodigo().equals("")) {
 
-                if (!pro.getCodigo().equals("")) {
+                Producto p = new Producto();
+                List<Producto> lp = new ArrayList<Producto>();
+                for (Producto prod : listaProductos) {
+                    if (!prod.getId().equals(pro.getId())) {
+                        lp.add(prod);
 
-                    Producto p = new Producto();
-                    List<Producto> lp = new ArrayList<Producto>();
-                    for (Producto prod : listaProductos) {
-                        if (!prod.getId().equals(pro.getId())) {
-                            lp.add(prod);
-
-                        }
                     }
-                    listaProductos = lp;
-                    pro.setCantidad(pro.getCantidad() - it.getCantidad());
-
-                    listaProductos.add(pro);
                 }
+                listaProductos = lp;
+                pro.setCantidad(pro.getCantidad() - it.getCantidad());
+
+                listaProductos.add(pro);
             }
-            it = new ItemRequisicion();
-
-            it.setCantidad(0);
-            it.setUnidadMedida(" ");
-            it.setDescripcion(" ");
-
         }
+        it = new ItemRequisicion();
+
+        it.setCantidad(0);
+        it.setUnidadMedida(" ");
+        it.setDescripcion(" ");
 
     }
 
@@ -776,16 +772,16 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
             this.solicitudrep = solicitudrep;
             getInstance().setSolicitudReparacionId(solicitudrep);
         } else {
-            Boolean ban = true;
+           Boolean ban=true;
             for (SolicitudReparacionMantenimiento sol : listaSolicitudes) {
-                if (sol.getId().equals(getInstance().getSolicitudReparacionId().getId())) {
-                    ban = false;
+               if(sol.getId().equals(getInstance().getSolicitudReparacionId().getId())){
+                    ban=false;
                 }
             }
-            if (ban) {
-
+            if(ban){
+             
                 listaSolicitudes.add(getInstance().getSolicitudReparacionId());
-
+           
             }
             this.solicitudrep = new SolicitudReparacionMantenimiento();
         }
@@ -1422,6 +1418,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     public String onFlowProcess(FlowEvent event) {
         nombrew = "soli";
         mensaje = "";
+         System.out.println("entro a wizar" );
 
         System.out.println("lista part" + listaPartidaAgregar);
         if (skip) {
@@ -1476,6 +1473,8 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                                 mensaje = "Error! Debe asignar al menos una partida de contabilidad";
                                 return event.getOldStep();
                             } else {
+                                
+                                    System.out.println("retorna new sztep" );
 
 //                    if (event.getNewStep().equals("items") && this.listaItemsRequisicion.isEmpty() ) {
 //                        System.out.println("\n\n\n\n entro a regresar\n\n\n\n");
@@ -2095,6 +2094,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
         return nombPersona;
     }
+
 //    public PartidaContabilidad getPartidaC() {
 //        return partidaC;
 //    }

@@ -59,8 +59,8 @@
                     <p:wizard showStepStatus="false" widgetVar="wizard" showNavBar="false" 
                               rendered="#{controladorRequisicion.vista eq 'requisicion'}" 
                               id="p" flowListener="#{controladorRequisicion.onFlowProcess}" 
-                              backLabel="Atrás" nextLabel="Siguiente" >
-                        <p:tab id="req"  title="Requisición">
+                              backLabel="Atrás" nextLabel="Siguiente"  >
+                        <p:tab id="req"  title="Requisición" >
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><center>Datos generales</center></div>
                                 <p:panel >
@@ -134,7 +134,7 @@
                                                  <h:outputLabel value="Fecha de requisición*" /> <br></br> 
                                                  <h:panelGrid id="p12">
                                                     <p:calendar  id="fecha1" value="#{controladorRequisicion.instance.fechaRequisicion}"  
-                                                                 styleClass="xLarge" readonlyInput="true" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
+                                                                 styleClass="xLarge" required="true" requiredMessage="Fecha de requisición requerida, necesita un valor." 
                                                                  locale="es">   
                                                         <f:ajax event="dateSelect" execute="fecha1" render="p12"/>  
 
@@ -270,7 +270,7 @@
 
                                                                                 <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                             </p:inputText>
-                                                                            <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
+                                                                            <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                                         rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                                                 <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                             </p:calendar>
@@ -353,7 +353,7 @@
 
                                                         <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                     </p:inputText>
-                                                    <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
+                                                    <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                 rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                         <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                     </p:calendar>
@@ -821,14 +821,15 @@
 
                                                         <p:column headerText="Editar" style="width: 3%"> 
 
-                                                            <p:commandButton  update=":form:dialog"   oncomplete="PF('documentDialog').show()"
+                                                            <p:commandButton  update=":form1:dialog"   oncomplete="PF('documentDialog').show()"
                                                                               icon="ui-icon-pencil" style="width: 35px; height: 35px" id="editar"
                                                                               title="Editar"
                                                                               process="@this">
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton> #{" "}
                                                         </p:column>
-                                                        <p:column headerText="Dar de baja" style="width: 3%"> 
+                                                        <p:column headerText="Dar de baja" style="width: 10%"> 
+                                                             
                                                             <p:commandButton  update=":form:listai :form:mensaje2"  icon="ui-icon-trash" 
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
                                                                               process="@form" style="width: 35px; height: 35px">
@@ -852,6 +853,7 @@
                                                         </p:column>
 
                                                     </p:dataTable>
+                                                   
                                                 </tbody>
                                             </div>
                                         </div>
@@ -862,67 +864,7 @@
 
 
                                 </p:panel>
-                                <p:dialog width="450" height="390" id="dialog"   header="Editar ítems" 
-                                          showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
-                                    <h:panelGroup id="documentPanel" style="width:100%">
-                                        <h:panelGroup id="documentPanel1" style="width:100%">
-
-
-                                            <div class="input">
-                                                <p:outputLabel value="Cantidad*"/><br></br>
-                                                <p:spinner  id="cantidad1"   
-                                                            requiredMessage="Cantidad requerida, necesita un valor"
-                                                            value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
-                                                    <f:ajax event="blur" execute="cantidad1" render="documentPanel"/>
-                                                </p:spinner >   <br/>
-
-                                                <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
-                                            </div>
-                                        </h:panelGroup><br/><br/>
-                                        <h:panelGroup id="documentPanel2" style="width:100%">
-                                            <p:outputLabel value="Descripción*"/><br></br>
-                                            <p:inputTextarea id="descrip1" style="width: 100%"
-                                                             value="#{controladorRequisicion.it.descripcion}"
-                                                             requiredMessage="Descipción requerida, necesita un valor"
-                                                             readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
-                                                <f:ajax execute="descrip1" render="documentPanel"/>
-                                            </p:inputTextarea>
-                                            <span class="help-inline text-muted">Descripción del ítem <ocp:message forId="descrip1"/></span>
-                                        </h:panelGroup>     <br/><br/>
-                                        <h:panelGroup id="documentPane3" style="width:100%">
-                                            <p:outputLabel value="Unidad de medida*"/><br></br>
-                                            <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
-                                                         value="#{controladorRequisicion.it.unidadMedida}"   >
-                                                <f:ajax execute="unidadMedida1" render="documentPanel"/>
-                                            </p:inputText>
-                                            <br/>
-
-                                            <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
-                                        </h:panelGroup>
-                                        <br></br><br/>
-
-                                        <div  class="admin-actions" align="center">
-                                             <p:messages id="mensaje21" showDetail="true" closable="true" />
-                                            <p:commandLink  id="saves1" update=":form:mensaje21 :form:listai :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" 
-                                                            styleClass="btn  btn-success" value="Grabar" title="Grabar"  oncomplete="PF('documentDialog').hide()" 
-                                                            action="#{controladorRequisicion.editar()}" 
-                                                            rendered="#{controladorRequisicion.it.cantidad ne 0 and controladorRequisicion.it.descripcion.trim() ne '' and controladorRequisicion.it.unidadMedida.trim() ne ''}">
-
-                                            </p:commandLink>
-                                            <p:commandLink  id="saves2" update=":form:mensaje21 :form:listai :form:cantidad1 :form:unidadMedida1 :form:descrip1 :form:basicoDT3" 
-                                                            styleClass="btn  btn-success" value="Grabar" title="Grabar"  
-                                                            rendered="#{controladorRequisicion.it.cantidad eq 0 or controladorRequisicion.it.descripcion.trim() eq '' or controladorRequisicion.it.unidadMedida.trim() eq ''}"
-                                                             action="#{controladorRequisicion.editar()}" 
-                                                            >
-
-                                            </p:commandLink>
-
-                                        </div><br/>
-
-                                        <br/>
-                                    </h:panelGroup>
-
-                                </p:dialog>
+                                
 
                             </div>
 
@@ -1368,7 +1310,7 @@
 
                                                                                     <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                                                 </p:inputText>
-                                                                                <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
+                                                                                <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                                             rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                                                     <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                                                 </p:calendar>
@@ -1451,7 +1393,7 @@
 
                                                             <p:ajax event="blur" update="@this" partialSubmit="true"/>
                                                         </p:inputText>
-                                                        <p:calendar id="str2" value="#{a.value}" readonlyInput="true" navigator="true" label="#{a.property.label}"
+                                                        <p:calendar id="str2" value="#{a.value}" navigator="true" label="#{a.property.label}"
                                                                     rendered="#{a.property.type eq 'java.util.Date'}" required="#{a.property.required}">
                                                             <p:ajax event="dateSelect" update="@this" partialSubmit="true"/>
                                                         </p:calendar>
@@ -1587,7 +1529,7 @@
                                                     </p:column>
                                                     <p:column headerText="Editar" style="width: 10%"> 
                                                         <center>                                
-                                                            <p:commandButton icon="ui-icon-pencil" update=":form:dialog1" title="Editar"
+                                                            <p:commandButton icon="ui-icon-pencil" update=":form2:dialog1" title="Editar"
                                                                              style="margin-top:10px;" process="@this"  oncomplete="PF('documentDialog1').show()">
                                                                 <f:setPropertyActionListener value="#{la}" target="#{controladorSolicitudReparacionMantenimiento.it}" />
                                                             </p:commandButton> </center> 
@@ -1624,59 +1566,7 @@
 
 
                             </p:panel>
-                            <p:dialog position="500,400" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
-                                      widgetVar="documentDialog1" modal="true" resizable="false">
-                                <h:panelGroup id="documentPanelc" style="width:100%">
-
-                                    <p:outputLabel value="Elemento a revisar*"/><br></br>
-
-                                    <h:panelGroup id="er1">
-                                        <p:inputTextarea id="elementoRevisar1" 
-                                                         styleClass="form-control" 
-                                                         value="#{controladorSolicitudReparacionMantenimiento.it.descripcionElementoRevisar}"
-                                                         requiredMessage="Elemento a revisar requerido, necesita un valor">
-                                            <f:ajax execute="elementoRevisar1" render="er1 documentPanelc"/>                                             
-                                        </p:inputTextarea>
-
-                                        <span class="help-inline text-muted">Ingrese un elemento a revisar</span><br></br><br/>
-                                    </h:panelGroup>
-
-                                    <p:outputLabel value="Descripción de falla*"/><br></br>
-                                    <h:panelGroup id="df2">
-                                        
-                                        <p:inputTextarea id="descripcionFalla1" 
-                                                         styleClass="form-control" 
-                                                         value="#{controladorSolicitudReparacionMantenimiento.it.descripcionFalla}"
-                                                         requiredMessage="Descripción de falla requerido, necesita un valor" >
-                                            <f:ajax execute="descripcionFalla1" render="df2 documentPanelc"/>
-                                        </p:inputTextarea>
-                                        <span class="help-inline text-muted">Ingrese la descripción de la falla</span><br></br><br/>
-                                    </h:panelGroup>
-                                    <br/>
-                                    <center>
-                                        <div class="admin-actions">
-                                            <p:messages  id="mensaje12" showDetail="true" closable="true" />
-                                            <p:commandLink id="saver1"  update=":form:mensaje12 :form:documentPanelc :form:listaa :form:elementoRevisar1 :form:descripcionFalla1" process=":form:documentPanelc"
-                                                             styleClass="btn  btn-success" value="Grabar" title="Grabar"  oncomplete="PF('documentDialog1').hide()" 
-                                                              rendered="#{controladorSolicitudReparacionMantenimiento.it.descripcionFalla.trim() ne '' and controladorSolicitudReparacionMantenimiento.it.descripcionElementoRevisar ne ''}"
-                                                            
-                                                             action="#{controladorSolicitudReparacionMantenimiento.editar()}">
-
-                                            </p:commandLink>
-                                            <p:commandLink  id="saver2" update=":form:mensaje12 :form:documentPanelc :form:listaa :form:elementoRevisar1 :form:descripcionFalla1" process=":form:documentPanelc"
-                                                             styleClass="btn  btn-success" value="Grabar" title="Grabar"  
-                                                             rendered="#{controladorSolicitudReparacionMantenimiento.it.descripcionFalla.trim() eq '' or controladorSolicitudReparacionMantenimiento.it.descripcionElementoRevisar eq ''}"
-                                                             action="#{controladorSolicitudReparacionMantenimiento.editar()}">
-
-                                            </p:commandLink>
-
-                                        </div>
-                                    </center><br/>
-
-                                    <br/>
-                                </h:panelGroup>
-
-                            </p:dialog>
+                            
                         </div>
                         <p:panel id="pp2">
 
@@ -1746,9 +1636,109 @@
             </p:dialog>
 
         </h:form>
+        <h:form id="form1">
+            <p:dialog position="300,650" width="450" height="390" id="dialog"  header="Editar ítems" 
+                                        
+                                          showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false"
+                                          >
+                                    <h:panelGroup id="documentPanel" style="width:100%">
+                                        <h:panelGroup id="documentPanel1" style="width:100%">
+
+
+                                            <div class="input">
+                                                <p:outputLabel value="Cantidad*"/><br></br>
+                                                <p:spinner  id="cantidad1" required="true"  
+                                                            requiredMessage="Cantidad requerida, necesita un valor"
+                                                            value="#{controladorRequisicion.it.cantidad}" min="1" max="#{controladorRequisicion.maximo}" >
+                                                    <f:ajax event="blur" execute="cantidad1" render="documentPanel1"/>
+                                                </p:spinner >   <br/>
+
+                                                <span class="help-inline text-muted">Cantidad de productos<ocp:message forId="cantidad1"/></span>
+                                            </div>
+                                        </h:panelGroup><br/><br/>
+                                        <h:panelGroup id="documentPanel2" style="width:100%">
+                                            <p:outputLabel value="Descripción*"/><br></br>
+                                            <p:inputTextarea id="descrip1" style="width: 100%"
+                                                             value="#{controladorRequisicion.it.descripcion}"
+                                                             required="true" requiredMessage="Descipción requerida, necesita un valor"
+                                                             readonly="#{controladorRequisicion.instance.tipoAdquisicion eq 'bodega'}" >
+                                                <f:ajax execute="descrip1" render="documentPanel2"/>
+                                            </p:inputTextarea>
+                                            <span class="help-inline text-muted">Descripción del ítem <ocp:message forId="descrip1"/></span>
+                                        </h:panelGroup>     <br/><br/>
+                                        <h:panelGroup id="documentPane3" style="width:100%">
+                                            <p:outputLabel value="Unidad de medida*"/><br></br>
+                                            <p:inputText id="unidadMedida1" style="width: 100%" requiredMessage="Unidad de medida requerida, necesita un valor"
+                                                         value="#{controladorRequisicion.it.unidadMedida}" required="true"  >
+                                                <f:ajax execute="unidadMedida1" render="documentPane3"/>
+                                            </p:inputText>
+                                            <br/>
+
+                                            <span class="help-inline text-muted">Descripción de la unidad de medida <ocp:message forId="unidadMedida1"/></span>
+                                        </h:panelGroup>
+                                        <br></br><br/>
+
+                                        <div id="diveditar" class="admin-actions" align="center">
+                                            <p:commandLink  id="editarItem" update=":form:listai form1:cantidad1 form1:unidadMedida1 form1:descrip1 :form:basicoDT3" 
+                                                            styleClass="btn  btn-success" value="Grabar" title="Grabar"  oncomplete="PF('documentDialog').hide()" 
+                                                            action="#{controladorRequisicion.editar()}" process="@form">
+
+                                            </p:commandLink>
+
+                                        </div><br/>
+
+                                        <br/>
+                                    </h:panelGroup>
+
+                                </p:dialog>
+        </h:form>
+        <h:form id="form2">
+            <p:dialog position="300,650" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
+                                      widgetVar="documentDialog1" modal="true" resizable="false">
+                                <h:panelGroup id="documentPanelc" style="width:100%">
+
+                                    <p:outputLabel value="Elemento a revisar*"/><br></br>
+
+                                    <h:panelGroup id="er1">
+                                        <p:inputTextarea id="elementoRevisar1" required="true"
+                                                         styleClass="form-control" 
+                                                         value="#{controladorSolicitudReparacionMantenimiento.it.descripcionElementoRevisar}"
+                                                         requiredMessage="Elemento a revisar requerido, necesita un valor">
+                                            <f:ajax execute="elementoRevisar1" render="er1"/>
+                                        </p:inputTextarea>
+
+                                        <span class="help-inline text-muted">Ingrese un elemento a revisar<ocp:message forId="elementoRevisar1" /></span><br></br><br/>
+                                    </h:panelGroup>
+
+                                    <p:outputLabel value="Descripción de falla*"/><br></br>
+                                    <h:panelGroup id="df2">
+                                        <p:inputTextarea id="descripcionFalla1" required="true"
+                                                         styleClass="form-control" 
+                                                         value="#{controladorSolicitudReparacionMantenimiento.it.descripcionFalla}"
+                                                         requiredMessage="Descripción de falla requerido, necesita un valor" >
+                                            <f:ajax execute="descripcionFalla1" render="df2"/>
+                                        </p:inputTextarea>
+                                        <span class="help-inline text-muted">Ingrese la descripción de la falla<ocp:message forId="descripcionFalla1" /></span><br></br><br/>
+                                    </h:panelGroup>
+                                    <br/>
+                                    <center>
+                                        <div class="admin-actions">
+                                            <p:commandLink  id="editarsol" update="form2:documentPanelc :form:listaa form2:elementoRevisar1 form2:descripcionFalla1" process="form2:documentPanelc"
+                                                             styleClass="btn  btn-success" value="Grabar" title="Grabar"  oncomplete="PF('documentDialog1').hide()" 
+                                                             action="#{controladorSolicitudReparacionMantenimiento.editar()}">
+
+                                            </p:commandLink>
+
+                                        </div>
+                                    </center><br/>
+
+                                    <br/>
+                                </h:panelGroup>
+
+                            </p:dialog>
+        </h:form>
 
 
     </ui:define>
 </ui:composition>
-
 
