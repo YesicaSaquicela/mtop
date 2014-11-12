@@ -210,7 +210,7 @@
                                                          paginator="true" rows="3"                         
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="3,5,10"
-                                                         >
+                                                         emptyMessage="No se han encontrado coincidencias">
                                                          <p:column headerText="Partida" sortBy="#{items.concatenarPartida}">
                                                             <h:outputText value="#{items.concatenarPartida}"></h:outputText>
                                                          </p:column>
@@ -502,7 +502,7 @@
                                                         <div align="right" class="admin-actions">
 
                                                             <p:commandButton value="Quitar vehículo" update="@form" icon="ui-icon-closethick"
-                                                                             process="@form" styleClass="btn btn-success" 
+                                                                             process="@form" style="color:#009ACD" styleClass="btn-success" 
 
                                                                              >
 
@@ -666,7 +666,7 @@
 
                                                                  rowsPerPageTemplate="5,10,15,20"
 
-                                                                 >
+                                                                 emptyMessage="No se han encontrado coincidencias">
 
                                                         <f:facet name="header" class="panel-heading" >
                                                             Lista de productos
@@ -960,7 +960,7 @@
 
                                                             <p:commandButton value="Quitar solicitud" update="@form" icon="ui-icon-closethick"
 
-                                                                             process="@this" styleClass="btn btn-success" 
+                                                                             process="@this" style="color:#009ACD" styleClass="btn-success"
                                                                              >
 
                                                                 <f:setPropertyActionListener value="#{null}" target="#{controladorRequisicion.solicitudrep}"  />

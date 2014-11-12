@@ -95,6 +95,12 @@
                                         <h:outputLabel class="navbar-text" value=" Marca:"/>
                                         <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
                                     </div>
+                               <div class="col-md-4"> 
+
+                                <h:outputLabel class="navbar-text" value=" Conductor"/>
+                                 <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.persona.fullName}"/>
+
+                            </div>
                                 </div>
                             </div>
                             <br/>
@@ -109,7 +115,7 @@
                         <div class="container-fluid">
                                 <!-- Example row of columns -->
                                 <div class="row-fluid">
-                                    <p:outputLabel value="Fecha final*"/><br/>
+                                    <p:outputLabel value="Fecha final"/><br/>
                                     <p:calendar  id="fechaEntrada" value="#{controladorVehiculo.fechaFinal}" 
                                                  styleClass="xLarge" required="true" disabled="true"
                                                  >   
@@ -133,7 +139,7 @@
 
 
                                     <h:outputLabel value="Estado*"/> <br></br> 
-                                    <p:selectOneMenu id="estado" value="#{controladorVehiculo.estado.nombre}" 
+                                    <p:selectOneMenu id="estado" style="width: 100%" value="#{controladorVehiculo.estado.nombre}" 
                                                      effect="fade" required="true" requiredMessage="Estado requerido, necesita un valor." >  
                                         <p:ajax event="change" update="p11" />  
                                         <f:selectItem itemLabel="Selecione uno" itemValue="" />  
