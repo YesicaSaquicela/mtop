@@ -260,14 +260,10 @@ public class BussinesEntity extends DeletableObject<BussinesEntity> {
         List<BussinesEntityAttribute> _buffer = new ArrayList<BussinesEntityAttribute>();
 
         for (BussinesEntityAttribute a : getAttributes()) {
-            System.out.println("entroa afor bussines");
+            
             for (String sn : structureNames) {
-                System.out.println("sn" + sn);
-                System.out.println("tipo de atributo >>>"+a.getProperty().getType());
-                System.out.println("nombre ssstruct" + a.getProperty().getStructure().getBussinesEntityType().getName());
                 if (sn.equalsIgnoreCase(a.getProperty().getStructure().getBussinesEntityType().getName())&& !a.getProperty().getType().equals("org.mtop.modelo.dinamico.Structure")) {
                     _buffer.add(a);
-                    System.out.println("entro anadir");
                 }
             }
         }

@@ -44,7 +44,7 @@
                                             <div class="input">
                                                 <p:outputLabel  value="Tipo de persona* " /><br/>
                                                 <p:selectOneMenu id="tipo" value="#{profileHome.tipopersona}"   style="width: 100%"
-                                                                 effect="fold" required="true"
+                                                                 effect="fold" required="true" disabled="#{profileHome.instance.isPersistent}"
                                                                  requiredMessage="Tipo de persona requerido, necesita un valor">
                                               
                                                        <f:selectItem itemLabel="Selecione uno" itemValue="" />  

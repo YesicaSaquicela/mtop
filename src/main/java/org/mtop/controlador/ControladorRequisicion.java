@@ -296,6 +296,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
     }
 
     public Double getTotal() {
+        total=0.0;
         for (ItemRequisicion ir : listaItemsRequisicion) {
             total = total + (ir.getCantidad() * ir.getProducto().getCosto());
         }
@@ -331,7 +332,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
 
                 }
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Se eliminó Item " + items.getDescripcion() + " con éxito ");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", " Item " + items.getDescripcion() + " dado de baja con éxito ");
                 FacesContext.getCurrentInstance().addMessage("", msg);
 
             }
@@ -1327,7 +1328,7 @@ public class ControladorRequisicion extends BussinesEntityHome<Requisicion> impl
                     pro = listaProductos.get(j);
                 }
 
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "Se eliminó ítem" + i.getDescripcion()));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "ítem " + i.getDescripcion()+" dado de baja"));
 
                 break;
 

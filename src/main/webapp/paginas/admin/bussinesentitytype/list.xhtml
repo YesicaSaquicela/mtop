@@ -119,9 +119,10 @@ limitations under the License.
                                                                      title="Desactivar"
                                                                      rendered="#{bussinesEntityTypeListService.tienePropiedades(bussinesEntityType.id)}">                        
                                                     </p:commandButton>
+                                                    
                                                     <p:commandButton id="dardebaja" icon="ui-icon-trash" 
                                                                      actionListener="#{bussinesEntityTypeHome.fijaEntidad(bussinesEntityType.id)}" 
-                                                                     oncomplete="dlg1.show();" update=":dia" process="@this"
+                                                                     oncomplete="dlg1.show();" update="@this :dia" process="@this"
                                                                      title="Desactivar" style="width: 35px; height: 35px" styleClass="btn  btn-success"
                                                                      rendered="#{bussinesEntityTypeListService.tienePropiedades(bussinesEntityType.id) eq false}">       
 
@@ -169,8 +170,6 @@ limitations under the License.
                     <h:outputText value="Desea realmente desactivar la Entidad "/>
                     <br/>
                     <h:outputText value="#{bussinesEntityTypeHome.instance.name}"/>  
-
-
 
                 </h:panelGroup> 
                 <center>

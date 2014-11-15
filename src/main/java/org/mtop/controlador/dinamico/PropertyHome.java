@@ -652,17 +652,17 @@ public class PropertyHome extends BussinesEntityHome<Property> implements Serial
             
             boolean ban = bussinesEntityService.findBussinesEntityForProperty(getInstance()).isEmpty() && bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance()).isEmpty();
             //log.info("eqaula --> property tiene valores : " + ban);
-
+            System.out.println("label"+getInstance().getLabel());
+            System.out.println("tipo"+getInstance().getType());
             if (getInstance().getType().equals("org.mtop.modelo.dinamico.Structure")) {
+                BussinesEntityType bet = bussinesEntityService.findBussinesEntityTypeByName(getInstance().getName());
 
-                List<BussinesEntityAttribute> bet = bussinesEntityService.findBussinesEntityAttributeForProperty(getInstance());
-                System.out.println("valor de bet"+bet);
-                if (!bet.isEmpty()) {
-                    ban = false;
-                }
+            if (bet != null) {
+                ban = false;
+            }
 
             }
-           
+            System.out.println("valor de bandera"+ban);
             return ban;
 
         } else {

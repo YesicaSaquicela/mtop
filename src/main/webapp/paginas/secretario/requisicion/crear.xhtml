@@ -828,7 +828,7 @@
                                                                 <f:setPropertyActionListener value="#{item2}" target="#{controladorRequisicion.it}" />
                                                             </p:commandButton> #{" "}
                                                         </p:column>
-                                                        <p:column headerText="Dar de baja" style="width: 10%"> 
+                                                        <p:column headerText="Dar de baja" style="width: 3%"> 
                                                              
                                                             <p:commandButton  update=":form:listai :form:mensaje2"  icon="ui-icon-trash" 
                                                                               actionListener="#{controladorRequisicion.eliminarItem(item2)}" title="Dar de baja"
@@ -1183,7 +1183,7 @@
                                                      rendered="true" ></p:inputText>
                                         <h:graphicImage value="#{resource['visto.png']}" styleClass="validation-status" />
                                         <span class="help-inline text-muted">Número de solicitud<ocp:message forId="registro" /></span><br></br><br></br>
-
+                                        
                                             <h:outputLabel value="Fecha de solicitud*" /> <br></br> 
                                              <h:panelGrid id="fechas">
                                                 <p:calendar  id="fecha" value="#{controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud}"  
@@ -1448,7 +1448,10 @@
                                         </p:tabView>
                                     </div>
                                 </p:panel><br></br>
-                                <div class="admin-actions">
+                                
+                            </p:panel>
+                        </div> 
+                        <div class="admin-actions">
                                     <p:commandLink update="@form" 
                                                    process="@form" value="Agregar ítems" title="Ítems" type="button"
                                                    styleClass="btn  btn-success" immediate="false">
@@ -1457,8 +1460,6 @@
                                     </p:commandLink>
 
                                 </div><br/>
-                            </p:panel>
-                        </div> 
                     </p:panel>
 
                     <p:panel id="itemssol" rendered="#{controladorRequisicion.vista eq 'solicitud2'}">
@@ -1594,7 +1595,9 @@
                                                >
 
                                     <f:setPropertyActionListener value="requisicion" target="#{controladorRequisicion.vista}" />
-
+                                        <f:setPropertyActionListener value="#{null}" 
+                                                             target="#{controladorSolicitudReparacionMantenimiento.instance}"/>
+                            
                                     <f:setPropertyActionListener value="#{controladorSolicitudReparacionMantenimiento.listaSolicitud}" target="#{controladorRequisicion.listaSolicitudes}"/>
                                 </p:commandLink>
 
@@ -1637,8 +1640,8 @@
 
         </h:form>
         <h:form id="form1">
-            <p:dialog position="300,650" width="450" height="390" id="dialog"  header="Editar ítems" 
-                                        
+            <p:dialog position="100,600" width="450" height="390" id="dialog"  header="Editar ítems" 
+                                      closeOnEscape="true"  
                                           showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false"
                                           >
                                     <h:panelGroup id="documentPanel" style="width:100%">
@@ -1693,7 +1696,7 @@
                                 </p:dialog>
         </h:form>
         <h:form id="form2">
-            <p:dialog position="300,650" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
+            <p:dialog position="100,600" closeOnEscape="true" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
                                       widgetVar="documentDialog1" modal="true" resizable="false">
                                 <h:panelGroup id="documentPanelc" style="width:100%">
 

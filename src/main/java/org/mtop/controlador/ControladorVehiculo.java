@@ -1184,18 +1184,12 @@ public class ControladorVehiculo extends BussinesEntityHome<Vehiculo> implements
     }
 
     public boolean tieneEstadosEstructura(Property propiedad) {
-        System.out.println("propiedades " + propiedad.getStructure().getProperties());
-
-        for (Property p : findAll(Property.class)) {
-            if (p.getGroupName()
-                    != null) {
-                if (p.getGroupName().equals(propiedad.getName())) {
-
-                    if (p.getType().equals("org.mtop.modelo.EstadoParteMecanica")) {
-
+        System.out.println("propiedades de" +propiedad.getName());
+       for (BussinesEntityAttribute p : getInstance().findBussinesEntityAttribute(propiedad.getName())) {
+            if (p.getProperty().getType().equals("org.mtop.modelo.EstadoParteMecanica")){
+                   
                         return true;
-                    }
-                }
+                 
             }
 
         }
