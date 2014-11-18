@@ -806,7 +806,6 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
         if (isIdDefined()) {
             wire();
         }
-        //  log.info("sgssalud --> cargar instance " + getInstance());
         return getInstance();
     }
 
@@ -897,8 +896,7 @@ public class ControladorKardex extends BussinesEntityHome<Kardex> implements Ser
 
     @Transactional
     public String borrarEntidad() {
-        //       log.info("sgssalud --> ingreso a eliminar: " + getInstance().getId());
-        try {
+       try {
             if (getInstance() == null) {
                 throw new NullPointerException("Servicio is null");
             }

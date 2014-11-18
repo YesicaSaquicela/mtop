@@ -11,20 +11,10 @@ public class ApplicationConfig
    public static final String GUEST_ACCOUNT_NAME = "guest";
 
    private String siteName = "mtop";
-   private String blogUrl = "http://www.unl.edu.ec";
    private boolean analyticsEnabled = false;
    private String analyticsId = "";
 
-   public String getBlogUrl()
-   {
-      return blogUrl;
-   }
-
-   public void setBlogUrl(final String blogUrl)
-   {
-      this.blogUrl = blogUrl;
-   }
-
+  
    public String getSiteName()
    {
       return siteName;

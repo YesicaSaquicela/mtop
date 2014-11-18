@@ -52,14 +52,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.mtop.cdi.Web;
-//import edu.sgssalud.controller.profile.GroupHome;
 import org.mtop.service.BussinesEntityService;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import org.mtop.modelo.dinamico.BussinesEntityType;
 
 @Named("ui")
 @RequestScoped
@@ -94,7 +87,7 @@ public class UI {
         System.out.println("collections" + q.getResultList());
         return q.getResultList();
     }
-//----
+/*
 
     public List<BussinesEntityAttribute> getAttributes(BussinesEntity entity, String names) {
         List<String> types = Lists.stringToList(names);
@@ -105,25 +98,8 @@ public class UI {
         return q.getResultList();
 
     }
+*/
 
-//    public List<GroupHome.ColumnModel> findColumnsTemplate(Group g) {
-//        List<GroupHome.ColumnModel> columns = new ArrayList<GroupHome.ColumnModel>();
-//        BussinesEntity template = makeBussinessEntity(g);
-//        //List<ColumnModel> _columns = new ArrayList<ColumnModel>();
-//        for (BussinesEntityAttribute a : template.getAttributes()) {
-//            if (a.getProperty().isShowInColumns()) {
-//                columns.add(new GroupHome.ColumnModel(a.getProperty().getLabel(), a.getProperty().getName()));
-//            }
-//        }
-//        if (columns.isEmpty() || g.getProperty().isShowDefaultBussinesEntityProperties()) {
-//            //TODO aplicar internacionalización
-//            columns.add(new GroupHome.ColumnModel("name", "name"));
-//            columns.add(new GroupHome.ColumnModel("code", "code"));
-//        }
-//
-//        return columns;
-//    }   
-//----
     public BussinesEntity makeBussinessEntity(Group g) {
         Date now = Calendar.getInstance().getTime();
         //TODO internacionalizar cadenas estáticas
@@ -140,8 +116,7 @@ public class UI {
         entity.buildAttributes(g.getName(), bussinesEntityService); //Construir atributos de grupos
         return entity;
     }
-//----
-
+/*
     public Group getGroup(BussinesEntity entity, Property p) {
         Query q = em.createNamedQuery("Group.findByBussinesEntityIdAndPropertyId");
         q.setParameter("bussinesEntityId", entity.getId());
@@ -149,7 +124,7 @@ public class UI {
         return q.getResultList().isEmpty() ? new Group() : (Group) q.getResultList().get(0);
 
     }
-//----
+*/
 
     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();

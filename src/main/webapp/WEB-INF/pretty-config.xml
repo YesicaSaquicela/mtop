@@ -50,9 +50,6 @@
         <view-id value="/pages/reset.xhtml"></view-id>
       
     </url-mapping>
-    <url-mapping id="cambioClavePaciente">
-        <pattern value="/paciente/reset"></pattern>
-        <view-id value="/pages/paciente/reset.xhtml"></view-id>   
-    </url-mapping>
+
 
 </pretty-config>

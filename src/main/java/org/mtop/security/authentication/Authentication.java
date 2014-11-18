@@ -112,14 +112,7 @@ public class Authentication {
             response.flushBuffer();
             //return;
         } else {
-            //Configurar si es usuario de perfil o usuario de paciente...  
-            //log.info("Nombre usuario: " + credencials.getUsername());
-//            pacienteServic.setEntityManager(em);
-//            if (pacienteServic.getPacientePorIdentityKey(identity.getUser().getKey()) != null) {
-//                String result = "/pages/home.xhtml";
-//                navigation.handleNavigation(context, null, result + "?faces-redirect=true");
-//            } else {
-//            }
+
             String result = "/paginas/inicio.xhtml";
             navigation.handleNavigation(context, null, result + "?faces-redirect=true");
         }

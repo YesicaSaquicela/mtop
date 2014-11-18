@@ -1,45 +1,25 @@
 /*
- * Copyright 2013 cesar.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+    SOFTWARE PARA LA GESTIÓN DE INFORMACIÓN DEL ESTADO  MECÁNICO DE LOS 
+    VEHÍCULOS DEL MINISTERIO DE TRANSPORTE Y OBRAS PÚBLICAS
+    Copyright (C) 2014  Romero Carla, Saquicela Yesica
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package org.mtop.controlador.reporte;
 
 import com.smartics.common.action.report.JasperReportAction;
-//import edu.sgssalud.cdi.Web;
-//import edu.sgssalud.model.farmacia.Medicamento;
-//import edu.sgssalud.model.farmacia.Receta;
-//import edu.sgssalud.model.labClinico.ExamenLabClinico;
-//import edu.sgssalud.model.labClinico.PedidoExamenLaboratorio;
-//import edu.sgssalud.model.labClinico.ResultadoExamenLabClinico;
-//import edu.sgssalud.model.labClinico.ResultadoParametro;
-//import edu.sgssalud.model.medicina.ConsultaMedica;
-//import edu.sgssalud.model.medicina.FichaMedica;
-//import edu.sgssalud.model.odontologia.ConsultaOdontologica;
-//import edu.sgssalud.model.paciente.Paciente;
-//import edu.sgssalud.model.profile.Profile;
-//import edu.sgssalud.profile.ProfileService;
-//import edu.sgssalud.service.farmacia.MedicamentoService;
-//import edu.sgssalud.service.farmacia.RecetaServicio;
-//import edu.sgssalud.service.labClinico.ExamenLabService;
-//import edu.sgssalud.service.labClinico.ResultadoExamenLCService;
-//import edu.sgssalud.service.medicina.ConsultaMedicaServicio;
-//import edu.sgssalud.service.medicina.FichaMedicaServicio;
-//import edu.sgssalud.service.odontologia.ConsultaOdontologicaServicio;
-//import edu.sgssalud.service.paciente.PacienteServicio;
-//import edu.sgssalud.util.FechasUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +27,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -61,7 +40,12 @@ import org.mtop.modelo.profile.Profile;
 import org.mtop.profile.ProfileService;
 import org.mtop.servicios.ServicioGenerico;
 
-
+/**
+ *
+ * @author carla
+ * @author yesica
+ * 
+ */
 @RequestScoped
 @Named(value = "reporteListas")
 public class ReporteListas {
@@ -82,20 +66,7 @@ public class ReporteListas {
     JasperReportAction JasperReportAction;
     @Inject
     private ProfileService profileService;
-//    @Inject
-//    private PacienteServicio pacienteServicio;
-//    @Inject
-//    private FichaMedicaServicio fichaMedicaServicio;
-//    @Inject
-//    private ConsultaMedicaServicio consultaMedicaServicio;
-//    @Inject
-//    private ConsultaOdontologicaServicio consultaOdontologicaServicio;
-//    @Inject
-//    private RecetaServicio recetaServicio;
-//    @Inject
-//    private MedicamentoService medService;
-//    @Inject
-//    private ExamenLabService examenesService;
+
     @Inject
     private ServicioGenerico servgen;
     @Inject
@@ -107,9 +78,6 @@ public class ReporteListas {
     private String parametroBusqued;
     private Profile pLoggeado;
 
-    private Vehiculo pedido;
-//    private ResultadoExamenLabClinico resultadoExamen = new ResultadoExamenLabClinico();
-
     /**
      * Default constructor.
      */
@@ -119,27 +87,12 @@ public class ReporteListas {
         this.estado = estado;
     }
 
-    public Vehiculo getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Vehiculo pedido) {
-        this.pedido = pedido;
-    }
 
   
     
     @PostConstruct
     public void init() {
         profileService.setEntityManager(em);
-//        pacienteServicio.setEntityManager(em);
-//        medService.setEntityManager(em);
-//        recetaServicio.setEntityManager(em);
-//        examenesService.setEntityManager(em);
-//        fichaMedicaServicio.setEntityManager(em);
-//        consultaMedicaServicio.setEntityManager(em);
-//        consultaOdontologicaServicio.setEntityManager(em);
-//        resultadoEService.setEntityManager(em);
         pLoggeado = profileService.getProfileByIdentityKey(identity.getUser().getKey());
         //resultadoExamen = new ResultadoExamenLabClinico();
 
@@ -158,13 +111,10 @@ public class ReporteListas {
         final String attachFileName = "usuarios.pdf";
         
         Map<String, Object> _values = new HashMap<String, Object>();
-//        _values.put("numeroP", p.size());
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String logo = context.getRealPath("/reportes/lusuario.jpg");
         _values.put("logo", logo);
-//        _values.put("usuarioResponsable", pLoggeado.getFullName());
-//        _values.put("usd", "$");
-        //Exportar a pdf 
+
         JasperReportAction.exportToPdf(REPORTE_USUARIOS, pf, _values, attachFileName);
 
         if (log.isDebugEnabled()) {

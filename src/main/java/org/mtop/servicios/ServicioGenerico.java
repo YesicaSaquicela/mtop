@@ -11,9 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -28,20 +26,14 @@ import org.mtop.modelo.PlanMantenimiento;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;
 
-//import org.mtop.model.EntidadAbstracta_;
-//import org.mtop.model.Persona;
-//import org.mtop.model.Persona_;
-//import org.mtop.model.Propiedad;
-//import org.mtop.model.Propiedad_;
-//import org.mtop.model.TipoAtributo;
-//import org.mtop.model.Vehiculo;
-//import org.mtop.model.Vehiculo_;
 
 /**
  *
- * @author cesar
+ * @author carla
+ * @author yesica
+ * 
  */
-@Stateless // son utilizados entre controladores para que estos metods pudan ser utilizados en otros controladores
+@Stateless // son utilizados entre controladores para que estos metodos pudan ser utilizados en otros controladores
 public class ServicioGenerico {
 
     //EntityManeger para q los datos puedan ser mapeados

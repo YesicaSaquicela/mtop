@@ -92,7 +92,8 @@ import org.picketlink.idm.common.exception.IdentityException;
  *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @adapter <a href="mailto:jlgranda81@gmail.com">José Luis Granda</a>
- * @adapter <a href="mailto:cesar06ar@gmail.com">César Abad Ramos</a>
+ * @adapter <a href="mailto:ynsaquicelac@unl.edu.ec">Yesica Saquicela Celi</a>
+ * @adapter <a href="mailto:clromeroc@unl.edu.ec">Carla Romero Córdova</a>
  */
 @Transactional(TransactionPropagation.REQUIRED)
 public class InitializeDatabase {
@@ -239,8 +240,7 @@ public class InitializeDatabase {
     }
 
     private void validateStructure() {
-        validarEstructuraParaPerfilDeUsuario();
-        //    validarEstructuraEducacionDelPerfilDeUsuarios();       
+        validarEstructuraParaPerfilDeUsuario(); 
         validarEstructuraParaVehiculo();
         validarEstructuraParaHistorialV();
         validarEstructuraParaLubricantesV();
@@ -260,7 +260,6 @@ public class InitializeDatabase {
         validarEstructuraParaFrenosV();
         validarEstructuraParaCarroceriaV();
 
-        //validarEstructuraParaPerfilDeUsuario();
     }
 
     private void validarEstructuraParaPerfilDeUsuario() {
@@ -289,10 +288,6 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
 
-//            attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
-//            attributes.add(buildGroupTypeProperty("Education", "Educación", false, null, 1L, 0L, "Detalle sus logros académicos", 4L));
-            //attributes.add(buildGroupTypeProperty("TrayectoriaLaboral", "Trayectoria Laboral", false, null, 1L, 0L, "Detalle de la trayectoria laboral desde el año 2000 en adelante", 5L));
-            //Agregar atributos
             structure.setProperties(attributes);
 
             bussinesEntityType.addStructure(structure);
@@ -304,48 +299,7 @@ public class InitializeDatabase {
         System.out.println("Structure for Profile [" + bussinesEntityType + "]");
     }
 
-    private void validarEstructuraEducacionDelPerfilDeUsuarios() {
-        BussinesEntityType bussinesEntityType = null;
-        String name = "Education";
-        try {
-            TypedQuery<BussinesEntityType> query = entityManager.createQuery("from BussinesEntityType b where b.name=:name",
-                    BussinesEntityType.class);
-            query.setParameter("name", name);
-            bussinesEntityType = query.getSingleResult();
-        } catch (NoResultException e) {
-            bussinesEntityType = new BussinesEntityType();
-            bussinesEntityType.setName(name);
-
-            //Agrupaciones de propiedades
-            Date now = Calendar.getInstance().getTime();
-            Calendar ago = Calendar.getInstance();
-            ago.add(Calendar.DAY_OF_YEAR, (-1 * 364 * 18)); //18 años atras
-            Structure structure = null;
-            structure = new Structure();
-            structure.setName(name);
-            structure.setCreatedOn(now);
-            structure.setLastUpdate(now);
-
-            //Lista de atributos de entidad de negocios
-            List<Property> attributes = new ArrayList<Property>();
-
-            attributes.add(buildProperty("title", String.class.getName(), "", true, "Titulo", "¿Qué titulación obtuviste?", true, 1L));
-            attributes.add(buildProperty("country", String.class.getName(), "", true, "País", "¿En que país obtuvo este título?", true, 2L));
-            attributes.add(buildProperty("institution", String.class.getName(), "", true, "Institución", "¿En que centro de estudios?", true, 3L));
-            attributes.add(buildProperty("graduationDate", Date.class.getName(), now, false, "Fecha de Graduación", "¿Cuándo finalizó sus estudios?", 4L));
-            attributes.add(buildProperty("atPresent", "java.lang.String[]", "Sí,No*", true, "Al presente", "¿Esta cursando actualmente esta titulación?", 5L));
-            attributes.add(buildProperty("level", "java.lang.String[]", "Secundario,Terciario,Universitario,Postgrado,Master,Doctorado,Otro", true, "Nivel de estudio", "Nivel de los estudios cursados", true, 6L));
-
-            //Agregar atributos
-            structure.setProperties(attributes);
-
-            bussinesEntityType.addStructure(structure);
-
-            entityManager.persist(bussinesEntityType);
-            entityManager.flush();
-        }
-    }
-
+   
     private void validarEstructuraParaVehiculo() {
         BussinesEntityType bussinesEntityType = null;
         try {
@@ -368,8 +322,6 @@ public class InitializeDatabase {
             structure.setLastUpdate(now);
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
-            //attributes.add(buildStructureTypeProperty("PersonalData", "Datos personales", "Información personal relevante", "/pages/profile/data/personal", 1L));
-            //Para inicializar estructuras llamar [buildGroupTypeProperty()]
              attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Chasis", "Chasis", "Información de Chasís", "/paginas/vehiculo/crear", 1L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Motor", "Motor", "Información del Motor", "/paginas/vehiculo/crear", 2L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Historial", "Historial", "Información del Historial", "/paginas/vehiculo/crear", 3L));
@@ -417,9 +369,7 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Historial", "fechaAdquisicion", Date.class.getName(), ago.getTime(), false, "Fecha Adquisición", "Fecha en que se adquirio vehículo", false, 1L));
             attributes.add(buildProperty("Historial", "tiempoGarantia", Date.class.getName(), ago.getTime(), false, "Tiempo de Garantía", "Tiempo de garantía del vehículo", false, 8L));
-//            attributes.add(buildProperty("Historial", "fechaAltaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Alta de Vehículo", "Fecha de alta del vehículo", false, 3L));
-//            attributes.add(buildProperty("Historial", "fechaBajaVehiculo", Date.class.getName(), ago.getTime(), false, "Fecha Baja de Vehículo", "Fecha de baja del vehículo", false, 4L));
-            attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 5L));
+          attributes.add(buildProperty("Historial", "anioServicio", Date.class.getName(), ago.getTime(), false, "Año de servicio", "Año de servicio del vehículo", false, 5L));
             attributes.add(buildProperty("Historial", "chatarrizacion", "java.lang.String[]", "Si,No*", false, "Chatarrización", "Seleccione una opción", false, 6L));
 
 //Agregar atributos

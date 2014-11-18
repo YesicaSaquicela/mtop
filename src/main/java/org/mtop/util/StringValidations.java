@@ -218,39 +218,9 @@ public class StringValidations {
     }
 
     public static void main(String args[]) {
-        String field = "*Luis,";
-        /*
-         if (field.contains("*")) {
-         field = field.replace("*", "");
-         }
-         if (!StringValidations.isPunctuatedText(field)) {
-
-         System.out.print("Este texto " + field + " no anda bien, evite usar caracteres extraños...");
-
-         } else {
-         System.out.print("Este texto " + field + " esta bién ;)...");
-         }
-        
-         //System.out.println("Validar numero :"+StringValidations.isDecimal("53a"));
-         System.out.println("Validar fecha :"+Dates.getFormatoFecha("05/12/2013"));
-        
-         * List<Diente> dientes = new ArrayList<Diente>();     
-         System.out.println("lista \n: "+dientes.toString());*/
-        String ruta = "/home/cesar/NetBeansProjects/sgssaludunl/src/main/webapp/resources/odontograma/";
-        File dir = new File(ruta);
-        String[] imagenes = dir.list();
-        if (imagenes == null) {
-            System.out.println("No hay ficheros en el directorio especificado");
-        } else {
-            for (String s : imagenes) {
-                if (s.contains(".png") || s.contains(".jpg") || s.contains(".gif")) {
-                    System.out.println(ruta + s);
-                }
-
-            }
-        }
+  
+       
         StringValidations sv =new StringValidations();
-//        boolean resp = sv.validadorCedula("1722404042");
         System.out.println(sv.validadorCedula("1722404042"));
     }
 

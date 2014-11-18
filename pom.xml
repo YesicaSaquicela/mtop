@@ -346,8 +346,6 @@
             <artifactId>hibernate-validator-annotation-processor</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!--Glue runtime dependencees -->
-        <!--Jasypt dependencies  para encriptar contraseñas-->
         <dependency>
             <groupId>org.jasypt</groupId>
             <artifactId>jasypt</artifactId>
@@ -455,13 +453,7 @@
             <artifactId>rewrite-integration-faces</artifactId>
             <version>${rewrite.version}</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.ocpsoft.rewrite</groupId>
-            <artifactId>rewrite-integration-gwt</artifactId>
-            <version>${rewrite.version}</version>
-        </dependency>
-        -->
+   
         <dependency>
             <groupId>org.ocpsoft.logging</groupId>
             <artifactId>logging-api</artifactId>
@@ -511,32 +503,7 @@
             <version>2.6.0.CR1</version>
         </dependency>            
                     
-        <!--
-        <dependency>
-            <groupId>org.picketlink.idm</groupId>
-            <artifactId>picketlink-idm-core</artifactId>
-            <version>1.5.0.Alpha02</version>
-        </dependency>
-        <dependency>
-            <groupId>org.picketlink</groupId>
-            <artifactId>picketlink-common</artifactId>
-            <version>2.5.0.Beta6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.picketlink</groupId>
-            <artifactId>picketlink-idm-api</artifactId>
-            <version>2.5.0.Beta6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.picketlink</groupId>
-            <artifactId>picketlink-idm-impl</artifactId>
-            <version>2.5.0.Beta6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.picketlink</groupId>
-            <artifactId>picketlink-idm-simple-schema</artifactId>
-            <version>2.5.0.Beta6</version>
-        </dependency>-->
+
 
         <!-- JSF dependencies -->
         <dependency>
@@ -558,12 +525,7 @@
             <artifactId>all-themes</artifactId>  
             <version>${primefaces.theme.version}</version>  
         </dependency>  
-        <!--
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>resources-ckeditor</artifactId>
-            <version>0.6.2</version>
-        </dependency>-->
+      
         
         <dependency>
             <groupId>org.omnifaces</groupId>
@@ -622,24 +584,7 @@
             <version>${seam.mail.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!--<dependency>
-            <groupId>org.apache.santuario</groupId>
-            <artifactId>xmlsec</artifactId>
-            <version>1.5.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.reports</groupId>
-            <artifactId>seam-reports-jasper</artifactId>  
-            <version>${seam-reports-version}</version>  
-            <scope>compile</scope>
-            <exclusions>  
-                <exclusion>  
-                    <groupId>dom4j</groupId>  
-                    <artifactId>dom4j</artifactId>  
-                </exclusion>  
-            </exclusions>  
-        </dependency>
-        -->    
+     
         
         <dependency>
             <groupId>org.jboss.seam.reports</groupId>
@@ -652,20 +597,7 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>5.5.0</version>            
-            <!--<exclusions>
-                <exclusion>
-                    <artifactId>dom4j</artifactId>
-                    <groupId>dom4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcmail-jdk14</artifactId>
-                    <groupId>bouncycastle</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcprov-jdk14</artifactId>
-                    <groupId>bouncycastle</groupId>
-                </exclusion>
-            </exclusions>-->
+         
         </dependency>
                 
         <dependency>
@@ -686,20 +618,7 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>5.5.0</version>            
-            <!--<exclusions>
-                <exclusion>
-                    <artifactId>dom4j</artifactId>
-                    <groupId>dom4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcmail-jdk14</artifactId>
-                    <groupId>bouncycastle</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcprov-jdk14</artifactId>
-                    <groupId>bouncycastle</groupId>
-                </exclusion>
-            </exclusions>-->
+           
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -815,13 +734,7 @@
         </profile>
 
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be 
-            used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization 
-            your app will need. -->
-            <!-- By default that is to put the resulting archive into the 
-            'deployments' folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <plugins>

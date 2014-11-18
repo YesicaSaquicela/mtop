@@ -13,23 +13,15 @@ import java.util.Date;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.mail.*;
-
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.security.Authenticator;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
@@ -54,9 +46,6 @@ import org.picketlink.idm.api.PersistenceManager;
 import org.picketlink.idm.api.User;
 import org.picketlink.idm.common.exception.IdentityException;
 import org.picketlink.idm.impl.api.PasswordCredential;
-
-//import org.picketlink.idm.impl.api.model.SimpleUser;
-import org.primefaces.component.commandbutton.CommandButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -363,114 +352,9 @@ public class ProfileHome extends BussinesEntityHome<Profile> implements Serializ
 
     }
 
-    //Enviar mensajes al correo
-    public String sendEmail() {
-        try {
-            setInstance(ps.getProfileByEmail(getInstance().getEmail()));
-            //return "/pages/reset?faces-redirect=true&profileId=" + getInstance().getId();
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La dirección de correo electrónico introducida no está asociada a ningún usuario. ", ""));
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            //return "/pages/recover";
-        }
-        String mailTO = "ynsaquicelac@unl.edu.ec";
-        String mailFrom = getInstance().getEmail();
-        String host = "localhost";
-        Properties props = new Properties();
-        //props = System.getProperties();
-        props.setProperty("mail.smtp.host", "587");
-        /*props.put("mail.smtp.auth", "true");
-         props.put("mail.smtp.starttls.enable", "true");
-         props.put("mail.smtp.host", "smtp.gmail.com");
-         props.put("mail.smtp.port", "587");*/
-        Session session = Session.getDefaultInstance(props);
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(mailFrom));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTO));
-            message.setSubject("Mensaje de recuperación de contraseña");
-            message.setContent("Este mensaje se envio para verificar el cambio de contraseña"
-                    + "<br/> acceda desde este link"
-                    + "<br/>  http://localhost:8080/mtop/paginas/reset?faces-redirect=true&profileId=" + getInstance().getId(),
-                    "text/html");
-            Transport.send(message);
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "Se envio un mensaje de verificación a su correo electronico",
-                            "¡revise por favor!"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al solicitar información de su correo electronico");
-        }
+ 
 
-        return null;
-    }
 
-//    public void sendEmail1() {
-//        try {
-//            setInstance(ps.getProfileByEmail(getInstance().getEmail()));
-//            System.out.println("Encontro usuario______________" + getInstance().toString());
-//            if (getInstance().isPersistent()) {
-//                HtmlEmail email = new HtmlEmail();
-//                String mailTO = "sgssalud@gmail.com";
-//                String mailFrom = getInstance().getEmail();
-//                email.setHostName("mail.smtp.host");
-//                email.addTo(mailTO, "Sgssalud Soporte Técnico");
-//                email.setFrom(mailFrom, getInstance().getFullName());
-//                email.setSubject("Mensaje de recuperación de contraseña");
-//                email.setContent("Este mensaje se envio para verificar el cambio de contraseña"
-//                        + "<br/> acceda desde este link"
-//                        + "<br/>  http://localhost:8080/Sgssalud/pages/reset?faces-redirect=true&profileId=" + getInstance().getId(),
-//                        "text/html");
-//                email.send();
-//            } else {
-//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La dirección de correo electrónico introducida no está asociada a ningún usuario. ", ""));
-//                FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("Error_______ de envio");
-//        }
-//
-//    }
-    //TODO- Revisar implementación de envío de mensaje para cambio de contraseña
-    public void activateButtonByEmail() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        UIViewRoot uiViewRoot = fc.getViewRoot();
-
-        CommandButton commandButton = (CommandButton) uiViewRoot.findComponent("form:save");
-
-        try {
-            setInstance(ps.getProfileByEmail(getInstance().getEmail()));
-            commandButton.setStyleClass("btn primary");
-            commandButton.setDisabled(false);
-
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La dirección de correo electrónico introducida no está asociada a ningún usuario. ", ""));
-            commandButton.setStyleClass("btn");
-            commandButton.setDisabled(true);
-        }
-
-    }
-
-    @TransactionAttribute
-    public String changePassword() throws IdentityException, InterruptedException {
-        PersistenceManager identityManager = security.getPersistenceManager();
-        User user = identityManager.findUser(getInstance().getUsername());
-        AttributesManager attributesManager = security.getAttributesManager();
-        attributesManager.updatePassword(user, getPassword());
-        getInstance().setPassword(getPassword());
-        save(getInstance());
-
-        em.flush();
-        credentials.setUsername(getInstance().getUsername());
-        credentials.setCredential(new PasswordCredential(getPassword()));
-        oidAuth.setStatus(Authenticator.AuthenticationStatus.FAILURE);
-        identity.setAuthenticatorClass(IdmAuthenticator.class);
-
-        return "/paginas/inicio.xhtml?faces-redirect=true";
-    }
 
     @TransactionAttribute
     private void createUser() throws IdentityException {

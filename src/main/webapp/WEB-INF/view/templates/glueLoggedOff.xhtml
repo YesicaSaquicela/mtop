@@ -23,21 +23,12 @@
         <ui:param name="sitename" value="#{applicationConfig.siteName}" />
 
         <ui:define name="head">
-            <link rel="icon" href="#{resource['sgsSalud_16x16.ico']}" />
-            <link rel="shortcut icon" type="image/x-icon" href="#{resource['sgsSalud_16x16.ico']}" />
-        </ui:define>
+           </ui:define>
 
         <ui:define name="topnav-title">
-            <h:link outcome="/pages/home" value="${sitename}" dir="rtl">
-                <img src="#{resource['sgsSalud_32x32.ico']}" dir="lrt" width="25" height="20" style="margin-bottom: -5px"/>
-            </h:link>  
-        </ui:define>
+           </ui:define>
 
         <ui:define name="topnav-left">
-
-            <!--<h:panelGroup rendered="#{!identity.loggedIn}">					
-                <li><h:link outcome="/pages/signup" value="#{messages['common.join']}" /></li>
-            </h:panelGroup>-->
 
             <ui:insert name="topnav-post-template"/>
         </ui:define>
@@ -71,55 +62,14 @@
             </h:panelGroup>
 
 
-            <h:panelGroup rendered="#{identity.loggedIn}">          
-                <c:choose>
-                    <c:when test="#{account.isUserPaciente()}">
-                        <li>
-                            <h:link outcome="/pages/paciente/view" value="#{userPaciente.nombres} #{userPaciente.apellidos}">
-                                <f:param name="pacienteId" value="#{account.loggedId}"/>
-                            </h:link>
-                        </li>
-                    </c:when>
-                    <c:when test="#{account.isUserProfile()}">                       
-                        <li>
-                            <h:link outcome="/pages/profile/profile" value="#{userProfile.fullName}">
-                                <f:param name="profileId" value="#{account.loggedId}"/>
-                                <f:param name="backView" value="/home"/>                                
-                            </h:link>
-                        </li>
-                        <li class="dropdown">
-                            <a href="" class="dropdown" data-toggle="dropdown" >
-                                <h:graphicImage value="/resources/images/config1.png" width="30" height="25" style="margin: -4px 0 -10px 0;"/>
-                            </a>                                                                                  
-                            <ul class="dropdown-menu">                                
-                                <li><h:link outcome="/pages/reset" value="Cambiar Contraseña">                                        
-                                        <f:param name="profileId" value="#{account.loggedId}"/>
-                                    </h:link>                                    
-                                </li>
-                                <li><h:link outcome="/pages/temas" value="Cambiar Tema">                                        
-                                    </h:link>
-                                </li>                              
-                            </ul>
-                        </li>
-                    </c:when>
-                </c:choose>
-                <li>
-                    <h:outputLink value="${request.contextPath}/logout">#{messages['common.logout']}
-                        <span class="mini-icon mini-icon-logout"></span>
-                    </h:outputLink>                    
-                </li>
-            </h:panelGroup>
+           
         </ui:define>        
 
         <ui:define name="messages">
             <ocp:messages id="messages" />
         </ui:define>        
 
-        <ui:define name="footer">
-            <h:link value="#{messages['common.privacy']}" outcome="/pages/privacy"/> |
-            <a href="#{applicationConfig.blogUrl}"> blog</a> | 
-            <h:link value="#{messages['common.about']}" outcome="/pages/about"/> | 
-            <h:link value="#{messages['common.terms']}" outcome="/pages/terms"/>             
+        <ui:define name="footer">        
         </ui:define>
 
     </ui:composition>

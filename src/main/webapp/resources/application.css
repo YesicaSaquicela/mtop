@@ -49,20 +49,11 @@
     margin: 0px;
 }
 
-/*
-  Bootstrap's documentation styles
-  Special styles for presenting Bootstrap's documentation and examples
-*/
-/* Body and structure
--------------------------------------------------- */
+
 html,body {
     height: 100%;        
     background-color: #e2e2e2;
-    /*background-image: url('captura.PNG');
-    margin-left: 5%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: top center;*/
+
 }
 
 a,a:hover,a:focus,a:active {
@@ -212,12 +203,7 @@ div.quickstart form textarea {
 }
 
 #footer {
-    /*width: 100%;
-    margin-top: -55px;
-    height: 55px;
-    z-index: 10000;
-    position: relative;
-    clear: both;*/
+
     background-color: #F5F5F5;
     border-top: 1px solid #E5E5E5;
     color: #777777;
@@ -265,8 +251,6 @@ div.quickstart form textarea {
 .show-grid:hover .column,.show-grid:hover .columns {
     background: rgba(0, 0, 0, 0.25);
 }
-/* Render mini layout previews
--------------------------------------------------- */
 div.mini-layout {
     height: 340px;
     margin-bottom: 20px;
@@ -308,8 +292,6 @@ div.mini-layout.fluid div.mini-layout-body {
     width: 300px;
     margin-left: 10px;
 }
-/* Topbar special styles
--------------------------------------------------- */
 div.topbar-wrapper {
     position: relative;
     height: 40px;
@@ -329,7 +311,6 @@ div.topbar-wrapper div.topbar .topbar-inner {
     border-radius: 4px;
 }
 
-/* Signup and Forms */
 
 .openId {
     margin: 25px;
@@ -446,10 +427,7 @@ h1.header span {
     margin-bottom: 1.2%;    
 }
 
-.ui-icon-buscar{    
-    background-image: url("/resources/images/buscar.png");    
-    background-position:right;    
-}
+
 
 .body {
     background-color: #E9F1F4;
@@ -461,9 +439,7 @@ h1.header span {
     padding: 10px 0 10px 10px;
 }
 
-.odont {
-    background-image: url("/resources/images/odontograma.png");
-}
+
 /* Pretty Print
 -------------------------------------------------- */
 PRE.prettyprint {
@@ -495,49 +471,5 @@ PRE.prettyprint {
     margin: 0.5% 2% 0 0.05%;
 }
 
-/*Estilos para Odontograma*/
-.diente_grupo{
-    //width: 5.25%; 
-    width: 60px; 
-    //height: 100px; 
-    padding: 0 0 10px 0;
-    background-color: #f2f5f4; float: left;
-}
-.diente_grupo_inf{
-    //width: 5.25%; 
-    width: 60px; 
-    //height: 100px; 
-    padding: 10px 0 0 0;
-    background-color: #f2f5f4; float: left;
-}
-
-.diente_title{
-    width: 20px; height: 18px; margin: 3px 0 0 20px; padding-top: 5px;
-}
-.diente_img{    
-    margin: 0 0 0 -10px; width: 12px;
-}
-
-.diente_check{    
-    width: 19px; height: 19px; margin: 0 0 0 18px;
-}
-
-.diente_check_inf{    
-    width: 19px; height: 19px; margin: 0 0 0 18px
-}
-.diente_title_inf{
-    width: 20px; height: 18px; margin: 0 0 0 20px; padding-top: 0;
-}
-
-.title_odon{
-    width: 963px;
-    margin-left: 0.45%;
-    margin-top: -8px;
-    background-color: #e0eef7; 
-    border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 5px;
-    border: 1px solid #aed0ea;
-}
 
 

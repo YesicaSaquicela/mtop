@@ -41,7 +41,6 @@ import java.util.Set;
 import javax.persistence.*;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.annotations.Index;
 import org.jboss.solder.logging.Logger;
 import org.mtop.modelo.Requisicion;
 import org.mtop.modelo.SolicitudReparacionMantenimiento;

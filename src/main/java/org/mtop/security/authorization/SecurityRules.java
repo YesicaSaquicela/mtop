@@ -36,7 +36,6 @@ import org.mtop.modelo.profile.Profile;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.annotations.Secures;
 import org.jboss.solder.logging.Logger;
-import org.picketlink.idm.api.Role;
 
 public class SecurityRules {
 
@@ -44,12 +43,7 @@ public class SecurityRules {
     public static String ADMIN = "ADMIN";
     public static String SECRETARIO = "SECRETARIO";
  
-    /*public @Secures
-     @Admin
-     boolean adminCheck() {
-     return false; // No one is an admin!
-     }
-     */
+  
     @Secures
     @Owner
     public boolean isProfileOwner(Identity identity, @Current Profile profile) {
@@ -63,22 +57,6 @@ public class SecurityRules {
         }
     }
 
-//    @Secures
-//    @Secretaria
-//    public boolean isPacienteOwner(Identity identity, @Current edu.sgssalud.model.paciente.Paciente pacienteU) {
-//        if (pacienteU == null || identity.getUser() == null) {
-//            return false;
-//        } else {
-//            return pacienteU.getIdentityKeys().contains(getUsername(identity))
-//                    || identity.hasRole(SECRETARIA, "USERS", "GROUP")
-//                    //                    || identity.hasRole("admin", "USERS", "GROUP")
-//                    || identity.inGroup(SecurityRules.SECRETARIA, "GROUP")
-//                    || identity.inGroup(SecurityRules.ENFERMEROS, "GROUP")
-//                    || identity.inGroup(SecurityRules.MEDICOS, "GROUP")
-//                    || identity.inGroup(SecurityRules.ODONTOLOGOS, "GROUP")
-//                    || "admin".contains(getUsername(identity));
-//        }
-//    }
     
     @Secures
     @Admin

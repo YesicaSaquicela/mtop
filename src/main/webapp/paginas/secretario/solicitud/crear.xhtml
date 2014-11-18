@@ -1442,7 +1442,7 @@
                             <br></br><br/>
                             <div class="admin-actions">
 
-                                <p:commandLink  update=":form:pi :form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel :form:save2 :form:save1 :form:pp2 :form:mensaje2" 
+                                <p:commandLink  update=":form:pi :form:listai :form:cantidad :form:unidadMedida :form:descrip :form:productosel :form:save2 :form:save1 :form:pp2 :form:mensaje2 :form:basicoDT3" 
                                                 styleClass="btn  btn-success" value="Crear ítem" title="Crear ítem"  process=":form:pi"
                                                 actionListener="#{controladorRequisicion.agregarItem()}">
 
@@ -1511,7 +1511,7 @@
                                                     <center>
                                                         <p:commandButton process="@form" id="dardebaja" icon="ui-icon-trash"
                                                                          actionListener="#{controladorRequisicion.eliminarItem(item2)}" 
-                                                                         title="Dar de Baja" update=":form:listai" >
+                                                                         title="Dar de Baja" update=":form:listai :form:basicoDT3" >
 
                                                             <p:confirm header="Confirmación" message="¿Desea realmente dar de baja el ítem de la requisición seleccionado?" icon="ui-icon-alert" />
                                                         </p:commandButton>
@@ -1610,7 +1610,8 @@
             </p:dialog>
         </h:form>
         <h:form id="form1">
-            <p:dialog closeOnEscape="true" position="100,600" dynamic="true"  width="400" height="auto" id="dialog" draggable="true" header="Editar ítems" 
+            <p:dialog closeOnEscape="true" position="100,600" dynamic="true"  width="400" 
+                      height="auto" id="dialog" draggable="true" header="Editar ítems" 
                       widgetVar="documentDialog" modal="true" resizable="false">
                 <h:panelGroup id="documentPanel" style="width:100%">
 
