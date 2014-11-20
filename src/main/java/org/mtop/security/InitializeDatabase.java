@@ -257,7 +257,7 @@ public class InitializeDatabase {
         validarEstructuraParaTransmisionV();
         validarEstructuraParaSuspensionV();
         validarEstructuraParaDireccionV();
-        validarEstructuraParaFrenosV();
+//        validarEstructuraParaFrenosV();
         validarEstructuraParaCarroceriaV();
 
     }
@@ -329,7 +329,7 @@ public class InitializeDatabase {
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Lubricantes", "Lubricantes", "Información de Lubricantes", "/paginas/vehiculo/crear", 5L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Carroceria", "Carrocería", "Información de Carrocería", "/paginas/vehiculo/crear", 6L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Direccion", "Dirección", "Información de Dirección", "/paginas/vehiculo/crear", 7L));
-            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 8L));
+//            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Frenos", "Frenos", "Información de Frenos", "/paginas/vehiculo/crear", 8L));
            attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Neumaticos", "Neumáticos", "Información de los Neumáticos", "/paginas/vehiculo/crear", 9L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Transmision", "Transmisión", "Información de la transmisión", "/paginas/vehiculo/crear", 10L));
             attributes.add(buildStructureTypeProperty("org.mtop.modelo.Vehiculo", "Suspension", "Suspensión", "Información de la suspensión", "/paginas/vehiculo/crear", 11L));
