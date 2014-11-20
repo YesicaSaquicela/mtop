@@ -47,7 +47,6 @@
         <seam.mail.version>3.1.1.Final</seam.mail.version>
         <seam-reports-version>3.1.0.Final</seam-reports-version>  
         <primefaces.theme.version>1.0.10</primefaces.theme.version>
-        <netbeans.hint.deploy.server>JBoss4</netbeans.hint.deploy.server>
         <cxf.version>2.6.1</cxf.version>
     </properties>
 
