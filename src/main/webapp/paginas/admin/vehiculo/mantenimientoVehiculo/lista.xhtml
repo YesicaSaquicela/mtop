@@ -193,7 +193,7 @@
 
                     <div align="right" >
                         <p:button rendered="#{controladorVehiculo.vista eq 'actividades'}"
-                                  value="Regresar"  
+                                  value="Regresar"  style="width: 110px; height: 33px"
                                   outcome="/paginas/admin/vehiculo/mantenimientoVehiculo/lista" 
                                   styleClass="btn  btn-success" icon="ui-icon-arrowreturnthick-1-w">
 
@@ -240,16 +240,18 @@
 
                             <h:outputText class="navbar-text" value="#{controladorVehiculo.actividadplan.actividad}"/>
 
-                            <f:facet name="footer">
-                                <div class="admin-actions " align="right" >
-                                    <p:commandButton rendered="#{controladorVehiculo.vista eq 'actividades'}" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                                        <p:printer target=":form:imp" />  
-                                    </p:commandButton>
-                                </div> 
-                            </f:facet>
+                           
                         </p:panelGrid>
+                        
                     </div>
-
+                    <br/>
+                    <div align="right" >
+                     <p:commandButton rendered="#{controladorVehiculo.vista eq 'actividades'}"
+                             type="button" value="Imprimir"  icon="ui-icon-print" style="width: 110px; height: 33px"
+                                          styleClass="btn  btn-success">
+                         <p:printer target=":form:imp" />  
+                        </p:commandButton>
+                    </div>
 
 
                 </div></div>
@@ -275,8 +277,7 @@
 
             </h:form>
         </p:dialog>
-
-
+ 
 
     </ui:define>
 </ui:composition>

@@ -48,7 +48,7 @@
                                 </p:row>
                             </f:facet>
                         </p:panelGrid>
-                        <p:panelGrid style="width:150%" columns="6"  >
+                         <p:panelGrid style="width:150%" >
                             <f:facet   name="header" class="panel-heading" >
 
                                 <p:row >
@@ -56,7 +56,7 @@
 
                                     <p:column colspan="20"  rowspan="40"> 
 
-                                        #{"     "}  ESPECIFICACIONES DEL VEÍCULO
+                                        #{"     "}  ESPECIFICACIONES TÉCNICAS DEL VEHÍCULO
 
 
 
@@ -66,64 +66,129 @@
 
                             </f:facet>
 
+                            <p:row >
+                                <p:column>
+                                    <p style="font-weight: bold;">Registro</p>
+                                </p:column>
+                                <p:column>
+                                   <p style="font-weight: bold;">Tipo</p>
+                                </p:column>
+                                <p:column>
+                                  <p style="font-weight: bold;">  Marca</p>
+                                </p:column>
+                                <p:column>
+                                 <p style="font-weight: bold;">   Modelo</p>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
 
-                            <h:outputLabel class="navbar-text" value=" Registro"/>
-                            <h:outputLabel class="navbar-text" value=" Tipo"/>
-                            <h:outputLabel class="navbar-text" value=" Marca"/>
-                            <h:outputLabel class="navbar-text" value=" Modelo"/>
-                            <h:outputLabel class="navbar-text" value=" Número de Chasis "/>
-                            <h:outputLabel class="navbar-text" value=" Número de Motor"/>
-                           
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipo}"/>
 
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.numRegistro}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
 
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipo}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.modelo}"/>
+
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <p style="font-weight: bold;">Número de Chasis</p>
+                                </p:column>
+                                <p:column>
+                                   <p style="font-weight: bold;"> Número de Motor</p>
+                                </p:column>
+                                <p:column>
+                                   <p style="font-weight: bold;">Color</p>
+                                </p:column>
+                                <p:column>
+                                   <p style="font-weight: bold;"> Placa</p>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                        <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
+                                            <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
+                                                <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                            </ui:repeat>
+                                        </c:if>
+                                    </c:forEach>
+                                </p:column>
+                                <p:column>
+                                    <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                        <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
+                                            <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                                <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                            </ui:repeat>
+                                        </c:if>
+                                    </c:forEach>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.color}"/>
+
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.placa}"/>
+
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p style="font-weight: bold;"> Conductor</p>
+                                </p:column>
+                                <p:column>
+                                   <p style="font-weight: bold;"> Combustible</p>
+                                </p:column>
+                                <p:column>
+                                  <p style="font-weight: bold;">  Cabina</p>
+                                </p:column>
+                                <p:column>
+                                  <p style="font-weight: bold;">  Avalúo</p>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.persona.fullName}"/>
+
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipoCombustible}"/>
+
+                                </p:column>
+                                <p:column>
+                                    <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
+                                        <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Neumaticos'}"> 
+                                            <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
+                                                <h:outputText rendered="#{a.name =='llantas'}" class="navbar-text" value="#{a.value}" ></h:outputText>
+                                            </ui:repeat>
+                                        </c:if>
+                                    </c:forEach>
+
+                                </p:column>
+                                <p:column>
+                                    <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.avaluo}"/>
+
+                                </p:column>
+                            </p:row>
 
 
 
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.marca}"/>
 
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.modelo}"/>
 
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
-                                        <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
-                                    </ui:repeat>
-                                </c:if>
-                            </c:forEach>
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
-                                    </ui:repeat>
-                                </c:if>
-                            </c:forEach>
-                            
-                            <h:outputLabel class="navbar-text" value="Conductor"/>
-                            <h:outputLabel class="navbar-text" value=" Placa "/>
-                            <h:outputLabel class="navbar-text" value=" Color "/>
-                            <h:outputLabel class="navbar-text" value=" Combustible "/>
-                            <h:outputLabel class="navbar-text" value=" Cabina "/>
-                            <h:outputLabel class="navbar-text" value=" Avalúo "/>
-
-<h:outputText class="navbar-text" value="#{controladorVehiculo.instance.persona.fullName}"/>
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.placa}"/>
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.color}"/>
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.tipoCombustible}"/>
-   
-                            <c:forEach items="#{ui.getProperties(controladorVehiculo.instance)}" var="p" >
-                                <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Neumaticos'}"> 
-                                    <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
-                                        <h:outputText rendered="#{a.name =='llantas'}" class="navbar-text" value="#{a.value}" ></h:outputText>
-                                    </ui:repeat>
-                                </c:if>
-                            </c:forEach>
-
-                            <h:outputText class="navbar-text" value="#{controladorVehiculo.instance.avaluo}"/>
 
 
                         </p:panelGrid>
+
                         <p:panelGrid  style="width:100%"  >
                             <f:facet name="header">
                                 <p:row>
@@ -215,24 +280,25 @@
                             <p:panelGrid style="width:100%" >
 
 
-                            <f:facet name="footer">
-                                <p:row>
-                                    <p:column style="width:50%">
-                                        <div class="admin-actions " align="right" >
-                                            <p:commandButton  type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-                                                <p:printer target=":p2" />  
-                                            </p:commandButton>
-                                        </div> 
-                                    </p:column>
-
-                                </p:row>
-
-                            </f:facet>
+                            
                         </p:panelGrid>
                     </div>
                 </div>
             </div>
 
+        </h:form>
+        <h:form >
+            <div role="main">
+                <div class="container-content" style="margin: 1em 5em 6em 5em; " align="left">
+                    <div align="right">
+                        <p:commandButton  type="button" value="Imprimir" icon="ui-icon-print" 
+                                          styleClass="btn  btn-success">
+                            <p:printer target=":p2" />  
+                        </p:commandButton>
+
+                    </div>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -43,6 +43,18 @@ public class ControladorGaleria implements Serializable {
     private List<String> images;
  
     private Set<String> cuadrante = new HashSet<String>();
+    private String vista;
+
+    public String getVista() {
+        System.out.println("obteniendo vista"+vista);
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        System.out.println("fijando vista"+vista);
+        this.vista = vista;
+    }
+    
 
     @PostConstruct
     public void init() {
@@ -56,7 +68,7 @@ public class ControladorGaleria implements Serializable {
         cuadrante.add("c2");
         cuadrante.add("c3");
         cuadrante.add("c4");
-        
+        vista="inicio";
     }
 
     public List<String> getImages() {

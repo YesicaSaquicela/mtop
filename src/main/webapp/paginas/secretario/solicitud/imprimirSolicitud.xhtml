@@ -64,11 +64,11 @@
 
                             <p:row>
                                 <p:column style="width:50%">
-                                    Número de solicitud: <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"/>
+                                    <p style="font-weight: bold;">  Número de solicitud:</p> <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.numeroSolicitud}"/>
 
                                 </p:column>
                                 <p:column  style="width:50%">
-                                    Fecha de solicitud: <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"/>
+                                    <p style="font-weight: bold;"> Fecha de solicitud:</p> <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.formato(controladorSolicitudReparacionMantenimiento.instance.fechaSolicitud)}"/>
 
                                 </p:column>
                             </p:row>
@@ -93,23 +93,23 @@
                             style="width:100%" >
                             <p:row>
                                 <p:column  style="width:50%">
-                                    Número de registro: <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.numRegistro}"/>
+                                    <p style="font-weight: bold;">Número de registro:</p> <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.numRegistro}"/>
 
                                 </p:column>
                                
                                 <p:column style="width:50%">
-                                    Tipo de equipo:  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.tipo}"/>
+                                    <p style="font-weight: bold;">Tipo de equipo:</p>  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.tipo}"/>
                                
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column style="width:50%">
-                                    Marca:  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
+                                    <p style="font-weight: bold;">Marca: </p> <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.marca}"/>
 
                                 </p:column>
                                
                                 <p:column style="width:50%">
-                                    Kilometraje:   <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.kilometraje}"/>
+                                    <p style="font-weight: bold;"> Kilometraje: </p>  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.kilometraje}"/>
                               
                                 </p:column>
                                
@@ -156,7 +156,7 @@
 
                             <p:row>
                                 <p:column style="width:50%;text-align: left">
-                                    OBSERVACIONES: 
+                                    <p style="font-weight: bold;">   OBSERVACIONES: </p>
                                 </p:column>
                                 <p:column style="width:50%">
                                     <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.instance.observacion}"/>
@@ -172,45 +172,45 @@
                         </p:panelGrid>
 
                         <p:panelGrid style="width:100%" >
-
+                            <f:facet name="header">
                             <p:row>
 
                                 <p:column style="width:50%;text-align: left">
-                                    Operador o chofer:  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.persona.fullName}"/>
+                                    <p style="font-weight: bold;">  Operador o chofer:  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.vehiculo.persona.fullName}"/>
                                     <p style="color:white"></p>
                                     <center> ---------------------------------</center>
                                     <center>  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenercargo(controladorSolicitudReparacionMantenimiento.vehiculo.persona.id)}"/></center> 
-
+                                    </p>
                                 </p:column>
                                 <p:column style="width:50%;height:100%">
-                                    Recibido por:   <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonar)}"/>
+                                     <p style="font-weight: bold;">Recibido por:   <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonar)}"/>
                                     <p style="color:white"></p>
                                     <center> ---------------------------------</center>
                                     <center>  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenercargo(controladorSolicitudReparacionMantenimiento.idPersonar)}"/></center> 
-
+                                     </p>
                                 </p:column>
 
                             </p:row>
                             <p:row>
 
                                 <p:column style="width:50%;text-align: left">
-                                    Solicitado por:   <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonas)}"/>
+                                     <p style="font-weight: bold;">Solicitado por:   <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonas)}"/>
                                     <p style="color:white"></p>
                                     <center> ---------------------------------</center>
                                     <center>  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenercargo(controladorSolicitudReparacionMantenimiento.idPersonas)}"/></center> 
-
+                                     </p>
                                 </p:column>
                                 <p:column style="width:50%;height:100%">
-                                    Aprobado por:    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonaa)}"/>
+                                     <p style="font-weight: bold;">Aprobado por:    <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenernombre(controladorSolicitudReparacionMantenimiento.idPersonaa)}"/>
                                     <p style="color:white"></p>
                                     <center> ---------------------------------</center>
                                     <center>  <h:outputText class="navbar-text" value="#{controladorSolicitudReparacionMantenimiento.obtenercargo(controladorSolicitudReparacionMantenimiento.idPersonaa)}"/></center> 
-
+                                     </p>
                                 </p:column>
                             </p:row>
 
 
-
+                            </f:facet>
                         </p:panelGrid>
                         <p:panelGrid style="width:100%" >
 
@@ -225,8 +225,8 @@
 
                             <p:row>
                                 <p:column style="width:50%;text-align: left" >
-                                    Elaborado por:  <h:outputText class="navbar-text" value="#{profileHome.instance.concatenarNombre()}"/>
-
+                                     <p style="font-weight: bold;">Elaborado por:  <h:outputText class="navbar-text" value="#{profileHome.instance.concatenarNombre()}"/>
+                                     </p>
                                 </p:column>
 
                             </p:row>

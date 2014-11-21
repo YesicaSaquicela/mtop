@@ -203,7 +203,7 @@ limitations under the License.
 
 
 
-                                                <p:commandLink value="Buscar"  id="buscar1" type="button" update=":form:properties"
+                                                <p:commandLink value="Buscar"  id="buscar1" type="button" update=":form:properties :form:messages1"
                                                                action="#{bussinesEntityTypeHome.buscar()}" styleClass="btn btn-success" >
 
                                                 </p:commandLink>
@@ -357,7 +357,7 @@ limitations under the License.
                                                     <br/><br/>
                                                 </div>
                                                 <div class="actions" align="center">
-                                                    <p:commandButton styleClass="btn  btn-success" id="save" 
+                                                    <p:commandButton style="color:#009ACD" styleClass="btn-success"  id="save" 
                                                                      action="#{bussinesEntityTypeHome.fijarValorSolicitud()}"
                                                                      value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
                                                                      rendered="#{bussinesEntityTypeHome.instance.label eq 'Solicitud Reparación y Mantenimiento'}"
@@ -401,7 +401,7 @@ limitations under the License.
                                     <div class="col-md-6"> 
                                        <div class="actions" align="center">
                                            <h:panelGroup id="saveg">
-                                                <p:commandButton styleClass="btn  btn-success" id="save1" 
+                                                <p:commandButton  style="color:#009ACD" styleClass="btn-success"  id="save1" 
                                                                  action="#{bussinesEntityTypeHome.fijarValorRequisicionBien()}"
                                                                  value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
                                                                  rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"
@@ -415,7 +415,7 @@ limitations under the License.
                                         <br/>
                                         <br/>
                                         <div class="actions" align="center">
-                                            <p:commandButton styleClass="btn  btn-success" id="save2" 
+                                            <p:commandButton  style="color:#009ACD" styleClass="btn-success"  id="save2" 
                                                              action="#{bussinesEntityTypeHome.fijarValorRequisicionRepa()}"
                                                              value="Guardar" icon="ui-icon-disk" ajax="true" process="@form" update="panel"
                                                              rendered="#{bussinesEntityTypeHome.instance.label eq 'Requisición'}"

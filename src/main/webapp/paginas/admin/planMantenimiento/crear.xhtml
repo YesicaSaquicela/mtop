@@ -76,7 +76,8 @@
                                 <h:outputLabel value="Kilometraje*"/> <br></br> 
                                 <p:selectOneMenu  maxlength="50" required="true" label="kilometraje" style="width:100%"
                                                   requiredMessage="Se necesita escojer un kilometraje" id="kilometraje"     
-                                                  value="#{controladorPlanMantenimiento.actividadPlanM.kilometraje}" effect="fade" >  
+                                                  value="#{controladorPlanMantenimiento.actividadPlanM.kilometraje}" effect="fade"
+                                                  filter="true" filterMatchMode="contains" >  
 
                                     <f:selectItem itemLabel="Selecione uno" itemValue="" />  
                                     <f:selectItems  value="#{controladorPlanMantenimiento.listaKilometraje}" />  

@@ -1,21 +1,20 @@
 /*
-    SOFTWARE PARA LA GESTIÓN DE INFORMACIÓN DEL ESTADO  MECÁNICO DE LOS 
-    VEHÍCULOS DEL MINISTERIO DE TRANSPORTE Y OBRAS PÚBLICAS
-    Copyright (C) 2014  Romero Carla, Saquicela Yesica
+ SOFTWARE PARA LA GESTIÓN DE INFORMACIÓN DEL ESTADO  MECÁNICO DE LOS 
+ VEHÍCULOS DEL MINISTERIO DE TRANSPORTE Y OBRAS PÚBLICAS
+ Copyright (C) 2014  Romero Carla, Saquicela Yesica
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.mtop.controlador;
 
 import java.io.Serializable;
@@ -42,9 +41,8 @@ import org.mtop.servicios.ServicioGenerico;
  *
  * @author carla
  * @author yesica
- * 
+ *
  */
-
 @Named
 @ViewScoped
 public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaContabilidad> implements Serializable {
@@ -84,8 +82,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             } else {
                 if (resultado.contains(palabrab) && !lp.contains(p)) {
                     lp.add(p);
-                }else{
-                    if(p.getTipo().toLowerCase().contains(palabrab.toLowerCase()) && !lp.contains(p)){
+                } else {
+                    if (p.getTipo().toLowerCase().contains(palabrab.toLowerCase()) && !lp.contains(p)) {
                         lp.add(p);
                     }
                 }
@@ -93,7 +91,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         }
 
         if (lp.isEmpty()) {
-       
+
             if (palabrab.equals("Ingrese algun valor a buscar")) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN:", " Ingrese algun valor a buscar");
                 FacesContext.getCurrentInstance().addMessage("", msg);
@@ -115,7 +113,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public ArrayList<String> autocompletar(String query) {
-      
+
         ArrayList<String> ced = new ArrayList<String>();
 
         for (PartidaContabilidad partidaContabilidad : listaPartidaC) {
@@ -127,20 +125,18 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
                 if (!ced.contains(partidaContabilidad.concatenarPartida())) {
                     ced.add(resultado);
                 }
-            } else {
-                if (partidaContabilidad.getDescripcion().toLowerCase().contains(query.toLowerCase()) && !ced.contains(partidaContabilidad.getDescripcion().toLowerCase())) {
-                    ced.add(partidaContabilidad.getDescripcion());
-                }else{
-                    if(partidaContabilidad.getTipo().toLowerCase().contains(query.toLowerCase())){
-                         ced.add(partidaContabilidad.getTipo());
-                    }
-                }
             }
+            if (partidaContabilidad.getDescripcion().toLowerCase().contains(query.toLowerCase()) && !ced.contains(partidaContabilidad.getDescripcion())) {
+                ced.add(partidaContabilidad.getDescripcion());
+            }
+            if (partidaContabilidad.getTipo().toLowerCase().contains(query.toLowerCase()) && !ced.contains(partidaContabilidad.getTipo())) {
+                ced.add(partidaContabilidad.getTipo());
+            }
+
         }
         return ced;
 
     }
-
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -148,8 +144,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     }
 
     public String getMensaje() {
-     
-        System.out.println("mensaje a retornar"+mensaje);
+
+        System.out.println("mensaje a retornar" + mensaje);
         return mensaje;
     }
 
@@ -191,15 +187,15 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
     @PostConstruct
     public void init() {
         setEntityManager(em);
-      
+
         bussinesEntityService.setEntityManager(em);
         servgen.setEm(em);
         listaPartidaC = findAll(PartidaContabilidad.class);
         listaPartidaC2 = listaPartidaC;
         System.out.println("liata en init>>>>>>>>" + listaPartidaC);
-     
-        System.out.println("inicializo el mesaje en init"+mensaje);
-                
+
+        System.out.println("inicializo el mesaje en init" + mensaje);
+
     }
 
     @Override
@@ -224,16 +220,15 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
 
     public boolean verificarPartida() {
         List<PartidaContabilidad> lpc = findAll(PartidaContabilidad.class);
-;
+        ;
         boolean ban = true;
         //si viene de editar... comprueba que el ide se diferente de 
-      
-        
+
         for (PartidaContabilidad partidaContabilidad : lpc) {
-     
+
             if (partidaContabilidad.concatenarPartida().equals(getInstance().concatenarPartida())
                     && !partidaContabilidad.getId().equals(getInstance().getId())) {
-               
+
                 ban = false;
                 break;
             }
@@ -267,8 +262,8 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
             return "/paginas/secretario/partidaContabilidad/lista.xhtml?faces-redirect=true";
 
         } else {
-            mensaje="La partida de contabilidad ya exite";
-         
+            mensaje = "La partida de contabilidad ya exite";
+
             return "";
         }
 
@@ -287,7 +282,7 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         FacesContext.getCurrentInstance().addMessage("", msg);
         listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
         listaPartidaC2 = listaPartidaC;
-      
+
     }
 
     @Transactional
@@ -298,9 +293,9 @@ public class ControladorPartidaContabilidad extends BussinesEntityHome<PartidaCo
         Date now = Calendar.getInstance().getTime();
         getInstance().setLastUpdate(now);
         servgen.actualizar(getInstance());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se activo exitosamente" ));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN: ", "La partida de contabilidad se activo exitosamente"));
 
-      listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
+        listaPartidaC = servgen.buscarTodos(PartidaContabilidad.class);
         listaPartidaC2 = listaPartidaC;
     }
 

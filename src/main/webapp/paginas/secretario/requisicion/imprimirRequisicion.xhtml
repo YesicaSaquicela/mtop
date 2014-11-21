@@ -71,21 +71,21 @@
                         <p:panelGrid style="width: 100%">
                                 <p:row>
                                     <p:column>
-                                        Número de requisición
+                                        <p style="font-weight: bold;"> Número de requisición </p>
                                     </p:column>
                                      <p:column>
                                     <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.numRequisicion}"/>
 
                                 </p:column>
                                     <p:column>
-                                        Fecha de requisición
+                                        <p style="font-weight: bold;"> Fecha de requisición</p>
                                     </p:column>
                                       <p:column>
                                     <h:outputText class="navbar-text" value="#{controladorRequisicion.formato(controladorRequisicion.instance.fechaRequisicion)}"/>
 
                                 </p:column>
                                     <p:column>
-                                        Tipo de adquisición
+                                        <p style="font-weight: bold;">   Tipo de adquisición</p>
                                     </p:column>
                                      <p:column>
                                     <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.tipoAdquisicion}"/>
@@ -180,19 +180,19 @@
                                       style="width:100%" >
                             <p:row>
                                 <p:column style="width:20%">
-                                    Número de registro:  <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.numRegistro}"/>
+                                    <p style="font-weight: bold;"> Número de registro:</p>  <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.numRegistro}"/>
 
                                 </p:column>
                                 
           
                                 <p:column style="width:15%">
-                                    Tipo: <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.tipo}"/>
+                                    <p style="font-weight: bold;"> Tipo:</p> <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.tipo}"/>
                            
                                 </p:column>
                               
                               
                                   <p:column style="width:15%">
-                                     Modelo:  <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.modelo}"/>
+                                      <p style="font-weight: bold;"> Modelo:</p>  <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.modelo}"/>
 
                                 </p:column>
                                
@@ -200,7 +200,7 @@
                             <p:row>
                                 
                                 <p:column style="width:20%">
-                                    Serie Motor:  <c:forEach items="#{ui.getProperties(controladorRequisicion.vehiculo)}" var="p" >
+                                    <p style="font-weight: bold;"> Serie Motor: </p> <c:forEach items="#{ui.getProperties(controladorRequisicion.vehiculo)}" var="p" >
                                         <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and  p.name =='Motor'}"> 
                                             <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status">                                             
                                                 <h:outputText rendered="#{a.name =='serieMotor'}" class="navbar-text" value="#{a.value}" ></h:outputText>
@@ -210,7 +210,7 @@
                                 </p:column>
                                
                                 <p:column style="width:15%">
-                                  Serie Chasis: <c:forEach items="#{ui.getProperties(controladorRequisicion.vehiculo)}" var="p" >
+                                    <p style="font-weight: bold;"> Serie Chasis:</p> <c:forEach items="#{ui.getProperties(controladorRequisicion.vehiculo)}" var="p" >
                                                     <c:if test="#{p.type == 'org.mtop.modelo.dinamico.Structure' and p.name =='Chasis'}">
                                                         <ui:repeat value="#{controladorVehiculo.instance.findBussinesEntityAttribute(p.name)}" var="a" varStatus="status"> 
                                                             <h:outputText rendered="#{a.name =='serieChasis'}" class="navbar-text" value="#{a.value}" ></h:outputText>
@@ -220,7 +220,7 @@
                                 </p:column>
                                
                                 <p:column style="width:15%">
-                                    Cilindraje:  <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.cilindraje}"/>
+                                    <p style="font-weight: bold;"> Cilindraje: </p> <h:outputText class="navbar-text" value="#{controladorRequisicion.vehiculo.cilindraje}"/>
 
                                 </p:column>
                               
@@ -239,7 +239,7 @@
                                 <p:row>
 
                                     <p:column style="width:50%;text-align: left">
-                                        OBSERVACIONES: 
+                                        <p style="font-weight: bold;">  OBSERVACIONES: </p>
                                     </p:column>
                                      <p:column style="width:50%">
                                     <h:outputText class="navbar-text" value="#{controladorRequisicion.instance.observaciones}"/>

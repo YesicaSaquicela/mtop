@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <ui:composition template="/WEB-INF/templates/plantilla.xhtml">
         <ui:define name="header">
             <h2 align="center"> DEPARTAMENTO DE MANTENIMIENTO Y TALLERES</h2>
@@ -11,72 +12,113 @@
 
         <ui:define name="content">    
             <h:form id="form">
-                  <div role="main">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3" align="center"> 
-                            <div class="span3 bs-docs-sidebar" style="margin: 1em 15em 6em 1em; " align="left">
-                                <ul class="nav nav-list bs-docs-sidenav" style="width:200px;height:50px;" >
-                                    <li>QUIENES SOMOS</li>
-                                    <li><a href="paginas/mision.xhtml"><i class="icon-chevron-right"></i> MISIÓN </a></li>
-                                    <li><a href="paginas/vision.xhtml"><i class="icon-chevron-right"></i> VISIÓN</a></li>
-                                   
-                                    <li>OTROS</li>
-                                    
-                                    <li>
-                                        <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" 
-                                                   title="Inicio, Mtop-Software" >
-                                                        INICIO
-                                               
+                <div role="main">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3" align="center"> 
+                                <div class="span3 bs-docs-sidebar" style="margin: 1em 15em 6em 1em; " align="left">
+                                    <ul class="nav nav-list bs-docs-sidenav" style="width:200px;height:50px;" >
+                                        <li>QUIENES SOMOS</li>
+                                        <li><p:commandLink update="@form" value="MISIÓN"><f:setPropertyActionListener target="#{controladorGaleria.vista}" value="mision"></f:setPropertyActionListener></p:commandLink></li>
+                                        <li><p:commandLink update="@form" value="VISIÓN"><f:setPropertyActionListener target="#{controladorGaleria.vista}" value="vision"></f:setPropertyActionListener></p:commandLink></li>
+
+
+                                        <li>OTROS</li>
+
+                                        <li>
+                                            <h:outputLink style="margin-top: 10px" value="/paginas/inicio.xhtml?faces-redirect=true" 
+                                                          title="Inicio, Mtop-Software" >
+                                                INICIO
+
                                             </h:outputLink>
-                                    
-                                    </li>
 
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-8"> 
-                            <div class="bs-docs-section">
-                                <h:panelGroup rendered="#{identity.loggedIn}">
-                                    <center>
+                                        </li>
 
-                                        <p:galleria  value="#{controladorGaleria.images}" var="image" showCaption="true" panelWidth="600" panelHeight="300" style="width: 100%">  
-                                            <p:graphicImage value="/resources/images/#{image}" title="Vehículos Mtop" />  
-                                        
-                                        </p:galleria>
-
-                                    </center>
-
-                                </h:panelGroup>
+                                    </ul>
+                                </div>
                             </div>
 
-                        </div>
+                            <div class="col-md-8"> 
+                                <div class="bs-docs-section">
+                                    <h:panelGroup rendered="#{identity.loggedIn and controladorGaleria.vista eq 'inicio'}">
+                                        <center>
+
+                                            <p:galleria  value="#{controladorGaleria.images}" var="image" showCaption="true" panelWidth="600" panelHeight="300" style="width: 100%">  
+                                                <p:graphicImage value="/resources/images/#{image}" title="Vehículos Mtop" />  
+
+                                            </p:galleria>
+
+                                        </center>
+
+                                    </h:panelGroup>
+                                </div>
+
+                            </div>
+                            <h:panelGroup rendered="#{identity.loggedIn and controladorGaleria.vista eq 'mision'}">
+                                <div class="col-md-3" align="left"> 
+                                    <p:graphicImage value="/resources/images/mision_vision_ministerio_transporte.jpg" width="250" height="250" />
+
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="bs-docs-section">
+                                        <h1 id="dropdowns" class="page-header">MISIÓN</h1>
+
+                                        <p class="lead">
+                                            Como entidad rectora del Sistema Nacional del Transporte 
+                                            Multimodal formula, implementa y evalúa políticas, 
+                                            regulaciones, planes, programas y proyectos que garantizan 
+                                            una red de Transporte seguro y competitivo, minimizando el 
+                                            impacto ambiental y contribuyendo al desarrollo social y 
+                                            económico del País.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{identity.loggedIn and controladorGaleria.vista eq 'vision'}">
+                                <div class="col-md-3" align="left"> 
+                                    <p:graphicImage value="/resources/images/mision_vision_ministerio_transporte.jpg" width="250" height="250" />
+
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="bs-docs-section">
+                                        <h1 id="dropdowns" class="page-header">VISIÓN</h1>
+
+                                        <p class="lead">
+                                            Ser el eje del desarrollo nacional y regional mediante la Gestión del 
+                                            Transporte Intermodal y Multimodal y su Infraestructura con estándares 
+                                            de eficiencia y Calidad.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </h:panelGroup>
 
 
 
-                    </div> 
+
+                        </div> 
+                    </div>
                 </div>
-            </div>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             </h:form>
