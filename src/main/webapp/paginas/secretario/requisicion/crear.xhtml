@@ -1640,9 +1640,9 @@
 
         </h:form>
         <h:form id="form1">
-            <p:dialog position="100,600" width="450" height="390" id="dialog"  header="Editar ítems" 
-                                      closeOnEscape="true"  
-                                          showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false"
+            <p:dialog  width="450" height="390" id="dialog"  header="Editar ítems" 
+                     closeOnEscape="true"  showEffect="fade"  closable="true"
+                     widgetVar="documentDialog" modal="true" resizable="false"
                                           >
                                     <h:panelGroup id="documentPanel" style="width:100%">
                                         <h:panelGroup id="documentPanel1" style="width:100%">
@@ -1696,8 +1696,9 @@
                                 </p:dialog>
         </h:form>
         <h:form id="form2">
-            <p:dialog position="100,600" closeOnEscape="true" dynamic="true"  width="600" height="auto" id="dialog1" draggable="true" header="Editar ítems" 
-                                      widgetVar="documentDialog1" modal="true" resizable="false">
+            <p:dialog closeOnEscape="true" dynamic="true" width="450" height="300"
+                      id="dialog1"  header="Editar ítems"   closable="true" showEffect="fade"
+                      widgetVar="documentDialog1" modal="true" resizable="false">
                                 <h:panelGroup id="documentPanelc" style="width:100%">
 
                                     <p:outputLabel value="Elemento a revisar*"/><br></br>
