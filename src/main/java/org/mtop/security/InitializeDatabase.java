@@ -529,7 +529,7 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Suspension", "ejeDelantero", String.class.getName(), null, false, "Eje delantero", "Ingrese valor para eje delantero", false, 1L));
             attributes.add(buildProperty("Suspension", "ejePosterior", String.class.getName(), null, false, "Eje posterior", "Ingrese valor para eje posterior", false, 2L));
-            attributes.add(buildPropertyParteMecanica("Suspension", "muelles-amortiguador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Muelles-amortiguador", "Ingrese valor para muelles-amortiguador", false, 3L, 80));
+            attributes.add(buildPropertyParteMecanica("Suspension", "muelles-amortiguador", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Muelles-amortiguador", "Ingrese valor para muelles-amortiguador", false, 3L, 100));
             attributes.add(buildPropertyParteMecanica("Suspension", "ejeDelanteroEstado", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje delantero", " Ingrese valor para eje delantero", false, 4L, 100));
             attributes.add(buildPropertyParteMecanica("Suspension", "ejePosteriorEstado", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Eje posterior", "Ingrese valor para eje posterior", false, 5L, 100));
             
@@ -567,7 +567,7 @@ public class InitializeDatabase {
             //Para inicializar estructuras llamar [buildProperty()]
             attributes.add(buildProperty("Direccion", "tipod", String.class.getName(), null, false, "Tipo", "Ingrese valor para tipo en dirección", false, 1L));
             attributes.add(buildProperty("Direccion", "radio", String.class.getName(), null, false, "Radio", "Ingrese valor para radio en dirección", false, 1L));
-           attributes.add(buildPropertyParteMecanica("Direccion", "cajaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de dirección", "Ingrese valor para dirección", false, 1L, 80));
+           attributes.add(buildPropertyParteMecanica("Direccion", "cajaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Caja de dirección", "Ingrese valor para dirección", false, 1L, 100));
             attributes.add(buildPropertyParteMecanica("Direccion", "articulacionesTerminales", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Articulaciones y terminales", " Ingrese valor para articulaciones y terminales", false, 2L, 100));
             attributes.add(buildPropertyParteMecanica("Direccion", "pinesBocines", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Pines bocines y rótulas", "Ingrese valor para pines bocines y rótulas", false, 3L, 100));
             attributes.add(buildPropertyParteMecanica("Direccion", "bombaDireccion", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Bomba de la dirección", "Ingrese valor para bomba de la dirección", false, 4L, 100));
@@ -641,7 +641,7 @@ public class InitializeDatabase {
             //Lista de atributos de entidad de negocios
             List<Property> attributes = new ArrayList<Property>();
             //Para inicializar estructuras llamar [buildProperty()]
-            attributes.add(buildPropertyParteMecanica("Carroceria", "forma", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forma", "Ingrese valor para forma de la carrocería", false, 1L, 100));
+            attributes.add(buildPropertyParteMecanica("Carroceria", "forma", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Forma", "Ingrese valor para forma de la carrocería", false, 1L, 80));
 
             //Agregar atributos
             structure.setProperties(attributes);
@@ -678,7 +678,7 @@ public class InitializeDatabase {
             attributes.add(buildProperty("Neumaticos", "llantas", String.class.getName(), null, true, "Llantas", "Ingrese valor para llantas", false, 1L));
             attributes.add(buildProperty("Neumaticos", "aros", String.class.getName(), null, false, "Aros", " Ingrese valor para aros", false, 2L));
             attributes.add(buildProperty("Neumaticos", "presion", String.class.getName(), null, false, " Presión", "Ingrese valor para presión", false, 3L));
-            attributes.add(buildPropertyParteMecanica("Neumaticos", "estadoLlantas", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Llantas", "Escoja el estado para las llantas", false, 13L, 100));
+            attributes.add(buildPropertyParteMecanica("Neumaticos", "estadoLlantas", "org.mtop.modelo.EstadoParteMecanica", "Malo,Bueno*", false, "Llantas", "Escoja el estado para las llantas", false, 13L, 80));
             //Agregar atributos
             structure.setProperties(attributes);
             bussinesEntityType.addStructure(structure);

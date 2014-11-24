@@ -69,7 +69,7 @@
                                     <div class="col-md-6" align="right"> 
                                         <h:panelGrid id="export" class="columns" title="Generar reporte">
                                             <p:panel toggleTitle="Generar reporte">
-                                             
+
                                                 <h:commandLink action="#{reporteListas.renderProducto(controladorProducto.listaProducto)}" 
                                                                styleClass="btn" target="_blank">                    
                                                     <p:graphicImage value="/resources/pdf.png" width="50" height="30" />                          
@@ -96,26 +96,26 @@
                                                          paginatorPosition="top"
                                                          rowsPerPageTemplate="5,10,15,20"
                                                          emptyMessage="No se han encontrado coincidencias">
-                                                <p:column headerText="Código" sortBy="#{pd.codigo}">
+                                                <p:column headerText="Código" sortBy="#{pd.codigo}" style="width: 10%">
                                                     <h:outputText value="#{pd.codigo}"></h:outputText>
                                                 </p:column>
-                                                      <p:column headerText="Descripción" sortBy="#{pd.descripcion}" style="width: 5%">
-                                                    <h:outputText value="#{pd.descripcion}" style="width: 5%" ></h:outputText>
+                                                <p:column headerText="Descripción" sortBy="#{pd.descripcion}">
+                                                    <h:outputText value="#{pd.descripcion}" ></h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Cantidad" sortBy="#{pd.cantidad}">
+                                                <p:column headerText="Cantidad" sortBy="#{pd.cantidad}"  style="width: 5%">
                                                     <div class="input" align="right">
-                                                    <h:outputText value="#{pd.cantidad}"></h:outputText>
+                                                        <h:outputText value="#{pd.cantidad}"></h:outputText>
                                                     </div>
                                                 </p:column>
                                                 <p:column headerText="Costo" sortBy="#{pd.costo}" style="width: 10%">
-                                                      <div class="input" align="right">
-                                                    <h:outputText value="#{pd.costo}" style="width: 9%" >
-                                                    <f:convertNumber  type="currency" currencySymbol="$ " />
-                                                    </h:outputText>
-                                                      </div>
+                                                    <div class="input" align="right">
+                                                        <h:outputText value="#{pd.costo}" style="width: 9%" >
+                                                            <f:convertNumber  type="currency" currencySymbol="$ " />
+                                                        </h:outputText>
+                                                    </div>
                                                 </p:column>
-                                            
-                                                
+
+
                                                 <p:column headerText="Editar" style="width: 10%"> 
                                                     <center>
                                                         <p:button id="selectButton" style="width: 35px; height: 35px"
@@ -167,16 +167,16 @@
 
 
         </h:form>
-       
-         <p:dialog id="alerts-dialog1" header="Mensaje" widgetVar="alertDlg1" resizable="false" modal="true">  
+
+        <p:dialog id="alerts-dialog1" header="Mensaje" widgetVar="alertDlg1" resizable="false" modal="true">  
             <h:form id="form-alerts-dialog1">
                 <h:panelGroup layout="block" style="padding:5px;">  
-                     <h:outputText value="El producto seleccionado se encuentra asignado a una requisición, no se lo puede dar de baja."/>
+                    <h:outputText value="El producto seleccionado se encuentra asignado a una requisición, no se lo puede dar de baja."/>
                 </h:panelGroup>    
                 <center>
-                <h:commandLink value="Regresar" type="button" onclick="#{'alertDlg1.hide();'}" 
-                                class="btn btn-success"  styleClass="ui-confirmdialog-no"  
-                                 /> </center> 
+                    <h:commandLink value="Regresar" type="button" onclick="#{'alertDlg1.hide();'}" 
+                                   class="btn btn-success"  styleClass="ui-confirmdialog-no"  
+                                   /> </center> 
             </h:form>
         </p:dialog>
     </ui:define>
