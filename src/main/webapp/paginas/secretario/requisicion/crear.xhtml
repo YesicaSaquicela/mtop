@@ -148,7 +148,7 @@
                                                 <h:panelGroup id="ta" layout="block" class="clearfix">
                                                     <p:selectOneMenu style="width: 100%" id="adquisicion" 
                                                                      requiredMessage="Tipo de adquisición requerido, necesita un valor"
-                                                                     
+                                                                     disabled="#{controladorRequisicion.instance.id ne null}"
                                                                      label="Tipo de Adquisición" filter="true" filterMatchMode="contains" 
                                                                      value="#{controladorRequisicion.instance.tipoAdquisicion}" effect="fade" required="true"  >  
 
